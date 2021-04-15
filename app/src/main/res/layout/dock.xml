@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cu.axel.smartdock.HoverInterceptorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:gravity="center"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:id="@+id/dockLinearLayout1">
+
+	<LinearLayout
+		android:background="@drawable/dock_background"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="vertical"
+		android:gravity="center"
+		android:id="@+id/dock_layout"
+		android:visibility="gone">
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@drawable/ic_power_off"
+			android:id="@+id/power_btn"/>
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@drawable/ic_sysbar_back"
+			android:id="@+id/back_btn"
+			android:visibility="gone"/>
+
+		<ImageButton
+			android:visibility="gone"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@drawable/ic_sysbar_home"
+			android:id="@+id/home_btn"/>
+
+		<ImageButton
+			android:visibility="gone"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@drawable/ic_sysbar_recent"
+			android:id="@+id/recents_btn"/>
+
+		<ImageButton
+			android:visibility="gone"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@drawable/ic_sysbar_split"
+			android:id="@+id/split_btn"/>
+
+		<ImageButton
+			android:visibility="gone"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@drawable/ic_sysbar_toggle"
+			android:id="@+id/toggle_btn"/>
+
+		<ListView
+			android:layout_height="wrap_content"
+			android:layout_width="50dp"
+			android:id="@+id/apps_lv"
+			android:divider="@null"
+			android:visibility="visible"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="@android:color/transparent"
+		android:layout_height="300dp"
+		android:layout_width="1dp"/>
+
+</cu.axel.smartdock.HoverInterceptorLayout>
+

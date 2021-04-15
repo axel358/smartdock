@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<CheckBoxPreference
+		android:key="pref_enable_lock_desktop"
+		android:title="Enable Alt+L to lock the desktop(requires Device Admin permission)"
+		android:defaultValue="true" />
+	<CheckBoxPreference
+		android:key="pref_enable_open_settings"
+		android:title="Enable Alt+P to open settings"
+		android:defaultValue="true" />
+	<CheckBoxPreference
+		android:key="pref_enable_expand_notifications"
+		android:title="Enable Alt+A to open notifications"
+		android:defaultValue="true" />
+	<CheckBoxPreference
+		android:key="pref_enable_ctrl_back"
+		android:title="Enable right Ctrl to act as back button"
+		android:defaultValue="false" />
+</PreferenceScreen>

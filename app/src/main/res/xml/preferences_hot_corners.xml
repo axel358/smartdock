@@ -1,0 +1,11 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="Hot corners">
+	<CheckBoxPreference
+		android:key="pref_enable_top_right"
+		android:title="Enable top right corner"
+		android:defaultValue="false" />
+	<CheckBoxPreference
+		android:key="pref_enable_bottom_right"
+		android:title="Enable bottom right corner"
+		android:defaultValue="false" />
+</PreferenceScreen>

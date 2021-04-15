@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+		android:showAsAction="always"
+        android:id="@+id/action_enable_accessibilty"
+        android:title="Enable Service"/>
+    <item
+		android:showAsAction="always"
+        android:id="@+id/action_enable_admin"
+        android:title="Enable Device Admin"/>
+</menu>

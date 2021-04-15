@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Smart Dock</string>
+	<string name="accessibility_service_description">Allows to perform actions such as Back</string>
+</resources>

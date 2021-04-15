@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="Navigation buttons">
+	<CheckBoxPreference
+		android:key="pref_enable_back"
+		android:title="Enable back button"
+		android:defaultValue="false" />
+	<CheckBoxPreference
+		android:key="pref_enable_home"
+		android:title="Enable home button"
+		android:defaultValue="false" />
+	<CheckBoxPreference
+		android:key="pref_enable_recents"
+		android:title="Enable recents button"
+		android:defaultValue="false" />
+	<CheckBoxPreference
+		android:key="pref_enable_split"
+		android:title="Enable split button"
+		android:defaultValue="false" />
+	<CheckBoxPreference
+		android:key="pref_enable_toggle"
+		android:title="Enable toggle button"
+		android:defaultValue="false" />
+</PreferenceScreen>
