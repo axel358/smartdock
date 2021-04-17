@@ -108,7 +108,7 @@ public class MainActivity extends PreferenceActivity
 			}
 			else
 			{
-				Toast.makeText(this, "You enable the accessibility service for the app to work", 5000).show();
+				Toast.makeText(this, "You must enable the accessibility service for the app to work", 5000).show();
 			}
 		}
 	}
