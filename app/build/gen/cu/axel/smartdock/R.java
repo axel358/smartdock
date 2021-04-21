@@ -24,8 +24,9 @@ public final class R {
         public static final int ic_sysbar_toggle=0x7f02000a;
     }
     public static final class id {
-        public static final int action_enable_accessibilty=0x7f08000b;
-        public static final int action_enable_admin=0x7f08000c;
+        public static final int action_enable_accessibilty=0x7f08000c;
+        public static final int action_enable_admin=0x7f08000d;
+        public static final int action_grant_permissions=0x7f08000b;
         public static final int apps_lv=0x7f08000a;
         public static final int back_btn=0x7f080005;
         public static final int dockLinearLayout1=0x7f080002;

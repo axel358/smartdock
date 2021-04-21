@@ -14,19 +14,27 @@ import android.widget.*;
 import android.util.*;
 import android.preference.*;
 import android.preference.PreferenceActivity.*;
+import android.net.*;
 
 public class MainActivity extends PreferenceActivity 
 {
 	private final int ACCESSIBILITY_REQUEST_CODE = 13;
 	private final int DEVICE_ADMIN_REQUEST_CODE = 358;
+	private final int OVERLAY_PERMISSION_REQUEST_CODE = 7;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-		isAccessibilityServiceEnabled();
 
     }
 
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		invalidateOptionsMenu();
+	}
+	
 	@Override
 	public void onBuildHeaders(List<PreferenceActivity.Header> target)
 	{
@@ -48,6 +56,30 @@ public class MainActivity extends PreferenceActivity
 	}
 
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu)
+	{
+		if (canDrawOverOtherApps())
+		{
+			menu.getItem(0).setEnabled(false);
+		}
+		else
+		{
+			menu.getItem(0).setEnabled(true);
+			menu.getItem(1).setEnabled(false);
+		}
+		if (isAccessibilityServiceEnabled())
+		{
+			menu.getItem(1).setEnabled(false);
+		}
+		if (isdeviceAdminEnabled())
+		{
+			menu.getItem(2).setEnabled(false);
+		}
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 
@@ -58,10 +90,22 @@ public class MainActivity extends PreferenceActivity
 				break;
 			case R.id.action_enable_admin:
 				enableDeviceAdmin();
+				break;
+			case R.id.action_grant_permissions:
+				grantOverlayPermissions();
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	public boolean canDrawOverOtherApps()
+	{
+		return Settings.canDrawOverlays(this);
+	}
+
+	public void grantOverlayPermissions()
+	{
+		startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package: " + getPackageName())), OVERLAY_PERMISSION_REQUEST_CODE);
+	}
 
 
 	public void enableDeviceAdmin()
@@ -69,6 +113,25 @@ public class MainActivity extends PreferenceActivity
 		Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
 		intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, new ComponentName(this, DeviceAdminReceiver.class));
 		startActivityForResult(intent, DEVICE_ADMIN_REQUEST_CODE);
+	}
+
+	public boolean isdeviceAdminEnabled()
+	{
+		DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+
+		List<ComponentName> deviceAdmins = dpm.getActiveAdmins();
+
+		if (deviceAdmins != null)
+		{
+			for (ComponentName deviceAdmin : deviceAdmins)
+			{
+				if (deviceAdmin.getPackageName().equals(getPackageName()))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public void enableAccessibility()
@@ -84,7 +147,6 @@ public class MainActivity extends PreferenceActivity
 
 		for (AccessibilityServiceInfo enabledService : enabledServices)
 		{
-			Toast.makeText(this, enabledService.getResolveInfo().serviceInfo.name, 5000).show();
 			ServiceInfo serviceInfo = enabledService.getResolveInfo().serviceInfo;
 			if (serviceInfo.packageName.equals(getPackageName()) && serviceInfo.name.equals(DockService.class.getName()))
 			{
@@ -102,11 +164,7 @@ public class MainActivity extends PreferenceActivity
 
 		if (requestCode == ACCESSIBILITY_REQUEST_CODE)
 		{
-			if (isAccessibilityServiceEnabled())
-			{
-
-			}
-			else
+			if (!isAccessibilityServiceEnabled())
 			{
 				Toast.makeText(this, "You must enable the accessibility service for the app to work", 5000).show();
 			}
