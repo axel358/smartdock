@@ -8,6 +8,16 @@
 		android:title="Enable Alt+P to open settings"
 		android:defaultValue="true" />
 	<CheckBoxPreference
+		android:key="pref_enable_open_terminal"
+		android:title="Enable Alt+T to open settings"
+		android:defaultValue="false" />
+	<EditTextPreference
+		android:key="pref_terminal_package"
+		android:hint="com.termux"
+		android:defaultValue="com.termux"
+		android:dependency="pref_enable_open_terminal"
+		android:title="Terminal app package name"/>
+	<CheckBoxPreference
 		android:key="pref_enable_expand_notifications"
 		android:title="Enable Alt+A to open notifications"
 		android:defaultValue="true" />

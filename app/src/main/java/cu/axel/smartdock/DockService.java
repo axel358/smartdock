@@ -56,6 +56,21 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				if (sp.getBoolean("pref_enable_open_settings", true))
 					startActivity(new Intent(Settings.ACTION_SETTINGS));
 			}
+			else if (event.getKeyCode() == KeyEvent.KEYCODE_T)
+			{
+				if (sp.getBoolean("pref_enable_open_terminal", false))
+				{
+					try
+					{
+						startActivity(new Intent(pm.getLaunchIntentForPackage(sp.getString("pref_terminal_package", "com.termux"))));
+					}
+					catch (Exception e)
+					{
+						Toast.makeText(this, "Oops can't launch terminal. Is it installed ?", 6000).show();
+					}
+				}
+
+			}
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_A)
 			{
 				if (sp.getBoolean("pref_enable_expand_notifications", true))
@@ -91,7 +106,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	@Override
 	public void onCreate()
 	{
-
 		super.onCreate();
 
 		Toast.makeText(this, "Smart Dock started", 5000).show();
@@ -306,6 +320,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		{
 			try
 			{
+				//Exclude systemui, current launcher and other system apps from the tasklist
 				if (taskInfo.baseActivity.getPackageName().contains("com.android.systemui") 
 					|| taskInfo.baseActivity.getPackageName().contains("com.google.android.packageinstaller")
 					|| taskInfo.baseActivity.getPackageName().contains(getDefaultLauncher()))
@@ -383,8 +398,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 
 	}
-
-
 
 	public String getDefaultLauncher()
 	{
