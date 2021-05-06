@@ -21,8 +21,6 @@ import java.io.*;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-
-
 	private PackageManager pm;
 	private SharedPreferences sp;
 	private ActivityManager am;
@@ -30,6 +28,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private ImageView backBtn,homeBtn,recentBtn,toggleBtn,splitBtn,powerBtn;
 	private ListView recentsLv;
 	private Button topRightCorner,bottomRightCorner;
+	private LinearLayout dockLayout;
 
 	@Override
 	public void onAccessibilityEvent(AccessibilityEvent p1)
@@ -66,7 +65,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					}
 					catch (Exception e)
 					{
-						Toast.makeText(this, "Oops can't launch terminal. Is it installed ?", 6000).show();
+						Toast.makeText(this, "Oops can't launch terminal. Is it installed ?", 5000).show();
 					}
 				}
 
@@ -82,11 +81,17 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			}
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_M)
 			{
-				sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
+				if (sp.getBoolean("pref_enable_open_music", true))
+					sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
 			}
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_E)
+			else if (event.getKeyCode() == KeyEvent.KEYCODE_B)
 			{
-				sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
+				if (sp.getBoolean("pref_enable_open_browser", true))
+					sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
+			}
+			else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
+			{
+				startActivity(pm.getLaunchIntentForPackage(getDefaultLauncher()));
 			}
 		}
 		else if (event.getAction() == KeyEvent.ACTION_UP)
@@ -96,8 +101,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				if (sp.getBoolean("pref_enable_ctrl_back", true))
 					performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
 			}
-		}
 
+
+
+		}
 
 		return super.onKeyEvent(event);
 	}
@@ -118,7 +125,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		final HoverInterceptorLayout dock = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.dock, null);
 		recentsLv = dock.findViewById(R.id.apps_lv);
-		final LinearLayout dockLayout = dock.findViewById(R.id.dock_layout);
+		dockLayout = dock.findViewById(R.id.dock_layout);
 		powerBtn = dock.findViewById(R.id.power_btn);
 
 
@@ -136,19 +143,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				{
 					if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER)
 					{
-						dockLayout.setVisibility(View.VISIBLE);
-						updateRunningTasks();
+						showDock();
 					}
 					else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT)
 					{
-						new Handler().postDelayed(new Runnable(){
-
-								@Override
-								public void run()
-								{
-									dockLayout.setVisibility(View.GONE);
-								}
-							}, 500);
+						hideDock();
 					}
 
 					return false;
@@ -165,7 +164,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				{
 					AppTask appTask = (AppTask) p1.getItemAtPosition(p3);
 
-					am.moveTaskToFront(appTask.id, 0);
+					am.moveTaskToFront(appTask.getId(), 0);
 				}
 
 
@@ -241,7 +240,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		layoutParams.gravity = Gravity.LEFT;
 		layoutParams.format = PixelFormat.TRANSLUCENT;
 		layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
-		layoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+		{
+			layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+		}
+		else
+			layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+
 		wm.addView(dock, layoutParams);
 
 		//Hot corners
@@ -293,6 +299,27 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		updateNavigationBar();
 		updateCorners();
 
+		updateRunningTasks();
+
+	}
+
+	public void showDock()
+	{
+		updateRunningTasks();
+		dockLayout.setVisibility(View.VISIBLE);
+	}
+
+	public void hideDock()
+	{
+		new Handler().postDelayed(new Runnable(){
+
+				@Override
+				public void run()
+				{
+					if (!dockLayout.isHovered())
+						dockLayout.setVisibility(View.GONE);
+				}
+			}, 500);
 	}
 
 	@Override
@@ -310,7 +337,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 
-
 	public void updateRunningTasks()
 	{
 		tasksInfo = am.getRunningTasks(10);
@@ -325,6 +351,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					|| taskInfo.baseActivity.getPackageName().contains("com.google.android.packageinstaller")
 					|| taskInfo.baseActivity.getPackageName().contains(getDefaultLauncher()))
 					continue;
+
 				appTasks.add(new AppTask(taskInfo.id, taskInfo.topActivity.getShortClassName(), taskInfo.topActivity.getPackageName(), pm.getActivityIcon(taskInfo.topActivity)));
 			}
 			catch (PackageManager.NameNotFoundException e)
@@ -461,62 +488,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 
 
-	}
-
-
-	class AppTask
-	{
-		private String className,packageName;
-		private Drawable icon;
-		private int id;
-
-		public AppTask(int id, String className, String packageName, Drawable icon)
-		{
-			this.className = className;
-			this.packageName = packageName;
-			this.icon = icon;
-			this.id = id;
-		}
-
-		public void setId(int id)
-		{
-			this.id = id;
-		}
-
-		public int getId()
-		{
-			return id;
-		}
-
-		public void setClassName(String className)
-		{
-			this.className = className;
-		}
-
-		public String getClassName()
-		{
-			return className;
-		}
-
-		public void setPackageName(String packageName)
-		{
-			this.packageName = packageName;
-		}
-
-		public String getPackageName()
-		{
-			return packageName;
-		}
-
-		public void setIcon(Drawable icon)
-		{
-			this.icon = icon;
-		}
-
-		public Drawable getIcon()
-		{
-			return icon;
-		}
 	}
 
 }

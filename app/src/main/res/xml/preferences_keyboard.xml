@@ -8,6 +8,14 @@
 		android:title="Enable Alt+P to open settings"
 		android:defaultValue="true" />
 	<CheckBoxPreference
+		android:key="pref_enable_open_music"
+		android:title="Enable Alt+M to open you default music app"
+		android:defaultValue="true" />
+	<CheckBoxPreference
+		android:key="pref_enable_open_browser"
+		android:title="Enable Alt+B to open your default browser"
+		android:defaultValue="true" />
+	<CheckBoxPreference
 		android:key="pref_enable_open_terminal"
 		android:title="Enable Alt+T to open settings"
 		android:defaultValue="false" />

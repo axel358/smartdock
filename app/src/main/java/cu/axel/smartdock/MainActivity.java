@@ -20,7 +20,6 @@ public class MainActivity extends PreferenceActivity
 {
 	private final int ACCESSIBILITY_REQUEST_CODE = 13;
 	private final int DEVICE_ADMIN_REQUEST_CODE = 358;
-	private final int OVERLAY_PERMISSION_REQUEST_CODE = 7;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -34,7 +33,7 @@ public class MainActivity extends PreferenceActivity
 		super.onResume();
 		invalidateOptionsMenu();
 	}
-	
+
 	@Override
 	public void onBuildHeaders(List<PreferenceActivity.Header> target)
 	{
@@ -104,7 +103,7 @@ public class MainActivity extends PreferenceActivity
 
 	public void grantOverlayPermissions()
 	{
-		startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package: " + getPackageName())), OVERLAY_PERMISSION_REQUEST_CODE);
+		startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())));
 	}
 
 
@@ -157,19 +156,7 @@ public class MainActivity extends PreferenceActivity
 		return false;
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if (requestCode == ACCESSIBILITY_REQUEST_CODE)
-		{
-			if (!isAccessibilityServiceEnabled())
-			{
-				Toast.makeText(this, "You must enable the accessibility service for the app to work", 5000).show();
-			}
-		}
-	}
+	
 
 
 }
