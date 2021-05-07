@@ -32,7 +32,6 @@ public class AppTask
 	{
 		return packageName;
 	}
-	
 
 	public Drawable getIcon()
 	{

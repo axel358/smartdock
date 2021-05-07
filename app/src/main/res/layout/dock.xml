@@ -74,7 +74,7 @@
 
 	<View
 		android:background="@android:color/transparent"
-		android:layout_height="300dp"
+		android:layout_height="400dp"
 		android:layout_width="1dp"/>
 
 </cu.axel.smartdock.HoverInterceptorLayout>

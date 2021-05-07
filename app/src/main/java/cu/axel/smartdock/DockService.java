@@ -18,6 +18,7 @@ import android.view.View.OnHoverListener;
 import android.preference.*;
 import android.provider.*;
 import java.io.*;
+import android.view.animation.*;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener
 {
@@ -99,7 +100,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT)
 			{
 				if (sp.getBoolean("pref_enable_ctrl_back", true))
+				{
 					performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+					return true;
+				}
 			}
 
 
@@ -147,7 +151,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					}
 					else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT)
 					{
-						hideDock();
+						hideDock(500);
 					}
 
 					return false;
@@ -299,7 +303,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		updateNavigationBar();
 		updateCorners();
 
-		updateRunningTasks();
+		showDock();
+		hideDock(2000);
 
 	}
 
@@ -307,19 +312,28 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	{
 		updateRunningTasks();
 		dockLayout.setVisibility(View.VISIBLE);
+		dockLayout.animate().translationX(0).setInterpolator(new DecelerateInterpolator(2));
 	}
 
-	public void hideDock()
+	public void hideDock(int delay)
 	{
 		new Handler().postDelayed(new Runnable(){
 
 				@Override
 				public void run()
 				{
-					if (!dockLayout.isHovered())
-						dockLayout.setVisibility(View.GONE);
+					dockLayout.animate().translationX(-dockLayout.getWidth()).setInterpolator(new AccelerateInterpolator(2)).withEndAction(new Runnable(){
+
+							@Override
+							public void run()
+							{
+								dockLayout.setVisibility(View.GONE);
+							}
+
+
+						});
 				}
-			}, 500);
+			}, delay);
 	}
 
 	@Override
