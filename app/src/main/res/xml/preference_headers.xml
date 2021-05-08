@@ -4,6 +4,9 @@
         android:fragment="cu.axel.smartdock.fragments.AppearancePreferences"
         android:title="Appearance" />
 	<header 
+        android:fragment="cu.axel.smartdock.fragments.AppMenuPreferences"
+        android:title="App Menu" />
+	<header 
         android:fragment="cu.axel.smartdock.fragments.KeyboardPreferences"
         android:title="Keyboard" />
 	<header 

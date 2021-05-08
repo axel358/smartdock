@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content"
+	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:gravity="center">
+	android:orientation="horizontal"
+	android:gravity="center_vertical">
 
 	<LinearLayout
-		android:id="@+id/icon_container"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:orientation="horizontal"
 		android:gravity="center"
 		android:layout_marginTop="5dp"
-		android:layout_marginBottom="5dp">
+		android:layout_marginBottom="5dp"
+		android:background="@drawable/circle_solid">
 
 		<ImageView
-			android:layout_height="35dp"
-			android:layout_width="35dp"
+			android:layout_height="30dp"
+			android:layout_width="30dp"
 			android:src="@android:drawable/ic_delete"
-			android:id="@+id/icon_iv"
-			android:layout_margin="5dp"/>
+			android:id="@+id/menu_app_icon_iv"
+			android:layout_margin="3dp"/>
 
 	</LinearLayout>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="Text"
+		android:id="@+id/menu_app_name_tv"
+		android:textColor="#FFFFFF"
+		android:textSize="16sp"
+		android:layout_marginLeft="5dp"/>
 
 </LinearLayout>
 

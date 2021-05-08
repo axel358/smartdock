@@ -3,9 +3,11 @@
 	<CheckBoxPreference
 		android:key="pref_enable_top_right"
 		android:title="Enable top right corner"
+		android:summary="Place the mouse on the top right corner of the screen to show recents"
 		android:defaultValue="false" />
 	<CheckBoxPreference
 		android:key="pref_enable_bottom_right"
 		android:title="Enable bottom right corner"
+		android:summary="Place the mouse on the top right corner of the screen to lock the screen"
 		android:defaultValue="false" />
 </PreferenceScreen>

@@ -1,0 +1,8 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="App Menu">
+	<CheckBoxPreference
+		android:key="pref_enable_app_menu"
+		android:title="Enable App Menu"
+		android:summary="When this feature is turned on use Alt+D to go back to the desktop"
+		android:defaultValue="false" />
+</PreferenceScreen>

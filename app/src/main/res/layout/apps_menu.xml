@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:padding="10dp"
+	android:id="@+id/men_layout"
+	android:background="@drawable/dock_background">
+
+	<EditText
+		android:background="@null"
+		android:textColorHint="@android:color/white"
+		android:hint="Search..."
+		android:textColor="@android:color/white"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:id="@+id/menu_et"
+		android:textSize="18sp"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"/>
+
+	<ListView
+		android:divider="@null"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:id="@+id/menu_applist_lv"
+		android:layout_marginTop="10dp"/>
+
+</LinearLayout>
+
