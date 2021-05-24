@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+		android:icon="@drawable/info"
+        android:id="@+id/action_appinfo"
+        android:title="App Info"/>
+	
+	<item
+		android:icon="@drawable/remove"
+        android:id="@+id/action_uninstall"
+        android:title="Unistall"/>
+	
+</menu>

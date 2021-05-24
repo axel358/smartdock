@@ -15,4 +15,7 @@
 	<header 
         android:fragment="cu.axel.smartdock.fragments.NavigationPreferences"
         android:title="Navigation" />
+	<header 
+        android:fragment="cu.axel.smartdock.fragments.NotificationPreferences"
+        android:title="Notifications" />
 </preference-headers>

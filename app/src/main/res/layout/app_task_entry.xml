@@ -6,23 +6,14 @@
 	android:orientation="vertical"
 	android:gravity="center">
 
-	<LinearLayout
-		android:id="@+id/icon_container"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:orientation="horizontal"
-		android:gravity="center"
-		android:layout_marginTop="5dp"
-		android:layout_marginBottom="5dp">
-
-		<ImageView
-			android:layout_height="35dp"
-			android:layout_width="35dp"
-			android:src="@android:drawable/ic_delete"
-			android:id="@+id/icon_iv"
-			android:layout_margin="5dp"/>
-
-	</LinearLayout>
+	<ImageView
+		android:background="@drawable/circle_solid"
+		android:layout_height="40dp"
+		android:layout_width="40dp"
+		android:src="@android:drawable/ic_delete"
+		android:id="@+id/icon_iv"
+		android:layout_margin="9dp"
+		android:padding="4dp"/>
 
 </LinearLayout>
 

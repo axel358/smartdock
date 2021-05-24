@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:background="@drawable/round_rect_solid"
+	android:padding="10dp"
+	android:gravity="center_vertical">
+
+	<ImageView
+		android:layout_height="60dp"
+		android:layout_width="60dp"
+		android:src="@android:drawable/ic_delete"
+		android:id="@+id/notif_icon_iv"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:layout_marginLeft="10dp">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:text="Small Text"
+			android:textColor="#FFFFFF"
+			android:textSize="15sp"
+			android:id="@+id/notif_title_tv"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="Text"
+			android:textColor="#DDDDDD"
+			android:id="@+id/notif_text_tv"
+			android:layout_marginTop="3dp"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

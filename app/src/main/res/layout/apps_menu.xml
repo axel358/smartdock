@@ -6,26 +6,51 @@
 	android:orientation="vertical"
 	android:padding="10dp"
 	android:id="@+id/men_layout"
-	android:background="@drawable/dock_background">
+	android:background="@drawable/round_rect_solid">
 
-	<EditText
-		android:background="@null"
-		android:textColorHint="@android:color/white"
-		android:hint="Search..."
-		android:textColor="@android:color/white"
+	<LinearLayout
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:id="@+id/menu_et"
-		android:textSize="18sp"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp"/>
+		android:orientation="horizontal"
+		android:gravity="center_vertical"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginTop="5dp">
 
-	<ListView
-		android:divider="@null"
+		<EditText
+			android:background="@drawable/search_background"
+			android:textColorHint="@android:color/white"
+			android:hint="Search..."
+			android:textColor="@android:color/white"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/menu_et"
+			android:textSize="17sp"
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp"
+			android:paddingTop="6dp"
+			android:paddingBottom="6dp"
+			android:layout_weight="1.0"
+			android:layout_marginLeft="10dp"/>
+
+		<ImageView
+			android:background="@drawable/circle_solid_gray"
+			android:padding="5dp"
+			android:layout_height="35dp"
+			android:layout_width="35dp"
+			android:src="@drawable/settings"
+			android:layout_marginLeft="15dp"
+			android:onClick="openDockSettings"/>
+
+	</LinearLayout>
+
+	<GridView
+		android:stretchMode="columnWidth"
+		android:numColumns="5"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:id="@+id/menu_applist_lv"
-		android:layout_marginTop="10dp"/>
+		android:layout_marginTop="5dp"/>
 
 </LinearLayout>
 

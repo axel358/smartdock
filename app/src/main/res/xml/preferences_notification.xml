@@ -1,0 +1,9 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="Notifications">
+	<Preference
+		android:title="Manage service" />
+	<CheckBoxPreference
+		android:key="pref_show_ongoing"
+		android:title="Show ongoing notifications (buggy)"
+		android:defaultValue="false" />
+</PreferenceScreen>

@@ -13,30 +13,17 @@ public class App
 		this.icon = icon;
 	}
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-
 	public String getName()
 	{
 		return name;
 	}
 
-	public void setPackagename(String packagename)
-	{
-		this.packagename = packagename;
-	}
 
 	public String getPackagename()
 	{
 		return packagename;
 	}
-
-	public void setIcon(Drawable icon)
-	{
-		this.icon = icon;
-	}
+	
 
 	public Drawable getIcon()
 	{
@@ -47,6 +34,6 @@ public class App
 	public String toString()
 	{
 		return name;
-		}
+	}
 
 }

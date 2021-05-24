@@ -17,7 +17,7 @@
 		android:defaultValue="true" />
 	<CheckBoxPreference
 		android:key="pref_enable_open_terminal"
-		android:title="Enable Alt+T to open settings"
+		android:title="Enable Alt+T to open terminal"
 		android:defaultValue="false" />
 	<EditTextPreference
 		android:key="pref_terminal_package"

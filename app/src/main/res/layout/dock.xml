@@ -4,78 +4,135 @@
 	android:layout_width="wrap_content"
 	android:gravity="center"
 	android:layout_height="wrap_content"
-	android:orientation="horizontal"
+	android:orientation="vertical"
 	android:id="@+id/dockLinearLayout1">
 
+	<View
+		android:background="@android:color/transparent"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
 	<LinearLayout
-		android:background="@drawable/dock_background"
+		android:background="@drawable/round_rect_solid"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
 		android:gravity="center"
 		android:id="@+id/dock_layout"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
 		android:visibility="gone">
 
-		<ImageButton
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:src="@drawable/ic_power_off"
-			android:id="@+id/power_btn"/>
+		<ImageView
+			android:onClick="toggleMenu"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:id="@+id/apps_btn"
+			android:src="@drawable/apps"
+			android:layout_margin="9dp"/>
 
-		<ImageButton
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+		<ImageView
+			android:layout_margin="9dp"
+			android:background="@drawable/circle_solid_gray"
+			android:padding="8dp"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
 			android:src="@drawable/ic_sysbar_back"
 			android:id="@+id/back_btn"
 			android:visibility="gone"/>
 
-		<ImageButton
-			android:visibility="gone"
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+		<ImageView
+			android:background="@drawable/circle_solid_gray"
+			android:padding="8dp"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
 			android:src="@drawable/ic_sysbar_home"
 			android:id="@+id/home_btn"/>
 
-		<ImageButton
-			android:visibility="gone"
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+		<ImageView
+			android:layout_margin="9dp"
+			android:background="@drawable/circle_solid_gray"
+			android:padding="8dp"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
 			android:src="@drawable/ic_sysbar_recent"
 			android:id="@+id/recents_btn"/>
 
-		<ImageButton
-			android:visibility="gone"
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+		<ImageView
+			android:layout_margin="9dp"
+			android:background="@drawable/circle_solid_gray"
+			android:padding="8dp"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
 			android:src="@drawable/ic_sysbar_split"
 			android:id="@+id/split_btn"/>
 
-		<ImageButton
-			android:visibility="gone"
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+		<ImageView
+			android:layout_margin="9dp"
+			android:background="@drawable/circle_solid_gray"
+			android:padding="8dp"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
 			android:src="@drawable/ic_sysbar_toggle"
 			android:id="@+id/toggle_btn"/>
 
-		<ListView
+		<GridView
 			android:layout_height="wrap_content"
-			android:layout_width="50dp"
+			android:layout_width="match_parent"
+			android:stretchMode="columnWidth"
+			android:numColumns="auto_fit"
+			android:columnWidth="60dp"
 			android:id="@+id/apps_lv"
-			android:divider="@null"
-			android:visibility="visible"/>
+			android:visibility="visible"
+			android:layout_weight="1.0"/>
+
+		<ImageView
+			android:layout_height="35dp"
+			android:layout_width="35dp"
+			android:src="@drawable/wifi_on"
+			android:id="@+id/wifi_btn"
+			android:layout_margin="5dp"
+			android:padding="8dp"
+			android:background="@drawable/circle_solid_gray"
+			android:onClick="toggleWifi"/>
+
+		<ImageView
+			android:layout_height="35dp"
+			android:layout_width="35dp"
+			android:src="@drawable/volume"
+			android:id="@+id/volume_btn"
+			android:layout_margin="5dp"
+			android:padding="5dp"
+			android:background="@drawable/circle_solid_gray"
+			android:onClick="toggleVolume"/>
+
+		<ImageView
+			android:layout_height="35dp"
+			android:layout_width="35dp"
+			android:src="@drawable/battery"
+			android:id="@+id/battery_btn"
+			android:layout_margin="5dp"
+			android:padding="10dp"
+			android:background="@drawable/circle_solid_gray"/>
+
+		<ImageView
+			android:background="@drawable/circle_solid_gray"
+			android:padding="5dp"
+			android:layout_height="35dp"
+			android:layout_width="35dp"
+			android:src="@drawable/ic_power_off"
+			android:id="@+id/power_btn"
+			android:layout_margin="5dp"/>
+
+		<TextClock
+			android:id="@+id/notif_btn"
+			android:textColor="@android:color/white"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"/>
 
 	</LinearLayout>
-
-	<View
-		android:background="@android:color/transparent"
-		android:layout_height="400dp"
-		android:layout_width="1dp"/>
 
 </cu.axel.smartdock.HoverInterceptorLayout>
 

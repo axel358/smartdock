@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
+		<item name="android:popupMenuStyle">@style/PopupMenuTheme</item>
+	</style>
+	<style name="AppTheme.Launcher" parent="@android:style/Theme.Material.NoActionBar.Fullscreen">
+		<item name="android:windowShowWallpaper">true</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowTranslucentStatus">true</item>
+		<item name="android:fitsSystemWindows">true</item>
+	</style>
+	<style name="PopupMenuTheme" parent="@android:style/Theme.Material">
 	</style>
 </resources>

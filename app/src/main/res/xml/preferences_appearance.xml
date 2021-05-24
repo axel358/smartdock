@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:title="Appearence">
 	<CheckBoxPreference
-		android:key="pref_enable_circular_icons"
-		android:title="Use circular icons"
-		android:defaultValue="true" />
+		android:key="pref_enable_transparency"
+		android:title="Use transparent background"
+		android:defaultValue="false" />
 </PreferenceScreen>
