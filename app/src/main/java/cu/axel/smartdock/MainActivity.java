@@ -24,6 +24,19 @@ public class MainActivity extends PreferenceActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        
+       /* Preference changeIconPref = findPreference("pref_change_menu_icon");
+        changeIconPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+
+                @Override
+                public boolean onPreferenceClick(Preference p1)
+                {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, 358);
+                    return false;
+                }
+            });*/
+           
 
     }
 
@@ -38,6 +51,8 @@ public class MainActivity extends PreferenceActivity
 	public void onBuildHeaders(List<PreferenceActivity.Header> target)
 	{
 		loadHeadersFromResource(R.xml.preference_headers, target);
+
+        
 	}
 
 	@Override
@@ -156,7 +171,7 @@ public class MainActivity extends PreferenceActivity
 		return false;
 	}
 
-	
+
 
 
 }

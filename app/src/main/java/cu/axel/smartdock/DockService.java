@@ -128,7 +128,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 			if (event.getKeyCode() == KeyEvent.KEYCODE_HOME)
 			{
-				if (sp.getBoolean("pref_enable_app_menu", false))
+				if (sp.getBoolean("pref_enable_app_menu", true))
 				{
 					toggleMenu(null);
 					return true;
@@ -379,6 +379,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 			});
 
+        updateCorners();
+
 		layoutParams.width = 2;
 		layoutParams.gravity = Gravity.TOP | Gravity.RIGHT;
 		wm.addView(topRightCorner, layoutParams);
@@ -388,7 +390,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 
 		//App menu
-		layoutParams.flags =  WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+		layoutParams.flags =  WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 		layoutParams.gravity = Gravity.BOTTOM | Gravity.LEFT;
 		menu = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.apps_menu, null);
 		appsLv = menu.findViewById(R.id.menu_applist_lv);
@@ -442,6 +444,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 										startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app.getPackagename())));
 										hideMenu();
 										break;
+                                    case R.id.action_pin:
+                                        pinApp(app.getPackagename());
+                                        break;
 								}
 								return false;
 							}
@@ -471,12 +476,22 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 			});
 
-		layoutParams.width = 600;
-		layoutParams.height = 500;
-		layoutParams.x = 2;
-		layoutParams.y = 54;
+
 
 		new UpdateAppMenuTask().execute();
+
+        menu.setOnTouchListener(new OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View p1, MotionEvent p2)
+                {
+                    if (p2.getAction() == p2.ACTION_OUTSIDE)
+                    {
+                        hideMenu();   
+                    }
+                    return false;
+                }
+            });
 
 		updateNavigationBar();
 
@@ -505,7 +520,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void showDock()
 	{
-		//Toast.makeText(this, dockLayout.getHeight() + "", 5000).show();
 		updateDock();
 		dockLayout.setVisibility(View.VISIBLE);
 	}
@@ -542,6 +556,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void showMenu()
 	{
+        layoutParams.width = Integer.parseInt(sp.getString("pref_app_menu_width", "600"));
+        layoutParams.height = Integer.parseInt(sp.getString("pref_app_menu_height", "500"));
+        layoutParams.x = Integer.parseInt(sp.getString("pref_app_menu_x", "2"));
+		layoutParams.y = Integer.parseInt(sp.getString("pref_app_menu_y", "54"));
 		wm.addView(menu, layoutParams);
 		new UpdateAppMenuTask().execute();
 		menu.setAlpha(0);
@@ -716,7 +734,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 		if (sp.getBoolean("pref_enable_transparency", false))
 		{
-			dockLayout.setBackgroundResource(R.drawable.round_rect_transparent);
+            dockLayout.setBackgroundResource(R.drawable.round_rect_transparent);
 			menu.setBackgroundResource(R.drawable.round_rect_transparent);
 		}
 		else
@@ -724,6 +742,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			dockLayout.setBackgroundResource(R.drawable.round_rect_solid);
 			menu.setBackgroundResource(R.drawable.round_rect_solid);
 		}
+
 	}
 
 
@@ -781,6 +800,48 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			Toast.makeText(this, e.toString(), 5000).show();
 		}
 	}
+
+    public ArrayList<String> getPinnedApps()
+    {
+        ArrayList<String> apps = new ArrayList<String>();
+
+        try
+        {
+            String path=Environment.getDataDirectory() + "/pinned.lst";
+            Toast.makeText(this, path, 5000).show();
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            String app="";
+            try
+            {
+                while ((app = br.readLine()) != null)
+                {
+                    apps.add(app);
+                }
+            }
+            catch (IOException e)
+            {} 
+        }
+        catch (FileNotFoundException e)
+        {}
+
+        return apps;
+
+    }
+
+    public void pinApp(String app)
+    {
+        try
+        {
+            String path=getFilesDir() + "/pinned.lst";
+            Toast.makeText(this, "Working on it :)", 5000).show();
+            BufferedWriter bw = new BufferedWriter(new FileWriter(path, true));
+            bw.write("\n" + app);
+            bw.close();
+        }
+        catch (IOException e)
+        {}
+
+    }
 
 
 	class UpdateAppMenuTask extends AsyncTask<Void, Void, ArrayList<App>>

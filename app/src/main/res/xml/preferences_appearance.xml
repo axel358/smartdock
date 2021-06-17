@@ -4,4 +4,8 @@
 		android:key="pref_enable_transparency"
 		android:title="Use transparent background"
 		android:defaultValue="false" />
+    
+    <Preference
+        android:key="pref_change_menu_icon"
+        android:title="Change menu icon"/>
 </PreferenceScreen>

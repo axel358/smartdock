@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+		android:icon="@drawable/info"
+        android:id="@+id/action_change_wallpaper"
+        android:title="Change wallpaper"/>
+
+	<item
+		android:icon="@drawable/settings"
+        android:id="@+id/action_settings"
+        android:title="Settings"/>
+
+</menu>

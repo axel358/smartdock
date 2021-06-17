@@ -75,17 +75,15 @@
 			android:layout_width="40dp"
 			android:src="@drawable/ic_sysbar_toggle"
 			android:id="@+id/toggle_btn"/>
-
 		<GridView
+            android:layout_weight="1.0"
 			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:stretchMode="columnWidth"
-			android:numColumns="auto_fit"
+			android:gravity="center"
+            android:numColumns="auto_fit"
 			android:columnWidth="60dp"
-			android:id="@+id/apps_lv"
-			android:visibility="visible"
-			android:layout_weight="1.0"/>
-
+			android:id="@+id/apps_lv"/>
 		<ImageView
 			android:layout_height="35dp"
 			android:layout_width="35dp"

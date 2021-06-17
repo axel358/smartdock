@@ -9,5 +9,8 @@
 		android:icon="@drawable/remove"
         android:id="@+id/action_uninstall"
         android:title="Unistall"/>
-	
+	<item
+        android:icon="@drawable/pin"
+        android:id="@+id/action_pin"
+        android:title="Pin"/>
 </menu>
