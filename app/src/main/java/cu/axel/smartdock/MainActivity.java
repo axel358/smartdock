@@ -1,20 +1,22 @@
 package cu.axel.smartdock;
 
-import android.accessibilityservice.*;
-import android.app.*;
-import android.app.admin.*;
-import android.content.*;
-import android.os.*;
-import android.provider.*;
-import android.view.*;
-import android.view.accessibility.*;
-import java.util.*;
-import android.content.pm.*;
-import android.widget.*;
-import android.util.*;
-import android.preference.*;
-import android.preference.PreferenceActivity.*;
-import android.net.*;
+import android.Manifest;
+import android.accessibilityservice.AccessibilityServiceInfo;
+import android.app.admin.DeviceAdminReceiver;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ServiceInfo;
+import android.net.Uri;
+import android.os.Bundle;
+import android.preference.PreferenceActivity;
+import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.accessibility.AccessibilityManager;
+import java.util.List;
 
 public class MainActivity extends PreferenceActivity 
 {
@@ -24,19 +26,12 @@ public class MainActivity extends PreferenceActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        
-       /* Preference changeIconPref = findPreference("pref_change_menu_icon");
-        changeIconPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
-                @Override
-                public boolean onPreferenceClick(Preference p1)
-                {
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(intent, 358);
-                    return false;
-                }
-            });*/
-           
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+        {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 156);
+        }
+
 
     }
 
@@ -52,7 +47,7 @@ public class MainActivity extends PreferenceActivity
 	{
 		loadHeadersFromResource(R.xml.preference_headers, target);
 
-        
+
 	}
 
 	@Override

@@ -1,10 +1,13 @@
 package cu.axel.smartdock;
 
-import android.*;
-import android.content.*;
-import android.view.*;
-import android.widget.*;
-import java.util.*;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+import java.util.ArrayList;
 
 public class AppAdapter extends ArrayAdapter<App>
 {

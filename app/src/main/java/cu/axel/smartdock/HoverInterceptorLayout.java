@@ -1,8 +1,8 @@
 package cu.axel.smartdock;
-import android.content.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
+import android.widget.LinearLayout;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 public class HoverInterceptorLayout extends LinearLayout
 {

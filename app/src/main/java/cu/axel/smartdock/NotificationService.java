@@ -1,19 +1,31 @@
 package cu.axel.smartdock;
-import android.app.*;
-import android.graphics.*;
-import android.graphics.drawable.*;
-import android.os.*;
-import android.service.notification.*;
-import android.view.*;
-import android.widget.*;
-import android.content.pm.PackageManager.*;
-import android.content.pm.*;
-import android.view.animation.*;
-import android.animation.*;
-import android.content.*;
-import android.view.View.*;
-import android.app.PendingIntent.*;
-import android.preference.*;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.service.notification.NotificationListenerService;
+import android.service.notification.StatusBarNotification;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class NotificationService extends NotificationListenerService
 {
@@ -23,11 +35,14 @@ public class NotificationService extends NotificationListenerService
 	private TextView notifTitle,notifText;
 	private ImageView notifIcon;
 	private Handler handler;
+    private SharedPreferences sp;
 
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
 		wm = (WindowManager) getSystemService(WINDOW_SERVICE);
 		layoutParams = new WindowManager.LayoutParams();
 		layoutParams.width = 300;
@@ -54,11 +69,19 @@ public class NotificationService extends NotificationListenerService
 
 		wm.addView(notificationLayout, layoutParams);
 
-		notificationLayout.setAlpha(0);
-
 		handler = new Handler();
+        notificationLayout.setAlpha(0);
 
 	}
+
+    @Override
+    public void onNotificationRemoved(StatusBarNotification sbn)
+    {
+        super.onNotificationRemoved(sbn);
+        updateNotificationCount();
+    }
+
+
 
 
 	@Override
@@ -66,11 +89,13 @@ public class NotificationService extends NotificationListenerService
 	{
 		super.onNotificationPosted(sbn);
 
+        updateNotificationCount();
+
 		final Notification notification = sbn.getNotification();
 
 		if (sbn.isOngoing() && !PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_show_ongoing", false))
 		{}
-		else if (notification.contentView == null && !Utils.isBlackListed(sbn.getPackageName()))
+		else if (notification.contentView == null && !isBlackListed(sbn.getPackageName()))
 		{
 			Bundle extras=notification.extras;
 
@@ -78,7 +103,22 @@ public class NotificationService extends NotificationListenerService
 			Bitmap notificationLargeIcon = ((Bitmap) extras.getParcelable(Notification.EXTRA_LARGE_ICON));
 			CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
 
-			notifIcon.setBackgroundResource(R.drawable.circle_solid);
+            switch (sp.getString("pref_theme", "dark"))
+            {
+                case "pref_theme_dark":
+                    notifIcon.setBackgroundResource(R.drawable.circle_solid_dark);
+                    notificationLayout.setBackgroundResource(R.drawable.round_rect_solid_dark);
+                    break;
+                case "pref_theme_black":
+                    notifIcon.setBackgroundResource(R.drawable.circle_solid_black);
+                    notificationLayout.setBackgroundResource(R.drawable.round_rect_solid_black);
+                    break;
+                case "pref_theme_transparent":
+                    notifIcon.setBackgroundResource(R.drawable.circle_transparent);
+                    notificationLayout.setBackgroundResource(R.drawable.round_rect_transparent);
+                    break;
+            }
+
 
 			if (notificationLargeIcon == null)
 			{
@@ -106,6 +146,9 @@ public class NotificationService extends NotificationListenerService
 					@Override
 					public void onClick(View p1)
 					{
+                        notificationLayout.setVisibility(View.GONE);
+                        notificationLayout.setAlpha(0);
+
 						PendingIntent intent = notification.contentIntent;
 						if (intent != null)
 						{
@@ -130,17 +173,65 @@ public class NotificationService extends NotificationListenerService
 					}
 				});
 
-			wm.updateViewLayout(notificationLayout, layoutParams);
+			//wm.updateViewLayout(notificationLayout, layoutParams);
 			handler.removeCallbacksAndMessages(null);
 			handler.postDelayed(new Runnable(){
 
 					@Override
 					public void run()
 					{
-						notificationLayout.setVisibility(View.GONE);
+                        notificationLayout.animate()
+                            .alpha(0)
+                            .setDuration(300)
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation)
+                                {
+                                    notificationLayout.setVisibility(View.GONE);
+                                    notificationLayout.setAlpha(0);
+                                }
+                            });
+
 					}
-				}, 5000);
+				}, Integer.parseInt(sp.getString("pref_notification_timeout", "5000")));
 		}
 	}
+
+    public boolean isBlackListed(String packageName)
+    {
+        String ignoredPackages = sp.getString("pref_blocked_notifications", "android");
+        return ignoredPackages.contains(packageName);
+    }
+
+    private void updateNotificationCount()
+    {
+        int count = 0;
+
+        StatusBarNotification[] notifications;
+        try
+        {
+            notifications = getActiveNotifications();
+        }
+        catch (Exception e)
+        {
+            notifications = new StatusBarNotification[0];
+        }
+
+        if (notifications != null)
+        {
+            for (StatusBarNotification notification : notifications)
+            {
+                if (notification != null
+                    && (notification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) == 0
+                    && notification.isClearable()) count++;
+            }
+            sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_COUNT_CHANGED").putExtra("count", count));
+        }else{
+            Toast.makeText(this,"null",5000).show();
+        }
+
+    }
+
 
 }

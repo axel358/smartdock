@@ -10,4 +10,10 @@
 		android:title="Enable bottom right corner"
 		android:summary="Place the mouse on the top right corner of the screen to lock the screen"
 		android:defaultValue="false" />
+    <EditTextPreference
+        android:inputType="number"
+        android:key="pref_hot_corners_delay"
+        android:hint="300"
+        android:defaultValue="300"
+		android:title="Hot corners activation delay in ms"/>
 </PreferenceScreen>

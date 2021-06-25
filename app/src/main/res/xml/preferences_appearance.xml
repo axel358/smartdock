@@ -1,11 +1,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:title="Appearence">
-	<CheckBoxPreference
-		android:key="pref_enable_transparency"
-		android:title="Use transparent background"
-		android:defaultValue="false" />
+	<ListPreference
+		android:entries="@array/themes" 
+        android:dialogTitle="Theme" 
+        android:entryValues="@array/theme_values" 
+        android:key="pref_theme"
+		android:title="Dock theme"
+		android:defaultValue="pref_theme_dark" />
     
-    <Preference
-        android:key="pref_change_menu_icon"
-        android:title="Change menu icon"/>
+    <EditTextPreference
+        android:key="pref_menu_icon_uri"
+        android:hint="path"
+        android:defaultValue=""
+		android:title="Menu icon path"/>
 </PreferenceScreen>

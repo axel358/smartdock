@@ -6,7 +6,7 @@
 	android:orientation="vertical"
 	android:padding="10dp"
 	android:id="@+id/men_layout"
-	android:background="@drawable/round_rect_solid">
+	android:background="@drawable/round_rect_solid_dark">
 
 	<LinearLayout
 		android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
 		android:layout_marginTop="5dp">
 
 		<EditText
-			android:background="@drawable/search_background"
+			android:background="@drawable/search_background_dark"
 			android:textColorHint="@android:color/white"
 			android:hint="Search..."
 			android:textColor="@android:color/white"
@@ -34,7 +34,8 @@
 			android:layout_marginLeft="10dp"/>
 
 		<ImageView
-			android:background="@drawable/circle_solid_gray"
+			android:id="@+id/settings_btn"
+			android:background="@drawable/circle_solid_dark"
 			android:padding="5dp"
 			android:layout_height="35dp"
 			android:layout_width="35dp"
@@ -49,8 +50,55 @@
 		android:numColumns="5"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:id="@+id/menu_applist_lv"
+		android:id="@+id/fav_applist_lv"
 		android:layout_marginTop="5dp"/>
+
+	<View
+        android:id="@+id/apps_separator"
+		android:color="@android:color/white"
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="2dp"
+		android:layout_width="match_parent"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginTop="10dp"/>
+
+	<GridView
+		android:stretchMode="columnWidth"
+		android:numColumns="5"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:id="@+id/menu_applist_lv"
+		android:layout_marginTop="5dp"
+		android:layout_weight="1.0"/>
+
+	<LinearLayout
+        android:visibility="gone"
+        android:id="@+id/search_layout"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginTop="5dp">
+
+		<ImageView
+            android:id="@+id/search_icon"
+			android:layout_height="28dp"
+			android:layout_width="28dp"
+			android:src="@drawable/search"/>
+
+		<TextView
+            android:id="@+id/search_tv"
+			android:textColor="@android:color/white"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="Search for Chocolate on Google"
+			android:textSize="16sp"
+			android:layout_marginLeft="5dp"/>
+
+	</LinearLayout>
 
 </LinearLayout>
 

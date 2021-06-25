@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="themes">
+        <item>Dark</item>
+        <item>Black</item>
+        <item>Transparent</item>
+     </string-array>
+     
+    <string-array name="theme_values">
+        <item>pref_theme_dark</item>
+        <item>pref_theme_black</item>
+        <item>pref_theme_transparent</item>
+    </string-array>
+    
+</resources>
+

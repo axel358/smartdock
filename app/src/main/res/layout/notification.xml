@@ -4,7 +4,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="horizontal"
-	android:background="@drawable/round_rect_solid"
+	android:background="@drawable/round_rect_solid_dark"
 	android:padding="10dp"
 	android:gravity="center_vertical">
 
@@ -30,6 +30,7 @@
 			android:id="@+id/notif_title_tv"/>
 
 		<TextView
+            android:maxLines="2"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			android:text="Text"

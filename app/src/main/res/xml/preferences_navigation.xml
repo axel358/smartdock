@@ -16,8 +16,4 @@
 		android:key="pref_enable_split"
 		android:title="Enable split button"
 		android:defaultValue="false" />
-	<CheckBoxPreference
-		android:key="pref_enable_toggle"
-		android:title="Enable toggle button"
-		android:defaultValue="false" />
 </PreferenceScreen>

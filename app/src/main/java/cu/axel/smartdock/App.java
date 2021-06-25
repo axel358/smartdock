@@ -1,5 +1,5 @@
 package cu.axel.smartdock;
-import android.graphics.drawable.*;
+import android.graphics.drawable.Drawable;
 
 public class App
 {

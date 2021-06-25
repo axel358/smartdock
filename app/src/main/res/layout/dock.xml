@@ -13,7 +13,7 @@
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
-		android:background="@drawable/round_rect_solid"
+		android:background="@drawable/round_rect_solid_dark"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
@@ -33,7 +33,7 @@
 
 		<ImageView
 			android:layout_margin="9dp"
-			android:background="@drawable/circle_solid_gray"
+			android:background="@drawable/circle_solid_dark"
 			android:padding="8dp"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
@@ -42,7 +42,7 @@
 			android:visibility="gone"/>
 
 		<ImageView
-			android:background="@drawable/circle_solid_gray"
+			android:background="@drawable/circle_solid_dark"
 			android:padding="8dp"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
@@ -51,7 +51,7 @@
 
 		<ImageView
 			android:layout_margin="9dp"
-			android:background="@drawable/circle_solid_gray"
+			android:background="@drawable/circle_solid_dark"
 			android:padding="8dp"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
@@ -60,21 +60,13 @@
 
 		<ImageView
 			android:layout_margin="9dp"
-			android:background="@drawable/circle_solid_gray"
+			android:background="@drawable/circle_solid_dark"
 			android:padding="8dp"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
 			android:src="@drawable/ic_sysbar_split"
 			android:id="@+id/split_btn"/>
 
-		<ImageView
-			android:layout_margin="9dp"
-			android:background="@drawable/circle_solid_gray"
-			android:padding="8dp"
-			android:layout_height="40dp"
-			android:layout_width="40dp"
-			android:src="@drawable/ic_sysbar_toggle"
-			android:id="@+id/toggle_btn"/>
 		<GridView
             android:layout_weight="1.0"
 			android:layout_height="wrap_content"
@@ -84,6 +76,17 @@
             android:numColumns="auto_fit"
 			android:columnWidth="60dp"
 			android:id="@+id/apps_lv"/>
+        <TextView
+            android:layout_height="22dp"
+            android:layout_width="22dp"
+            android:id="@+id/notifications_btn"
+            android:layout_margin="5dp"
+            android:padding="2dp"
+            android:textSize="12sp"
+            android:text="0"
+            android:gravity="center"
+            android:background="@drawable/circle_solid_white"/>
+        
 		<ImageView
 			android:layout_height="35dp"
 			android:layout_width="35dp"
@@ -91,7 +94,7 @@
 			android:id="@+id/wifi_btn"
 			android:layout_margin="5dp"
 			android:padding="8dp"
-			android:background="@drawable/circle_solid_gray"
+			android:background="@drawable/circle_solid_dark"
 			android:onClick="toggleWifi"/>
 
 		<ImageView
@@ -101,7 +104,7 @@
 			android:id="@+id/volume_btn"
 			android:layout_margin="5dp"
 			android:padding="5dp"
-			android:background="@drawable/circle_solid_gray"
+			android:background="@drawable/circle_solid_dark"
 			android:onClick="toggleVolume"/>
 
 		<ImageView
@@ -111,10 +114,10 @@
 			android:id="@+id/battery_btn"
 			android:layout_margin="5dp"
 			android:padding="10dp"
-			android:background="@drawable/circle_solid_gray"/>
+			android:background="@drawable/circle_solid_dark"/>
 
 		<ImageView
-			android:background="@drawable/circle_solid_gray"
+			android:background="@drawable/circle_solid_dark"
 			android:padding="5dp"
 			android:layout_height="35dp"
 			android:layout_width="35dp"
@@ -123,7 +126,7 @@
 			android:layout_margin="5dp"/>
 
 		<TextClock
-			android:id="@+id/notif_btn"
+			android:id="@+id/date_btn"
 			android:textColor="@android:color/white"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"

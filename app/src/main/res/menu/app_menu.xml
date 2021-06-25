@@ -6,11 +6,7 @@
         android:title="App Info"/>
 	
 	<item
-		android:icon="@drawable/remove"
+		android:icon="@drawable/unistall"
         android:id="@+id/action_uninstall"
-        android:title="Unistall"/>
-	<item
-        android:icon="@drawable/pin"
-        android:id="@+id/action_pin"
-        android:title="Pin"/>
+        android:title="Uninstall"/>
 </menu>

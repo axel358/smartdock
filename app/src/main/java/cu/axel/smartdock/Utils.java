@@ -1,6 +1,7 @@
 package cu.axel.smartdock;
-import android.widget.*;
-import java.lang.reflect.*;
+
+import android.widget.PopupMenu;
+import java.lang.reflect.Field;
 
 public class Utils
 {
@@ -26,9 +27,5 @@ public class Utils
         }
     }
 
-	public static boolean isBlackListed(String packageName)
-	{
-		return packageName.equals("com.aide.ui")
-			|| packageName.equals("android");
-	}
+	
 }
