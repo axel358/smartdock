@@ -68,25 +68,26 @@
 			android:id="@+id/split_btn"/>
 
 		<GridView
-            android:layout_weight="1.0"
+			android:layout_weight="1.0"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:stretchMode="columnWidth"
 			android:gravity="center"
-            android:numColumns="auto_fit"
+			android:numColumns="auto_fit"
 			android:columnWidth="60dp"
 			android:id="@+id/apps_lv"/>
-        <TextView
-            android:layout_height="22dp"
-            android:layout_width="22dp"
-            android:id="@+id/notifications_btn"
-            android:layout_margin="5dp"
-            android:padding="2dp"
-            android:textSize="12sp"
-            android:text="0"
-            android:gravity="center"
-            android:background="@drawable/circle_solid_white"/>
-        
+
+		<TextView
+			android:layout_height="22dp"
+			android:layout_width="22dp"
+			android:id="@+id/notifications_btn"
+			android:layout_margin="5dp"
+			android:padding="2dp"
+			android:textSize="12sp"
+			android:text="0"
+			android:gravity="center"
+			android:background="@drawable/circle_solid_white"/>
+
 		<ImageView
 			android:layout_height="35dp"
 			android:layout_width="35dp"
@@ -110,10 +111,10 @@
 		<ImageView
 			android:layout_height="35dp"
 			android:layout_width="35dp"
-			android:src="@drawable/battery"
+			android:src="@drawable/battery_charging_full"
 			android:id="@+id/battery_btn"
 			android:layout_margin="5dp"
-			android:padding="10dp"
+			android:padding="7dp"
 			android:background="@drawable/circle_solid_dark"/>
 
 		<ImageView

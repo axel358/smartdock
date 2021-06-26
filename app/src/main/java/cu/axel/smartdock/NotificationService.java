@@ -228,7 +228,7 @@ public class NotificationService extends NotificationListenerService
             }
             sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_COUNT_CHANGED").putExtra("count", count));
         }else{
-            Toast.makeText(this,"null",5000).show();
+            //Toast.makeText(this,"null",5000).show();
         }
 
     }

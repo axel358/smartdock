@@ -65,6 +65,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import cu.axel.smartdock.DockService.BatteryStatsReceiver;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener
 {
@@ -85,6 +86,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private GridView appsGv,tasksGv,favoritesGv;
 	private boolean shouldHide = true;
 	private WifiManager wifiManager;
+    private BatteryStatsReceiver batteryReceiver;
 
 	@Override
 	public void onAccessibilityEvent(AccessibilityEvent p1)
@@ -675,8 +677,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 }
             }, new IntentFilter(getPackageName() + ".NOTIFICATION_COUNT_CHANGED"));
 
+        batteryReceiver = new BatteryStatsReceiver();
 
+        registerReceiver(batteryReceiver, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
 
+        //Run startup script
+        doAutostart();
+        
         showDock();
         hideDock(2000);
 
@@ -1018,11 +1025,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	{
 		try
 		{
-			java.lang.Process proccess = Runtime.getRuntime().exec("su");
-			DataOutputStream os = new DataOutputStream(proccess.getOutputStream());
-			os.writeBytes("input keyevent " + keycode + "\n");
-			os.flush();
-			os.close();
+            java.lang.Process proccess = Runtime.getRuntime().exec("su");
+            DataOutputStream os = new DataOutputStream(proccess.getOutputStream());
+            os.writeBytes("input keyevent " + keycode + "\n");
+            os.flush();
+            os.close();
 		}
 		catch (IOException e)
 		{
@@ -1151,6 +1158,19 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     }
 
+    public void doAutostart()
+    {
+        File script=new File(getFilesDir() + "/autostart.sh");
+        if(script.exists()&&script.canExecute()){
+            try
+            {
+                Runtime.getRuntime().exec(script.getAbsolutePath());
+            }
+            catch (IOException e)
+            {}
+        }
+    }
+
     @Override
     public void onDestroy()
     {
@@ -1190,6 +1210,54 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 
 	}
+    class BatteryStatsReceiver extends BroadcastReceiver
+    {
+
+        @Override
+        public void onReceive(Context p1, Intent intent)
+        {
+            int level = intent.getExtras().getInt("level");
+
+            if (intent.getExtras().getInt("plugged") == 0)
+            {
+                if (level == 0)
+                    batteryBtn.setImageResource(R.drawable.battery_empty);
+                else if (level > 0 && level < 30)
+                    batteryBtn.setImageResource(R.drawable.battery_20);
+                else if (level > 30 && level < 50)
+                    batteryBtn.setImageResource(R.drawable.battery_30);
+                else if (level > 50 && level < 60)
+                    batteryBtn.setImageResource(R.drawable.battery_50);
+                else if (level > 60 && level < 80)
+                    batteryBtn.setImageResource(R.drawable.battery_60);
+                else if (level > 80 && level < 90)
+                    batteryBtn.setImageResource(R.drawable.battery_80);
+                else if (level > 90 && level < 100)
+                    batteryBtn.setImageResource(R.drawable.battery_90);
+                else if (level == 100)
+                    batteryBtn.setImageResource(R.drawable.battery_full);
+            }
+            else
+            {
+                if (level == 0)
+                    batteryBtn.setImageResource(R.drawable.battery_charging_empty);
+                else if (level > 0 && level < 30)
+                    batteryBtn.setImageResource(R.drawable.battery_charging_20);
+                else if (level > 30 && level < 50)
+                    batteryBtn.setImageResource(R.drawable.battery_charging_30);
+                else if (level > 50 && level < 60)
+                    batteryBtn.setImageResource(R.drawable.battery_charging_50);
+                else if (level > 60 && level < 80)
+                    batteryBtn.setImageResource(R.drawable.battery_charging_60);
+                else if (level > 80 && level < 90)
+                    batteryBtn.setImageResource(R.drawable.battery_charging_80);
+                else if (level > 90 && level < 100)
+                    batteryBtn.setImageResource(R.drawable.battery_charging_90);
+                else if (level == 100)
+                    batteryBtn.setImageResource(R.drawable.battery_charging_full);
+            }
+        }
 
 
+    }
 }
