@@ -65,13 +65,13 @@ public final class R {
         public static final int wifi_on=0x7f02002f;
     }
     public static final class id {
-        public static final int action_appinfo=0x7f09001f;
-        public static final int action_change_wallpaper=0x7f090021;
-        public static final int action_enable_accessibilty=0x7f090024;
-        public static final int action_enable_admin=0x7f090025;
-        public static final int action_grant_permissions=0x7f090023;
-        public static final int action_settings=0x7f090022;
-        public static final int action_uninstall=0x7f090020;
+        public static final int action_appinfo=0x7f090020;
+        public static final int action_change_wallpaper=0x7f090022;
+        public static final int action_enable_accessibilty=0x7f090025;
+        public static final int action_enable_admin=0x7f090026;
+        public static final int action_grant_permissions=0x7f090024;
+        public static final int action_settings=0x7f090023;
+        public static final int action_uninstall=0x7f090021;
         public static final int apps_btn=0x7f090010;
         public static final int apps_lv=0x7f090015;
         public static final int apps_separator=0x7f090009;
@@ -89,8 +89,9 @@ public final class R {
         public static final int menu_app_name_tv=0x7f090003;
         public static final int menu_applist_lv=0x7f09000a;
         public static final int menu_et=0x7f090006;
+        public static final int notif_close_btn=0x7f09001e;
         public static final int notif_icon_iv=0x7f09001c;
-        public static final int notif_text_tv=0x7f09001e;
+        public static final int notif_text_tv=0x7f09001f;
         public static final int notif_title_tv=0x7f09001d;
         public static final int notifications_btn=0x7f090016;
         public static final int power_btn=0x7f09001a;

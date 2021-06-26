@@ -8,8 +8,8 @@ android {
         applicationId "cu.axel.smartdock"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 151
-        versionName "1.5.1"
+        versionCode 160
+        versionName "1.6"
     }
     buildTypes {
         release {

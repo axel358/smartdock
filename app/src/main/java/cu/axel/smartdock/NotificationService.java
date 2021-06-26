@@ -26,14 +26,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View.OnHoverListener;
+import android.view.MotionEvent;
 
 public class NotificationService extends NotificationListenerService
 {
 	private WindowManager wm;
 	private WindowManager.LayoutParams layoutParams;
-	private LinearLayout notificationLayout;
+	private HoverInterceptorLayout notificationLayout;
 	private TextView notifTitle,notifText;
-	private ImageView notifIcon;
+	private ImageView notifIcon,notifCancelBtn;
 	private Handler handler;
     private SharedPreferences sp;
 
@@ -60,17 +62,47 @@ public class NotificationService extends NotificationListenerService
 		else
 			layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
 
-		notificationLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.notification, null);
+		notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification, null);
 		notificationLayout.setVisibility(View.GONE);
 
 		notifTitle = notificationLayout.findViewById(R.id.notif_title_tv);
 		notifText = notificationLayout.findViewById(R.id.notif_text_tv);
 		notifIcon = notificationLayout.findViewById(R.id.notif_icon_iv);
+        notifCancelBtn = notificationLayout.findViewById(R.id.notif_close_btn);
 
 		wm.addView(notificationLayout, layoutParams);
 
 		handler = new Handler();
         notificationLayout.setAlpha(0);
+
+        notificationLayout.setOnHoverListener(new OnHoverListener(){
+
+                @Override
+                public boolean onHover(View p1, MotionEvent p2)
+                {
+                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER)
+                    {
+                        notifCancelBtn.setVisibility(View.VISIBLE);
+                        handler.removeCallbacksAndMessages(null);
+                    }
+                    else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT)
+                    {
+                        notifCancelBtn.setVisibility(View.INVISIBLE);
+                        hideNotification();
+                    }
+                    return false;
+                }
+            });
+        notifCancelBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1)
+                {
+                    notificationLayout.setVisibility(View.GONE);
+                }
+
+
+            });
 
 	}
 
@@ -80,8 +112,6 @@ public class NotificationService extends NotificationListenerService
         super.onNotificationRemoved(sbn);
         updateNotificationCount();
     }
-
-
 
 
 	@Override
@@ -108,14 +138,17 @@ public class NotificationService extends NotificationListenerService
                 case "pref_theme_dark":
                     notifIcon.setBackgroundResource(R.drawable.circle_solid_dark);
                     notificationLayout.setBackgroundResource(R.drawable.round_rect_solid_dark);
+                    notifCancelBtn.setBackgroundResource(R.drawable.circle_solid_dark);
                     break;
                 case "pref_theme_black":
                     notifIcon.setBackgroundResource(R.drawable.circle_solid_black);
                     notificationLayout.setBackgroundResource(R.drawable.round_rect_solid_black);
+                    notifCancelBtn.setBackgroundResource(R.drawable.circle_solid_black);
                     break;
                 case "pref_theme_transparent":
                     notifIcon.setBackgroundResource(R.drawable.circle_transparent);
                     notificationLayout.setBackgroundResource(R.drawable.round_rect_transparent);
+                    notifCancelBtn.setBackgroundResource(R.drawable.circle_transparent);
                     break;
             }
 
@@ -172,31 +205,36 @@ public class NotificationService extends NotificationListenerService
 						notificationLayout.setVisibility(View.VISIBLE);
 					}
 				});
-
-			//wm.updateViewLayout(notificationLayout, layoutParams);
-			handler.removeCallbacksAndMessages(null);
-			handler.postDelayed(new Runnable(){
-
-					@Override
-					public void run()
-					{
-                        notificationLayout.animate()
-                            .alpha(0)
-                            .setDuration(300)
-                            .setInterpolator(new AccelerateDecelerateInterpolator())
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationEnd(Animator animation)
-                                {
-                                    notificationLayout.setVisibility(View.GONE);
-                                    notificationLayout.setAlpha(0);
-                                }
-                            });
-
-					}
-				}, Integer.parseInt(sp.getString("pref_notification_timeout", "5000")));
-		}
+			
+            hideNotification();
+        }
 	}
+
+    public void hideNotification()
+    {
+        handler.removeCallbacksAndMessages(null);
+        handler.postDelayed(new Runnable(){
+
+                @Override
+                public void run()
+                {
+                    notificationLayout.animate()
+                        .alpha(0)
+                        .setDuration(300)
+                        .setInterpolator(new AccelerateDecelerateInterpolator())
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation)
+                            {
+                                notificationLayout.setVisibility(View.GONE);
+                                notificationLayout.setAlpha(0);
+                            }
+                        });
+
+                }
+            }, Integer.parseInt(sp.getString("pref_notification_timeout", "5000")));
+        
+    }
 
     public boolean isBlackListed(String packageName)
     {
@@ -227,7 +265,9 @@ public class NotificationService extends NotificationListenerService
                     && notification.isClearable()) count++;
             }
             sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_COUNT_CHANGED").putExtra("count", count));
-        }else{
+        }
+        else
+        {
             //Toast.makeText(this,"null",5000).show();
         }
 
