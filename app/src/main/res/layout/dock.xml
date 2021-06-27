@@ -37,7 +37,7 @@
 			android:padding="8dp"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
-			android:src="@drawable/ic_sysbar_back"
+			android:src="@drawable/sysbar_back"
 			android:id="@+id/back_btn"
 			android:visibility="gone"/>
 
@@ -46,7 +46,7 @@
 			android:padding="8dp"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
-			android:src="@drawable/ic_sysbar_home"
+			android:src="@drawable/sysbar_home"
 			android:id="@+id/home_btn"/>
 
 		<ImageView
@@ -55,7 +55,7 @@
 			android:padding="8dp"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
-			android:src="@drawable/ic_sysbar_recent"
+			android:src="@drawable/sysbar_recent"
 			android:id="@+id/recents_btn"/>
 
 		<ImageView
@@ -64,7 +64,7 @@
 			android:padding="8dp"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
-			android:src="@drawable/ic_sysbar_split"
+			android:src="@drawable/sysbar_split"
 			android:id="@+id/split_btn"/>
 
 		<GridView
@@ -122,7 +122,7 @@
 			android:padding="5dp"
 			android:layout_height="35dp"
 			android:layout_width="35dp"
-			android:src="@drawable/ic_power_off"
+			android:src="@drawable/power"
 			android:id="@+id/power_btn"
 			android:layout_margin="5dp"/>
 
