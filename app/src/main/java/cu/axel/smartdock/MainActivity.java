@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 import java.util.List;
+import android.os.Build;
 
 public class MainActivity extends PreferenceActivity 
 {
@@ -27,9 +28,12 @@ public class MainActivity extends PreferenceActivity
     {
         super.onCreate(savedInstanceState);
 
-        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+        if (Build.VERSION.SDK_INT > 22)
         {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 156);
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+            {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 156);
+            }
         }
 
 

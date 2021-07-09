@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     
     <item
-		android:icon="@drawable/info"
+		android:icon="@drawable/ic_info"
         android:id="@+id/action_appinfo"
         android:title="App Info"/>
 	
 	<item
-		android:icon="@drawable/unistall"
+		android:icon="@drawable/ic_uninstall"
         android:id="@+id/action_uninstall"
         android:title="Uninstall"/>
 </menu>

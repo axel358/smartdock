@@ -2,6 +2,7 @@ package cu.axel.smartdock;
 
 import android.widget.PopupMenu;
 import java.lang.reflect.Field;
+import android.content.Context;
 
 public class Utils
 {
@@ -26,6 +27,12 @@ public class Utils
             th.printStackTrace();
         }
     }
-
-	
+    public static int pxToDP(Context context, int px)
+    {
+        return Math.round(px / context.getResources().getDisplayMetrics().density);
+    }
+    public static int dpToPx(Context context, int dp)
+    {
+        return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
+    }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
 	android:orientation="vertical"
 	android:padding="10dp"
 	android:id="@+id/men_layout"
@@ -39,7 +39,7 @@
 			android:padding="5dp"
 			android:layout_height="35dp"
 			android:layout_width="35dp"
-			android:src="@drawable/settings"
+			android:src="@drawable/ic_settings"
 			android:layout_marginLeft="15dp"
 			android:onClick="openDockSettings"/>
 
@@ -87,7 +87,7 @@
             android:id="@+id/search_icon"
 			android:layout_height="28dp"
 			android:layout_width="28dp"
-			android:src="@drawable/search"/>
+			android:src="@drawable/ic_search"/>
 
 		<TextView
             android:id="@+id/search_tv"

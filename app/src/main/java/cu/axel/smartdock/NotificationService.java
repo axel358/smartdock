@@ -87,7 +87,14 @@ public class NotificationService extends NotificationListenerService
                     }
                     else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT)
                     {
-                        notifCancelBtn.setVisibility(View.INVISIBLE);
+                        new Handler().postDelayed(new Runnable(){
+
+                                @Override
+                                public void run()
+                                {
+                                    notifCancelBtn.setVisibility(View.INVISIBLE);
+                                }
+                            }, 200);
                         hideNotification();
                     }
                     return false;
@@ -205,7 +212,7 @@ public class NotificationService extends NotificationListenerService
 						notificationLayout.setVisibility(View.VISIBLE);
 					}
 				});
-			
+
             hideNotification();
         }
 	}
@@ -233,7 +240,7 @@ public class NotificationService extends NotificationListenerService
 
                 }
             }, Integer.parseInt(sp.getString("pref_notification_timeout", "5000")));
-        
+
     }
 
     public boolean isBlackListed(String packageName)

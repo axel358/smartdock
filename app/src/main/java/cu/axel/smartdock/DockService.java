@@ -87,6 +87,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private boolean shouldHide = true;
 	private WifiManager wifiManager;
     private BatteryStatsReceiver batteryReceiver;
+    private int dockSixe;
 
 	@Override
 	public void onAccessibilityEvent(AccessibilityEvent p1)
@@ -479,11 +480,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
                     if (isPinned(app.getPackagename()))
                     {
-                        pmenu.getMenu().add(0, 4, 0, "Unpin").setIcon(R.drawable.remove);
+                        pmenu.getMenu().add(0, 4, 0, "Unpin").setIcon(R.drawable.ic_unpin);
                     }
                     else
                     {
-                        pmenu.getMenu().add(0, 3, 0, "Pin").setIcon(R.drawable.pin);
+                        pmenu.getMenu().add(0, 3, 0, "Pin").setIcon(R.drawable.ic_pin);
                     }
 
 
@@ -549,7 +550,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     Utils.setForceShowIcon(pmenu);
 
                     pmenu.inflate(R.menu.app_menu);
-                    pmenu.getMenu().add(0, 4, 0, "Unpin").setIcon(R.drawable.remove);
+                    pmenu.getMenu().add(0, 4, 0, "Unpin").setIcon(R.drawable.ic_unpin);
 
 
                     pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
@@ -603,7 +604,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public void afterTextChanged(Editable p1)
                 {
-                    appAdapter.getFilter().filter(p1.toString());
+                    if (appAdapter != null)
+                        appAdapter.getFilter().filter(p1.toString());
                     if (p1.length() > 0)
                     {
                         searchLayout.setVisibility(View.VISIBLE);
@@ -683,7 +685,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         //Run startup script
         doAutostart();
-        
+
         showDock();
         hideDock(2000);
 
@@ -750,10 +752,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void showMenu()
 	{
-        layoutParams.width = Integer.parseInt(sp.getString("pref_app_menu_width", "600"));
-        layoutParams.height = Integer.parseInt(sp.getString("pref_app_menu_height", "500"));
-        layoutParams.x = Integer.parseInt(sp.getString("pref_app_menu_x", "2"));
-		layoutParams.y = Integer.parseInt(sp.getString("pref_app_menu_y", "54"));
+        layoutParams.width = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_width", "600")));
+        layoutParams.height = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_height", "500")));
+        layoutParams.x = Utils.dpToPx(this,Integer.parseInt(sp.getString("pref_app_menu_x", "2")));
+		layoutParams.y = Utils.dpToPx(this,Integer.parseInt(sp.getString("pref_app_menu_y", "59")));
 		wm.addView(menu, layoutParams);
 		new UpdateAppMenuTask().execute();
 		menu.setAlpha(0);
@@ -850,11 +852,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         if (wifiManager.isWifiEnabled())
         {
-            wifiBtn.setImageResource(R.drawable.wifi_on);
+            wifiBtn.setImageResource(R.drawable.ic_wifi_on);
         }
         else
         {
-            wifiBtn.setImageResource(R.drawable.wifi_off);
+            wifiBtn.setImageResource(R.drawable.ic_wifi_off);
         }
 
 
@@ -903,12 +905,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		if (wifiManager.isWifiEnabled())
 		{
 			wifiManager.setWifiEnabled(false);
-			wifiBtn.setImageResource(R.drawable.wifi_off);
+			wifiBtn.setImageResource(R.drawable.ic_wifi_off);
 		}
 		else
 		{
 			wifiManager.setWifiEnabled(true);
-			wifiBtn.setImageResource(R.drawable.wifi_on);
+			wifiBtn.setImageResource(R.drawable.ic_wifi_on);
 		}
 	}
 
@@ -1000,7 +1002,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         if (path.exists())
             appsBtn.setImageBitmap(BitmapFactory.decodeFile(path.getAbsolutePath()));
         else
-            appsBtn.setImageResource(R.drawable.apps);
+            appsBtn.setImageResource(R.drawable.ic_apps);
 
     }
 
@@ -1161,7 +1163,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     public void doAutostart()
     {
         File script=new File(getFilesDir() + "/autostart.sh");
-        if(script.exists()&&script.canExecute()){
+        if (script.exists() && script.canExecute())
+        {
             try
             {
                 Runtime.getRuntime().exec(script.getAbsolutePath());
