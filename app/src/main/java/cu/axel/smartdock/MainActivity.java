@@ -35,8 +35,6 @@ public class MainActivity extends PreferenceActivity
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 156);
             }
         }
-
-
     }
 
 	@Override

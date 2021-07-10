@@ -17,6 +17,7 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -44,11 +45,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.Switch;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +68,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import cu.axel.smartdock.DockService.BatteryStatsReceiver;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener
 {
@@ -76,18 +78,18 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private TextView notificationBtn,searchTv;
 	private TextClock dateTv;
 	private Button topRightCorner,bottomRightCorner;
-	private LinearLayout dockLayout,menu,searchLayout;
+	private LinearLayout dockLayout,menu,searchLayout,wifiPanel;
 	private WindowManager wm;
     private View appsSeparator;
-	private boolean menuVisible;
+	private boolean menuVisible,shouldHide = true;
 	private WindowManager.LayoutParams layoutParams;
 	private EditText searchEt;
 	private ArrayAdapter<App> appAdapter;
 	private GridView appsGv,tasksGv,favoritesGv;
-	private boolean shouldHide = true;
 	private WifiManager wifiManager;
     private BatteryStatsReceiver batteryReceiver;
-    private int dockSixe;
+    private WifiReceiver wifiReceiver;
+
 
 	@Override
 	public void onAccessibilityEvent(AccessibilityEvent p1)
@@ -754,8 +756,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	{
         layoutParams.width = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_width", "600")));
         layoutParams.height = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_height", "500")));
-        layoutParams.x = Utils.dpToPx(this,Integer.parseInt(sp.getString("pref_app_menu_x", "2")));
-		layoutParams.y = Utils.dpToPx(this,Integer.parseInt(sp.getString("pref_app_menu_y", "59")));
+        layoutParams.x = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_x", "2")));
+		layoutParams.y = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_y", "59")));
 		wm.addView(menu, layoutParams);
 		new UpdateAppMenuTask().execute();
 		menu.setAlpha(0);
@@ -824,7 +826,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void updateRunningTasks()
     {
-        List<RunningTaskInfo> tasksInfo = am.getRunningTasks(10);
+        List<RunningTaskInfo> tasksInfo = am.getRunningTasks(20);
 
         ArrayList<AppTask> appTasks = new ArrayList<AppTask>();
 
@@ -902,17 +904,26 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void toggleWifi(View v)
 	{
-		if (wifiManager.isWifiEnabled())
-		{
-			wifiManager.setWifiEnabled(false);
-			wifiBtn.setImageResource(R.drawable.ic_wifi_off);
-		}
-		else
-		{
-			wifiManager.setWifiEnabled(true);
-			wifiBtn.setImageResource(R.drawable.ic_wifi_on);
-		}
+        boolean enabled = wifiManager.isWifiEnabled();
+        int icon= !enabled ?R.drawable.ic_wifi_on: R.drawable.ic_wifi_off;
+        wifiBtn.setImageResource(icon);
+        wifiManager.setWifiEnabled(!enabled);
+        
 	}
+
+    class WifiReceiver extends BroadcastReceiver
+    {
+
+        @Override
+        public void onReceive(Context p1, Intent p2)
+        {
+            List<ScanResult> scanResults = wifiManager.getScanResults();
+            Toast.makeText(DockService.this, scanResults.size() + "", 5000).show();
+
+        }
+
+
+    }
 
 	public void toggleVolume(View v)
 	{
