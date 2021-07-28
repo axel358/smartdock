@@ -1,4 +1,4 @@
-package cu.axel.smartdock;
+package cu.axel.smartdock.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import cu.axel.smartdock.models.App;
 import java.util.ArrayList;
+import cu.axel.smartdock.R;
 
 public class AppAdapter extends ArrayAdapter<App>
 {

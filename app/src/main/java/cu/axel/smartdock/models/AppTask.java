@@ -1,4 +1,4 @@
-package cu.axel.smartdock;
+package cu.axel.smartdock.models;
 import android.graphics.drawable.Drawable;
 
 public class AppTask

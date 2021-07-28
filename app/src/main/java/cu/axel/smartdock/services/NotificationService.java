@@ -1,4 +1,4 @@
-package cu.axel.smartdock;
+package cu.axel.smartdock.services;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -28,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnHoverListener;
 import android.view.MotionEvent;
+import cu.axel.smartdock.widgets.HoverInterceptorLayout;
+import cu.axel.smartdock.R;
 
 public class NotificationService extends NotificationListenerService
 {

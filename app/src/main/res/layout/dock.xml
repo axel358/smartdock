@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cu.axel.smartdock.HoverInterceptorLayout
+<cu.axel.smartdock.widgets.HoverInterceptorLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="wrap_content"
 	android:gravity="center"
@@ -136,5 +136,5 @@
 
 	</LinearLayout>
 
-</cu.axel.smartdock.HoverInterceptorLayout>
+</cu.axel.smartdock.widgets.HoverInterceptorLayout>
 

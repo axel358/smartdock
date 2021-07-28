@@ -1,4 +1,4 @@
-package cu.axel.smartdock;
+package cu.axel.smartdock.widgets;
 import android.widget.LinearLayout;
 import android.content.Context;
 import android.util.AttributeSet;

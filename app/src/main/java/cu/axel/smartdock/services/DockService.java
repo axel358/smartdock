@@ -1,8 +1,7 @@
-package cu.axel.smartdock;
+package cu.axel.smartdock.services;
 
 import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,7 +16,6 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -45,16 +43,22 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.Switch;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
+import cu.axel.smartdock.activities.LauncherActivity;
+import cu.axel.smartdock.activities.MainActivity;
+import cu.axel.smartdock.adapters.AppAdapter;
+import cu.axel.smartdock.adapters.AppTaskAdapter;
+import cu.axel.smartdock.models.App;
+import cu.axel.smartdock.models.AppTask;
+import cu.axel.smartdock.utils.Utils;
+import cu.axel.smartdock.widgets.HoverInterceptorLayout;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -68,9 +72,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import cu.axel.smartdock.R;
 
-public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener
-{
+public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private PackageManager pm;
 	private SharedPreferences sp;
 	private ActivityManager am;
@@ -78,7 +82,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private TextView notificationBtn,searchTv;
 	private TextClock dateTv;
 	private Button topRightCorner,bottomRightCorner;
-	private LinearLayout dockLayout,menu,searchLayout,wifiPanel;
+	private LinearLayout dockLayout,menu,searchLayout;
 	private WindowManager wm;
     private View appsSeparator;
 	private boolean menuVisible,shouldHide = true;
@@ -88,102 +92,77 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private GridView appsGv,tasksGv,favoritesGv;
 	private WifiManager wifiManager;
     private BatteryStatsReceiver batteryReceiver;
-    private WifiReceiver wifiReceiver;
 
 
 	@Override
-	public void onAccessibilityEvent(AccessibilityEvent p1)
-	{}
+	public void onAccessibilityEvent(AccessibilityEvent p1) {}
 
 	@Override
-	public void onInterrupt()
-	{}
+	public void onInterrupt() {}
 
 
 	//Handle keyboard shortcuts
 	@Override
-	protected boolean onKeyEvent(KeyEvent event)
-	{
-		if (event.getAction() == KeyEvent.ACTION_UP && event.isAltPressed())
-		{
-			if (event.getKeyCode() == KeyEvent.KEYCODE_L)
-			{
+	protected boolean onKeyEvent(KeyEvent event) {
+		if (event.getAction() == KeyEvent.ACTION_UP && event.isAltPressed()) {
+			if (event.getKeyCode() == KeyEvent.KEYCODE_L) {
 				if (sp.getBoolean("pref_enable_lock_desktop", true))
 					lockScreen();
-			}
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_P)
-			{
+			} else if (event.getKeyCode() == KeyEvent.KEYCODE_P) {
 				if (sp.getBoolean("pref_enable_open_settings", true))
 					startActivity(new Intent(Settings.ACTION_SETTINGS));
-			}
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_T)
-			{
-				if (sp.getBoolean("pref_enable_open_terminal", false))
-				{
-					try
-					{
+			} else if (event.getKeyCode() == KeyEvent.KEYCODE_T) {
+				if (sp.getBoolean("pref_enable_open_terminal", false)) {
+					try {
 						startActivity(new Intent(pm.getLaunchIntentForPackage(sp.getString("pref_terminal_package", "com.termux"))));
-					}
-					catch (Exception e)
-					{
+					} catch (Exception e) {
 						Toast.makeText(this, "Oops can't launch terminal. Is it installed ?", 5000).show();
 					}
 				}
 
-			}
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_A)
-			{
+			} else if (event.getKeyCode() == KeyEvent.KEYCODE_A) {
 				if (sp.getBoolean("pref_enable_expand_notifications", true))
 					performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
-			}
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_K)
-			{
+			} else if (event.getKeyCode() == KeyEvent.KEYCODE_K) {
 				sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
-			}
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_M)
-			{
+			} else if (event.getKeyCode() == KeyEvent.KEYCODE_M) {
 				if (sp.getBoolean("pref_enable_open_music", true))
 					sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
-			}
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_B)
-			{
+			} else if (event.getKeyCode() == KeyEvent.KEYCODE_B) {
 				if (sp.getBoolean("pref_enable_open_browser", true))
 					sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
-			}
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
-			{
+			} else if (event.getKeyCode() == KeyEvent.KEYCODE_D) {
 				//am.moveTaskToFront(launcherTaskId, 0);
 				startActivity(new Intent(this, LauncherActivity.class));
 			}
-		}
-		else if (event.getAction() == KeyEvent.ACTION_UP)
-		{
-			if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT)
-			{
-				if (sp.getBoolean("pref_enable_ctrl_back", true))
-				{
+		} else if (event.getAction() == KeyEvent.ACTION_UP) {
+			if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT) {
+				if (sp.getBoolean("pref_enable_ctrl_back", true)) {
 					performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
 					return true;
 				}
 			}
 
-			if (event.getKeyCode() == KeyEvent.KEYCODE_HOME)
-			{
-                if (sp.getBoolean("pref_enable_app_menu", true))
-				{
+			if (event.getKeyCode() == KeyEvent.KEYCODE_HOME) {
+                if (sp.getBoolean("pref_enable_app_menu", true)) {
 					toggleMenu(null);
 					return true;
 				}
 			}
-
+            if (event.getKeyCode() == KeyEvent.KEYCODE_F10) {
+                if (sp.getBoolean("pref_enable_f10", true))
+                    if (shouldHide) { 
+                        performGlobalAction(AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN);
+                        return true;
+                    }
+            }
 		}
 
 		return super.onKeyEvent(event);
 	}
 
     @Override
-    protected void onServiceConnected()
-    {
+    protected void onServiceConnected() {
         super.onServiceConnected();
 
         //Create the dock
@@ -209,14 +188,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         dock.setOnHoverListener(new OnHoverListener(){
 
                 @Override
-                public boolean onHover(View p1, MotionEvent p2)
-                {
-                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER)
-                    {
+                public boolean onHover(View p1, MotionEvent p2) {
+                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
                         showDock();
-                    }
-                    else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT)
-                    {
+                    } else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT) {
                         hideDock(500);
                     }
 
@@ -228,8 +203,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         backBtn.setOnClickListener(new OnClickListener(){
 
                 @Override
-                public void onClick(View p1)
-                {
+                public void onClick(View p1) {
                     DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
                 }
 
@@ -239,8 +213,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         homeBtn.setOnClickListener(new OnClickListener(){
 
                 @Override
-                public void onClick(View p1)
-                {
+                public void onClick(View p1) {
                     DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME);
                 }
 
@@ -249,8 +222,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         recentBtn.setOnClickListener(new OnClickListener(){
 
                 @Override
-                public void onClick(View p1)
-                {
+                public void onClick(View p1) {
                     DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
                 }
 
@@ -260,8 +232,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         splitBtn.setOnClickListener(new OnClickListener(){
 
                 @Override
-                public void onClick(View p1)
-                {
+                public void onClick(View p1) {
                     DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN);
                 }
 
@@ -272,8 +243,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         tasksGv.setOnItemClickListener(new OnItemClickListener(){
 
                 @Override
-                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
-                {
+                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
                     AppTask appTask = (AppTask) p1.getItemAtPosition(p3);
 
                     am.moveTaskToFront(appTask.getId(), 0);
@@ -286,16 +256,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         notificationBtn.setOnClickListener(new OnClickListener(){
 
                 @Override
-                public void onClick(View p1)
-                {
+                public void onClick(View p1) {
                     performGlobalAction(AccessibilityService.GLOBAL_ACTION_NOTIFICATIONS);
                 }
             });
         wifiBtn.setOnLongClickListener(new OnLongClickListener(){
 
                 @Override
-                public boolean onLongClick(View p1)
-                {
+                public boolean onLongClick(View p1) {
                     startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
                     return true;
                 }
@@ -304,8 +272,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         volBtn.setOnLongClickListener(new OnLongClickListener(){
 
                 @Override
-                public boolean onLongClick(View p1)
-                {
+                public boolean onLongClick(View p1) {
                     startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS));
                     return true;
                 }
@@ -314,8 +281,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         powerBtn.setOnClickListener(new OnClickListener(){
 
                 @Override
-                public void onClick(View p1)
-                {
+                public void onClick(View p1) {
                     DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_POWER_DIALOG);
                 }
 
@@ -325,8 +291,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         dateTv.setOnClickListener(new OnClickListener(){
 
                 @Override
-                public void onClick(View p1)
-                {
+                public void onClick(View p1) {
                     startActivity(pm.getLaunchIntentForPackage("com.android.deskclock"));
                 }
 
@@ -335,8 +300,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         dateTv.setOnLongClickListener(new OnLongClickListener(){
 
                 @Override
-                public boolean onLongClick(View p1)
-                {
+                public boolean onLongClick(View p1) {
                     startActivity(new Intent(Settings.ACTION_DATE_SETTINGS));
                     return true;
                 }
@@ -350,11 +314,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         layoutParams.format = PixelFormat.TRANSLUCENT;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |  WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        }
-        else
+        } else
             layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
 
         wm.addView(dock, layoutParams);
@@ -370,17 +332,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         topRightCorner.setOnHoverListener(new OnHoverListener(){
 
                 @Override
-                public boolean onHover(View p1, MotionEvent p2)
-                {
-                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER)
-                    {
+                public boolean onHover(View p1, MotionEvent p2) {
+                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
                         Handler handler=new Handler();
                         handler.postDelayed(
                             new Runnable(){
 
                                 @Override
-                                public void run()
-                                {
+                                public void run() {
                                     if (topRightCorner.isHovered())
                                         performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
                                 }
@@ -399,17 +358,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         bottomRightCorner.setOnHoverListener(new OnHoverListener(){
 
                 @Override
-                public boolean onHover(View p1, MotionEvent p2)
-                {
-                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER)
-                    {
+                public boolean onHover(View p1, MotionEvent p2) {
+                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
                         Handler handler=new Handler();
                         handler.postDelayed(
                             new Runnable(){
 
                                 @Override
-                                public void run()
-                                {
+                                public void run() {
                                     if (bottomRightCorner.isHovered())
                                         lockScreen();
                                 }
@@ -451,16 +407,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         appsGv.setOnItemClickListener(new OnItemClickListener(){
 
                 @Override
-                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
-                {
+                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
                     App app = (App) p1.getItemAtPosition(p3);
-                    try
-                    {
+                    try {
                         startActivity(pm.getLaunchIntentForPackage(app.getPackagename()));
                         hideMenu();
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
 
                     }
                 }
@@ -471,8 +423,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         appsGv.setOnItemLongClickListener(new OnItemLongClickListener(){
 
                 @Override
-                public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4)
-                {
+                public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4) {
                     final App app =(App) p1.getItemAtPosition(p3);
                     PopupMenu pmenu=new PopupMenu(new ContextThemeWrapper(DockService.this, R.style.PopupMenuTheme), p2);
 
@@ -480,12 +431,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
                     pmenu.inflate(R.menu.app_menu);
 
-                    if (isPinned(app.getPackagename()))
-                    {
+                    if (isPinned(app.getPackagename())) {
                         pmenu.getMenu().add(0, 4, 0, "Unpin").setIcon(R.drawable.ic_unpin);
-                    }
-                    else
-                    {
+                    } else {
                         pmenu.getMenu().add(0, 3, 0, "Pin").setIcon(R.drawable.ic_pin);
                     }
 
@@ -493,10 +441,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
 
                             @Override
-                            public boolean onMenuItemClick(MenuItem p1)
-                            {
-                                switch (p1.getItemId())
-                                {
+                            public boolean onMenuItemClick(MenuItem p1) {
+                                switch (p1.getItemId()) {
                                     case R.id.action_appinfo:
                                         startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + app.getPackagename())));
                                         hideMenu();
@@ -524,16 +470,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         favoritesGv.setOnItemClickListener(new OnItemClickListener(){
 
                 @Override
-                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
-                {
+                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
                     App app = (App) p1.getItemAtPosition(p3);
-                    try
-                    {
+                    try {
                         startActivity(pm.getLaunchIntentForPackage(app.getPackagename()));
                         hideMenu();
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
 
                     }
                 }
@@ -544,8 +486,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         favoritesGv.setOnItemLongClickListener(new OnItemLongClickListener(){
 
                 @Override
-                public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4)
-                {
+                public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4) {
                     final App app =(App) p1.getItemAtPosition(p3);
                     PopupMenu pmenu=new PopupMenu(new ContextThemeWrapper(DockService.this, R.style.PopupMenuTheme), p2);
 
@@ -558,10 +499,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
 
                             @Override
-                            public boolean onMenuItemClick(MenuItem p1)
-                            {
-                                switch (p1.getItemId())
-                                {
+                            public boolean onMenuItemClick(MenuItem p1) {
+                                switch (p1.getItemId()) {
                                     case R.id.action_appinfo:
                                         startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + app.getPackagename())));
                                         hideMenu();
@@ -586,8 +525,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         searchTv.setOnClickListener(new OnClickListener(){
 
                 @Override
-                public void onClick(View p1)
-                {
+                public void onClick(View p1) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(searchEt.getText().toString()))));
                     hideMenu();
                 }
@@ -596,26 +534,20 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         searchEt.addTextChangedListener(new TextWatcher(){
 
                 @Override
-                public void beforeTextChanged(CharSequence p1, int p2, int p3, int p4)
-                {}
+                public void beforeTextChanged(CharSequence p1, int p2, int p3, int p4) {}
 
                 @Override
-                public void onTextChanged(CharSequence p1, int p2, int p3, int p4)
-                {}
+                public void onTextChanged(CharSequence p1, int p2, int p3, int p4) {}
 
                 @Override
-                public void afterTextChanged(Editable p1)
-                {
+                public void afterTextChanged(Editable p1) {
                     if (appAdapter != null)
                         appAdapter.getFilter().filter(p1.toString());
-                    if (p1.length() > 0)
-                    {
+                    if (p1.length() > 0) {
                         searchLayout.setVisibility(View.VISIBLE);
                         searchTv.setText("Search for \"" + p1.toString() + "\" on Google");
                         hideFavorites();
-                    }
-                    else
-                    {
+                    } else {
                         searchLayout.setVisibility(View.GONE);
                         if (getFavoriteApps().size() > 0)
                             showFavorites();
@@ -625,8 +557,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
             });
 
-
-
         new UpdateAppMenuTask().execute();
 
         loadFavoriteApps();
@@ -635,10 +565,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         menu.setOnTouchListener(new OnTouchListener(){
 
                 @Override
-                public boolean onTouch(View p1, MotionEvent p2)
-                {
-                    if (p2.getAction() == p2.ACTION_OUTSIDE)
-                    {
+                public boolean onTouch(View p1, MotionEvent p2) {
+                    if (p2.getAction() == p2.ACTION_OUTSIDE) {
                         hideMenu();   
                     }
                     return false;
@@ -653,10 +581,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         registerReceiver(new BroadcastReceiver(){
 
                 @Override
-                public void onReceive(Context p1, Intent p2)
-                {
-                    switch (p2.getStringExtra("action"))
-                    {
+                public void onReceive(Context p1, Intent p2) {
+                    switch (p2.getStringExtra("action")) {
                         case "pause":
                             shouldHide = true;
                             hideDock(500);
@@ -674,8 +600,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         registerReceiver(new BroadcastReceiver(){
 
                 @Override
-                public void onReceive(Context p1, Intent p2)
-                {
+                public void onReceive(Context p1, Intent p2) {
                     int count = p2.getIntExtra("count", 0);
                     notificationBtn.setText(count + "");
                 }
@@ -693,12 +618,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     }
 
-
-
-
 	@Override
-	public void onCreate()
-	{
+	public void onCreate() {
 		super.onCreate();
 
 		Toast.makeText(this, "Smart Dock started", 5000).show();
@@ -711,20 +632,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
 	}
 
-	public void showDock()
-	{
+	public void showDock() {
 		updateRunningTasks();
 		dockLayout.setVisibility(View.VISIBLE);
 	}
 
-	public void hideDock(int delay)
-	{
+	public void hideDock(int delay) {
         new Handler().postDelayed(new Runnable(){
 
                 @Override
-                public void run()
-                {
-                    //Toast.makeText(DockService.this, shouldHide + "2", 5000).show();
+                public void run() {
                     if (shouldHide)
                         dockLayout.setVisibility(View.GONE);
 
@@ -732,28 +649,22 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             }, delay);}
 
 
-    public void openDockSettings(View v)
-    {
+    public void openDockSettings(View v) {
         startActivity(new Intent(this, MainActivity.class));
         hideMenu();
 	}
 
-	public void toggleMenu(View v)
-	{
-		if (menuVisible)
-		{
+	public void toggleMenu(View v) {
+		if (menuVisible) {
 			hideMenu();
-		}
-		else
-		{
+		} else {
 			showMenu();
 
 		}
 
 	}
 
-	public void showMenu()
-	{
+	public void showMenu() {
         layoutParams.width = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_width", "600")));
         layoutParams.height = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_height", "500")));
         layoutParams.x = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_x", "2")));
@@ -770,30 +681,26 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	}
 
-	public void hideMenu()
-	{
+	public void hideMenu() {
 		searchEt.setText("");
 		wm.removeView(menu);
 		menuVisible = false;
 	}	
 
 	@Override
-	public void onSharedPreferenceChanged(SharedPreferences p1, String p2)
-	{
+	public void onSharedPreferenceChanged(SharedPreferences p1, String p2) {
         if (p2.equals("pref_theme"))
             applyTheme();
         else if (p2.equals("pref_menu_icon_uri"))
             updateMenuIcon();
-        else
-        {
+        else {
             updateNavigationBar();
             updateCorners();   
         }
 	}
 
 
-	public ArrayList<App> getInstalledApps()
-	{
+	public ArrayList<App> getInstalledApps() {
 		ArrayList<App> apps = new ArrayList<App>();
         int gCount=0;
 		Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -801,8 +708,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		List<ResolveInfo> appsInfo = pm.queryIntentActivities(intent, 0);
 
         //TODO: Filter Google App
-		for (ResolveInfo appInfo : appsInfo)
-		{
+		for (ResolveInfo appInfo : appsInfo) {
 			String label = appInfo.activityInfo.loadLabel(pm).toString();
 			Drawable icon = appInfo.activityInfo.loadIcon(pm);
 			String packageName = appInfo.activityInfo.packageName;
@@ -813,8 +719,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		Collections.sort(apps, new Comparator<App>(){
 
 				@Override
-				public int compare(App p1, App p2)
-				{
+				public int compare(App p1, App p2) {
 					return p1.getName().compareToIgnoreCase(p2.getName());
 				}
 
@@ -824,118 +729,77 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		return apps;
 	}
 
-    public void updateRunningTasks()
-    {
-        List<RunningTaskInfo> tasksInfo = am.getRunningTasks(20);
+    public void updateRunningTasks() {
+        List<ActivityManager.RunningTaskInfo> tasksInfo = am.getRunningTasks(20);
 
         ArrayList<AppTask> appTasks = new ArrayList<AppTask>();
 
-        for (ActivityManager.RunningTaskInfo taskInfo : tasksInfo)
-        {
-            try
-            {
+        for (ActivityManager.RunningTaskInfo taskInfo : tasksInfo) {
+            try {
                 //Exclude systemui, current launcher and other system apps from the tasklist
                 if (taskInfo.baseActivity.getPackageName().contains("com.android.systemui") 
                     || taskInfo.baseActivity.getPackageName().contains("com.google.android.packageinstaller"))
                     continue;
 
-                if (taskInfo.topActivity.getClassName().equals(getPackageName() + ".LauncherActivity"))
-                {
+                if (taskInfo.topActivity.getClassName().equals(getPackageName() + ".LauncherActivity")) {
                     continue;
                 }
 
                 appTasks.add(new AppTask(taskInfo.id, taskInfo.topActivity.getShortClassName(), taskInfo.topActivity.getPackageName(), pm.getActivityIcon(taskInfo.topActivity)));
-            }
-            catch (PackageManager.NameNotFoundException e)
-            {}
+            } catch (PackageManager.NameNotFoundException e) {}
         }
 
         tasksGv.setAdapter(new AppTaskAdapter(DockService.this, appTasks));
 
-        if (wifiManager.isWifiEnabled())
-        {
+        if (wifiManager.isWifiEnabled()) {
             wifiBtn.setImageResource(R.drawable.ic_wifi_on);
-        }
-        else
-        {
+        } else {
             wifiBtn.setImageResource(R.drawable.ic_wifi_off);
         }
 
-
-
     }
-    public void updateNavigationBar()
-    {
-        if (sp.getBoolean("pref_enable_back", false))
-        {
+    public void updateNavigationBar() {
+        if (sp.getBoolean("pref_enable_back", false)) {
             backBtn.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             backBtn.setVisibility(View.GONE);
         }
-        if (sp.getBoolean("pref_enable_home", false))
-        {
+        if (sp.getBoolean("pref_enable_home", false)) {
             homeBtn.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             homeBtn.setVisibility(View.GONE);
         }
-        if (sp.getBoolean("pref_enable_recents", false))
-        {
+        if (sp.getBoolean("pref_enable_recents", false)) {
             recentBtn.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             recentBtn.setVisibility(View.GONE);
         }
-        if (sp.getBoolean("pref_enable_split", false))
-        {
+        if (sp.getBoolean("pref_enable_split", false)) {
             splitBtn.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             splitBtn.setVisibility(View.GONE);
         }
 
 
 	}
 
-	public void toggleWifi(View v)
-	{
+	public void toggleWifi(View v) {
         boolean enabled = wifiManager.isWifiEnabled();
         int icon= !enabled ?R.drawable.ic_wifi_on: R.drawable.ic_wifi_off;
         wifiBtn.setImageResource(icon);
         wifiManager.setWifiEnabled(!enabled);
-        
+
 	}
 
-    class WifiReceiver extends BroadcastReceiver
-    {
 
-        @Override
-        public void onReceive(Context p1, Intent p2)
-        {
-            List<ScanResult> scanResults = wifiManager.getScanResults();
-            Toast.makeText(DockService.this, scanResults.size() + "", 5000).show();
-
-        }
-
-
-    }
-
-	public void toggleVolume(View v)
-	{
+	public void toggleVolume(View v) {
 		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 		audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
 
 	}
 
-    public void applyTheme()
-    {
-        switch (sp.getString("pref_theme", "dark"))
-        {
+    public void applyTheme() {
+        switch (sp.getString("pref_theme", "dark")) {
             case "pref_theme_dark":
                 dockLayout.setBackgroundResource(R.drawable.round_rect_solid_dark);
                 menu.setBackgroundResource(R.drawable.round_rect_solid_dark);
@@ -985,30 +849,22 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }
     }
 
-	public void updateCorners()
-	{
-		if (sp.getBoolean("pref_enable_top_right", false))
-		{
+	public void updateCorners() {
+		if (sp.getBoolean("pref_enable_top_right", false)) {
 			topRightCorner.setVisibility(View.VISIBLE);
-		}
-		else
-		{
+		} else {
 			topRightCorner.setVisibility(View.GONE);
 		}
 
-		if (sp.getBoolean("pref_enable_bottom_right", false))
-		{
+		if (sp.getBoolean("pref_enable_bottom_right", false)) {
 			bottomRightCorner.setVisibility(View.VISIBLE);
-		}
-		else
-		{
+		} else {
 			bottomRightCorner.setVisibility(View.GONE);
 		}
 
 	}
 
-    public void updateMenuIcon()
-    {
+    public void updateMenuIcon() {
         File path = new File(sp.getString("pref_menu_icon_uri", ""));
         if (path.exists())
             appsBtn.setImageBitmap(BitmapFactory.decodeFile(path.getAbsolutePath()));
@@ -1018,192 +874,143 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     }
 
 
-	public void lockScreen()
-	{
+	public void lockScreen() {
 
 		DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-		try
-		{
+		try {
 			dpm.lockNow();
-		}
-		catch (SecurityException e)
-		{
+		} catch (SecurityException e) {
 			Toast.makeText(this, "Device administrator permission required", 5000).show();
 			startActivity(new Intent(this, MainActivity.class));
 		}
 
 	}
 
-	public void sendKeyEvent(int keycode)
-	{
-		try
-		{
+	public void sendKeyEvent(int keycode) {
+		try {
             java.lang.Process proccess = Runtime.getRuntime().exec("su");
             DataOutputStream os = new DataOutputStream(proccess.getOutputStream());
             os.writeBytes("input keyevent " + keycode + "\n");
             os.flush();
             os.close();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			Toast.makeText(this, e.toString(), 5000).show();
 		}
 	}
 
-    public void hideFavorites()
-    {
+    public void hideFavorites() {
         favoritesGv.setVisibility(View.GONE);
         appsSeparator.setVisibility(View.GONE);
     }
 
-    public void showFavorites()
-    {
+    public void showFavorites() {
         favoritesGv.setVisibility(View.VISIBLE);
         appsSeparator.setVisibility(View.VISIBLE);
     }
 
-    public ArrayList<App> getFavoriteApps()
-    {
+    public ArrayList<App> getFavoriteApps() {
         ArrayList<App> apps = new ArrayList<App>();
 
-        try
-        {
+        try {
             String path=getFilesDir() + "/pinned.lst";
             BufferedReader br = new BufferedReader(new FileReader(path));
             String applist="";
-            try
-            {
-                if ((applist = br.readLine()) != null)
-                {
+            try {
+                if ((applist = br.readLine()) != null) {
                     String[] applist2 = applist.split(" ");
-                    for (String app:applist2)
-                    {
-                        try
-                        {
+                    for (String app:applist2) {
+                        try {
                             ApplicationInfo appInfo=pm.getApplicationInfo(app, 0);
                             apps.add(new App(pm.getApplicationLabel(appInfo).toString(), app, pm.getApplicationIcon(app)));
-                        }
-                        catch (PackageManager.NameNotFoundException e)
-                        {
+                        } catch (PackageManager.NameNotFoundException e) {
                             Toast.makeText(DockService.this, e.toString(), 5000).show();
                         }   
                     }
                 }
 
-            }
-            catch (IOException e)
-            {} 
-        }
-        catch (FileNotFoundException e)
-        {}
+            } catch (IOException e) {} 
+        } catch (FileNotFoundException e) {}
 
         return apps;
 
     }
 
-    public void pinApp(String app)
-    {
-        try
-        {
+    public void pinApp(String app) {
+        try {
             String path=getFilesDir() + "/pinned.lst";
             BufferedWriter bw = new BufferedWriter(new FileWriter(path, true));
             bw.write(app + " ");
             bw.close();
-        }
-        catch (IOException e)
-        {}
+        } catch (IOException e) {}
         loadFavoriteApps();
 
     }
-    public void unpinApp(String app)
-    {
-        try
-        {
+    public void unpinApp(String app) {
+        try {
             String path=getFilesDir() + "/pinned.lst";
             BufferedReader br = new BufferedReader(new FileReader(path));
             String applist="";
 
-            if ((applist = br.readLine()) != null)
-            {
+            if ((applist = br.readLine()) != null) {
                 applist = applist.replace(app + " ", "");
                 BufferedWriter bw = new BufferedWriter(new FileWriter(path, false));
                 bw.write(applist);
                 bw.close();
             }
 
-        }
-        catch (IOException e)
-        {}
+        } catch (IOException e) {}
         loadFavoriteApps();   
     }
 
-    public   boolean isPinned(String app)
-    {
-        try
-        {
+    public   boolean isPinned(String app) {
+        try {
             String path=getFilesDir() + "/pinned.lst";
             BufferedReader br = new BufferedReader(new FileReader(path));
             String applist="";
 
-            if ((applist = br.readLine()) != null)
-            {
+            if ((applist = br.readLine()) != null) {
                 return applist.contains(app);
             }
 
-        }
-        catch (IOException e)
-        {}
+        } catch (IOException e) {}
         return    false; 
     }
 
-    public void loadFavoriteApps()
-    {
+    public void loadFavoriteApps() {
         ArrayList<App> apps = getFavoriteApps();
-        if (apps.size() > 0)
-        {
+        if (apps.size() > 0) {
             showFavorites();
-        }
-        else
-        {
+        } else {
             hideFavorites();
         }
         favoritesGv.setAdapter(new AppAdapter(this, apps));
 
     }
 
-    public void doAutostart()
-    {
+    public void doAutostart() {
         File script=new File(getFilesDir() + "/autostart.sh");
-        if (script.exists() && script.canExecute())
-        {
-            try
-            {
+        if (script.exists() && script.canExecute()) {
+            try {
                 Runtime.getRuntime().exec(script.getAbsolutePath());
-            }
-            catch (IOException e)
-            {}
+            } catch (IOException e) {}
         }
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         //TODO: Unregister all receivers
         sp.unregisterOnSharedPreferenceChangeListener(this);
         super.onDestroy();
 	}
 
-	class UpdateAppMenuTask extends AsyncTask<Void, Void, ArrayList<App>>
-	{
+	class UpdateAppMenuTask extends AsyncTask<Void, Void, ArrayList<App>> {
 		@Override
-		protected ArrayList<App> doInBackground(Void[] p1)
-		{
+		protected ArrayList<App> doInBackground(Void[] p1) {
 			return getInstalledApps();
 		}
 
 		@Override
-		protected void onPostExecute(ArrayList<App> result)
-		{
+		protected void onPostExecute(ArrayList<App> result) {
 			super.onPostExecute(result);
 
             //TODO: Fix this shit
@@ -1224,16 +1031,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 
 	}
-    class BatteryStatsReceiver extends BroadcastReceiver
-    {
+    class BatteryStatsReceiver extends BroadcastReceiver {
 
         @Override
-        public void onReceive(Context p1, Intent intent)
-        {
+        public void onReceive(Context p1, Intent intent) {
             int level = intent.getExtras().getInt("level");
 
-            if (intent.getExtras().getInt("plugged") == 0)
-            {
+            if (intent.getExtras().getInt("plugged") == 0) {
                 if (level == 0)
                     batteryBtn.setImageResource(R.drawable.battery_empty);
                 else if (level > 0 && level < 30)
@@ -1250,9 +1054,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     batteryBtn.setImageResource(R.drawable.battery_90);
                 else if (level == 100)
                     batteryBtn.setImageResource(R.drawable.battery_full);
-            }
-            else
-            {
+            } else {
                 if (level == 0)
                     batteryBtn.setImageResource(R.drawable.battery_charging_empty);
                 else if (level > 0 && level < 30)

@@ -1,4 +1,4 @@
-package cu.axel.smartdock;
+package cu.axel.smartdock.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import cu.axel.smartdock.R;
+import cu.axel.smartdock.models.AppTask;
 import java.util.ArrayList;
 
 public class AppTaskAdapter extends ArrayAdapter<AppTask>

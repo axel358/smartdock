@@ -1,4 +1,4 @@
-package cu.axel.smartdock;
+package cu.axel.smartdock.activities;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.Activity;
@@ -13,7 +13,7 @@ import android.view.View.OnLongClickListener;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import cu.axel.smartdock.DockService;
+import cu.axel.smartdock.services.DockService;
 import java.util.List;
 import android.app.AlertDialog;
 import android.widget.ArrayAdapter;
@@ -23,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.content.Context;
+import cu.axel.smartdock.R;
 
 public class LauncherActivity extends Activity
 {

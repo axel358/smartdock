@@ -1,4 +1,4 @@
-package cu.axel.smartdock;
+package cu.axel.smartdock.activities;
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 import java.util.List;
 import android.os.Build;
+import cu.axel.smartdock.services.DockService;
+import cu.axel.smartdock.R;
 
 public class MainActivity extends PreferenceActivity 
 {

@@ -33,4 +33,8 @@
 		android:key="pref_enable_ctrl_back"
 		android:title="Enable right Ctrl to act as back button"
 		android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="pref_enable_f10"
+        android:title="Toggle split screen by pressing F10"
+		android:defaultValue="true" />
 </PreferenceScreen>

@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
 		android:resizeableActivity = "true">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
         </activity>
 		<activity
 			android:theme="@style/AppTheme.Launcher"
-            android:name=".LauncherActivity"
+            android:name=".activities.LauncherActivity"
             android:label="@string/app_name" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
@@ -32,7 +32,7 @@
 				<category android:name="android.intent.category.HOME"/>
 			</intent-filter>
         </activity>
-		<service android:name=".DockService"
+		<service android:name=".services.DockService"
 			android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
@@ -41,7 +41,7 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service" />
 		</service>
-		<service android:name=".NotificationService"
+		<service android:name=".services.NotificationService"
 			android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
