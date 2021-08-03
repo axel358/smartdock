@@ -2,19 +2,14 @@ package cu.axel.smartdock.services;
 
 import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
-import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
-import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -51,28 +46,22 @@ import android.widget.PopupMenu;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
+import cu.axel.smartdock.R;
 import cu.axel.smartdock.activities.LauncherActivity;
 import cu.axel.smartdock.activities.MainActivity;
 import cu.axel.smartdock.adapters.AppAdapter;
 import cu.axel.smartdock.adapters.AppTaskAdapter;
 import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.models.AppTask;
+import cu.axel.smartdock.services.DockService;
+import cu.axel.smartdock.utils.AppUtils;
+import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
 import cu.axel.smartdock.widgets.HoverInterceptorLayout;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import cu.axel.smartdock.R;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private PackageManager pm;
@@ -107,7 +96,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		if (event.getAction() == KeyEvent.ACTION_UP && event.isAltPressed()) {
 			if (event.getKeyCode() == KeyEvent.KEYCODE_L) {
 				if (sp.getBoolean("pref_enable_lock_desktop", true))
-					lockScreen();
+                    DeviceUtils.	lockScreen(DockService.this);
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_P) {
 				if (sp.getBoolean("pref_enable_open_settings", true))
 					startActivity(new Intent(Settings.ACTION_SETTINGS));
@@ -124,13 +113,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				if (sp.getBoolean("pref_enable_expand_notifications", true))
 					performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_K) {
-				sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
+                DeviceUtils.	sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_M) {
 				if (sp.getBoolean("pref_enable_open_music", true))
-					sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
+                    DeviceUtils.	sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_B) {
 				if (sp.getBoolean("pref_enable_open_browser", true))
-					sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
+                    DeviceUtils.	sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_D) {
 				//am.moveTaskToFront(launcherTaskId, 0);
 				startActivity(new Intent(this, LauncherActivity.class));
@@ -367,7 +356,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                                 @Override
                                 public void run() {
                                     if (bottomRightCorner.isHovered())
-                                        lockScreen();
+                                        DeviceUtils. lockScreen(DockService.this);
                                 }
 
 
@@ -431,7 +420,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
                     pmenu.inflate(R.menu.app_menu);
 
-                    if (isPinned(app.getPackagename())) {
+                    if (AppUtils.isPinned(app.getPackagename())) {
                         pmenu.getMenu().add(0, 4, 0, "Unpin").setIcon(R.drawable.ic_unpin);
                     } else {
                         pmenu.getMenu().add(0, 3, 0, "Pin").setIcon(R.drawable.ic_pin);
@@ -452,10 +441,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                                         hideMenu();
                                         break;
                                     case 3:
-                                        pinApp(app.getPackagename());
+                                        AppUtils.pinApp(app.getPackagename());
+                                        loadFavoriteApps();
                                         break;
                                     case 4:
-                                        unpinApp(app.getPackagename());
+                                        AppUtils.unpinApp(app.getPackagename());
+                                        loadFavoriteApps();
                                         break;
                                 }
                                 return false;
@@ -510,7 +501,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                                         hideMenu();
                                         break;
                                     case 4:
-                                        unpinApp(app.getPackagename());
+                                        AppUtils.unpinApp(app.getPackagename());
+                                        loadFavoriteApps();
                                         break;
                                 }
                                 return false;
@@ -549,7 +541,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         hideFavorites();
                     } else {
                         searchLayout.setVisibility(View.GONE);
-                        if (getFavoriteApps().size() > 0)
+                        if (AppUtils.getFavoriteApps(pm).size() > 0)
                             showFavorites();
 
                     }
@@ -611,7 +603,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         registerReceiver(batteryReceiver, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
 
         //Run startup script
-        doAutostart();
+        Utils.doAutostart();
 
         showDock();
         hideDock(2000);
@@ -699,36 +691,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }
 	}
 
-
-	public ArrayList<App> getInstalledApps() {
-		ArrayList<App> apps = new ArrayList<App>();
-        int gCount=0;
-		Intent intent = new Intent(Intent.ACTION_MAIN);
-		intent.addCategory(Intent.CATEGORY_LAUNCHER);
-		List<ResolveInfo> appsInfo = pm.queryIntentActivities(intent, 0);
-
-        //TODO: Filter Google App
-		for (ResolveInfo appInfo : appsInfo) {
-			String label = appInfo.activityInfo.loadLabel(pm).toString();
-			Drawable icon = appInfo.activityInfo.loadIcon(pm);
-			String packageName = appInfo.activityInfo.packageName;
-
-			apps.add(new App(label, packageName, icon));
-		}
-
-		Collections.sort(apps, new Comparator<App>(){
-
-				@Override
-				public int compare(App p1, App p2) {
-					return p1.getName().compareToIgnoreCase(p2.getName());
-				}
-
-
-			});
-
-		return apps;
-	}
-
     public void updateRunningTasks() {
         List<ActivityManager.RunningTaskInfo> tasksInfo = am.getRunningTasks(20);
 
@@ -741,7 +703,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     || taskInfo.baseActivity.getPackageName().contains("com.google.android.packageinstaller"))
                     continue;
 
-                if (taskInfo.topActivity.getClassName().equals(getPackageName() + ".LauncherActivity")) {
+                if (taskInfo.topActivity.getClassName().equals(getPackageName() + ".activities.LauncherActivity")) {
                     continue;
                 }
 
@@ -791,11 +753,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	}
 
-
-	public void toggleVolume(View v) {
-		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-		audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
-
+    public void toggleVolume(View v) {
+        DeviceUtils.toggleVolume(this);
 	}
 
     public void applyTheme() {
@@ -873,31 +832,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     }
 
-
-	public void lockScreen() {
-
-		DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-		try {
-			dpm.lockNow();
-		} catch (SecurityException e) {
-			Toast.makeText(this, "Device administrator permission required", 5000).show();
-			startActivity(new Intent(this, MainActivity.class));
-		}
-
-	}
-
-	public void sendKeyEvent(int keycode) {
-		try {
-            java.lang.Process proccess = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(proccess.getOutputStream());
-            os.writeBytes("input keyevent " + keycode + "\n");
-            os.flush();
-            os.close();
-		} catch (IOException e) {
-			Toast.makeText(this, e.toString(), 5000).show();
-		}
-	}
-
     public void hideFavorites() {
         favoritesGv.setVisibility(View.GONE);
         appsSeparator.setVisibility(View.GONE);
@@ -908,76 +842,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         appsSeparator.setVisibility(View.VISIBLE);
     }
 
-    public ArrayList<App> getFavoriteApps() {
-        ArrayList<App> apps = new ArrayList<App>();
-
-        try {
-            String path=getFilesDir() + "/pinned.lst";
-            BufferedReader br = new BufferedReader(new FileReader(path));
-            String applist="";
-            try {
-                if ((applist = br.readLine()) != null) {
-                    String[] applist2 = applist.split(" ");
-                    for (String app:applist2) {
-                        try {
-                            ApplicationInfo appInfo=pm.getApplicationInfo(app, 0);
-                            apps.add(new App(pm.getApplicationLabel(appInfo).toString(), app, pm.getApplicationIcon(app)));
-                        } catch (PackageManager.NameNotFoundException e) {
-                            Toast.makeText(DockService.this, e.toString(), 5000).show();
-                        }   
-                    }
-                }
-
-            } catch (IOException e) {} 
-        } catch (FileNotFoundException e) {}
-
-        return apps;
-
-    }
-
-    public void pinApp(String app) {
-        try {
-            String path=getFilesDir() + "/pinned.lst";
-            BufferedWriter bw = new BufferedWriter(new FileWriter(path, true));
-            bw.write(app + " ");
-            bw.close();
-        } catch (IOException e) {}
-        loadFavoriteApps();
-
-    }
-    public void unpinApp(String app) {
-        try {
-            String path=getFilesDir() + "/pinned.lst";
-            BufferedReader br = new BufferedReader(new FileReader(path));
-            String applist="";
-
-            if ((applist = br.readLine()) != null) {
-                applist = applist.replace(app + " ", "");
-                BufferedWriter bw = new BufferedWriter(new FileWriter(path, false));
-                bw.write(applist);
-                bw.close();
-            }
-
-        } catch (IOException e) {}
-        loadFavoriteApps();   
-    }
-
-    public   boolean isPinned(String app) {
-        try {
-            String path=getFilesDir() + "/pinned.lst";
-            BufferedReader br = new BufferedReader(new FileReader(path));
-            String applist="";
-
-            if ((applist = br.readLine()) != null) {
-                return applist.contains(app);
-            }
-
-        } catch (IOException e) {}
-        return    false; 
-    }
-
     public void loadFavoriteApps() {
-        ArrayList<App> apps = getFavoriteApps();
+        ArrayList<App> apps = AppUtils.getFavoriteApps(pm);
         if (apps.size() > 0) {
             showFavorites();
         } else {
@@ -985,15 +851,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }
         favoritesGv.setAdapter(new AppAdapter(this, apps));
 
-    }
-
-    public void doAutostart() {
-        File script=new File(getFilesDir() + "/autostart.sh");
-        if (script.exists() && script.canExecute()) {
-            try {
-                Runtime.getRuntime().exec(script.getAbsolutePath());
-            } catch (IOException e) {}
-        }
     }
 
     @Override
@@ -1006,7 +863,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	class UpdateAppMenuTask extends AsyncTask<Void, Void, ArrayList<App>> {
 		@Override
 		protected ArrayList<App> doInBackground(Void[] p1) {
-			return getInstalledApps();
+			return AppUtils.getInstalledApps(pm);
 		}
 
 		@Override
