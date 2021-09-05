@@ -38,6 +38,7 @@ public class MainActivity extends PreferenceActivity
             }
         }
     }
+    
 
 	@Override
 	protected void onResume()

@@ -9,13 +9,13 @@
         android:inputType="number"
         android:key="pref_app_menu_height"
         android:hint="height"
-        android:defaultValue="500"
+        android:defaultValue="540"
 		android:title="App menu height"/>
     <EditTextPreference
         android:inputType="number"
         android:key="pref_app_menu_width"
         android:hint="width"
-        android:defaultValue="600"
+        android:defaultValue="650"
 		android:title="App menu width"/>
     <EditTextPreference
         android:inputType="number"
@@ -27,6 +27,6 @@
         android:inputType="number"
         android:key="pref_app_menu_y"
         android:hint="y translation"
-        android:defaultValue="54"
+        android:defaultValue="60"
 		android:title="App menu y translation"/>
 </PreferenceScreen>

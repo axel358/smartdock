@@ -104,6 +104,10 @@ public class LauncherActivity extends Activity
 
 	}
 
+    @Override
+    public void onBackPressed() {
+    }
+
     public void enableAccessibility()
     {
         startActivityForResult(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), 0);

@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
 		<activity
+            android:excludeFromRecents="true"
 			android:theme="@style/AppTheme.Launcher"
             android:name=".activities.LauncherActivity"
             android:label="@string/app_name" >

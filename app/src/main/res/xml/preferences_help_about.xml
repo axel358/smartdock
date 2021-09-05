@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Help and  about">
+    <Preference
+        android:title="@string/app_name"
+        android:summary="A launcher or Android x86 by Axel358" />
+    <Preference
+        android:title="Special thanks to"
+        android:summary="KS Maan" />
+    <Preference
+        android:summary="@string/app_help"
+        android:title="Help" />
+    <Preference
+        android:title="Telegram group"
+        android:summary="Join Telegram group" >
+        <intent android:action="android.intent.action.VIEW"
+            android:data="tg://resolve?domain=smartdock358" />
+    </Preference>
+</PreferenceScreen>

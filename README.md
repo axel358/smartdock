@@ -1,7 +1,7 @@
 # smartdock
-A dock for Android x86
+A launcher for Android x86
 
-This projects is a dock for Android x86 to ease user navigation.
+This project is a launcher for Android x86 to ease user navigation.
 
 The project itself was created using AIDE on Android x86. To build just clone the project and import it to AIDE.
 

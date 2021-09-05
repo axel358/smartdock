@@ -3,4 +3,13 @@
 
     <string name="app_name">Smart Dock</string>
 	<string name="accessibility_service_description">Allows to perform actions such as Back</string>
+    <string name="app_help">
+    For the app to work it needs permissions only available to system apps, therefore the app must be installed as a system app
+    \n
+    \nFor the app to correctly display itself Android software navigation buttons must be hidden, to hide them locate and edit build.prop and add the following line qemu.hw.mainkeys=1 and reboot your system.
+    \n
+    \nThe app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
+    \n
+    \nNote: This app is developed with the hope it is found useful but without any warranty
+    </string>
 </resources>

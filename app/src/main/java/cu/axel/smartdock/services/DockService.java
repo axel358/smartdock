@@ -657,10 +657,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void showMenu() {
-        layoutParams.width = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_width", "600")));
-        layoutParams.height = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_height", "500")));
+        layoutParams.width = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_width", "650")));
+        layoutParams.height = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_height", "540")));
         layoutParams.x = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_x", "2")));
-		layoutParams.y = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_y", "59")));
+		layoutParams.y = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_y", "60")));
 		wm.addView(menu, layoutParams);
 		new UpdateAppMenuTask().execute();
 		menu.setAlpha(0);
@@ -824,11 +824,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
     public void updateMenuIcon() {
-        File path = new File(sp.getString("pref_menu_icon_uri", ""));
-        if (path.exists())
-            appsBtn.setImageBitmap(BitmapFactory.decodeFile(path.getAbsolutePath()));
+        Uri icon = Uri.parse(sp.getString("pref_menu_icon_uri", ""));
+        if (icon != null)
+            appsBtn.setImageURI(icon);
         else
             appsBtn.setImageResource(R.drawable.ic_apps);
+
 
     }
 

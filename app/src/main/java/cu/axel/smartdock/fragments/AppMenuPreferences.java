@@ -1,9 +1,10 @@
 package cu.axel.smartdock.fragments;
-import android.preference.*;
-import android.os.*;
-import cu.axel.smartdock.*;
 
-public class AppMenuPreferences extends PreferenceFragment
+import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import cu.axel.smartdock.R;
+
+public class AppMenuPreferences extends PreferenceFragment 
 {
 
 	@Override

@@ -8,9 +8,8 @@
 		android:title="Dock theme"
 		android:defaultValue="pref_theme_dark" />
     
-    <EditTextPreference
+    <Preference
         android:key="pref_menu_icon_uri"
-        android:hint="path"
         android:defaultValue=""
-		android:title="Menu icon path"/>
+		android:title="Select menu icon"/>
 </PreferenceScreen>
