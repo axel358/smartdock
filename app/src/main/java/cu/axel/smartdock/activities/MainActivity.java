@@ -20,12 +20,11 @@ import java.util.List;
 import android.os.Build;
 import cu.axel.smartdock.services.DockService;
 import cu.axel.smartdock.R;
+import cu.axel.smartdock.utils.DeviceUtils;
 
 public class MainActivity extends PreferenceActivity 
 {
-	private final int ACCESSIBILITY_REQUEST_CODE = 13;
-	private final int DEVICE_ADMIN_REQUEST_CODE = 358;
-    @Override
+	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -81,7 +80,7 @@ public class MainActivity extends PreferenceActivity
 			menu.getItem(0).setEnabled(true);
 			menu.getItem(1).setEnabled(false);
 		}
-		if (isAccessibilityServiceEnabled())
+		if (DeviceUtils.isAccessibilityServiceEnabled(this))
 		{
 			menu.getItem(1).setEnabled(false);
 		}
@@ -100,7 +99,7 @@ public class MainActivity extends PreferenceActivity
 		switch (item.getItemId())
 		{
 			case R.id.action_enable_accessibilty:
-				enableAccessibility();
+				DeviceUtils.enableAccessibility(this);
 				break;
 			case R.id.action_enable_admin:
 				enableDeviceAdmin();
@@ -126,7 +125,7 @@ public class MainActivity extends PreferenceActivity
 	{
 		Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
 		intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, new ComponentName(this, DeviceAdminReceiver.class));
-		startActivityForResult(intent, DEVICE_ADMIN_REQUEST_CODE);
+		startActivity(intent);
 	}
 
 	public boolean isdeviceAdminEnabled()
@@ -147,31 +146,5 @@ public class MainActivity extends PreferenceActivity
 		}
 		return false;
 	}
-
-	public void enableAccessibility()
-	{
-		startActivityForResult(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), ACCESSIBILITY_REQUEST_CODE);
-	}
-
-
-	public boolean isAccessibilityServiceEnabled()
-	{
-		AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-		List<AccessibilityServiceInfo> enabledServices = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
-
-		for (AccessibilityServiceInfo enabledService : enabledServices)
-		{
-			ServiceInfo serviceInfo = enabledService.getResolveInfo().serviceInfo;
-			if (serviceInfo.packageName.equals(getPackageName()) && serviceInfo.name.equals(DockService.class.getName()))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-
-
 
 }

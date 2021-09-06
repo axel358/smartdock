@@ -24,6 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.content.Context;
 import cu.axel.smartdock.R;
+import cu.axel.smartdock.utils.DeviceUtils;
 
 public class LauncherActivity extends Activity
 {
@@ -43,7 +44,7 @@ public class LauncherActivity extends Activity
                 @Override
                 public void onClick(View p1)
                 {
-                    enableAccessibility();
+                    DeviceUtils.enableAccessibility(LauncherActivity.this);
                 }
             });
 
@@ -89,7 +90,7 @@ public class LauncherActivity extends Activity
 		action = "resume";
         sendBroadcastToService(action);
 
-        if (isAccessibilityServiceEnabled())
+        if (DeviceUtils.isAccessibilityServiceEnabled(this))
             serviceBtn.setVisibility(View.GONE);
         else
             serviceBtn.setVisibility(View.VISIBLE);
@@ -108,31 +109,9 @@ public class LauncherActivity extends Activity
     public void onBackPressed() {
     }
 
-    public void enableAccessibility()
-    {
-        startActivityForResult(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), 0);
-    }
-
     public void sendBroadcastToService(String action)
     {
         sendBroadcast(new Intent(getPackageName() + ".HOME").putExtra("action", action));
     }
-
-    public boolean isAccessibilityServiceEnabled()
-    {
-        AccessibilityManager am = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
-        List<AccessibilityServiceInfo> enabledServices = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
-
-        for (AccessibilityServiceInfo enabledService : enabledServices)
-        {
-            ServiceInfo serviceInfo = enabledService.getResolveInfo().serviceInfo;
-            if (serviceInfo.packageName.equals(getPackageName()) && serviceInfo.name.equals(DockService.class.getName()))
-            {
-                return true;
-            }
-        }
-
-        return false;
-	}
 
 }

@@ -26,6 +26,14 @@ public class AppearancePreferences extends PreferenceFragment {
                     return false;
                 }
             });
+        findPreference("pref_menu_icon_reset").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+
+                @Override
+                public boolean onPreferenceClick(Preference p1) {
+                    menuIconPref.getSharedPreferences().edit().putString(menuIconPref.getKey(), "default").commit();
+                    return false;
+                }
+            }); 
 
 	}
 

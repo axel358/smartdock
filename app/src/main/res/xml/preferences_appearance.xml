@@ -10,6 +10,10 @@
     
     <Preference
         android:key="pref_menu_icon_uri"
-        android:defaultValue=""
+        android:defaultValue="default"
 		android:title="Select menu icon"/>
+    
+    <Preference
+        android:key="pref_menu_icon_reset"
+        android:title="Restore default menu icon"/>
 </PreferenceScreen>

@@ -824,12 +824,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
     public void updateMenuIcon() {
-        Uri icon = Uri.parse(sp.getString("pref_menu_icon_uri", ""));
-        if (icon != null)
-            appsBtn.setImageURI(icon);
-        else
+        String iconUri=sp.getString("pref_menu_icon_uri", "default");
+        if (iconUri.equals("default")) {
             appsBtn.setImageResource(R.drawable.ic_apps);
-
+        } else {
+            Uri icon = Uri.parse(iconUri);
+            if (icon != null)
+                appsBtn.setImageURI(icon);
+        }
 
     }
 
