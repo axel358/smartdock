@@ -87,6 +87,17 @@
 			android:text="0"
 			android:gravity="center"
 			android:background="@drawable/circle_solid_white"/>
+        
+        <ImageView
+            android:layout_height="35dp"
+            android:layout_width="35dp"
+            android:src="@drawable/ic_unpin"
+            android:id="@+id/pin_btn"
+            android:layout_margin="5dp"
+            android:padding="8dp"
+            android:background="@drawable/circle_solid_dark"
+            android:onClick="toggleVolume"/>
+        
 
 		<ImageView
 			android:layout_height="35dp"

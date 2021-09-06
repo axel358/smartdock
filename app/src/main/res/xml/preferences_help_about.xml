@@ -10,9 +10,7 @@
         android:summary="@string/app_help"
         android:title="Help" />
     <Preference
+        android:key="pref_join_telegram"
         android:title="Telegram group"
-        android:summary="Join Telegram group" >
-        <intent android:action="android.intent.action.VIEW"
-            android:data="tg://resolve?domain=smartdock358" />
-    </Preference>
+        android:summary="Join Telegram group" />
 </PreferenceScreen>

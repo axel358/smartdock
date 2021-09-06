@@ -67,14 +67,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private PackageManager pm;
 	private SharedPreferences sp;
 	private ActivityManager am;
-	private ImageView appsBtn,backBtn,homeBtn,recentBtn,splitBtn,powerBtn,wifiBtn,batteryBtn,volBtn,settingsBtn;
+	private ImageView appsBtn,backBtn,homeBtn,recentBtn,splitBtn,powerBtn,wifiBtn,batteryBtn,volBtn,settingsBtn,pinBtn;
     private TextView notificationBtn,searchTv;
 	private TextClock dateTv;
 	private Button topRightCorner,bottomRightCorner;
 	private LinearLayout dockLayout,menu,searchLayout;
 	private WindowManager wm;
     private View appsSeparator;
-	private boolean menuVisible,shouldHide = true;
+	private boolean menuVisible,shouldHide = true,isPinned;
 	private WindowManager.LayoutParams layoutParams;
 	private EditText searchEt;
 	private ArrayAdapter<App> appAdapter;
@@ -84,7 +84,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 
 	@Override
-	public void onAccessibilityEvent(AccessibilityEvent p1) {}
+	public void onAccessibilityEvent(AccessibilityEvent p1) {
+        if(p1.getEventType()==AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED){
+            //This might explode
+            updateRunningTasks();
+        }
+    }
 
 	@Override
 	public void onInterrupt() {}
@@ -149,6 +154,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		return super.onKeyEvent(event);
 	}
+    
+    
 
     @Override
     protected void onServiceConnected() {
@@ -167,6 +174,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         splitBtn = dock.findViewById(R.id.split_btn);
 
         notificationBtn = dock.findViewById(R.id.notifications_btn);
+        pinBtn = dock.findViewById(R.id.pin_btn);
         wifiBtn = dock.findViewById(R.id.wifi_btn);
         volBtn = dock.findViewById(R.id.volume_btn);
         batteryBtn = dock.findViewById(R.id.battery_btn);
@@ -247,6 +255,20 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public void onClick(View p1) {
                     performGlobalAction(AccessibilityService.GLOBAL_ACTION_NOTIFICATIONS);
+                }
+            });
+        pinBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    if(isPinned){
+                        pinBtn.setImageResource(R.drawable.ic_unpin);
+                        isPinned=false;
+                        
+                    }else{
+                        pinBtn.setImageResource(R.drawable.ic_pin);
+                        isPinned=true;
+                    }
                 }
             });
         wifiBtn.setOnLongClickListener(new OnLongClickListener(){
@@ -401,6 +423,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     try {
                         startActivity(pm.getLaunchIntentForPackage(app.getPackagename()));
                         hideMenu();
+                        //updateRunningTasks();
                     } catch (Exception e) {
 
                     }
@@ -634,7 +657,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
                 @Override
                 public void run() {
-                    if (shouldHide)
+                    if (shouldHide && !isPinned)
                         dockLayout.setVisibility(View.GONE);
 
                 }
