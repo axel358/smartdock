@@ -12,5 +12,17 @@
         <item>pref_theme_transparent</item>
     </string-array>
     
+    <string-array name="launch_modes">
+        <item>@string/standard</item>
+        <item>@string/maximized</item>
+        <item>@string/portrait</item>
+        <item>@string/fullscreen</item>
+    </string-array>
+    <string-array name="launch_mode_values">
+        <item>standard</item>
+        <item>maximized</item>
+        <item>portrait</item>
+        <item>fullscreen</item>
+    </string-array>
 </resources>
 

@@ -9,6 +9,8 @@ package cu.axel.smartdock;
 
 public final class R {
     public static final class array {
+        public static final int launch_mode_values=0x7f050003;
+        public static final int launch_modes=0x7f050002;
         public static final int theme_values=0x7f050001;
         public static final int themes=0x7f050000;
     }
@@ -40,37 +42,46 @@ public final class R {
         public static final int ic_apps=0x7f020016;
         public static final int ic_bluetooth=0x7f020017;
         public static final int ic_bluetooth_off=0x7f020018;
-        public static final int ic_info=0x7f020019;
-        public static final int ic_launcher=0x7f02001a;
-        public static final int ic_pin=0x7f02001b;
-        public static final int ic_power=0x7f02001c;
-        public static final int ic_search=0x7f02001d;
-        public static final int ic_settings=0x7f02001e;
-        public static final int ic_uninstall=0x7f02001f;
-        public static final int ic_unpin=0x7f020020;
-        public static final int ic_volume=0x7f020021;
-        public static final int ic_wifi_off=0x7f020022;
-        public static final int ic_wifi_on=0x7f020023;
-        public static final int round_rect_solid_black=0x7f020024;
-        public static final int round_rect_solid_dark=0x7f020025;
-        public static final int round_rect_transparent=0x7f020026;
-        public static final int search_background_black=0x7f020027;
-        public static final int search_background_dark=0x7f020028;
-        public static final int search_background_transparent=0x7f020029;
-        public static final int sysbar_back=0x7f02002a;
-        public static final int sysbar_home=0x7f02002b;
-        public static final int sysbar_menu=0x7f02002c;
-        public static final int sysbar_recent=0x7f02002d;
-        public static final int sysbar_split=0x7f02002e;
-        public static final int sysbar_toggle=0x7f02002f;
+        public static final int ic_fullscreen=0x7f020019;
+        public static final int ic_info=0x7f02001a;
+        public static final int ic_launch_mode=0x7f02001b;
+        public static final int ic_launcher=0x7f02001c;
+        public static final int ic_maximized=0x7f02001d;
+        public static final int ic_pin=0x7f02001e;
+        public static final int ic_portrait=0x7f02001f;
+        public static final int ic_power=0x7f020020;
+        public static final int ic_search=0x7f020021;
+        public static final int ic_settings=0x7f020022;
+        public static final int ic_standard=0x7f020023;
+        public static final int ic_uninstall=0x7f020024;
+        public static final int ic_unpin=0x7f020025;
+        public static final int ic_volume=0x7f020026;
+        public static final int ic_wifi_off=0x7f020027;
+        public static final int ic_wifi_on=0x7f020028;
+        public static final int round_rect_solid_black=0x7f020029;
+        public static final int round_rect_solid_dark=0x7f02002a;
+        public static final int round_rect_transparent=0x7f02002b;
+        public static final int search_background_black=0x7f02002c;
+        public static final int search_background_dark=0x7f02002d;
+        public static final int search_background_transparent=0x7f02002e;
+        public static final int sysbar_back=0x7f02002f;
+        public static final int sysbar_home=0x7f020030;
+        public static final int sysbar_menu=0x7f020031;
+        public static final int sysbar_recent=0x7f020032;
+        public static final int sysbar_split=0x7f020033;
+        public static final int sysbar_toggle=0x7f020034;
     }
     public static final class id {
         public static final int action_appinfo=0x7f090021;
-        public static final int action_change_wallpaper=0x7f090023;
-        public static final int action_enable_accessibilty=0x7f090026;
-        public static final int action_enable_admin=0x7f090027;
-        public static final int action_grant_permissions=0x7f090025;
-        public static final int action_settings=0x7f090024;
+        public static final int action_change_wallpaper=0x7f090027;
+        public static final int action_enable_accessibilty=0x7f09002a;
+        public static final int action_enable_admin=0x7f09002b;
+        public static final int action_grant_permissions=0x7f090029;
+        public static final int action_launch_fullscreen=0x7f090026;
+        public static final int action_launch_maximized=0x7f090024;
+        public static final int action_launch_portrait=0x7f090025;
+        public static final int action_launch_standard=0x7f090023;
+        public static final int action_settings=0x7f090028;
         public static final int action_uninstall=0x7f090022;
         public static final int apps_btn=0x7f090010;
         public static final int apps_lv=0x7f090015;
@@ -124,6 +135,10 @@ public final class R {
         public static final int accessibility_service_description=0x7f060001;
         public static final int app_help=0x7f060002;
         public static final int app_name=0x7f060000;
+        public static final int fullscreen=0x7f060006;
+        public static final int maximized=0x7f060004;
+        public static final int portrait=0x7f060005;
+        public static final int standard=0x7f060003;
     }
     public static final class style {
         public static final int AppTheme=0x7f070000;

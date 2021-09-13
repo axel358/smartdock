@@ -12,4 +12,8 @@
     \n
     \nNote: This app is developed with the hope it is found useful but without any warranty
     </string>
+    <string name="standard">Standard</string>
+    <string name="maximized">Maximized</string>
+    <string name="portrait">Portrait</string>
+    <string name="fullscreen">Fullscreen</string>
 </resources>

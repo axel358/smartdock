@@ -29,4 +29,19 @@
         android:hint="y translation"
         android:defaultValue="60"
 		android:title="App menu y translation"/>
+    <ListPreference
+        android:entries="@array/themes" 
+        android:dialogTitle="Theme" 
+        android:entryValues="@array/theme_values" 
+        android:key="pref_theme"
+        android:title="Dock theme"
+        android:defaultValue="pref_theme_dark" />
+    <ListPreference
+        android:entries="@array/launch_modes" 
+        android:dialogTitle="Theme" 
+        android:entryValues="@array/launch_mode_values" 
+        android:key="pref_launch_mode"
+        android:title="Default app launch mode"
+        android:defaultValue="standard" />
+    
 </PreferenceScreen>

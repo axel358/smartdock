@@ -3,11 +3,12 @@
     <style name="AppTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
 		<item name="android:popupMenuStyle">@style/PopupMenuTheme</item>
 	</style>
-	<style name="AppTheme.Launcher" parent="@android:style/Theme.Material.NoActionBar.Fullscreen">
+	<style name="AppTheme.Launcher" parent="@android:style/Theme.Material.NoActionBar">
 		<item name="android:windowShowWallpaper">true</item>
 		<item name="android:windowBackground">@android:color/transparent</item>
-		<item name="android:windowTranslucentStatus">true</item>
+		<item name="android:windowTranslucentStatus">false</item>
 		<item name="android:fitsSystemWindows">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
 	</style>
 	<style name="PopupMenuTheme" parent="@android:style/Theme.Material">
 	</style>

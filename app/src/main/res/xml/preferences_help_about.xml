@@ -5,7 +5,7 @@
         android:summary="A launcher or Android x86 by Axel358" />
     <Preference
         android:title="Special thanks to"
-        android:summary="KS Maan" />
+        android:summary="K S Maan" />
     <Preference
         android:summary="@string/app_help"
         android:title="Help" />

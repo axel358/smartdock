@@ -9,4 +9,28 @@
 		android:icon="@drawable/ic_uninstall"
         android:id="@+id/action_uninstall"
         android:title="Uninstall"/>
+    
+    <item
+        android:icon="@drawable/ic_launch_mode"
+        android:title="Open in">
+        <menu>
+            <item
+                android:icon="@drawable/ic_standard"
+                android:id="@+id/action_launch_standard"
+                android:title="Standard"/>
+            <item
+                android:icon="@drawable/ic_maximized"
+                android:id="@+id/action_launch_maximized"
+                android:title="Maximized"/>
+
+            <item
+                android:icon="@drawable/ic_portrait"
+                android:id="@+id/action_launch_portrait"
+                android:title="Portrait"/>
+            <item
+                android:icon="@drawable/ic_fullscreen"
+                android:id="@+id/action_launch_fullscreen"
+                android:title="Fullscreen"/>
+        </menu>
+    </item>
 </menu>

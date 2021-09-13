@@ -5,11 +5,10 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
-import android.widget.Toast;
 import cu.axel.smartdock.models.App;
-import cu.axel.smartdock.services.DockService;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,10 +17,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import android.content.Context;
 
 public class AppUtils {
-
-    private static final String PINNED_LIST="/data/data/cu.axel.smartdock/files/pinned.lst";
+    private static final String FILES_DIR = "/data/data/cu.axel.smartdock/files";
+    private static final String PINNED_LIST=FILES_DIR + "/pinned.lst";
 
     public static ArrayList<App> getInstalledApps(PackageManager pm) {
         ArrayList<App> apps = new ArrayList<App>();
@@ -78,6 +78,9 @@ public class AppUtils {
 
     public static void pinApp(String app) {
         try {
+            File dir=new File(FILES_DIR);
+            if (!dir.exists())
+                dir.mkdir();
             BufferedWriter bw = new BufferedWriter(new FileWriter(PINNED_LIST, true));
             bw.write(app + " ");
             bw.close();
@@ -110,5 +113,14 @@ public class AppUtils {
 
         } catch (IOException e) {}
         return    false; 
+    }
+
+    public static boolean isGame(PackageManager pm, String packageName) {
+        try {
+            ApplicationInfo info = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
+            return (info.flags & ApplicationInfo.FLAG_IS_GAME) != 0 || (info.metaData != null && info.metaData.getBoolean("isGame", false));
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 }
