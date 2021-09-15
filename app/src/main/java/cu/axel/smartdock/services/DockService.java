@@ -65,6 +65,8 @@ import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import cu.axel.smartdock.db.DBHelper;
+import android.view.inputmethod.InputMethodManager;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener {
 
@@ -84,7 +86,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private LinearLayout dockLayout,menu,searchLayout;
 	private WindowManager wm;
     private View appsSeparator;
-	private boolean menuVisible,shouldHide = true,isPinned;
+	private boolean menuVisible,shouldHide = true,isPinned,reflectionAllowed;
 	private WindowManager.LayoutParams layoutParams;
 	private EditText searchEt;
 	private ArrayAdapter<App> appAdapter;
@@ -92,6 +94,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private WifiManager wifiManager;
     private BatteryStatsReceiver batteryReceiver;
     private GestureDetector gestureDetector;
+    private DBHelper db;
 
 	@Override
 	public void onAccessibilityEvent(AccessibilityEvent p1) {
@@ -137,6 +140,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     DeviceUtils.	sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_D) {
 				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
+			} else if (event.getKeyCode() == KeyEvent.KEYCODE_O) {
+                InputMethodManager im=(InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                im.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 			}
 		} else if (event.getAction() == KeyEvent.ACTION_UP) {
 			if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT) {
@@ -440,11 +446,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
                     App app = (App) p1.getItemAtPosition(p3);
-                    if (AppUtils.isGame(pm, app.getPackagename()))
-                        launchApp(sp.getString("pref_launch_mode", "fullscreen"), app.getPackagename());
-                    else
-                        launchApp(sp.getString("pref_launch_mode", "standard"), app.getPackagename());
-                    
+                    launchApp(null, app.getPackagename());
                 }
 
 
@@ -517,10 +519,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
                     App app = (App) p1.getItemAtPosition(p3);
-                    if (AppUtils.isGame(pm, app.getPackagename()))
-                        launchApp(sp.getString("pref_launch_mode", "fullscreen"), app.getPackagename());
-                    else
-                        launchApp(sp.getString("pref_launch_mode", "standard"), app.getPackagename());
+                    launchApp(null, app.getPackagename());
                 }
 
 
@@ -680,6 +679,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		Toast.makeText(this, "Smart Dock started", 5000).show();
 
+        reflectionAllowed = Build.VERSION.SDK_INT < 28 || Utils.allowReflection();
+
+        db = new DBHelper(this);
 		pm = getPackageManager();
 		am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -705,6 +707,18 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     }
 
     private void launchApp(String mode, String packagename) {
+        if (mode == null) {
+            String m;
+            if (sp.getBoolean("pref_remember_launch_mode", true) && (m = db.getLaunchMode(packagename)) != null)
+                mode = m;
+            else if (AppUtils.isGame(pm, packagename))
+                mode = "fullscreen";
+            else
+                mode = sp.getString("pref_launch_mode", "standard");
+        } else {
+            if (sp.getBoolean("pref_remember_launch_mode", true))
+                db.saveLaunchMode(packagename, mode);
+        }
         launchApp(mode, pm.getLaunchIntentForPackage(packagename));
     }
     private void launchApp(String mode, Intent intent) {
@@ -716,6 +730,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }
         ActivityOptions options=ActivityOptions.makeBasic();
         try {
+            if (!reflectionAllowed) Utils.allowReflection();
             String methodName = Build.VERSION.SDK_INT >= 28 ?"setLaunchWindowingMode": "setLaunchStackId";
             int windowMode;
             if (mode.equals("fullscreen")) {

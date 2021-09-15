@@ -2,7 +2,7 @@
     android:title="Help and  about">
     <Preference
         android:title="@string/app_name"
-        android:summary="A launcher or Android x86 by Axel358" />
+        android:summary="A launcher for Android x86 by Axel358" />
     <Preference
         android:title="Special thanks to"
         android:summary="K S Maan" />

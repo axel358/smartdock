@@ -5,6 +5,7 @@ import android.widget.PopupMenu;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class Utils {
     private static final String FILES_DIR="/data/data/cu.axel.smartdock/files";
@@ -22,6 +23,24 @@ public class Utils {
         } catch (Throwable th) {
             th.printStackTrace();
         }
+    }
+
+    public static boolean allowReflection() {
+        try {
+            Method forName = Class.class.getDeclaredMethod("forName", String.class);
+            Method getDeclaredMethod = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
+
+            Class<?> vmRuntimeClass = (Class<?>) forName.invoke(null, "dalvik.system.VMRuntime");
+            Method getRuntime = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "getRuntime", null);
+            Method setHiddenApiExemptions = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "setHiddenApiExemptions", new Class[]{String[].class});
+
+            Object vmRuntime = getRuntime.invoke(null);
+            setHiddenApiExemptions.invoke(vmRuntime, new Object[]{new String[]{"L"}});
+        } catch (Throwable ignored) {
+            return  false;
+        }
+
+        return true;
     }
 
     public static int dpToPx(Context context, int dp) {
