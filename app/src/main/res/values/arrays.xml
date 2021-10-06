@@ -4,14 +4,26 @@
         <item>Dark</item>
         <item>Black</item>
         <item>Transparent</item>
-     </string-array>
-     
+    </string-array>
+
     <string-array name="theme_values">
         <item>pref_theme_dark</item>
         <item>pref_theme_black</item>
         <item>pref_theme_transparent</item>
     </string-array>
-    
+
+    <string-array name="icon_shapes">
+        <item>Circle</item>
+        <item>Round Square</item>
+        <item>Legacy</item>
+    </string-array>
+
+    <string-array name="icon_shapes_values">
+        <item>pref_icon_shape_circle</item>
+        <item>pref_icon_shape_round_rect</item>
+        <item>pref_icon_shape_legacy</item>
+    </string-array>
+
     <string-array name="launch_modes">
         <item>@string/standard</item>
         <item>@string/maximized</item>

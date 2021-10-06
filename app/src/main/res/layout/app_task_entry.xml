@@ -7,13 +7,11 @@
 	android:gravity="center">
 
 	<ImageView
-		android:background="@drawable/circle_solid_white"
 		android:layout_height="40dp"
 		android:layout_width="40dp"
 		android:src="@android:drawable/ic_delete"
 		android:id="@+id/icon_iv"
-		android:layout_margin="9dp"
-		android:padding="4dp"/>
+		android:layout_margin="9dp"/>
 
 </LinearLayout>
 

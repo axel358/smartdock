@@ -12,4 +12,8 @@
 	</style>
 	<style name="PopupMenuTheme" parent="@android:style/Theme.Material">
 	</style>
+    <style name="PopupMenuTheme.Black" parent="@android:style/Theme.Material">
+        <item name="android:itemBackground">@android:color/black</item>
+        <item name="android:background">@android:color/black</item>      
+	</style>
 </resources>

@@ -21,8 +21,8 @@ import android.content.Context;
 
 public class AppUtils {
     private static final String FILES_DIR = "/data/data/cu.axel.smartdock/files";
-    private static final String PINNED_LIST=FILES_DIR + "/pinned.lst";
-    private static final String LAUNCH_MODES=FILES_DIR + "/launch_modes.lst";
+    public static final String PINNED_LIST=FILES_DIR + "/pinned.lst";
+    public static final String DESKTOP_LIST=FILES_DIR + "/desktop.lst";
 
     public static ArrayList<App> getInstalledApps(PackageManager pm) {
         ArrayList<App> apps = new ArrayList<App>();
@@ -52,11 +52,11 @@ public class AppUtils {
         return apps;
 	}
 
-    public static ArrayList<App> getFavoriteApps(PackageManager pm) {
+    public static ArrayList<App> getPinnedApps(PackageManager pm, String type) {
         ArrayList<App> apps = new ArrayList<App>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(PINNED_LIST));
+            BufferedReader br = new BufferedReader(new FileReader(type));
             String applist="";
             try {
                 if ((applist = br.readLine()) != null) {
@@ -77,25 +77,25 @@ public class AppUtils {
 
     }
 
-    public static void pinApp(String app) {
+    public static void pinApp(String app, String type) {
         try {
             File dir=new File(FILES_DIR);
             if (!dir.exists())
                 dir.mkdir();
-            BufferedWriter bw = new BufferedWriter(new FileWriter(PINNED_LIST, true));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(type, true));
             bw.write(app + " ");
             bw.close();
         } catch (IOException e) {}
 
     }
-    public static void unpinApp(String app) {
+    public static void unpinApp(String app, String type) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(PINNED_LIST));
+            BufferedReader br = new BufferedReader(new FileReader(type));
             String applist="";
 
             if ((applist = br.readLine()) != null) {
                 applist = applist.replace(app + " ", "");
-                BufferedWriter bw = new BufferedWriter(new FileWriter(PINNED_LIST, false));
+                BufferedWriter bw = new BufferedWriter(new FileWriter(type, false));
                 bw.write(applist);
                 bw.close();
             }
@@ -103,9 +103,9 @@ public class AppUtils {
         } catch (IOException e) {}   
     }
 
-    public static boolean isPinned(String app) {
+    public static boolean isPinned(String app, String type) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(PINNED_LIST));
+            BufferedReader br = new BufferedReader(new FileReader(type));
             String applist="";
 
             if ((applist = br.readLine()) != null) {
@@ -116,8 +116,6 @@ public class AppUtils {
         return    false; 
     }
 
-    
-
     public static boolean isGame(PackageManager pm, String packageName) {
         try {
             ApplicationInfo info = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
@@ -125,5 +123,12 @@ public class AppUtils {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
+    }
+
+    public static String getCurrentLauncher(PackageManager pm) {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return resolveInfo.activityInfo.packageName;
     }
 }

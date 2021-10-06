@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:icon="@drawable/ic_users"
+        android:id="@+id/action_users"
+        android:title="Users"/>
+
+    <item
+        android:icon="@drawable/ic_user_folder"
+        android:id="@+id/action_files"
+        android:title="Files"/>
+    
+    <item
+        android:icon="@drawable/ic_user_settings"
+        android:id="@+id/action_system_settings"
+        android:title="Settings"/>
+
+    <item
+        android:icon="@drawable/ic_settings"
+        android:id="@+id/action_dock_settings"
+        android:title="Dock Settings"/>
+    
+</menu>

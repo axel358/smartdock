@@ -15,7 +15,34 @@
 		android:gravity="center_vertical"
 		android:layout_marginLeft="10dp"
 		android:layout_marginRight="10dp"
-		android:layout_marginTop="5dp">
+		android:layout_marginTop="5dp"
+		android:layout_marginBottom="10dp">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<ImageView
+				android:layout_height="36dp"
+				android:layout_width="36dp"
+				android:src="@drawable/ic_user"
+				android:id="@+id/avatar_iv"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:text="User"
+				android:layout_marginLeft="10dp"
+				android:id="@+id/user_name_tv"
+				android:textColor="#FFFFFFFF"
+				android:layout_marginRight="10dp"
+				android:maxEms="10"
+				android:singleLine="true"/>
+
+		</LinearLayout>
 
 		<EditText
 			android:background="@drawable/search_background_dark"
@@ -31,17 +58,8 @@
 			android:paddingTop="6dp"
 			android:paddingBottom="6dp"
 			android:layout_weight="1.0"
-			android:layout_marginLeft="10dp"/>
-
-		<ImageView
-			android:id="@+id/settings_btn"
-			android:background="@drawable/circle_solid_dark"
-			android:padding="5dp"
-			android:layout_height="35dp"
-			android:layout_width="35dp"
-			android:src="@drawable/ic_settings"
-			android:layout_marginLeft="15dp"
-			android:onClick="openDockSettings"/>
+			android:layout_marginLeft="10dp"
+			android:singleLine="true"/>
 
 	</LinearLayout>
 
@@ -51,17 +69,17 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:id="@+id/fav_applist_lv"
-		android:layout_marginTop="5dp"/>
+		android:layout_marginBottom="10dp"/>
 
 	<View
-        android:id="@+id/apps_separator"
+		android:id="@+id/apps_separator"
 		android:color="@android:color/white"
 		android:background="?android:attr/dividerVertical"
 		android:layout_height="2dp"
 		android:layout_width="match_parent"
 		android:layout_marginLeft="10dp"
 		android:layout_marginRight="10dp"
-		android:layout_marginTop="10dp"/>
+		android:layout_marginBottom="10dp"/>
 
 	<GridView
 		android:stretchMode="columnWidth"
@@ -69,12 +87,11 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:id="@+id/menu_applist_lv"
-		android:layout_marginTop="5dp"
 		android:layout_weight="1.0"/>
 
 	<LinearLayout
-        android:visibility="gone"
-        android:id="@+id/search_layout"
+		android:visibility="gone"
+		android:id="@+id/search_layout"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
@@ -84,13 +101,13 @@
 		android:layout_marginTop="5dp">
 
 		<ImageView
-            android:id="@+id/search_icon"
+			android:id="@+id/search_icon"
 			android:layout_height="28dp"
 			android:layout_width="28dp"
 			android:src="@drawable/ic_search"/>
 
 		<TextView
-            android:id="@+id/search_tv"
+			android:id="@+id/search_tv"
 			android:textColor="@android:color/white"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"

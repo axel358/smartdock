@@ -7,10 +7,10 @@
 	android:gravity="center">
 
 	<ImageView
-		android:layout_height="40dp"
-		android:layout_width="40dp"
+		android:layout_height="50dp"
+		android:layout_width="50dp"
 		android:src="@android:drawable/ic_delete"
-		android:id="@+id/menu_app_icon_iv"
+		android:id="@+id/desktop_app_icon_iv"
 		android:layout_margin="5dp"/>
 
 	<TextView
@@ -18,9 +18,9 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:text="Text"
-		android:id="@+id/menu_app_name_tv"
+		android:id="@+id/desktop_app_name_tv"
 		android:textColor="#FFFFFF"
-		android:textSize="14sp"
+		android:textSize="15sp"
 		android:gravity="center"/>
 
 </LinearLayout>

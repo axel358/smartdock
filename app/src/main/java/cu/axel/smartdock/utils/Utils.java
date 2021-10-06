@@ -1,11 +1,17 @@
 package cu.axel.smartdock.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.widget.PopupMenu;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import android.graphics.PorterDuff.Mode;
 
 public class Utils {
     private static final String FILES_DIR="/data/data/cu.axel.smartdock/files";
@@ -54,6 +60,26 @@ public class Utils {
                 Runtime.getRuntime().exec(script.getAbsolutePath());
             } catch (IOException e) {}
         }
+    }
+    
+    public static Bitmap getCircularBitmap(Bitmap bitmap) {
+        Bitmap result = Bitmap.createBitmap(bitmap.getWidth(),
+                                            bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
+                          bitmap.getWidth() / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        
+        return result;
     }
 
 }

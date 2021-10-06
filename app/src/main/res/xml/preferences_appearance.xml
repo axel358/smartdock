@@ -7,7 +7,20 @@
         android:key="pref_theme"
 		android:title="Dock theme"
 		android:defaultValue="pref_theme_dark" />
-    
+    <ListPreference
+        android:entries="@array/icon_shapes" 
+        android:dialogTitle="Icon Shape" 
+        android:entryValues="@array/icon_shapes_values" 
+        android:key="pref_icon_shape"
+        android:title="Icon Shape"
+        android:defaultValue="pref_icon_shape_circle" />
+    <EditTextPreference
+        android:summary="Defines the amount of whitespace between the icon and it\'s border"
+        android:inputType="number"
+        android:key="pref_icon_padding"
+        android:hint="icon padding"
+        android:defaultValue="4"
+        android:title="Icon padding"/>
     <Preference
         android:key="pref_menu_icon_uri"
         android:defaultValue="default"

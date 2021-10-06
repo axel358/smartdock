@@ -29,6 +29,14 @@
         android:hint="y translation"
         android:defaultValue="60"
 		android:title="App menu y translation"/>
+    
+    <EditTextPreference
+        android:inputType="number"
+        android:key="pref_num_columns"
+        android:hint="5"
+        android:defaultValue="5"
+        android:title="Number of columns"/>
+    
     <ListPreference
         android:entries="@array/launch_modes" 
         android:dialogTitle="Theme" 

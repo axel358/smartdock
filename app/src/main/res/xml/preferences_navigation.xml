@@ -16,4 +16,15 @@
 		android:key="pref_enable_split"
 		android:title="Enable split button"
 		android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="pref_pin_dock"
+        android:title="Pin the dock on startup"
+        android:summary="Useful when working with orher launchers"
+        android:defaultValue="false" />
+    <EditTextPreference
+        android:inputType="number"
+        android:key="pref_dock_hide_delay"
+        android:hint="500"
+        android:defaultValue="500"
+		android:title="Dock hide delay in ms"/>
 </PreferenceScreen>

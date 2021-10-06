@@ -4,14 +4,58 @@
 	android:layout_width="fill_parent"
 	android:id="@+id/ll_background"
 	android:layout_height="fill_parent"
-	android:orientation="vertical"
+	android:orientation="horizontal"
 	android:gravity="center">
+
+	<LinearLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:layout_weight="1.0"
+		android:padding="10dp">
+
+		<GridView
+			android:orientation="vertical"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:stretchMode="none"
+			android:gravity="center"
+			android:numColumns="2"
+			android:verticalSpacing="20dp"
+			android:columnWidth="100dp"
+			android:id="@+id/desktop_apps_gv"/>
+
+	</LinearLayout>
 
 	<Button
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:text="Start service"
 		android:id="@+id/service_btn"/>
+
+	<LinearLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:layout_weight="1.0"
+		android:gravity="right"
+		android:padding="16dp">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/tv_date"
+			android:textSize="50sp"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:visibility="gone"/>
+
+		<CalendarView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="10dp"
+			android:visibility="gone"/>
+
+	</LinearLayout>
 
 </LinearLayout>
 
