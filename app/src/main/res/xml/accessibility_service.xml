@@ -5,5 +5,5 @@
 	android:accessibilityFeedbackType="feedbackAllMask"
 	android:canRetrieveWindowContent="true"
     android:canRequestFilterKeyEvents="true"
-    android:accessibilityFlags="flagRequestFilterKeyEvents"/>
+    android:accessibilityFlags="flagRequestFilterKeyEvents|flagReportViewIds"/>
 
