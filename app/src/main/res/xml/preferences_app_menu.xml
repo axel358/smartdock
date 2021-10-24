@@ -2,9 +2,15 @@
 	android:title="App Menu">
 	<CheckBoxPreference
 		android:key="pref_enable_app_menu"
-		android:title="Toggle App Menu with Home button"
-		android:summary="When this feature is turned on use Alt+D to go back to the desktop"
+		android:title="Toggle App Menu with modifier key"
 		android:defaultValue="true" />
+    <ListPreference
+        android:entries="@array/shortcut_keys" 
+        android:dialogTitle="Menu modifier key" 
+        android:title="Menu modifier key" 
+        android:entryValues="@array/shortcut_keys_values" 
+        android:key="pref_menu_key"
+        android:defaultValue="3" />
     <EditTextPreference
         android:inputType="number"
         android:key="pref_app_menu_height"

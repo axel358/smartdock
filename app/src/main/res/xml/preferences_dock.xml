@@ -1,5 +1,5 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="Navigation buttons">
+	android:title="Dock">
 	<CheckBoxPreference
 		android:key="pref_enable_back"
 		android:title="Enable back button"
@@ -19,7 +19,7 @@
     <CheckBoxPreference
         android:key="pref_pin_dock"
         android:title="Pin the dock on startup"
-        android:summary="Useful when working with orher launchers"
+        android:summary="Useful when working with other launchers"
         android:defaultValue="false" />
     <EditTextPreference
         android:inputType="number"

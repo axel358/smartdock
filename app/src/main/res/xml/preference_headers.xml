@@ -7,14 +7,17 @@
         android:fragment="cu.axel.smartdock.fragments.AppMenuPreferences"
         android:title="App Menu" />
 	<header 
+        android:fragment="cu.axel.smartdock.fragments.DockPreferences"
+        android:title="Dock" />
+	<header 
+        android:fragment="cu.axel.smartdock.fragments.DesktopPreferences"
+        android:title="Desktop" />
+    <header 
         android:fragment="cu.axel.smartdock.fragments.KeyboardPreferences"
         android:title="Keyboard" />
 	<header 
         android:fragment="cu.axel.smartdock.fragments.HotCornersPreferences"
         android:title="Hot Corners" />
-	<header 
-        android:fragment="cu.axel.smartdock.fragments.NavigationPreferences"
-        android:title="Navigation" />
 	<header 
         android:fragment="cu.axel.smartdock.fragments.NotificationPreferences"
         android:title="Notifications" />

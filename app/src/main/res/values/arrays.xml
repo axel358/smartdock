@@ -12,6 +12,24 @@
         <item>pref_theme_transparent</item>
     </string-array>
 
+    <string-array name="shortcut_keys">
+        <item>Alt</item>
+        <item>Ctrl</item>
+        <item>Meta</item>
+    </string-array>
+
+    <string-array name="shortcut_keys_values">
+        <item>57</item>
+        <item>113</item>
+        <item>3</item>
+    </string-array>
+    
+    <string-array name="shortcut_key_values">
+        <item>pref_theme_dark</item>
+        <item>pref_theme_black</item>
+        <item>pref_theme_transparent</item>
+    </string-array>
+    
     <string-array name="icon_shapes">
         <item>Circle</item>
         <item>Round Square</item>

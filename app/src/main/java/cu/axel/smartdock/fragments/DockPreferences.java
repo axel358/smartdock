@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import cu.axel.smartdock.R;
 
-public class NavigationPreferences extends PreferenceFragment 
+public class DockPreferences extends PreferenceFragment 
 {
 
 	@Override
@@ -12,7 +12,7 @@ public class NavigationPreferences extends PreferenceFragment
 	{
 		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.preferences_navigation);
+		addPreferencesFromResource(R.xml.preferences_dock);
 	}
 
 }

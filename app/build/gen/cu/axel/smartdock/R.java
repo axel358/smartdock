@@ -9,10 +9,13 @@ package cu.axel.smartdock;
 
 public final class R {
     public static final class array {
-        public static final int icon_shapes=0x7f050002;
-        public static final int icon_shapes_values=0x7f050003;
-        public static final int launch_mode_values=0x7f050005;
-        public static final int launch_modes=0x7f050004;
+        public static final int icon_shapes=0x7f050005;
+        public static final int icon_shapes_values=0x7f050006;
+        public static final int launch_mode_values=0x7f050008;
+        public static final int launch_modes=0x7f050007;
+        public static final int shortcut_key_values=0x7f050004;
+        public static final int shortcut_keys=0x7f050002;
+        public static final int shortcut_keys_values=0x7f050003;
         public static final int theme_values=0x7f050001;
         public static final int themes=0x7f050000;
     }
@@ -65,19 +68,20 @@ public final class R {
         public static final int ic_volume=0x7f02002b;
         public static final int ic_wifi_off=0x7f02002c;
         public static final int ic_wifi_on=0x7f02002d;
-        public static final int round_rect_solid_black=0x7f02002e;
-        public static final int round_rect_solid_dark=0x7f02002f;
-        public static final int round_rect_solid_white=0x7f020030;
-        public static final int round_rect_transparent=0x7f020031;
-        public static final int search_background_black=0x7f020032;
-        public static final int search_background_dark=0x7f020033;
-        public static final int search_background_transparent=0x7f020034;
-        public static final int sysbar_back=0x7f020035;
-        public static final int sysbar_home=0x7f020036;
-        public static final int sysbar_menu=0x7f020037;
-        public static final int sysbar_recent=0x7f020038;
-        public static final int sysbar_split=0x7f020039;
-        public static final int sysbar_toggle=0x7f02003a;
+        public static final int notes_background=0x7f02002e;
+        public static final int round_rect_solid_black=0x7f02002f;
+        public static final int round_rect_solid_dark=0x7f020030;
+        public static final int round_rect_solid_white=0x7f020031;
+        public static final int round_rect_transparent=0x7f020032;
+        public static final int search_background_black=0x7f020033;
+        public static final int search_background_dark=0x7f020034;
+        public static final int search_background_transparent=0x7f020035;
+        public static final int sysbar_back=0x7f020036;
+        public static final int sysbar_home=0x7f020037;
+        public static final int sysbar_menu=0x7f020038;
+        public static final int sysbar_recent=0x7f020039;
+        public static final int sysbar_split=0x7f02003a;
+        public static final int sysbar_toggle=0x7f02003b;
     }
     public static final class id {
         public static final int action_appinfo=0x7f090026;
@@ -116,6 +120,7 @@ public final class R {
         public static final int menu_app_name_tv=0x7f090005;
         public static final int menu_applist_lv=0x7f09000f;
         public static final int menu_et=0x7f09000c;
+        public static final int notes_et=0x7f090003;
         public static final int notif_close_btn=0x7f090024;
         public static final int notif_icon_iv=0x7f090022;
         public static final int notif_text_tv=0x7f090025;
@@ -129,7 +134,6 @@ public final class R {
         public static final int search_tv=0x7f090012;
         public static final int service_btn=0x7f090002;
         public static final int split_btn=0x7f090019;
-        public static final int tv_date=0x7f090003;
         public static final int user_name_tv=0x7f09000b;
         public static final int volume_btn=0x7f09001e;
         public static final int wifi_btn=0x7f09001d;
@@ -171,10 +175,11 @@ public final class R {
         public static final int preference_headers=0x7f040002;
         public static final int preferences_app_menu=0x7f040003;
         public static final int preferences_appearance=0x7f040004;
-        public static final int preferences_help_about=0x7f040005;
-        public static final int preferences_hot_corners=0x7f040006;
-        public static final int preferences_keyboard=0x7f040007;
-        public static final int preferences_navigation=0x7f040008;
-        public static final int preferences_notification=0x7f040009;
+        public static final int preferences_desktop=0x7f040005;
+        public static final int preferences_dock=0x7f040006;
+        public static final int preferences_help_about=0x7f040007;
+        public static final int preferences_hot_corners=0x7f040008;
+        public static final int preferences_keyboard=0x7f040009;
+        public static final int preferences_notification=0x7f04000a;
     }
 }

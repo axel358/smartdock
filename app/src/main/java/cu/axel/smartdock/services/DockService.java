@@ -70,6 +70,8 @@ import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
 import java.util.Arrays;
+import android.view.View.OnKeyListener;
+import java.lang.reflect.Field;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener
 {
@@ -80,7 +82,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         gestureDetector.onTouchEvent(p2);
         return true;
     }
-
     private PackageManager pm;
     private SharedPreferences sp;
     private ActivityManager am;
@@ -119,8 +120,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
         wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
         dockHandler = new Handler();
-        
-      }
+
+    }
 
     @Override
     protected void onServiceConnected()
@@ -511,7 +512,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 {
                     if (appAdapter != null)
                         appAdapter.getFilter().filter(p1.toString());
-                    if (p1.length() > 0)
+                    if (p1.length() > 1)
                     {
                         searchLayout.setVisibility(View.VISIBLE);
                         searchTv.setText("Search for \"" + p1.toString() + "\" on Google");
@@ -526,6 +527,23 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     }
                 }
 
+            });
+        searchEt.setOnKeyListener(new OnKeyListener(){
+
+                @Override
+                public boolean onKey(View p1, int p2, KeyEvent p3)
+                {
+                    if (p3.getAction() == KeyEvent.ACTION_DOWN)
+                    {
+                        if (p2 == KeyEvent.KEYCODE_ENTER && searchEt.getText().toString().length() > 1)
+						{
+                            launchApp("standard", new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(searchEt.getText().toString()))).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            return true;
+                        }
+
+                    }
+                    return false;
+                }
             });
 
         new UpdateAppMenuTask().execute();
@@ -619,12 +637,23 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     public void onInterrupt()
     {}
 
-
     //Handle keyboard shortcuts
     @Override
     protected boolean onKeyEvent(KeyEvent event)
     {
-        if (event.getAction() == KeyEvent.ACTION_UP && event.isAltPressed())
+        boolean isModifierPressed = false;
+        switch (sp.getString("pref_shortcut_key", "alt"))
+        {
+            case "57":
+                isModifierPressed = event.isAltPressed();
+                break;
+            case "113":
+                isModifierPressed = event.isCtrlPressed();
+                break;
+            case "3":
+                isModifierPressed = event.isMetaPressed();
+        }
+        if (event.getAction() == KeyEvent.ACTION_UP && isModifierPressed)
         {
             if (event.getKeyCode() == KeyEvent.KEYCODE_L)
             {
@@ -682,8 +711,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     return true;
                 }
             }
+            int menuKey=Integer.parseInt(sp.getString("pref_menu_key", "3"));
 
-            if (event.getKeyCode() == KeyEvent.KEYCODE_HOME)
+            if (event.getKeyCode() == menuKey)
             {
                 if (sp.getBoolean("pref_enable_app_menu", true))
                 {
@@ -1033,6 +1063,21 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 if (!taskInfo.topActivity.getClassName().equals(getPackageName() + ".activities.MainActivity") && taskInfo.topActivity.getPackageName().equals(AppUtils.getCurrentLauncher(pm)))
                 {
                     continue;
+                }
+
+                if (Build.VERSION.SDK_INT > 29)
+                {
+                    try
+                    {
+                        Field isRunning = taskInfo.getClass().getField("isRunning");
+                        boolean running= isRunning.getBoolean(taskInfo);
+                        if (!running)
+                            continue;
+                    }
+                    catch (Exception e)
+                    {
+                        Log.e(getPackageName(), e.toString());
+                    }
                 }
 
                 appTasks.add(new AppTask(taskInfo.id, taskInfo.topActivity.getShortClassName(), taskInfo.topActivity.getPackageName(), pm.getActivityIcon(taskInfo.topActivity)));

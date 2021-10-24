@@ -41,19 +41,17 @@
 		android:gravity="right"
 		android:padding="16dp">
 
-		<TextView
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:id="@+id/tv_date"
-			android:textSize="50sp"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:visibility="gone"/>
-
-		<CalendarView
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:layout_marginTop="10dp"
-			android:visibility="gone"/>
+		<EditText
+			android:inputType="textMultiLine"
+			android:layout_width="230dp"
+			android:ems="10"
+			android:layout_height="260dp"
+			android:gravity="start"
+			android:textColor="#FF121212"
+			android:padding="10dp"
+			android:id="@+id/notes_et"
+			android:background="@drawable/notes_background"
+			android:textSize="17sp"/>
 
 	</LinearLayout>
 

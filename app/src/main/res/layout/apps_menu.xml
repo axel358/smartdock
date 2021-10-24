@@ -45,6 +45,7 @@
 		</LinearLayout>
 
 		<EditText
+            android:imeOptions="actionGo"
 			android:background="@drawable/search_background_dark"
 			android:textColorHint="@android:color/white"
 			android:hint="Search..."

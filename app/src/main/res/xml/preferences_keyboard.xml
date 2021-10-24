@@ -1,23 +1,30 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:entries="@array/shortcut_keys" 
+        android:dialogTitle="Shortcut modifier key" 
+        android:title="Shortcut modifier key"
+        android:entryValues="@array/shortcut_keys_values" 
+        android:key="pref_shortcut_key"
+        android:defaultValue="57" />
 	<CheckBoxPreference
 		android:key="pref_enable_lock_desktop"
-		android:title="Enable Alt+L to lock the desktop(requires Device Admin permission)"
+		android:title="Enable Modifier+L to lock the desktop(requires Device Admin permission)"
 		android:defaultValue="true" />
 	<CheckBoxPreference
 		android:key="pref_enable_open_settings"
-		android:title="Enable Alt+P to open settings"
+		android:title="Enable Modifier+P to open settings"
 		android:defaultValue="true" />
 	<CheckBoxPreference
 		android:key="pref_enable_open_music"
-		android:title="Enable Alt+M to open you default music app"
+		android:title="Enable Modifier+M to open you default music app"
 		android:defaultValue="true" />
 	<CheckBoxPreference
 		android:key="pref_enable_open_browser"
-		android:title="Enable Alt+B to open your default browser"
+		android:title="Enable Modifier+B to open your default browser"
 		android:defaultValue="true" />
 	<CheckBoxPreference
 		android:key="pref_enable_open_terminal"
-		android:title="Enable Alt+T to open terminal"
+		android:title="Enable Modifier+T to open terminal"
 		android:defaultValue="false" />
 	<EditTextPreference
 		android:key="pref_terminal_package"
@@ -27,7 +34,7 @@
 		android:title="Terminal app package name"/>
 	<CheckBoxPreference
 		android:key="pref_enable_expand_notifications"
-		android:title="Enable Alt+A to open notifications"
+		android:title="Enable Modifier+A to open notifications"
 		android:defaultValue="true" />
 	<CheckBoxPreference
 		android:key="pref_enable_ctrl_back"
