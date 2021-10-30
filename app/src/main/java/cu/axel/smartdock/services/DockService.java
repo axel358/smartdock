@@ -776,7 +776,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         String mode;
         if (sp.getBoolean("pref_remember_launch_mode", true) && (mode = db.getLaunchMode(packagename)) != null)
             return mode;
-        else if (AppUtils.isGame(pm, packagename))
+        else if (AppUtils.isGame(pm, packagename)&&sp.getBoolean("pref_launch_games_fullscreen", true))
             return "fullscreen";
         else
             return sp.getString("pref_launch_mode", "standard");

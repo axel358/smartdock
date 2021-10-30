@@ -55,4 +55,10 @@
         android:title="Remember launch mode"
         android:summary="Remember last launch mode used for every app"
 		android:defaultValue="true" />
+    
+    <CheckBoxPreference
+        android:key="pref_launch_games_fullscreen"
+        android:title="Launch games in full screen"
+        android:summary="Launch apps detected as games in full screen by default"
+		android:defaultValue="true" />
 </PreferenceScreen>

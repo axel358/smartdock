@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import cu.axel.smartdock.models.App;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import android.content.Context;
 
 public class AppUtils {
     private static final String FILES_DIR = "/data/data/cu.axel.smartdock/files";
@@ -118,8 +118,12 @@ public class AppUtils {
 
     public static boolean isGame(PackageManager pm, String packageName) {
         try {
-            ApplicationInfo info = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
-            return (info.flags & ApplicationInfo.FLAG_IS_GAME) != 0 || (info.metaData != null && info.metaData.getBoolean("isGame", false));
+            ApplicationInfo info = pm.getApplicationInfo(packageName, 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return info.category == ApplicationInfo.CATEGORY_GAME;
+            } else {
+                return (info.flags & ApplicationInfo.FLAG_IS_GAME) == ApplicationInfo.FLAG_IS_GAME;
+            }
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
