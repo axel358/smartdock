@@ -8,16 +8,24 @@
 package cu.axel.smartdock;
 
 public final class R {
+    public static final class anim {
+        public static final int fade_in=0x7f040000;
+        public static final int fade_out=0x7f040001;
+        public static final int slide_left=0x7f040002;
+        public static final int slide_up=0x7f040003;
+    }
     public static final class array {
-        public static final int icon_shapes=0x7f050005;
-        public static final int icon_shapes_values=0x7f050006;
-        public static final int launch_mode_values=0x7f050008;
-        public static final int launch_modes=0x7f050007;
-        public static final int shortcut_key_values=0x7f050004;
-        public static final int shortcut_keys=0x7f050002;
-        public static final int shortcut_keys_values=0x7f050003;
-        public static final int theme_values=0x7f050001;
-        public static final int themes=0x7f050000;
+        public static final int animation_values=0x7f06000a;
+        public static final int animations=0x7f060009;
+        public static final int icon_shapes=0x7f060005;
+        public static final int icon_shapes_values=0x7f060006;
+        public static final int launch_mode_values=0x7f060008;
+        public static final int launch_modes=0x7f060007;
+        public static final int shortcut_key_values=0x7f060004;
+        public static final int shortcut_keys=0x7f060002;
+        public static final int shortcut_keys_values=0x7f060003;
+        public static final int theme_values=0x7f060001;
+        public static final int themes=0x7f060000;
     }
     public static final class attr {
     }
@@ -84,59 +92,59 @@ public final class R {
         public static final int sysbar_toggle=0x7f02003b;
     }
     public static final class id {
-        public static final int action_appinfo=0x7f090026;
-        public static final int action_change_wallpaper=0x7f09002c;
-        public static final int action_dock_settings=0x7f090034;
-        public static final int action_enable_accessibilty=0x7f09002f;
-        public static final int action_enable_admin=0x7f090030;
-        public static final int action_files=0x7f090032;
-        public static final int action_grant_permissions=0x7f09002e;
-        public static final int action_launch_fullscreen=0x7f09002b;
-        public static final int action_launch_maximized=0x7f090029;
-        public static final int action_launch_portrait=0x7f09002a;
-        public static final int action_launch_standard=0x7f090028;
-        public static final int action_settings=0x7f09002d;
-        public static final int action_system_settings=0x7f090033;
-        public static final int action_uninstall=0x7f090027;
-        public static final int action_users=0x7f090031;
-        public static final int apps_btn=0x7f090015;
-        public static final int apps_lv=0x7f09001a;
-        public static final int apps_separator=0x7f09000e;
-        public static final int avatar_iv=0x7f09000a;
-        public static final int back_btn=0x7f090016;
-        public static final int battery_btn=0x7f09001f;
-        public static final int date_btn=0x7f090021;
-        public static final int desktop_app_icon_iv=0x7f090006;
-        public static final int desktop_app_name_tv=0x7f090007;
-        public static final int desktop_apps_gv=0x7f090001;
-        public static final int dockLinearLayout1=0x7f090013;
-        public static final int dock_layout=0x7f090014;
-        public static final int fav_applist_lv=0x7f09000d;
-        public static final int home_btn=0x7f090017;
-        public static final int icon_iv=0x7f090008;
-        public static final int ll_background=0x7f090000;
-        public static final int men_layout=0x7f090009;
-        public static final int menu_app_icon_iv=0x7f090004;
-        public static final int menu_app_name_tv=0x7f090005;
-        public static final int menu_applist_lv=0x7f09000f;
-        public static final int menu_et=0x7f09000c;
-        public static final int notes_et=0x7f090003;
-        public static final int notif_close_btn=0x7f090024;
-        public static final int notif_icon_iv=0x7f090022;
-        public static final int notif_text_tv=0x7f090025;
-        public static final int notif_title_tv=0x7f090023;
-        public static final int notifications_btn=0x7f09001b;
-        public static final int pin_btn=0x7f09001c;
-        public static final int power_btn=0x7f090020;
-        public static final int recents_btn=0x7f090018;
-        public static final int search_icon=0x7f090011;
-        public static final int search_layout=0x7f090010;
-        public static final int search_tv=0x7f090012;
-        public static final int service_btn=0x7f090002;
-        public static final int split_btn=0x7f090019;
-        public static final int user_name_tv=0x7f09000b;
-        public static final int volume_btn=0x7f09001e;
-        public static final int wifi_btn=0x7f09001d;
+        public static final int action_appinfo=0x7f0a0026;
+        public static final int action_change_wallpaper=0x7f0a002c;
+        public static final int action_dock_settings=0x7f0a0034;
+        public static final int action_enable_accessibilty=0x7f0a002f;
+        public static final int action_enable_admin=0x7f0a0030;
+        public static final int action_files=0x7f0a0032;
+        public static final int action_grant_permissions=0x7f0a002e;
+        public static final int action_launch_fullscreen=0x7f0a002b;
+        public static final int action_launch_maximized=0x7f0a0029;
+        public static final int action_launch_portrait=0x7f0a002a;
+        public static final int action_launch_standard=0x7f0a0028;
+        public static final int action_settings=0x7f0a002d;
+        public static final int action_system_settings=0x7f0a0033;
+        public static final int action_uninstall=0x7f0a0027;
+        public static final int action_users=0x7f0a0031;
+        public static final int apps_btn=0x7f0a0015;
+        public static final int apps_lv=0x7f0a001a;
+        public static final int apps_separator=0x7f0a000e;
+        public static final int avatar_iv=0x7f0a000a;
+        public static final int back_btn=0x7f0a0016;
+        public static final int battery_btn=0x7f0a001f;
+        public static final int date_btn=0x7f0a0021;
+        public static final int desktop_app_icon_iv=0x7f0a0006;
+        public static final int desktop_app_name_tv=0x7f0a0007;
+        public static final int desktop_apps_gv=0x7f0a0001;
+        public static final int dockLinearLayout1=0x7f0a0013;
+        public static final int dock_layout=0x7f0a0014;
+        public static final int fav_applist_lv=0x7f0a000d;
+        public static final int home_btn=0x7f0a0017;
+        public static final int icon_iv=0x7f0a0008;
+        public static final int ll_background=0x7f0a0000;
+        public static final int men_layout=0x7f0a0009;
+        public static final int menu_app_icon_iv=0x7f0a0004;
+        public static final int menu_app_name_tv=0x7f0a0005;
+        public static final int menu_applist_lv=0x7f0a000f;
+        public static final int menu_et=0x7f0a000c;
+        public static final int notes_et=0x7f0a0003;
+        public static final int notif_close_btn=0x7f0a0024;
+        public static final int notif_icon_iv=0x7f0a0022;
+        public static final int notif_text_tv=0x7f0a0025;
+        public static final int notif_title_tv=0x7f0a0023;
+        public static final int notifications_btn=0x7f0a001b;
+        public static final int pin_btn=0x7f0a001c;
+        public static final int power_btn=0x7f0a0020;
+        public static final int recents_btn=0x7f0a0018;
+        public static final int search_icon=0x7f0a0011;
+        public static final int search_layout=0x7f0a0010;
+        public static final int search_tv=0x7f0a0012;
+        public static final int service_btn=0x7f0a0002;
+        public static final int split_btn=0x7f0a0019;
+        public static final int user_name_tv=0x7f0a000b;
+        public static final int volume_btn=0x7f0a001e;
+        public static final int wifi_btn=0x7f0a001d;
     }
     public static final class layout {
         public static final int activity_launcher=0x7f030000;
@@ -149,37 +157,37 @@ public final class R {
         public static final int notification=0x7f030007;
     }
     public static final class menu {
-        public static final int app_menu=0x7f080000;
-        public static final int menu_desktop=0x7f080001;
-        public static final int menu_main=0x7f080002;
-        public static final int menu_user=0x7f080003;
+        public static final int app_menu=0x7f090000;
+        public static final int menu_desktop=0x7f090001;
+        public static final int menu_main=0x7f090002;
+        public static final int menu_user=0x7f090003;
     }
     public static final class string {
-        public static final int accessibility_service_description=0x7f060001;
-        public static final int app_help=0x7f060002;
-        public static final int app_name=0x7f060000;
-        public static final int fullscreen=0x7f060006;
-        public static final int maximized=0x7f060004;
-        public static final int portrait=0x7f060005;
-        public static final int standard=0x7f060003;
+        public static final int accessibility_service_description=0x7f070001;
+        public static final int app_help=0x7f070002;
+        public static final int app_name=0x7f070000;
+        public static final int fullscreen=0x7f070006;
+        public static final int maximized=0x7f070004;
+        public static final int portrait=0x7f070005;
+        public static final int standard=0x7f070003;
     }
     public static final class style {
-        public static final int AppTheme=0x7f070000;
-        public static final int AppTheme_Launcher=0x7f070001;
-        public static final int PopupMenuTheme=0x7f070002;
-        public static final int PopupMenuTheme_Black=0x7f070003;
+        public static final int AppTheme=0x7f080000;
+        public static final int AppTheme_Launcher=0x7f080001;
+        public static final int PopupMenuTheme=0x7f080002;
+        public static final int PopupMenuTheme_Black=0x7f080003;
     }
     public static final class xml {
-        public static final int accessibility_service=0x7f040000;
-        public static final int device_admin=0x7f040001;
-        public static final int preference_headers=0x7f040002;
-        public static final int preferences_app_menu=0x7f040003;
-        public static final int preferences_appearance=0x7f040004;
-        public static final int preferences_desktop=0x7f040005;
-        public static final int preferences_dock=0x7f040006;
-        public static final int preferences_help_about=0x7f040007;
-        public static final int preferences_hot_corners=0x7f040008;
-        public static final int preferences_keyboard=0x7f040009;
-        public static final int preferences_notification=0x7f04000a;
+        public static final int accessibility_service=0x7f050000;
+        public static final int device_admin=0x7f050001;
+        public static final int preference_headers=0x7f050002;
+        public static final int preferences_app_menu=0x7f050003;
+        public static final int preferences_appearance=0x7f050004;
+        public static final int preferences_desktop=0x7f050005;
+        public static final int preferences_dock=0x7f050006;
+        public static final int preferences_help_about=0x7f050007;
+        public static final int preferences_hot_corners=0x7f050008;
+        public static final int preferences_keyboard=0x7f050009;
+        public static final int preferences_notification=0x7f05000a;
     }
 }

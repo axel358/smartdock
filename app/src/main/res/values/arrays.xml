@@ -54,5 +54,17 @@
         <item>portrait</item>
         <item>fullscreen</item>
     </string-array>
+    <string-array name="animations">
+        <item>Fade</item>
+        <item>Slide up</item>
+        <item>Slide left</item>
+    </string-array>
+
+    <string-array name="animation_values">
+        <item>fade</item>
+        <item>slide_up</item>
+        <item>slide_left</item>
+    </string-array>
+    
 </resources>
 

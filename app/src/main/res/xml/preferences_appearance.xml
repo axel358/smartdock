@@ -29,4 +29,25 @@
     <Preference
         android:key="pref_menu_icon_reset"
         android:title="Restore default menu icon"/>
+    
+    <CheckBoxPreference
+        android:disableDependentsState="true"
+        android:key="pref_disable_animations"
+        android:title="Disable app launch animations"
+		android:defaultValue="false" />
+    
+    <CheckBoxPreference
+        android:dependency="pref_disable_animations"
+        android:key="pref_enable_custom_animations"
+        android:title="Use a custom animation when launching apps"
+		android:defaultValue="false" />
+    
+    <ListPreference
+        android:dependency="pref_enable_custom_animations"
+        android:entries="@array/animations" 
+        android:dialogTitle="Animation" 
+        android:entryValues="@array/animation_values" 
+        android:key="pref_custom_animation"
+        android:title="Custom animation"
+        android:defaultValue="fade" />
 </PreferenceScreen>
