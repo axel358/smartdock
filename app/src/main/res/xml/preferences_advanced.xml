@@ -1,0 +1,30 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Advanced">
+    <CheckBoxPreference
+        android:key="pref_run_autostart"
+        android:title="Run autostart script"
+        android:defaultValue="false" />
+     <Preference
+        android:key="pref_edit_autostart"
+        android:title="Edit autostart script"/>
+    <EditTextPreference
+        android:summary="Allows you to fine tune the display size of screen elements (reboot to take effect)"
+        android:inputType="number"
+        android:key="pref_custom_display_size"
+        android:hint="leave blank for default"
+        android:defaultValue=""
+        android:title="Display size"/>
+    <CheckBoxPreference
+        android:summary="System might be unresponsive for a short while"
+        android:key="pref_enable_soft_reboot"
+        android:title="Use Modifier+F12 to soft reboot Android"
+        android:defaultValue="false" />
+    <Preference
+        android:key="pref_soft_reboot"
+        android:summary="Soft reboot now. You will lose all unsaved work"
+        android:title="Soft reboot now"/>
+    <Preference
+        android:summary="Resets all settings on this screen to their defaults"
+        android:key="pref_reset_advanced"
+        android:title="Reset to default"/>
+</PreferenceScreen>

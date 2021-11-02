@@ -608,7 +608,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         registerReceiver(batteryReceiver, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
 
         //Run startup script
-        Utils.doAutostart();
+        if(sp.getBoolean("pref_run_autostart",false))
+            Utils.doAutostart();
 
         showDock();
         if (sp.getBoolean("pref_pin_dock", false))
@@ -700,6 +701,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 InputMethodManager im=(InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 im.showInputMethodPicker();
             }
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_F12)
+            {
+                DeviceUtils.sotfReboot();
+            }
         }
         else if (event.getAction() == KeyEvent.ACTION_UP)
         {
@@ -786,22 +791,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     {
         if(sp.getBoolean("pref_disable_animations",false))
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        if (Build.VERSION.SDK_INT < 24)
-        {
-            try
-            {
-                startActivity(intent);
-                if (menuVisible)
-                    hideMenu();
-                unpinDock();
-            }
-            catch (Exception e)
-            {}
-            return;
-        }
+        
         ActivityOptions options=null;
         int animResId=0;
-        if(sp.getBoolean("pref_enable_custom_animations",false)){
+        if(sp.getBoolean("pref_enable_custom_animations",false) && !sp.getBoolean("pref_disable_animations",false)){
             switch(sp.getString("pref_custom_animation","fade")){
                 case "fade":
                     animResId=R.anim.fade_in;
@@ -814,8 +807,31 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             }
             options = ActivityOptions.makeCustomAnimation(this,animResId,R.anim.fade_out);
         }
-        else
+        else{
+            if(Build.VERSION.SDK_INT > 24)
             options=ActivityOptions.makeBasic();
+            else
+                options=null;
+        }
+        
+        if (Build.VERSION.SDK_INT < 24)
+        {
+            try
+            {
+                if(options==null)
+                    startActivity(intent);
+                else
+                    startActivity(intent,options.toBundle());
+                if (menuVisible)
+                    hideMenu();
+                unpinDock();
+            }
+            catch (Exception e)
+            {}
+            return;
+        }
+            
+            
         try
         {
             if (!reflectionAllowed) Utils.allowReflection();
@@ -928,6 +944,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             .alpha(1)
             .setDuration(200)
             .setInterpolator(new AccelerateDecelerateInterpolator());
+            
+        searchEt.requestFocus();
 
         menuVisible = true;
 
@@ -1061,13 +1079,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             updateCorners();   
         }
     }
-
-    public void updateRunningTasks()
-    {
+    
+    public ArrayList<AppTask> getRunningTasks(){
         List<ActivityManager.RunningTaskInfo> tasksInfo = am.getRunningTasks(20);
 
         ArrayList<AppTask> appTasks = new ArrayList<AppTask>();
-
         for (ActivityManager.RunningTaskInfo taskInfo : tasksInfo)
         {
             try
@@ -1103,8 +1119,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             catch (PackageManager.NameNotFoundException e)
             {}
         }
+        
+        return appTasks;
+    }
 
-        tasksGv.setAdapter(new AppTaskAdapter(DockService.this, appTasks));
+    public void updateRunningTasks()
+    {
+        tasksGv.setAdapter(new AppTaskAdapter(DockService.this, getRunningTasks()));
 
         if (wifiManager.isWifiEnabled())
         {
@@ -1252,9 +1273,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }
         else
         {
-            Uri icon = Uri.parse(iconUri);
-            if (icon != null)
-                appsBtn.setImageURI(icon);
+            try{
+                Uri icon = Uri.parse(iconUri);
+                if (icon != null)
+                    appsBtn.setImageURI(icon);
+                }catch(Exception e){}
         }
 
     }
@@ -1409,7 +1432,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         {
             super.onPostExecute(result);
 
-            //TODO: Fix this shit
+            //TODO: Implement efficent adapter
             appAdapter = new AppAdapter(DockService.this, result);
             appsGv.setAdapter(appAdapter);
 

@@ -22,6 +22,9 @@
         android:fragment="cu.axel.smartdock.fragments.NotificationPreferences"
         android:title="Notifications" />
     <header 
+        android:fragment="cu.axel.smartdock.fragments.AdvancedPreferences"
+        android:title="Advanced" />
+    <header 
         android:fragment="cu.axel.smartdock.fragments.HelpAboutPreferences"
         android:title="Help and about" />
 </preference-headers>

@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import android.graphics.PorterDuff.Mode;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 
 public class Utils {
     private static final String FILES_DIR="/data/data/cu.axel.smartdock/files";
@@ -55,13 +59,39 @@ public class Utils {
 
     public static void doAutostart() {
         File script=new File(FILES_DIR + "/autostart.sh");
-        if (script.exists() && script.canExecute()) {
+        if (script.exists()) {
             try {
+                if (!script.canExecute())
+                    script.setExecutable(true);
                 Runtime.getRuntime().exec(script.getAbsolutePath());
             } catch (IOException e) {}
         }
     }
-    
+
+    public static String readAutostart() {
+        String content="";
+        File script=new File(FILES_DIR + "/autostart.sh");
+        try {
+            BufferedReader br=new BufferedReader(new FileReader(script));
+            String line="";
+            while ((line = br.readLine()) != null) {
+                content += line + "\n";
+            }
+            br.close();
+        } catch (IOException e) {
+        }
+        return content;
+    }
+
+    public static void saveAutoStart(String content) {
+        File script=new File(FILES_DIR + "/autostart.sh");
+        try {
+            FileWriter fw=new FileWriter(script, false);
+            fw.write(content);
+            fw.close();
+        } catch (IOException e) {}
+    }
+
     public static Bitmap getCircularBitmap(Bitmap bitmap) {
         Bitmap result = Bitmap.createBitmap(bitmap.getWidth(),
                                             bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -78,7 +108,7 @@ public class Utils {
                           bitmap.getWidth() / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
-        
+
         return result;
     }
 
