@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
-    <header 
+    <header
+        android:icon="@drawable/ic_appearance"
         android:fragment="cu.axel.smartdock.fragments.AppearancePreferences"
         android:title="Appearance" />
-	<header 
+	<header
+        android:icon="@drawable/ic_app_menu"
         android:fragment="cu.axel.smartdock.fragments.AppMenuPreferences"
         android:title="App Menu" />
 	<header 
+        android:icon="@drawable/ic_dock"
         android:fragment="cu.axel.smartdock.fragments.DockPreferences"
         android:title="Dock" />
 	<header 
+        android:icon="@drawable/ic_desktop"
         android:fragment="cu.axel.smartdock.fragments.DesktopPreferences"
         android:title="Desktop" />
     <header 
+        android:icon="@drawable/ic_keyboard"
         android:fragment="cu.axel.smartdock.fragments.KeyboardPreferences"
         android:title="Keyboard" />
-	<header 
+	<header
+        android:icon="@drawable/ic_corners"
         android:fragment="cu.axel.smartdock.fragments.HotCornersPreferences"
         android:title="Hot Corners" />
-	<header 
+	<header
+        android:icon="@drawable/ic_notifications"
         android:fragment="cu.axel.smartdock.fragments.NotificationPreferences"
         android:title="Notifications" />
-    <header 
+    <header
+        android:icon="@drawable/ic_advanced"
         android:fragment="cu.axel.smartdock.fragments.AdvancedPreferences"
         android:title="Advanced" />
-    <header 
+    <header
+        android:icon="@drawable/ic_about"
         android:fragment="cu.axel.smartdock.fragments.HelpAboutPreferences"
         android:title="Help and about" />
 </preference-headers>

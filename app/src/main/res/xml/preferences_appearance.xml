@@ -1,5 +1,4 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="Appearence">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<ListPreference
 		android:entries="@array/themes" 
         android:dialogTitle="Theme" 

@@ -978,7 +978,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         if (!AppUtils.isPinned(app, AppUtils.DESKTOP_LIST))
         {
-            pmenu.getMenu().add(0, 5, 0, "To desktop").setIcon(R.drawable.ic_desktop);
+            pmenu.getMenu().add(0, 5, 0, "To desktop").setIcon(R.drawable.ic_add_to_desktop);
         }
 
         pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){

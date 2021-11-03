@@ -1,5 +1,4 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="Notifications">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<Preference
 		android:title="Manage service">
         <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"/>

@@ -1,15 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     
 	<item
+        android:icon="@drawable/ic_grant_permissions"
 		android:showAsAction="always"
         android:id="@+id/action_grant_permissions"
         android:title="Grant Permissions"/>
 	
     <item
+        android:icon="@drawable/ic_manage_service"
 		android:showAsAction="always"
         android:id="@+id/action_enable_accessibilty"
         android:title="Enable Service"/>
     <item
+        android:icon="@drawable/ic_device_admin"
 		android:showAsAction="always"
         android:id="@+id/action_enable_admin"
         android:title="Enable Device Admin"/>
