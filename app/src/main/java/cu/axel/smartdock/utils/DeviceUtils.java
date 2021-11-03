@@ -76,10 +76,6 @@ public class DeviceUtils {
         return false;
     }
 
-    public static void enableAccessibility(Context context) {
-        context.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-    }
-
     public static int getStatusBarHeight(Context context) { 
         int result = 0;
         int resourceId =context.getResources().getIdentifier("status_bar_height", "dimen", "android");

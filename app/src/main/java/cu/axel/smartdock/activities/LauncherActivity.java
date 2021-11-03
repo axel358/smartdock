@@ -69,7 +69,7 @@ public class LauncherActivity extends Activity
                 @Override
                 public void onClick(View p1)
                 {
-                    DeviceUtils.enableAccessibility(LauncherActivity.this);
+                    startActivity(new Intent(LauncherActivity.this,MainActivity.class));
                 }
             });
 
@@ -287,7 +287,7 @@ public class LauncherActivity extends Activity
             super(context, R.layout.app_entry_desktop, apps);
             this.context = context;
             SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(context);
-            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("pref_icon_padding", "4"))+1);
+            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("pref_icon_padding", "4"))+2);
             switch (sp.getString("pref_icon_shape", "pref_icon_shape_circle"))
             {
                 case "pref_icon_shape_circle":

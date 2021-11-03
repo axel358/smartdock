@@ -21,6 +21,11 @@ import android.os.Build;
 import cu.axel.smartdock.services.DockService;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.utils.DeviceUtils;
+import android.app.AlertDialog;
+import android.view.View;
+import android.widget.Button;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class MainActivity extends PreferenceActivity {
 	@Override
@@ -28,13 +33,21 @@ public class MainActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT > 22) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 156);
+            if (!hasStoragePermission()) {
+                requestStoragePermission(0);
             }
         }
+
+        if (!canDrawOverOtherApps() || !DeviceUtils.isAccessibilityServiceEnabled(this))
+            showPermissionsDialog();
     }
 
-
+    public boolean hasStoragePermission() {
+        return checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+    public void requestStoragePermission(int code) {
+        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, code);
+    }
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -61,52 +74,100 @@ public class MainActivity extends PreferenceActivity {
 	}
 
 	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		if (canDrawOverOtherApps()) {
-			menu.getItem(0).setEnabled(false);
-		} else {
-			menu.getItem(0).setEnabled(true);
-			menu.getItem(1).setEnabled(false);
-		}
-		if (DeviceUtils.isAccessibilityServiceEnabled(this)) {
-			menu.getItem(1).setEnabled(false);
-		}
-		if (isdeviceAdminEnabled()) {
-			menu.getItem(2).setEnabled(false);
-		}
-		return super.onPrepareOptionsMenu(menu);
-	}
-
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-			case R.id.action_enable_accessibilty:
-				DeviceUtils.enableAccessibility(this);
-				break;
-			case R.id.action_enable_admin:
-				enableDeviceAdmin();
-				break;
 			case R.id.action_grant_permissions:
-				grantOverlayPermissions();
+				showPermissionsDialog();
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+    public void showPermissionsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogTheme);
+        builder.setTitle("Manage permissions");
+        View view = getLayoutInflater().inflate(R.layout.dialog_permissions, null);
+        Button grantOverlayBtn = view.findViewById(R.id.btn_grant_overlay);
+        Button grantStorageBtn = view.findViewById(R.id.btn_grant_storage);
+        Button grantAdminBtn = view.findViewById(R.id.btn_grant_admin);
+        Button grantNotificationsBtn = view.findViewById(R.id.btn_grant_notifications);
+        Button manageServiceBtn = view.findViewById(R.id.btn_manage_service);
+
+        manageServiceBtn.setEnabled(canDrawOverOtherApps());
+
+        if (canDrawOverOtherApps()) {
+            grantOverlayBtn.setEnabled(false);
+            grantOverlayBtn.setText("Granted");
+        }
+        if (isdeviceAdminEnabled()) {
+            grantAdminBtn.setEnabled(false);
+            grantAdminBtn.setText("Granted");
+        }
+
+        if (hasStoragePermission()) {
+            grantStorageBtn.setEnabled(false);
+            grantStorageBtn.setText("Granted");
+        }
+
+        builder.setView(view);
+        final AlertDialog dialog = builder.create();
+
+        grantOverlayBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    grantOverlayPermissions();
+                    dialog.dismiss();
+                }
+            });
+        grantStorageBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    requestStoragePermission(8);
+                    dialog.dismiss();
+                }
+            });
+        grantAdminBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    enableDeviceAdmin();
+                    dialog.dismiss();
+                }
+            });
+        grantNotificationsBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+                }
+            });
+
+        manageServiceBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                }
+            });
+
+        dialog.show();
+    }
 
 	public boolean canDrawOverOtherApps() {
 		return Build.VERSION.SDK_INT < 23 || Settings.canDrawOverlays(this);
 	}
 
 	public void grantOverlayPermissions() {
-		startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())));
+		startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 8);
 	}
 
 
 	public void enableDeviceAdmin() {
 		Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
 		intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, new ComponentName(this, DeviceAdminReceiver.class));
-		startActivity(intent);
+		startActivityForResult(intent, 8);
 	}
 
 	public boolean isdeviceAdminEnabled() {
@@ -124,4 +185,11 @@ public class MainActivity extends PreferenceActivity {
 		return false;
 	}
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 8) {
+            showPermissionsDialog();
+        }
+    }
 }

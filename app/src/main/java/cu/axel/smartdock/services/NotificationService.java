@@ -31,6 +31,7 @@ import android.view.MotionEvent;
 import cu.axel.smartdock.widgets.HoverInterceptorLayout;
 import cu.axel.smartdock.R;
 import android.graphics.drawable.Icon;
+import android.view.View.OnLongClickListener;
 
 public class NotificationService extends NotificationListenerService {
 	private WindowManager wm;
@@ -114,7 +115,7 @@ public class NotificationService extends NotificationListenerService {
 
 
 	@Override
-	public void onNotificationPosted(StatusBarNotification sbn) {
+	public void onNotificationPosted(final StatusBarNotification sbn) {
 		super.onNotificationPosted(sbn);
 
         updateNotificationCount();
@@ -170,6 +171,18 @@ public class NotificationService extends NotificationListenerService {
 							} catch (PendingIntent.CanceledException e) {}}
 					}
 				});
+
+            notificationLayout.setOnLongClickListener(new OnLongClickListener(){
+
+                    @Override
+                    public boolean onLongClick(View p1) {
+                        sp.edit().putString("pref_blocked_notifications", sp.getString("pref_blocked_notifications", "").trim() + " " + sbn.getPackageName()).commit();
+                        notificationLayout.setVisibility(View.GONE);
+                        notificationLayout.setAlpha(0);
+                        Toast.makeText(NotificationService.this, "Silenced notifications for this app", 5000).show();
+                        return true;
+                    }
+                });
 
 			notificationLayout.animate()
 				.alpha(1)

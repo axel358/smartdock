@@ -30,7 +30,7 @@
 	<Button
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
-		android:text="Start service"
+		android:text="Let's start"
 		android:id="@+id/service_btn"/>
 
 	<LinearLayout
