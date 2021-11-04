@@ -29,6 +29,10 @@
         android:fragment="cu.axel.smartdock.fragments.NotificationPreferences"
         android:title="Notifications" />
     <header
+        android:icon="@drawable/ic_sounds"
+        android:fragment="cu.axel.smartdock.fragments.SoundsPreferences"
+        android:title="Sounds" />
+    <header
         android:icon="@drawable/ic_advanced"
         android:fragment="cu.axel.smartdock.fragments.AdvancedPreferences"
         android:title="Advanced" />

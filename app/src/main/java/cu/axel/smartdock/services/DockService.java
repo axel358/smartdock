@@ -72,6 +72,8 @@ import android.util.Log;
 import java.util.Arrays;
 import android.view.View.OnKeyListener;
 import java.lang.reflect.Field;
+import android.media.MediaPlayer;
+import android.hardware.usb.UsbManager;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener
 {
@@ -92,13 +94,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private LinearLayout dockLayout,menu,searchLayout;
     private WindowManager wm;
     private View appsSeparator;
-    private boolean menuVisible,shouldHide = true,isPinned,reflectionAllowed;
+    private boolean menuVisible,shouldHide = true,isPinned,reflectionAllowed,shouldPlayChargeComplete;
     private WindowManager.LayoutParams layoutParams;
     private EditText searchEt;
     private ArrayAdapter<App> appAdapter;
     private GridView appsGv,tasksGv,favoritesGv;
     private WifiManager wifiManager;
     private BatteryStatsReceiver batteryReceiver;
+    private SoundEventsReceiver soundEventsReceiver;
     private GestureDetector gestureDetector;
     private DBHelper db;
     private Handler dockHandler;
@@ -606,10 +609,22 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         batteryReceiver = new BatteryStatsReceiver();
 
         registerReceiver(batteryReceiver, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
+        
+        soundEventsReceiver = new SoundEventsReceiver();
+        
+        IntentFilter soundEventsFilter = new IntentFilter();
+        soundEventsFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        soundEventsFilter.addAction(Intent.ACTION_POWER_CONNECTED);
+        
+        registerReceiver(soundEventsReceiver, soundEventsFilter);
 
         //Run startup script
         if(sp.getBoolean("pref_run_autostart",false))
             Utils.doAutostart();
+            
+        //Play startup sound
+        if(sp.getBoolean("pref_enable_startup_sound",false))
+           DeviceUtils.playEventSound(this,"pref_startup_sound");
 
         showDock();
         if (sp.getBoolean("pref_pin_dock", false))
@@ -1440,6 +1455,24 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 
     }
+    class SoundEventsReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context p1, Intent p2) {
+            switch(p2.getAction()){
+                case UsbManager.ACTION_USB_DEVICE_ATTACHED:
+                    if(sp.getBoolean("pref_enable_usb_sound",false))
+                       DeviceUtils.playEventSound(DockService.this,"pref_usb_sound");
+                    break;
+                case Intent.ACTION_POWER_CONNECTED:
+                    shouldPlayChargeComplete = true;
+                    if(sp.getBoolean("pref_enable_charge_sound",false))
+                       DeviceUtils.playEventSound(DockService.this,"pref_charge_sound");
+                    break;
+            }
+        }
+        
+    }
     class BatteryStatsReceiver extends BroadcastReceiver
     {
 
@@ -1483,8 +1516,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     batteryBtn.setImageResource(R.drawable.battery_charging_80);
                 else if (level > 90 && level < 100)
                     batteryBtn.setImageResource(R.drawable.battery_charging_90);
-                else if (level == 100)
+                else if (level == 100){
                     batteryBtn.setImageResource(R.drawable.battery_charging_full);
+                    
+                    if(shouldPlayChargeComplete && sp.getBoolean("pref_enable_charge_complete_sound",false))
+                        DeviceUtils.playEventSound(DockService.this, "pref_charge_complete_sound");
+                        
+                    shouldPlayChargeComplete =false;
+                }
             }
         }
 

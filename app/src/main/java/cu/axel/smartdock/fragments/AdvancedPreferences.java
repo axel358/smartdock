@@ -54,7 +54,6 @@ public class AdvancedPreferences extends PreferenceFragment {
                     return false;
                 }
             });
-
     }
 
     public void showEditAutostartDialog(Context context) {

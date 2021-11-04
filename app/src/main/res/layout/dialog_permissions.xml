@@ -134,7 +134,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Required to lock the screen"/>
+				android:text="Used to lock the screen"/>
 
 		</LinearLayout>
 
@@ -175,7 +175,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Required to change the menu icon"/>
+				android:text="Used to change the menu icon and event sounds"/>
 
 		</LinearLayout>
 
@@ -216,7 +216,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Required to display notifications"/>
+				android:text="Used to display notifications"/>
 
 		</LinearLayout>
 
@@ -257,7 +257,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Required to perform many keyboard shortcuts and many other features"/>
+				android:text="Used to perform some keyboard shortcuts and other features"/>
 
 		</LinearLayout>
 

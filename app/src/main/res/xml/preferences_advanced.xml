@@ -1,4 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:icon="@drawable/ic_about"
+        android:title="These settings are intended for advanced users. Only change them if you know what you are doing"/>
     <CheckBoxPreference
         android:key="pref_run_autostart"
         android:title="Run autostart script"
@@ -22,8 +25,5 @@
         android:key="pref_soft_reboot"
         android:summary="Soft reboot now. You will lose all unsaved work"
         android:title="Soft reboot now"/>
-    <Preference
-        android:summary="Resets all settings on this screen to their defaults"
-        android:key="pref_reset_advanced"
-        android:title="Reset to default"/>
+    
 </PreferenceScreen>

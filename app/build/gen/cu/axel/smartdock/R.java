@@ -82,30 +82,31 @@ public final class R {
         public static final int ic_root=0x7f020031;
         public static final int ic_search=0x7f020032;
         public static final int ic_settings=0x7f020033;
-        public static final int ic_standard=0x7f020034;
-        public static final int ic_uninstall=0x7f020035;
-        public static final int ic_unpin=0x7f020036;
-        public static final int ic_user=0x7f020037;
-        public static final int ic_user_folder=0x7f020038;
-        public static final int ic_user_settings=0x7f020039;
-        public static final int ic_users=0x7f02003a;
-        public static final int ic_volume=0x7f02003b;
-        public static final int ic_wifi_off=0x7f02003c;
-        public static final int ic_wifi_on=0x7f02003d;
-        public static final int notes_background=0x7f02003e;
-        public static final int round_rect_solid_black=0x7f02003f;
-        public static final int round_rect_solid_dark=0x7f020040;
-        public static final int round_rect_solid_white=0x7f020041;
-        public static final int round_rect_transparent=0x7f020042;
-        public static final int search_background_black=0x7f020043;
-        public static final int search_background_dark=0x7f020044;
-        public static final int search_background_transparent=0x7f020045;
-        public static final int sysbar_back=0x7f020046;
-        public static final int sysbar_home=0x7f020047;
-        public static final int sysbar_menu=0x7f020048;
-        public static final int sysbar_recent=0x7f020049;
-        public static final int sysbar_split=0x7f02004a;
-        public static final int sysbar_toggle=0x7f02004b;
+        public static final int ic_sounds=0x7f020034;
+        public static final int ic_standard=0x7f020035;
+        public static final int ic_uninstall=0x7f020036;
+        public static final int ic_unpin=0x7f020037;
+        public static final int ic_user=0x7f020038;
+        public static final int ic_user_folder=0x7f020039;
+        public static final int ic_user_settings=0x7f02003a;
+        public static final int ic_users=0x7f02003b;
+        public static final int ic_volume=0x7f02003c;
+        public static final int ic_wifi_off=0x7f02003d;
+        public static final int ic_wifi_on=0x7f02003e;
+        public static final int notes_background=0x7f02003f;
+        public static final int round_rect_solid_black=0x7f020040;
+        public static final int round_rect_solid_dark=0x7f020041;
+        public static final int round_rect_solid_white=0x7f020042;
+        public static final int round_rect_transparent=0x7f020043;
+        public static final int search_background_black=0x7f020044;
+        public static final int search_background_dark=0x7f020045;
+        public static final int search_background_transparent=0x7f020046;
+        public static final int sysbar_back=0x7f020047;
+        public static final int sysbar_home=0x7f020048;
+        public static final int sysbar_menu=0x7f020049;
+        public static final int sysbar_recent=0x7f02004a;
+        public static final int sysbar_split=0x7f02004b;
+        public static final int sysbar_toggle=0x7f02004c;
     }
     public static final class id {
         public static final int action_appinfo=0x7f0a002c;
@@ -212,5 +213,6 @@ public final class R {
         public static final int preferences_hot_corners=0x7f050009;
         public static final int preferences_keyboard=0x7f05000a;
         public static final int preferences_notification=0x7f05000b;
+        public static final int preferences_sounds=0x7f05000c;
     }
 }

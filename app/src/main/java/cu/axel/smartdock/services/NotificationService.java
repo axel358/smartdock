@@ -32,6 +32,7 @@ import cu.axel.smartdock.widgets.HoverInterceptorLayout;
 import cu.axel.smartdock.R;
 import android.graphics.drawable.Icon;
 import android.view.View.OnLongClickListener;
+import cu.axel.smartdock.utils.DeviceUtils;
 
 public class NotificationService extends NotificationListenerService {
 	private WindowManager wm;
@@ -194,6 +195,9 @@ public class NotificationService extends NotificationListenerService {
 						notificationLayout.setVisibility(View.VISIBLE);
 					}
 				});
+                
+            if(sp.getBoolean("pref_enable_notification_sound",false))
+                DeviceUtils.playEventSound(this,"pref_notification_sound");
 
             hideNotification();
         }

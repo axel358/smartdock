@@ -2,21 +2,21 @@ package cu.axel.smartdock.utils;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ServiceInfo;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.UserHandle;
 import android.os.UserManager;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.Toast;
 import cu.axel.smartdock.services.DockService;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
-import android.widget.Toast;
+import android.preference.PreferenceManager;
 
 public class DeviceUtils {
     public static boolean lockScreen(Context context) {
@@ -120,5 +120,23 @@ public class DeviceUtils {
             Toast.makeText(context, e.toString() + "\n" + e.getCause(), 5000).show();
         }
     }
+    public static void playEventSound(Context context, String event) {
+        String soundUri= PreferenceManager.getDefaultSharedPreferences(context).getString(event, "default");
+        if (soundUri.equals("default")) {} else {
+            try {
+                Uri sound = Uri.parse(soundUri);
+                if (sound != null) {
+                    final MediaPlayer mp = MediaPlayer.create(context, sound);
+                    mp.start();
+                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
 
+                            @Override
+                            public void onCompletion(MediaPlayer p1) {
+                                mp.release();
+                            }
+                        });
+                }
+            } catch (Exception e) {}
+        }
+    }
 }
