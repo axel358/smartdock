@@ -1,267 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:paddingLeft="20dp"
-	android:paddingRight="20dp"
-	android:paddingTop="10dp"
-	android:paddingBottom="10dp">
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="These permissions are needed for the app to work"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textSize="17sp"/>
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
 
 	<LinearLayout
-		android:orientation="horizontal"
+		android:orientation="vertical"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
+		android:layout_height="match_parent"
+		android:paddingLeft="20dp"
+		android:paddingRight="20dp"
+		android:paddingTop="10dp"
+		android:paddingBottom="10dp">
 
-		<ImageView
-			android:src="@drawable/ic_overlay"
-			android:layout_width="30dp"
-			android:layout_height="30dp"/>
-
-		<LinearLayout
-			android:orientation="vertical"
+		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1.0"
-			android:layout_marginLeft="5dp">
+			android:text="These permissions are needed for the app to work"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="17sp"/>
 
-			<TextView
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical">
+
+			<ImageView
+				android:src="@drawable/ic_overlay"
+				android:layout_width="30dp"
+				android:layout_height="30dp"/>
+
+			<LinearLayout
+				android:orientation="vertical"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Display over other apps"
-				android:textSize="16sp"
-				android:textColor="#FF141414"/>
+				android:layout_weight="1.0"
+				android:layout_marginLeft="5dp">
 
-			<TextView
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Display over other apps"
+					android:textSize="16sp"
+					android:textColor="#FF141414"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Required to display the Dock, you cannot start the service without this"/>
+
+			</LinearLayout>
+
+			<Button
 				android:layout_width="wrap_content"
+				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Required to display the Dock, you cannot start the service without this"/>
+				android:text="Grant"
+				android:id="@+id/btn_grant_overlay"/>
 
 		</LinearLayout>
 
-		<Button
-			android:layout_width="wrap_content"
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:text="Grant"
-			android:id="@+id/btn_grant_overlay"/>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
-
-		<ImageView
-			android:src="@drawable/ic_manage_service"
-			android:layout_width="30dp"
-			android:layout_height="30dp"/>
-
 		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1.0"
-			android:layout_marginLeft="5dp">
+			android:gravity="center_vertical">
 
-			<TextView
+			<ImageView
+				android:src="@drawable/ic_manage_service"
+				android:layout_width="30dp"
+				android:layout_height="30dp"/>
+
+			<LinearLayout
+				android:orientation="vertical"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Accessibility service"
-				android:textSize="16sp"
-				android:textColor="#FF141414"/>
+				android:layout_weight="1.0"
+				android:layout_marginLeft="5dp">
 
-			<TextView
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Accessibility service"
+					android:textSize="16sp"
+					android:textColor="#FF141414"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Use this to start and stop the Dock. Requires the above permission"/>
+
+			</LinearLayout>
+
+			<Button
 				android:layout_width="wrap_content"
+				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Use this to start and stop the Dock. Requires the above permission"/>
+				android:text="Manage"
+				android:id="@+id/btn_manage_service"/>
 
 		</LinearLayout>
 
-		<Button
+		<TextView
 			android:layout_width="wrap_content"
-			style="?android:attr/buttonBarButtonStyle"
 			android:layout_height="wrap_content"
-			android:text="Manage"
-			android:id="@+id/btn_manage_service"/>
-
-	</LinearLayout>
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="These permissions are needed by some features"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:layout_marginTop="5dp"
-		android:textSize="17sp"/>
-
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
-
-		<ImageView
-			android:src="@drawable/ic_device_admin"
-			android:layout_width="30dp"
-			android:layout_height="30dp"/>
+			android:text="These permissions are needed by some features"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_marginTop="5dp"
+			android:textSize="17sp"/>
 
 		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1.0"
-			android:layout_marginLeft="5dp">
+			android:gravity="center_vertical">
 
-			<TextView
+			<ImageView
+				android:src="@drawable/ic_device_admin"
+				android:layout_width="30dp"
+				android:layout_height="30dp"/>
+
+			<LinearLayout
+				android:orientation="vertical"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Device administrator"
-				android:textSize="16sp"
-				android:textColor="#FF141414"/>
+				android:layout_weight="1.0"
+				android:layout_marginLeft="5dp">
 
-			<TextView
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Device administrator"
+					android:textSize="16sp"
+					android:textColor="#FF141414"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Used to lock the screen"/>
+
+			</LinearLayout>
+
+			<Button
 				android:layout_width="wrap_content"
+				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Used to lock the screen"/>
+				android:text="Grant"
+				android:id="@+id/btn_grant_admin"/>
 
 		</LinearLayout>
 
-		<Button
-			android:layout_width="wrap_content"
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:text="Grant"
-			android:id="@+id/btn_grant_admin"/>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
-
-		<ImageView
-			android:src="@drawable/ic_folder"
-			android:layout_width="30dp"
-			android:layout_height="30dp"/>
-
 		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1.0"
-			android:layout_marginLeft="5dp">
+			android:gravity="center_vertical">
 
-			<TextView
+			<ImageView
+				android:src="@drawable/ic_folder"
+				android:layout_width="30dp"
+				android:layout_height="30dp"/>
+
+			<LinearLayout
+				android:orientation="vertical"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Storage"
-				android:textSize="16sp"
-				android:textColor="#FF141414"/>
+				android:layout_weight="1.0"
+				android:layout_marginLeft="5dp">
 
-			<TextView
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Storage"
+					android:textSize="16sp"
+					android:textColor="#FF141414"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Used to change the menu icon and event sounds"/>
+
+			</LinearLayout>
+
+			<Button
 				android:layout_width="wrap_content"
+				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Used to change the menu icon and event sounds"/>
+				android:text="Grant"
+				android:id="@+id/btn_grant_storage"/>
 
 		</LinearLayout>
 
-		<Button
-			android:layout_width="wrap_content"
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:text="Grant"
-			android:id="@+id/btn_grant_storage"/>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
-
-		<ImageView
-			android:src="@drawable/ic_notifications"
-			android:layout_width="30dp"
-			android:layout_height="30dp"/>
-
 		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1.0"
-			android:layout_marginLeft="5dp">
+			android:gravity="center_vertical">
 
-			<TextView
+			<ImageView
+				android:src="@drawable/ic_notifications"
+				android:layout_width="30dp"
+				android:layout_height="30dp"/>
+
+			<LinearLayout
+				android:orientation="vertical"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Notification access"
-				android:textSize="16sp"
-				android:textColor="#FF141414"/>
+				android:layout_weight="1.0"
+				android:layout_marginLeft="5dp">
 
-			<TextView
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Notification access"
+					android:textSize="16sp"
+					android:textColor="#FF141414"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Used to display notifications"/>
+
+			</LinearLayout>
+
+			<Button
 				android:layout_width="wrap_content"
+				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Used to display notifications"/>
+				android:text="Manage"
+				android:id="@+id/btn_grant_notifications"/>
 
 		</LinearLayout>
 
-		<Button
-			android:layout_width="wrap_content"
-			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="wrap_content"
-			android:text="Manage"
-			android:id="@+id/btn_grant_notifications"/>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
-
-		<ImageView
-			android:src="@drawable/ic_root"
-			android:layout_width="30dp"
-			android:layout_height="30dp"/>
-
 		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1.0"
-			android:layout_marginLeft="5dp">
+			android:gravity="center_vertical">
 
-			<TextView
+			<ImageView
+				android:src="@drawable/ic_root"
+				android:layout_width="30dp"
+				android:layout_height="30dp"/>
+
+			<LinearLayout
+				android:orientation="vertical"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Root access"
-				android:textSize="16sp"
-				android:textColor="#FF141414"/>
+				android:layout_weight="1.0"
+				android:layout_marginLeft="5dp">
 
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="Used to perform some keyboard shortcuts and other features"/>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Root access"
+					android:textSize="16sp"
+					android:textColor="#FF141414"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Used to perform some keyboard shortcuts and other features"/>
+
+			</LinearLayout>
 
 		</LinearLayout>
 
 	</LinearLayout>
 
-</LinearLayout>
+</ScrollView>
 

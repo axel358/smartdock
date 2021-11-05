@@ -4,12 +4,21 @@
         android:summary="A launcher for Android x86 by Axel358" />
     <Preference
         android:title="Special thanks to"
-        android:summary="K S Maan" />
+        android:summary="K S Maan \nBlissLabs project" />
     <Preference
         android:summary="@string/app_help"
         android:title="Help" />
     <Preference
+        android:summary="Smart Dock it's free and open source. Contribute on GitHub"
+        android:title="GitHub" >
+        <intent android:action="android.intent.action.VIEW" 
+                android:data="https://github.com/axel358/smartdock"/>
+    </Preference>
+    <Preference
         android:key="pref_join_telegram"
         android:title="Telegram group"
-        android:summary="Join Telegram group" />
+        android:summary="Got any questions? Join the Telegram support group" />
+    <Preference
+        android:summary="GNU General Public Licence v3.0"
+        android:title="License" />
 </PreferenceScreen>

@@ -32,10 +32,8 @@ public class MainActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT > 22) {
-            if (!hasStoragePermission()) {
-                requestStoragePermission(0);
-            }
+        if (!hasStoragePermission()) {
+            requestStoragePermission(0);
         }
 
         if (!canDrawOverOtherApps() || !DeviceUtils.isAccessibilityServiceEnabled(this))
@@ -43,7 +41,7 @@ public class MainActivity extends PreferenceActivity {
     }
 
     public boolean hasStoragePermission() {
-        return checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        return Build.VERSION.SDK_INT < 23 || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
     public void requestStoragePermission(int code) {
         requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, code);
