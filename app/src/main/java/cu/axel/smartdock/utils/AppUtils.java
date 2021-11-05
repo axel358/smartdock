@@ -1,11 +1,13 @@
 package cu.axel.smartdock.utils;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.widget.Toast;
 import cu.axel.smartdock.models.App;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -66,6 +69,8 @@ public class AppUtils {
                             ApplicationInfo appInfo=pm.getApplicationInfo(app, 0);
                             apps.add(new App(pm.getApplicationLabel(appInfo).toString(), app, pm.getApplicationIcon(app)));
                         } catch (PackageManager.NameNotFoundException e) {
+                            //app is no longer available, lets unpin it
+                            unpinApp(app, type);
                         }   
                     }
                 }
@@ -134,5 +139,13 @@ public class AppUtils {
         intent.addCategory(Intent.CATEGORY_HOME);
         ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return resolveInfo.activityInfo.packageName;
+    }
+
+    public static void setWindowMode(ActivityManager am, int taskId, int mode) {
+        try {
+            Method setWindowMode = am.getClass().getMethod("setTaskWindowingMode", int.class, int.class, boolean.class);
+            setWindowMode.invoke(am, taskId, mode, false);
+        } catch (Exception e) {
+        }
     }
 }

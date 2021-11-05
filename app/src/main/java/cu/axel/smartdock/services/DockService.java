@@ -551,8 +551,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         new UpdateAppMenuTask().execute();
 
-        loadFavoriteApps();
-
         //TODO: Filter app button menu click only
         menu.setOnTouchListener(new OnTouchListener(){
 
@@ -695,7 +693,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             }
             else if (event.getKeyCode() == KeyEvent.KEYCODE_K)
             {
-                DeviceUtils.    sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
+                DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
             }
             else if (event.getKeyCode() == KeyEvent.KEYCODE_M)
             {
@@ -720,6 +718,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             {
                 DeviceUtils.sotfReboot();
             }
+           
         }
         else if (event.getAction() == KeyEvent.ACTION_UP)
         {
@@ -750,6 +749,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         return true;
                     }
             }
+            //Still working on this
+            /*else if (event.getKeyCode() == KeyEvent.KEYCODE_F9 && sp.getBoolean("pref_enable_f9",false))
+            {
+                AppUtils.setWindowMode(am,getRunningTasks().get(0).getId(),5);
+                return true;
+            }*/
         }
 
         return super.onKeyEvent(event);
@@ -945,6 +950,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         //Load apps
         new UpdateAppMenuTask().execute();
+        loadFavoriteApps();
 
         //Load user info
         String name=DeviceUtils.getUserName(this);

@@ -52,7 +52,7 @@ public class LauncherActivity extends Activity
 	private LinearLayout backgroundLayout;
     private Button serviceBtn;
     private String state;
-    private GridView appsG;
+    private GridView appsGv;
     private EditText notesEt;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -61,7 +61,7 @@ public class LauncherActivity extends Activity
 		setContentView(R.layout.activity_launcher);
 		backgroundLayout = findViewById(R.id.ll_background);
         serviceBtn = findViewById(R.id.service_btn);
-        appsG = findViewById(R.id.desktop_apps_gv);
+        appsGv = findViewById(R.id.desktop_apps_gv);
         notesEt = findViewById(R.id.notes_et);
 
         serviceBtn.setOnClickListener(new OnClickListener(){
@@ -97,7 +97,7 @@ public class LauncherActivity extends Activity
 				}
 			});
 
-        appsG.setOnItemClickListener(new OnItemClickListener(){
+        appsGv.setOnItemClickListener(new OnItemClickListener(){
 
                 @Override
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
@@ -107,7 +107,7 @@ public class LauncherActivity extends Activity
                 }
             });
 
-        appsG.setOnItemLongClickListener(new OnItemLongClickListener(){
+        appsGv.setOnItemLongClickListener(new OnItemLongClickListener(){
 
                 @Override
                 public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4)
@@ -138,7 +138,7 @@ public class LauncherActivity extends Activity
 
     public void loadDesktopApps()
     {
-        appsG.setAdapter(new AppAdapterDesktop(this, AppUtils.getPinnedApps(getPackageManager(), AppUtils.DESKTOP_LIST)));
+        appsGv.setAdapter(new AppAdapterDesktop(this, AppUtils.getPinnedApps(getPackageManager(), AppUtils.DESKTOP_LIST)));
     }
 
 	@Override
@@ -163,7 +163,7 @@ public class LauncherActivity extends Activity
         {
             notesEt.setVisibility(View.GONE);
         }
-        backgroundLayout.requestFocus();
+        appsGv.requestFocus();
 	}
 
 	@Override
@@ -287,7 +287,7 @@ public class LauncherActivity extends Activity
             super(context, R.layout.app_entry_desktop, apps);
             this.context = context;
             SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(context);
-            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("pref_icon_padding", "4"))+2);
+            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("pref_icon_padding", "4"))+3);
             switch (sp.getString("pref_icon_shape", "pref_icon_shape_circle"))
             {
                 case "pref_icon_shape_circle":

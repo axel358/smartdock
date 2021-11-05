@@ -20,4 +20,8 @@
         android:defaultValue="android"
         android:summary="List of space separated package names to ignore notifications from"
 		android:title="Ignored notifications"/>
+    <Preference
+        android:icon="@drawable/ic_about"
+        android:title="Long press a notification to add it to the ignored list"/>
+    
 </PreferenceScreen>
