@@ -724,7 +724,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         {
             if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT)
             {
-                if (sp.getBoolean("pref_enable_ctrl_back", true))
+                if (sp.getBoolean("pref_enable_ctrl_back", false))
                 {
                     performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
                     return true;
@@ -828,7 +828,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             options = ActivityOptions.makeCustomAnimation(this,animResId,R.anim.fade_out);
         }
         else{
-            if(Build.VERSION.SDK_INT > 24)
+            if(Build.VERSION.SDK_INT >= 24)
             options=ActivityOptions.makeBasic();
             else
                 options=null;
