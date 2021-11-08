@@ -637,12 +637,15 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     {
         if (p1.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
         {
+            //getSource() might throw an exception
+            try{
             if (p1.getSource() != null)
             {
                 //Refresh the app list when the window state changes
                 //TODO: Filter events that also trigger window state change other than app switching
                 updateRunningTasks();   
             }
+            }catch(Exception e){}
 
         }
     }
