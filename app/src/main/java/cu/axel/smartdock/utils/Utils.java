@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 
 public class Utils {
+    public static boolean notificationPanelVisible;
     private static final String FILES_DIR="/data/data/cu.axel.smartdock/files";
 	public static void setForceShowIcon(PopupMenu popupMenu) {
 		try {

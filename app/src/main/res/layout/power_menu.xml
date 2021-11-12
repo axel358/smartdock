@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="140dp"
+	android:layout_height="400dp"
+	android:padding="10dp"
+	android:background="@drawable/round_rect_solid_dark"
+	android:gravity="center_horizontal">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:gravity="center"
+		android:layout_weight="1.0">
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="60dp"
+			android:layout_width="60dp"
+			android:src="@drawable/ic_power"
+			android:id="@+id/power_off_btn"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Power off"
+			android:textColor="#FFFFFFFF"
+			android:layout_marginTop="5dp"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:gravity="center"
+		android:layout_weight="1.0">
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="60dp"
+			android:layout_width="60dp"
+			android:src="@drawable/ic_restart"
+			android:id="@+id/restart_btn"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Restart"
+			android:textColor="#FFFFFFFF"
+			android:layout_marginTop="5dp"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:gravity="center"
+		android:layout_weight="1.0">
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="60dp"
+			android:layout_width="60dp"
+			android:src="@drawable/ic_soft_restart"
+			android:id="@+id/soft_restart_btn"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Soft restart"
+			android:textColor="#FFFFFFFF"
+			android:layout_marginTop="5dp"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:gravity="center"
+		android:layout_weight="1.0">
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="60dp"
+			android:layout_width="60dp"
+			android:src="@drawable/ic_screenshot"
+			android:id="@+id/screenshot_btn"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Screenshot"
+			android:textColor="#FFFFFFFF"
+			android:layout_marginTop="5dp"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

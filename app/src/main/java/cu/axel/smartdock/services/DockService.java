@@ -74,10 +74,10 @@ import android.view.View.OnKeyListener;
 import java.lang.reflect.Field;
 import android.media.MediaPlayer;
 import android.hardware.usb.UsbManager;
+import android.widget.ImageButton;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener
 {
-
     @Override
     public boolean onTouch(View p1, MotionEvent p2)
     {
@@ -91,10 +91,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private TextView notificationBtn,searchTv,userNameTv;
     private TextClock dateTv;
     private Button topRightCorner,bottomRightCorner;
-    private LinearLayout dockLayout,menu,searchLayout;
+    private LinearLayout dockLayout,appMenu,searchLayout,powerMenu;
     private WindowManager wm;
     private View appsSeparator;
-    private boolean menuVisible,shouldHide = true,isPinned,reflectionAllowed,shouldPlayChargeComplete;
+    private boolean appMenuVisible,powerMenuVisible,shouldHide = true,isPinned,reflectionAllowed,shouldPlayChargeComplete;
     private WindowManager.LayoutParams layoutParams;
     private EditText searchEt;
     private ArrayAdapter<App> appAdapter;
@@ -105,7 +105,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private GestureDetector gestureDetector;
     private DBHelper db;
     private Handler dockHandler;
-
+    
     @Override
     public void onCreate()
     {
@@ -255,11 +255,15 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             });
 
         notificationBtn.setOnClickListener(new OnClickListener(){
-
                 @Override
                 public void onClick(View p1)
                 {
-                    performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
+                    //performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
+                    if(Utils.notificationPanelVisible){
+                        sendBroadcast(new Intent(getPackageName()+".NOTIFICATION_PANEL").putExtra("action","hide"));
+                         }else{
+                        sendBroadcast(new Intent(getPackageName()+".NOTIFICATION_PANEL").putExtra("action","show"));
+                        }
                 }
             });
         pinBtn.setOnClickListener(new OnClickListener(){
@@ -268,14 +272,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 public void onClick(View p1)
                 {
                     if (isPinned)
-                    {
                         unpinDock();
-
-                    }
                     else
-                    {
                         pinDock();
-                    }
                 }
 
 
@@ -305,7 +304,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public void onClick(View p1)
                 {
-                    DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_POWER_DIALOG);
+                    
+                    //DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_POWER_DIALOG);
+                    if(powerMenuVisible){
+                        hidePowerMenu();
+                    }else{
+                        showPowerMenu();
+                    }
                 }
 
 
@@ -427,16 +432,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         layoutParams.flags =  WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
         layoutParams.gravity = Gravity.BOTTOM | Gravity.LEFT;
 
-        menu = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.apps_menu, null);
-        searchEt = menu.findViewById(R.id.menu_et);
-        appsGv = menu.findViewById(R.id.menu_applist_lv);
-        favoritesGv = menu.findViewById(R.id.fav_applist_lv);
-        searchLayout = menu.findViewById(R.id.search_layout);
-        searchTv = menu.findViewById(R.id.search_tv);
-        appsSeparator = menu.findViewById(R.id.apps_separator);
+        appMenu = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.apps_menu, null);
+        searchEt = appMenu.findViewById(R.id.menu_et);
+        appsGv = appMenu.findViewById(R.id.menu_applist_lv);
+        favoritesGv = appMenu.findViewById(R.id.fav_applist_lv);
+        searchLayout = appMenu.findViewById(R.id.search_layout);
+        searchTv = appMenu.findViewById(R.id.search_tv);
+        appsSeparator = appMenu.findViewById(R.id.apps_separator);
 
-        avatarIv = menu.findViewById(R.id.avatar_iv);
-        userNameTv = menu.findViewById(R.id.user_name_tv);
+        avatarIv = appMenu.findViewById(R.id.avatar_iv);
+        userNameTv = appMenu.findViewById(R.id.user_name_tv);
 
         avatarIv.setOnClickListener(new OnClickListener(){
 
@@ -552,14 +557,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         new UpdateAppMenuTask().execute();
 
         //TODO: Filter app button menu click only
-        menu.setOnTouchListener(new OnTouchListener(){
+        appMenu.setOnTouchListener(new OnTouchListener(){
 
                 @Override
                 public boolean onTouch(View p1, MotionEvent p2)
                 {
                     if (p2.getAction() == p2.ACTION_OUTSIDE && p2.getX() == 0 && p2.getX() == 0)
                     {
-                        hideMenu();   
+                        hideAppMenu();   
                     }
                     return false;
                 }
@@ -845,8 +850,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     startActivity(intent);
                 else
                     startActivity(intent,options.toBundle());
-                if (menuVisible)
-                    hideMenu();
+                if (appMenuVisible)
+                    hideAppMenu();
                 unpinDock();
             }
             catch (Exception e)
@@ -897,8 +902,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             Method method=ActivityOptions.class.getMethod(methodName, int.class);
             method.invoke(options, windowMode);
             startActivity(intent, options.toBundle());
-            if (menuVisible)
-                hideMenu();
+            if (appMenuVisible)
+                hideAppMenu();
             if (!mode.equals("fullscreen"))
             {
                 showDock();
@@ -927,9 +932,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void toggleMenu(View v)
     {
-        if (menuVisible)
+        if (appMenuVisible)
         {
-            hideMenu();
+            hideAppMenu();
         }
         else
         {
@@ -949,7 +954,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         favoritesGv.setNumColumns(Integer.parseInt(sp.getString("pref_num_columns", "5")));
         appsGv.setNumColumns(Integer.parseInt(sp.getString("pref_num_columns", "5")));
 
-        wm.addView(menu, layoutParams);
+        wm.addView(appMenu, layoutParams);
 
         //Load apps
         new UpdateAppMenuTask().execute();
@@ -963,23 +968,23 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         if (icon != null)
             avatarIv.setImageBitmap(icon);
 
-        menu.setAlpha(0);
-        menu.animate()
+        appMenu.setAlpha(0);
+        appMenu.animate()
             .alpha(1)
             .setDuration(200)
             .setInterpolator(new AccelerateDecelerateInterpolator());
             
         searchEt.requestFocus();
 
-        menuVisible = true;
+        appMenuVisible = true;
 
     }
 
-    public void hideMenu()
+    public void hideAppMenu()
     {
         searchEt.setText("");
-        wm.removeView(menu);
-        menuVisible = false;
+        wm.removeView(appMenu);
+        appMenuVisible = false;
     }
 
 
@@ -1017,7 +1022,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                             break;
                         case R.id.action_uninstall:
                             startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                            hideMenu();
+                            hideAppMenu();
                             break;
                         case 3:
                             AppUtils.pinApp(app, AppUtils.PINNED_LIST);
@@ -1212,14 +1217,88 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     {
         DeviceUtils.toggleVolume(this);
     }
+    
+    public void showPowerMenu(){
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.width = Utils.dpToPx(this,120); 
+        layoutParams.height = Utils.dpToPx(this,400);
+        layoutParams.gravity = Gravity.CENTER_VERTICAL|Gravity.RIGHT;
+        layoutParams.format = PixelFormat.TRANSLUCENT;
+        layoutParams.x = Utils.dpToPx(this,10);
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        }
+        else
+            layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+            
+        powerMenu = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.power_menu,null);
+        
+        powerMenu.setOnTouchListener(new OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View p1, MotionEvent p2)
+                {
+                    if (p2.getAction() == p2.ACTION_OUTSIDE && p2.getX() == 0 && p2.getX() == 0)
+                    {
+                        hidePowerMenu();   
+                    }
+                    return false;
+                }
+            });
+            
+        ImageButton powerOffBtn = powerMenu.findViewById(R.id.power_off_btn);
+        ImageButton restartBtn = powerMenu.findViewById(R.id.restart_btn);
+        ImageButton softRestartBtn = powerMenu.findViewById(R.id.soft_restart_btn);
+        ImageButton screenshotBtn = powerMenu.findViewById(R.id.screenshot_btn);
+        
+        softRestartBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    DeviceUtils.sotfReboot();
+                }
+            });
+        screenshotBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
+                    hidePowerMenu();
+                }
+            });
+            
+        switch (sp.getString("pref_theme", "pref_theme_dark"))
+        {
+            case "pref_theme_dark":
+                powerMenu.setBackgroundResource(R.drawable.round_rect_solid_dark);
+                break;
+            case "pref_theme_black":
+                powerMenu.setBackgroundResource(R.drawable.round_rect_solid_black);
+                break;
+            case "pref_theme_transparent":
+                powerMenu.setBackgroundResource(R.drawable.round_rect_transparent);
+                break;
+        }
+
+        wm.addView(powerMenu, layoutParams);
+        powerMenuVisible = true;
+    }
+    
+    public void hidePowerMenu(){
+        wm.removeView(powerMenu);
+        powerMenuVisible = false;
+    }
 
     public void applyTheme()
     {
-        switch (sp.getString("pref_theme", "dark"))
+        switch (sp.getString("pref_theme", "pref_theme_dark"))
         {
             case "pref_theme_dark":
                 dockLayout.setBackgroundResource(R.drawable.round_rect_solid_dark);
-                menu.setBackgroundResource(R.drawable.round_rect_solid_dark);
+                appMenu.setBackgroundResource(R.drawable.round_rect_solid_dark);
                 searchEt.setBackgroundResource(R.drawable.search_background_dark);
                 pinBtn.setBackgroundResource(R.drawable.circle_solid_dark);
                 wifiBtn.setBackgroundResource(R.drawable.circle_solid_dark);
@@ -1234,7 +1313,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
             case "pref_theme_black":
                 dockLayout.setBackgroundResource(R.drawable.round_rect_solid_black);
-                menu.setBackgroundResource(R.drawable.round_rect_solid_black);
+                appMenu.setBackgroundResource(R.drawable.round_rect_solid_black);
                 searchEt.setBackgroundResource(R.drawable.search_background_black);
                 pinBtn.setBackgroundResource(R.drawable.circle_solid_black);
                 wifiBtn.setBackgroundResource(R.drawable.circle_solid_black);
@@ -1249,7 +1328,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 break;
             case "pref_theme_transparent":
                 dockLayout.setBackgroundResource(R.drawable.round_rect_transparent);
-                menu.setBackgroundResource(R.drawable.round_rect_transparent);
+                appMenu.setBackgroundResource(R.drawable.round_rect_transparent);
                 searchEt.setBackgroundResource(R.drawable.search_background_transparent);
                 pinBtn.setBackgroundResource(R.drawable.circle_transparent);
                 wifiBtn.setBackgroundResource(R.drawable.circle_transparent);
@@ -1269,23 +1348,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     public void updateCorners()
     {
         if (sp.getBoolean("pref_enable_top_right", false))
-        {
             topRightCorner.setVisibility(View.VISIBLE);
-        }
         else
-        {
             topRightCorner.setVisibility(View.GONE);
-        }
-
+            
         if (sp.getBoolean("pref_enable_bottom_right", false))
-        {
             bottomRightCorner.setVisibility(View.VISIBLE);
-        }
         else
-        {
             bottomRightCorner.setVisibility(View.GONE);
-        }
-
     }
 
     public void updateMenuIcon()
@@ -1321,14 +1391,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     public void loadFavoriteApps()
     {
         ArrayList<App> apps = AppUtils.getPinnedApps(pm, AppUtils.PINNED_LIST);
+        
         if (apps.size() > 0)
-        {
-            showFavorites();
-        }
+           showFavorites();
         else
-        {
             hideFavorites();
-        }
+        
         favoritesGv.setAdapter(new AppAdapter(this, apps));
 
     }
