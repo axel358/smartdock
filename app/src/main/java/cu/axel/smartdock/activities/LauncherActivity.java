@@ -138,7 +138,7 @@ public class LauncherActivity extends Activity
 
     public void loadDesktopApps()
     {
-        appsGv.setAdapter(new AppAdapterDesktop(this, AppUtils.getPinnedApps(getPackageManager(), AppUtils.DESKTOP_LIST)));
+        appsGv.setAdapter(new AppAdapterDesktop(this, AppUtils.getPinnedApps(this,getPackageManager(), AppUtils.DESKTOP_LIST)));
     }
 
 	@Override
@@ -254,7 +254,7 @@ public class LauncherActivity extends Activity
                             startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app)));
                             break;
                         case 4:
-                            AppUtils.unpinApp(app, AppUtils.DESKTOP_LIST);
+                            AppUtils.unpinApp(LauncherActivity.this,app, AppUtils.DESKTOP_LIST);
                             loadDesktopApps();
                             break;
                         case R.id.action_launch_standard:

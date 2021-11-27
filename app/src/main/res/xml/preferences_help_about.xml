@@ -21,4 +21,7 @@
     <Preference
         android:summary="GNU General Public Licence v3.0"
         android:title="License" />
+    <Preference
+        android:icon="@drawable/ic_about"
+        android:title="Options marked with * are experimental and may cause trouble. If you experience crashes disable them"/>
 </PreferenceScreen>

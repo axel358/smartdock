@@ -60,4 +60,10 @@
         android:title="Launch games in full screen"
         android:summary="Launch apps detected as games in full screen by default"
 		android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="pref_lock_landscape"
+        android:title="Launch full screen apps in landscpape"
+        android:summary="Some full screen apps might try to force screen orientation to portrait. Use this to prevent such behaviour"
+        android:defaultValue="false" />
+    
 </PreferenceScreen>

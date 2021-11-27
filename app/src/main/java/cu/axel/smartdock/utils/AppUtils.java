@@ -7,8 +7,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.widget.Toast;
+import android.util.Log;
 import cu.axel.smartdock.models.App;
+import cu.axel.smartdock.models.AppTask;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,16 +17,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import android.content.Context;
 
 public class AppUtils {
-    private static final String FILES_DIR = "/data/data/cu.axel.smartdock/files";
-    public static final String PINNED_LIST=FILES_DIR + "/pinned.lst";
-    public static final String DESKTOP_LIST=FILES_DIR + "/desktop.lst";
+    public static final String PINNED_LIST="pinned.lst";
+    public static final String DESKTOP_LIST="desktop.lst";
 
     public static ArrayList<App> getInstalledApps(PackageManager pm) {
         ArrayList<App> apps = new ArrayList<App>();
@@ -55,11 +57,11 @@ public class AppUtils {
         return apps;
 	}
 
-    public static ArrayList<App> getPinnedApps(PackageManager pm, String type) {
+    public static ArrayList<App> getPinnedApps(Context context,PackageManager pm, String type) {
         ArrayList<App> apps = new ArrayList<App>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(type));
+            BufferedReader br = new BufferedReader(new FileReader(new File(context.getFilesDir(), type)));
             String applist="";
             try {
                 if ((applist = br.readLine()) != null) {
@@ -70,7 +72,7 @@ public class AppUtils {
                             apps.add(new App(pm.getApplicationLabel(appInfo).toString(), app, pm.getApplicationIcon(app)));
                         } catch (PackageManager.NameNotFoundException e) {
                             //app is no longer available, lets unpin it
-                            unpinApp(app, type);
+                            unpinApp(context, app, type);
                         }   
                     }
                 }
@@ -82,35 +84,34 @@ public class AppUtils {
 
     }
 
-    public static void pinApp(String app, String type) {
+    public static void pinApp(Context context , String app, String type) {
         try {
-            File dir=new File(FILES_DIR);
-            if (!dir.exists())
-                dir.mkdir();
-            BufferedWriter bw = new BufferedWriter(new FileWriter(type, true));
-            bw.write(app + " ");
-            bw.close();
+            File file=new File(context.getFilesDir(), type);
+            FileWriter fw = new FileWriter(file, true);
+            fw.write(app + " ");
+            fw.close();
         } catch (IOException e) {}
 
     }
-    public static void unpinApp(String app, String type) {
+    public static void unpinApp(Context context, String app, String type) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(type));
+            File file=new File(context.getFilesDir(), type);
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String applist="";
 
             if ((applist = br.readLine()) != null) {
                 applist = applist.replace(app + " ", "");
-                BufferedWriter bw = new BufferedWriter(new FileWriter(type, false));
-                bw.write(applist);
-                bw.close();
+                FileWriter fw = new FileWriter(file, false);
+                fw.write(applist);
+                fw.close();
             }
 
         } catch (IOException e) {}   
     }
 
-    public static boolean isPinned(String app, String type) {
+    public static boolean isPinned(Context context, String app, String type) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(type));
+            BufferedReader br = new BufferedReader(new FileReader(new File(context.getFilesDir(), type)));
             String applist="";
 
             if ((applist = br.readLine()) != null) {
@@ -147,5 +148,36 @@ public class AppUtils {
             setWindowMode.invoke(am, taskId, mode, false);
         } catch (Exception e) {
         }
+    }
+
+    public static ArrayList<AppTask> getRunningTasks(ActivityManager am, PackageManager pm) {
+        List<ActivityManager.RunningTaskInfo> tasksInfo = am.getRunningTasks(20);
+
+        ArrayList<AppTask> appTasks = new ArrayList<AppTask>();
+        for (ActivityManager.RunningTaskInfo taskInfo : tasksInfo) {
+            try {
+                //Exclude systemui, launcher and other system apps from the tasklist
+                if (taskInfo.baseActivity.getPackageName().contains("com.android.systemui") 
+                    || taskInfo.baseActivity.getPackageName().contains("com.google.android.packageinstaller"))
+                    continue;
+
+                //Hack to save Dock settings activity ftom being excluded
+                if (!taskInfo.topActivity.getClassName().equals("cu.axel.smartdock.activities.MainActivity") && taskInfo.topActivity.getPackageName().equals(AppUtils.getCurrentLauncher(pm)))
+                    continue;
+
+                if (Build.VERSION.SDK_INT > 29) {
+                    try {
+                        Field isRunning = taskInfo.getClass().getField("isRunning");
+                        boolean running= isRunning.getBoolean(taskInfo);
+                        if (!running)
+                            continue;
+                    } catch (Exception e) {}
+                }
+
+                appTasks.add(new AppTask(taskInfo.id, taskInfo.topActivity.getShortClassName(), taskInfo.topActivity.getPackageName(), pm.getActivityIcon(taskInfo.topActivity)));
+            } catch (PackageManager.NameNotFoundException e) {}
+        }
+
+        return appTasks;
     }
 }

@@ -67,15 +67,17 @@
 			android:src="@drawable/sysbar_split"
 			android:id="@+id/split_btn"/>
 
-		<GridView
-			android:layout_weight="1.0"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:stretchMode="none"
-			android:gravity="center"
-			android:numColumns="auto_fit"
-			android:columnWidth="60dp"
-			android:id="@+id/apps_lv"/>
+
+        <GridView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:stretchMode="none"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:columnWidth="60dp"
+            android:id="@+id/apps_lv"/>
+
 
 		<TextView
 			android:layout_height="22dp"
@@ -87,17 +89,16 @@
 			android:text="0"
 			android:gravity="center"
 			android:background="@drawable/circle_solid_white"/>
-        
-        <ImageView
-            android:layout_height="35dp"
-            android:layout_width="35dp"
-            android:src="@drawable/ic_unpin"
-            android:id="@+id/pin_btn"
-            android:layout_margin="5dp"
-            android:padding="8dp"
-            android:background="@drawable/circle_solid_dark"
-            android:onClick="toggleVolume"/>
-        
+
+		<ImageView
+			android:layout_height="35dp"
+			android:layout_width="35dp"
+			android:src="@drawable/ic_unpin"
+			android:id="@+id/pin_btn"
+			android:layout_margin="5dp"
+			android:padding="8dp"
+			android:background="@drawable/circle_solid_dark"
+			android:onClick="toggleVolume"/>
 
 		<ImageView
 			android:layout_height="35dp"

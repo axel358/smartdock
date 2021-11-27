@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
 import cu.axel.smartdock.R;
+import cu.axel.smartdock.utils.Utils;
 
 public class DebugActivity extends Activity {
     @Override
@@ -30,11 +31,7 @@ public class DebugActivity extends Activity {
 
                 @Override
                 public void onClick(DialogInterface p1, int p2) {
-                    try {
-                        FileWriter fw = new FileWriter(new File(getExternalFilesDir(null), "crash_log_" + System.currentTimeMillis() + ".log"));
-                        fw.write(report);
-                        fw.close();
-                    } catch (IOException e) {}
+                    Utils.saveLog(DebugActivity.this, "crash_log", report);
                     finish();
                 }
             });

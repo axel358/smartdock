@@ -26,4 +26,9 @@
         android:hint="500"
         android:defaultValue="500"
 		android:title="Dock hide delay in ms"/>
+    <CheckBoxPreference
+        android:key="pref_enable_power_menu"
+        android:title="Use built in power menu"
+        android:summary="Use a custom power menu instead of the system one"
+        android:defaultValue="false" />
 </PreferenceScreen>

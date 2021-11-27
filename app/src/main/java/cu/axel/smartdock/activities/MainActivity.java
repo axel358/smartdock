@@ -31,7 +31,7 @@ public class MainActivity extends PreferenceActivity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
         if (!hasStoragePermission()) {
             requestStoragePermission(0);
         }

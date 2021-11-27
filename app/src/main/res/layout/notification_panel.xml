@@ -32,16 +32,11 @@
 
 	</LinearLayout>
 
-	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:orientation="vertical"
-		android:id="@+id/custom_notification_container"/>
-
 	<ListView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:id="@+id/notification_lv"/>
+		android:id="@+id/notification_lv"
+		android:dividerHeight="5dp"/>
 
 </LinearLayout>
 

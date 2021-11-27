@@ -4,7 +4,7 @@
         android:title="Please note that you must provide your own sounds"/>
     <CheckBoxPreference
         android:key="pref_enable_startup_sound"
-        android:title="Play a custom sound at Dock startup"
+        android:title="Play a custom sound at Dock startup*"
         android:defaultValue="false" />
     <Preference
         android:key="pref_startup_sound"
@@ -32,7 +32,7 @@
         android:title="Choose charge sound"/>
     <CheckBoxPreference
         android:key="pref_enable_charge_complete_sound"
-        android:title="Play a custom sound when the device has completed charging"
+        android:title="Play a custom sound when the device has completed charging*"
         android:defaultValue="false" />
     <Preference
         android:key="pref_charge_complete_sound"

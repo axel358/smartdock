@@ -16,7 +16,6 @@ import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
 
 public class AdvancedPreferences extends PreferenceFragment {
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,19 +55,19 @@ public class AdvancedPreferences extends PreferenceFragment {
             });
     }
 
-    public void showEditAutostartDialog(Context context) {
+    public void showEditAutostartDialog(final Context context) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
         dialog.setTitle("Edit autostart");
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_autostart, null);
         final EditText contentEt = view.findViewById(R.id.edit_autostart_et);
-        contentEt.setText(Utils.readAutostart());
+        contentEt.setText(Utils.readAutostart(context));
         dialog.setPositiveButton("Save", new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface p1, int p2) {
                     String content=contentEt.getText().toString();
                     if (!content.isEmpty()) {
-                        Utils.saveAutoStart(content);
+                        Utils.saveAutoStart(context,content);
                     }
                 }
             });

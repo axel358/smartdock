@@ -16,11 +16,17 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import cu.axel.smartdock.R;
+import android.view.WindowManager;
+import android.widget.ActionMenuView.LayoutParams;
+import android.graphics.PixelFormat;
+import android.os.Build;
 
 public class Utils {
     public static boolean notificationPanelVisible;
-    private static final String FILES_DIR="/data/data/cu.axel.smartdock/files";
-	public static void setForceShowIcon(PopupMenu popupMenu) {
+    public static String AUTOSTART_SCRIPT="autostart.sh";
+    
+    public static void setForceShowIcon(PopupMenu popupMenu) {
 		try {
             Field[] declaredFields = popupMenu.getClass().getDeclaredFields();
             for (Field field : declaredFields) {
@@ -58,8 +64,8 @@ public class Utils {
         return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
     }
 
-    public static void doAutostart() {
-        File script=new File(FILES_DIR + "/autostart.sh");
+    public static void doAutostart(Context context) {
+        File script=new File(context.getFilesDir(), AUTOSTART_SCRIPT);
         if (script.exists()) {
             try {
                 if (!script.canExecute())
@@ -69,9 +75,9 @@ public class Utils {
         }
     }
 
-    public static String readAutostart() {
+    public static String readAutostart(Context context) {
         String content="";
-        File script=new File(FILES_DIR + "/autostart.sh");
+        File script=new File(context.getFilesDir(), AUTOSTART_SCRIPT);
         try {
             BufferedReader br=new BufferedReader(new FileReader(script));
             String line="";
@@ -84,8 +90,8 @@ public class Utils {
         return content;
     }
 
-    public static void saveAutoStart(String content) {
-        File script=new File(FILES_DIR + "/autostart.sh");
+    public static void saveAutoStart(Context context, String content) {
+        File script=new File(context.getFilesDir(), AUTOSTART_SCRIPT);
         try {
             FileWriter fw=new FileWriter(script, false);
             fw.write(content);
@@ -113,4 +119,62 @@ public class Utils {
         return result;
     }
 
+    public static int getBatteryDrawable(int level, boolean plugged) {
+        if (plugged) {
+
+            if (level == 0)
+                return R.drawable.battery_charging_empty;
+            else if (level > 0 && level < 30)
+                return R.drawable.battery_charging_20;
+            else if (level > 30 && level < 50)
+                return R.drawable.battery_charging_30;
+            else if (level > 50 && level < 60)
+                return R.drawable.battery_charging_50;
+            else if (level > 60 && level < 80)
+                return R.drawable.battery_charging_60;
+            else if (level > 80 && level < 90)
+                return R.drawable.battery_charging_80;
+            else if (level > 90 && level < 100)
+                return R.drawable.battery_charging_90;
+            else if (level == 100)
+                return R.drawable.battery_charging_full;
+        } else {
+
+            if (level == 0)
+                return R.drawable.battery_empty;
+            else if (level > 0 && level < 30)
+                return R.drawable.battery_20;
+            else if (level > 30 && level < 50)
+                return R.drawable.battery_30;
+            else if (level > 50 && level < 60)
+                return R.drawable.battery_50;
+            else if (level > 60 && level < 80)
+                return R.drawable.battery_60;
+            else if (level > 80 && level < 90)
+                return R.drawable.battery_80;
+            else if (level > 90 && level < 100)
+                return R.drawable.battery_90;  
+            else if (level == 100)
+                return R.drawable.battery_full;
+        }
+        return R.drawable.battery_empty;
+    }
+    
+    public static void saveLog(Context context, String name, String log){
+        try {
+            FileWriter fw = new FileWriter(new File(context.getExternalFilesDir(null),name+ "_" + System.currentTimeMillis() + ".log"));
+            fw.write(log);
+            fw.close();
+        } catch (IOException e) {}
+    }
+    
+    public static WindowManager.LayoutParams makeWindowParams(int width, int height){
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.format = PixelFormat.TRANSLUCENT;
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        layoutParams.type = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_PHONE;
+        layoutParams.width=width;
+        layoutParams.height=height;
+        return layoutParams;
+    }
 }

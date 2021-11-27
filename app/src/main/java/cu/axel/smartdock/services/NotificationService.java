@@ -53,8 +53,6 @@ public class NotificationService extends NotificationListenerService {
     private SharedPreferences sp;
     private DockServiceReceiver dockReceiver;
     private View notificationPanel;
-    private LinearLayout customNotificationContainer;
-    private LinearLayout.MarginLayoutParams cnLayoutParams;
     private ListView notificationsLv;
     private NotificationManager nm;
 
@@ -79,15 +77,13 @@ public class NotificationService extends NotificationListenerService {
 		} else
 			nLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
 
-        cnLayoutParams = new LinearLayout.MarginLayoutParams(-1, Utils.dpToPx(this, 75));
-        cnLayoutParams.topMargin = Utils.dpToPx(this, 5);
-
         //Notification panel
         npLayoutParams = new WindowManager.LayoutParams();
         npLayoutParams.width = Utils.dpToPx(this, 400);
         npLayoutParams.height = Utils.dpToPx(this, 400);
         npLayoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
         npLayoutParams.y = Utils.dpToPx(this, 60);
+        npLayoutParams.x = Utils.dpToPx(this, 2);
         npLayoutParams.format = PixelFormat.TRANSLUCENT;
         npLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |  WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
@@ -97,7 +93,6 @@ public class NotificationService extends NotificationListenerService {
             npLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
 
         notificationPanel = LayoutInflater.from(this).inflate(R.layout.notification_panel, null);
-        customNotificationContainer = notificationPanel.findViewById(R.id.custom_notification_container);
         Button cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
         notificationsLv = notificationPanel.findViewById(R.id.notification_lv);
 
@@ -214,7 +209,6 @@ public class NotificationService extends NotificationListenerService {
                             cancelNotification(sbn.getKey());
                     }
 
-
                 });
 
 			notificationLayout.setOnClickListener(new OnClickListener(){
@@ -312,12 +306,21 @@ public class NotificationService extends NotificationListenerService {
                     && notification.isClearable()) count++;
             }
             sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_COUNT_CHANGED").putExtra("count", count));
-        } else {
-            //Toast.makeText(this,"null",5000).show();
         }
 
     }
     public void showNotificationPanel() {
+        switch (sp.getString("pref_theme", "dark")) {
+            case "pref_theme_dark":
+                notificationPanel.setBackgroundResource(R.drawable.round_rect_solid_dark);
+                break;
+            case "pref_theme_black":
+                notificationPanel.setBackgroundResource(R.drawable.round_rect_solid_black);
+                break;
+            case "pref_theme_transparent":
+                notificationPanel.setBackgroundResource(R.drawable.round_rect_transparent);
+                break;
+        }
         wm.addView(notificationPanel, npLayoutParams);
 
         updateNotificationPanel();
@@ -342,17 +345,39 @@ public class NotificationService extends NotificationListenerService {
     }
 
     public void updateNotificationPanel() {
-        customNotificationContainer.removeAllViews();
-        StatusBarNotification[] notifications = getActiveNotifications();
-        ArrayList<StatusBarNotification> notifs =new ArrayList<StatusBarNotification>();
-        for (final StatusBarNotification sbn : notifications) {
-            final Notification notification=sbn.getNotification();
-            if (notification.contentView != null) {
-                LinearLayout customNotification = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_notification, null);
-                View customView = notification.contentView.apply(this, customNotification);
-                customNotification.addView(customView);
-                customNotification.setOnClickListener(new OnClickListener(){
+        notificationsLv.setAdapter(new NotificationAdapter(this, getActiveNotifications()));
+    }
 
+    class DockServiceReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context p1, Intent p2) {
+            String action = p2.getStringExtra("action");
+            if (action.equals("show"))
+                showNotificationPanel();
+            else
+                hideNotificationPanel();
+        }
+
+    }
+    class NotificationAdapter extends ArrayAdapter<StatusBarNotification> {
+        private Context context;
+
+        public NotificationAdapter(Context context, StatusBarNotification[] notifications) {
+            super(context, R.layout.notification, notifications);
+            this.context = context;
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            final StatusBarNotification sbn = getItem(position);
+            final Notification notification = sbn.getNotification();
+
+            if (notification.contentView != null) {
+                LinearLayout customNotification = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.custom_notification, null);
+                View customView = notification.contentView.apply(context, customNotification);
+                customNotification.addView(customView);
+
+                customNotification.setOnClickListener(new OnClickListener(){
                         @Override
                         public void onClick(View p1) {
                             if (notification.contentIntent != null) {
@@ -367,47 +392,18 @@ public class NotificationService extends NotificationListenerService {
                             }
                         }
                     });
-                customNotificationContainer.addView(customNotification, cnLayoutParams);
-            } else {
-                notifs.add(sbn);
+
+                return customNotification;
             }
-        }
-        notificationsLv.setAdapter(new NotificationAdapter(this, notifs));
-    }
-
-    class DockServiceReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context p1, Intent p2) {
-            String action = p2.getStringExtra("action");
-            if (action.equals("show"))
-                showNotificationPanel();
-            else
-                hideNotificationPanel();
-        }
 
 
-    }
-    class NotificationAdapter extends ArrayAdapter<StatusBarNotification> {
-        private Context context;
+            //if (convertView == null)
+            convertView = LayoutInflater.from(context).inflate(R.layout.notification_white, null);
 
-        public NotificationAdapter(Context context, ArrayList<StatusBarNotification> notifications) {
-            super(context, R.layout.notification, notifications);
-            this.context = context;
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null)
-                convertView = LayoutInflater.from(context).inflate(R.layout.notification_white, null);
-
-            // convertView.setLayoutParams(cnLayoutParams);
 
             TextView notifTitle=convertView.findViewById(R.id.notif_w_title_tv);
             TextView notifText=convertView.findViewById(R.id.notif_w_text_tv);
             ImageView notifIcon = convertView.findViewById(R.id.notif_w_icon_iv);
-
-
-            final StatusBarNotification sbn = getItem(position);
-            final Notification notification =sbn.getNotification();
 
             Bundle extras=notification.extras;
             String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
@@ -438,7 +434,6 @@ public class NotificationService extends NotificationListenerService {
             }
 
             convertView.setOnClickListener(new OnClickListener(){
-
                     @Override
                     public void onClick(View p1) {
                         if (notification.contentIntent != null) {
