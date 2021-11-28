@@ -21,10 +21,18 @@ import android.view.WindowManager;
 import android.widget.ActionMenuView.LayoutParams;
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.content.SharedPreferences;
 
 public class Utils {
     public static boolean notificationPanelVisible;
     public static String AUTOSTART_SCRIPT="autostart.sh";
+
+    public static void enableBuiltinNavigation(SharedPreferences.Editor editor) {
+        editor.putBoolean("pref_enable_back",true);
+        editor.putBoolean("pref_enable_home",true);
+        editor.putBoolean("pref_enable_recents",true);
+        editor.commit();
+    }
     
     public static void setForceShowIcon(PopupMenu popupMenu) {
 		try {

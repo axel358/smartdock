@@ -7,18 +7,22 @@ import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.preference.PreferenceManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 import cu.axel.smartdock.services.DockService;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.List;
-import android.preference.PreferenceManager;
 
 public class DeviceUtils {
+
     public static boolean lockScreen(Context context) {
 
         DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -35,18 +39,39 @@ public class DeviceUtils {
         runAsRoot("input keyevent " + keycode);
 	}
 
-    public static void runAsRoot(String command) {
+    public static String runAsRoot(String command) {
+        String output = "";
         try {
             java.lang.Process proccess = Runtime.getRuntime().exec("su");
             DataOutputStream os = new DataOutputStream(proccess.getOutputStream());
             os.writeBytes(command + "\n");
             os.flush();
             os.close();
-        } catch (IOException e) {}
+            BufferedReader br = new BufferedReader(new InputStreamReader(proccess.getInputStream()));
+            String line;
+            while ((line = br.readLine()) != null) {
+                output += line + "\n";
+            }
+            br.close();
+        } catch (IOException e) {
+            return "error";
+        }
+        return output;
     }
 
     public static void sotfReboot() {
         runAsRoot("setprop ctl.restart zygote");
+    }
+
+    public static void reboot() {
+        runAsRoot("am start -a android.intent.action.REBOOT");
+    }
+
+    public static void shutdown() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            runAsRoot("am start -a android.intent.action.ACTION_REQUEST_SHUTDOWN");
+        else
+            runAsRoot("am start -a com.android.internal.intent.action.REQUEST_SHUTDOWN");
     }
 
     public static void setDisplaySize(int size) {

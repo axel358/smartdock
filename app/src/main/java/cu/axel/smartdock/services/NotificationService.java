@@ -42,6 +42,7 @@ import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
 import cu.axel.smartdock.widgets.HoverInterceptorLayout;
 import java.util.ArrayList;
+import android.widget.ProgressBar;
 
 public class NotificationService extends NotificationListenerService {
 	private WindowManager wm;
@@ -405,9 +406,17 @@ public class NotificationService extends NotificationListenerService {
             TextView notifText=convertView.findViewById(R.id.notif_w_text_tv);
             ImageView notifIcon = convertView.findViewById(R.id.notif_w_icon_iv);
 
+
             Bundle extras=notification.extras;
             String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
             CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
+            int progress = extras.getInt(Notification.EXTRA_PROGRESS);
+
+            if (progress != 0) {
+                ProgressBar notifPb = convertView.findViewById(R.id.notif_w_pb);
+                notifPb.setVisibility(View.VISIBLE);
+                notifPb.setProgress(progress);
+            }
 
             notifTitle.setText(notificationTitle);
             notifText.setText(notificationText);

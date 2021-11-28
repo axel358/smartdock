@@ -17,6 +17,11 @@
         android:defaultValue=""
         android:title="Display size"/>
     <CheckBoxPreference
+        android:summary="Reboot required. Don't forget to re enable them before uninstalling the Dock"
+        android:key="pref_hide_navigation"
+        android:title="Hide Android navigation buttons"
+        android:defaultValue="false" />
+    <CheckBoxPreference
         android:summary="System might be unresponsive for a short while"
         android:key="pref_enable_soft_reboot"
         android:title="Use Modifier+F12 to soft reboot Android"

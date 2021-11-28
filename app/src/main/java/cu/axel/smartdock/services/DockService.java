@@ -1106,10 +1106,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public void onClick(View p1) {
                     hidePowerMenu();
-                    if(Build.VERSION.SDK_INT<Build.VERSION_CODES.O)
-                        DeviceUtils.runAsRoot("am start -a android.intent.action.ACTION_REQUEST_SHUTDOWN");
-                    else
-                        DeviceUtils.runAsRoot("am start -a com.android.internal.intent.action.REQUEST_SHUTDOWN");
+                    DeviceUtils.shutdown();
                 }
             });
         
@@ -1118,7 +1115,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public void onClick(View p1) {
                     hidePowerMenu();
-                    DeviceUtils.runAsRoot("am start -a android.intent.action.REBOOT");
+                    DeviceUtils.reboot();
                 }
             });
         

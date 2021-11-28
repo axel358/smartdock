@@ -7,12 +7,15 @@
         android:summary="K S Maan \nBlissLabs project" />
     <Preference
         android:summary="@string/app_help"
-        android:title="Help" />
+        android:title="Help" >
+        <intent android:action="android.intent.action.VIEW" 
+            android:data="https://github.com/axel358/smartdock"/>
+    </Preference>
     <Preference
         android:summary="Smart Dock it's free and open source. Contribute on GitHub"
         android:title="GitHub" >
         <intent android:action="android.intent.action.VIEW" 
-                android:data="https://github.com/axel358/smartdock"/>
+            android:data="https://github.com/axel358/smartdock"/>
     </Preference>
     <Preference
         android:key="pref_join_telegram"
