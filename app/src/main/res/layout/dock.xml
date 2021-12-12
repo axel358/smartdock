@@ -12,141 +12,179 @@
 		android:layout_height="10dp"
 		android:layout_width="match_parent"/>
 
-	<LinearLayout
-		android:background="@drawable/round_rect_solid_dark"
+	<RelativeLayout
+		android:background="@drawable/round_rect"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
-		android:gravity="center"
 		android:id="@+id/dock_layout"
 		android:paddingLeft="10dp"
 		android:paddingRight="10dp"
 		android:visibility="gone">
 
-		<ImageView
-			android:onClick="toggleMenu"
-			android:layout_height="40dp"
-			android:layout_width="40dp"
-			android:id="@+id/apps_btn"
-			android:src="@drawable/ic_apps"
-			android:layout_margin="9dp"/>
-
-		<ImageView
-			android:layout_margin="9dp"
-			android:background="@drawable/circle_solid_dark"
-			android:padding="8dp"
-			android:layout_height="40dp"
-			android:layout_width="40dp"
-			android:src="@drawable/sysbar_back"
-			android:id="@+id/back_btn"
-			android:visibility="gone"/>
-
-		<ImageView
-			android:background="@drawable/circle_solid_dark"
-			android:padding="8dp"
-			android:layout_height="40dp"
-			android:layout_width="40dp"
-			android:src="@drawable/sysbar_home"
-			android:id="@+id/home_btn"/>
-
-		<ImageView
-			android:layout_margin="9dp"
-			android:background="@drawable/circle_solid_dark"
-			android:padding="8dp"
-			android:layout_height="40dp"
-			android:layout_width="40dp"
-			android:src="@drawable/sysbar_recent"
-			android:id="@+id/recents_btn"/>
-
-		<ImageView
-			android:layout_margin="9dp"
-			android:background="@drawable/circle_solid_dark"
-			android:padding="8dp"
-			android:layout_height="40dp"
-			android:layout_width="40dp"
-			android:src="@drawable/sysbar_split"
-			android:id="@+id/split_btn"/>
-
-
-        <GridView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:stretchMode="none"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:numColumns="auto_fit"
-            android:columnWidth="60dp"
-            android:id="@+id/apps_lv"/>
-
-
-		<TextView
-			android:layout_height="22dp"
-			android:layout_width="22dp"
-			android:id="@+id/notifications_btn"
-			android:layout_margin="5dp"
-			android:padding="2dp"
-			android:textSize="12sp"
-			android:text="0"
-			android:gravity="center"
-			android:background="@drawable/circle_solid_white"/>
-
-		<ImageView
-			android:layout_height="35dp"
-			android:layout_width="35dp"
-			android:src="@drawable/ic_unpin"
-			android:id="@+id/pin_btn"
-			android:layout_margin="5dp"
-			android:padding="8dp"
-			android:background="@drawable/circle_solid_dark"
-			android:onClick="toggleVolume"/>
-
-		<ImageView
-			android:layout_height="35dp"
-			android:layout_width="35dp"
-			android:src="@drawable/ic_wifi_on"
-			android:id="@+id/wifi_btn"
-			android:layout_margin="5dp"
-			android:padding="8dp"
-			android:background="@drawable/circle_solid_dark"
-			android:onClick="toggleWifi"/>
-
-		<ImageView
-			android:layout_height="35dp"
-			android:layout_width="35dp"
-			android:src="@drawable/ic_volume"
-			android:id="@+id/volume_btn"
-			android:layout_margin="5dp"
-			android:padding="5dp"
-			android:background="@drawable/circle_solid_dark"
-			android:onClick="toggleVolume"/>
-
-		<ImageView
-			android:layout_height="35dp"
-			android:layout_width="35dp"
-			android:src="@drawable/battery_charging_full"
-			android:id="@+id/battery_btn"
-			android:layout_margin="5dp"
-			android:padding="5dp"
-			android:background="@drawable/circle_solid_dark"/>
-
-		<ImageView
-			android:background="@drawable/circle_solid_dark"
-			android:padding="5dp"
-			android:layout_height="35dp"
-			android:layout_width="35dp"
-			android:src="@drawable/ic_power"
-			android:id="@+id/power_btn"
-			android:layout_margin="5dp"/>
-
-		<TextClock
-			android:id="@+id/date_btn"
-			android:textColor="@android:color/white"
+		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:layout_marginLeft="10dp"
-			android:layout_marginRight="10dp"/>
+			android:layout_alignParentLeft="true"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:layout_centerVertical="true"
+			android:id="@+id/nav_panel">
 
-	</LinearLayout>
+			<ImageView
+				android:onClick="toggleMenu"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:id="@+id/apps_btn"
+				android:src="@drawable/ic_apps"
+				android:layout_margin="9dp"/>
+
+			<ImageView
+				android:layout_margin="9dp"
+				android:background="@drawable/circle"
+				android:padding="8dp"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_sysbar_back"
+				android:id="@+id/back_btn"
+				android:visibility="gone"/>
+
+			<ImageView
+				android:background="@drawable/circle"
+				android:padding="8dp"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_sysbar_home"
+				android:id="@+id/home_btn"/>
+
+			<ImageView
+				android:layout_margin="9dp"
+				android:background="@drawable/circle"
+				android:padding="8dp"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_sysbar_recents"
+				android:id="@+id/recents_btn"/>
+
+			<ImageView
+				android:layout_margin="9dp"
+				android:background="@drawable/circle"
+				android:padding="8dp"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_sysbar_split"
+				android:id="@+id/split_btn"/>
+            
+            <ImageView
+                android:onClick="launchAssistant"
+                android:background="@drawable/circle"
+                android:padding="8dp"
+                android:layout_height="40dp"
+                android:layout_width="40dp"
+                android:src="@drawable/ic_assistant"
+                android:id="@+id/assist_btn"
+				android:layout_margin="5dp"/>
+
+		</LinearLayout>
+
+		<GridView
+			android:layout_centerInParent="true"
+			android:layout_centerVertical="true"
+			android:layout_height="wrap_content"
+			android:layout_width="60dp"
+			android:stretchMode="none"
+			android:numColumns="auto_fit"
+			android:columnWidth="60dp"
+			android:id="@+id/apps_lv"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_alignParentRight="true"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:layout_centerVertical="true">
+
+			<TextView
+				android:layout_height="22dp"
+				android:layout_width="22dp"
+				android:id="@+id/notifications_btn"
+				android:layout_margin="5dp"
+				android:padding="2dp"
+				android:textSize="12sp"
+				android:text="0"
+				android:gravity="center"
+				android:background="@drawable/circle"/>
+
+			<ImageView
+				android:layout_height="35dp"
+				android:layout_width="35dp"
+				android:src="@drawable/ic_unpin"
+				android:id="@+id/pin_btn"
+				android:layout_margin="5dp"
+				android:padding="8dp"
+				android:background="@drawable/circle"
+				android:onClick="toggleVolume"/>
+            <ImageView
+                android:onClick="toggleBluetooth"
+                android:background="@drawable/circle"
+                android:padding="5dp"
+                android:layout_height="35dp"
+                android:layout_width="35dp"
+                android:src="@drawable/ic_bluetooth_off"
+                android:id="@+id/bluetooth_btn"
+                android:layout_margin="5dp"/>
+            
+			<ImageView
+				android:layout_height="35dp"
+				android:layout_width="35dp"
+				android:src="@drawable/ic_wifi_on"
+				android:id="@+id/wifi_btn"
+				android:layout_margin="5dp"
+				android:padding="8dp"
+				android:background="@drawable/circle"
+				android:onClick="toggleWifi"/>
+
+			<ImageView
+				android:layout_height="35dp"
+				android:layout_width="35dp"
+				android:src="@drawable/ic_volume"
+				android:id="@+id/volume_btn"
+				android:layout_margin="5dp"
+				android:padding="5dp"
+				android:background="@drawable/circle"
+				android:onClick="toggleVolume"/>
+
+			<ImageView
+				android:layout_height="35dp"
+				android:layout_width="35dp"
+				android:src="@drawable/battery_charging_full"
+				android:id="@+id/battery_btn"
+				android:layout_margin="5dp"
+				android:padding="5dp"
+				android:background="@drawable/circle"/>
+
+            <ImageView
+                android:background="@drawable/circle"
+                android:padding="5dp"
+                android:layout_height="35dp"
+                android:layout_width="35dp"
+                android:src="@drawable/ic_power"
+                android:id="@+id/power_btn"
+                android:layout_margin="5dp"/>
+            
+
+			<TextClock
+				android:id="@+id/date_btn"
+				android:textColor="@android:color/white"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"/>
+
+		</LinearLayout>
+
+	</RelativeLayout>
 
 </cu.axel.smartdock.widgets.HoverInterceptorLayout>
 

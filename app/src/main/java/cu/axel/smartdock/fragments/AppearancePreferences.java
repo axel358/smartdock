@@ -7,10 +7,23 @@ import android.preference.Preference;
 import android.content.Intent;
 import android.app.Activity;
 import android.net.Uri;
+import android.app.AlertDialog;
+import android.view.View;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.text.TextWatcher;
+import android.text.Editable;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.content.DialogInterface;
+import cu.axel.smartdock.utils.Utils;
+import android.widget.TextView;
 
 public class AppearancePreferences extends PreferenceFragment {
     private final int OPEN_REQUEST_CODE=4;
-    private Preference menuIconPref;
+    private Preference menuIconPref, mainColorPref, secondaryColorPref;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,7 +46,40 @@ public class AppearancePreferences extends PreferenceFragment {
                     menuIconPref.getSharedPreferences().edit().putString(menuIconPref.getKey(), "default").commit();
                     return false;
                 }
-            }); 
+            });
+
+        mainColorPref = findPreference("pref_theme_main_color");
+        mainColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+
+                @Override
+                public boolean onPreferenceClick(Preference p1) {
+                    showColorPickerDialog(getActivity(), "main");
+                    return false;
+                }
+            });
+
+        secondaryColorPref = findPreference("pref_theme_secondary_color");
+        secondaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+
+                @Override
+                public boolean onPreferenceClick(Preference p1) {
+                    showColorPickerDialog(getActivity(), "secondary");
+                    return false;
+                }
+            });
+            
+        findPreference("pref_theme").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
+
+                @Override
+                public boolean onPreferenceChange(Preference p1, Object p2) {
+                    mainColorPref.setEnabled(p2.toString().equals("pref_theme_custom"));
+                    secondaryColorPref.setEnabled(p2.toString().equals("pref_theme_custom"));
+                    return true;
+                }
+            });
+            
+        mainColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("pref_theme","pref_theme_dark").equals("pref_theme_custom"));
+        secondaryColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("pref_theme","pref_theme_dark").equals("pref_theme_custom"));
 
 	}
 
@@ -47,5 +93,79 @@ public class AppearancePreferences extends PreferenceFragment {
             }
         }
 
+    }
+    public void showColorPickerDialog(Context context, final String type) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(), R.style.DialogTheme);
+        dialog.setTitle("Choose color");
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_color_picker, null);
+        final View colorPreview = view.findViewById(R.id.color_preview);
+        final EditText colorHexEt = view.findViewById(R.id.color_hex_et);
+        final SeekBar alphaSb = view.findViewById(R.id.color_alpha_sb);
+        final TextView alphaTv = view.findViewById(R.id.color_alpha_tv);
+        alphaSb.setMax(255);
+        colorHexEt.addTextChangedListener(new TextWatcher(){
+
+                @Override
+                public void beforeTextChanged(CharSequence p1, int p2, int p3, int p4) {}
+                @Override
+                public void onTextChanged(CharSequence p1, int p2, int p3, int p4) {}
+
+                @Override
+                public void afterTextChanged(Editable p1) {
+                    String color = p1.toString();
+                    if (color.length() == 7 && Utils.isValidColor(color)) 
+                        colorPreview.getBackground().setColorFilter(Color.parseColor(p1.toString()), PorterDuff.Mode.SRC_ATOP);
+                    else
+                        colorHexEt.setError("Invalid color");
+
+                }
+            });
+        alphaSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+                @Override
+                public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
+                    alphaTv.setText(p2 + "/255");
+                    colorPreview.getBackground().setAlpha(p2);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar p1) {
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar p1) {
+                }
+            });
+        dialog.setNegativeButton("Cancel", null);
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface p1, int p2) {
+                    String color = colorHexEt.getText().toString();
+                    if (Utils.isValidColor(color)) {
+                        if (type.equals("main")) {
+                            mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).commit();
+                            mainColorPref.getSharedPreferences().edit().putInt("pref_theme_main_alpha", alphaSb.getProgress()).commit();
+                        } else {
+                            secondaryColorPref.getSharedPreferences().edit().putString(secondaryColorPref.getKey(), color).commit();
+                            secondaryColorPref.getSharedPreferences().edit().putInt("pref_theme_secondary_alpha", alphaSb.getProgress()).commit();
+                        }
+                    }
+
+
+                }
+            });
+        dialog.setView(view);
+
+        if (type.equals("main")) {
+            colorHexEt.setText(mainColorPref.getSharedPreferences().getString(mainColorPref.getKey(), "#212121"));
+            alphaSb.setProgress(mainColorPref.getSharedPreferences().getInt("pref_theme_main_alpha", 255));
+        } else {
+            colorHexEt.setText(secondaryColorPref.getSharedPreferences().getString(secondaryColorPref.getKey(), "#292929"));
+            alphaSb.setProgress(mainColorPref.getSharedPreferences().getInt("pref_theme_secondary_alpha", 255));
+
+        }
+
+        dialog.show();
     }
 }

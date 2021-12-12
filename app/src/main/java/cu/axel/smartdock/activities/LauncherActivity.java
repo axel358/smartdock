@@ -291,10 +291,10 @@ public class LauncherActivity extends Activity
             switch (sp.getString("pref_icon_shape", "pref_icon_shape_circle"))
             {
                 case "pref_icon_shape_circle":
-                    iconBackground = R.drawable.circle_solid_white;
+                    iconBackground = R.drawable.circle;
                     break;
                 case "pref_icon_shape_round_rect":
-                    iconBackground = R.drawable.round_rect_solid_white;
+                    iconBackground = R.drawable.round_square;
                     break;
                 case "pref_icon_shape_legacy":
                     iconBackground = -1;

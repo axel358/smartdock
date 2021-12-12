@@ -1,4 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Menu">
 	<CheckBoxPreference
 		android:key="pref_enable_app_menu"
 		android:title="Toggle App Menu with modifier key"
@@ -41,7 +43,9 @@
         android:hint="5"
         android:defaultValue="5"
         android:title="Number of columns"/>
-    
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="App launch">
     <ListPreference
         android:entries="@array/launch_modes" 
         android:dialogTitle="Theme" 
@@ -65,5 +69,5 @@
         android:title="Launch full screen apps in landscpape"
         android:summary="Some full screen apps might try to force screen orientation to portrait. Use this to prevent such behaviour"
         android:defaultValue="false" />
-    
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -4,14 +4,15 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="horizontal"
-	android:background="@drawable/round_rect_solid_dark"
+	android:background="@drawable/round_rect"
 	android:padding="10dp">
 
 	<ImageView
 		android:layout_height="60dp"
 		android:layout_width="60dp"
 		android:src="@android:drawable/ic_delete"
-		android:id="@+id/notif_icon_iv"/>
+		android:id="@+id/notif_icon_iv"
+		android:background="@drawable/circle"/>
 
 	<LinearLayout
 		android:layout_height="wrap_content"
@@ -42,7 +43,7 @@
 				android:layout_height="22dp"
 				android:layout_width="22dp"
 				android:src="@android:drawable/ic_menu_close_clear_cancel"
-				android:background="@drawable/circle_solid_dark"
+				android:background="@drawable/circle"
 				android:padding="2dp"/>
 
 		</LinearLayout>

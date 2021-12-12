@@ -47,7 +47,7 @@ public class AdvancedPreferences extends PreferenceFragment {
             });
         final CheckBoxPreference hideNavigation = (CheckBoxPreference) findPreference("pref_hide_navigation");
         String result = DeviceUtils.runAsRoot("getprop qemu.hw.mainkeys");
-        hideNavigation.setChecked(!result.equals("error") && !result.isEmpty() && result.contains("1"));
+        hideNavigation.setChecked(result.contains("1"));
         hideNavigation.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
 
                 @Override

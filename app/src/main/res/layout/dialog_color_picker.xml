@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:padding="20dp">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<View
+			android:background="@drawable/circle"
+			android:layout_height="45dp"
+			android:layout_width="45dp"
+			android:id="@+id/color_preview"/>
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:ems="10"
+			android:id="@+id/color_hex_et"
+            android:maxLength="7"
+			android:layout_marginLeft="5dp"
+			android:hint="#000000"/>
+
+	</LinearLayout>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="Transparency"
+		android:layout_marginTop="10dp"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:layout_marginTop="5dp"
+		android:gravity="center_vertical">
+
+		<SeekBar
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/color_alpha_sb"
+			android:layout_weight="1.0"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="255"
+			android:id="@+id/color_alpha_tv"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

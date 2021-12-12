@@ -43,6 +43,8 @@ import cu.axel.smartdock.utils.Utils;
 import cu.axel.smartdock.widgets.HoverInterceptorLayout;
 import java.util.ArrayList;
 import android.widget.ProgressBar;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 
 public class NotificationService extends NotificationListenerService {
 	private WindowManager wm;
@@ -172,23 +174,9 @@ public class NotificationService extends NotificationListenerService {
 
             CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
 
-            switch (sp.getString("pref_theme", "dark")) {
-                case "pref_theme_dark":
-                    notifIcon.setBackgroundResource(R.drawable.circle_solid_dark);
-                    notificationLayout.setBackgroundResource(R.drawable.round_rect_solid_dark);
-                    notifCancelBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                    break;
-                case "pref_theme_black":
-                    notifIcon.setBackgroundResource(R.drawable.circle_solid_black);
-                    notificationLayout.setBackgroundResource(R.drawable.round_rect_solid_black);
-                    notifCancelBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                    break;
-                case "pref_theme_transparent":
-                    notifIcon.setBackgroundResource(R.drawable.circle_transparent);
-                    notificationLayout.setBackgroundResource(R.drawable.round_rect_transparent);
-                    notifCancelBtn.setBackgroundResource(R.drawable.circle_transparent);
-                    break;
-            }
+            Utils.applySecondaryColor(sp, notifIcon);
+            Utils.applyMainColor(sp, notificationLayout);
+            Utils.applySecondaryColor(sp, notifCancelBtn);
 
             try {
                 Drawable notificationIcon = getPackageManager().getApplicationIcon(sbn.getPackageName());
@@ -311,17 +299,7 @@ public class NotificationService extends NotificationListenerService {
 
     }
     public void showNotificationPanel() {
-        switch (sp.getString("pref_theme", "dark")) {
-            case "pref_theme_dark":
-                notificationPanel.setBackgroundResource(R.drawable.round_rect_solid_dark);
-                break;
-            case "pref_theme_black":
-                notificationPanel.setBackgroundResource(R.drawable.round_rect_solid_black);
-                break;
-            case "pref_theme_transparent":
-                notificationPanel.setBackgroundResource(R.drawable.round_rect_transparent);
-                break;
-        }
+        Utils.applyMainColor(sp, notificationPanel);
         wm.addView(notificationPanel, npLayoutParams);
 
         updateNotificationPanel();

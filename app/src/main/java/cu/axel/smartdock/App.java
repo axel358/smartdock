@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import cu.axel.smartdock.activities.DebugActivity;
+import cu.axel.smartdock.utils.Utils;
 
 public class App extends Application {
 	private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
@@ -37,11 +38,11 @@ public class App extends Application {
                     Intent intent = new Intent(getApplicationContext(), DebugActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.putExtra("report", report);
-                    startActivity(intent);
-                    //PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 11111, intent, PendingIntent.FLAG_ONE_SHOT);
-                    //AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                    //am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000, pendingIntent);
-                    //android.os.Process.killProcess(android.os.Process.myPid());
+                    //startActivity(intent);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 11111, intent, PendingIntent.FLAG_ONE_SHOT);
+                    AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                    am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000, pendingIntent);
+                    android.os.Process.killProcess(android.os.Process.myPid());
                     System.exit(2);
                     uncaughtExceptionHandler.uncaughtException(thread, exception);
                 }

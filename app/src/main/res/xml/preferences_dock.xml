@@ -1,34 +1,64 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<CheckBoxPreference
-		android:key="pref_enable_back"
-		android:title="Enable back button"
-		android:defaultValue="false" />
-	<CheckBoxPreference
-		android:key="pref_enable_home"
-		android:title="Enable home button"
-		android:defaultValue="false" />
-	<CheckBoxPreference
-		android:key="pref_enable_recents"
-		android:title="Enable recents button"
-		android:defaultValue="false" />
-	<CheckBoxPreference
-		android:key="pref_enable_split"
-		android:title="Enable split button"
-		android:defaultValue="false" />
-    <CheckBoxPreference
-        android:key="pref_pin_dock"
-        android:title="Pin the dock on startup"
-        android:summary="Useful when working with other launchers"
-        android:defaultValue="false" />
-    <EditTextPreference
-        android:inputType="number"
-        android:key="pref_dock_hide_delay"
-        android:hint="500"
-        android:defaultValue="500"
-		android:title="Dock hide delay in ms"/>
-    <CheckBoxPreference
-        android:key="pref_enable_power_menu"
-        android:title="Use built in power menu"
-        android:summary="Use a custom power menu instead of the system one"
-        android:defaultValue="false" />
+    <PreferenceCategory
+        android:title="Navigation">
+        <CheckBoxPreference
+            android:key="pref_enable_back"
+            android:title="Enable back button"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="pref_enable_home"
+            android:title="Enable home button"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="pref_enable_recents"
+            android:title="Enable recents button"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="pref_enable_split"
+            android:title="Enable split button"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="pref_enable_assist"
+            android:title="Enable assistant button"
+            android:defaultValue="false" />
+        <EditTextPreference
+            android:key="pref_custom_assist"
+            android:summary="Use a custom assistant app, leave blank for default"
+            android:title="Custom assistant app"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Quick settings">
+        <CheckBoxPreference
+            android:key="pref_enable_bluetooth"
+            android:title="Enable bluetooth button"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="pref_enable_battery"
+            android:title="Enable battery button"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="pref_enable_power_menu"
+            android:title="Use built in power menu"
+            android:summary="Use a custom power menu instead of the system one"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Behaviour">
+        <CheckBoxPreference
+            android:key="pref_pin_dock"
+            android:title="Pin the dock on startup"
+            android:summary="Useful when working with other launchers"
+            android:defaultValue="false" />
+        <EditTextPreference
+            android:inputType="number"
+            android:key="pref_dock_hide_delay"
+            android:hint="500"
+            android:defaultValue="500"
+            android:title="Dock hide delay in ms"/>
+        <CheckBoxPreference
+            android:key="pref_center_apps"
+            android:title="Center running apps"
+            android:defaultValue="false" />
+    </PreferenceCategory>
 </PreferenceScreen>

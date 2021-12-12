@@ -4,12 +4,14 @@
         <item>Dark</item>
         <item>Black</item>
         <item>Transparent</item>
+        <item>Custom</item>
     </string-array>
 
     <string-array name="theme_values">
         <item>pref_theme_dark</item>
         <item>pref_theme_black</item>
         <item>pref_theme_transparent</item>
+        <item>pref_theme_custom</item>
     </string-array>
 
     <string-array name="shortcut_keys">

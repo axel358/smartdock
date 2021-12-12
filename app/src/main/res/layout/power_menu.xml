@@ -5,7 +5,7 @@
 	android:layout_width="140dp"
 	android:layout_height="400dp"
 	android:padding="10dp"
-	android:background="@drawable/round_rect_solid_dark"
+	android:background="@drawable/round_rect"
 	android:gravity="center_horizontal">
 
 	<LinearLayout

@@ -22,18 +22,21 @@ import android.widget.ActionMenuView.LayoutParams;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.content.SharedPreferences;
+import android.view.View;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 
 public class Utils {
     public static boolean notificationPanelVisible;
     public static String AUTOSTART_SCRIPT="autostart.sh";
 
     public static void enableBuiltinNavigation(SharedPreferences.Editor editor) {
-        editor.putBoolean("pref_enable_back",true);
-        editor.putBoolean("pref_enable_home",true);
-        editor.putBoolean("pref_enable_recents",true);
+        editor.putBoolean("pref_enable_back", true);
+        editor.putBoolean("pref_enable_home", true);
+        editor.putBoolean("pref_enable_recents", true);
         editor.commit();
     }
-    
+
     public static void setForceShowIcon(PopupMenu popupMenu) {
 		try {
             Field[] declaredFields = popupMenu.getClass().getDeclaredFields();
@@ -167,22 +170,74 @@ public class Utils {
         }
         return R.drawable.battery_empty;
     }
-    
-    public static void saveLog(Context context, String name, String log){
+
+    public static void saveLog(Context context, String name, String log) {
         try {
-            FileWriter fw = new FileWriter(new File(context.getExternalFilesDir(null),name+ "_" + System.currentTimeMillis() + ".log"));
+            FileWriter fw = new FileWriter(new File(context.getExternalFilesDir(null), name + "_" + System.currentTimeMillis() + ".log"));
             fw.write(log);
             fw.close();
         } catch (IOException e) {}
     }
-    
-    public static WindowManager.LayoutParams makeWindowParams(int width, int height){
+
+    public static WindowManager.LayoutParams makeWindowParams(int width, int height) {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.format = PixelFormat.TRANSLUCENT;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         layoutParams.type = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_PHONE;
-        layoutParams.width=width;
-        layoutParams.height=height;
+        layoutParams.width = width;
+        layoutParams.height = height;
         return layoutParams;
+    }
+
+    public static void applyMainColor(SharedPreferences sp, View view) {
+        String color = "";
+        int alpha = 255;
+        switch (sp.getString("pref_theme", "pref_theme_dark")) {
+            case "pref_theme_dark":
+                color = "#212121";
+                break;
+            case "pref_theme_black":
+                color = "#000000";
+                break;
+            case "pref_theme_transparent":
+                color = "#000000";
+                alpha = 225;
+                break;
+            case "pref_theme_custom":
+                color = sp.getString("pref_theme_main_color", "#212121");
+                alpha = sp.getInt("pref_theme_main_alpha", 255);
+        }
+        view.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_ATOP);
+        view.getBackground().setAlpha(alpha);
+    }
+
+    public static void applySecondaryColor(SharedPreferences sp,  View view) {
+        String color = "";
+        int alpha = 255;
+        switch (sp.getString("pref_theme", "pref_theme_dark")) {
+            case "pref_theme_dark":
+                color = "#292929";
+                break;
+            case "pref_theme_black":
+                color = "#0B0B0B";
+                break;
+            case "pref_theme_transparent":
+                color = "#000000";
+                alpha = 80;
+                break;
+            case "pref_theme_custom":
+                color = sp.getString("pref_theme_secondary_color", "#292929");
+                alpha = sp.getInt("pref_theme_secondary_alpha", 255);
+        }
+        view.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_ATOP);
+        view.getBackground().setAlpha(alpha);
+    }
+    public static boolean isValidColor(String color) {
+        try {
+            Color.parseColor(color);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 }

@@ -69,17 +69,24 @@ import cu.axel.smartdock.widgets.HoverInterceptorLayout;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import android.widget.RelativeLayout;
+import android.content.ActivityNotFoundException;
+import android.bluetooth.BluetoothManager;
+import android.graphics.drawable.Drawable;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener 
 {
     private PackageManager pm;
     private SharedPreferences sp;
     private ActivityManager am;
-    private ImageView appsBtn,backBtn,homeBtn,recentBtn,splitBtn,powerBtn,wifiBtn,batteryBtn,volBtn,pinBtn,avatarIv;
+    private ImageView appsBtn,backBtn,homeBtn,recentBtn,splitBtn,assistBtn,powerBtn,bluetoothBtn,wifiBtn,batteryBtn,volBtn,pinBtn,avatarIv;
     private TextView notificationBtn,searchTv,userNameTv;
     private TextClock dateTv;
     private Button topRightCorner,bottomRightCorner;
-    private LinearLayout dockLayout,appMenu,searchLayout,powerMenu;
+    private LinearLayout appMenu,searchLayout,powerMenu;
+    private RelativeLayout dockLayout;
     private WindowManager wm;
     private View appsSeparator;
     private boolean appMenuVisible,powerMenuVisible,shouldHide = true,isPinned,reflectionAllowed,shouldPlayChargeComplete;
@@ -94,6 +101,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private DBHelper db;
     private Handler dockHandler;
     private HoverInterceptorLayout dock;
+    private BluetoothManager bm;
     
     @Override
     public void onCreate()
@@ -109,6 +117,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         sp.registerOnSharedPreferenceChangeListener(this);
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
         wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+        bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         dockHandler = new Handler();
 
     }
@@ -129,9 +138,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         homeBtn = dock.findViewById(R.id.home_btn);
         recentBtn = dock.findViewById(R.id.recents_btn);
         splitBtn = dock.findViewById(R.id.split_btn);
+        assistBtn = dock.findViewById(R.id.assist_btn);
 
         notificationBtn = dock.findViewById(R.id.notifications_btn);
         pinBtn = dock.findViewById(R.id.pin_btn);
+        bluetoothBtn = dock.findViewById(R.id.bluetooth_btn);
         wifiBtn = dock.findViewById(R.id.wifi_btn);
         volBtn = dock.findViewById(R.id.volume_btn);
         batteryBtn = dock.findViewById(R.id.battery_btn);
@@ -205,7 +216,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 }
 
             });
-
+            
 
         tasksGv.setOnItemClickListener(new OnItemClickListener(){
 
@@ -256,6 +267,15 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         pinDock();
                 }
 
+            });
+        bluetoothBtn.setOnLongClickListener(new OnLongClickListener(){
+
+                @Override
+                public boolean onLongClick(View p1)
+                {
+                    launchApp("standard", (new Intent(Settings.ACTION_BLUETOOTH_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+                    return true;
+                }
             });
         wifiBtn.setOnLongClickListener(new OnLongClickListener(){
 
@@ -583,8 +603,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
            DeviceUtils.playEventSound(this,"pref_startup_sound");
 
         updateNavigationBar();
+        updateQuickSettings();
         applyTheme();
         updateMenuIcon();
+        placeRunningApps();
         
         Toast.makeText(this, "Smart Dock started", 5000).show();
          
@@ -1010,7 +1032,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     @Override
     public void onSharedPreferenceChanged(SharedPreferences p1, String p2)
     {
-        if (p2.equals("pref_theme"))
+        if (p2.contains("pref_theme"))
             applyTheme();
         else if (p2.equals("pref_menu_icon_uri"))
             updateMenuIcon();
@@ -1021,21 +1043,48 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }
         else if (p2.equals("pref_lock_landscape"))
             setOrientation();
+        else if (p2.equals("pref_center_apps")){
+            placeRunningApps();
+        }
         else
         {
             updateNavigationBar();
+            updateQuickSettings();
             updateCorners();   
         }
     }
 
+    private void placeRunningApps() {
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        if(sp.getBoolean("pref_center_apps", false)){
+             lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+             lp.leftMargin=-120;
+             
+               }
+        else{
+            lp.addRule(RelativeLayout.RIGHT_OF, R.id.nav_panel);
+            
+        }
+        tasksGv.setLayoutParams(lp);
+        updateRunningTasks();
+    }
+
     public void updateRunningTasks()
     {
-        tasksGv.setAdapter(new AppTaskAdapter(DockService.this, AppUtils.getRunningTasks(am,pm)));
+        ArrayList<AppTask> runningTasks = AppUtils.getRunningTasks(am,pm);
+        tasksGv.getLayoutParams().width = Utils.dpToPx(this, 60) * runningTasks.size();
+        tasksGv.setAdapter(new AppTaskAdapter(DockService.this, runningTasks));
+        
      //TODO: Move this outta here
         if (wifiManager.isWifiEnabled())
             wifiBtn.setImageResource(R.drawable.ic_wifi_on);
         else
             wifiBtn.setImageResource(R.drawable.ic_wifi_off);
+            
+        if (bm.getAdapter().isEnabled())
+            bluetoothBtn.setImageResource(R.drawable.ic_bluetooth);
+        else
+            bluetoothBtn.setImageResource(R.drawable.ic_bluetooth_off);
     }
     public void updateNavigationBar()
     {
@@ -1055,6 +1104,49 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             splitBtn.setVisibility(View.VISIBLE);
         else
             splitBtn.setVisibility(View.GONE);
+        if (sp.getBoolean("pref_enable_assist", false))
+            assistBtn.setVisibility(View.VISIBLE);
+        else
+            assistBtn.setVisibility(View.GONE);
+    }
+    
+    public void updateQuickSettings(){
+        if (sp.getBoolean("pref_enable_battery", true))
+            batteryBtn.setVisibility(View.VISIBLE);
+        else
+            batteryBtn.setVisibility(View.GONE);
+        if (sp.getBoolean("pref_enable_bluetooth", false))
+            bluetoothBtn.setVisibility(View.VISIBLE);
+        else
+            bluetoothBtn.setVisibility(View.GONE);       
+    }
+    
+    public void launchAssistant(View v){
+        String assistant=sp.getString("pref_custom_assist","");
+        if(!assistant.isEmpty())
+        {
+            launchApp("standard", assistant); 
+        }else{
+            try{
+                startActivity(new Intent(Intent.ACTION_ASSIST));
+            }catch(ActivityNotFoundException e){
+                
+            }
+        }
+    }
+    
+    public void toggleBluetooth(View v)
+    {
+        try{
+        if(bm.getAdapter().isEnabled()){
+            bluetoothBtn.setImageResource(R.drawable.ic_bluetooth_off);
+            bm.getAdapter().disable();
+        }else{
+            bluetoothBtn.setImageResource(R.drawable.ic_bluetooth);
+            bm.getAdapter().enable();
+        }
+        }catch(Exception e){}
+
     }
 
     public void toggleWifi(View v)
@@ -1135,21 +1227,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
                 }
             });
-            
-        switch (sp.getString("pref_theme", "pref_theme_dark"))
-        {
-            case "pref_theme_dark":
-                powerMenu.setBackgroundResource(R.drawable.round_rect_solid_dark);
-                break;
-            case "pref_theme_black":
-                powerMenu.setBackgroundResource(R.drawable.round_rect_solid_black);
-                break;
-            case "pref_theme_transparent":
-                powerMenu.setBackgroundResource(R.drawable.round_rect_transparent);
-                break;
-        }
-
-        wm.addView(powerMenu, layoutParams);
+            Utils.applyMainColor(sp, powerMenu);
+            wm.addView(powerMenu, layoutParams);
         powerMenuVisible = true;
     }
     
@@ -1157,57 +1236,25 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         wm.removeView(powerMenu);
         powerMenuVisible = false;
     }
-
+    
+    
     public void applyTheme()
-    {
-        switch (sp.getString("pref_theme", "pref_theme_dark"))
-        {
-            case "pref_theme_dark":
-                dockLayout.setBackgroundResource(R.drawable.round_rect_solid_dark);
-                appMenu.setBackgroundResource(R.drawable.round_rect_solid_dark);
-                searchEt.setBackgroundResource(R.drawable.search_background_dark);
-                pinBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                wifiBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                volBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                powerBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                batteryBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                backBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                homeBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                recentBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                splitBtn.setBackgroundResource(R.drawable.circle_solid_dark);
-                break;
-            case "pref_theme_black":
-                dockLayout.setBackgroundResource(R.drawable.round_rect_solid_black);
-                appMenu.setBackgroundResource(R.drawable.round_rect_solid_black);
-                searchEt.setBackgroundResource(R.drawable.search_background_black);
-                pinBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                wifiBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                volBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                powerBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                batteryBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                backBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                homeBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                recentBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                splitBtn.setBackgroundResource(R.drawable.circle_solid_black);
-                break;
-            case "pref_theme_transparent":
-                dockLayout.setBackgroundResource(R.drawable.round_rect_transparent);
-                appMenu.setBackgroundResource(R.drawable.round_rect_transparent);
-                
-                searchEt.setBackgroundResource(R.drawable.search_background_transparent);
-                
-                pinBtn.setBackgroundResource(R.drawable.circle_transparent);
-                wifiBtn.setBackgroundResource(R.drawable.circle_transparent);
-                volBtn.setBackgroundResource(R.drawable.circle_transparent);
-                powerBtn.setBackgroundResource(R.drawable.circle_transparent);
-                batteryBtn.setBackgroundResource(R.drawable.circle_transparent);
-                backBtn.setBackgroundResource(R.drawable.circle_transparent);
-                homeBtn.setBackgroundResource(R.drawable.circle_transparent);
-                recentBtn.setBackgroundResource(R.drawable.circle_transparent);
-                splitBtn.setBackgroundResource(R.drawable.circle_transparent);
-                break;
-        }
-    }
+    {       
+        Utils.applyMainColor(sp,dockLayout);
+        Utils.applyMainColor(sp,appMenu);
+        Utils.applySecondaryColor(sp, searchEt);
+        Utils.applySecondaryColor(sp, backBtn);
+        Utils.applySecondaryColor(sp, homeBtn);
+        Utils.applySecondaryColor(sp, recentBtn);
+        Utils.applySecondaryColor(sp, splitBtn);
+        Utils.applySecondaryColor(sp, assistBtn);
+        Utils.applySecondaryColor(sp, pinBtn);
+        Utils.applySecondaryColor(sp, bluetoothBtn);
+        Utils.applySecondaryColor(sp, wifiBtn);
+        Utils.applySecondaryColor(sp, volBtn);
+        Utils.applySecondaryColor(sp, powerBtn);
+        Utils.applySecondaryColor(sp, batteryBtn);
+      }
 
     public void updateCorners()
     {
@@ -1292,10 +1339,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             switch (sp.getString("pref_icon_shape", "pref_icon_shape_circle"))
             {
                 case "pref_icon_shape_circle":
-                    iconBackground = R.drawable.circle_solid_white;
+                    iconBackground = R.drawable.circle;
                     break;
                 case "pref_icon_shape_round_rect":
-                    iconBackground = R.drawable.round_rect_solid_white;
+                    iconBackground = R.drawable.round_square;
                     break;
                 case "pref_icon_shape_legacy":
                     iconBackground = -1;
@@ -1352,10 +1399,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             switch (sp.getString("pref_icon_shape", "pref_icon_shape_circle"))
             {
                 case "pref_icon_shape_circle":
-                    iconBackground = R.drawable.circle_solid_white;
+                    iconBackground = R.drawable.circle;
                     break;
                 case "pref_icon_shape_round_rect":
-                    iconBackground = R.drawable.round_rect_solid_white;
+                    iconBackground = R.drawable.round_square;
                     break;
                 case "pref_icon_shape_legacy":
                     iconBackground = -1;

@@ -6,7 +6,7 @@
 	android:orientation="vertical"
 	android:padding="10dp"
 	android:id="@+id/men_layout"
-	android:background="@drawable/round_rect_solid_dark">
+	android:background="@drawable/round_rect">
 
 	<LinearLayout
 		android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 
 		<EditText
             android:imeOptions="actionGo"
-			android:background="@drawable/search_background_dark"
+			android:background="@drawable/search_background"
 			android:textColorHint="@android:color/white"
 			android:hint="Search..."
 			android:textColor="@android:color/white"
