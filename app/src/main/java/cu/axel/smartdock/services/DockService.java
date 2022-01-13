@@ -673,7 +673,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("pref_enable_open_browser", true))
                     DeviceUtils.    sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
             else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
-                startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
+                startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             else if (event.getKeyCode() == KeyEvent.KEYCODE_O)
             {
                 InputMethodManager im=(InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -1128,7 +1128,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             launchApp("standard", assistant); 
         }else{
             try{
-                startActivity(new Intent(Intent.ACTION_ASSIST));
+                startActivity(new Intent(Intent.ACTION_ASSIST).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }catch(ActivityNotFoundException e){
                 
             }
