@@ -37,7 +37,8 @@
 				android:textColor="#FF000000"
 				android:textSize="15sp"
 				android:id="@+id/notif_w_title_tv"
-				android:layout_weight="1.0"/>
+				android:layout_weight="1.0"
+				android:singleLine="true"/>
 
 			<ImageView
 				android:id="@+id/notif_w_close_btn"
