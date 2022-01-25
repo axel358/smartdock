@@ -593,6 +593,15 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         soundEventsFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         soundEventsFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         registerReceiver(soundEventsReceiver, soundEventsFilter);
+        registerReceiver(new BroadcastReceiver(){
+
+                @Override
+                public void onReceive(Context p1, Intent p2) {
+                    toggleMenu(null);
+                }
+                
+            
+        }, new IntentFilter(getPackageName()+".MENU"));
 
         //Run startup script
         if(sp.getBoolean("pref_run_autostart",false))
