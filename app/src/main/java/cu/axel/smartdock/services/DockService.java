@@ -298,6 +298,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     return true;
                 }
             });
+            
+        if(Build.VERSION.SDK_INT>21){
+            batteryBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    launchApp("standard", (new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+                }
+            });
+            }
 
         powerBtn.setOnClickListener(new OnClickListener(){
 
