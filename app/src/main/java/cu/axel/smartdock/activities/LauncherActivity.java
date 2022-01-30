@@ -46,6 +46,9 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
+import android.content.pm.ShortcutInfo;
+import cu.axel.smartdock.utils.DeepShortcutManager;
+import android.widget.Toast;
 
 public class LauncherActivity extends Activity
 {
@@ -235,6 +238,12 @@ public class LauncherActivity extends Activity
         PopupMenu pmenu=new PopupMenu(new ContextThemeWrapper(LauncherActivity.this, R.style.PopupMenuTheme), p1);
 
         Utils.setForceShowIcon(pmenu);
+        
+        final DeepShortcutManager shortcutManager = new DeepShortcutManager(this);
+
+        if(shortcutManager.hasHostPermission()) {
+            new DeepShortcutManager(p1.getContext()).addAppShortcutsToMenu(pmenu, app);
+        }
 
         pmenu.inflate(R.menu.app_menu);
         pmenu.getMenu().add(0, 4, 0, "Remove").setIcon(R.drawable.ic_unpin);
@@ -257,6 +266,15 @@ public class LauncherActivity extends Activity
                             AppUtils.unpinApp(LauncherActivity.this,app, AppUtils.DESKTOP_LIST);
                             loadDesktopApps();
                             break;
+                        case 7:
+                            //do nothing
+                            break;
+                        case R.id.action_launch_modes:
+                            //do nothing
+                            break;
+                        case R.id.action_manage:
+                            //do nothing
+                            break;
                         case R.id.action_launch_standard:
                             launchApp("standard", app);
                             break;
@@ -269,6 +287,15 @@ public class LauncherActivity extends Activity
                         case R.id.action_launch_fullscreen:
                             launchApp("fullscreen", app);
                             break;
+                        default:
+                            try {
+                                ShortcutInfo shortcut = DeepShortcutManager.shortcutInfoMap.get(p1.getItemId());
+                                if (shortcut != null) {
+                                    shortcutManager.startShortcut(shortcut, shortcut.getId(), null);
+                                }
+                            } catch (Exception ignored) {
+                                Toast.makeText(LauncherActivity.this,ignored.toString()+ignored.getMessage(),5000).show();
+                            }
                     }
                     return false;
                 }

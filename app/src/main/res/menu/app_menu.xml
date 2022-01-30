@@ -1,16 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    
     <item
-		android:icon="@drawable/ic_info"
-        android:id="@+id/action_appinfo"
-        android:title="App Info"/>
-	
-	<item
-		android:icon="@drawable/ic_uninstall"
-        android:id="@+id/action_uninstall"
-        android:title="Uninstall"/>
-    
+        android:id="@+id/action_manage"
+        android:icon="@drawable/ic_manage"
+        android:title="Manage">
+        <menu>
+            <item
+                android:icon="@drawable/ic_info"
+                android:id="@+id/action_appinfo"
+                android:title="App Info"/>
+
+            <item
+                android:icon="@drawable/ic_uninstall"
+                android:id="@+id/action_uninstall"
+                android:title="Uninstall"/>
+        </menu>
+    </item>
     <item
+        android:id="@+id/action_launch_modes"
         android:icon="@drawable/ic_launch_mode"
         android:title="Open in">
         <menu>

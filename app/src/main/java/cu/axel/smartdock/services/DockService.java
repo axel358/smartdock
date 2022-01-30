@@ -75,6 +75,8 @@ import android.bluetooth.BluetoothManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import cu.axel.smartdock.utils.DeepShortcutManager;
+import android.content.pm.ShortcutInfo;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener 
 {
@@ -948,7 +950,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         Utils.setForceShowIcon(pmenu);
 
+        final DeepShortcutManager shortcutManager = new DeepShortcutManager(anchor.getContext());
+
+        if(shortcutManager.hasHostPermission()) {
+            new DeepShortcutManager(anchor.getContext()).addAppShortcutsToMenu(pmenu, app);
+        }
+        
         pmenu.inflate(R.menu.app_menu);
+        
 
         if (AppUtils.isPinned(this,app, AppUtils.PINNED_LIST))
             pmenu.getMenu().add(0, 4, 0, "Unpin").setIcon(R.drawable.ic_unpin);
@@ -957,6 +966,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
       
         if (!AppUtils.isPinned(this,app, AppUtils.DESKTOP_LIST))
             pmenu.getMenu().add(0, 5, 0, "To desktop").setIcon(R.drawable.ic_add_to_desktop);
+            
 
         pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
 
@@ -984,6 +994,15 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                             AppUtils.pinApp(DockService.this, app, AppUtils.DESKTOP_LIST);
                             sendBroadcast(new Intent(getPackageName() + ".SERVICE").putExtra("action", "PINNED"));
                             break;
+                        case 7:
+                            //do nothing
+                            break;
+                        case R.id.action_launch_modes:
+                            //do nothing
+                            break;
+                        case R.id.action_manage:
+                            //do nothing
+                            break;
                         case R.id.action_launch_standard:
                             launchApp("standard", app);
                             break;
@@ -996,6 +1015,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         case R.id.action_launch_fullscreen:
                             launchApp("fullscreen", app);
                             break;
+                        default:
+                            try {
+                                ShortcutInfo shortcut = DeepShortcutManager.shortcutInfoMap.get(p1.getItemId());
+                                if (shortcut != null) {
+                                    shortcutManager.startShortcut(shortcut, shortcut.getId(), null);
+                                }
+                            } catch (Exception ignored) {
+                                Toast.makeText(DockService.this,ignored.toString()+ignored.getMessage(),5000).show();
+                            }
+                            hideAppMenu();
                     }
                     return false;
                 }
