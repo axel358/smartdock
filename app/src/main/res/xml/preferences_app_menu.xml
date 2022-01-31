@@ -30,19 +30,6 @@
             android:title="App menu width"/>
         <EditTextPreference
             android:inputType="number"
-            android:key="pref_app_menu_x"
-            android:hint="x translation"
-            android:defaultValue="2"
-            android:title="App menu x translation"/>
-        <EditTextPreference
-            android:inputType="number"
-            android:key="pref_app_menu_y"
-            android:hint="y translation"
-            android:defaultValue="2"
-            android:title="App menu y translation"/>
-
-        <EditTextPreference
-            android:inputType="number"
             android:key="pref_num_columns"
             android:hint="5"
             android:defaultValue="5"
@@ -73,5 +60,20 @@
             android:title="Launch full screen apps in landscpape"
             android:summary="Some full screen apps might try to force screen orientation to portrait. Use this to prevent such behaviour"
             android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Fine tune">
+    <EditTextPreference
+        android:inputType="number"
+        android:key="pref_app_menu_x"
+        android:hint="x translation"
+        android:defaultValue="2"
+        android:title="App menu x translation"/>
+    <EditTextPreference
+        android:inputType="number"
+        android:key="pref_app_menu_y"
+        android:hint="y translation"
+        android:defaultValue="2"
+        android:title="App menu y translation"/>
     </PreferenceCategory>
 </PreferenceScreen>
