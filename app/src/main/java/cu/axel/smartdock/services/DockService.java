@@ -180,6 +180,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 }
             });
         dock.setOnTouchListener(this);
+        appsBtn.setOnLongClickListener(new OnLongClickListener(){
+
+                @Override
+                public boolean onLongClick(View p1) {
+                    launchApp("standard", (new Intent(Settings.ACTION_APPLICATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+                    return true;
+                }
+            });
         backBtn.setOnClickListener(new OnClickListener(){
 
                 @Override
