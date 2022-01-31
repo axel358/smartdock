@@ -25,3 +25,5 @@ Without root
 - For waydroid users, from Linux run waydroid prop set qemu.hw.mainkeys 1
 
 The app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
+
+Telegram support group: https://t.me/smartdock358
