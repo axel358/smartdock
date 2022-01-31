@@ -609,7 +609,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
                 @Override
                 public void onReceive(Context p1, Intent p2) {
-                    toggleMenu(null);
+                    toggleAppMenu(null);
                 }
                 
             
@@ -715,7 +715,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
             if (event.getKeyCode() == menuKey && sp.getBoolean("pref_enable_app_menu", true))
             {
-                    toggleMenu(null);
+                    toggleAppMenu(null);
                     return true;
             }
             if (event.getKeyCode() == KeyEvent.KEYCODE_F10  && sp.getBoolean("pref_enable_f10", true))
@@ -901,7 +901,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         wm.updateViewLayout(dock, dockLayoutParams);
     }
 
-    public void toggleMenu(View v)
+    public void toggleAppMenu(View v)
     {
         if (appMenuVisible)
             hideAppMenu();
@@ -911,14 +911,29 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void showAppMenu()
     {
-        WindowManager.LayoutParams appMenuLayoutParams = Utils.makeWindowParams(Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_width", "650"))),Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_height", "540"))));
+        WindowManager.LayoutParams appMenuLayoutParams = null;
+        if(sp.getBoolean("pref_app_menu_fullscreen", false)){
+            int deviceWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+            int deviceHeight  = Resources.getSystem().getDisplayMetrics().heightPixels;
+            appMenuLayoutParams = Utils.makeWindowParams(deviceWidth - Utils.dpToPx(this, 4), deviceHeight - Utils.dpToPx(this, 60) - DeviceUtils.getStatusBarHeight(this));
+            appMenuLayoutParams.x = Utils.dpToPx(this, 2);
+            appMenuLayoutParams.y = Utils.dpToPx(this, 2) + dockLayout.getMeasuredHeight();
+
+            favoritesGv.setNumColumns(10);
+            appsGv.setNumColumns(10);
+            
+        }else{
+            appMenuLayoutParams = Utils.makeWindowParams(Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_width", "650"))),Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_height", "540"))));
+            appMenuLayoutParams.x = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_x", "2")));
+            appMenuLayoutParams.y = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
+            favoritesGv.setNumColumns(Integer.parseInt(sp.getString("pref_num_columns", "5")));
+            appsGv.setNumColumns(Integer.parseInt(sp.getString("pref_num_columns", "5")));
+            
+        }
+        
         appMenuLayoutParams.flags =  WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
         appMenuLayoutParams.gravity = Gravity.BOTTOM | Gravity.LEFT;
-        appMenuLayoutParams.x = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_x", "2")));
-        appMenuLayoutParams.y = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_y", "60")));
-
-        favoritesGv.setNumColumns(Integer.parseInt(sp.getString("pref_num_columns", "5")));
-        appsGv.setNumColumns(Integer.parseInt(sp.getString("pref_num_columns", "5")));
+        
 
         wm.addView(appMenu, appMenuLayoutParams);
 

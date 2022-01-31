@@ -32,7 +32,7 @@
 			android:id="@+id/nav_panel">
 
 			<ImageView
-				android:onClick="toggleMenu"
+				android:onClick="toggleAppMenu"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
 				android:id="@+id/apps_btn"
