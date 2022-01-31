@@ -605,6 +605,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         soundEventsFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         soundEventsFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         registerReceiver(soundEventsReceiver, soundEventsFilter);
+        if(sp.getBoolean("pref_allow_broadcasts", false)){
         registerReceiver(new BroadcastReceiver(){
 
                 @Override
@@ -612,9 +613,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     toggleAppMenu(null);
                 }
                 
-            
         }, new IntentFilter(getPackageName()+".MENU"));
-
+       }
         //Run startup script
         if(sp.getBoolean("pref_run_autostart",false))
             Utils.doAutostart(this);

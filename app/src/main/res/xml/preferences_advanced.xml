@@ -10,14 +10,19 @@
         android:key="pref_edit_autostart"
         android:title="Edit autostart script"/>
     <EditTextPreference
-        android:summary="Allows you to fine tune the display size of screen elements (reboot to take effect)"
+        android:summary="Allows you to fine tune the display size of screen elements. Needs reboot"
         android:inputType="number"
         android:key="pref_custom_display_size"
         android:hint="leave blank for default"
         android:defaultValue=""
         android:title="Display size"/>
     <CheckBoxPreference
-        android:summary="Reboot required. Don't forget to re enable them before uninstalling the Dock"
+        android:key="pref_allow_broadcasts"
+        android:title="Allow apps to send broadcasts to the Dock"
+        android:summary="Expose feautures to apps such as toggling the app drawer using broadcasts. Needs reboot"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:summary="Don't forget to re enable them before uninstalling the Dock. Needs reboot"
         android:key="pref_hide_navigation"
         android:title="Hide Android navigation buttons"
         android:defaultValue="false" />
