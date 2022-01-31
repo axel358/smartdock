@@ -20,6 +20,7 @@ import java.util.Objects;
 import cu.axel.smartdock.utils.DeviceUtils;
 import android.view.SubMenu;
 import cu.axel.smartdock.R;
+import android.content.Intent;
 
 /**
  * Performs operations related to deep shortcuts, such as querying for them, pinning them, etc.
@@ -124,10 +125,12 @@ public class DeepShortcutManager {
 
     @TargetApi(Build.VERSION_CODES.N_MR1)
     public void addAppShortcutsToMenu(PopupMenu menu, String applicationPackage) {
+        Intent launchIntentForPackage = context.getPackageManager().getLaunchIntentForPackage(applicationPackage);
+        if (launchIntentForPackage == null)
+            return;
+        ComponentName packageItem = launchIntentForPackage.getComponent();
         DeepShortcutManager shortcutManager = new DeepShortcutManager(context);
-        PackageManager pm = context.getPackageManager();
         float iconDensity = context.getResources().getDisplayMetrics().density * 48;
-        ComponentName packageItem = Objects.requireNonNull(pm.getLaunchIntentForPackage(applicationPackage)).getComponent();
         shortcutInfoMap = new HashMap<>();
 
         if (shortcutManager.hasHostPermission()) {

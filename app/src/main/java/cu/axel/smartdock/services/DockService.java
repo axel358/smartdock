@@ -983,7 +983,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         
         pmenu.inflate(R.menu.app_menu);
         
-
+        if(sp.getBoolean("pref_allow_app_freeze", false)){
+            MenuItem manageMenu = pmenu.getMenu().findItem(R.id.action_manage);
+            manageMenu.getSubMenu().add(0,8,0,"Freeze").setIcon(R.drawable.ic_freeze);
+        }
+        
         if (AppUtils.isPinned(this,app, AppUtils.PINNED_LIST))
             pmenu.getMenu().add(0, 4, 0, "Unpin").setIcon(R.drawable.ic_unpin);
         else
@@ -1021,6 +1025,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                             break;
                         case 7:
                             //do nothing
+                            break;
+                        case 8:
+                            String status = DeviceUtils.runAsRoot("pm disable "+app);
+                            if(!status.equals("error"))
+                                Toast.makeText(DockService.this, "App frozen", Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(DockService.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                            hideAppMenu();
                             break;
                         case R.id.action_launch_modes:
                             //do nothing

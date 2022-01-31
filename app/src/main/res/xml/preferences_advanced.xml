@@ -22,6 +22,12 @@
         android:summary="Expose feautures to apps such as toggling the app drawer using broadcasts. Needs reboot"
         android:defaultValue="false" />
     <CheckBoxPreference
+        android:key="pref_allow_app_freeze"
+        android:title="Show an option to disable apps from the app context menu"
+        android:summary="You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps"
+        android:defaultValue="false" />
+    
+    <CheckBoxPreference
         android:summary="Don't forget to re enable them before uninstalling the Dock. Needs reboot"
         android:key="pref_hide_navigation"
         android:title="Hide Android navigation buttons"
