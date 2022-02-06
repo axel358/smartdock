@@ -58,6 +58,7 @@ public class NotificationService extends NotificationListenerService {
     private View notificationPanel;
     private ListView notificationsLv;
     private NotificationManager nm;
+    private Button cancelAllBtn;
 
 	@Override
 	public void onCreate() {
@@ -96,7 +97,7 @@ public class NotificationService extends NotificationListenerService {
             npLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
 
         notificationPanel = LayoutInflater.from(this).inflate(R.layout.notification_panel, null);
-        Button cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
+        cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
         notificationsLv = notificationPanel.findViewById(R.id.notification_lv);
 
 		notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification, null);
@@ -280,6 +281,7 @@ public class NotificationService extends NotificationListenerService {
 
     private void updateNotificationCount() {
         int count = 0;
+        int cancelableCount = 0;
 
         StatusBarNotification[] notifications;
         try {
@@ -290,9 +292,18 @@ public class NotificationService extends NotificationListenerService {
 
         if (notifications != null) {
             for (StatusBarNotification notification : notifications) {
-                if (notification != null
-                    && (notification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) == 0
-                    && notification.isClearable()) count++;
+                if (notification != null && (notification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) == 0) {
+                    count++;
+
+                    if (notification.isClearable())
+                        cancelableCount++;
+                }
+                if (cancelableCount > 0) {
+                    cancelAllBtn.setVisibility(View.VISIBLE);
+                } else {
+                    cancelAllBtn.setVisibility(View.INVISIBLE);
+                }
+
             }
             sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_COUNT_CHANGED").putExtra("count", count));
         }

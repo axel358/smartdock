@@ -16,7 +16,9 @@
             android:summary="Defines secondary color for item backgrounds"
             android:key="pref_theme_secondary_color"
             android:title="Secondary color"/>
-        
+        <cu.axel.smartdock.preferences.IconPackSwitchPreference
+            android:key="enable_icon_packs"
+            android:defaultValue="false"/>
         <ListPreference
             android:entries="@array/icon_shapes" 
             android:dialogTitle="Icon Shape" 

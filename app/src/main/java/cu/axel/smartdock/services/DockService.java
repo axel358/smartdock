@@ -58,6 +58,7 @@ import android.widget.Toast;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.activities.MainActivity;
 import cu.axel.smartdock.db.DBHelper;
+import cu.axel.smartdock.icons.IconParserUtilities;
 import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.models.AppTask;
 import cu.axel.smartdock.services.DockService;
@@ -118,7 +119,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         sp.registerOnSharedPreferenceChangeListener(this);
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+        wifiManager = (WifiManager) this.getSystemService(WIFI_SERVICE);
         bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         dockHandler = new Handler();
 
@@ -460,7 +461,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
                 {
                     App app = (App) p1.getItemAtPosition(p3);
-                    launchApp(null, app.getPackagename());
+                    launchApp(null, app.getPackageName());
                 }
                 
             });
@@ -470,7 +471,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4)
                 {
-                    showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackagename(), p2);
+                    showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), p2);
                     return true;
                 }
             });
@@ -481,7 +482,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
                 {
                     App app = (App) p1.getItemAtPosition(p3);
-                    launchApp(null, app.getPackagename());
+                    launchApp(null, app.getPackageName());
                 }
 
 
@@ -492,7 +493,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4)
                 {
-                    showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackagename(), p2);
+                    showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), p2);
                     return true;
                 }
             });
@@ -524,7 +525,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     if (p1.length() > 1)
                     {
                         searchLayout.setVisibility(View.VISIBLE);
-                        searchTv.setText("Search for \"" + p1.toString() + "\" on Google");
+                        searchTv.setText("Search for \"" + p1 + "\" on Google");
                         hideFavorites();
                     }
                     else
@@ -561,7 +562,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public boolean onTouch(View p1, MotionEvent p2)
                 {
-                    if (p2.getAction() == p2.ACTION_OUTSIDE && p2.getX() == 0 && p2.getX() == 0)
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE && p2.getX() == 0 && p2.getX() == 0)
                     {
                         hideAppMenu();   
                     }
@@ -596,12 +597,17 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         //Register receivers
         registerReceiver(new BroadcastReceiver(){
-
                 @Override
                 public void onReceive(Context p1, Intent p2)
                 {
                     int count = p2.getIntExtra("count", 0);
-                    notificationBtn.setText(count + "");
+                    if(count > 0){
+                        notificationBtn.setVisibility(View.VISIBLE);
+                        notificationBtn.setText(count + "");
+                    }else{
+                        notificationBtn.setVisibility(View.GONE);
+                        notificationBtn.setText("");
+                    }
                 }
             }, new IntentFilter(getPackageName() + ".NOTIFICATION_COUNT_CHANGED"));
             
@@ -1067,7 +1073,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                                     shortcutManager.startShortcut(shortcut, shortcut.getId(), null);
                                 }
                             } catch (Exception ignored) {
-                                Toast.makeText(DockService.this,ignored.toString()+ignored.getMessage(),5000).show();
+                                Toast.makeText(DockService.this, ignored +ignored.getMessage(),5000).show();
                             }
                             hideAppMenu();
                     }
@@ -1119,7 +1125,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             applyTheme();
         else if (p2.equals("pref_menu_icon_uri"))
             updateMenuIcon();
-        else if (p2.equals("pref_icon_padding") || p2.equals("pref_icon_shape"))
+        else if (p2.equals("pref_icon_padding") || p2.equals("pref_icon_shape") || p2.equals("enable_icon_packs"))
         {
             updateRunningTasks();
             loadFavoriteApps();
@@ -1138,15 +1144,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     }
 
     private void placeRunningApps() {
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         if(sp.getBoolean("pref_center_apps", false)){
              lp.addRule(RelativeLayout.CENTER_IN_PARENT);
              lp.leftMargin=-120;
-             
                }
         else{
-            lp.addRule(RelativeLayout.RIGHT_OF, R.id.nav_panel);
-            
+            lp.addRule(RelativeLayout.END_OF, R.id.nav_panel);
+            lp.addRule(RelativeLayout.START_OF, R.id.notifications_btn);
         }
         tasksGv.setLayoutParams(lp);
         updateRunningTasks();
@@ -1263,7 +1268,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public boolean onTouch(View p1, MotionEvent p2)
                 {
-                    if (p2.getAction() == p2.ACTION_OUTSIDE && p2.getX() == 0 && p2.getX() == 0)
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE && p2.getX() == 0 && p2.getX() == 0)
                     {
                         hidePowerMenu();   
                     }
@@ -1412,8 +1417,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     class AppAdapter extends ArrayAdapter<App>
     {
-        private Context context;
-        private int iconBackground,iconPadding;
+        private final Context context;
+        private int iconBackground;
+        private final int iconPadding;
         public AppAdapter(Context context, ArrayList<App> apps)
         {
             super(context, R.layout.app_entry, apps);
@@ -1449,7 +1455,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
                 iconIv.setBackgroundResource(iconBackground);
             }
-            iconIv.setImageDrawable(app.getIcon());
+
+            IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
+            /*
+            persuade the adapter to reload icons with a switch
+            probably could use just getPackagedThemedIcon but as a fallback to the shared preference listener
+             */
+            if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("enable_icon_packs",false))
+                iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
+            else
+                iconIv.setImageDrawable(app.getIcon());
 
             convertView.setOnTouchListener(new OnTouchListener(){
 
@@ -1458,7 +1473,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     {
                         if (p2.getButtonState() == MotionEvent.BUTTON_SECONDARY)
                         {
-                            showAppContextMenu(app.getPackagename(), p1);
+                            showAppContextMenu(app.getPackageName(), p1);
                             return true;
                         }
                         return false;
@@ -1472,8 +1487,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     class AppTaskAdapter extends ArrayAdapter<AppTask>
     {
-        private Context context;
-        private int iconBackground,iconPadding;
+        private final Context context;
+        private int iconBackground;
+        private final int iconPadding;
         public AppTaskAdapter(Context context, ArrayList<AppTask> appTasks)
         {
             super(context, R.layout.app_task_entry, appTasks);
@@ -1504,7 +1520,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
                 iconIv.setBackgroundResource(iconBackground);
             }
-            iconIv.setImageDrawable(task.getIcon());
+
+            IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
+            
+            if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("enable_icon_packs",false))
+                iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(task.getPackageName()));
+            else
+                iconIv.setImageDrawable(task.getIcon());
 
             return view;
         }

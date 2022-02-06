@@ -65,7 +65,7 @@ public class DeepShortcutManager {
         return query(FLAG_MATCH_MANIFEST | FLAG_MATCH_DYNAMIC,
                      activity.getPackageName(), activity, ids);
     }
-
+//Add free form support
     @TargetApi(25)
     public void startShortcut(ShortcutInfo shortcutInfo, String id,
                               Bundle options) {
