@@ -18,34 +18,26 @@
 		android:layout_marginTop="5dp"
 		android:layout_marginBottom="10dp">
 
-		<LinearLayout
-			android:layout_height="wrap_content"
+		<ImageView
+			android:layout_height="36dp"
+			android:layout_width="36dp"
+			android:src="@drawable/ic_user"
+			android:id="@+id/avatar_iv"/>
+
+		<TextView
 			android:layout_width="wrap_content"
-			android:orientation="horizontal"
-			android:gravity="center_vertical">
-
-			<ImageView
-				android:layout_height="36dp"
-				android:layout_width="36dp"
-				android:src="@drawable/ic_user"
-				android:id="@+id/avatar_iv"/>
-
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:text="User"
-				android:layout_marginLeft="10dp"
-				android:id="@+id/user_name_tv"
-				android:textColor="#FFFFFFFF"
-				android:layout_marginRight="10dp"
-				android:maxEms="10"
-				android:singleLine="true"/>
-
-		</LinearLayout>
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="User"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/user_name_tv"
+			android:textColor="#FFFFFFFF"
+			android:layout_marginRight="10dp"
+			android:maxEms="10"
+			android:singleLine="true"/>
 
 		<EditText
-            android:imeOptions="actionGo"
+			android:imeOptions="actionGo"
 			android:background="@drawable/search_background"
 			android:textColorHint="@android:color/white"
 			android:hint="Search..."
@@ -61,6 +53,15 @@
 			android:layout_weight="1.0"
 			android:layout_marginLeft="10dp"
 			android:singleLine="true"/>
+
+		<ImageView
+			android:background="@drawable/circle"
+			android:padding="5dp"
+			android:layout_height="35dp"
+			android:layout_width="35dp"
+			android:src="@drawable/ic_power"
+			android:id="@+id/power_btn"
+			android:layout_marginLeft="10dp"/>
 
 	</LinearLayout>
 

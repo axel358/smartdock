@@ -149,7 +149,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         wifiBtn = dock.findViewById(R.id.wifi_btn);
         volBtn = dock.findViewById(R.id.volume_btn);
         batteryBtn = dock.findViewById(R.id.battery_btn);
-        powerBtn = dock.findViewById(R.id.power_btn);
         dateTv = dock.findViewById(R.id.date_btn);
 
 
@@ -246,7 +245,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     {
                         if (!isPinned)
                         {
-                            dockLayout.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                             showDock();
                             pinDock();
                         } 
@@ -318,26 +316,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             });
             }
 
-        powerBtn.setOnClickListener(new OnClickListener(){
-
-                @Override
-                public void onClick(View p1)
-                {
-                    
-                    if(sp.getBoolean("pref_enable_power_menu",false)){
-                        if(powerMenuVisible)
-                            hidePowerMenu();
-                        else
-                            showPowerMenu();
-                    }
-                    else
-                        DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_POWER_DIALOG);
-                    
-                }
-
-
-            });
-
+       
         dateTv.setOnClickListener(new OnClickListener(){
 
                 @Override
@@ -437,6 +416,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         //App menu
         appMenu = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.apps_menu, null);
         searchEt = appMenu.findViewById(R.id.menu_et);
+        powerBtn = appMenu.findViewById(R.id.power_btn);
         appsGv = appMenu.findViewById(R.id.menu_applist_lv);
         favoritesGv = appMenu.findViewById(R.id.fav_applist_lv);
         searchLayout = appMenu.findViewById(R.id.search_layout);
@@ -454,6 +434,28 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     showUserContextMenu(p1);
                 }
             });
+            
+        powerBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1)
+                {
+
+                    if(sp.getBoolean("pref_enable_power_menu",false)){
+                        if(powerMenuVisible)
+                            hidePowerMenu();
+                        else
+                            showPowerMenu();
+                    }
+                    else
+                        DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_POWER_DIALOG);
+                        
+                   hideAppMenu();
+                }
+
+
+            });
+        
 
         appsGv.setOnItemClickListener(new OnItemClickListener(){
 
@@ -562,9 +564,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public boolean onTouch(View p1, MotionEvent p2)
                 {
-                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE && p2.getX() == 0 && p2.getX() == 0)
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE && (p2.getY() < appMenu.getMeasuredHeight() || p2.getX() > appMenu.getMeasuredWidth()))
                     {
-                        hideAppMenu();   
+                        hideAppMenu();
                     }
                     return false;
                 }
@@ -908,7 +910,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         dockLayout.setVisibility(View.GONE);
 
                 }
-            }, delay);}
+            }, delay);
+    }
             
     public void setOrientation(){
         dockLayoutParams.screenOrientation = sp.getBoolean("pref_lock_landscape",false) ? 0 : -1;
@@ -1268,7 +1271,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public boolean onTouch(View p1, MotionEvent p2)
                 {
-                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE && p2.getX() == 0 && p2.getX() == 0)
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE)
                     {
                         hidePowerMenu();   
                     }

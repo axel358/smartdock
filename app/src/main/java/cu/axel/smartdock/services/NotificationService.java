@@ -319,7 +319,7 @@ public class NotificationService extends NotificationListenerService {
 
                 @Override
                 public boolean onTouch(View p1, MotionEvent p2) {
-                    if (p2.getAction() == p2.ACTION_OUTSIDE && p2.getX() == 0 && p2.getX() == 0) {
+                    if (p2.getAction() == p2.ACTION_OUTSIDE && (p2.getY() < notificationPanel.getMeasuredHeight() || p2.getX() < notificationPanel.getX())) {
                         hideNotificationPanel();   
                     }
                     return false;

@@ -32,7 +32,7 @@
 			android:id="@+id/nav_panel">
 
 			<ImageView
-				android:onClick="toggleAppMenu"
+                android:onClick="toggleAppMenu"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
 				android:id="@+id/apps_btn"
@@ -163,16 +163,6 @@
 				android:layout_margin="5dp"
 				android:padding="5dp"
 				android:background="@drawable/circle"/>
-
-            <ImageView
-                android:background="@drawable/circle"
-                android:padding="5dp"
-                android:layout_height="35dp"
-                android:layout_width="35dp"
-                android:src="@drawable/ic_power"
-                android:id="@+id/power_btn"
-                android:layout_margin="5dp"/>
-            
 
 			<TextClock
 				android:id="@+id/date_btn"
