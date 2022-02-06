@@ -30,10 +30,10 @@ public class Utils {
     public static boolean notificationPanelVisible;
     public static String AUTOSTART_SCRIPT="autostart.sh";
 
-    public static void enableBuiltinNavigation(SharedPreferences.Editor editor) {
-        editor.putBoolean("pref_enable_back", true);
-        editor.putBoolean("pref_enable_home", true);
-        editor.putBoolean("pref_enable_recents", true);
+    public static void toggleBuiltinNavigation(SharedPreferences.Editor editor,boolean value) {
+        editor.putBoolean("pref_enable_back", value);
+        editor.putBoolean("pref_enable_home", value);
+        editor.putBoolean("pref_enable_recents", value);
         editor.commit();
     }
 

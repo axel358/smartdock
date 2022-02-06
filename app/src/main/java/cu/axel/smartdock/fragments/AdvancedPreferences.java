@@ -56,7 +56,7 @@ public class AdvancedPreferences extends PreferenceFragment {
                     if (checked) {
                         String result = DeviceUtils.runAsRoot("setprop qemu.hw.mainkeys 1");
                         if (!result.equals("error")) {
-                            Utils.enableBuiltinNavigation(hideNavigation.getSharedPreferences().edit());
+                            Utils.toggleBuiltinNavigation(hideNavigation.getSharedPreferences().edit(), true);
                             showRebootDialog(getActivity());
                             return true;
                         }

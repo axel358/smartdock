@@ -277,6 +277,26 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 }
 
             });
+        pinBtn.setOnLongClickListener(new OnLongClickListener(){
+
+                @Override
+                public boolean onLongClick(View p1) {
+                    if(sp.getBoolean("pref_tablet_mode", false)){
+                        Utils.toggleBuiltinNavigation(sp.edit(), false);
+                        sp.edit().putBoolean("pref_app_menu_fullscreen", false).commit();
+                        sp.edit().putBoolean("pref_tablet_mode", false).commit();
+                        Toast.makeText(DockService.this, "Tablet mode off", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Utils.toggleBuiltinNavigation(sp.edit(), true);
+                        sp.edit().putBoolean("pref_app_menu_fullscreen", true).commit();
+                        sp.edit().putBoolean("pref_tablet_mode", true).commit();
+                        Toast.makeText(DockService.this, "Tablet mode on", Toast.LENGTH_SHORT).show();
+                    }
+                    if(appMenuVisible)
+                        hideAppMenu();
+                    return true;
+                }
+            });
         bluetoothBtn.setOnLongClickListener(new OnLongClickListener(){
 
                 @Override
