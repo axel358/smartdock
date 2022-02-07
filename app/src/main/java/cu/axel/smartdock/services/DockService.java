@@ -78,6 +78,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import cu.axel.smartdock.utils.DeepShortcutManager;
 import android.content.pm.ShortcutInfo;
+import android.widget.Filter;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener 
 {
@@ -95,7 +96,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private boolean appMenuVisible,powerMenuVisible,shouldHide = true,isPinned,reflectionAllowed,shouldPlayChargeComplete;
     private WindowManager.LayoutParams dockLayoutParams;
     private EditText searchEt;
-    private ArrayAdapter<App> appAdapter;
+    private AppAdapter appAdapter;
     private GridView appsGv,favoritesGv,tasksGv;
     private WifiManager wifiManager;
     private BatteryStatsReceiver batteryReceiver;
@@ -541,9 +542,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
                 @Override
                 public void afterTextChanged(Editable p1)
-                {
-                    if (appAdapter != null)
+                {    if (appAdapter != null)
                         appAdapter.getFilter().filter(p1.toString());
+                    
                     if (p1.length() > 1)
                     {
                         searchLayout.setVisibility(View.VISIBLE);
@@ -1443,10 +1444,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         private final Context context;
         private int iconBackground;
         private final int iconPadding;
+        private ArrayList<App> apps, originalList;
+        private AppFilter filter;
         public AppAdapter(Context context, ArrayList<App> apps)
         {
             super(context, R.layout.app_entry, apps);
             this.context = context;
+            this.apps = apps;
+            this.originalList = new ArrayList<App>(apps);
             iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("pref_icon_padding", "4")));
             switch (sp.getString("pref_icon_shape", "pref_icon_shape_circle"))
             {
@@ -1466,17 +1471,24 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         public View getView(int position, View convertView, ViewGroup parent)
         {
 
+            ViewHolder holder;
             if (convertView == null)
+            {
                 convertView = LayoutInflater.from(context).inflate(R.layout.app_entry, null);
-
-            ImageView iconIv = convertView.findViewById(R.id.menu_app_icon_iv);
-            TextView nameTv=convertView.findViewById(R.id.menu_app_name_tv);
-            final App app = getItem(position);
-            nameTv.setText(app.getName());
+                holder = new ViewHolder();
+                holder.iconIv = convertView.findViewById(R.id.menu_app_icon_iv);
+                holder.nameTv = convertView.findViewById(R.id.menu_app_name_tv);
+                convertView.setTag(holder);
+            }else
+                holder = (ViewHolder) convertView.getTag();
+            
+            final App app = apps.get(position);
+            holder.nameTv.setText(app.getName());
+            
             if (iconBackground != -1)
             {
-                iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-                iconIv.setBackgroundResource(iconBackground);
+                holder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
+                holder.iconIv.setBackgroundResource(iconBackground);
             }
 
             IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
@@ -1485,9 +1497,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             probably could use just getPackagedThemedIcon but as a fallback to the shared preference listener
              */
             if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("enable_icon_packs",false))
-                iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
+                holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
             else
-                iconIv.setImageDrawable(app.getIcon());
+                holder.iconIv.setImageDrawable(app.getIcon());
 
             convertView.setOnTouchListener(new OnTouchListener(){
 
@@ -1504,6 +1516,64 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 });
 
             return convertView;
+        }
+        
+        private class ViewHolder
+        {
+            ImageView iconIv;
+            TextView nameTv;
+        }
+        
+        @Override
+        public Filter getFilter()
+        {
+            if (filter == null)
+                filter = new AppFilter();
+            return filter;
+        }
+
+        private class AppFilter extends Filter
+        {
+            @Override
+            protected Filter.FilterResults performFiltering(CharSequence p1)
+            {
+                FilterResults results = new FilterResults();
+                String query = p1.toString().trim().toLowerCase();
+                if (query.length()>1)
+                {
+                    ArrayList<App> filteredResults = new ArrayList<App>();
+                    for (App app : originalList)
+                    {
+                        if (app.getName().toLowerCase().trim().contains(query))
+                        {
+                            filteredResults.add(app);
+                        }
+                    }
+                    results.count = filteredResults.size();
+                    results.values = filteredResults;
+                }
+                else
+                {
+                    synchronized (this)
+                    {
+                        results.values = originalList;
+                        results.count = originalList.size();
+                    }
+                }
+                return results;
+            }
+            @Override
+            protected void publishResults(CharSequence p1, Filter.FilterResults p2)
+            {
+                apps = (ArrayList<App>) p2.values;
+                notifyDataSetChanged();
+                clear();
+                for (App app : apps)
+                {
+                    add(app);
+                }
+                notifyDataSetInvalidated();
+            }
         }
 
     }
