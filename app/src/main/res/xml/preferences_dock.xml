@@ -14,10 +14,6 @@
             android:title="Enable recents button"
             android:defaultValue="false" />
         <CheckBoxPreference
-            android:key="pref_enable_split"
-            android:title="Enable split button"
-            android:defaultValue="false" />
-        <CheckBoxPreference
             android:key="pref_enable_assist"
             android:title="Enable assistant button"
             android:defaultValue="false" />

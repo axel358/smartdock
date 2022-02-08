@@ -85,7 +85,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private PackageManager pm;
     private SharedPreferences sp;
     private ActivityManager am;
-    private ImageView appsBtn,backBtn,homeBtn,recentBtn,splitBtn,assistBtn,powerBtn,bluetoothBtn,wifiBtn,batteryBtn,volBtn,pinBtn,avatarIv;
+    private ImageView appsBtn,backBtn,homeBtn,recentBtn,assistBtn,powerBtn,bluetoothBtn,wifiBtn,batteryBtn,volBtn,pinBtn,avatarIv;
     private TextView notificationBtn,searchTv,userNameTv;
     private TextClock dateTv;
     private Button topRightCorner,bottomRightCorner;
@@ -141,7 +141,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         backBtn = dock.findViewById(R.id.back_btn);
         homeBtn = dock.findViewById(R.id.home_btn);
         recentBtn = dock.findViewById(R.id.recents_btn);
-        splitBtn = dock.findViewById(R.id.split_btn);
         assistBtn = dock.findViewById(R.id.assist_btn);
 
         notificationBtn = dock.findViewById(R.id.notifications_btn);
@@ -218,14 +217,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
             });
 
-        splitBtn.setOnClickListener(new OnClickListener(){
+        recentBtn.setOnLongClickListener(new OnLongClickListener(){
 
                 @Override
-                public void onClick(View p1)
-                {
+                public boolean onLongClick(View p1) {
                     DockService.this.performGlobalAction(AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN);
+                    return true;
                 }
-
             });
             
 
@@ -1212,10 +1210,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             recentBtn.setVisibility(View.VISIBLE);
         else
             recentBtn.setVisibility(View.GONE);
-        if (sp.getBoolean("pref_enable_split", false))
-            splitBtn.setVisibility(View.VISIBLE);
-        else
-            splitBtn.setVisibility(View.GONE);
         if (sp.getBoolean("pref_enable_assist", false))
             assistBtn.setVisibility(View.VISIBLE);
         else
@@ -1358,7 +1352,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         Utils.applySecondaryColor(sp, backBtn);
         Utils.applySecondaryColor(sp, homeBtn);
         Utils.applySecondaryColor(sp, recentBtn);
-        Utils.applySecondaryColor(sp, splitBtn);
         Utils.applySecondaryColor(sp, assistBtn);
         Utils.applySecondaryColor(sp, pinBtn);
         Utils.applySecondaryColor(sp, bluetoothBtn);

@@ -42,7 +42,7 @@
 			<ImageView
 				android:layout_margin="9dp"
 				android:background="@drawable/circle"
-				android:padding="8dp"
+				android:padding="10dp"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
 				android:src="@drawable/ic_sysbar_back"
@@ -51,7 +51,7 @@
 
 			<ImageView
 				android:background="@drawable/circle"
-				android:padding="8dp"
+				android:padding="10dp"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
 				android:src="@drawable/ic_sysbar_home"
@@ -60,21 +60,11 @@
 			<ImageView
 				android:layout_margin="9dp"
 				android:background="@drawable/circle"
-				android:padding="8dp"
+				android:padding="10dp"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
 				android:src="@drawable/ic_sysbar_recents"
 				android:id="@+id/recents_btn"/>
-
-			<ImageView
-				android:layout_margin="9dp"
-				android:background="@drawable/circle"
-				android:padding="8dp"
-				android:layout_height="40dp"
-				android:layout_width="40dp"
-				android:src="@drawable/ic_sysbar_split"
-				android:id="@+id/split_btn"/>
-            
             <ImageView
                 android:onClick="launchAssistant"
                 android:background="@drawable/circle"
