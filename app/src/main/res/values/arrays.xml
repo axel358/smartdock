@@ -35,7 +35,7 @@
     <string-array name="icon_shapes">
         <item>Circle</item>
         <item>Round Square</item>
-        <item>Legacy</item>
+        <item>Default</item>
     </string-array>
 
     <string-array name="icon_shapes_values">
