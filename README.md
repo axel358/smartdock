@@ -17,13 +17,20 @@ Hiding Android navigation buttons:
 You should also hide the Android navigation buttons. There are several ways to do this
 
 With root:
-- On the Advanced settings
-- Running setprop qemu.hw.mainkeys 1
+- Edit /system/build.prop and add qemu.hw.mainkeys=1
 
 Without root
 - Mount the system partition on Linux, edit /system/build.prop and add qemu.hw.mainkeys=1  
 - For waydroid users, from Linux run waydroid prop set qemu.hw.mainkeys 1
 
+With LSPosed (might help on Android 11+):
+
+[See LSPosed](LSPosed.md)
+
 The app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
+
+Contributors:
+
+[See contributors](Contributors.md)
 
 Telegram support group: https://t.me/smartdock358
