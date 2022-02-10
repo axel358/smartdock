@@ -30,7 +30,7 @@ public class Utils {
     public static boolean notificationPanelVisible;
     public static String AUTOSTART_SCRIPT="autostart.sh";
 
-    public static void toggleBuiltinNavigation(SharedPreferences.Editor editor,boolean value) {
+    public static void toggleBuiltinNavigation(SharedPreferences.Editor editor, boolean value) {
         editor.putBoolean("pref_enable_back", value);
         editor.putBoolean("pref_enable_home", value);
         editor.putBoolean("pref_enable_recents", value);
@@ -239,5 +239,17 @@ public class Utils {
         } catch (IllegalArgumentException e) {
             return false;
         }
+    }
+
+    public static double solve(String expression) {
+        if (expression.contains("+"))
+            return Double.parseDouble(expression.split("\\+")[0]) + Double.parseDouble(expression.split("\\+")[1]);
+        else  if (expression.contains("-"))
+            return Double.parseDouble(expression.split("\\-")[0]) - Double.parseDouble(expression.split("\\-")[1]);
+        if (expression.contains("/"))
+            return Double.parseDouble(expression.split("\\/")[0]) / Double.parseDouble(expression.split("\\/")[1]);
+        if (expression.contains("*"))
+            return Double.parseDouble(expression.split("\\*")[0]) * Double.parseDouble(expression.split("\\*")[1]);
+        return 0;
     }
 }

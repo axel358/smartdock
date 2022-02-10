@@ -79,6 +79,8 @@ import android.graphics.PorterDuff;
 import cu.axel.smartdock.utils.DeepShortcutManager;
 import android.content.pm.ShortcutInfo;
 import android.widget.Filter;
+import android.content.ClipboardManager;
+import android.content.ClipData;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener 
 {
@@ -482,6 +484,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
                 {
                     App app = (App) p1.getItemAtPosition(p3);
+                    if(app.getPackageName().equals(getPackageName()+".calc")){
+                        ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                        cm.setPrimaryClip(ClipData.newPlainText("results", app.getName()));
+                        Toast.makeText(DockService.this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+                    }
+                    else
                     launchApp(null, app.getPackageName());
                 }
                 
@@ -492,7 +500,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4)
                 {
-                    showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), p2);
+                    App app = (App) p1.getItemAtPosition(p3);
+                    if(!app.getPackageName().equals(getPackageName()+".calc"))                        
+                        showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), p2);
                     return true;
                 }
             });
@@ -1524,7 +1534,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 filter = new AppFilter();
             return filter;
         }
-
         private class AppFilter extends Filter
         {
             @Override
@@ -1535,6 +1544,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 if (query.length()>1)
                 {
                     ArrayList<App> filteredResults = new ArrayList<App>();
+                    
+                    if(query.matches("^[0-9]+(\\.[0-9]+)?[-+/*][0-9]+(\\.[0-9]+)?")){
+                       filteredResults.add(new App(Utils.solve(query)+"",getPackageName()+".calc",getResources().getDrawable(R.drawable.ic_calculator,getTheme()))); 
+                    }
                     for (App app : originalList)
                     {
                         if (app.getName().toLowerCase().trim().contains(query))

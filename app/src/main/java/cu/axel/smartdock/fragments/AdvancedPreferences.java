@@ -1,20 +1,17 @@
 package cu.axel.smartdock.fragments;
 
-import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import cu.axel.smartdock.R;
-import android.preference.Preference;
 import android.app.AlertDialog;
-import android.widget.EditText;
-import android.view.View;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.content.DialogInterface;
-import android.preference.CheckBoxPreference;
-import android.provider.Settings;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import cu.axel.smartdock.R;
 import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
-import android.widget.Toast;
 
 public class AdvancedPreferences extends PreferenceFragment {
     @Override
@@ -40,34 +37,9 @@ public class AdvancedPreferences extends PreferenceFragment {
                         DeviceUtils.setDisplaySize(0);
                     else
                         DeviceUtils.setDisplaySize(Integer.parseInt(n));
-                        
+
                     showRebootDialog(getActivity());
                     return true;
-                }
-            });
-        final CheckBoxPreference hideNavigation = (CheckBoxPreference) findPreference("pref_hide_navigation");
-        String result = DeviceUtils.runAsRoot("getprop qemu.hw.mainkeys");
-        hideNavigation.setChecked(result.contains("1"));
-        hideNavigation.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
-
-                @Override
-                public boolean onPreferenceChange(Preference p1, Object p2) {
-                    boolean checked=p2;
-                    if (checked) {
-                        String result = DeviceUtils.runAsRoot("setprop qemu.hw.mainkeys 1");
-                        if (!result.equals("error")) {
-                            Utils.toggleBuiltinNavigation(hideNavigation.getSharedPreferences().edit(), true);
-                            showRebootDialog(getActivity());
-                            return true;
-                        }
-                    } else {
-                        String result = DeviceUtils.runAsRoot("setprop qemu.hw.mainkeys 0");
-                        if (!result.equals("error")) {
-                            showRebootDialog(getActivity());
-                            return true;
-                        }
-                    }
-                    return false;
                 }
             });
         Preference softReboot = findPreference("pref_soft_reboot");

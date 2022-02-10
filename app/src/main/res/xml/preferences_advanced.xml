@@ -26,12 +26,6 @@
         android:title="Show an option to disable apps from the app context menu"
         android:summary="You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps"
         android:defaultValue="false" />
-    
-    <CheckBoxPreference
-        android:summary="Don't forget to re enable them before uninstalling the Dock. Needs reboot"
-        android:key="pref_hide_navigation"
-        android:title="Hide Android navigation buttons"
-        android:defaultValue="false" />
     <CheckBoxPreference
         android:summary="System might be unresponsive for a short while"
         android:key="pref_enable_soft_reboot"
