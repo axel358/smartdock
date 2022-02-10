@@ -7,7 +7,7 @@
     The application should be installed as a system app in order to obtain the right permissions.
     Without this functionallity will be limited.
     \n
-    \nYou should also hide the Android navigation buttons in the Advanced options. For more ways to do this check the full help on GitHub
+    \nYou should also hide the Android navigation buttons. For more info on how to do this check the full help on GitHub
     \n
     \nThe app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
     \n
