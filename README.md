@@ -3,6 +3,8 @@ A launcher for Android x86
 
 This project is a launcher for Android x86 to ease user navigation.
 
+![Screenshot](screenshot.png)
+
 Building:
 The project itself was created using AIDE on Android x86. To build just clone the project and import it to AIDE.
 You might require additional steps to build on Android Studio
