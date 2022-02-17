@@ -5,63 +5,63 @@
             android:entries="@array/themes" 
             android:dialogTitle="Theme" 
             android:entryValues="@array/theme_values" 
-            android:key="pref_theme"
+            android:key="theme"
             android:title="Dock theme"
-            android:defaultValue="pref_theme_dark" />
+            android:defaultValue="dark" />
         <Preference
             android:summary="Defines main color for item backgrounds"
-            android:key="pref_theme_main_color"
+            android:key="theme_main_color"
             android:title="Main color"/>
         <Preference
             android:summary="Defines secondary color for item backgrounds"
-            android:key="pref_theme_secondary_color"
+            android:key="theme_secondary_color"
             android:title="Secondary color"/>
         <cu.axel.smartdock.preferences.IconPackSwitchPreference
-            android:key="enable_icon_packs"
+            android:key="icon_theming"
             android:defaultValue="false"/>
         <ListPreference
             android:entries="@array/icon_shapes" 
             android:dialogTitle="Icon Shape" 
             android:entryValues="@array/icon_shapes_values" 
-            android:key="pref_icon_shape"
+            android:key="icon_shape"
             android:title="Icon Shape"
-            android:defaultValue="pref_icon_shape_circle" />
+            android:defaultValue="circle" />
         <EditTextPreference
             android:summary="Defines the amount of whitespace between the icon and it\'s border"
             android:inputType="number"
-            android:key="pref_icon_padding"
+            android:key="icon_padding"
             android:hint="icon padding"
             android:defaultValue="4"
             android:title="Icon padding"/>
         <Preference
-            android:key="pref_menu_icon_uri"
+            android:key="menu_icon_uri"
             android:defaultValue="default"
             android:title="Select menu icon"/>
 
         <Preference
-            android:key="pref_menu_icon_reset"
+            android:key="restore_menu_icon"
             android:title="Restore default menu icon"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Animations">
         <CheckBoxPreference
             android:disableDependentsState="true"
-            android:key="pref_disable_animations"
+            android:key="disable_animations"
             android:title="Disable app launch animations"
             android:defaultValue="false" />
 
         <CheckBoxPreference
-            android:dependency="pref_disable_animations"
-            android:key="pref_enable_custom_animations"
+            android:dependency="disable_animations"
+            android:key="enable_custom_animations"
             android:title="Use a custom animation when launching apps"
             android:defaultValue="false" />
 
         <ListPreference
-            android:dependency="pref_enable_custom_animations"
+            android:dependency="enable_custom_animations"
             android:entries="@array/animations" 
             android:dialogTitle="Animation" 
             android:entryValues="@array/animation_values" 
-            android:key="pref_custom_animation"
+            android:key="custom_animation"
             android:title="Custom animation"
             android:defaultValue="fade" />
     </PreferenceCategory>

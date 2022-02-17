@@ -3,36 +3,36 @@
         android:icon="@drawable/ic_about"
         android:title="These settings are intended for advanced users. Only change them if you know what you are doing"/>
     <CheckBoxPreference
-        android:key="pref_run_autostart"
+        android:key="run_autostart"
         android:title="Run autostart script"
         android:defaultValue="false" />
      <Preference
-        android:key="pref_edit_autostart"
+        android:key="edit_autostart"
         android:title="Edit autostart script"/>
     <EditTextPreference
         android:summary="Allows you to fine tune the display size of screen elements. Needs reboot"
         android:inputType="number"
-        android:key="pref_custom_display_size"
+        android:key="custom_display_size"
         android:hint="leave blank for default"
         android:defaultValue=""
         android:title="Display size"/>
     <CheckBoxPreference
-        android:key="pref_allow_broadcasts"
+        android:key="allow_broadcasts"
         android:title="Allow apps to send broadcasts to the Dock"
         android:summary="Expose feautures to apps such as toggling the app drawer using broadcasts. Needs reboot"
         android:defaultValue="false" />
     <CheckBoxPreference
-        android:key="pref_allow_app_freeze"
+        android:key="allow_app_freeze"
         android:title="Show an option to disable apps from the app context menu"
         android:summary="You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps"
         android:defaultValue="false" />
     <CheckBoxPreference
         android:summary="System might be unresponsive for a short while"
-        android:key="pref_enable_soft_reboot"
+        android:key="enable_soft_reboot"
         android:title="Use Modifier+F12 to soft reboot Android"
         android:defaultValue="false" />
     <Preference
-        android:key="pref_soft_reboot"
+        android:key="soft_reboot"
         android:summary="Soft reboot now. You will lose all unsaved work"
         android:title="Soft reboot now"/>
     

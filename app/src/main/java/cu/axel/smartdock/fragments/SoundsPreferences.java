@@ -17,7 +17,7 @@ public class SoundsPreferences extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_sounds);
-        startSoundPref = findPreference("pref_startup_sound");
+        startSoundPref = findPreference("startup_sound");
         startSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
@@ -26,7 +26,7 @@ public class SoundsPreferences extends PreferenceFragment {
                     return false;
                 }
             });
-        usbSoundPref = findPreference("pref_usb_sound");
+        usbSoundPref = findPreference("usb_sound");
         usbSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
@@ -35,7 +35,7 @@ public class SoundsPreferences extends PreferenceFragment {
                     return false;
                 }
             });
-        notifSoundPref = findPreference("pref_notification_sound");
+        notifSoundPref = findPreference("notification_sound");
         notifSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
@@ -44,7 +44,7 @@ public class SoundsPreferences extends PreferenceFragment {
                     return false;
                 }
             });
-        chargeSoundPref = findPreference("pref_charge_sound");
+        chargeSoundPref = findPreference("charge_sound");
         chargeSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
@@ -53,7 +53,7 @@ public class SoundsPreferences extends PreferenceFragment {
                     return false;
                 }
             });
-        chargeCompleteSoundPref = findPreference("pref_charge_complete_sound");
+        chargeCompleteSoundPref = findPreference("charge_complete_sound");
         chargeCompleteSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override

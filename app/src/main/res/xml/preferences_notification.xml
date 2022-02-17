@@ -5,17 +5,17 @@
     </Preference>
     <EditTextPreference
         android:inputType="number"
-        android:key="pref_notification_timeout"
+        android:key="notification_timeout"
         android:hint="5000"
         android:defaultValue="5000"
 		android:title="Notification display time in ms"/>
 	<CheckBoxPreference
-		android:key="pref_show_ongoing"
+		android:key="show_ongoing"
 		android:title="Show ongoing notifications (buggy)"
 		android:defaultValue="false" />
     
     <EditTextPreference
-        android:key="pref_blocked_notifications"
+        android:key="blocked_notifications"
         android:hint="android"
         android:defaultValue="android"
         android:summary="List of space separated package names to ignore notifications from"

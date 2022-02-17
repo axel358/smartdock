@@ -143,7 +143,7 @@ public class LauncherActivity extends Activity {
         else
             serviceBtn.setVisibility(View.VISIBLE);
         loadDesktopApps();
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_show_notes", false)) {
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("show_notes", false)) {
             notesEt.setVisibility(View.VISIBLE);
             loadNotes();
 
@@ -158,7 +158,7 @@ public class LauncherActivity extends Activity {
 		super.onPause();
         state = "pause";
         sendBroadcastToService(state);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_show_notes", false))
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("show_notes", false))
             saveNotes();
 
 	}
@@ -216,7 +216,7 @@ public class LauncherActivity extends Activity {
 
         pmenu.inflate(R.menu.app_menu);
 
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_allow_app_freeze", false)) {
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("allow_app_freeze", false)) {
             MenuItem manageMenu = pmenu.getMenu().findItem(R.id.action_manage);
             manageMenu.getSubMenu().add(0, 8, 0, "Freeze").setIcon(R.drawable.ic_freeze);
         }
@@ -291,15 +291,15 @@ public class LauncherActivity extends Activity {
             super(context, R.layout.app_entry_desktop, apps);
             this.context = context;
             SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(context);
-            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("pref_icon_padding", "4")) + 3);
-            switch (sp.getString("pref_icon_shape", "pref_icon_shape_circle")) {
-                case "pref_icon_shape_circle":
+            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "4")) + 3);
+            switch (sp.getString("icon_shape", "circle")) {
+                case "circle":
                     iconBackground = R.drawable.circle;
                     break;
-                case "pref_icon_shape_round_rect":
+                case "round_rect":
                     iconBackground = R.drawable.round_square;
                     break;
-                case "pref_icon_shape_legacy":
+                case "default":
                     iconBackground = -1;
                     break;
             }
@@ -320,7 +320,7 @@ public class LauncherActivity extends Activity {
 
             IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
 
-            if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("enable_icon_packs", false))
+            if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming", false))
                 iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
             else 
                 iconIv.setImageDrawable(app.getIcon());

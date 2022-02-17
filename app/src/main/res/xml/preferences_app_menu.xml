@@ -2,7 +2,7 @@
     <PreferenceCategory
         android:title="Menu">
         <CheckBoxPreference
-            android:key="pref_enable_app_menu"
+            android:key="enable_app_menu"
             android:title="Toggle App Menu with modifier key"
             android:defaultValue="true" />
         <ListPreference
@@ -10,27 +10,27 @@
             android:dialogTitle="Menu modifier key" 
             android:title="Menu modifier key" 
             android:entryValues="@array/shortcut_keys_values" 
-            android:key="pref_menu_key"
+            android:key="menu_key"
             android:defaultValue="3" />
         <CheckBoxPreference
-            android:key="pref_app_menu_fullscreen"
+            android:key="app_menu_fullscreen"
             android:title="Open App Menu in full screen"
             android:defaultValue="false" />
         <EditTextPreference
             android:inputType="number"
-            android:key="pref_app_menu_height"
+            android:key="app_menu_height"
             android:hint="height"
             android:defaultValue="540"
             android:title="App menu height"/>
         <EditTextPreference
             android:inputType="number"
-            android:key="pref_app_menu_width"
+            android:key="app_menu_width"
             android:hint="width"
             android:defaultValue="650"
             android:title="App menu width"/>
         <EditTextPreference
             android:inputType="number"
-            android:key="pref_num_columns"
+            android:key="num_columns"
             android:hint="5"
             android:defaultValue="5"
             android:title="Number of columns"/>
@@ -41,22 +41,22 @@
             android:entries="@array/launch_modes" 
             android:dialogTitle="Theme" 
             android:entryValues="@array/launch_mode_values" 
-            android:key="pref_launch_mode"
+            android:key="launch_mode"
             android:title="Default app launch mode"
             android:defaultValue="standard" />
         <CheckBoxPreference
-            android:key="pref_remember_launch_mode"
+            android:key="remember_launch_mode"
             android:title="Remember launch mode"
             android:summary="Remember last launch mode used for every app"
             android:defaultValue="true" />
 
         <CheckBoxPreference
-            android:key="pref_launch_games_fullscreen"
+            android:key="launch_games_fullscreen"
             android:title="Launch games in full screen"
             android:summary="Launch apps detected as games in full screen by default"
             android:defaultValue="true" />
         <CheckBoxPreference
-            android:key="pref_lock_landscape"
+            android:key="lock_landscape"
             android:title="Launch full screen apps in landscpape"
             android:summary="Some full screen apps might try to force screen orientation to portrait. Use this to prevent such behaviour"
             android:defaultValue="false" />
@@ -65,13 +65,13 @@
         android:title="Fine tune">
     <EditTextPreference
         android:inputType="number"
-        android:key="pref_app_menu_x"
+        android:key="app_menu_x"
         android:hint="x translation"
         android:defaultValue="2"
         android:title="App menu x translation"/>
     <EditTextPreference
         android:inputType="number"
-        android:key="pref_app_menu_y"
+        android:key="app_menu_y"
         android:hint="y translation"
         android:defaultValue="2"
         android:title="App menu y translation"/>

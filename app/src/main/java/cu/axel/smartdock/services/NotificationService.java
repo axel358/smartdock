@@ -168,7 +168,7 @@ public class NotificationService extends NotificationListenerService {
 
 		final Notification notification = sbn.getNotification();
 
-		if (sbn.isOngoing() && !PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_show_ongoing", false)) {} else if (notification.contentView == null && !isBlackListed(sbn.getPackageName())) {
+		if (sbn.isOngoing() && !PreferenceManager.getDefaultSharedPreferences(this).getBoolean("show_ongoing", false)) {} else if (notification.contentView == null && !isBlackListed(sbn.getPackageName())) {
 			Bundle extras=notification.extras;
 
 			String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
@@ -222,7 +222,7 @@ public class NotificationService extends NotificationListenerService {
 
                     @Override
                     public boolean onLongClick(View p1) {
-                        sp.edit().putString("pref_blocked_notifications", sp.getString("pref_blocked_notifications", "").trim() + " " + sbn.getPackageName()).commit();
+                        sp.edit().putString("blocked_notifications", sp.getString("blocked_notifications", "").trim() + " " + sbn.getPackageName()).commit();
                         notificationLayout.setVisibility(View.GONE);
                         notificationLayout.setAlpha(0);
                         Toast.makeText(NotificationService.this, "Silenced notifications for this app", 5000).show();
@@ -244,8 +244,8 @@ public class NotificationService extends NotificationListenerService {
 					}
 				});
 
-            if (sp.getBoolean("pref_enable_notification_sound", false))
-                DeviceUtils.playEventSound(this, "pref_notification_sound");
+            if (sp.getBoolean("enable_notification_sound", false))
+                DeviceUtils.playEventSound(this, "notification_sound");
 
             hideNotification();
         }
@@ -270,12 +270,12 @@ public class NotificationService extends NotificationListenerService {
                         });
 
                 }
-            }, Integer.parseInt(sp.getString("pref_notification_timeout", "5000")));
+            }, Integer.parseInt(sp.getString("notification_timeout", "5000")));
 
     }
 
     public boolean isBlackListed(String packageName) {
-        String ignoredPackages = sp.getString("pref_blocked_notifications", "android");
+        String ignoredPackages = sp.getString("blocked_notifications", "android");
         return ignoredPackages.contains(packageName);
     }
 

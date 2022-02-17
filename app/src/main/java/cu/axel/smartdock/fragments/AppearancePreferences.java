@@ -29,7 +29,7 @@ public class AppearancePreferences extends PreferenceFragment {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences_appearance);
 
-        menuIconPref = findPreference("pref_menu_icon_uri");
+        menuIconPref = findPreference("menu_icon_uri");
         menuIconPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
@@ -39,7 +39,7 @@ public class AppearancePreferences extends PreferenceFragment {
                     return false;
                 }
             });
-        findPreference("pref_menu_icon_reset").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+        findPreference("restore_menu_icon").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
                 public boolean onPreferenceClick(Preference p1) {
@@ -48,7 +48,7 @@ public class AppearancePreferences extends PreferenceFragment {
                 }
             });
 
-        mainColorPref = findPreference("pref_theme_main_color");
+        mainColorPref = findPreference("theme_main_color");
         mainColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
@@ -58,7 +58,7 @@ public class AppearancePreferences extends PreferenceFragment {
                 }
             });
 
-        secondaryColorPref = findPreference("pref_theme_secondary_color");
+        secondaryColorPref = findPreference("theme_secondary_color");
         secondaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
@@ -68,18 +68,18 @@ public class AppearancePreferences extends PreferenceFragment {
                 }
             });
             
-        findPreference("pref_theme").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
+        findPreference("theme").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
 
                 @Override
                 public boolean onPreferenceChange(Preference p1, Object p2) {
-                    mainColorPref.setEnabled(p2.toString().equals("pref_theme_custom"));
-                    secondaryColorPref.setEnabled(p2.toString().equals("pref_theme_custom"));
+                    mainColorPref.setEnabled(p2.toString().equals("custom"));
+                    secondaryColorPref.setEnabled(p2.toString().equals("custom"));
                     return true;
                 }
             });
             
-        mainColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("pref_theme","pref_theme_dark").equals("pref_theme_custom"));
-        secondaryColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("pref_theme","pref_theme_dark").equals("pref_theme_custom"));
+        mainColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("theme","dark").equals("custom"));
+        secondaryColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("theme","dark").equals("custom"));
 
 	}
 
@@ -145,10 +145,10 @@ public class AppearancePreferences extends PreferenceFragment {
                     if (Utils.isValidColor(color)) {
                         if (type.equals("main")) {
                             mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).commit();
-                            mainColorPref.getSharedPreferences().edit().putInt("pref_theme_main_alpha", alphaSb.getProgress()).commit();
+                            mainColorPref.getSharedPreferences().edit().putInt("theme_main_alpha", alphaSb.getProgress()).commit();
                         } else {
                             secondaryColorPref.getSharedPreferences().edit().putString(secondaryColorPref.getKey(), color).commit();
-                            secondaryColorPref.getSharedPreferences().edit().putInt("pref_theme_secondary_alpha", alphaSb.getProgress()).commit();
+                            secondaryColorPref.getSharedPreferences().edit().putInt("theme_secondary_alpha", alphaSb.getProgress()).commit();
                         }
                     }
 
@@ -159,10 +159,10 @@ public class AppearancePreferences extends PreferenceFragment {
 
         if (type.equals("main")) {
             colorHexEt.setText(mainColorPref.getSharedPreferences().getString(mainColorPref.getKey(), "#212121"));
-            alphaSb.setProgress(mainColorPref.getSharedPreferences().getInt("pref_theme_main_alpha", 255));
+            alphaSb.setProgress(mainColorPref.getSharedPreferences().getInt("theme_main_alpha", 255));
         } else {
             colorHexEt.setText(secondaryColorPref.getSharedPreferences().getString(secondaryColorPref.getKey(), "#292929"));
-            alphaSb.setProgress(mainColorPref.getSharedPreferences().getInt("pref_theme_secondary_alpha", 255));
+            alphaSb.setProgress(mainColorPref.getSharedPreferences().getInt("theme_secondary_alpha", 255));
 
         }
 

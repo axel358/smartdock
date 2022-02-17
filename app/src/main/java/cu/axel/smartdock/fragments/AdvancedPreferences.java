@@ -18,7 +18,7 @@ public class AdvancedPreferences extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_advanced);
-        Preference editAutostart = findPreference("pref_edit_autostart");
+        Preference editAutostart = findPreference("edit_autostart");
         editAutostart.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
@@ -27,7 +27,7 @@ public class AdvancedPreferences extends PreferenceFragment {
                     return false;
                 }
             });
-        Preference displayS = findPreference("pref_custom_display_size");
+        Preference displayS = findPreference("custom_display_size");
         displayS.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
 
                 @Override
@@ -42,7 +42,7 @@ public class AdvancedPreferences extends PreferenceFragment {
                     return true;
                 }
             });
-        Preference softReboot = findPreference("pref_soft_reboot");
+        Preference softReboot = findPreference("soft_reboot");
         softReboot.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override

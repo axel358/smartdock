@@ -15,13 +15,12 @@ public final class R {
         public static final int slide_up=0x7f050003;
     }
     public static final class array {
-        public static final int animation_values=0x7f07000a;
-        public static final int animations=0x7f070009;
-        public static final int icon_shapes=0x7f070005;
-        public static final int icon_shapes_values=0x7f070006;
-        public static final int launch_mode_values=0x7f070008;
-        public static final int launch_modes=0x7f070007;
-        public static final int shortcut_key_values=0x7f070004;
+        public static final int animation_values=0x7f070009;
+        public static final int animations=0x7f070008;
+        public static final int icon_shapes=0x7f070004;
+        public static final int icon_shapes_values=0x7f070005;
+        public static final int launch_mode_values=0x7f070007;
+        public static final int launch_modes=0x7f070006;
         public static final int shortcut_keys=0x7f070002;
         public static final int shortcut_keys_values=0x7f070003;
         public static final int theme_values=0x7f070001;
@@ -144,8 +143,8 @@ public final class R {
         public static final int desktop_app_icon_iv=0x7f0b0006;
         public static final int desktop_app_name_tv=0x7f0b0007;
         public static final int desktop_apps_gv=0x7f0b0001;
-        public static final int dockLinearLayout1=0x7f0b001f;
         public static final int dock_layout=0x7f0b0020;
+        public static final int dock_trigger=0x7f0b001f;
         public static final int edit_autostart_et=0x7f0b0019;
         public static final int fav_applist_lv=0x7f0b000e;
         public static final int home_btn=0x7f0b0024;

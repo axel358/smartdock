@@ -31,9 +31,9 @@ public class Utils {
     public static String AUTOSTART_SCRIPT="autostart.sh";
 
     public static void toggleBuiltinNavigation(SharedPreferences.Editor editor, boolean value) {
-        editor.putBoolean("pref_enable_back", value);
-        editor.putBoolean("pref_enable_home", value);
-        editor.putBoolean("pref_enable_recents", value);
+        editor.putBoolean("enable_back", value);
+        editor.putBoolean("enable_home", value);
+        editor.putBoolean("enable_recents", value);
         editor.commit();
     }
 
@@ -192,20 +192,20 @@ public class Utils {
     public static void applyMainColor(SharedPreferences sp, View view) {
         String color = "";
         int alpha = 255;
-        switch (sp.getString("pref_theme", "pref_theme_dark")) {
-            case "pref_theme_dark":
+        switch (sp.getString("theme", "dark")) {
+            case "dark":
                 color = "#212121";
                 break;
-            case "pref_theme_black":
+            case "black":
                 color = "#000000";
                 break;
-            case "pref_theme_transparent":
+            case "transparent":
                 color = "#000000";
                 alpha = 225;
                 break;
-            case "pref_theme_custom":
-                color = sp.getString("pref_theme_main_color", "#212121");
-                alpha = sp.getInt("pref_theme_main_alpha", 255);
+            case "custom":
+                color = sp.getString("theme_main_color", "#212121");
+                alpha = sp.getInt("theme_main_alpha", 255);
         }
         view.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_ATOP);
         view.getBackground().setAlpha(alpha);
@@ -214,20 +214,20 @@ public class Utils {
     public static void applySecondaryColor(SharedPreferences sp,  View view) {
         String color = "";
         int alpha = 255;
-        switch (sp.getString("pref_theme", "pref_theme_dark")) {
-            case "pref_theme_dark":
+        switch (sp.getString("theme", "dark")) {
+            case "dark":
                 color = "#292929";
                 break;
-            case "pref_theme_black":
+            case "black":
                 color = "#0B0B0B";
                 break;
-            case "pref_theme_transparent":
+            case "transparent":
                 color = "#000000";
                 alpha = 80;
                 break;
-            case "pref_theme_custom":
-                color = sp.getString("pref_theme_secondary_color", "#292929");
-                alpha = sp.getInt("pref_theme_secondary_alpha", 255);
+            case "custom":
+                color = sp.getString("theme_secondary_color", "#292929");
+                alpha = sp.getInt("theme_secondary_alpha", 255);
         }
         view.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_ATOP);
         view.getBackground().setAlpha(alpha);

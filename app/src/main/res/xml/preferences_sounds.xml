@@ -3,39 +3,39 @@
         android:icon="@drawable/ic_about"
         android:title="Please note that you must provide your own sounds"/>
     <CheckBoxPreference
-        android:key="pref_enable_startup_sound"
+        android:key="enable_startup_sound"
         android:title="Play a custom sound at Dock startup*"
         android:defaultValue="false" />
     <Preference
-        android:key="pref_startup_sound"
+        android:key="startup_sound"
         android:title="Choose startup sound"/>
     <CheckBoxPreference
-        android:key="pref_enable_usb_sound"
+        android:key="enable_usb_sound"
         android:title="Play a custom sound when connecting usb devices"
         android:defaultValue="false" />
     <Preference
-        android:key="pref_usb_sound"
+        android:key="usb_sound"
         android:title="Choose usb sound"/>
     <CheckBoxPreference
-        android:key="pref_enable_notification_sound"
+        android:key="enable_notification_sound"
         android:title="Play a custom sound when showing notifications"
         android:defaultValue="false" />
     <Preference
-        android:key="pref_notification_sound"
+        android:key="notification_sound"
         android:title="Choose notification sound"/>
     <CheckBoxPreference
-        android:key="pref_enable_charge_sound"
+        android:key="enable_charge_sound"
         android:title="Play a custom sound when pluging into a power source"
         android:defaultValue="false" />
     <Preference
-        android:key="pref_charge_sound"
+        android:key="charge_sound"
         android:title="Choose charge sound"/>
     <CheckBoxPreference
-        android:key="pref_enable_charge_complete_sound"
+        android:key="enable_charge_complete_sound"
         android:title="Play a custom sound when the device has completed charging*"
         android:defaultValue="false" />
     <Preference
-        android:key="pref_charge_complete_sound"
+        android:key="charge_complete_sound"
         android:title="Choose charge complete sound"/>
     
 </PreferenceScreen>

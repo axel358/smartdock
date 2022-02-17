@@ -18,7 +18,7 @@
             android:data="https://github.com/axel358/smartdock"/>
     </Preference>
     <Preference
-        android:key="pref_join_telegram"
+        android:key="join_telegram"
         android:title="Telegram group"
         android:summary="Got any questions? Join the Telegram support group" />
     <Preference

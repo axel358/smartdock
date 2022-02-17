@@ -8,10 +8,10 @@
     </string-array>
 
     <string-array name="theme_values">
-        <item>pref_theme_dark</item>
-        <item>pref_theme_black</item>
-        <item>pref_theme_transparent</item>
-        <item>pref_theme_custom</item>
+        <item>dark</item>
+        <item>black</item>
+        <item>transparent</item>
+        <item>custom</item>
     </string-array>
 
     <string-array name="shortcut_keys">
@@ -26,12 +26,6 @@
         <item>3</item>
     </string-array>
     
-    <string-array name="shortcut_key_values">
-        <item>pref_theme_dark</item>
-        <item>pref_theme_black</item>
-        <item>pref_theme_transparent</item>
-    </string-array>
-    
     <string-array name="icon_shapes">
         <item>Circle</item>
         <item>Round Square</item>
@@ -39,9 +33,9 @@
     </string-array>
 
     <string-array name="icon_shapes_values">
-        <item>pref_icon_shape_circle</item>
-        <item>pref_icon_shape_round_rect</item>
-        <item>pref_icon_shape_legacy</item>
+        <item>circle</item>
+        <item>round_rect</item>
+        <item>default</item>
     </string-array>
 
     <string-array name="launch_modes">

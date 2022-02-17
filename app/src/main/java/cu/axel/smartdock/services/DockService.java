@@ -108,6 +108,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private Handler dockHandler;
     private HoverInterceptorLayout dock;
     private BluetoothManager bm;
+    private View dockTrigger;
     
     @Override
     public void onCreate()
@@ -136,6 +137,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         //Create the dock
         dock = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.dock, null);
         dockLayout = dock.findViewById(R.id.dock_layout);
+        dockTrigger = dock.findViewById(R.id.dock_trigger);
 
         appsBtn = dock.findViewById(R.id.apps_btn);
         tasksGv = dock.findViewById(R.id.apps_lv);
@@ -159,10 +161,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public boolean onHover(View p1, MotionEvent p2)
                 {
-                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER)
-                       showDock();
+                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER){
+                        if(dockLayout.getVisibility() == View.GONE)
+                            showDock();
+                        }
                     else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT)
-                        hideDock(Integer.parseInt(sp.getString("pref_dock_hide_delay", "500")));
+                        hideDock(Integer.parseInt(sp.getString("dock_hide_delay", "500")));
                    
                      return false;
                 }
@@ -282,15 +286,15 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
                 @Override
                 public boolean onLongClick(View p1) {
-                    if(sp.getBoolean("pref_tablet_mode", false)){
+                    if(sp.getBoolean("tablet_mode", false)){
                         Utils.toggleBuiltinNavigation(sp.edit(), false);
-                        sp.edit().putBoolean("pref_app_menu_fullscreen", false).commit();
-                        sp.edit().putBoolean("pref_tablet_mode", false).commit();
+                        sp.edit().putBoolean("app_menu_fullscreen", false).commit();
+                        sp.edit().putBoolean("tablet_mode", false).commit();
                         Toast.makeText(DockService.this, "Tablet mode off", Toast.LENGTH_SHORT).show();
                     }else{
                         Utils.toggleBuiltinNavigation(sp.edit(), true);
-                        sp.edit().putBoolean("pref_app_menu_fullscreen", true).commit();
-                        sp.edit().putBoolean("pref_tablet_mode", true).commit();
+                        sp.edit().putBoolean("app_menu_fullscreen", true).commit();
+                        sp.edit().putBoolean("tablet_mode", true).commit();
                         Toast.makeText(DockService.this, "Tablet mode on", Toast.LENGTH_SHORT).show();
                     }
                     if(appMenuVisible)
@@ -360,7 +364,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 
         dockLayoutParams = Utils.makeWindowParams(-1, -2);
-        dockLayoutParams.screenOrientation = sp.getBoolean("pref_lock_landscape",false) ? 0 : -1;
+        dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape",false) ? 0 : -1;
         dockLayoutParams.gravity = Gravity.BOTTOM;
         
         wm.addView(dock, dockLayoutParams);
@@ -390,7 +394,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                                         performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
                                 }
 
-                            }, Integer.parseInt(sp.getString("pref_hot_corners_delay", "300")));
+                            }, Integer.parseInt(sp.getString("hot_corners_delay", "300")));
                     }
                     
                     return false;
@@ -416,7 +420,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                                         DeviceUtils. lockScreen(DockService.this);
                                 }
 
-                            }, Integer.parseInt(sp.getString("pref_hot_corners_delay", "300")));
+                            }, Integer.parseInt(sp.getString("hot_corners_delay", "300")));
 
                     }
                     return false;
@@ -462,7 +466,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 public void onClick(View p1)
                 {
 
-                    if(sp.getBoolean("pref_enable_power_menu",false)){
+                    if(sp.getBoolean("enable_power_menu",false)){
                         if(powerMenuVisible)
                             hidePowerMenu();
                         else
@@ -557,13 +561,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     {
                         searchLayout.setVisibility(View.VISIBLE);
                         searchTv.setText("Search for \"" + p1 + "\" on Google");
-                        hideFavorites();
+                        toggleFavorites(false);
                     }
                     else
                     {
                         searchLayout.setVisibility(View.GONE);
-                        if (AppUtils.getPinnedApps(DockService.this,pm, AppUtils.PINNED_LIST).size() > 0)
-                            showFavorites();
+                        toggleFavorites(AppUtils.getPinnedApps(DockService.this,pm, AppUtils.PINNED_LIST).size() > 0);
                     }
                 }
 
@@ -650,7 +653,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         soundEventsFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         soundEventsFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         registerReceiver(soundEventsReceiver, soundEventsFilter);
-        if(sp.getBoolean("pref_allow_broadcasts", false)){
+        if(sp.getBoolean("allow_broadcasts", false)){
         registerReceiver(new BroadcastReceiver(){
 
                 @Override
@@ -661,23 +664,24 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }, new IntentFilter(getPackageName()+".MENU"));
        }
         //Run startup script
-        if(sp.getBoolean("pref_run_autostart",false))
+        if(sp.getBoolean("run_autostart",false))
             Utils.doAutostart(this);
             
         //Play startup sound
-        if(sp.getBoolean("pref_enable_startup_sound",false))
-           DeviceUtils.playEventSound(this,"pref_startup_sound");
+        if(sp.getBoolean("enable_startup_sound",false))
+           DeviceUtils.playEventSound(this,"startup_sound");
 
         updateNavigationBar();
         updateQuickSettings();
         applyTheme();
         updateMenuIcon();
         placeRunningApps();
+        updateDockTrigger();
         
         Toast.makeText(this, "Smart Dock started", 5000).show();
          
         showDock();
-        if (sp.getBoolean("pref_pin_dock", false))
+        if (sp.getBoolean("pin_dock", false))
             pinDock();
         else
             hideDock(2000);
@@ -711,7 +715,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     protected boolean onKeyEvent(KeyEvent event)
     {
         boolean isModifierPressed = false;
-        switch (sp.getString("pref_shortcut_key", "alt"))
+        switch (sp.getString("shortcut_key", "alt"))
         {
             case "57":
                 isModifierPressed = event.isAltPressed();
@@ -724,19 +728,19 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }
         if (event.getAction() == KeyEvent.ACTION_UP && isModifierPressed)
         {
-            if (event.getKeyCode() == KeyEvent.KEYCODE_L && sp.getBoolean("pref_enable_lock_desktop", true))
+            if (event.getKeyCode() == KeyEvent.KEYCODE_L && sp.getBoolean("enable_lock_desktop", true))
                     DeviceUtils.lockScreen(DockService.this);
-            else if (event.getKeyCode() == KeyEvent.KEYCODE_P && sp.getBoolean("pref_enable_open_settings", true))
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_P && sp.getBoolean("enable_open_settings", true))
                     launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            else if (event.getKeyCode() == KeyEvent.KEYCODE_T && sp.getBoolean("pref_enable_open_terminal", false))
-                    launchApp("standard", sp.getString("pref_terminal_package", "com.termux"));                 
-            else if (event.getKeyCode() == KeyEvent.KEYCODE_A && sp.getBoolean("pref_enable_expand_notifications", true))
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_T && sp.getBoolean("enable_open_terminal", false))
+                    launchApp("standard", sp.getString("terminal_package", "com.termux"));                 
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_A && sp.getBoolean("enable_expand_notifications", true))
                     performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
             else if (event.getKeyCode() == KeyEvent.KEYCODE_K)
                 DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
-            else if (event.getKeyCode() == KeyEvent.KEYCODE_M && sp.getBoolean("pref_enable_open_music", true))
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_M && sp.getBoolean("enable_open_music", true))
                     DeviceUtils.    sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
-            else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("pref_enable_open_browser", true))
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("enable_open_browser", true))
                     DeviceUtils.    sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
             else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
                 startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -750,20 +754,20 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }
         else if (event.getAction() == KeyEvent.ACTION_UP)
         {
-            if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT && sp.getBoolean("pref_enable_ctrl_back", false))
+            if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT && sp.getBoolean("enable_ctrl_back", false))
             {
                     performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
                     return true;
             }
             
-            int menuKey=Integer.parseInt(sp.getString("pref_menu_key", "3"));
+            int menuKey=Integer.parseInt(sp.getString("menu_key", "3"));
 
-            if (event.getKeyCode() == menuKey && sp.getBoolean("pref_enable_app_menu", true))
+            if (event.getKeyCode() == menuKey && sp.getBoolean("enable_app_menu", true))
             {
                     toggleAppMenu(null);
                     return true;
             }
-            if (event.getKeyCode() == KeyEvent.KEYCODE_F10  && sp.getBoolean("pref_enable_f10", true))
+            if (event.getKeyCode() == KeyEvent.KEYCODE_F10  && sp.getBoolean("enable_f10", true))
             {
                     if (shouldHide)
                     { 
@@ -772,7 +776,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     }
             }
             //Still working on this
-            /*else if (event.getKeyCode() == KeyEvent.KEYCODE_F9 && sp.getBoolean("pref_enable_f9",false))
+            /*else if (event.getKeyCode() == KeyEvent.KEYCODE_F9 && sp.getBoolean("enable_f9",false))
             {
                 AppUtils.setWindowMode(am,getRunningTasks().get(0).getId(),5);
                 return true;
@@ -808,7 +812,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             mode = getDefaultLaunchMode(packagename);
         else
         {
-            if (sp.getBoolean("pref_remember_launch_mode", true))
+            if (sp.getBoolean("remember_launch_mode", true))
                 db.saveLaunchMode(packagename, mode);
         }
         launchApp(mode, pm.getLaunchIntentForPackage(packagename));
@@ -819,23 +823,23 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         if (Build.VERSION.SDK_INT < 24) 
             return "fullscreen";
         String mode;
-        if (sp.getBoolean("pref_remember_launch_mode", true) && (mode = db.getLaunchMode(packagename)) != null)
+        if (sp.getBoolean("remember_launch_mode", true) && (mode = db.getLaunchMode(packagename)) != null)
             return mode;
-        else if (AppUtils.isGame(pm, packagename)&&sp.getBoolean("pref_launch_games_fullscreen", true))
+        else if (AppUtils.isGame(pm, packagename)&&sp.getBoolean("launch_games_fullscreen", true))
             return "fullscreen";
         else
-            return sp.getString("pref_launch_mode", "standard");
+            return sp.getString("launch_mode", "standard");
     }
 
     private void launchApp(String mode, Intent intent)
     {
-        if(sp.getBoolean("pref_disable_animations",false))
+        if(sp.getBoolean("disable_animations",false))
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         
         ActivityOptions options=null;
         int animResId=0;
-        if(sp.getBoolean("pref_enable_custom_animations",false) && !sp.getBoolean("pref_disable_animations",false)){
-            switch(sp.getString("pref_custom_animation","fade")){
+        if(sp.getBoolean("enable_custom_animations",false) && !sp.getBoolean("disable_animations",false)){
+            switch(sp.getString("custom_animation","fade")){
                 case "fade":
                     animResId=R.anim.fade_in;
                     break;
@@ -943,7 +947,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     }
             
     public void setOrientation(){
-        dockLayoutParams.screenOrientation = sp.getBoolean("pref_lock_landscape",false) ? 0 : -1;
+        dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape",false) ? 0 : -1;
         wm.updateViewLayout(dock, dockLayoutParams);
     }
 
@@ -958,7 +962,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     public void showAppMenu()
     {
         WindowManager.LayoutParams appMenuLayoutParams = null;
-        if(sp.getBoolean("pref_app_menu_fullscreen", false)){
+        if(sp.getBoolean("app_menu_fullscreen", false)){
             int deviceWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
             int deviceHeight  = Resources.getSystem().getDisplayMetrics().heightPixels;
             appMenuLayoutParams = Utils.makeWindowParams(deviceWidth - Utils.dpToPx(this, 4), deviceHeight - Utils.dpToPx(this, 60) - DeviceUtils.getStatusBarHeight(this));
@@ -969,11 +973,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             appsGv.setNumColumns(10);
             
         }else{
-            appMenuLayoutParams = Utils.makeWindowParams(Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_width", "650"))),Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_height", "540"))));
-            appMenuLayoutParams.x = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_x", "2")));
-            appMenuLayoutParams.y = Utils.dpToPx(this, Integer.parseInt(sp.getString("pref_app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
-            favoritesGv.setNumColumns(Integer.parseInt(sp.getString("pref_num_columns", "5")));
-            appsGv.setNumColumns(Integer.parseInt(sp.getString("pref_num_columns", "5")));
+            appMenuLayoutParams = Utils.makeWindowParams(Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_width", "650"))),Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_height", "540"))));
+            appMenuLayoutParams.x = Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_x", "2")));
+            appMenuLayoutParams.y = Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
+            favoritesGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
+            appsGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
             
         }
         
@@ -1029,7 +1033,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         
         pmenu.inflate(R.menu.app_menu);
         
-        if(sp.getBoolean("pref_allow_app_freeze", false)){
+        if(sp.getBoolean("allow_app_freeze", false)){
             MenuItem manageMenu = pmenu.getMenu().findItem(R.id.action_manage);
             manageMenu.getSubMenu().add(0,8,0,"Freeze").setIcon(R.drawable.ic_freeze);
         }
@@ -1153,31 +1157,38 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     @Override
     public void onSharedPreferenceChanged(SharedPreferences p1, String p2)
     {
-        if (p2.contains("pref_theme"))
+        if (p2.startsWith("theme"))
             applyTheme();
-        else if (p2.equals("pref_menu_icon_uri"))
+        else if (p2.equals("menu_icon_uri"))
             updateMenuIcon();
-        else if (p2.equals("pref_icon_padding") || p2.equals("pref_icon_shape") || p2.equals("enable_icon_packs"))
+        else if (p2.startsWith("icon_"))
         {
             updateRunningTasks();
             loadFavoriteApps();
         }
-        else if (p2.equals("pref_lock_landscape"))
+        else if (p2.equals("lock_landscape"))
             setOrientation();
-        else if (p2.equals("pref_center_apps")){
+        else if (p2.equals("center_running_apps"))
             placeRunningApps();
-        }
-        else
-        {
-            updateNavigationBar();
+        else if(p2.equals("dock_activation_area"))
+            updateDockTrigger();
+        else if(p2.startsWith("enable_corner_"))
+            updateCorners();
+        else if(p2.startsWith("enable_nav_"))
+            updateNavigationBar();   
+        else if(p2.startsWith("enable_qs_"))
             updateQuickSettings();
-            updateCorners();   
-        }
+    }
+    
+    private void updateDockTrigger(){
+      int height = Integer.parseInt(sp.getString("dock_activation_area", "10"));
+      if(height < 1) height = 1;
+      dockTrigger.getLayoutParams().height = Utils.dpToPx(this, height);
     }
 
     private void placeRunningApps() {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        if(sp.getBoolean("pref_center_apps", false)){
+        if(sp.getBoolean("center_running_apps", false)){
              lp.addRule(RelativeLayout.CENTER_IN_PARENT);
              lp.leftMargin=-120;
                }
@@ -1189,65 +1200,37 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         updateRunningTasks();
     }
 
-    public void updateRunningTasks()
+    private void updateRunningTasks()
     {
         ArrayList<AppTask> runningTasks = AppUtils.getRunningTasks(am,pm);
         tasksGv.getLayoutParams().width = Utils.dpToPx(this, 60) * runningTasks.size();
         tasksGv.setAdapter(new AppTaskAdapter(DockService.this, runningTasks));
         
-     //TODO: Move this outta here
-        if (wifiManager.isWifiEnabled())
-            wifiBtn.setImageResource(R.drawable.ic_wifi_on);
-        else
-            wifiBtn.setImageResource(R.drawable.ic_wifi_off);
-            
-        if (bm.getAdapter().isEnabled())
-            bluetoothBtn.setImageResource(R.drawable.ic_bluetooth);
-        else
-            bluetoothBtn.setImageResource(R.drawable.ic_bluetooth_off);
-    }
+        //TODO: Move this outta here
+        wifiBtn.setImageResource(wifiManager.isWifiEnabled()? R.drawable.ic_wifi_on : R.drawable.ic_wifi_off);
+        bluetoothBtn.setImageResource(bm.getAdapter().isEnabled()? R.drawable.ic_bluetooth : R.drawable.ic_bluetooth_off);
+     }
     public void updateNavigationBar()
     {
-        if (sp.getBoolean("pref_enable_back", false))
-            backBtn.setVisibility(View.VISIBLE);
-        else
-            backBtn.setVisibility(View.GONE);
-        if (sp.getBoolean("pref_enable_home", false))
-            homeBtn.setVisibility(View.VISIBLE);
-        else
-            homeBtn.setVisibility(View.GONE);
-        if (sp.getBoolean("pref_enable_recents", false))
-            recentBtn.setVisibility(View.VISIBLE);
-        else
-            recentBtn.setVisibility(View.GONE);
-        if (sp.getBoolean("pref_enable_assist", false))
-            assistBtn.setVisibility(View.VISIBLE);
-        else
-            assistBtn.setVisibility(View.GONE);
-    }
+        backBtn.setVisibility(sp.getBoolean("enable_nav_back", false)? View.VISIBLE : View.GONE);
+        homeBtn.setVisibility(sp.getBoolean("enable_nav_home", false)? View.VISIBLE : View.GONE);
+        recentBtn.setVisibility(sp.getBoolean("enable_nav_recents", false)? View.VISIBLE : View.GONE);
+        assistBtn.setVisibility(sp.getBoolean("enable_nav_assist", false)? View.VISIBLE : View.GONE);   
+     }
     
     public void updateQuickSettings(){
-        if (sp.getBoolean("pref_enable_battery", true))
-            batteryBtn.setVisibility(View.VISIBLE);
-        else
-            batteryBtn.setVisibility(View.GONE);
-        if (sp.getBoolean("pref_enable_bluetooth", false))
-            bluetoothBtn.setVisibility(View.VISIBLE);
-        else
-            bluetoothBtn.setVisibility(View.GONE);       
-    }
+        bluetoothBtn.setVisibility(sp.getBoolean("enable_qs_bluetooth", false)? View.VISIBLE : View.GONE);
+        batteryBtn.setVisibility(sp.getBoolean("enable_qs_battery", false)? View.VISIBLE : View.GONE);   
+     }
     
     public void launchAssistant(View v){
-        String assistant=sp.getString("pref_custom_assist","");
+        String assistant=sp.getString("custom_assist","");
         if(!assistant.isEmpty())
-        {
             launchApp("standard", assistant); 
-        }else{
+        else{
             try{
                 startActivity(new Intent(Intent.ACTION_ASSIST).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            }catch(ActivityNotFoundException e){
-                
-            }
+            }catch(ActivityNotFoundException e){}
         }
     }
     
@@ -1345,6 +1328,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             });
             Utils.applyMainColor(sp, powerMenu);
             wm.addView(powerMenu, layoutParams);
+        topRightCorner.setVisibility( sp.getBoolean("enable_corner_top_right", false)? View.VISIBLE : View.GONE);
         powerMenuVisible = true;
     }
     
@@ -1373,20 +1357,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void updateCorners()
     {
-        if (sp.getBoolean("pref_enable_top_right", false))
-            topRightCorner.setVisibility(View.VISIBLE);
-        else
-            topRightCorner.setVisibility(View.GONE);
-            
-        if (sp.getBoolean("pref_enable_bottom_right", false))
-            bottomRightCorner.setVisibility(View.VISIBLE);
-        else
-            bottomRightCorner.setVisibility(View.GONE);
+        topRightCorner.setVisibility( sp.getBoolean("enable_corner_top_right", false)? View.VISIBLE : View.GONE);
+        bottomRightCorner.setVisibility( sp.getBoolean("enable_corner_bottom_right", false)? View.VISIBLE : View.GONE);    
     }
 
     public void updateMenuIcon()
     {
-        String iconUri=sp.getString("pref_menu_icon_uri", "default");
+        String iconUri=sp.getString("menu_icon_uri", "default");
         if (iconUri.equals("default"))
             appsBtn.setImageResource(R.drawable.ic_apps);
         else
@@ -1400,27 +1377,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     }
 
-    public void hideFavorites()
+    public void toggleFavorites(boolean visible)
     {
-        favoritesGv.setVisibility(View.GONE);
-        appsSeparator.setVisibility(View.GONE);
-    }
-
-    public void showFavorites()
-    {
-        favoritesGv.setVisibility(View.VISIBLE);
-        appsSeparator.setVisibility(View.VISIBLE);
+        favoritesGv.setVisibility(visible? View.VISIBLE : View.GONE);
+        appsSeparator.setVisibility(visible? View.VISIBLE : View.GONE);
     }
 
     public void loadFavoriteApps()
     {
         ArrayList<App> apps = AppUtils.getPinnedApps(DockService.this,pm, AppUtils.PINNED_LIST);
-        
-        if (apps.size() > 0)
-           showFavorites();
-        else
-            hideFavorites();
-        
+        toggleFavorites(apps.size() > 0);
         favoritesGv.setAdapter(new AppAdapter(this, apps));
 
     }
@@ -1455,16 +1421,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             this.context = context;
             this.apps = apps;
             this.originalList = new ArrayList<App>(apps);
-            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("pref_icon_padding", "4")));
-            switch (sp.getString("pref_icon_shape", "pref_icon_shape_circle"))
+            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("padding", "4")));
+            switch (sp.getString("icon_shape", "circle"))
             {
-                case "pref_icon_shape_circle":
+                case "circle":
                     iconBackground = R.drawable.circle;
                     break;
-                case "pref_icon_shape_round_rect":
+                case "round_rect":
                     iconBackground = R.drawable.round_square;
                     break;
-                case "pref_icon_shape_legacy":
+                case "default":
                     iconBackground = -1;
                     break;
             }
@@ -1499,7 +1465,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             persuade the adapter to reload icons with a switch
             probably could use just getPackagedThemedIcon but as a fallback to the shared preference listener
              */
-            if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("enable_icon_packs",false))
+            if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false))
                 holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
             else
                 holder.iconIv.setImageDrawable(app.getIcon());
@@ -1593,16 +1559,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         {
             super(context, R.layout.app_task_entry, appTasks);
             this.context = context;
-            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("pref_icon_padding", "4")));
-            switch (sp.getString("pref_icon_shape", "pref_icon_shape_circle"))
+            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "4")));
+            switch (sp.getString("icon_shape", "circle"))
             {
-                case "pref_icon_shape_circle":
+                case "circle":
                     iconBackground = R.drawable.circle;
                     break;
-                case "pref_icon_shape_round_rect":
+                case "round_rect":
                     iconBackground = R.drawable.round_square;
                     break;
-                case "pref_icon_shape_legacy":
+                case "default":
                     iconBackground = -1;
                     break;
             }
@@ -1622,7 +1588,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
             IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
             
-            if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("enable_icon_packs",false))
+            if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false))
                 iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(task.getPackageName()));
             else
                 iconIv.setImageDrawable(task.getIcon());
@@ -1658,13 +1624,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         public void onReceive(Context p1, Intent p2) {
             switch(p2.getAction()){
                 case UsbManager.ACTION_USB_DEVICE_ATTACHED:
-                    if(sp.getBoolean("pref_enable_usb_sound",false))
-                       DeviceUtils.playEventSound(DockService.this,"pref_usb_sound");
+                    if(sp.getBoolean("enable_usb_sound",false))
+                       DeviceUtils.playEventSound(DockService.this,"usb_sound");
                     break;
                 case Intent.ACTION_POWER_CONNECTED:
                     shouldPlayChargeComplete = true;
-                    if(sp.getBoolean("pref_enable_charge_sound",false))
-                       DeviceUtils.playEventSound(DockService.this,"pref_charge_sound");
+                    if(sp.getBoolean("enable_charge_sound",false))
+                       DeviceUtils.playEventSound(DockService.this,"charge_sound");
                     break;
             }
         }
@@ -1683,8 +1649,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             {
                 batteryBtn.setImageResource(Utils.getBatteryDrawable(level,true));
                 if(level==100){
-                    if(shouldPlayChargeComplete && sp.getBoolean("pref_enable_charge_complete_sound",false))
-                        DeviceUtils.playEventSound(DockService.this, "pref_charge_complete_sound");
+                    if(shouldPlayChargeComplete && sp.getBoolean("enable_charge_complete_sound",false))
+                        DeviceUtils.playEventSound(DockService.this, "charge_complete_sound");
                         
                     shouldPlayChargeComplete =false;
                 }
