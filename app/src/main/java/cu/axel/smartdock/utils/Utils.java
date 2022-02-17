@@ -31,9 +31,9 @@ public class Utils {
     public static String AUTOSTART_SCRIPT="autostart.sh";
 
     public static void toggleBuiltinNavigation(SharedPreferences.Editor editor, boolean value) {
-        editor.putBoolean("enable_back", value);
-        editor.putBoolean("enable_home", value);
-        editor.putBoolean("enable_recents", value);
+        editor.putBoolean("enable_nav_back", value);
+        editor.putBoolean("enable_nav_home", value);
+        editor.putBoolean("enable_nav_recents", value);
         editor.commit();
     }
 
