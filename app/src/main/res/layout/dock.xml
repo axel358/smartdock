@@ -45,7 +45,7 @@
 				android:padding="10dp"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
-				android:src="@drawable/ic_sysbar_back"
+				android:src="@drawable/ic_back"
 				android:id="@+id/back_btn"
 				android:visibility="gone"/>
 
@@ -54,7 +54,7 @@
 				android:padding="10dp"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
-				android:src="@drawable/ic_sysbar_home"
+				android:src="@drawable/ic_home"
 				android:id="@+id/home_btn"/>
 
 			<ImageView
@@ -63,7 +63,7 @@
 				android:padding="10dp"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
-				android:src="@drawable/ic_sysbar_recents"
+				android:src="@drawable/ic_recents"
 				android:id="@+id/recents_btn"/>
             <ImageView
                 android:onClick="launchAssistant"
