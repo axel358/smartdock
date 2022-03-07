@@ -1212,9 +1212,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
      }
     public void updateNavigationBar()
     {
-        backBtn.setVisibility(sp.getBoolean("enable_nav_back", false)? View.VISIBLE : View.GONE);
-        homeBtn.setVisibility(sp.getBoolean("enable_nav_home", false)? View.VISIBLE : View.GONE);
-        recentBtn.setVisibility(sp.getBoolean("enable_nav_recents", false)? View.VISIBLE : View.GONE);
+        backBtn.setVisibility(sp.getBoolean("enable_nav_back", true)? View.VISIBLE : View.GONE);
+        homeBtn.setVisibility(sp.getBoolean("enable_nav_home", true)? View.VISIBLE : View.GONE);
+        recentBtn.setVisibility(sp.getBoolean("enable_nav_recents", true)? View.VISIBLE : View.GONE);
         assistBtn.setVisibility(sp.getBoolean("enable_nav_assist", false)? View.VISIBLE : View.GONE);   
      }
     
