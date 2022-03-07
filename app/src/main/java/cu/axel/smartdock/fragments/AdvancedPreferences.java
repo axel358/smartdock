@@ -16,6 +16,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
+import android.preference.CheckBoxPreference;
 
 public class AdvancedPreferences extends PreferenceFragment {
     @Override
@@ -55,7 +56,7 @@ public class AdvancedPreferences extends PreferenceFragment {
                     return false;
                 }
             });
-            
+
         Preference moveToSystem = findPreference("move_to_system");
         moveToSystem.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
@@ -67,6 +68,29 @@ public class AdvancedPreferences extends PreferenceFragment {
                         DeviceUtils.runAsRoot("mv " + appDir + " /system/priv-app/");
                         DeviceUtils.reboot();
                     } catch (PackageManager.NameNotFoundException e) {}
+                    return false;
+                }
+            });
+
+        CheckBoxPreference hideNav = (CheckBoxPreference) findPreference("hide_nav_buttons");
+        hideNav.setChecked(DeviceUtils.runAsRoot("cat /system/build.prop").contains("qemu.hw.mainkeys=1"));
+        hideNav.setOnPreferenceChangeListener(new CheckBoxPreference.OnPreferenceChangeListener(){
+
+                @Override
+                public boolean onPreferenceChange(Preference p1, Object p2) {
+                    if ((boolean) p2) {
+                        String status = DeviceUtils.runAsRoot("echo qemu.hw.mainkeys=1 >> /system/build.prop");
+                        if (!status.equals("error")) {
+                            showRebootDialog(getActivity());
+                            return true;
+                        }
+                    } else {
+                        String status = DeviceUtils.runAsRoot("sed -i /qemu.hw.mainkeys=1/d /system/build.prop");
+                        if (!status.equals("error")) {
+                            showRebootDialog(getActivity());
+                            return true;
+                        }
+                    }
                     return false;
                 }
             });

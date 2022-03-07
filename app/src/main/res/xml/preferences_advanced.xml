@@ -6,7 +6,7 @@
         android:key="run_autostart"
         android:title="Run autostart script"
         android:defaultValue="false" />
-     <Preference
+    <Preference
         android:key="edit_autostart"
         android:title="Edit autostart script"/>
     <EditTextPreference
@@ -27,18 +27,23 @@
         android:summary="You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps"
         android:defaultValue="false" />
     <CheckBoxPreference
+        android:summary="Hides Android software navigation buttons. Needs reboot"
+        android:key="hide_nav_buttons"
+        android:title="Hide navigation buttons"
+        android:defaultValue="true" />
+    <CheckBoxPreference
         android:summary="System might be unresponsive for a short while"
         android:key="enable_soft_reboot"
         android:title="Use Modifier+F12 to soft reboot Android"
         android:defaultValue="false" />
     <Preference
-        android:key="soft_reboot"
-        android:summary="Soft reboot now. You will lose all unsaved work"
-        android:title="Soft reboot now"/>
-    
-    <Preference
         android:key="move_to_system"
         android:summary="Move Smart Dock as a system app. Android will restart"
         android:title="Move as system app"/>
     
+    <Preference
+        android:key="soft_reboot"
+        android:summary="Soft reboot now. You will lose all unsaved work"
+        android:title="Soft reboot now"/>
+
 </PreferenceScreen>
