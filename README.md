@@ -36,3 +36,7 @@ Contributors:
 [See contributors](Contributors.md)
 
 Telegram support group: https://t.me/smartdock358
+
+If you like what we do feel free to donate to the project
+
+https://paypal.me/KSMaan7
