@@ -19,7 +19,9 @@ Hiding Android navigation buttons:
 You should also hide the Android navigation buttons. There are several ways to do this
 
 With root:
+- From Smart Dock advanced settings
 - Edit /system/build.prop and add qemu.hw.mainkeys=1
+- Run "echo qemu.hw.mainkeys=1 >> /system/build.prop"
 
 Without root
 - Mount the system partition on Linux, edit /system/build.prop and add qemu.hw.mainkeys=1  
