@@ -36,4 +36,9 @@
         android:summary="Soft reboot now. You will lose all unsaved work"
         android:title="Soft reboot now"/>
     
+    <Preference
+        android:key="move_to_system"
+        android:summary="Move Smart Dock as a system app. Android will restart"
+        android:title="Move as system app"/>
+    
 </PreferenceScreen>

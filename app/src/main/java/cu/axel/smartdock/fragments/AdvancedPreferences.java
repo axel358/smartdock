@@ -12,6 +12,10 @@ import android.widget.EditText;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.PackageManager;
+import android.widget.Toast;
 
 public class AdvancedPreferences extends PreferenceFragment {
     @Override
@@ -48,6 +52,21 @@ public class AdvancedPreferences extends PreferenceFragment {
                 @Override
                 public boolean onPreferenceClick(Preference p1) {
                     DeviceUtils.sotfReboot();
+                    return false;
+                }
+            });
+            
+        Preference moveToSystem = findPreference("move_to_system");
+        moveToSystem.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+
+                @Override
+                public boolean onPreferenceClick(Preference p1) {
+                    try {
+                        ApplicationInfo appInfo = getActivity().getPackageManager().getApplicationInfo(getActivity().getPackageName(), 0);
+                        String appDir = appInfo.sourceDir.substring(0, appInfo.sourceDir.lastIndexOf("/"));
+                        DeviceUtils.runAsRoot("mv " + appDir + " /system/priv-app/");
+                        DeviceUtils.reboot();
+                    } catch (PackageManager.NameNotFoundException e) {}
                     return false;
                 }
             });
