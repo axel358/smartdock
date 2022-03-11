@@ -134,17 +134,7 @@ public class DeviceUtils {
         }
         return userIcon;
     }
-    public static void toggleQuickSettings(Context context, String panel) {
-        try {
-            Object statusBarService = context.getSystemService("statusbar");
-            Class<?> statusbarManager = Class.forName("android.app.StatusBarManager");
-            Method expandSettingsPanel=statusbarManager.getMethod("expandSettingsPanel", String.class);
-            expandSettingsPanel.setAccessible(true);
-            expandSettingsPanel.invoke(statusBarService, panel);
-        } catch (Exception e) {
-            Toast.makeText(context, e.toString() + "\n" + e.getCause(), 5000).show();
-        }
-    }
+
     public static void playEventSound(Context context, String event) {
         String soundUri= PreferenceManager.getDefaultSharedPreferences(context).getString(event, "default");
         if (soundUri.equals("default")) {} else {
