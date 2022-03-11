@@ -2,6 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
         android:key="show_notes"
-        android:title="Show notes widget"
+        android:title="@string/show_notes_title"
 		android:defaultValue="false" />
 </PreferenceScreen>

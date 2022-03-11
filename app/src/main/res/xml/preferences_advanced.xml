@@ -1,49 +1,49 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
         android:icon="@drawable/ic_about"
-        android:title="These settings are intended for advanced users. Only change them if you know what you are doing"/>
+        android:title="@string/these_settings_are_intended_fo"/>
     <CheckBoxPreference
         android:key="run_autostart"
-        android:title="Run autostart script"
+        android:title="@string/run_autostart_title"
         android:defaultValue="false" />
     <Preference
         android:key="edit_autostart"
-        android:title="Edit autostart script"/>
+        android:title="@string/edit_autostart_title"/>
     <EditTextPreference
-        android:summary="Allows you to fine tune the display size of screen elements. Needs reboot"
+        android:summary="@string/custom_display_size_summary"
         android:inputType="number"
         android:key="custom_display_size"
-        android:hint="leave blank for default"
+        android:hint="@string/custom_display_size_hint"
         android:defaultValue=""
-        android:title="Display size"/>
+        android:title="@string/custom_display_size_title"/>
     <CheckBoxPreference
         android:key="allow_broadcasts"
-        android:title="Allow apps to send broadcasts to the Dock"
-        android:summary="Expose feautures to apps such as toggling the app drawer using broadcasts. Needs reboot"
+        android:title="@string/allow_broadcasts_title"
+        android:summary="@string/allow_broadcasts_summary"
         android:defaultValue="false" />
     <CheckBoxPreference
         android:key="allow_app_freeze"
-        android:title="Show an option to disable apps from the app context menu"
-        android:summary="You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps"
+        android:title="@string/allow_app_freeze_title"
+        android:summary="@string/allow_app_freeze_summary"
         android:defaultValue="false" />
     <CheckBoxPreference
-        android:summary="Hides Android software navigation buttons. Needs reboot"
+        android:summary="@string/hide_nav_buttons_summary"
         android:key="hide_nav_buttons"
-        android:title="Hide navigation buttons"
+        android:title="@string/hide_nav_buttons_title"
         android:defaultValue="false" />
     <CheckBoxPreference
-        android:summary="System might be unresponsive for a short while"
+        android:summary="@string/enable_soft_reboot_summary"
         android:key="enable_soft_reboot"
-        android:title="Use Modifier+F12 to soft reboot Android"
+        android:title="@string/enable_soft_reboot_title"
         android:defaultValue="false" />
     <Preference
         android:key="move_to_system"
-        android:summary="Move Smart Dock as a system app. Android will restart"
-        android:title="Move as system app"/>
+        android:summary="@string/move_to_system_summary"
+        android:title="@string/move_to_system_title"/>
     
     <Preference
         android:key="soft_reboot"
-        android:summary="Soft reboot now. You will lose all unsaved work"
-        android:title="Soft reboot now"/>
+        android:summary="@string/soft_reboot_summary"
+        android:title="@string/soft_reboot_title"/>
 
 </PreferenceScreen>

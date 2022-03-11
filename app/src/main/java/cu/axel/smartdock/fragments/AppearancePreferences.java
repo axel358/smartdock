@@ -96,7 +96,7 @@ public class AppearancePreferences extends PreferenceFragment {
     }
     public void showColorPickerDialog(Context context, final String type) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(), R.style.DialogTheme);
-        dialog.setTitle("Choose color");
+        dialog.setTitle(R.string.choose_color);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_color_picker, null);
         final View colorPreview = view.findViewById(R.id.color_preview);
         final EditText colorHexEt = view.findViewById(R.id.color_hex_et);
@@ -116,7 +116,7 @@ public class AppearancePreferences extends PreferenceFragment {
                     if (color.length() == 7 && Utils.isValidColor(color)) 
                         colorPreview.getBackground().setColorFilter(Color.parseColor(p1.toString()), PorterDuff.Mode.SRC_ATOP);
                     else
-                        colorHexEt.setError("Invalid color");
+                        colorHexEt.setError(getString(R.string.invalid_color));
 
                 }
             });
@@ -136,8 +136,8 @@ public class AppearancePreferences extends PreferenceFragment {
                 public void onStopTrackingTouch(SeekBar p1) {
                 }
             });
-        dialog.setNegativeButton("Cancel", null);
-        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+        dialog.setNegativeButton(R.string.cancel, null);
+        dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface p1, int p2) {

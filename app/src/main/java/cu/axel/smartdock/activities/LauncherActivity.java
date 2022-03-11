@@ -218,9 +218,9 @@ public class LauncherActivity extends Activity {
 
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("allow_app_freeze", false)) {
             MenuItem manageMenu = pmenu.getMenu().findItem(R.id.action_manage);
-            manageMenu.getSubMenu().add(0, 8, 0, "Freeze").setIcon(R.drawable.ic_freeze);
+            manageMenu.getSubMenu().add(0, 8, 0, R.string.freeze).setIcon(R.drawable.ic_freeze);
         }
-        pmenu.getMenu().add(0, 4, 0, "Remove").setIcon(R.drawable.ic_unpin);
+        pmenu.getMenu().add(0, 4, 0, R.string.remove).setIcon(R.drawable.ic_unpin);
 
         pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
 
@@ -244,9 +244,9 @@ public class LauncherActivity extends Activity {
                         case 8:
                             String status = DeviceUtils.runAsRoot("pm disable " + app);
                             if (!status.equals("error"))
-                                Toast.makeText(LauncherActivity.this, "App frozen", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LauncherActivity.this, R.string.app_frozen, Toast.LENGTH_SHORT).show();
                             else
-                                Toast.makeText(LauncherActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LauncherActivity.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
                             break;
                         case R.id.action_launch_modes:
                             //do nothing

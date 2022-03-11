@@ -290,12 +290,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         Utils.toggleBuiltinNavigation(sp.edit(), false);
                         sp.edit().putBoolean("app_menu_fullscreen", false).commit();
                         sp.edit().putBoolean("tablet_mode", false).commit();
-                        Toast.makeText(DockService.this, "Tablet mode off", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DockService.this, R.string.tablet_mode_off, Toast.LENGTH_SHORT).show();
                     }else{
                         Utils.toggleBuiltinNavigation(sp.edit(), true);
                         sp.edit().putBoolean("app_menu_fullscreen", true).commit();
                         sp.edit().putBoolean("tablet_mode", true).commit();
-                        Toast.makeText(DockService.this, "Tablet mode on", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DockService.this, R.string.tablet_mode_on, Toast.LENGTH_SHORT).show();
                     }
                     if(appMenuVisible)
                         hideAppMenu();
@@ -491,7 +491,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     if(app.getPackageName().equals(getPackageName()+".calc")){
                         ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                         cm.setPrimaryClip(ClipData.newPlainText("results", app.getName()));
-                        Toast.makeText(DockService.this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DockService.this, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
                     }
                     else
                     launchApp(null, app.getPackageName());
@@ -560,7 +560,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     if (p1.length() > 1)
                     {
                         searchLayout.setVisibility(View.VISIBLE);
-                        searchTv.setText("Search for \"" + p1 + "\" on Google");
+                        searchTv.setText(getString(R.string.search_for)+" \"" + p1 + "\" "+getString(R.string.on_google));
                         toggleFavorites(false);
                     }
                     else
@@ -678,7 +678,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         placeRunningApps();
         updateDockTrigger();
         
-        Toast.makeText(this, "Smart Dock started", 5000).show();
+        Toast.makeText(this, R.string.start_message, 5000).show();
          
         showDock();
         if (sp.getBoolean("pin_dock", false))
@@ -1035,16 +1035,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         
         if(sp.getBoolean("allow_app_freeze", false)){
             MenuItem manageMenu = pmenu.getMenu().findItem(R.id.action_manage);
-            manageMenu.getSubMenu().add(0,8,0,"Freeze").setIcon(R.drawable.ic_freeze);
+            manageMenu.getSubMenu().add(0, 8, 0, R.string.freeze).setIcon(R.drawable.ic_freeze);
         }
         
         if (AppUtils.isPinned(this,app, AppUtils.PINNED_LIST))
-            pmenu.getMenu().add(0, 4, 0, "Unpin").setIcon(R.drawable.ic_unpin);
+            pmenu.getMenu().add(0, 4, 0, R.string.unpin).setIcon(R.drawable.ic_unpin);
         else
-            pmenu.getMenu().add(0, 3, 0, "Pin").setIcon(R.drawable.ic_pin);
+            pmenu.getMenu().add(0, 3, 0, R.string.pin).setIcon(R.drawable.ic_pin);
       
         if (!AppUtils.isPinned(this,app, AppUtils.DESKTOP_LIST))
-            pmenu.getMenu().add(0, 5, 0, "To desktop").setIcon(R.drawable.ic_add_to_desktop);
+            pmenu.getMenu().add(0, 5, 0, R.string.to_desktop).setIcon(R.drawable.ic_add_to_desktop);
             
 
         pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
@@ -1079,9 +1079,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         case 8:
                             String status = DeviceUtils.runAsRoot("pm disable "+app);
                             if(!status.equals("error"))
-                                Toast.makeText(DockService.this, "App frozen", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(DockService.this, R.string.app_frozen, Toast.LENGTH_SHORT).show();
                             else
-                                Toast.makeText(DockService.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(DockService.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
                             hideAppMenu();
                             break;
                         case R.id.action_launch_modes:

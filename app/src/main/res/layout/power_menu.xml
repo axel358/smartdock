@@ -25,7 +25,7 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="Power off"
+			android:text="@string/power_off"
 			android:textColor="#FFFFFFFF"
 			android:layout_marginTop="5dp"/>
 
@@ -48,7 +48,7 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="Restart"
+			android:text="@string/restart"
 			android:textColor="#FFFFFFFF"
 			android:layout_marginTop="5dp"/>
 
@@ -71,7 +71,7 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="Soft restart"
+			android:text="@string/soft_restart"
 			android:textColor="#FFFFFFFF"
 			android:layout_marginTop="5dp"/>
 
@@ -94,7 +94,7 @@
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="Screenshot"
+			android:text="@string/screenshot"
 			android:textColor="#FFFFFFFF"
 			android:layout_marginTop="5dp"/>
 

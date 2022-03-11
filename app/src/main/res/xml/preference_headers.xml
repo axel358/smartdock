@@ -3,41 +3,41 @@
     <header
         android:icon="@drawable/ic_appearance"
         android:fragment="cu.axel.smartdock.fragments.AppearancePreferences"
-        android:title="Appearance" />
+        android:title="@string/appearance" />
 	<header
         android:icon="@drawable/ic_app_menu"
         android:fragment="cu.axel.smartdock.fragments.AppMenuPreferences"
-        android:title="App Menu" />
+        android:title="@string/app_menu" />
 	<header 
         android:icon="@drawable/ic_dock"
         android:fragment="cu.axel.smartdock.fragments.DockPreferences"
-        android:title="Dock" />
+        android:title="@string/dock" />
 	<header 
         android:icon="@drawable/ic_desktop"
         android:fragment="cu.axel.smartdock.fragments.DesktopPreferences"
-        android:title="Desktop" />
+        android:title="@string/desktop" />
     <header 
         android:icon="@drawable/ic_keyboard"
         android:fragment="cu.axel.smartdock.fragments.KeyboardPreferences"
-        android:title="Keyboard" />
+        android:title="@string/keyboard" />
 	<header
         android:icon="@drawable/ic_corners"
         android:fragment="cu.axel.smartdock.fragments.HotCornersPreferences"
-        android:title="Hot Corners" />
+        android:title="@string/hot_corners" />
 	<header
         android:icon="@drawable/ic_notifications"
         android:fragment="cu.axel.smartdock.fragments.NotificationPreferences"
-        android:title="Notifications" />
+        android:title="@string/notifications" />
     <header
         android:icon="@drawable/ic_sounds"
         android:fragment="cu.axel.smartdock.fragments.SoundsPreferences"
-        android:title="Sounds" />
+        android:title="@string/sounds" />
     <header
         android:icon="@drawable/ic_advanced"
         android:fragment="cu.axel.smartdock.fragments.AdvancedPreferences"
-        android:title="Advanced" />
+        android:title="@string/advanced" />
     <header
         android:icon="@drawable/ic_about"
         android:fragment="cu.axel.smartdock.fragments.HelpAboutPreferences"
-        android:title="Help and about" />
+        android:title="@string/help_and_about" />
 </preference-headers>

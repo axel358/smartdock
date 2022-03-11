@@ -1,41 +1,41 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
         android:icon="@drawable/ic_about"
-        android:title="Please note that you must provide your own sounds"/>
+        android:title="@string/please_note_that_you_must_prov"/>
     <CheckBoxPreference
         android:key="enable_startup_sound"
-        android:title="Play a custom sound at Dock startup*"
+        android:title="@string/enable_startup_sound_title"
         android:defaultValue="false" />
     <Preference
         android:key="startup_sound"
-        android:title="Choose startup sound"/>
+        android:title="@string/startup_sound_title"/>
     <CheckBoxPreference
         android:key="enable_usb_sound"
-        android:title="Play a custom sound when connecting usb devices"
+        android:title="@string/enable_usb_sound_title"
         android:defaultValue="false" />
     <Preference
         android:key="usb_sound"
-        android:title="Choose usb sound"/>
+        android:title="@string/usb_sound_title"/>
     <CheckBoxPreference
         android:key="enable_notification_sound"
-        android:title="Play a custom sound when showing notifications"
+        android:title="@string/enable_notification_sound_title"
         android:defaultValue="false" />
     <Preference
         android:key="notification_sound"
-        android:title="Choose notification sound"/>
+        android:title="@string/notification_sound_title"/>
     <CheckBoxPreference
         android:key="enable_charge_sound"
-        android:title="Play a custom sound when pluging into a power source"
+        android:title="@string/enable_charge_sound_title"
         android:defaultValue="false" />
     <Preference
         android:key="charge_sound"
-        android:title="Choose charge sound"/>
+        android:title="@string/charge_sound_title"/>
     <CheckBoxPreference
         android:key="enable_charge_complete_sound"
-        android:title="Play a custom sound when the device has completed charging*"
+        android:title="@string/enable_charge_complete_sound_title"
         android:defaultValue="false" />
     <Preference
         android:key="charge_complete_sound"
-        android:title="Choose charge complete sound"/>
+        android:title="@string/charge_complete_sound_title"/>
     
 </PreferenceScreen>

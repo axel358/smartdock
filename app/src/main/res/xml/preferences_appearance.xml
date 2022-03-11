@@ -1,68 +1,68 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Look and feel">
+        android:title="@string/look_and_feel">
         <ListPreference
             android:entries="@array/themes" 
-            android:dialogTitle="Theme" 
+            android:dialogTitle="@string/theme_dialogTitle" 
             android:entryValues="@array/theme_values" 
             android:key="theme"
-            android:title="Dock theme"
+            android:title="@string/theme_title"
             android:defaultValue="dark" />
         <Preference
-            android:summary="Defines main color for item backgrounds"
+            android:summary="@string/theme_main_color_summary"
             android:key="theme_main_color"
-            android:title="Main color"/>
+            android:title="@string/theme_main_color_title"/>
         <Preference
-            android:summary="Defines secondary color for item backgrounds"
+            android:summary="@string/theme_secondary_color_summary"
             android:key="theme_secondary_color"
-            android:title="Secondary color"/>
+            android:title="@string/theme_secondary_color_title"/>
         <cu.axel.smartdock.preferences.IconPackSwitchPreference
             android:key="icon_theming"
             android:defaultValue="false"/>
         <ListPreference
             android:entries="@array/icon_shapes" 
-            android:dialogTitle="Icon Shape" 
+            android:dialogTitle="@string/icon_shape_dialogTitle" 
             android:entryValues="@array/icon_shapes_values" 
             android:key="icon_shape"
-            android:title="Icon Shape"
+            android:title="@string/icon_shape_title"
             android:defaultValue="circle" />
         <EditTextPreference
-            android:summary="Defines the amount of whitespace between the icon and it\'s border"
+            android:summary="@string/icon_padding_summary"
             android:inputType="number"
             android:key="icon_padding"
-            android:hint="icon padding"
+            android:hint="4"
             android:defaultValue="4"
-            android:title="Icon padding"/>
+            android:title="@string/icon_padding_title"/>
         <Preference
             android:key="menu_icon_uri"
             android:defaultValue="default"
-            android:title="Select menu icon"/>
+            android:title="@string/menu_icon_uri_title"/>
 
         <Preference
             android:key="restore_menu_icon"
-            android:title="Restore default menu icon"/>
+            android:title="@string/restore_menu_icon_title"/>
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Animations">
+        android:title="@string/animations">
         <CheckBoxPreference
             android:disableDependentsState="true"
             android:key="disable_animations"
-            android:title="Disable app launch animations"
+            android:title="@string/disable_animations_title"
             android:defaultValue="false" />
 
         <CheckBoxPreference
             android:dependency="disable_animations"
             android:key="enable_custom_animations"
-            android:title="Use a custom animation when launching apps"
+            android:title="@string/enable_custom_animations_title"
             android:defaultValue="false" />
 
         <ListPreference
             android:dependency="enable_custom_animations"
             android:entries="@array/animations" 
-            android:dialogTitle="Animation" 
+            android:dialogTitle="@string/custom_animation_dialogTitle" 
             android:entryValues="@array/animation_values" 
             android:key="custom_animation"
-            android:title="Custom animation"
+            android:title="@string/custom_animation_title"
             android:defaultValue="fade" />
     </PreferenceCategory>
 </PreferenceScreen>

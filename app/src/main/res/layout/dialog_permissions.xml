@@ -16,7 +16,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="These permissions are needed for the app to work"
+			android:text="@string/these_permissions_are_needed_f"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:textSize="17sp"/>
 
@@ -41,14 +41,14 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Display over other apps"
+					android:text="@string/display_over_other_apps"
 					android:textSize="16sp"
 					android:textColor="#FF141414"/>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Required to display the Dock, you cannot start the service without this"/>
+					android:text="@string/required_to_display_the_dock_"/>
 
 			</LinearLayout>
 
@@ -56,7 +56,7 @@
 				android:layout_width="wrap_content"
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Grant"
+				android:text="@string/grant"
 				android:id="@+id/btn_grant_overlay"/>
 
 		</LinearLayout>
@@ -82,14 +82,14 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Accessibility service"
+					android:text="@string/accessibility_service"
 					android:textSize="16sp"
 					android:textColor="#FF141414"/>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Use this to start and stop the Dock. Requires the above permission"/>
+					android:text="@string/use_this_to_start_and_stop_the"/>
 
 			</LinearLayout>
 
@@ -97,7 +97,7 @@
 				android:layout_width="wrap_content"
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Manage"
+				android:text="@string/manage"
 				android:id="@+id/btn_manage_service"/>
 
 		</LinearLayout>
@@ -105,7 +105,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="These permissions are needed by some features"
+			android:text="@string/these_permissions_are_needed_b"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_marginTop="5dp"
 			android:textSize="17sp"/>
@@ -131,14 +131,14 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Device administrator"
+					android:text="@string/device_administrator"
 					android:textSize="16sp"
 					android:textColor="#FF141414"/>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Used to lock the screen"/>
+					android:text="@string/used_to_lock_the_screen"/>
 
 			</LinearLayout>
 
@@ -146,7 +146,7 @@
 				android:layout_width="wrap_content"
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Grant"
+				android:text="@string/grant"
 				android:id="@+id/btn_grant_admin"/>
 
 		</LinearLayout>
@@ -172,14 +172,14 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Storage"
+					android:text="@string/storage"
 					android:textSize="16sp"
 					android:textColor="#FF141414"/>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Used to change the menu icon and event sounds"/>
+					android:text="@string/used_to_change_the_menu_icon_a"/>
 
 			</LinearLayout>
 
@@ -187,7 +187,7 @@
 				android:layout_width="wrap_content"
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Grant"
+				android:text="@string/grant"
 				android:id="@+id/btn_grant_storage"/>
 
 		</LinearLayout>
@@ -213,14 +213,14 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Notification access"
+					android:text="@string/notification_access"
 					android:textSize="16sp"
 					android:textColor="#FF141414"/>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Used to display notifications"/>
+					android:text="@string/used_to_display_notifications"/>
 
 			</LinearLayout>
 
@@ -228,7 +228,7 @@
 				android:layout_width="wrap_content"
 				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:text="Manage"
+				android:text="@string/manage"
 				android:id="@+id/btn_grant_notifications"/>
 
 		</LinearLayout>
@@ -254,14 +254,14 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Root access"
+					android:text="@string/root_access"
 					android:textSize="16sp"
 					android:textColor="#FF141414"/>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Used to perform some keyboard shortcuts and other features"/>
+					android:text="@string/used_to_perform_some_keyboard_"/>
 
 			</LinearLayout>
 

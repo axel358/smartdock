@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.List;
+import android.util.Log;
 
 public class DeviceUtils {
 
@@ -39,6 +40,7 @@ public class DeviceUtils {
         runAsRoot("input keyevent " + keycode);
 	}
 
+    
     public static String runAsRoot(String command) {
         String output = "";
         try {

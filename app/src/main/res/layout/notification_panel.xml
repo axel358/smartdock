@@ -17,7 +17,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Notifications"
+			android:text="@string/notifications"
 			android:textColor="#FFFFFFFF"
 			android:layout_weight="1.0"/>
 
@@ -25,7 +25,7 @@
 			style="?android:attr/buttonBarButtonStyle"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="Clear all"
+			android:text="@string/clear_all"
 			android:id="@+id/cancel_all_n_btn"
 			android:textColor="#FFFFFFFF"
 			android:textSize="13sp"/>

@@ -83,7 +83,7 @@ public class MainActivity extends PreferenceActivity {
 
     public void showPermissionsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogTheme);
-        builder.setTitle("Manage permissions");
+        builder.setTitle(R.string.manage_permissions);
         View view = getLayoutInflater().inflate(R.layout.dialog_permissions, null);
         Button grantOverlayBtn = view.findViewById(R.id.btn_grant_overlay);
         Button grantStorageBtn = view.findViewById(R.id.btn_grant_storage);
@@ -95,16 +95,16 @@ public class MainActivity extends PreferenceActivity {
 
         if (canDrawOverOtherApps()) {
             grantOverlayBtn.setEnabled(false);
-            grantOverlayBtn.setText("Granted");
+            grantOverlayBtn.setText(R.string.granted);
         }
         if (isdeviceAdminEnabled()) {
             grantAdminBtn.setEnabled(false);
-            grantAdminBtn.setText("Granted");
+            grantAdminBtn.setText(R.string.granted);
         }
 
         if (hasStoragePermission()) {
             grantStorageBtn.setEnabled(false);
-            grantStorageBtn.setText("Granted");
+            grantStorageBtn.setText(R.string.granted);
         }
 
         builder.setView(view);

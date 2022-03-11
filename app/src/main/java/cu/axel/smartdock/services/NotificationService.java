@@ -225,7 +225,7 @@ public class NotificationService extends NotificationListenerService {
                         sp.edit().putString("blocked_notifications", sp.getString("blocked_notifications", "").trim() + " " + sbn.getPackageName()).commit();
                         notificationLayout.setVisibility(View.GONE);
                         notificationLayout.setAlpha(0);
-                        Toast.makeText(NotificationService.this, "Silenced notifications for this app", 5000).show();
+                        Toast.makeText(NotificationService.this, R.string.silenced_notifications, 5000).show();
 
                         if (sbn.isClearable())
                             cancelNotification(sbn.getKey());

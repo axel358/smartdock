@@ -98,11 +98,11 @@ public class AdvancedPreferences extends PreferenceFragment {
 
     public void showEditAutostartDialog(final Context context) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        dialog.setTitle("Edit autostart");
+        dialog.setTitle(getString(R.string.edit_autostart));
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_autostart, null);
         final EditText contentEt = view.findViewById(R.id.edit_autostart_et);
         contentEt.setText(Utils.readAutostart(context));
-        dialog.setPositiveButton("Save", new DialogInterface.OnClickListener(){
+        dialog.setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface p1, int p2) {
@@ -112,16 +112,16 @@ public class AdvancedPreferences extends PreferenceFragment {
                     }
                 }
             });
-        dialog.setNegativeButton("Cancel", null);
+        dialog.setNegativeButton(getString(R.string.cancel), null);
         dialog.setView(view);
         dialog.show();
     }
 
     public void showRebootDialog(Context context, final boolean softReboot) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.DialogTheme);
-        dialog.setTitle("Reboot required");
-        dialog.setMessage("A reboot is required for changes to take effect. Do you want to reboot now?");
-        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+        dialog.setTitle(getString(R.string.reboot_required_title));
+        dialog.setMessage(getString(R.string.reboot_required_text));
+        dialog.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface p1, int p2) {
@@ -131,7 +131,7 @@ public class AdvancedPreferences extends PreferenceFragment {
                         DeviceUtils.reboot();
                 }
             });
-        dialog.setNegativeButton("Cancel", null);
+        dialog.setNegativeButton(getString(R.string.cancel), null);
         dialog.show();
     }
 }

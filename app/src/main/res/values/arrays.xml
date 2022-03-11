@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="themes">
-        <item>Dark</item>
-        <item>Black</item>
-        <item>Transparent</item>
-        <item>Custom</item>
+        <item>@string/dark</item>
+        <item>@string/black</item>
+        <item>@string/transparent</item>
+        <item>@string/custom</item>
     </string-array>
 
     <string-array name="theme_values">
@@ -27,9 +27,9 @@
     </string-array>
     
     <string-array name="icon_shapes">
-        <item>Circle</item>
-        <item>Round Square</item>
-        <item>Default</item>
+        <item>@string/circle</item>
+        <item>@string/squircle</item>
+        <item>@string/system</item>
     </string-array>
 
     <string-array name="icon_shapes_values">
@@ -51,9 +51,9 @@
         <item>fullscreen</item>
     </string-array>
     <string-array name="animations">
-        <item>Fade</item>
-        <item>Slide up</item>
-        <item>Slide left</item>
+        <item>@string/fade</item>
+        <item>@string/slide_up</item>
+        <item>@string/slide_left</item>
     </string-array>
 
     <string-array name="animation_values">

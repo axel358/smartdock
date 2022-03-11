@@ -17,17 +17,17 @@ public class DebugActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.DialogTheme);
-		dialog.setTitle("Damn something went wrong :(");
+		dialog.setTitle(R.string.something_wrong);
 		final String report = getIntent().getStringExtra("report");
         dialog.setMessage(report);
-		dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
 
                 }
             });
-        dialog.setNeutralButton("Save log", new DialogInterface.OnClickListener(){
+        dialog.setNeutralButton(R.string.save_log, new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface p1, int p2) {
@@ -35,7 +35,7 @@ public class DebugActivity extends Activity {
                     finish();
                 }
             });
-        dialog.setNegativeButton("Open app again", new DialogInterface.OnClickListener(){
+        dialog.setNegativeButton(R.string.open_again, new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface p1, int p2) {

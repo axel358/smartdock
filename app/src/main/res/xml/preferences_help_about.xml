@@ -1,30 +1,30 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
         android:title="@string/app_name"
-        android:summary="A launcher for Android x86 by Axel358" />
+        android:summary="@string/a_launcher_for_android_x86_by_" />
     <Preference
-        android:title="Special thanks to"
-        android:summary="K S Maan \nBlissLabs project" />
+        android:title="@string/special_thanks_to"
+        android:summary="@string/k_s_maan_nblisslabs_project" />
     <Preference
         android:summary="@string/app_help"
-        android:title="Help" >
+        android:title="@string/help" >
         <intent android:action="android.intent.action.VIEW" 
             android:data="https://github.com/axel358/smartdock"/>
     </Preference>
     <Preference
-        android:summary="Smart Dock it's free and open source. Contribute on GitHub"
-        android:title="GitHub" >
+        android:summary="@string/smart_dock_its_free_and_open_"
+        android:title="@string/github" >
         <intent android:action="android.intent.action.VIEW" 
             android:data="https://github.com/axel358/smartdock"/>
     </Preference>
     <Preference
         android:key="join_telegram"
-        android:title="Telegram group"
-        android:summary="Got any questions? Join the Telegram support group" />
+        android:title="@string/join_telegram_title"
+        android:summary="@string/join_telegram_summary" />
     <Preference
-        android:summary="GNU General Public Licence v3.0"
-        android:title="License" />
+        android:summary="@string/gnu_general_public_licence_v3"
+        android:title="@string/license" />
     <Preference
         android:icon="@drawable/ic_about"
-        android:title="Options marked with * are experimental and may cause trouble. If you experience crashes disable them"/>
+        android:title="@string/options_marked_with__are_expe"/>
 </PreferenceScreen>

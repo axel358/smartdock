@@ -28,7 +28,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="User"
+			android:text="@string/user"
 			android:layout_marginLeft="10dp"
 			android:id="@+id/user_name_tv"
 			android:textColor="#FFFFFFFF"
@@ -40,7 +40,7 @@
 			android:imeOptions="actionGo"
 			android:background="@drawable/search_background"
 			android:textColorHint="@android:color/white"
-			android:hint="Search..."
+			android:hint="@string/search"
 			android:textColor="@android:color/white"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
@@ -113,7 +113,6 @@
 			android:textColor="@android:color/white"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:text="Search for Chocolate on Google"
 			android:textSize="16sp"
 			android:layout_marginLeft="5dp"/>
 

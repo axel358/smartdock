@@ -1,79 +1,79 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Menu">
+        android:title="@string/menu">
         <CheckBoxPreference
             android:key="enable_app_menu"
-            android:title="Toggle App Menu with modifier key"
+            android:title="@string/enable_app_menu_title"
             android:defaultValue="true" />
         <ListPreference
             android:entries="@array/shortcut_keys" 
-            android:dialogTitle="Menu modifier key" 
-            android:title="Menu modifier key" 
+            android:dialogTitle="@string/menu_key_dialogTitle" 
+            android:title="@string/menu_key_title" 
             android:entryValues="@array/shortcut_keys_values" 
             android:key="menu_key"
             android:defaultValue="3" />
         <CheckBoxPreference
             android:key="app_menu_fullscreen"
-            android:title="Open App Menu in full screen"
+            android:title="@string/app_menu_fullscreen_title"
             android:defaultValue="false" />
         <EditTextPreference
             android:inputType="number"
             android:key="app_menu_height"
-            android:hint="height"
+            android:hint="540"
             android:defaultValue="540"
-            android:title="App menu height"/>
+            android:title="@string/app_menu_height_title"/>
         <EditTextPreference
             android:inputType="number"
             android:key="app_menu_width"
-            android:hint="width"
+            android:hint="650"
             android:defaultValue="650"
-            android:title="App menu width"/>
+            android:title="@string/app_menu_width_title"/>
         <EditTextPreference
             android:inputType="number"
             android:key="num_columns"
             android:hint="5"
             android:defaultValue="5"
-            android:title="Number of columns"/>
+            android:title="@string/num_columns_title"/>
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="App launch">
+        android:title="@string/app_launch">
         <ListPreference
             android:entries="@array/launch_modes" 
-            android:dialogTitle="Theme" 
+            android:dialogTitle="@string/launch_mode_dialogTitle" 
             android:entryValues="@array/launch_mode_values" 
             android:key="launch_mode"
-            android:title="Default app launch mode"
+            android:title="@string/launch_mode_title"
             android:defaultValue="standard" />
         <CheckBoxPreference
             android:key="remember_launch_mode"
-            android:title="Remember launch mode"
-            android:summary="Remember last launch mode used for every app"
+            android:title="@string/remember_launch_mode_title"
+            android:summary="@string/remember_launch_mode_summary"
             android:defaultValue="true" />
 
         <CheckBoxPreference
             android:key="launch_games_fullscreen"
-            android:title="Launch games in full screen"
-            android:summary="Launch apps detected as games in full screen by default"
+            android:title="@string/launch_games_fullscreen_title"
+            android:summary="@string/launch_games_fullscreen_summary"
             android:defaultValue="true" />
         <CheckBoxPreference
             android:key="lock_landscape"
-            android:title="Launch full screen apps in landscpape"
-            android:summary="Some full screen apps might try to force screen orientation to portrait. Use this to prevent such behaviour"
+            android:title="@string/lock_landscape_title"
+            android:summary="@string/lock_landscape_summary"
             android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Fine tune">
+        android:title="@string/fine_tune">
     <EditTextPreference
         android:inputType="number"
         android:key="app_menu_x"
-        android:hint="x translation"
+        android:hint="2"
         android:defaultValue="2"
-        android:title="App menu x translation"/>
+        android:title="@string/app_menu_x_title"/>
     <EditTextPreference
         android:inputType="number"
         android:key="app_menu_y"
-        android:hint="y translation"
+        android:hint="2"
         android:defaultValue="2"
-        android:title="App menu y translation"/>
+        android:title="@string/app_menu_y_title"/>
     </PreferenceCategory>
 </PreferenceScreen>
