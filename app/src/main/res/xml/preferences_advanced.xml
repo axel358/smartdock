@@ -30,7 +30,7 @@
         android:summary="Hides Android software navigation buttons. Needs reboot"
         android:key="hide_nav_buttons"
         android:title="Hide navigation buttons"
-        android:defaultValue="true" />
+        android:defaultValue="false" />
     <CheckBoxPreference
         android:summary="System might be unresponsive for a short while"
         android:key="enable_soft_reboot"

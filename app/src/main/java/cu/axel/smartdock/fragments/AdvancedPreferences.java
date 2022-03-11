@@ -43,7 +43,7 @@ public class AdvancedPreferences extends PreferenceFragment {
                     else
                         DeviceUtils.setDisplaySize(Integer.parseInt(n));
 
-                    showRebootDialog(getActivity());
+                    showRebootDialog(getActivity(), true);
                     return true;
                 }
             });
@@ -81,13 +81,13 @@ public class AdvancedPreferences extends PreferenceFragment {
                     if ((boolean) p2) {
                         String status = DeviceUtils.runAsRoot("echo qemu.hw.mainkeys=1 >> /system/build.prop");
                         if (!status.equals("error")) {
-                            showRebootDialog(getActivity());
+                            showRebootDialog(getActivity(), false);
                             return true;
                         }
                     } else {
                         String status = DeviceUtils.runAsRoot("sed -i /qemu.hw.mainkeys=1/d /system/build.prop");
                         if (!status.equals("error")) {
-                            showRebootDialog(getActivity());
+                            showRebootDialog(getActivity(), false);
                             return true;
                         }
                     }
@@ -117,7 +117,7 @@ public class AdvancedPreferences extends PreferenceFragment {
         dialog.show();
     }
 
-    public void showRebootDialog(Context context) {
+    public void showRebootDialog(Context context, final boolean softReboot) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.DialogTheme);
         dialog.setTitle("Reboot required");
         dialog.setMessage("A reboot is required for changes to take effect. Do you want to reboot now?");
@@ -125,7 +125,10 @@ public class AdvancedPreferences extends PreferenceFragment {
 
                 @Override
                 public void onClick(DialogInterface p1, int p2) {
-                    DeviceUtils.reboot();
+                    if (softReboot)
+                        DeviceUtils.sotfReboot();
+                    else
+                        DeviceUtils.reboot();
                 }
             });
         dialog.setNegativeButton("Cancel", null);
