@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="please_note_that_you_must_prov">कृपया ध्यान दें कि आपको अपनी आवाज खुद देनी होगी</string>
+    <string name="enable_startup_sound_title">डॉक स्टार्टअप पर एक कस्टम ध्वनि चलाएं*</string>
+    <string name="startup_sound_title">स्टार्टअप ध्वनि चुनें</string>
+    <string name="enable_usb_sound_title">यूएसबी डिवाइस कनेक्ट करते समय एक कस्टम ध्वनि चलाएं</string>
+    <string name="usb_sound_title">यूएसबी ध्वनि चुनें</string>
+    <string name="enable_notification_sound_title">सूचनाएं दिखाते समय एक कस्टम ध्वनि चलाएं</string>
+    <string name="notification_sound_title">नोटिफिकेशन ध्वनि चुनें</string>
+    <string name="enable_charge_sound_title">पावर स्रोत में प्लग इन करते समय एक कस्टम ध्वनि चलाएं</string>
+    <string name="charge_sound_title">चार्ज ध्वनि चुनें</string>
+    <string name="enable_charge_complete_sound_title">डिवाइस के चार्ज होने पर कस्टम ध्वनि चलाएं*</string>
+    <string name="charge_complete_sound_title">चार्ज पूर्ण ध्वनि चुनें</string>
+
+    <string name="manage_service">सर्विस को मैनेज करें</string>
+    <string name="notification_timeout_title">मिलीसेकंड में नोटिफिकेशन प्रदर्शन समय</string>
+    <string name="show_ongoing_title">चल रही सूचनाएं दिखाएं (buggy)</string>
+    <string name="blocked_notifications_hint">एंड्रॉयड</string>
+    <string name="blocked_notifications_summary">सूचनाओं को अनदेखा करने के लिए स्थान से अलग किए गए पैकेज नामों की सूची</string>
+    <string name="blocked_notifications_title">ध्यान न दिया गया नोटिफिकेशन</string>
+    <string name="long_press_a_notification_to_a">किसी नोटिफिकेशन को अनदेखा सूची में जोड़ने के लिए उसे देर तक दबाएं</string>
+
+    <string name="shortcut_key_dialogTitle">शॉर्टकट संशोधक कुंजी</string>
+    <string name="shortcut_key_title">शॉर्टकट संशोधक कुंजी</string>
+    <string name="enable_lock_desktop_title">डेस्कटॉप को लॉक करने के लिए संशोधक + एल सक्षम करें (डिवाइस व्यवस्थापक की अनुमति की आवश्यकता है)</string>
+    <string name="enable_open_settings_title">सेटिंग खोलने के लिए संशोधक+P सक्षम करें</string>
+    <string name="enable_open_music_title">आपको डिफ़ॉल्ट संगीत ऐप खोलने के लिए संशोधक+एम सक्षम करें</string>
+    <string name="enable_open_browser_title">अपना डिफ़ॉल्ट ब्राउज़र खोलने के लिए संशोधक+बी सक्षम करें</string>
+    <string name="enable_open_terminal_title">टर्मिनल खोलने के लिए संशोधक + टी सक्षम करें</string>
+    <string name="terminal_package_hint">com.termux</string>
+    <string name="terminal_package_title">टर्मिनल ऐप पैकेज का नाम</string>
+    <string name="enable_expand_notifications_title">सूचनाएं खोलने के लिए संशोधक+ए सक्षम करें</string>
+    <string name="enable_ctrl_back_title">बैक बटन के रूप में कार्य करने के लिए दायां Ctrl सक्षम करें</string>
+    <string name="enable_f10_title">F10 दबाकर स्प्लिट स्क्रीन को टॉगल करें</string>
+
+    <string name="enable_corner_top_right_title">ऊपरी दाएं कोने को सक्षम करें</string>
+    <string name="enable_corner_top_right_summary">हाल दिखाने के लिए माउस को स्क्रीन के ऊपरी दाएं कोने पर रखें</string>
+    <string name="enable_corner_bottom_right_title">निचले दाएं कोने को सक्षम करें</string>
+    <string name="enable_corner_bottom_right_summary">स्क्रीन को लॉक करने के लिए माउस को स्क्रीन के ऊपरी दाएं कोने पर रखें</string>
+    <string name="hot_corners_delay_title">मिलीसेकंड में हॉट कॉर्नर सक्रियण विलंब</string>
+
+    <string name="a_launcher_for_android_x86_by_">Axel358 के द्वारा एंड्राइड के लिए एक लांचर</string>
+    <string name="special_thanks_to">विशेष धन्यवाद</string>
+    <string name="k_s_maan_nblisslabs_project">K S Maan \nBlissLabs project</string>
+    <string name="help">हेल्प</string>
+    <string name="smart_dock_its_free_and_open_">स्मार्ट डॉक, यह फ्री और ओपन सोर्स है| GitHub पर योगदान करें</string>
+    <string name="github">GitHub</string>
+    <string name="join_telegram_title">टेलीग्राम ग्रुप</string>
+    <string name="join_telegram_summary">कोई सवाल है ? टेलीग्राम सहायता ग्रुप में शामिल हों</string>
+    <string name="gnu_general_public_licence_v3">जीएनयू सामान्य सार्वजनिक लाइसेंस v3.0</string>
+    <string name="license">लाइसेंस</string>
+    <string name="options_marked_with__are_expe">* के साथ चिह्नित विकल्प प्रयोगात्मक हैं, और समस्या उत्त्पन्न कर सकते है| यदि आप क्रैश का अनुभव करते हैं तो उन्हें डिसेबल करदे</string>
+
+    <string name="navigation">नेविगेशन </string>
+    <string name="enable_nav_back_title">बैक  बटन इनेबल  करे</string>
+    <string name="enable_nav_home_title">होम  बटन इनेबल  करे</string>
+    <string name="enable_nav_recents_title">रीसेंट बटन इनेबल  करे</string>
+    <string name="enable_nav_assist_title">असिस्टेंट  बटन इनेबल  करे</string>
+    <string name="custom_assist_summary">कस्टम असिस्टेंट ऐप का उपयोग करें, डिफ़ॉल्ट के लिए खाली छोड़ दें</string>
+    <string name="custom_assist_title">कस्टम असिस्टेंट ऐप</string>
+    <string name="quick_settings">क्विक सेटिंग्स</string>
+    <string name="enable_qs_bluetooth_title">ब्लूटूथ बटन इनेबल  करे</string>
+    <string name="enable_qs_battery_title">बैटरी  बटन इनेबल  करे</string>
+    <string name="enable_power_menu_title">डिफ़ॉल्ट पावर मेन्यू इस्तेमाल करे</string>
+    <string name="enable_power_menu_summary">सिस्टम एक के बजाय कस्टम पावर मेनू का उपयोग करें</string>
+    <string name="behaviour">व्यवहार</string>
+    <string name="pin_dock_title">स्टार्टअप पर डॉक पिन करें</string>
+    <string name="pin_dock_summary">अन्य लॉन्चरों के साथ काम करते समय सहायक</string>
+    <string name="dock_hide_delay_title">डॉक छिपाने की देरी मिली सेकंड में</string>
+    <string name="center_running_apps_title">सेण्टर में</string>
+    <string name="dock_activation_area_title">डॉक  एक्टिवेशन  एरिया</string>
+
+    <string name="show_notes_title">नोट्स विजेट दिखाएं</string>
+
+    <string name="look_and_feel">लुक एंड फील </string>
+    <string name="theme_dialogTitle">थीम</string>
+    <string name="theme_title">डॉक थीम </string>
+    <string name="theme_main_color_summary">बैकग्राउंड के लिए मुख्य कलर सेट करे</string>
+    <string name="theme_main_color_title">मुख्य कलर</string>
+    <string name="theme_secondary_color_summary">बैकग्राउंड के लिए माध्यमिक कलर सेट करे</string>
+    <string name="theme_secondary_color_title">माध्यमिक कलर</string>
+    <string name="icon_shape_dialogTitle">आइकॉन  शेप</string>
+    <string name="icon_shape_title">आइकॉन  शेप</string>
+    <string name="icon_padding_summary">आइकॉन और बॉर्डर के बीच में  सफ़ेद जगह की मात्रा</string>
+    <string name="icon_padding_title">आइकॉन  पैडिंग</string>
+    <string name="menu_icon_uri_title">आइकॉन मेनू सेलेक्ट करें</string>
+    <string name="restore_menu_icon_title">डिफ़ॉल्ट मेनू आइकॉन को रिस्टोर करे </string>
+    <string name="animations">एनीमेशन</string>
+    <string name="disable_animations_title">ऐप लॉन्च एनिमेशन को डिसएबल करे</string>
+    <string name="enable_custom_animations_title">ऐप लॉन्च करते समय कस्टम एनीमेशन का इस्तेमाल करें</string>
+    <string name="custom_animation_dialogTitle">एनीमेशन</string>
+    <string name="custom_animation_title">कस्टम एनीमेशन</string>
+
+    <string name="menu">मेनू</string>
+    <string name="enable_app_menu_title">मॉडिफिएर कुंजी के साथ ऐप मेनू टॉगल करें</string>
+    <string name="menu_key_dialogTitle">मॉडिफिएर मेनू कुंजी</string>
+    <string name="menu_key_title">मॉडिफिएर मेनू कुंजी</string>
+    <string name="app_menu_fullscreen_title">पूर्ण स्क्रीन में ऐप मेनू खोलें</string>
+    <string name="app_menu_height_title">ऐप मेनू की ऊंचाई</string>
+    <string name="app_menu_width_title">ऐप मेनू की चौड़ाई</string>
+    <string name="num_columns_title">कॉलम की संख्या</string>
+    <string name="app_launch">ऐप लॉन्च</string>
+    <string name="launch_mode_dialogTitle">थीम</string>
+    <string name="launch_mode_title">डिफाल्ट ऐप लांच मोड </string>
+    <string name="remember_launch_mode_title">लॉन्च मोड याद रखें</string>
+    <string name="remember_launch_mode_summary">सभी ऐप्स के लिए आखरी इस्तेमाल किया गया लांच मोड याद रखे </string>
+    <string name="launch_games_fullscreen_title">गेम को फुल स्क्रीन में लंच करें</string>
+    <string name="launch_games_fullscreen_summary">गेम के रूप में पहचाने गए ऐप्‍स को डिफ़ॉल्‍ट रूप से पूर्ण स्‍क्रीन में लॉन्‍च करें</string>
+    <string name="lock_landscape_title">फ़ुल स्क्रीन ऐप्स को लैंडस्केप मोड में लॉन्‍च करें</string>
+    <string name="lock_landscape_summary">कुछ फुल स्क्रीन अप्प्स बल पूर्वक स्क्रीन को पोट्रैट करने का प्रयास कर सकते है| इस तरह के व्यवहार को रोकने के लिए इसका इस्तेमाल करें</string>
+    <string name="fine_tune">फ़ाइन ट्यून</string>
+    <string name="app_menu_x_title">ऐप मेनू x ट्रांसलेशन </string>
+    <string name="app_menu_y_title">ऐप मेनू y ट्रांसलेशन</string>
+
+    <string name="appearance">अपीयरेंस</string>
+    <string name="app_menu">ऐप मेनू</string>
+    <string name="dock">डॉक</string>
+    <string name="desktop">डेस्कटॉप</string>
+    <string name="keyboard">कीबोर्ड</string>
+    <string name="hot_corners">हॉट  कॉर्नर्स</string>
+    <string name="sounds">साउंड्स</string>
+    <string name="advanced">एडवांस्ड </string>
+    <string name="help_and_about">मदद और के बारे में</string>
+
+    
+    <string name="fade">फीका करें</string>
+    <string name="slide_up">ऊपर सरकाये</string>
+    <string name="slide_left">बाएं सरकाये</string>
+    
+    <string name="circle">घेरा</string>
+    <string name="squircle">स्क्वायरर्कल</string>
+    <string name="system">सिस्टम</string>
+    
+    <string name="dark">डार्क</string>
+    <string name="black">ब्लैक</string>
+    <string name="transparent">ट्रांसपेरेंट</string>
+    <string name="custom">कस्टम</string>
+    
+    <string name="power_off">पावर ऑफ</string>
+    <string name="restart">रीस्टार्ट</string>
+    <string name="soft_restart">सॉफ्ट रीस्टार्ट</string>
+    <string name="screenshot">स्क्रीनशॉट</string>
+
+    <string name="notifications">नोटिफिकेशन</string>
+    <string name="clear_all">सभी को हटाए</string>
+
+    <string name="these_permissions_are_needed_f">ऐप को काम करने के लिए इन अनुमतियों की आवश्यकता है</string>
+    <string name="display_over_other_apps">अन्य ऐप्स के ऊपर दिखाए</string>
+    <string name="required_to_display_the_dock_">डॉक को दिखने के लिए आवश्यक, आप इसके बिना सर्विस स्टार्ट नहीं कर सकते हैं</string>
+    <string name="accessibility_service">एक्सेसिबिलिटी  सर्विस</string>
+    <string name="use_this_to_start_and_stop_the">डॉक को शुरू और बंद करने के लिए इसका इस्तेमाल करें। पहले वाली परमिशन की आवश्यकता है</string>
+    <string name="manage">मैनेज</string>
+    <string name="these_permissions_are_needed_b">कुछ सुविधाओं के लिए इन परमिशनस की आवश्यकता होती है</string>
+    <string name="device_administrator">डिवाइस  एडमिनिस्ट्रेटर</string>
+    <string name="used_to_lock_the_screen">स्‍क्रीन लॉक करने के लिए इस्तेमाल करें</string>
+    <string name="storage">स्टोरेज</string>
+    <string name="used_to_change_the_menu_icon_a">मेनू आइकॉन और इवेंट साउंड्स बदलने के लिए इस्तेमाल करें</string>
+    <string name="notification_access">नोटिफिकेशन  एक्सेस</string>
+    <string name="used_to_display_notifications">नोटिफिकेशन दिखाने के लिए इस्तेमाल करें</string>
+    <string name="root_access">रुट  एक्सेस</string>
+    <string name="used_to_perform_some_keyboard_">कुछ कीबोर्ड शॉर्टकट और अन्य सुविधाओं के लिए इस्तेमाल करें</string>
+
+    <string name="transparency">ट्रांसपेरेंसी</string>
+    <string name="user">उपयोगकर्ता</string>
+    <string name="search">खोजे...</string>
+    <string name="lets_start">चलो शुरू करते हैं</string>
+
+    
+    <string name="these_settings_are_intended_fo">ये सेटिंग्स एडवांस उपयोगकर्ताओं के लिए हैं। उन्हें तभी बदले जब आपको मालूम हो की आप क्या कर रहे हैं </string>
+    <string name="run_autostart_title">ऑटोस्टार्ट स्क्रिप्ट चलाएँ</string>
+    <string name="edit_autostart_title">ऑटोस्टार्ट स्क्रिप्ट को एडिट करें </string>
+    <string name="custom_display_size_summary">स्‍क्रीन एलिमेंट्स को फ़ाइन ट्यून करें, रिबूट की जरूरत होगी</string>
+    <string name="custom_display_size_hint">डिफ़ॉल्ट के लिए ख़ाली छोड़े</string>
+    <string name="custom_display_size_title">डिस्प्ले साइज</string>
+    <string name="allow_broadcasts_title">ऐप्स को डॉक पर प्रसारण भेजने दें</string>
+    <string name="allow_broadcasts_summary">ऐप्स के लिए सुविधाओं को दिखाए जैसे ऐप्स ड्रावर को ब्रॉडकास्ट से टॉगल करना, रिबूट की जरूरत होगी</string>
+    <string name="allow_app_freeze_title">ऐप को डिसएबल करने के लिए कॉन्टेक्स्ट मेनू में ऑप्शन दिखाए</string>
+    <string name="allow_app_freeze_summary">आपको किसी दूसरे टूल की जरूरत होगी जैसे आइस बॉक्स (और रन pm enable [pkgname]) ऐप को री-इनेबल करने के लिए</string>
+    <string name="hide_nav_buttons_summary">एंड्राइड के सॉफ्टवेयर नेविगेशन बटन छुपाये, रिबूट की जरूरत होगी</string>
+    <string name="hide_nav_buttons_title">नेविगेशन बटन छुपाये</string>
+    <string name="enable_soft_reboot_summary">सिस्टम कुछ समय के लिए अनुत्तरदायी हो सकता है</string>
+    <string name="enable_soft_reboot_title">एंड्राइड को सॉफ्ट रिबूट करने के लिए मॉडिफिएर+F12 का इस्तेमाल करें</string>
+    <string name="move_to_system_summary">स्मार्ट डॉक को सिस्टम ऐप में शामिल करें, एंड्राइड रीस्टार्ट होगा</string>
+    <string name="move_to_system_title">सिस्टम ऐप में शामिल करें</string>
+    <string name="soft_reboot_summary">अभी सॉफ्ट रिबूट करें, आप बिना सेव किया हुआ काम खो देंगे</string>
+    <string name="soft_reboot_title">अभी सॉफ्ट रिबूट करें</string>
+    <string name="grant">दिया गया</string>
+
+
+    <string name="app_name">स्मार्ट डॉक</string>
+	<string name="accessibility_service_description">कार्य करने की अनुमति दे जैसे बैक करना</string>
+    <string name="app_help">
+    सही अनुमति प्राप्त करने के लिए एप्लिकेशन को सिस्टम ऐप के रूप में स्थापित किया जाना चाहिए।
+    इसके बिना कार्यक्षमता सीमित हो जाएगी।
+    \n
+    \nआपको एंड्रॉइड नेविगेशन बटन भी छिपाना चाहिए। इसे कैसे करें उसके बारे में अधिक जानकारी के लिए GitHub पर पूरी सहायता देखें
+    \n
+    \nऐप कीबोर्ड इनपुट को कैप्चर करने के लिए एक एक्सेसिबिलिटी सर्विस  का उपयोग करता है, अगर वह सर्विस क्रैश हो जाती है तो आपको इसे फिर से इनेबल करने या सिस्टम को रीस्टार्ट करने की आवश्यकता हो सकती है।
+    \n
+    \nअधिक जानकारी के लिए यह क्लिक करें 
+    </string>
+    
+    <string name="standard">स्टैण्डर्ड</string>
+    <string name="maximized">मक्सिमिज़ेड</string>
+    <string name="portrait">पोर्ट्रेट</string>
+    <string name="fullscreen">फुलस्क्रीन</string>
+    
+    <string name="edit_autostart">एडिट ऑटोस्टार्ट </string>
+    <string name="save">सेव</string>
+    <string name="ok">ओके</string>
+    <string name="cancel">कैंसिल</string>
+    <string name="reboot_required_title">रिबूट की जरूरत है</string>
+    <string name="reboot_required_text">परिवर्तनों को प्रभावी करने के लिए रीबूट की आवश्यकता है| क्या आप अभी रीबूट करना चाहते हैं?</string>
+    <string name="tablet_mode_on">टेबलेट मोड चालू</string>
+    <string name="tablet_mode_off">टैबलेट मोड बंद</string>
+    <string name="start_message">स्मार्ट डॉक शुरू हुआ</string>
+    <string name="copied_to_clipboard">क्लिपबोर्ड पर कॉपी किया गया</string>
+    <string name="search_for">को खोजे</string>
+    <string name="on_google">गूगल पर </string>
+    <string name="freeze">फ्रीज</string>
+    <string name="pin">पिन</string>
+    <string name="unpin">अनपिन</string>
+    <string name="to_desktop">डेस्कटॉप के लिए</string>
+    <string name="app_frozen">ऐप फ़्रीज़ हो गया</string>
+    <string name="something_wrong">कुछ गलत है</string>
+    <string name="save_log">लॉग सहेजें</string>
+    <string name="open_again">ऐप फिर से खोलें</string>
+    <string name="remove">हटाए</string>
+    <string name="manage_permissions">पेर्मिशन्स को संभाले</string>
+    <string name="granted">दिया गया</string>
+    <string name="choose_color">रंग पसंद करें</string>
+    <string name="invalid_color">अमान्य रंग</string>
+    <string name="silenced_notifications">इस ऐप के लिए नोटिफिकेशन मूक करें</string>
+</resources>
