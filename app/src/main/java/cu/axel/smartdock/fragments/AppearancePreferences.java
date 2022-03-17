@@ -248,6 +248,7 @@ public class AppearancePreferences extends PreferenceFragment {
                 @Override
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
                     colorHexEt.setText(p1.getItemAtPosition(p3).toString());
+                    th.setCurrentTab(0);
                 }
             });
             
@@ -259,6 +260,7 @@ public class AppearancePreferences extends PreferenceFragment {
                 @Override
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
                     colorHexEt.setText(p1.getItemAtPosition(p3).toString());
+                    th.setCurrentTab(0);
                 }
             });
             
