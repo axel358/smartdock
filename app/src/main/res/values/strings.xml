@@ -231,4 +231,8 @@
     <string name="choose_color">Choose color</string>
     <string name="invalid_color">Invalid color</string>
     <string name="silenced_notifications">Silenced notifications for this app</string>
+    
+    <string name="wallpaper">Wallpaper</string>
+    <string name="presets">Presets</string>
+    
 </resources>

@@ -128,9 +128,9 @@ public class AppearancePreferences extends PreferenceFragment {
 
         final TabHost th = view.findViewById(R.id.dialog_color_th);
         th.setup();
-        th.addTab(th.newTabSpec("Custom").setIndicator("Custom").setContent(R.id.custom_color_container));
-        th.addTab(th.newTabSpec("Presets").setIndicator("Presets").setContent(R.id.presets_color_container));
-        th.addTab(th.newTabSpec("Wallpaper").setIndicator("Wallpaper").setContent(R.id.wallpaper_color_container));
+        th.addTab(th.newTabSpec("custom").setIndicator(getString(R.string.custom)).setContent(R.id.custom_color_container));
+        th.addTab(th.newTabSpec("presets").setIndicator(getString(R.string.presets)).setContent(R.id.presets_color_container));
+        th.addTab(th.newTabSpec("wallpaper").setIndicator(getString(R.string.wallpaper)).setContent(R.id.wallpaper_color_container));
 
         colorHexEt.addTextChangedListener(new TextWatcher(){
 

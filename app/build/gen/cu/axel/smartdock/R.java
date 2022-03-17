@@ -363,6 +363,7 @@ public final class R {
         public static final int please_note_that_you_must_prov=0x7f080000;
         public static final int portrait=0x7f0800ab;
         public static final int power_off=0x7f08007a;
+        public static final int presets=0x7f0800c8;
         public static final int quick_settings=0x7f080035;
         public static final int reboot_required_text=0x7f0800b2;
         public static final int reboot_required_title=0x7f0800b1;
@@ -423,6 +424,7 @@ public final class R {
         public static final int used_to_lock_the_screen=0x7f080088;
         public static final int used_to_perform_some_keyboard_=0x7f08008e;
         public static final int user=0x7f080090;
+        public static final int wallpaper=0x7f0800c7;
     }
     public static final class style {
         public static final int AppTheme=0x7f090000;
