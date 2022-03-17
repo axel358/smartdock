@@ -4,56 +4,199 @@
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:padding="20dp">
+	android:paddingStart="10dp"
+	android:paddingEnd="10dp">
 
-	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:orientation="horizontal"
-		android:gravity="center_vertical">
+	<TabHost
+		android:id="@+id/dialog_color_th"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent">
 
-		<View
-			android:background="@drawable/circle"
-			android:layout_height="45dp"
-			android:layout_width="45dp"
-			android:id="@+id/color_preview"/>
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_height="match_parent"
+			android:layout_width="match_parent">
 
-		<EditText
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:ems="10"
-			android:id="@+id/color_hex_et"
-            android:maxLength="7"
-			android:layout_marginLeft="5dp"
-			android:hint="#000000"/>
+			<TabWidget
+				android:id="@android:id/tabs"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"/>
 
-	</LinearLayout>
+			<FrameLayout
+				android:id="@android:id/tabcontent"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"
+				android:layout_marginTop="10dp">
 
-	<TextView
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="@string/transparency"
-		android:layout_marginTop="10dp"/>
+				<LinearLayout
+					android:id="@+id/custom_color_container"
+					android:layout_height="match_parent"
+					android:layout_width="match_parent"
+					android:orientation="vertical">
 
-	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:orientation="horizontal"
-		android:layout_marginTop="5dp"
-		android:gravity="center_vertical">
+					<LinearLayout
+						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:orientation="horizontal"
+						android:gravity="center_vertical">
 
-		<SeekBar
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:id="@+id/color_alpha_sb"
-			android:layout_weight="1.0"/>
+						<View
+							android:background="@drawable/circle"
+							android:layout_height="45dp"
+							android:layout_width="45dp"
+							android:id="@+id/color_preview"/>
 
-		<TextView
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:id="@+id/color_alpha_tv"/>
+						<EditText
+							android:layout_height="wrap_content"
+							android:layout_width="match_parent"
+							android:ems="10"
+							android:id="@+id/color_hex_et"
+							android:maxLength="7"
+							android:layout_marginLeft="5dp"
+							android:hint="#000000"/>
 
-	</LinearLayout>
+					</LinearLayout>
+
+					<LinearLayout
+						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:orientation="horizontal"
+						android:layout_marginTop="5dp"
+						android:gravity="center_vertical">
+
+						<TextView
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:text="R"/>
+
+						<SeekBar
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:id="@+id/color_red_sb"
+							android:layout_weight="1.0"/>
+
+						<TextView
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:id="@+id/color_red_tv"/>
+
+					</LinearLayout>
+
+					<LinearLayout
+						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:orientation="horizontal"
+						android:layout_marginTop="5dp"
+						android:gravity="center_vertical">
+
+						<TextView
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:text="G"/>
+
+						<SeekBar
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:id="@+id/color_green_sb"
+							android:layout_weight="1.0"/>
+
+						<TextView
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:id="@+id/color_green_tv"/>
+
+					</LinearLayout>
+
+					<LinearLayout
+						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:orientation="horizontal"
+						android:layout_marginTop="5dp"
+						android:gravity="center_vertical">
+
+						<TextView
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:text="B"/>
+
+						<SeekBar
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:id="@+id/color_blue_sb"
+							android:layout_weight="1.0"/>
+
+						<TextView
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:id="@+id/color_blue_tv"/>
+
+					</LinearLayout>
+
+					<TextView
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:text="@string/transparency"
+						android:layout_marginTop="5dp"/>
+
+					<LinearLayout
+						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:orientation="horizontal"
+						android:layout_marginTop="5dp"
+						android:gravity="center_vertical">
+
+						<SeekBar
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:id="@+id/color_alpha_sb"
+							android:layout_weight="1.0"/>
+
+						<TextView
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:id="@+id/color_alpha_tv"/>
+
+					</LinearLayout>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_height="match_parent"
+					android:layout_width="match_parent"
+					android:orientation="vertical"
+					android:id="@+id/presets_color_container">
+
+					<GridView
+                        android:stretchMode="columnWidth"
+                        android:numColumns="5"
+                        android:id="@+id/presets_gv"
+						android:layout_height="match_parent"
+						android:layout_width="match_parent"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_height="match_parent"
+					android:layout_width="match_parent"
+					android:orientation="vertical"
+					android:id="@+id/wallpaper_color_container">
+
+					<GridView
+                        android:stretchMode="none"
+                        android:columnWidth="45dp"
+                        android:numColumns="5"
+                        android:id="@+id/wallpaper_colors_gv"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                    
+
+				</LinearLayout>
+
+			</FrameLayout>
+
+		</LinearLayout>
+
+	</TabHost>
 
 </LinearLayout>
 

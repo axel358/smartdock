@@ -232,14 +232,6 @@ public class Utils {
         view.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_ATOP);
         view.getBackground().setAlpha(alpha);
     }
-    public static boolean isValidColor(String color) {
-        try {
-            Color.parseColor(color);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
 
     public static double solve(String expression) {
         if (expression.contains("+"))
@@ -251,5 +243,18 @@ public class Utils {
         if (expression.contains("*"))
             return Double.parseDouble(expression.split("\\*")[0]) * Double.parseDouble(expression.split("\\*")[1]);
         return 0;
+    }
+
+    public static int toColor(String color) {
+        try {
+            return Color.parseColor(color);
+        } catch (IllegalArgumentException e) {
+            return -1;
+        }
+    }
+    
+
+    public static String toHexColor(int color) {
+        return "#" + Integer.toHexString(color).substring(2);
     }
 }
