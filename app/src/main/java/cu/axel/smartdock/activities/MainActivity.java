@@ -32,7 +32,7 @@ public class MainActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        if (!hasStoragePermission()) {
+        if (!DeviceUtils.hasStoragePermission(this)) {
             requestStoragePermission(0);
         }
 
@@ -40,9 +40,6 @@ public class MainActivity extends PreferenceActivity {
             showPermissionsDialog();
     }
 
-    public boolean hasStoragePermission() {
-        return Build.VERSION.SDK_INT < 23 || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
     public void requestStoragePermission(int code) {
         requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, code);
     }
@@ -55,8 +52,6 @@ public class MainActivity extends PreferenceActivity {
 	@Override
 	public void onBuildHeaders(List<PreferenceActivity.Header> target) {
 		loadHeadersFromResource(R.xml.preference_headers, target);
-
-
 	}
 
 	@Override
@@ -102,7 +97,7 @@ public class MainActivity extends PreferenceActivity {
             grantAdminBtn.setText(R.string.granted);
         }
 
-        if (hasStoragePermission()) {
+        if (DeviceUtils.hasStoragePermission(this)) {
             grantStorageBtn.setEnabled(false);
             grantStorageBtn.setText(R.string.granted);
         }

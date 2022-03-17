@@ -245,16 +245,4 @@ public class Utils {
         return 0;
     }
 
-    public static int toColor(String color) {
-        try {
-            return Color.parseColor(color);
-        } catch (IllegalArgumentException e) {
-            return -1;
-        }
-    }
-    
-
-    public static String toHexColor(int color) {
-        return "#" + Integer.toHexString(color).substring(2);
-    }
 }

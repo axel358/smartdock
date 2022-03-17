@@ -21,6 +21,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.List;
 import android.util.Log;
+import android.Manifest;
+import android.content.pm.PackageManager;
 
 public class DeviceUtils {
 
@@ -135,6 +137,10 @@ public class DeviceUtils {
         } catch (Exception e) {
         }
         return userIcon;
+    }
+    
+    public static boolean hasStoragePermission(Context context) {
+        return Build.VERSION.SDK_INT < 23 || context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     public static void playEventSound(Context context, String event) {

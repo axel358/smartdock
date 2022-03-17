@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
 import android.widget.Adapter;
+import cu.axel.smartdock.utils.ColorUtils;
 
 public class AppearancePreferences extends PreferenceFragment {
     private final int OPEN_REQUEST_CODE=4;
@@ -143,7 +144,7 @@ public class AppearancePreferences extends PreferenceFragment {
                     String hexColor = p1.toString();
                     int color;
 
-                    if (hexColor.length() == 7 && (color = Utils.toColor(hexColor)) != -1) {
+                    if (hexColor.length() == 7 && (color = ColorUtils.toColor(hexColor)) != -1) {
                         colorPreview.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
                         redSb.setProgress(Color.red(color));
                         greenSb.setProgress(Color.green(color));
@@ -174,7 +175,7 @@ public class AppearancePreferences extends PreferenceFragment {
 
                 @Override
                 public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-                    colorHexEt.setText(Utils.toHexColor(Color.rgb(redSb.getProgress(), greenSb.getProgress(), blueSb.getProgress())));
+                    colorHexEt.setText(ColorUtils.toHexColor(Color.rgb(redSb.getProgress(), greenSb.getProgress(), blueSb.getProgress())));
                 }
 
                 @Override
@@ -189,7 +190,7 @@ public class AppearancePreferences extends PreferenceFragment {
 
                 @Override
                 public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-                    colorHexEt.setText(Utils.toHexColor(Color.rgb(redSb.getProgress(), greenSb.getProgress(), blueSb.getProgress())));
+                    colorHexEt.setText(ColorUtils.toHexColor(Color.rgb(redSb.getProgress(), greenSb.getProgress(), blueSb.getProgress())));
                 }
 
                 @Override
@@ -204,7 +205,7 @@ public class AppearancePreferences extends PreferenceFragment {
 
                 @Override
                 public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-                    colorHexEt.setText(Utils.toHexColor(Color.rgb(redSb.getProgress(), greenSb.getProgress(), blueSb.getProgress())));
+                    colorHexEt.setText(ColorUtils.toHexColor(Color.rgb(redSb.getProgress(), greenSb.getProgress(), blueSb.getProgress())));
                 }
 
                 @Override
@@ -221,7 +222,7 @@ public class AppearancePreferences extends PreferenceFragment {
                 @Override
                 public void onClick(DialogInterface p1, int p2) {
                     String color = colorHexEt.getText().toString();
-                    if (Utils.toColor(color) != -1) {
+                    if (ColorUtils.toColor(color) != -1) {
                         if (type.equals("main")) {
                             mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).commit();
                             mainColorPref.getSharedPreferences().edit().putInt("theme_main_alpha", alphaSb.getProgress()).commit();
@@ -241,7 +242,7 @@ public class AppearancePreferences extends PreferenceFragment {
 
         GridView presetsGv = view.findViewById(R.id.presets_gv);
         presetsGv.setAdapter(new HexColorAdapter(context, context.getResources().getStringArray(R.array.default_color_values)));
-        
+
         presetsGv.setOnItemClickListener(new OnItemClickListener(){
 
                 @Override
@@ -249,14 +250,31 @@ public class AppearancePreferences extends PreferenceFragment {
                     colorHexEt.setText(p1.getItemAtPosition(p3).toString());
                 }
             });
+            
+        GridView wallColorsGv = view.findViewById(R.id.wallpaper_colors_gv);
+        wallColorsGv.setAdapter(new HexColorAdapter(context, ColorUtils.getWallpaperColors(context)));
 
+        wallColorsGv.setOnItemClickListener(new OnItemClickListener(){
+
+                @Override
+                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+                    colorHexEt.setText(p1.getItemAtPosition(p3).toString());
+                }
+            });
+            
         dialog.show();
+        
     }
 
     class HexColorAdapter extends ArrayAdapter<String> {
         private Context context;
 
         public HexColorAdapter(Context context, String[] colors) {
+            super(context, R.layout.color_entry, colors);
+            this.context = context;
+        }
+
+        public HexColorAdapter(Context context, ArrayList<String> colors) {
             super(context, R.layout.color_entry, colors);
             this.context = context;
         }
