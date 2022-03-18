@@ -130,7 +130,7 @@ public class DeviceUtils {
         try {
             Method getUserIcon=um.getClass().getMethod("getUserIcon", int.class);
             Method myUserId=UserHandle.class.getMethod("myUserId");
-            int id=myUserId.invoke(UserHandle.class);
+            int id=(int)myUserId.invoke(UserHandle.class);
             userIcon = (Bitmap) getUserIcon.invoke(um, id);
             if (userIcon != null)
                 userIcon = Utils.getCircularBitmap(userIcon);

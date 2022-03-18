@@ -231,4 +231,8 @@
     <string name="choose_color">ਰੰਗ ਚੁਣੋ</string>
     <string name="invalid_color">ਅਵੈਧ ਰੰਗ</string>
     <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਚੁੱਪ ਨੋਟੀਫੀਕੇਸਨਵਾਂ</string>
+	
+    <string name="wallpaper">ਵਾਲਪੇਪਰ</string>
+    <string name="presets">ਪ੍ਰੀਸੈਟਸ</string>
+	
 </resources>
