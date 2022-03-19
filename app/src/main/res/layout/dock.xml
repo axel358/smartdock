@@ -80,7 +80,7 @@
 		<GridView
 			android:layout_centerInParent="true"
 			android:layout_centerVertical="true"
-			android:layout_height="wrap_content"
+			android:layout_height="60dp"
 			android:layout_width="60dp"
 			android:stretchMode="none"
 			android:numColumns="auto_fit"
