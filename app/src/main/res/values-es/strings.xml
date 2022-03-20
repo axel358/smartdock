@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="please_note_that_you_must_prov">Debes proporcionar los sonidos a usar</string>
+    <string name="enable_startup_sound_title">Reproducir un sonido al iniciar*</string>
+    <string name="startup_sound_title">Escoger el sonido de inicio</string>
+    <string name="enable_usb_sound_title">Reproducir un sonido al insertar dispositivos usb</string>
+    <string name="usb_sound_title">Escoger el sonido para dispositivos usb</string>
+    <string name="enable_notification_sound_title">Reproducir un sonido al mostrar notificaciones</string>
+    <string name="notification_sound_title">Escoger sonido para notificaciones</string>
+    <string name="enable_charge_sound_title">Reproducir un sonido al conectar al iniciar la carga</string>
+    <string name="charge_sound_title">Escoger sonido de carga</string>
+    <string name="enable_charge_complete_sound_title">Reproducir un sonodo al terminar de cargar*</string>
+    <string name="charge_complete_sound_title">Escoger un sonido para carga completa</string>
+
+    <string name="manage_service">Administar servicio</string>
+    <string name="notification_timeout_title">Tiempo por el cual mostar notificaciones (en ms)</string>
+    <string name="show_ongoing_title">Mostar notificaciones en curso*</string>
+    <string name="blocked_notifications_hint">android</string>
+    <string name="blocked_notifications_summary">Lista de nombres de paquetes separados por un espacio de los cuales ignorar notificaciones</string>
+    <string name="blocked_notifications_title">Notificaciones silenciadas</string>
+    <string name="long_press_a_notification_to_a">Mantén presionada una notificación para silenciarla</string>
+
+    <string name="shortcut_key_dialogTitle">Tecla para atajos</string>
+    <string name="shortcut_key_title">Tecla para atajos</string>
+    <string name="enable_lock_desktop_title">Habilitar Atajo+L para bloquear la pantalla(requiere permiso de Admin de Dipositivo)</string>
+    <string name="enable_open_settings_title">Habilitar Atajo+P para abrir ajustes</string>
+    <string name="enable_open_music_title">Habilitar Atajo+M para abrir la app de música</string>
+    <string name="enable_open_browser_title">Habilitar Atajo+B para abrir el navegador</string>
+    <string name="enable_open_terminal_title">Habilitar Atajo+T para abrir la terminal</string>
+    <string name="terminal_package_hint">com.termux</string>
+    <string name="terminal_package_title">Nombre del paquete de la terminal</string>
+    <string name="enable_expand_notifications_title">Habilitar Atajo+A para abrir el panel de notificaciones</string>
+    <string name="enable_ctrl_back_title">Habilitar Ctrl derecho como botón atrás</string>
+    <string name="enable_f10_title">Activar pantalla dividida al presionar F10</string>
+
+    <string name="enable_corner_top_right_title">Habilitar esquina superior derecha</string>
+    <string name="enable_corner_top_right_summary">Posiciona el cursor sobre la esquina superior derecha para activar la vista de recientes</string>
+    <string name="enable_corner_bottom_right_title">Habilitar esquina inferior derecha</string>
+    <string name="enable_corner_bottom_right_summary">Posiciona el cursor sobre la esquina inferior derecha para bloquear la pantalla</string>
+    <string name="hot_corners_delay_title">Retraso de activación en ms</string>
+
+    <string name="a_launcher_for_android_x86_by_">Un launcher para Android x86 por Axel358</string>
+    <string name="special_thanks_to">Agradecimientos especiales a</string>
+    <string name="k_s_maan_nblisslabs_project">K S Maan \nProyecto BlissLabs</string>
+    <string name="help">Ayuda</string>
+    <string name="smart_dock_its_free_and_open_">Smart Dock es open source. Contribuir en GitHub</string>
+    <string name="github">GitHub</string>
+    <string name="join_telegram_title">Grupo de Telegram</string>
+    <string name="join_telegram_summary">Tienes alguna duda o sugerencia? Unirse al grupo de Telegram</string>
+    <string name="gnu_general_public_licence_v3">GNU General Public Licence v3.0</string>
+    <string name="license">Licencia</string>
+    <string name="options_marked_with__are_expe">Opciones marcadas con * son experimentales y pueden causar problemas. Si encuentras problemas deshabilitalas</string>
+
+    <string name="navigation">Navegación</string>
+    <string name="enable_nav_back_title">Habilitar botón atrás</string>
+    <string name="enable_nav_home_title">Habilitar botón inicio</string>
+    <string name="enable_nav_recents_title">Habilitar botón recientes</string>
+    <string name="enable_nav_assist_title">Habilitar botón asistente</string>
+    <string name="custom_assist_summary">Usar la siguiente app como asistente, dejar el blanco para usar por defecto</string>
+    <string name="custom_assist_title">App asistente</string>
+    <string name="quick_settings">Ajustes rápidos</string>
+    <string name="enable_qs_bluetooth_title">Habilitar botón bluetooth</string>
+    <string name="enable_qs_battery_title">Habilitar botón batería</string>
+    <string name="enable_power_menu_title">Usar menu de apagado interno</string>
+    <string name="enable_power_menu_summary">Usar menu de apagado interno en vez del sistema</string>
+    <string name="behaviour">Comportamiento</string>
+    <string name="pin_dock_title">Anclar el dock al iniciar</string>
+    <string name="pin_dock_summary">Útil cuando se usan otros launchers</string>
+    <string name="dock_hide_delay_title">Retraso al esconder en ms</string>
+    <string name="center_running_apps_title">Centrar apps corriendo</string>
+    <string name="dock_activation_area_title">Area de activación del dock</string>
+
+    <string name="show_notes_title">Mostrar widget de notas</string>
+
+    <string name="look_and_feel">Apariencia</string>
+    <string name="theme_dialogTitle">Tema</string>
+    <string name="theme_title">Tema del dock</string>
+    <string name="theme_main_color_summary">Color principal de fondo de los elemantos</string>
+    <string name="theme_main_color_title">Color principal</string>
+    <string name="theme_secondary_color_summary">Color secundario de fondo de los elemantos</string>
+    <string name="theme_secondary_color_title">Color secundario</string>
+    <string name="icon_shape_dialogTitle">Forma de iconos</string>
+    <string name="icon_shape_title">Forma de iconos</string>
+    <string name="icon_padding_summary">Cantidad de blanco entre el icono y su borde</string>
+    <string name="icon_padding_title">Margen interno</string>
+    <string name="menu_icon_uri_title">Seleccionar icono del menu de apps</string>
+    <string name="restore_menu_icon_title">Restaurar icono del menu de apps</string>
+    <string name="animations">Animaciones</string>
+    <string name="disable_animations_title">Deshabilitar animaciones al lanzar apps</string>
+    <string name="enable_custom_animations_title">Usar una animación personalizada al lanzar apps</string>
+    <string name="custom_animation_dialogTitle">Animación</string>
+    <string name="custom_animation_title">Animación</string>
+
+    <string name="menu">Menu</string>
+    <string name="enable_app_menu_title">Abrir menu al presionar una tecla</string>
+    <string name="menu_key_dialogTitle">Tecla para abrir el menu</string>
+    <string name="menu_key_title">Tecla para abrir el menu</string>
+    <string name="app_menu_fullscreen_title">Abrir el menu de apps en pantalla completa</string>
+    <string name="app_menu_height_title">Altura del menu</string>
+    <string name="app_menu_width_title">Ancho del menu</string>
+    <string name="num_columns_title">Numero de columnas</string>
+    <string name="app_launch">App launch</string>
+    <string name="launch_mode_dialogTitle">Theme</string>
+    <string name="launch_mode_title">Default app launch mode</string>
+    <string name="remember_launch_mode_title">Remember launch mode</string>
+    <string name="remember_launch_mode_summary">Remember last launch mode used for every app</string>
+    <string name="launch_games_fullscreen_title">Launch games in full screen</string>
+    <string name="launch_games_fullscreen_summary">Launch apps detected as games in full screen by default</string>
+    <string name="lock_landscape_title">Launch full screen apps in landscpape</string>
+    <string name="lock_landscape_summary">Some full screen apps might try to force screen orientation to portrait. Use this to prevent such behaviour</string>
+    <string name="fine_tune">Fine tune</string>
+    <string name="app_menu_x_title">App menu x translation</string>
+    <string name="app_menu_y_title">App menu y translation</string>
+
+    <string name="appearance">Appearance</string>
+    <string name="app_menu">App Menu</string>
+    <string name="dock">Dock</string>
+    <string name="desktop">Desktop</string>
+    <string name="keyboard">Keyboard</string>
+    <string name="hot_corners">Hot Corners</string>
+    <string name="sounds">Sounds</string>
+    <string name="advanced">Advanced</string>
+    <string name="help_and_about">Help and about</string>
+
+    
+    <string name="fade">Fade</string>
+    <string name="slide_up">Slide up</string>
+    <string name="slide_left">Slide left</string>
+    
+    <string name="circle">Circle</string>
+    <string name="squircle">Squircle</string>
+    <string name="system">System</string>
+    
+    <string name="dark">Dark</string>
+    <string name="black">Black</string>
+    <string name="transparent">Transparent</string>
+    <string name="custom">Custom</string>
+    
+    <string name="power_off">Power off</string>
+    <string name="restart">Restart</string>
+    <string name="soft_restart">Soft restart</string>
+    <string name="screenshot">Screenshot</string>
+
+    <string name="notifications">Notifications</string>
+    <string name="clear_all">Clear all</string>
+
+    <string name="these_permissions_are_needed_f">These permissions are needed for the app to work</string>
+    <string name="display_over_other_apps">Display over other apps</string>
+    <string name="required_to_display_the_dock_">Required to display the Dock, you cannot start the service without this</string>
+    <string name="accessibility_service">Accessibility service</string>
+    <string name="use_this_to_start_and_stop_the">Use this to start and stop the Dock. Requires the above permission</string>
+    <string name="manage">Manage</string>
+    <string name="these_permissions_are_needed_b">These permissions are needed by some features</string>
+    <string name="device_administrator">Device administrator</string>
+    <string name="used_to_lock_the_screen">Used to lock the screen</string>
+    <string name="storage">Storage</string>
+    <string name="used_to_change_the_menu_icon_a">Used to change the menu icon and event sounds</string>
+    <string name="notification_access">Notification access</string>
+    <string name="used_to_display_notifications">Used to display notifications</string>
+    <string name="root_access">Root access</string>
+    <string name="used_to_perform_some_keyboard_">Used to perform some keyboard shortcuts and other features</string>
+
+    <string name="transparency">Transparency</string>
+    <string name="user">User</string>
+    <string name="search">Search...</string>
+    <string name="lets_start">Let\'s start</string>
+
+    
+    <string name="these_settings_are_intended_fo">These settings are intended for advanced users. Only change them if you know what you are doing</string>
+    <string name="run_autostart_title">Run autostart script</string>
+    <string name="edit_autostart_title">Edit autostart script</string>
+    <string name="custom_display_size_summary">Allows you to fine tune the display size of screen elements. Needs reboot</string>
+    <string name="custom_display_size_hint">leave blank for default</string>
+    <string name="custom_display_size_title">Display size</string>
+    <string name="allow_broadcasts_title">Allow apps to send broadcasts to the Dock</string>
+    <string name="allow_broadcasts_summary">Expose feautures to apps such as toggling the app drawer using broadcasts. Needs reboot</string>
+    <string name="allow_app_freeze_title">Show an option to disable apps from the app context menu</string>
+    <string name="allow_app_freeze_summary">You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps</string>
+    <string name="hide_nav_buttons_summary">Hides Android software navigation buttons. Needs reboot</string>
+    <string name="hide_nav_buttons_title">Hide navigation buttons</string>
+    <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
+    <string name="enable_soft_reboot_title">Use Atajo+F12 to soft reboot Android</string>
+    <string name="move_to_system_summary">Move Smart Dock as a system app. Android will restart</string>
+    <string name="move_to_system_title">Move as system app</string>
+    <string name="soft_reboot_summary">Soft reboot now. You will lose all unsaved work</string>
+    <string name="soft_reboot_title">Soft reboot now</string>
+    <string name="grant">Grant</string>
+
+
+    <string name="app_name">Smart Dock</string>
+	<string name="accessibility_service_description">Allows to perform actions such as Back</string>
+    <string name="app_help">
+    The application should be installed as a system app in order to obtain the right permissions.
+    Without this functionallity will be limited.
+    \n
+    \nYou should also hide the Android navigation buttons. For more info on how to do this check the full help on GitHub
+    \n
+    \nThe app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
+    \n
+    \nClick here for more info
+    </string>
+    
+    <string name="standard">Standard</string>
+    <string name="maximized">Maximized</string>
+    <string name="portrait">Portrait</string>
+    <string name="fullscreen">Fullscreen</string>
+    
+    <string name="edit_autostart">Edit autostart</string>
+    <string name="save">Save</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="reboot_required_title">Reboot required</string>
+    <string name="reboot_required_text">A reboot is required for changes to take effect. Do you want to reboot now?</string>
+    <string name="tablet_mode_on">Tablet mode on</string>
+    <string name="tablet_mode_off">Tablet mode off</string>
+    <string name="start_message">Smart Dock started</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="search_for">Search for</string>
+    <string name="on_google">on Google</string>
+    <string name="freeze">Freeze</string>
+    <string name="pin">Pin</string>
+    <string name="unpin">Unpin</string>
+    <string name="to_desktop">To desktop</string>
+    <string name="app_frozen">App frozen</string>
+    <string name="something_wrong">Something went wrong</string>
+    <string name="save_log">Save log</string>
+    <string name="open_again">Open app again</string>
+    <string name="remove">Remove</string>
+    <string name="manage_permissions">Manage permissions</string>
+    <string name="granted">Granted</string>
+    <string name="choose_color">Choose color</string>
+    <string name="invalid_color">Invalid color</string>
+    <string name="silenced_notifications">Silenced notifications for this app</string>
+    
+    <string name="wallpaper">Wallpaper</string>
+    <string name="presets">Presets</string>
+    
+</resources>
