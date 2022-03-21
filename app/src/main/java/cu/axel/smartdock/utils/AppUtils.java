@@ -27,6 +27,7 @@ import android.content.Context;
 
 public class AppUtils {
     public static final String PINNED_LIST="pinned.lst";
+    public static final String DOCK_PINNED_LIST="dock_pinned.lst";
     public static final String DESKTOP_LIST="desktop.lst";
 
     public static ArrayList<App> getInstalledApps(PackageManager pm) {
@@ -174,7 +175,7 @@ public class AppUtils {
                     } catch (Exception e) {}
                 }
 
-                appTasks.add(new AppTask(taskInfo.id, taskInfo.topActivity.getShortClassName(), taskInfo.topActivity.getPackageName(), pm.getActivityIcon(taskInfo.topActivity)));
+                appTasks.add(new AppTask(taskInfo.id, taskInfo.topActivity.getPackageName(), pm.getActivityIcon(taskInfo.topActivity)));
             } catch (PackageManager.NameNotFoundException e) {}
         }
 

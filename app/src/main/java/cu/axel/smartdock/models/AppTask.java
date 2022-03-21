@@ -1,40 +1,34 @@
 package cu.axel.smartdock.models;
 import android.graphics.drawable.Drawable;
+import java.util.ArrayList;
 
-public class AppTask
-{
-	private String className,packageName;
+public class AppTask {
+	private String packageName;
 	private Drawable icon;
-	private int id;
+	private ArrayList<Integer> taskIDs;
 
-	public AppTask(int id, String className, String packageName, Drawable icon)
-	{
-		this.className = className;
+	public AppTask(int id, String packageName, Drawable icon) {
+        taskIDs = new ArrayList<Integer>();
 		this.packageName = packageName;
 		this.icon = icon;
-		this.id = id;
+
+        if (id != -1)
+            taskIDs.add(id);
 	}
 
-
-	public int getId()
-	{
-		return id;
+	public ArrayList<Integer> getIds() {
+		return  taskIDs;
 	}
 
+    public void addTask(int id) {
+        taskIDs.add(id);
+    }
 
-	public String getClassName()
-	{
-		return className;
-	}
-
-
-	public String getPackageName()
-	{
+	public String getPackageName() {
 		return packageName;
 	}
 
-	public Drawable getIcon()
-	{
+	public Drawable getIcon() {
 		return icon;
 	}
 

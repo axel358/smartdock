@@ -27,7 +27,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 
 public class Utils {
-    public static boolean notificationPanelVisible;
+    public static boolean notificationPanelVisible, shouldPlayChargeComplete;
     public static String AUTOSTART_SCRIPT="autostart.sh";
 
     public static void toggleBuiltinNavigation(SharedPreferences.Editor editor, boolean value) {

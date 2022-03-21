@@ -11,7 +11,16 @@
 		android:layout_width="40dp"
 		android:src="@android:drawable/ic_delete"
 		android:id="@+id/icon_iv"
-		android:layout_margin="9dp"/>
+		android:layout_marginEnd="9dp"
+		android:layout_marginStart="9dp"
+		android:layout_marginTop="5dp"/>
+
+	<View
+		android:background="@drawable/running_indicator"
+		android:layout_height="3dp"
+		android:layout_width="10dp"
+		android:id="@+id/running_indicator"
+		android:layout_marginTop="2dp"/>
 
 </LinearLayout>
 

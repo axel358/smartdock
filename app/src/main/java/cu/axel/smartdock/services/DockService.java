@@ -3,12 +3,17 @@ package cu.axel.smartdock.services;
 import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
+import android.bluetooth.BluetoothManager;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.ShortcutInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
@@ -36,7 +41,6 @@ import android.view.View.OnHoverListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -44,7 +48,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -52,17 +55,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.activities.MainActivity;
+import cu.axel.smartdock.adapters.AppAdapter;
+import cu.axel.smartdock.adapters.AppTaskAdapter;
 import cu.axel.smartdock.db.DBHelper;
-import cu.axel.smartdock.icons.IconParserUtilities;
 import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.models.AppTask;
+import cu.axel.smartdock.receivers.BatteryStatsReceiver;
+import cu.axel.smartdock.receivers.SoundEventsReceiver;
 import cu.axel.smartdock.services.DockService;
 import cu.axel.smartdock.utils.AppUtils;
+import cu.axel.smartdock.utils.DeepShortcutManager;
 import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.OnSwipeListener;
 import cu.axel.smartdock.utils.Utils;
@@ -70,19 +78,9 @@ import cu.axel.smartdock.widgets.HoverInterceptorLayout;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import android.widget.RelativeLayout;
-import android.content.ActivityNotFoundException;
-import android.bluetooth.BluetoothManager;
-import android.graphics.drawable.Drawable;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import cu.axel.smartdock.utils.DeepShortcutManager;
-import android.content.pm.ShortcutInfo;
-import android.widget.Filter;
-import android.content.ClipboardManager;
-import android.content.ClipData;
 
-public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener 
+public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener  
 {
     private PackageManager pm;
     private SharedPreferences sp;
@@ -95,7 +93,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private RelativeLayout dockLayout;
     private WindowManager wm;
     private View appsSeparator;
-    private boolean appMenuVisible,powerMenuVisible,shouldHide = true,isPinned,reflectionAllowed,shouldPlayChargeComplete;
+    private boolean appMenuVisible,powerMenuVisible,shouldHide = true,isPinned,reflectionAllowed;
     private WindowManager.LayoutParams dockLayoutParams;
     private EditText searchEt;
     private AppAdapter appAdapter;
@@ -109,6 +107,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private HoverInterceptorLayout dock;
     private BluetoothManager bm;
     private View dockTrigger;
+    private ArrayList<App> pinnedApps;
     
     @Override
     public void onCreate()
@@ -239,7 +238,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
                 {
                     AppTask appTask = (AppTask) p1.getItemAtPosition(p3);
-                    am.moveTaskToFront(appTask.getId(), 0);
+                    ArrayList<Integer> taskIDs = appTask.getIds();
+                    
+                    if(taskIDs.size()>0)
+                        am.moveTaskToFront(taskIDs.get(0), 0);
+                    else
+                        launchApp(getDefaultLaunchMode(appTask.getPackageName()),appTask.getPackageName()); 
 
                     if (getDefaultLaunchMode(appTask.getPackageName()).equals("fullscreen"))
                     {
@@ -258,6 +262,68 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 
             });
+            
+            tasksGv.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+                @Override
+                public boolean onItemLongClick(AdapterView<?> p1, View anchor, int p3, long p4) {
+
+                    final String app = ((AppTask) p1.getItemAtPosition(p3)).getPackageName();
+                    
+                    final View view = LayoutInflater.from(DockService.this).inflate(R.layout.pin_entry, null);
+                    WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
+                    Utils.applyMainColor(sp, view);
+                    lp.gravity=Gravity.BOTTOM;
+                    lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+                    
+                    lp.y = Utils.dpToPx(DockService.this, Integer.parseInt(sp.getString("app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
+                    
+                    lp.x = (int) anchor.getX() - anchor.getWidth();
+                    view.setOnTouchListener(new OnTouchListener(){
+
+                            @Override
+                            public boolean onTouch(View p1, MotionEvent p2)
+                            {
+                                if (p2.getAction() == MotionEvent.ACTION_OUTSIDE)
+                                {
+                                    wm.removeView(view);
+                                }
+                                return false;
+                            }
+                        });
+                        
+                    ImageView icon = view.findViewById(R.id.pin_entry_iv);
+                    Utils.applySecondaryColor(sp, icon);
+                    TextView text = view.findViewById(R.id.pin_entry_tv);
+                    
+                    if(AppUtils.isPinned(DockService.this,app, AppUtils.DOCK_PINNED_LIST)){
+                        icon.setImageResource(R.drawable.ic_unpin);
+                        text.setText(R.string.unpin);
+                    }
+                    
+                    view.setOnClickListener(new OnClickListener(){
+
+                            @Override
+                            public void onClick(View p1) {
+                                if(AppUtils.isPinned(DockService.this,app, AppUtils.DOCK_PINNED_LIST))
+                                    AppUtils.unpinApp(DockService.this,app, AppUtils.DOCK_PINNED_LIST);
+                                 else
+                                    AppUtils.pinApp(DockService.this,app, AppUtils.DOCK_PINNED_LIST);
+                                    
+                                 loadPinnedApps();
+                                 updateRunningTasks();
+                                 wm.removeView(view);
+                            }
+                        });
+
+                    wm.addView(view, lp);
+
+
+                return true;
+            }
+        });
+            
+        
 
         notificationBtn.setOnClickListener(new OnClickListener(){
                 @Override
@@ -645,10 +711,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 }
             }, new IntentFilter(getPackageName() + ".NOTIFICATION_COUNT_CHANGED"));
             
-        batteryReceiver = new BatteryStatsReceiver();
+        batteryReceiver = new BatteryStatsReceiver(batteryBtn, sp);
         registerReceiver(batteryReceiver, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
         
-        soundEventsReceiver = new SoundEventsReceiver();
+        soundEventsReceiver = new SoundEventsReceiver(sp);
         IntentFilter soundEventsFilter = new IntentFilter();
         soundEventsFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         soundEventsFilter.addAction(Intent.ACTION_POWER_CONNECTED);
@@ -675,6 +741,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         updateQuickSettings();
         applyTheme();
         updateMenuIcon();
+        loadPinnedApps();
         placeRunningApps();
         updateDockTrigger();
         
@@ -1021,7 +1088,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void showAppContextMenu(final String app, View anchor)
     {
-        PopupMenu pmenu=new PopupMenu(new ContextThemeWrapper(DockService.this, R.style.PopupMenuTheme), anchor);
+        PopupMenu pmenu = new PopupMenu(new ContextThemeWrapper(DockService.this, R.style.PopupMenuTheme), anchor);
 
         Utils.setForceShowIcon(pmenu);
 
@@ -1199,12 +1266,36 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         tasksGv.setLayoutParams(lp);
         updateRunningTasks();
     }
+    
+    private void loadPinnedApps(){
+        pinnedApps = AppUtils.getPinnedApps(DockService.this,pm, AppUtils.DOCK_PINNED_LIST);
+    }
 
     private void updateRunningTasks()
     {
-        ArrayList<AppTask> runningTasks = AppUtils.getRunningTasks(am,pm);
-        tasksGv.getLayoutParams().width = Utils.dpToPx(this, 60) * runningTasks.size();
-        tasksGv.setAdapter(new AppTaskAdapter(DockService.this, runningTasks));
+        //TODO: This is shitty needs opt asap
+        ArrayList<AppTask> apps = new ArrayList<AppTask>();
+        
+        for(App pinnedApp : pinnedApps){
+            apps.add(new AppTask(-1, pinnedApp.getPackageName(), pinnedApp.getIcon()));
+        }
+        
+        ArrayList<AppTask> runningTasks = AppUtils.getRunningTasks(am, pm);
+        ArrayList<AppTask> runningTasksLeft = new ArrayList(runningTasks);
+        
+        for(AppTask app : apps){
+            for(AppTask appTask : runningTasks){
+                if(appTask.getPackageName().equals(app.getPackageName())){
+                    app.addTask(appTask.getIds().get(0));
+                    runningTasksLeft.remove(appTask);
+                }
+            }
+        }
+        
+        apps.addAll(runningTasksLeft);
+        
+        tasksGv.getLayoutParams().width = Utils.dpToPx(this, 60) * apps.size();
+        tasksGv.setAdapter(new AppTaskAdapter(DockService.this, apps));
         
         //TODO: Move this outta here
         wifiBtn.setImageResource(wifiManager.isWifiEnabled()? R.drawable.ic_wifi_on : R.drawable.ic_wifi_off);
@@ -1362,7 +1453,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     }
 
     public void updateMenuIcon()
-    {
+    { 
         String iconUri=sp.getString("menu_icon_uri", "default");
         if (iconUri.equals("default"))
             appsBtn.setImageResource(R.drawable.ic_apps);
@@ -1408,197 +1499,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         super.onDestroy();
     }
 
-    class AppAdapter extends ArrayAdapter<App>
-    {
-        private final Context context;
-        private int iconBackground;
-        private final int iconPadding;
-        private ArrayList<App> apps, originalList;
-        private AppFilter filter;
-        public AppAdapter(Context context, ArrayList<App> apps)
-        {
-            super(context, R.layout.app_entry, apps);
-            this.context = context;
-            this.apps = apps;
-            this.originalList = new ArrayList<App>(apps);
-            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("padding", "4")));
-            switch (sp.getString("icon_shape", "circle"))
-            {
-                case "circle":
-                    iconBackground = R.drawable.circle;
-                    break;
-                case "round_rect":
-                    iconBackground = R.drawable.round_square;
-                    break;
-                case "default":
-                    iconBackground = -1;
-                    break;
-            }
-
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-
-            ViewHolder holder;
-            if (convertView == null)
-            {
-                convertView = LayoutInflater.from(context).inflate(R.layout.app_entry, null);
-                holder = new ViewHolder();
-                holder.iconIv = convertView.findViewById(R.id.menu_app_icon_iv);
-                holder.nameTv = convertView.findViewById(R.id.menu_app_name_tv);
-                convertView.setTag(holder);
-            }else
-                holder = (ViewHolder) convertView.getTag();
-            
-            final App app = apps.get(position);
-            holder.nameTv.setText(app.getName());
-            
-            if (iconBackground != -1)
-            {
-                holder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-                holder.iconIv.setBackgroundResource(iconBackground);
-            }
-
-            IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
-            /*
-            persuade the adapter to reload icons with a switch
-            probably could use just getPackagedThemedIcon but as a fallback to the shared preference listener
-             */
-            if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false))
-                holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
-            else
-                holder.iconIv.setImageDrawable(app.getIcon());
-
-            convertView.setOnTouchListener(new OnTouchListener(){
-
-                    @Override
-                    public boolean onTouch(View p1, MotionEvent p2)
-                    {
-                        if (p2.getButtonState() == MotionEvent.BUTTON_SECONDARY)
-                        {
-                            showAppContextMenu(app.getPackageName(), p1);
-                            return true;
-                        }
-                        return false;
-                    }
-                });
-
-            return convertView;
-        }
-        
-        private class ViewHolder
-        {
-            ImageView iconIv;
-            TextView nameTv;
-        }
-        
-        @Override
-        public Filter getFilter()
-        {
-            if (filter == null)
-                filter = new AppFilter();
-            return filter;
-        }
-        private class AppFilter extends Filter
-        {
-            @Override
-            protected Filter.FilterResults performFiltering(CharSequence p1)
-            {
-                FilterResults results = new FilterResults();
-                String query = p1.toString().trim().toLowerCase();
-                if (query.length()>1)
-                {
-                    ArrayList<App> filteredResults = new ArrayList<App>();
-                    
-                    if(query.matches("^[0-9]+(\\.[0-9]+)?[-+/*][0-9]+(\\.[0-9]+)?")){
-                       filteredResults.add(new App(Utils.solve(query)+"",getPackageName()+".calc",getResources().getDrawable(R.drawable.ic_calculator,getTheme()))); 
-                    }
-                    for (App app : originalList)
-                    {
-                        if (app.getName().toLowerCase().trim().contains(query))
-                        {
-                            filteredResults.add(app);
-                        }
-                    }
-                    results.count = filteredResults.size();
-                    results.values = filteredResults;
-                }
-                else
-                {
-                    synchronized (this)
-                    {
-                        results.values = originalList;
-                        results.count = originalList.size();
-                    }
-                }
-                return results;
-            }
-            @Override
-            protected void publishResults(CharSequence p1, Filter.FilterResults p2)
-            {
-                apps = (ArrayList<App>) p2.values;
-                notifyDataSetChanged();
-                clear();
-                for (App app : apps)
-                {
-                    add(app);
-                }
-                notifyDataSetInvalidated();
-            }
-        }
-
-    }
-
-    class AppTaskAdapter extends ArrayAdapter<AppTask>
-    {
-        private final Context context;
-        private int iconBackground;
-        private final int iconPadding;
-        public AppTaskAdapter(Context context, ArrayList<AppTask> appTasks)
-        {
-            super(context, R.layout.app_task_entry, appTasks);
-            this.context = context;
-            iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "4")));
-            switch (sp.getString("icon_shape", "circle"))
-            {
-                case "circle":
-                    iconBackground = R.drawable.circle;
-                    break;
-                case "round_rect":
-                    iconBackground = R.drawable.round_square;
-                    break;
-                case "default":
-                    iconBackground = -1;
-                    break;
-            }
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            View view = LayoutInflater.from(context).inflate(R.layout.app_task_entry, null);
-            ImageView iconIv = view.findViewById(R.id.icon_iv);
-            AppTask task = getItem(position);
-
-            if (iconBackground != -1)
-            {
-                iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-                iconIv.setBackgroundResource(iconBackground);
-            }
-
-            IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
-            
-            if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false))
-                iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(task.getPackageName()));
-            else
-                iconIv.setImageDrawable(task.getIcon());
-
-            return view;
-        }
-
-
-    }
-
     class UpdateAppMenuTask extends AsyncTask<Void, Void, ArrayList<App>>
     {
         @Override
@@ -1618,43 +1518,4 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         }
     }
-    class SoundEventsReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context p1, Intent p2) {
-            switch(p2.getAction()){
-                case UsbManager.ACTION_USB_DEVICE_ATTACHED:
-                    if(sp.getBoolean("enable_usb_sound",false))
-                       DeviceUtils.playEventSound(DockService.this,"usb_sound");
-                    break;
-                case Intent.ACTION_POWER_CONNECTED:
-                    shouldPlayChargeComplete = true;
-                    if(sp.getBoolean("enable_charge_sound",false))
-                       DeviceUtils.playEventSound(DockService.this,"charge_sound");
-                    break;
-            }
-        }
-        
-    }
-    class BatteryStatsReceiver extends BroadcastReceiver
-    {
-        @Override
-        public void onReceive(Context p1, Intent intent)
-        {
-            int level = intent.getExtras().getInt("level");
-
-            if (intent.getExtras().getInt("plugged") == 0)
-                 batteryBtn.setImageResource(Utils.getBatteryDrawable(level,false));
-            else
-            {
-                batteryBtn.setImageResource(Utils.getBatteryDrawable(level,true));
-                if(level==100){
-                    if(shouldPlayChargeComplete && sp.getBoolean("enable_charge_complete_sound",false))
-                        DeviceUtils.playEventSound(DockService.this, "charge_complete_sound");
-                        
-                    shouldPlayChargeComplete =false;
-                }
-                }
-            }
-        }
 }
