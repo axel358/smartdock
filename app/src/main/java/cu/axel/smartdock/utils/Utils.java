@@ -1,30 +1,25 @@
 package cu.axel.smartdock.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.PorterDuff.Mode;
+import android.os.Build;
+import android.view.WindowManager;
 import android.widget.PopupMenu;
+import cu.axel.smartdock.R;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import android.graphics.PorterDuff.Mode;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import cu.axel.smartdock.R;
-import android.view.WindowManager;
-import android.widget.ActionMenuView.LayoutParams;
-import android.graphics.PixelFormat;
-import android.os.Build;
-import android.content.SharedPreferences;
-import android.view.View;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 
 public class Utils {
     public static boolean notificationPanelVisible, shouldPlayChargeComplete;
@@ -187,50 +182,6 @@ public class Utils {
         layoutParams.width = width;
         layoutParams.height = height;
         return layoutParams;
-    }
-
-    public static void applyMainColor(SharedPreferences sp, View view) {
-        String color = "";
-        int alpha = 255;
-        switch (sp.getString("theme", "dark")) {
-            case "dark":
-                color = "#212121";
-                break;
-            case "black":
-                color = "#000000";
-                break;
-            case "transparent":
-                color = "#000000";
-                alpha = 225;
-                break;
-            case "custom":
-                color = sp.getString("theme_main_color", "#212121");
-                alpha = sp.getInt("theme_main_alpha", 255);
-        }
-        view.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_ATOP);
-        view.getBackground().setAlpha(alpha);
-    }
-
-    public static void applySecondaryColor(SharedPreferences sp,  View view) {
-        String color = "";
-        int alpha = 255;
-        switch (sp.getString("theme", "dark")) {
-            case "dark":
-                color = "#292929";
-                break;
-            case "black":
-                color = "#0B0B0B";
-                break;
-            case "transparent":
-                color = "#000000";
-                alpha = 80;
-                break;
-            case "custom":
-                color = sp.getString("theme_secondary_color", "#292929");
-                alpha = sp.getInt("theme_secondary_alpha", 255);
-        }
-        view.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC_ATOP);
-        view.getBackground().setAlpha(alpha);
     }
 
     public static double solve(String expression) {

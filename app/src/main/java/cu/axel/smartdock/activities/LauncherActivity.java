@@ -50,6 +50,7 @@ import android.content.pm.ShortcutInfo;
 import cu.axel.smartdock.utils.DeepShortcutManager;
 import android.widget.Toast;
 import cu.axel.smartdock.icons.IconParserUtilities;
+import cu.axel.smartdock.utils.ColorUtils;
 
 public class LauncherActivity extends Activity {
 	private LinearLayout backgroundLayout;
@@ -324,6 +325,8 @@ public class LauncherActivity extends Activity {
                 iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
             else 
                 iconIv.setImageDrawable(app.getIcon());
+                
+            ColorUtils.applyColor(iconIv, ColorUtils.getDrawableDominantColor(iconIv.getDrawable()));
 
             convertView.setOnTouchListener(new OnTouchListener(){
 

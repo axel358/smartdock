@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.TextView;
+import cu.axel.smartdock.utils.ColorUtils;
 
 public class AppTaskAdaper extends ArrayAdapter<AppTask> {
     private Context context;
@@ -31,6 +32,8 @@ public class AppTaskAdaper extends ArrayAdapter<AppTask> {
 
         icon.setImageDrawable(task.getIcon());
         text.setText(task.getName());
+        
+        ColorUtils.applyColor(icon, ColorUtils.getDrawableDominantColor(icon.getDrawable()));
 
         return convertView;
 

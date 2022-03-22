@@ -84,6 +84,7 @@ import android.util.Log;
 import android.widget.ListView;
 import cu.axel.smartdock.adapters.AppTaskAdaper;
 import android.widget.Adapter;
+import cu.axel.smartdock.utils.ColorUtils;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener  
 {
@@ -247,12 +248,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     
                     if(tasks.size()==1){
                         am.moveTaskToFront(tasks.get(0).getID(), 0);
-                        Toast.makeText(DockService.this, tasks.size()+"",5000).show();
                         }
                     else if(tasks.size()>1){
                         final View view = LayoutInflater.from(DockService.this).inflate(R.layout.task_list, null);
                         WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
-                        Utils.applyMainColor(sp, view);
+                        ColorUtils.applyMainColor(sp, view);
                         lp.gravity=Gravity.BOTTOM|Gravity.LEFT;
                         lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
@@ -319,7 +319,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     final View view = LayoutInflater.from(DockService.this).inflate(R.layout.pin_entry, null);
                     WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
                     view.setBackgroundResource(R.drawable.round_rect);
-                    Utils.applyMainColor(sp, view);
+                    ColorUtils.applyMainColor(sp, view);
                     lp.gravity=Gravity.BOTTOM|Gravity.LEFT;
                     lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
                     
@@ -343,7 +343,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         });
                         
                     ImageView icon = view.findViewById(R.id.pin_entry_iv);
-                    Utils.applySecondaryColor(sp, icon);
+                    ColorUtils.applySecondaryColor(sp, icon);
                     TextView text = view.findViewById(R.id.pin_entry_tv);
                     
                     if(AppUtils.isPinned(DockService.this,app, AppUtils.DOCK_PINNED_LIST)){
@@ -1469,7 +1469,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
                 }
             });
-            Utils.applyMainColor(sp, powerMenu);
+            ColorUtils.applyMainColor(sp, powerMenu);
             wm.addView(powerMenu, layoutParams);
         topRightCorner.setVisibility( sp.getBoolean("enable_corner_top_right", false)? View.VISIBLE : View.GONE);
         powerMenuVisible = true;
@@ -1483,19 +1483,19 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     
     public void applyTheme()
     {       
-        Utils.applyMainColor(sp,dockLayout);
-        Utils.applyMainColor(sp,appMenu);
-        Utils.applySecondaryColor(sp, searchEt);
-        Utils.applySecondaryColor(sp, backBtn);
-        Utils.applySecondaryColor(sp, homeBtn);
-        Utils.applySecondaryColor(sp, recentBtn);
-        Utils.applySecondaryColor(sp, assistBtn);
-        Utils.applySecondaryColor(sp, pinBtn);
-        Utils.applySecondaryColor(sp, bluetoothBtn);
-        Utils.applySecondaryColor(sp, wifiBtn);
-        Utils.applySecondaryColor(sp, volBtn);
-        Utils.applySecondaryColor(sp, powerBtn);
-        Utils.applySecondaryColor(sp, batteryBtn);
+        ColorUtils.applyMainColor(sp,dockLayout);
+        ColorUtils.applyMainColor(sp,appMenu);
+        ColorUtils.applySecondaryColor(sp, searchEt);
+        ColorUtils.applySecondaryColor(sp, backBtn);
+        ColorUtils.applySecondaryColor(sp, homeBtn);
+        ColorUtils.applySecondaryColor(sp, recentBtn);
+        ColorUtils.applySecondaryColor(sp, assistBtn);
+        ColorUtils.applySecondaryColor(sp, pinBtn);
+        ColorUtils.applySecondaryColor(sp, bluetoothBtn);
+        ColorUtils.applySecondaryColor(sp, wifiBtn);
+        ColorUtils.applySecondaryColor(sp, volBtn);
+        ColorUtils.applySecondaryColor(sp, powerBtn);
+        ColorUtils.applySecondaryColor(sp, batteryBtn);
       }
 
     public void updateCorners()

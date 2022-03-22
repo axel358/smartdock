@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import android.widget.ProgressBar;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import cu.axel.smartdock.utils.ColorUtils;
 
 public class NotificationService extends NotificationListenerService {
 	private WindowManager wm;
@@ -175,9 +176,9 @@ public class NotificationService extends NotificationListenerService {
 
             CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
 
-            Utils.applySecondaryColor(sp, notifIcon);
-            Utils.applyMainColor(sp, notificationLayout);
-            Utils.applySecondaryColor(sp, notifCancelBtn);
+            ColorUtils.applySecondaryColor(sp, notifIcon);
+            ColorUtils.applyMainColor(sp, notificationLayout);
+            ColorUtils.applySecondaryColor(sp, notifCancelBtn);
 
             try {
                 Drawable notificationIcon = getPackageManager().getApplicationIcon(sbn.getPackageName());
@@ -310,7 +311,7 @@ public class NotificationService extends NotificationListenerService {
 
     }
     public void showNotificationPanel() {
-        Utils.applyMainColor(sp, notificationPanel);
+        ColorUtils.applyMainColor(sp, notificationPanel);
         wm.addView(notificationPanel, npLayoutParams);
 
         updateNotificationPanel();

@@ -17,6 +17,7 @@ import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.utils.Utils;
 import java.util.ArrayList;
 import android.content.SharedPreferences;
+import cu.axel.smartdock.utils.ColorUtils;
 
 public class AppAdapter extends ArrayAdapter<App> 
     {
@@ -80,6 +81,8 @@ public class AppAdapter extends ArrayAdapter<App>
                 holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
             else
                 holder.iconIv.setImageDrawable(app.getIcon());
+                
+            ColorUtils.applyColor(holder.iconIv, ColorUtils.getDrawableDominantColor(holder.iconIv.getDrawable()));
 
             convertView.setOnTouchListener(new OnTouchListener(){
 

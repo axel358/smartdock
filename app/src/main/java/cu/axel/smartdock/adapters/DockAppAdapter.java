@@ -14,6 +14,7 @@ import cu.axel.smartdock.utils.Utils;
 import java.util.ArrayList;
 import android.content.SharedPreferences;
 import cu.axel.smartdock.models.DockApp;
+import cu.axel.smartdock.utils.ColorUtils;
 
 public class DockAppAdapter extends ArrayAdapter<DockApp> 
 {
@@ -69,7 +70,9 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
             holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
         else
             holder.iconIv.setImageDrawable(app.getIcon());
-
+        
+        ColorUtils.applyColor(holder.iconIv, ColorUtils.getDrawableDominantColor(holder.iconIv.getDrawable()));
+        
         return convertView;
     }
 

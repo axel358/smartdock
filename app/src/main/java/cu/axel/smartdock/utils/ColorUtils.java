@@ -1,11 +1,14 @@
 package cu.axel.smartdock.utils;
+import android.app.WallpaperManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.app.WallpaperManager;
+import android.view.View;
 import java.util.ArrayList;
 
 public class ColorUtils {
@@ -56,21 +59,21 @@ public class ColorUtils {
         Drawable wallpaperDrawable = wallpaperManager.getDrawable();
         wallpaperDrawable.mutate();
         wallpaperDrawable.invalidateSelf();
-        return generateImageColor(drawableToBitmap(wallpaperDrawable));
+        return getDrawableDominantColor(wallpaperDrawable);
     }
 
-    public static int generateImageColor(Bitmap result) {
-        return getBitmapDominantColor(result);
-    }
-
-    private static int getBitmapDominantColor(Bitmap bitmap) {
+    public static int getBitmapDominantColor(Bitmap bitmap) {
         Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true);
         final int color = newBitmap.getPixel(0, 0);
         newBitmap.recycle();
         return color;
     }
+    
+    public static int getDrawableDominantColor(Drawable drawable){
+        return getBitmapDominantColor(drawableToBitmap(drawable));
+    }
 
-    private static Bitmap drawableToBitmap(Drawable drawable) {
+    public static Bitmap drawableToBitmap(Drawable drawable) {
         Bitmap bitmap;
 
         if (drawable instanceof BitmapDrawable) {
@@ -90,6 +93,55 @@ public class ColorUtils {
         drawable.draw(canvas);
         return bitmap;
     }
+    
+    public static void applyColor(View view,int color){
+        view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+    }
+    
+    public static void applyMainColor(SharedPreferences sp, View view) {
+        String color = "";
+        int alpha = 255;
+        switch (sp.getString("theme", "dark")) {
+            case "dark":
+                color = "#212121";
+                break;
+            case "black":
+                color = "#000000";
+                break;
+            case "transparent":
+                color = "#000000";
+                alpha = 225;
+                break;
+            case "custom":
+                color = sp.getString("theme_main_color", "#212121");
+                alpha = sp.getInt("theme_main_alpha", 255);
+        }
+        applyColor(view, Color.parseColor(color));
+        view.getBackground().setAlpha(alpha);
+    }
+
+    public static void applySecondaryColor(SharedPreferences sp,  View view) {
+        String color = "";
+        int alpha = 255;
+        switch (sp.getString("theme", "dark")) {
+            case "dark":
+                color = "#292929";
+                break;
+            case "black":
+                color = "#0B0B0B";
+                break;
+            case "transparent":
+                color = "#000000";
+                alpha = 80;
+                break;
+            case "custom":
+                color = sp.getString("theme_secondary_color", "#292929");
+                alpha = sp.getInt("theme_secondary_alpha", 255);
+        }
+        applyColor(view, Color.parseColor(color));
+        view.getBackground().setAlpha(alpha);
+    }
+    
 
     public static int toColor(String color) {
         try {
