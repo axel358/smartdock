@@ -13,15 +13,16 @@ import cu.axel.smartdock.models.AppTask;
 import cu.axel.smartdock.utils.Utils;
 import java.util.ArrayList;
 import android.content.SharedPreferences;
+import cu.axel.smartdock.models.DockApp;
 
-public class AppTaskAdapter extends ArrayAdapter<AppTask> 
+public class DockAppAdapter extends ArrayAdapter<DockApp> 
 {
     private final Context context;
     private int iconBackground;
     private final int iconPadding;
-    public AppTaskAdapter(Context context, ArrayList<AppTask> appTasks)
+    public DockAppAdapter(Context context, ArrayList<DockApp> apps)
     {
-        super(context, R.layout.app_task_entry, appTasks);
+        super(context, R.layout.app_task_entry, apps);
         this.context = context;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "4")));
@@ -51,9 +52,9 @@ public class AppTaskAdapter extends ArrayAdapter<AppTask>
         }else
             holder = (ViewHolder) convertView.getTag();
 
-        AppTask task = getItem(position);
+        DockApp app = getItem(position);
         
-        holder.runningIndicator.setAlpha(task.getIds().size() > 0? 1f : 0);
+        holder.runningIndicator.setAlpha(app.getTasks().size() > 0? 1f : 0);
 
 
         if (iconBackground != -1)
@@ -65,9 +66,9 @@ public class AppTaskAdapter extends ArrayAdapter<AppTask>
         IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
 
         if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false))
-            holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(task.getPackageName()));
+            holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
         else
-            holder.iconIv.setImageDrawable(task.getIcon());
+            holder.iconIv.setImageDrawable(app.getIcon());
 
         return convertView;
     }

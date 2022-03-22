@@ -107,21 +107,21 @@ public final class R {
         public static final int search_background=0x7f02004a;
     }
     public static final class id {
-        public static final int action_appinfo=0x7f0b004f;
-        public static final int action_change_wallpaper=0x7f0b0056;
-        public static final int action_dock_settings=0x7f0b005c;
-        public static final int action_files=0x7f0b005a;
-        public static final int action_grant_permissions=0x7f0b0058;
-        public static final int action_launch_fullscreen=0x7f0b0055;
-        public static final int action_launch_maximized=0x7f0b0053;
-        public static final int action_launch_modes=0x7f0b0051;
-        public static final int action_launch_portrait=0x7f0b0054;
-        public static final int action_launch_standard=0x7f0b0052;
-        public static final int action_manage=0x7f0b004e;
-        public static final int action_settings=0x7f0b0057;
-        public static final int action_system_settings=0x7f0b005b;
-        public static final int action_uninstall=0x7f0b0050;
-        public static final int action_users=0x7f0b0059;
+        public static final int action_appinfo=0x7f0b0050;
+        public static final int action_change_wallpaper=0x7f0b0057;
+        public static final int action_dock_settings=0x7f0b005d;
+        public static final int action_files=0x7f0b005b;
+        public static final int action_grant_permissions=0x7f0b0059;
+        public static final int action_launch_fullscreen=0x7f0b0056;
+        public static final int action_launch_maximized=0x7f0b0054;
+        public static final int action_launch_modes=0x7f0b0052;
+        public static final int action_launch_portrait=0x7f0b0055;
+        public static final int action_launch_standard=0x7f0b0053;
+        public static final int action_manage=0x7f0b004f;
+        public static final int action_settings=0x7f0b0058;
+        public static final int action_system_settings=0x7f0b005c;
+        public static final int action_uninstall=0x7f0b0051;
+        public static final int action_users=0x7f0b005a;
         public static final int apps_btn=0x7f0b0030;
         public static final int apps_lv=0x7f0b0035;
         public static final int apps_separator=0x7f0b0010;
@@ -195,6 +195,7 @@ public final class R {
         public static final int search_tv=0x7f0b0014;
         public static final int service_btn=0x7f0b0002;
         public static final int soft_restart_btn=0x7f0b004c;
+        public static final int tasks_lv=0x7f0b004e;
         public static final int user_name_tv=0x7f0b000c;
         public static final int volume_btn=0x7f0b003a;
         public static final int wallpaper_color_container=0x7f0b0025;
@@ -218,6 +219,7 @@ public final class R {
         public static final int notification_white=0x7f04000d;
         public static final int pin_entry=0x7f04000e;
         public static final int power_menu=0x7f04000f;
+        public static final int task_list=0x7f040010;
     }
     public static final class menu {
         public static final int app_menu=0x7f0a0000;

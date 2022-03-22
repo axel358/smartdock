@@ -62,7 +62,7 @@ import android.widget.Toast;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.activities.MainActivity;
 import cu.axel.smartdock.adapters.AppAdapter;
-import cu.axel.smartdock.adapters.AppTaskAdapter;
+import cu.axel.smartdock.adapters.DockAppAdapter;
 import cu.axel.smartdock.db.DBHelper;
 import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.models.AppTask;
@@ -79,6 +79,11 @@ import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import android.graphics.Color;
+import cu.axel.smartdock.models.DockApp;
+import android.util.Log;
+import android.widget.ListView;
+import cu.axel.smartdock.adapters.AppTaskAdaper;
+import android.widget.Adapter;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener  
 {
@@ -235,17 +240,58 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         tasksGv.setOnItemClickListener(new OnItemClickListener(){
 
                 @Override
-                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
+                public void onItemClick(AdapterView<?> p1, View anchor, int p3, long p4)
                 {
-                    AppTask appTask = (AppTask) p1.getItemAtPosition(p3);
-                    ArrayList<Integer> taskIDs = appTask.getIds();
+                    DockApp app = (DockApp) p1.getItemAtPosition(p3);
+                    ArrayList<AppTask> tasks = app.getTasks();
                     
-                    if(taskIDs.size()>0)
-                        am.moveTaskToFront(taskIDs.get(0), 0);
-                    else
-                        launchApp(getDefaultLaunchMode(appTask.getPackageName()),appTask.getPackageName()); 
+                    if(tasks.size()==1){
+                        am.moveTaskToFront(tasks.get(0).getID(), 0);
+                        Toast.makeText(DockService.this, tasks.size()+"",5000).show();
+                        }
+                    else if(tasks.size()>1){
+                        final View view = LayoutInflater.from(DockService.this).inflate(R.layout.task_list, null);
+                        WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
+                        Utils.applyMainColor(sp, view);
+                        lp.gravity=Gravity.BOTTOM|Gravity.LEFT;
+                        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-                    if (getDefaultLaunchMode(appTask.getPackageName()).equals("fullscreen"))
+                        lp.y = Utils.dpToPx(DockService.this, Integer.parseInt(sp.getString("app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
+
+                        Rect rect = new Rect();
+                        anchor.getGlobalVisibleRect(rect);
+
+                        lp.x = rect.left;
+                        view.setOnTouchListener(new OnTouchListener(){
+
+                                @Override
+                                public boolean onTouch(View p1, MotionEvent p2)
+                                {
+                                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE)
+                                    {
+                                        wm.removeView(view);
+                                    }
+                                    return false;
+                                }
+                            });
+                            ListView tasksLv = view.findViewById(R.id.tasks_lv);
+                            tasksLv.setAdapter(new AppTaskAdaper(DockService.this, tasks));
+                            
+                        tasksLv.setOnItemClickListener(new OnItemClickListener(){
+
+                                @Override
+                                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+                                    am.moveTaskToFront(((AppTask) p1.getItemAtPosition(p3)).getID(), 0);
+                                    wm.removeView(view);
+                                }
+                            });
+                            
+                        wm.addView(view, lp);
+                    }
+                    else
+                        launchApp(getDefaultLaunchMode(app.getPackageName()),app.getPackageName()); 
+
+                    if (getDefaultLaunchMode(app.getPackageName()).equals("fullscreen"))
                     {
                         if (isPinned) 
                             unpinDock();
@@ -268,10 +314,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 @Override
                 public boolean onItemLongClick(AdapterView<?> p1, View anchor, int p3, long p4) {
 
-                    final String app = ((AppTask) p1.getItemAtPosition(p3)).getPackageName();
+                    final String app = ((DockApp) p1.getItemAtPosition(p3)).getPackageName();
                     
                     final View view = LayoutInflater.from(DockService.this).inflate(R.layout.pin_entry, null);
                     WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
+                    view.setBackgroundResource(R.drawable.round_rect);
                     Utils.applyMainColor(sp, view);
                     lp.gravity=Gravity.BOTTOM|Gravity.LEFT;
                     lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
@@ -1277,28 +1324,30 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private void updateRunningTasks()
     {
         //TODO: This is shitty needs opt asap
-        ArrayList<AppTask> apps = new ArrayList<AppTask>();
+        ArrayList<DockApp> apps = new ArrayList<DockApp>();
         
         for(App pinnedApp : pinnedApps){
-            apps.add(new AppTask(-1, pinnedApp.getPackageName(), pinnedApp.getIcon()));
+            apps.add(new DockApp(pinnedApp.getName(), pinnedApp.getPackageName(), pinnedApp.getIcon()));
         }
         
         ArrayList<AppTask> runningTasks = AppUtils.getRunningTasks(am, pm);
         ArrayList<AppTask> runningTasksLeft = new ArrayList(runningTasks);
         
-        for(AppTask app : apps){
+        for(DockApp app : apps){
             for(AppTask appTask : runningTasks){
                 if(appTask.getPackageName().equals(app.getPackageName())){
-                    app.addTask(appTask.getIds().get(0));
+                    app.addTask(appTask);
                     runningTasksLeft.remove(appTask);
                 }
             }
         }
         
-        apps.addAll(runningTasksLeft);
+        for(AppTask task:runningTasksLeft){
+            apps.add(new DockApp(task));
+        }
         
         tasksGv.getLayoutParams().width = Utils.dpToPx(this, 60) * apps.size();
-        tasksGv.setAdapter(new AppTaskAdapter(DockService.this, apps));
+        tasksGv.setAdapter(new DockAppAdapter(DockService.this, apps));
         
         //TODO: Move this outta here
         wifiBtn.setImageResource(wifiManager.isWifiEnabled()? R.drawable.ic_wifi_on : R.drawable.ic_wifi_off);

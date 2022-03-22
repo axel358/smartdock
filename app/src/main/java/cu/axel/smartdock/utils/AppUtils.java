@@ -58,7 +58,7 @@ public class AppUtils {
         return apps;
 	}
 
-    public static ArrayList<App> getPinnedApps(Context context,PackageManager pm, String type) {
+    public static ArrayList<App> getPinnedApps(Context context, PackageManager pm, String type) {
         ArrayList<App> apps = new ArrayList<App>();
 
         try {
@@ -162,6 +162,8 @@ public class AppUtils {
                     || taskInfo.baseActivity.getPackageName().contains("com.google.android.packageinstaller"))
                     continue;
 
+
+
                 //Hack to save Dock settings activity ftom being excluded
                 if (!taskInfo.topActivity.getClassName().equals("cu.axel.smartdock.activities.MainActivity") && taskInfo.topActivity.getPackageName().equals(AppUtils.getCurrentLauncher(pm)))
                     continue;
@@ -175,7 +177,7 @@ public class AppUtils {
                     } catch (Exception e) {}
                 }
 
-                appTasks.add(new AppTask(taskInfo.id, taskInfo.topActivity.getPackageName(), pm.getActivityIcon(taskInfo.topActivity)));
+                appTasks.add(new AppTask(taskInfo.id, pm.getActivityInfo(taskInfo.topActivity, 0).loadLabel(pm).toString(), taskInfo.topActivity.getPackageName(), pm.getActivityIcon(taskInfo.topActivity)));
             } catch (PackageManager.NameNotFoundException e) {}
         }
 
