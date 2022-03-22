@@ -273,12 +273,15 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     final View view = LayoutInflater.from(DockService.this).inflate(R.layout.pin_entry, null);
                     WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
                     Utils.applyMainColor(sp, view);
-                    lp.gravity=Gravity.BOTTOM;
+                    lp.gravity=Gravity.BOTTOM|Gravity.LEFT;
                     lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
                     
                     lp.y = Utils.dpToPx(DockService.this, Integer.parseInt(sp.getString("app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
                     
-                    lp.x = (int) anchor.getX() - anchor.getWidth();
+                    Rect rect = new Rect();
+                    anchor.getGlobalVisibleRect(rect);
+                    
+                    lp.x = rect.left;
                     view.setOnTouchListener(new OnTouchListener(){
 
                             @Override
