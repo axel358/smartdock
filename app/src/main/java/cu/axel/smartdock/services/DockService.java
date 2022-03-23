@@ -87,6 +87,7 @@ import android.widget.Adapter;
 import cu.axel.smartdock.utils.ColorUtils;
 import cu.axel.smartdock.adapters.AppActionsAdapter;
 import cu.axel.smartdock.models.Action;
+import cu.axel.smartdock.adapters.AppShortcutAdapter;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener  
 {
@@ -812,6 +813,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     
     public ArrayList<Action> getAppActions(String app){
         ArrayList<Action> actions = new ArrayList<Action>();
+        if(DeepShortcutManager.hasHostPermission(this)) {
+            if(DeepShortcutManager.getShortcuts(app, this).size()>0)
+                actions.add(new Action(R.drawable.ic_shortcuts, getString(R.string.shortcuts)));
+        }
         actions.add(new Action(R.drawable.ic_manage,getString(R.string.manage)));
         actions.add(new Action(R.drawable.ic_launch_mode,getString(R.string.open_in)));
         if (AppUtils.isPinned(DockService.this,app, AppUtils.PINNED_LIST))
@@ -1158,11 +1163,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void showAppContextMenu(final String app, View anchor)
     {
-        /*final DeepShortcutManager shortcutManager = new DeepShortcutManager(this);
-
-        if(shortcutManager.hasHostPermission()) {
-            new DeepShortcutManager(anchor.getContext()).addAppShortcutsToMenu(pmenu, app);
-        }*/
         
         final View view = LayoutInflater.from(DockService.this).inflate(R.layout.task_list, null);
         WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
@@ -1196,6 +1196,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
                 @Override
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+                    
+                   if(p1.getItemAtPosition(p3) instanceof Action){
                     Action action = (Action) p1.getItemAtPosition(p3);
                     if(action.getText().equals(getString(R.string.manage))){
                         ArrayList<Action> actions = new ArrayList<Action>();
@@ -1206,6 +1208,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                             actions.add(new Action(R.drawable.ic_freeze,getString(R.string.freeze)));
 
                         actionsLv.setAdapter(new AppActionsAdapter(DockService.this, actions));
+                    }else if(action.getText().equals(getString(R.string.shortcuts))){
+                        actionsLv.setAdapter(new AppShortcutAdapter(DockService.this, DeepShortcutManager.getShortcuts(app, DockService.this)));
                     }else if(action.getText().equals("")){
                         actionsLv.setAdapter(new AppActionsAdapter(DockService.this, getAppActions(app)));   
                     }else if(action.getText().equals(getString(R.string.open_in)))
@@ -1259,7 +1263,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         wm.removeView(view);
                         launchApp("fullscreen", app);
                     }
-
+                 }else if(p1.getItemAtPosition(p3) instanceof ShortcutInfo){
+                     ShortcutInfo shortcut = (ShortcutInfo) p1.getItemAtPosition(p3);
+                     wm.removeView(view);
+                     DeepShortcutManager.startShortcut(shortcut, DockService.this);
+                 }
                 }
             });
 
