@@ -149,7 +149,7 @@
     <string name="required_to_display_the_dock_">Required to display the Dock, you cannot start the service without this</string>
     <string name="accessibility_service">Accessibility service</string>
     <string name="use_this_to_start_and_stop_the">Use this to start and stop the Dock. Requires the above permission</string>
-    <string name="manage">Manage</string>
+    <string name="manage">Manage...</string>
     <string name="these_permissions_are_needed_b">These permissions are needed by some features</string>
     <string name="device_administrator">Device administrator</string>
     <string name="used_to_lock_the_screen">Used to lock the screen</string>
@@ -234,5 +234,15 @@
     
     <string name="wallpaper">Wallpaper</string>
     <string name="presets">Presets</string>
+    <string name="app_info">App Info</string>
+    <string name="uninstall">Uninstall</string>
+    <string name="open_in">Open in...</string>
+    <string name="shortcuts">Shortcuts</string>
+    
+    <string name="users">Users</string>
+    <string name="files">Files</string>
+    <string name="settings">Settings</string>
+    <string name="dock_settings">Dock Settings</string>
+    
     
 </resources>

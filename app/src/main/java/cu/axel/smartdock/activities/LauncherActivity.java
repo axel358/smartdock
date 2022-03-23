@@ -7,50 +7,49 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import cu.axel.smartdock.R;
+import cu.axel.smartdock.adapters.AppActionsAdapter;
+import cu.axel.smartdock.icons.IconParserUtilities;
+import cu.axel.smartdock.models.Action;
 import cu.axel.smartdock.models.App;
+import cu.axel.smartdock.services.DockService;
 import cu.axel.smartdock.utils.AppUtils;
+import cu.axel.smartdock.utils.ColorUtils;
 import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.widget.EditText;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import android.content.pm.ShortcutInfo;
-import cu.axel.smartdock.utils.DeepShortcutManager;
-import android.widget.Toast;
-import cu.axel.smartdock.icons.IconParserUtilities;
-import cu.axel.smartdock.utils.ColorUtils;
+import java.util.ArrayList;
 
 public class LauncherActivity extends Activity {
 	private LinearLayout backgroundLayout;
@@ -58,6 +57,7 @@ public class LauncherActivity extends Activity {
     private String state;
     private GridView appsGv;
     private EditText notesEt;
+    private SharedPreferences sp;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,6 +66,7 @@ public class LauncherActivity extends Activity {
         serviceBtn = findViewById(R.id.service_btn);
         appsGv = findViewById(R.id.desktop_apps_gv);
         notesEt = findViewById(R.id.notes_et);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         serviceBtn.setOnClickListener(new OnClickListener(){
 
@@ -144,7 +145,8 @@ public class LauncherActivity extends Activity {
         else
             serviceBtn.setVisibility(View.VISIBLE);
         loadDesktopApps();
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("show_notes", false)) {
+        
+        if (sp.getBoolean("show_notes", false)) {
             notesEt.setVisibility(View.VISIBLE);
             loadNotes();
 
@@ -159,7 +161,7 @@ public class LauncherActivity extends Activity {
 		super.onPause();
         state = "pause";
         sendBroadcastToService(state);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("show_notes", false))
+        if (sp.getBoolean("show_notes", false))
             saveNotes();
 
 	}
@@ -203,86 +205,115 @@ public class LauncherActivity extends Activity {
     public void launchApp(String mode, String app) {
         sendBroadcast(new Intent(getPackageName() + ".HOME").putExtra("action", "launch").putExtra("mode", mode).putExtra("app", app));
     }
+    
+    public ArrayList<Action> getAppActions(String app){
+        ArrayList<Action> actions = new ArrayList<Action>();
+        actions.add(new Action(R.drawable.ic_manage,getString(R.string.manage)));
+        actions.add(new Action(R.drawable.ic_launch_mode,getString(R.string.open_in)));
+        
+        if (AppUtils.isPinned(this,app, AppUtils.DESKTOP_LIST))
+            actions.add(new Action(R.drawable.ic_unpin, getString(R.string.unpin)));
 
-    private void showAppContextMenu(final String app, View p1) {
-        PopupMenu pmenu=new PopupMenu(new ContextThemeWrapper(LauncherActivity.this, R.style.PopupMenuTheme), p1);
+        return actions;
+    }
+    
+    public void showAppContextMenu(final String app, View anchor)
+    {
+        /*final DeepShortcutManager shortcutManager = new DeepShortcutManager(this);
 
-        Utils.setForceShowIcon(pmenu);
+         if(shortcutManager.hasHostPermission()) {
+         new DeepShortcutManager(anchor.getContext()).addAppShortcutsToMenu(pmenu, app);
+         }*/
+        final WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        final View view = LayoutInflater.from(this).inflate(R.layout.task_list, null);
+        WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
+        ColorUtils.applyMainColor(sp, view);
+        lp.gravity=Gravity.TOP|Gravity.LEFT;
+        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-        final DeepShortcutManager shortcutManager = new DeepShortcutManager(this);
+        Rect rect = new Rect();
+        anchor.getGlobalVisibleRect(rect);
 
-        if (shortcutManager.hasHostPermission()) {
-            new DeepShortcutManager(p1.getContext()).addAppShortcutsToMenu(pmenu, app);
-        }
+        lp.x = rect.left;
+        lp.y = rect.centerY();
 
-        pmenu.inflate(R.menu.app_menu);
-
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("allow_app_freeze", false)) {
-            MenuItem manageMenu = pmenu.getMenu().findItem(R.id.action_manage);
-            manageMenu.getSubMenu().add(0, 8, 0, R.string.freeze).setIcon(R.drawable.ic_freeze);
-        }
-        pmenu.getMenu().add(0, 4, 0, R.string.remove).setIcon(R.drawable.ic_unpin);
-
-        pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+        view.setOnTouchListener(new OnTouchListener(){
 
                 @Override
-                public boolean onMenuItemClick(MenuItem p1) {
-                    switch (p1.getItemId()) {
-                        case R.id.action_appinfo:
-                            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + app)));
-
-                            break;
-                        case R.id.action_uninstall:
-                            startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app)));
-                            break;
-                        case 4:
-                            AppUtils.unpinApp(LauncherActivity.this, app, AppUtils.DESKTOP_LIST);
-                            loadDesktopApps();
-                            break;
-                        case 7:
-                            //do nothing
-                            break;
-                        case 8:
-                            String status = DeviceUtils.runAsRoot("pm disable " + app);
-                            if (!status.equals("error"))
-                                Toast.makeText(LauncherActivity.this, R.string.app_frozen, Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(LauncherActivity.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
-                            break;
-                        case R.id.action_launch_modes:
-                            //do nothing
-                            break;
-                        case R.id.action_manage:
-                            //do nothing
-                            break;
-                        case R.id.action_launch_standard:
-                            launchApp("standard", app);
-                            break;
-                        case R.id.action_launch_maximized:
-                            launchApp("maximized", app);
-                            break;
-                        case R.id.action_launch_portrait:
-                            launchApp("portrait", app);
-                            break;
-                        case R.id.action_launch_fullscreen:
-                            launchApp("fullscreen", app);
-                            break;
-                        default:
-                            try {
-                                ShortcutInfo shortcut = DeepShortcutManager.shortcutInfoMap.get(p1.getItemId());
-                                if (shortcut != null) {
-                                    shortcutManager.startShortcut(shortcut, shortcut.getId(), null);
-                                }
-                            } catch (Exception ignored) {
-                                Toast.makeText(LauncherActivity.this, ignored.toString() + ignored.getMessage(), 5000).show();
-                            }
+                public boolean onTouch(View p1, MotionEvent p2)
+                {
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE)
+                    {
+                        wm.removeView(view);
                     }
                     return false;
                 }
             });
+        final ListView actionsLv = view.findViewById(R.id.tasks_lv);
 
-        pmenu.show();
+        actionsLv.setAdapter(new AppActionsAdapter(this, getAppActions(app)));
 
+        actionsLv.setOnItemClickListener(new OnItemClickListener(){
+
+                @Override
+                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+                    Action action = (Action) p1.getItemAtPosition(p3);
+                    if(action.getText().equals(getString(R.string.manage))){
+                        ArrayList<Action> actions = new ArrayList<Action>();
+                        actions.add(new Action(R.drawable.ic_arrow_back, ""));
+                        actions.add(new Action(R.drawable.ic_info, getString(R.string.app_info)));
+                        actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
+                        if(sp.getBoolean("allow_app_freeze", false))
+                            actions.add(new Action(R.drawable.ic_freeze,getString(R.string.freeze)));
+
+                        actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, actions));
+                    }else if(action.getText().equals("")){
+                        actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, getAppActions(app)));   
+                    }else if(action.getText().equals(getString(R.string.open_in)))
+                    {
+                        ArrayList<Action> actions = new ArrayList<Action>();
+                        actions.add(new Action(R.drawable.ic_arrow_back ,""));
+                        actions.add(new Action(R.drawable.ic_standard,getString(R.string.standard)));
+                        actions.add(new Action(R.drawable.ic_maximized,getString(R.string.maximized)));
+                        actions.add(new Action(R.drawable.ic_portrait,getString(R.string.portrait)));
+                        actions.add(new Action(R.drawable.ic_fullscreen,getString(R.string.fullscreen)));
+                        actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, actions));
+                    }else if(action.getText().equals(getString(R.string.app_info))){
+                        startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        wm.removeView(view);
+                    }else if(action.getText().equals(getString(R.string.uninstall))){
+                        startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        wm.removeView(view);
+                    }else if(action.getText().equals(getString(R.string.freeze))){
+                        String status = DeviceUtils.runAsRoot("pm disable "+app);
+                        if(!status.equals("error"))
+                            Toast.makeText(LauncherActivity.this, R.string.app_frozen, Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(LauncherActivity.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
+                        wm.removeView(view);
+                        loadDesktopApps();
+                    }else if(action.getText().equals(getString(R.string.unpin))){
+                        AppUtils.unpinApp(LauncherActivity.this,app, AppUtils.DESKTOP_LIST);
+                        wm.removeView(view);
+                        loadDesktopApps();
+                    }else if(action.getText().equals(getString(R.string.standard))){
+                        wm.removeView(view);
+                        launchApp("standard", app);
+                    }else if(action.getText().equals(getString(R.string.maximized))){
+                        wm.removeView(view);
+                        launchApp("maximized", app);
+                    }else if(action.getText().equals(getString(R.string.portrait))){
+                        wm.removeView(view);
+                        launchApp("portrait", app);
+                    }else if(action.getText().equals(getString(R.string.fullscreen))){
+                        wm.removeView(view);
+                        launchApp("fullscreen", app);
+                    }
+
+                }
+            });
+
+        wm.addView(view, lp);
     }
 
     public class AppAdapterDesktop extends ArrayAdapter<App> {
@@ -291,7 +322,6 @@ public class LauncherActivity extends Activity {
         public AppAdapterDesktop(Context context, ArrayList<App> apps) {
             super(context, R.layout.app_entry_desktop, apps);
             this.context = context;
-            SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(context);
             iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "4")) + 3);
             switch (sp.getString("icon_shape", "circle")) {
                 case "circle":
@@ -321,7 +351,7 @@ public class LauncherActivity extends Activity {
 
             IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
 
-            if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming", false))
+            if (sp.getBoolean("icon_theming", false))
                 iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
             else 
                 iconIv.setImageDrawable(app.getIcon());

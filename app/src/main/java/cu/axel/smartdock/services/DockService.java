@@ -85,6 +85,8 @@ import android.widget.ListView;
 import cu.axel.smartdock.adapters.AppTaskAdaper;
 import android.widget.Adapter;
 import cu.axel.smartdock.utils.ColorUtils;
+import cu.axel.smartdock.adapters.AppActionsAdapter;
+import cu.axel.smartdock.models.Action;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener  
 {
@@ -618,14 +620,17 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         appsGv.setOnItemLongClickListener(new OnItemLongClickListener(){
 
                 @Override
-                public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4)
+                public boolean onItemLongClick(AdapterView<?> p1, View anchor, int p3, long p4)
                 {
-                    App app = (App) p1.getItemAtPosition(p3);
-                    if(!app.getPackageName().equals(getPackageName()+".calc"))                        
-                        showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), p2);
+                    final String app = ((App) p1.getItemAtPosition(p3)).getPackageName();
+                    
+                    if(!app.equals(getPackageName()+".calc")){                   
+                        showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), anchor);
+                        }
                     return true;
                 }
             });
+            
 
         favoritesGv.setOnItemClickListener(new OnItemClickListener(){
 
@@ -803,6 +808,21 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         else
             hideDock(2000);
 
+    }
+    
+    public ArrayList<Action> getAppActions(String app){
+        ArrayList<Action> actions = new ArrayList<Action>();
+        actions.add(new Action(R.drawable.ic_manage,getString(R.string.manage)));
+        actions.add(new Action(R.drawable.ic_launch_mode,getString(R.string.open_in)));
+        if (AppUtils.isPinned(DockService.this,app, AppUtils.PINNED_LIST))
+            actions.add(new Action(R.drawable.ic_unpin,getString(R.string.unpin)));
+        else
+            actions.add(new Action(R.drawable.ic_pin,getString(R.string.pin)));
+
+        if (!AppUtils.isPinned(DockService.this,app, AppUtils.DESKTOP_LIST))
+            actions.add(new Action(R.drawable.ic_add_to_desktop, getString(R.string.to_desktop)));
+            
+        return actions;
     }
 
     @Override
@@ -1138,137 +1158,169 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void showAppContextMenu(final String app, View anchor)
     {
-        PopupMenu pmenu = new PopupMenu(new ContextThemeWrapper(DockService.this, R.style.PopupMenuTheme), anchor);
-
-        Utils.setForceShowIcon(pmenu);
-
-        final DeepShortcutManager shortcutManager = new DeepShortcutManager(anchor.getContext());
+        /*final DeepShortcutManager shortcutManager = new DeepShortcutManager(this);
 
         if(shortcutManager.hasHostPermission()) {
             new DeepShortcutManager(anchor.getContext()).addAppShortcutsToMenu(pmenu, app);
-        }
+        }*/
         
-        pmenu.inflate(R.menu.app_menu);
-        
-        if(sp.getBoolean("allow_app_freeze", false)){
-            MenuItem manageMenu = pmenu.getMenu().findItem(R.id.action_manage);
-            manageMenu.getSubMenu().add(0, 8, 0, R.string.freeze).setIcon(R.drawable.ic_freeze);
-        }
-        
-        if (AppUtils.isPinned(this,app, AppUtils.PINNED_LIST))
-            pmenu.getMenu().add(0, 4, 0, R.string.unpin).setIcon(R.drawable.ic_unpin);
-        else
-            pmenu.getMenu().add(0, 3, 0, R.string.pin).setIcon(R.drawable.ic_pin);
-      
-        if (!AppUtils.isPinned(this,app, AppUtils.DESKTOP_LIST))
-            pmenu.getMenu().add(0, 5, 0, R.string.to_desktop).setIcon(R.drawable.ic_add_to_desktop);
-            
+        final View view = LayoutInflater.from(DockService.this).inflate(R.layout.task_list, null);
+        WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
+        ColorUtils.applyMainColor(sp, view);
+        lp.gravity=Gravity.TOP|Gravity.LEFT;
+        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-        pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+        Rect rect = new Rect();
+        anchor.getGlobalVisibleRect(rect);
+
+        lp.x = rect.left;
+        lp.y = rect.centerY();
+
+        view.setOnTouchListener(new OnTouchListener(){
 
                 @Override
-                public boolean onMenuItemClick(MenuItem p1)
+                public boolean onTouch(View p1, MotionEvent p2)
                 {
-                    switch (p1.getItemId())
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE)
                     {
-                        case R.id.action_appinfo:
-                            launchApp("standard", new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                            break;
-                        case R.id.action_uninstall:
-                            startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                            hideAppMenu();
-                            break;
-                        case 3:
-                            AppUtils.pinApp(DockService.this, app, AppUtils.PINNED_LIST);
-                            loadFavoriteApps();
-                            break;
-                        case 4:
-                            AppUtils.unpinApp(DockService.this,app, AppUtils.PINNED_LIST);
-                            loadFavoriteApps();
-                            break;
-                        case 5:
-                            AppUtils.pinApp(DockService.this, app, AppUtils.DESKTOP_LIST);
-                            sendBroadcast(new Intent(getPackageName() + ".SERVICE").putExtra("action", "PINNED"));
-                            break;
-                        case 7:
-                            //do nothing
-                            break;
-                        case 8:
-                            String status = DeviceUtils.runAsRoot("pm disable "+app);
-                            if(!status.equals("error"))
-                                Toast.makeText(DockService.this, R.string.app_frozen, Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(DockService.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
-                            hideAppMenu();
-                            break;
-                        case R.id.action_launch_modes:
-                            //do nothing
-                            break;
-                        case R.id.action_manage:
-                            //do nothing
-                            break;
-                        case R.id.action_launch_standard:
-                            launchApp("standard", app);
-                            break;
-                        case R.id.action_launch_maximized:
-                            launchApp("maximized", app);
-                            break;
-                        case R.id.action_launch_portrait:
-                            launchApp("portrait", app);
-                            break;
-                        case R.id.action_launch_fullscreen:
-                            launchApp("fullscreen", app);
-                            break;
-                        default:
-                            try {
-                                ShortcutInfo shortcut = DeepShortcutManager.shortcutInfoMap.get(p1.getItemId());
-                                if (shortcut != null) {
-                                    shortcutManager.startShortcut(shortcut, shortcut.getId(), null);
-                                }
-                            } catch (Exception ignored) {
-                                Toast.makeText(DockService.this, ignored +ignored.getMessage(),5000).show();
-                            }
-                            hideAppMenu();
+                        wm.removeView(view);
                     }
                     return false;
                 }
             });
+        final ListView actionsLv = view.findViewById(R.id.tasks_lv);
 
-        pmenu.show();
+        actionsLv.setAdapter(new AppActionsAdapter(DockService.this, getAppActions(app)));
 
+        actionsLv.setOnItemClickListener(new OnItemClickListener(){
+
+                @Override
+                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+                    Action action = (Action) p1.getItemAtPosition(p3);
+                    if(action.getText().equals(getString(R.string.manage))){
+                        ArrayList<Action> actions = new ArrayList<Action>();
+                        actions.add(new Action(R.drawable.ic_arrow_back, ""));
+                        actions.add(new Action(R.drawable.ic_info, getString(R.string.app_info)));
+                        actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
+                        if(sp.getBoolean("allow_app_freeze", false))
+                            actions.add(new Action(R.drawable.ic_freeze,getString(R.string.freeze)));
+
+                        actionsLv.setAdapter(new AppActionsAdapter(DockService.this, actions));
+                    }else if(action.getText().equals("")){
+                        actionsLv.setAdapter(new AppActionsAdapter(DockService.this, getAppActions(app)));   
+                    }else if(action.getText().equals(getString(R.string.open_in)))
+                    {
+                        ArrayList<Action> actions = new ArrayList<Action>();
+                        actions.add(new Action(R.drawable.ic_arrow_back ,""));
+                        actions.add(new Action(R.drawable.ic_standard,getString(R.string.standard)));
+                        actions.add(new Action(R.drawable.ic_maximized,getString(R.string.maximized)));
+                        actions.add(new Action(R.drawable.ic_portrait,getString(R.string.portrait)));
+                        actions.add(new Action(R.drawable.ic_fullscreen,getString(R.string.fullscreen)));
+                        actionsLv.setAdapter(new AppActionsAdapter(DockService.this, actions));
+                    }else if(action.getText().equals(getString(R.string.app_info))){
+                        launchApp("standard", new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        wm.removeView(view);
+                    }else if(action.getText().equals(getString(R.string.uninstall))){
+                        startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        if (appMenuVisible)
+                            hideAppMenu();
+                        wm.removeView(view);
+                    }else if(action.getText().equals(getString(R.string.freeze))){
+                        String status = DeviceUtils.runAsRoot("pm disable "+app);
+                        if(!status.equals("error"))
+                            Toast.makeText(DockService.this, R.string.app_frozen, Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(DockService.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
+                        wm.removeView(view);
+                        if (appMenuVisible)
+                            hideAppMenu();
+                    }else if(action.getText().equals(getString(R.string.pin))){
+                        AppUtils.pinApp(DockService.this, app, AppUtils.PINNED_LIST);
+                        wm.removeView(view);
+                        loadFavoriteApps();
+                    }else if(action.getText().equals(getString(R.string.unpin))){
+                        AppUtils.unpinApp(DockService.this,app, AppUtils.PINNED_LIST);
+                        wm.removeView(view);
+                        loadFavoriteApps();
+                    }else if(action.getText().equals(getString(R.string.to_desktop))){
+                        AppUtils.pinApp(DockService.this, app, AppUtils.DESKTOP_LIST);
+                        sendBroadcast(new Intent(getPackageName() + ".SERVICE").putExtra("action", "PINNED"));
+                        wm.removeView(view);
+                    }else if(action.getText().equals(getString(R.string.standard))){
+                        wm.removeView(view);
+                        launchApp("standard", app);
+                    }else if(action.getText().equals(getString(R.string.maximized))){
+                        wm.removeView(view);
+                        launchApp("maximized", app);
+                    }else if(action.getText().equals(getString(R.string.portrait))){
+                        wm.removeView(view);
+                        launchApp("portrait", app);
+                    }else if(action.getText().equals(getString(R.string.fullscreen))){
+                        wm.removeView(view);
+                        launchApp("fullscreen", app);
+                    }
+
+                }
+            });
+
+        wm.addView(view, lp);
     }
 
     public void showUserContextMenu(View anchor)
     {
-        PopupMenu pmenu=new PopupMenu(new ContextThemeWrapper(DockService.this, R.style.PopupMenuTheme), anchor);
+        final View view = LayoutInflater.from(DockService.this).inflate(R.layout.task_list, null);
+        WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
+        ColorUtils.applyMainColor(sp, view);
+        lp.gravity=Gravity.TOP|Gravity.LEFT;
+        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-        Utils.setForceShowIcon(pmenu);
+        Rect rect = new Rect();
+        anchor.getGlobalVisibleRect(rect);
 
-        pmenu.inflate(R.menu.menu_user);
-        pmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+        lp.x = rect.left;
+        lp.y = rect.bottom;
+
+        view.setOnTouchListener(new OnTouchListener(){
 
                 @Override
-                public boolean onMenuItemClick(MenuItem p1)
+                public boolean onTouch(View p1, MotionEvent p2)
                 {
-                    switch (p1.getItemId())
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE)
                     {
-                        case R.id.action_users:
-                            launchApp("standard", new Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                            break;
-                        case R.id.action_files:
-                            launchApp("standard", "com.android.documentsui");
-                            break;
-                        case R.id.action_system_settings:
-                            launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                            break;
-                        case R.id.action_dock_settings:
-                            launchApp("standard", new Intent(DockService.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));    
-
+                        wm.removeView(view);
                     }
                     return false;
                 }
             });
-        pmenu.show();
+        final ListView actionsLv = view.findViewById(R.id.tasks_lv);
+
+        ArrayList<Action> actions = new ArrayList<Action>();
+        actions.add(new Action(R.drawable.ic_users,getString(R.string.users)));
+        actions.add(new Action(R.drawable.ic_user_folder,getString(R.string.files)));
+        actions.add(new Action(R.drawable.ic_user_settings,getString(R.string.settings)));
+        actions.add(new Action(R.drawable.ic_settings,getString(R.string.dock_settings)));
+        
+        
+        actionsLv.setAdapter(new AppActionsAdapter(DockService.this, actions));
+
+        actionsLv.setOnItemClickListener(new OnItemClickListener(){
+
+                @Override
+                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+                    Action action = (Action) p1.getItemAtPosition(p3);
+                    if(action.getText().equals(getString(R.string.users)))
+                         launchApp("standard", new Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    else if(action.getText().equals(getString(R.string.files)))
+                            launchApp("standard", "com.android.documentsui");
+                    else if(action.getText().equals(getString(R.string.settings)))
+                            launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    else if(action.getText().equals(getString(R.string.dock_settings)))
+                            launchApp("standard", new Intent(DockService.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    
+                    wm.removeView(view);
+                }
+        });
+        wm.addView(view, lp);
     }
 
     @Override

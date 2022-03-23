@@ -136,7 +136,7 @@ public class DeepShortcutManager {
         if (shortcutManager.hasHostPermission()) {
             List<ShortcutInfo> shortcuts = shortcutManager.queryForShortcutsContainer(packageItem, null);
             if (shortcuts != null && shortcuts.size() != 0) {
-                SubMenu  shortcutsMenu = menu.getMenu().addSubMenu(0, 7, 0, "Shortcuts").setIcon(R.drawable.ic_shortcuts);
+                SubMenu  shortcutsMenu = menu.getMenu().addSubMenu(0, 7, 0, R.string.shortcuts).setIcon(R.drawable.ic_shortcuts);
                 int i = 0;
                 for (ShortcutInfo sc : shortcuts) {
                     int shortcutMenuID = 10 + i++;

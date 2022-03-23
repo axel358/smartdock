@@ -4,11 +4,12 @@
 	android:orientation="vertical"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:padding="10dp"
-	android:background="@drawable/round_rect">
+	android:padding="5dp"
+	android:background="@drawable/round_rect"
+	android:elevation="5dp">
 
 	<ListView
-        android:divider="@null"
+		android:divider="@null"
 		android:layout_height="wrap_content"
 		android:layout_width="180dp"
 		android:id="@+id/tasks_lv"/>

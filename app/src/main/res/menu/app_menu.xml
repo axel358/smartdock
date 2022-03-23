@@ -2,41 +2,41 @@
     <item
         android:id="@+id/action_manage"
         android:icon="@drawable/ic_manage"
-        android:title="Manage">
+        android:title="@string/manage">
         <menu>
             <item
                 android:icon="@drawable/ic_info"
                 android:id="@+id/action_appinfo"
-                android:title="App Info"/>
+                android:title="@string/app_info"/>
 
             <item
                 android:icon="@drawable/ic_uninstall"
                 android:id="@+id/action_uninstall"
-                android:title="Uninstall"/>
+                android:title="@string/uninstall"/>
         </menu>
     </item>
     <item
         android:id="@+id/action_launch_modes"
         android:icon="@drawable/ic_launch_mode"
-        android:title="Open in">
+        android:title="@string/open_in">
         <menu>
             <item
                 android:icon="@drawable/ic_standard"
                 android:id="@+id/action_launch_standard"
-                android:title="Standard"/>
+                android:title="@string/standard"/>
             <item
                 android:icon="@drawable/ic_maximized"
                 android:id="@+id/action_launch_maximized"
-                android:title="Maximized"/>
+                android:title="@string/maximized"/>
 
             <item
                 android:icon="@drawable/ic_portrait"
                 android:id="@+id/action_launch_portrait"
-                android:title="Portrait"/>
+                android:title="@string/portrait"/>
             <item
                 android:icon="@drawable/ic_fullscreen"
                 android:id="@+id/action_launch_fullscreen"
-                android:title="Fullscreen"/>
+                android:title="@string/fullscreen"/>
         </menu>
     </item>
 </menu>
