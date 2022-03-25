@@ -21,11 +21,13 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
     private final Context context;
     private int iconBackground;
     private final int iconPadding;
+    private boolean iconTheming;
     public DockAppAdapter(Context context, ArrayList<DockApp> apps)
     {
         super(context, R.layout.app_task_entry, apps);
         this.context = context;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        iconTheming = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false);
         iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "4")));
         switch (sp.getString("icon_shape", "circle"))
         {
@@ -54,8 +56,9 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
             holder = (ViewHolder) convertView.getTag();
 
         DockApp app = getItem(position);
-        
-        holder.runningIndicator.setAlpha(app.getTasks().size() > 0? 1f : 0);
+ 
+        int size = app.getTasks().size();
+        holder.runningIndicator.setAlpha(size > 0 ? 1f : 0);
 
 
         if (iconBackground != -1)
@@ -66,7 +69,7 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
 
         IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
 
-        if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false))
+        if(iconTheming || size > 1)
             holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
         else
             holder.iconIv.setImageDrawable(app.getIcon());

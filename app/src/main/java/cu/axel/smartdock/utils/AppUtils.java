@@ -162,10 +162,9 @@ public class AppUtils {
                     || taskInfo.baseActivity.getPackageName().contains("com.google.android.packageinstaller"))
                     continue;
 
-
-
                 //Hack to save Dock settings activity ftom being excluded
-                if (!taskInfo.topActivity.getClassName().equals("cu.axel.smartdock.activities.MainActivity") && taskInfo.topActivity.getPackageName().equals(AppUtils.getCurrentLauncher(pm)))
+                if (!taskInfo.topActivity.getClassName().equals("cu.axel.smartdock.activities.MainActivity") 
+                    && taskInfo.topActivity.getPackageName().equals(AppUtils.getCurrentLauncher(pm)))
                     continue;
 
                 if (Build.VERSION.SDK_INT > 29) {

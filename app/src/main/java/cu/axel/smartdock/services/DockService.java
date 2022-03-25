@@ -1391,17 +1391,18 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     private void updateRunningTasks()
     {
-        //TODO: This is shitty needs opt asap
         ArrayList<DockApp> apps = new ArrayList<DockApp>();
         
         for(App pinnedApp : pinnedApps){
             apps.add(new DockApp(pinnedApp.getName(), pinnedApp.getPackageName(), pinnedApp.getIcon()));
         }
+       
+       //TODO: We can eliminate another for
+       ArrayList<AppTask> tasks = AppUtils.getRunningTasks(am, pm);
         
-        ArrayList<AppTask> tasks = AppUtils.getRunningTasks(am, pm);
         
-        
-       for(AppTask task : tasks){
+       for(int j = 1; j <= tasks.size() ; j ++){
+           AppTask task = tasks.get(tasks.size() - j);
            int i = containsTask(apps, task);
            if(i != -1)
                apps.get(i).addTask(task);

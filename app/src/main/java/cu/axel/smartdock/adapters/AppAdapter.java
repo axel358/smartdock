@@ -26,6 +26,9 @@ public class AppAdapter extends ArrayAdapter<App>
         private final int iconPadding;
         private ArrayList<App> apps, originalList;
         private AppFilter filter;
+        private boolean iconTheming;
+        private IconParserUtilities iconParserUtilities;
+        
         public AppAdapter(Context context, ArrayList<App> apps)
         {
             super(context, R.layout.app_entry, apps);
@@ -33,7 +36,10 @@ public class AppAdapter extends ArrayAdapter<App>
             this.apps = apps;
             this.originalList = new ArrayList<App>(apps);
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+            iconParserUtilities = new IconParserUtilities(context);
             iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("padding", "4")));
+            iconTheming = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false);
+            
             switch (sp.getString("icon_shape", "circle"))
             {
                 case "circle":
@@ -72,12 +78,8 @@ public class AppAdapter extends ArrayAdapter<App>
                 holder.iconIv.setBackgroundResource(iconBackground);
             }
 
-            IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
-            /*
-            persuade the adapter to reload icons with a switch
-            probably could use just getPackagedThemedIcon but as a fallback to the shared preference listener
-             */
-            if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false))
+           
+            if(iconTheming)
                 holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
             else
                 holder.iconIv.setImageDrawable(app.getIcon());
