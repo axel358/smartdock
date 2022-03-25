@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import android.content.SharedPreferences;
 import cu.axel.smartdock.models.DockApp;
 import cu.axel.smartdock.utils.ColorUtils;
+import android.widget.TextView;
 
 public class DockAppAdapter extends ArrayAdapter<DockApp> 
 {
@@ -51,6 +52,7 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
             holder = new ViewHolder();
             holder.iconIv = convertView.findViewById(R.id.icon_iv);
             holder.runningIndicator = convertView.findViewById(R.id.running_indicator);
+            holder.taskCounter=convertView.findViewById(R.id.task_count_badge);
             convertView.setTag(holder);
         }else
             holder = (ViewHolder) convertView.getTag();
@@ -59,6 +61,12 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
  
         int size = app.getTasks().size();
         holder.runningIndicator.setAlpha(size > 0 ? 1f : 0);
+        
+        if(size>1){
+            holder.taskCounter.setText(""+size);
+        }else{
+            holder.taskCounter.setAlpha(0);
+        }
 
 
         if (iconBackground != -1)
@@ -82,6 +90,7 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
     private class ViewHolder
     {
         ImageView iconIv;
+        TextView taskCounter;
         View runningIndicator;
     }
 }
