@@ -1380,6 +1380,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     private void loadPinnedApps(){
         pinnedApps = AppUtils.getPinnedApps(DockService.this,pm, AppUtils.DOCK_PINNED_LIST);
     }
+    
+    public int containsTask(ArrayList<DockApp> apps, AppTask task){
+        for(int i = 0; i<apps.size(); i++){
+            if(apps.get(i).getPackageName().equals(task.getPackageName()))
+                return i;
+        }
+        return -1;
+    }
 
     private void updateRunningTasks()
     {
@@ -1390,21 +1398,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             apps.add(new DockApp(pinnedApp.getName(), pinnedApp.getPackageName(), pinnedApp.getIcon()));
         }
         
-        ArrayList<AppTask> runningTasks = AppUtils.getRunningTasks(am, pm);
-        ArrayList<AppTask> runningTasksLeft = new ArrayList(runningTasks);
+        ArrayList<AppTask> tasks = AppUtils.getRunningTasks(am, pm);
         
-        for(DockApp app : apps){
-            for(AppTask appTask : runningTasks){
-                if(appTask.getPackageName().equals(app.getPackageName())){
-                    app.addTask(appTask);
-                    runningTasksLeft.remove(appTask);
-                }
-            }
-        }
         
-        for(AppTask task:runningTasksLeft){
-            apps.add(new DockApp(task));
-        }
+       for(AppTask task : tasks){
+           int i = containsTask(apps, task);
+           if(i != -1)
+               apps.get(i).addTask(task);
+           else
+               apps.add(new DockApp(task));
+       }
         
         tasksGv.getLayoutParams().width = Utils.dpToPx(this, 60) * apps.size();
         tasksGv.setAdapter(new DockAppAdapter(DockService.this, apps));
