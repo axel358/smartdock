@@ -1499,6 +1499,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         ImageButton softRestartBtn = powerMenu.findViewById(R.id.soft_restart_btn);
         ImageButton screenshotBtn = powerMenu.findViewById(R.id.screenshot_btn);
         
+        ColorUtils.applySecondaryColor(sp, powerOffBtn);
+        ColorUtils.applySecondaryColor(sp, restartBtn);
+        ColorUtils.applySecondaryColor(sp, softRestartBtn);
+        ColorUtils.applySecondaryColor(sp, screenshotBtn);
+        
         powerOffBtn.setOnClickListener(new OnClickListener(){
 
                 @Override

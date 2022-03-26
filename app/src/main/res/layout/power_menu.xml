@@ -6,7 +6,8 @@
 	android:layout_height="400dp"
 	android:padding="10dp"
 	android:background="@drawable/round_rect"
-	android:gravity="center_horizontal">
+	android:gravity="center_horizontal"
+	android:elevation="5dp">
 
 	<LinearLayout
 		android:layout_height="wrap_content"
@@ -20,7 +21,8 @@
 			android:layout_height="60dp"
 			android:layout_width="60dp"
 			android:src="@drawable/ic_power"
-			android:id="@+id/power_off_btn"/>
+			android:id="@+id/power_off_btn"
+			android:background="@drawable/circle"/>
 
 		<TextView
 			android:layout_height="wrap_content"
@@ -43,7 +45,8 @@
 			android:layout_height="60dp"
 			android:layout_width="60dp"
 			android:src="@drawable/ic_restart"
-			android:id="@+id/restart_btn"/>
+			android:id="@+id/restart_btn"
+			android:background="@drawable/circle"/>
 
 		<TextView
 			android:layout_height="wrap_content"
@@ -66,7 +69,8 @@
 			android:layout_height="60dp"
 			android:layout_width="60dp"
 			android:src="@drawable/ic_soft_restart"
-			android:id="@+id/soft_restart_btn"/>
+			android:id="@+id/soft_restart_btn"
+			android:background="@drawable/circle"/>
 
 		<TextView
 			android:layout_height="wrap_content"
@@ -89,7 +93,8 @@
 			android:layout_height="60dp"
 			android:layout_width="60dp"
 			android:src="@drawable/ic_screenshot"
-			android:id="@+id/screenshot_btn"/>
+			android:id="@+id/screenshot_btn"
+			android:background="@drawable/circle"/>
 
 		<TextView
 			android:layout_height="wrap_content"
