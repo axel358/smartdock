@@ -353,10 +353,7 @@ public class LauncherActivity extends Activity {
             TextView nameTv=convertView.findViewById(R.id.desktop_app_name_tv);
             final App app = getItem(position);
             nameTv.setText(app.getName());
-            if (iconBackground != -1) {
-                iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-                iconIv.setBackgroundResource(iconBackground);
-            }
+            
 
             IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
 
@@ -365,8 +362,13 @@ public class LauncherActivity extends Activity {
             else 
                 iconIv.setImageDrawable(app.getIcon());
                 
-            ColorUtils.applyColor(iconIv, ColorUtils.getDrawableDominantColor(iconIv.getDrawable()));
-
+            if (iconBackground != -1) {
+                iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
+                iconIv.setBackgroundResource(iconBackground);
+                ColorUtils.applyColor(iconIv, ColorUtils.getDrawableDominantColor(iconIv.getDrawable()));
+                
+            }
+            
             convertView.setOnTouchListener(new OnTouchListener(){
 
                     @Override

@@ -69,20 +69,21 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
         }
 
 
-        if (iconBackground != -1)
-        {
-            holder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-            holder.iconIv.setBackgroundResource(iconBackground);
-        }
-
         IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
 
         if(iconTheming || size > 1)
             holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
         else
             holder.iconIv.setImageDrawable(app.getIcon());
+            
         
-        ColorUtils.applyColor(holder.iconIv, ColorUtils.getDrawableDominantColor(holder.iconIv.getDrawable()));
+        if (iconBackground != -1)
+        {
+            holder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
+            holder.iconIv.setBackgroundResource(iconBackground);
+            ColorUtils.applyColor(holder.iconIv, ColorUtils.getDrawableDominantColor(holder.iconIv.getDrawable()));
+        }
+        
         
         return convertView;
     }

@@ -71,12 +71,6 @@ public class AppAdapter extends ArrayAdapter<App>
             
             final App app = apps.get(position);
             holder.nameTv.setText(app.getName());
-            
-            if (iconBackground != -1)
-            {
-                holder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-                holder.iconIv.setBackgroundResource(iconBackground);
-            }
 
            
             if(iconTheming)
@@ -84,8 +78,14 @@ public class AppAdapter extends ArrayAdapter<App>
             else
                 holder.iconIv.setImageDrawable(app.getIcon());
                 
-            ColorUtils.applyColor(holder.iconIv, ColorUtils.getDrawableDominantColor(holder.iconIv.getDrawable()));
-
+            if (iconBackground != -1)
+            {
+                holder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
+                holder.iconIv.setBackgroundResource(iconBackground);
+                ColorUtils.applyColor(holder.iconIv, ColorUtils.getDrawableDominantColor(holder.iconIv.getDrawable()));
+                
+            }
+            
             convertView.setOnTouchListener(new OnTouchListener(){
 
                     @Override

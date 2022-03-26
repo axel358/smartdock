@@ -10,6 +10,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ColorUtils {
 
@@ -62,10 +65,15 @@ public class ColorUtils {
         return getDrawableDominantColor(wallpaperDrawable);
     }
 
-    public static int getBitmapDominantColor(Bitmap bitmap) {
+    public static int getBitmapDominantColorl(Bitmap bitmap) {
         Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true);
         final int color = newBitmap.getPixel(0, 0);
         newBitmap.recycle();
+        return color;
+    }
+    
+    public static int getBitmapDominantColor(Bitmap bitmap) {
+        int color = bitmap.getPixel(bitmap.getWidth()/2, bitmap.getHeight()/7);
         return color;
     }
     
