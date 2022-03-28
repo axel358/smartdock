@@ -1,21 +1,22 @@
 package cu.axel.smartdock.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.icons.IconParserUtilities;
-import cu.axel.smartdock.models.AppTask;
-import cu.axel.smartdock.utils.Utils;
-import java.util.ArrayList;
-import android.content.SharedPreferences;
 import cu.axel.smartdock.models.DockApp;
 import cu.axel.smartdock.utils.ColorUtils;
-import android.widget.TextView;
+import cu.axel.smartdock.utils.Utils;
+import java.util.ArrayList;
 
 public class DockAppAdapter extends ArrayAdapter<DockApp> 
 {
@@ -23,10 +24,12 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
     private int iconBackground;
     private final int iconPadding;
     private boolean iconTheming;
-    public DockAppAdapter(Context context, ArrayList<DockApp> apps)
+    private TaskRightClickListener rightClickListener;
+    public DockAppAdapter(Context context, TaskRightClickListener listener, ArrayList<DockApp> apps)
     {
         super(context, R.layout.app_task_entry, apps);
         this.context = context;
+        rightClickListener = listener;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         iconTheming = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming",false);
         iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "4")));
@@ -57,7 +60,7 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
         }else
             holder = (ViewHolder) convertView.getTag();
 
-        DockApp app = getItem(position);
+        final DockApp app = getItem(position);
  
         int size = app.getTasks().size();
         holder.runningIndicator.setAlpha(size > 0 ? 1f : 0);
@@ -84,6 +87,18 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
             ColorUtils.applyColor(holder.iconIv, ColorUtils.getDrawableDominantColor(holder.iconIv.getDrawable()));
         }
         
+        convertView.setOnTouchListener(new OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View p1, MotionEvent p2) {
+                    if (p2.getButtonState() == MotionEvent.BUTTON_SECONDARY) {
+                        rightClickListener.onTaskRightClick(app.getPackageName(), p1);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        
         
         return convertView;
     }
@@ -93,5 +108,9 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
         ImageView iconIv;
         TextView taskCounter;
         View runningIndicator;
+    }
+    
+    public interface TaskRightClickListener {
+        public abstract void onTaskRightClick(String app, View view)
     }
 }

@@ -89,9 +89,10 @@ import cu.axel.smartdock.adapters.AppActionsAdapter;
 import cu.axel.smartdock.models.Action;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
 
-public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener , AppAdapter.AppRightClickListener
-{   
-    
+public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, 
+                                                                 View.OnTouchListener , AppAdapter.AppRightClickListener, DockAppAdapter.TaskRightClickListener
+{
+       
     private PackageManager pm;
     private SharedPreferences sp;
     private ActivityManager am;
@@ -319,62 +320,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 public boolean onItemLongClick(AdapterView<?> p1, View anchor, int p3, long p4) {
 
                     final String app = ((DockApp) p1.getItemAtPosition(p3)).getPackageName();
-                    
-                    final View view = LayoutInflater.from(DockService.this).inflate(R.layout.pin_entry, null);
-                    WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
-                    view.setBackgroundResource(R.drawable.round_rect);
-                    ColorUtils.applyMainColor(sp, view);
-                    lp.gravity=Gravity.BOTTOM|Gravity.LEFT;
-                    lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
-                    
-                    lp.y = Utils.dpToPx(DockService.this, Integer.parseInt(sp.getString("app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
-                    
-                    Rect rect = new Rect();
-                    anchor.getGlobalVisibleRect(rect);
-                    
-                    lp.x = rect.left;
-                    view.setOnTouchListener(new OnTouchListener(){
-
-                            @Override
-                            public boolean onTouch(View p1, MotionEvent p2)
-                            {
-                                if (p2.getAction() == MotionEvent.ACTION_OUTSIDE)
-                                {
-                                    wm.removeView(view);
-                                }
-                                return false;
-                            }
-                        });
-                        
-                    ImageView icon = view.findViewById(R.id.pin_entry_iv);
-                    ColorUtils.applySecondaryColor(sp, icon);
-                    TextView text = view.findViewById(R.id.pin_entry_tv);
-                    
-                    if(AppUtils.isPinned(DockService.this,app, AppUtils.DOCK_PINNED_LIST)){
-                        icon.setImageResource(R.drawable.ic_unpin);
-                        text.setText(R.string.unpin);
-                    }
-                    
-                    view.setOnClickListener(new OnClickListener(){
-
-                            @Override
-                            public void onClick(View p1) {
-                                if(AppUtils.isPinned(DockService.this,app, AppUtils.DOCK_PINNED_LIST))
-                                    AppUtils.unpinApp(DockService.this,app, AppUtils.DOCK_PINNED_LIST);
-                                 else
-                                    AppUtils.pinApp(DockService.this,app, AppUtils.DOCK_PINNED_LIST);
-                                    
-                                 loadPinnedApps();
-                                 updateRunningTasks();
-                                 wm.removeView(view);
-                            }
-                        });
-
-                    wm.addView(view, lp);
-
+                    showTaskContextMenu(app, anchor);
 
                 return true;
-            }
+                }
+
         });
             
         
@@ -933,8 +883,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     }
     
     @Override
-    public void onRightClick(String app, View view) {
+    public void onAppRightClick(String app, View view) {
         showAppContextMenu(app, view);
+    }
+    
+    @Override
+    public void onTaskRightClick(String app, View view) {
+        showTaskContextMenu(app, view);
     }
     
     public void showDock()
@@ -1282,6 +1237,60 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         wm.addView(view, lp);
     }
+    
+    private void showTaskContextMenu(final String app, View anchor) {
+        final View view = LayoutInflater.from(DockService.this).inflate(R.layout.pin_entry, null);
+        WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
+        view.setBackgroundResource(R.drawable.round_rect);
+        ColorUtils.applyMainColor(sp, view);
+        lp.gravity=Gravity.BOTTOM|Gravity.LEFT;
+        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+
+        lp.y = Utils.dpToPx(DockService.this, Integer.parseInt(sp.getString("app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
+
+        Rect rect = new Rect();
+        anchor.getGlobalVisibleRect(rect);
+
+        lp.x = rect.left;
+        view.setOnTouchListener(new OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View p1, MotionEvent p2)
+                {
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE)
+                    {
+                        wm.removeView(view);
+                    }
+                    return false;
+                }
+            });
+
+        ImageView icon = view.findViewById(R.id.pin_entry_iv);
+        ColorUtils.applySecondaryColor(sp, icon);
+        TextView text = view.findViewById(R.id.pin_entry_tv);
+
+        if(AppUtils.isPinned(DockService.this,app, AppUtils.DOCK_PINNED_LIST)){
+            icon.setImageResource(R.drawable.ic_unpin);
+            text.setText(R.string.unpin);
+        }
+
+        view.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    if(AppUtils.isPinned(DockService.this,app, AppUtils.DOCK_PINNED_LIST))
+                        AppUtils.unpinApp(DockService.this,app, AppUtils.DOCK_PINNED_LIST);
+                    else
+                        AppUtils.pinApp(DockService.this,app, AppUtils.DOCK_PINNED_LIST);
+
+                    loadPinnedApps();
+                    updateRunningTasks();
+                    wm.removeView(view);
+                }
+            });
+
+        wm.addView(view, lp);
+    }
 
     public void showUserContextMenu(View anchor)
     {
@@ -1420,7 +1429,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
        }
         
         tasksGv.getLayoutParams().width = Utils.dpToPx(this, 60) * apps.size();
-        tasksGv.setAdapter(new DockAppAdapter(DockService.this, apps));
+        tasksGv.setAdapter(new DockAppAdapter(this, this, apps));
         
         //TODO: Move this outta here
         wifiBtn.setImageResource(wifiManager.isWifiEnabled()? R.drawable.ic_wifi_on : R.drawable.ic_wifi_off);

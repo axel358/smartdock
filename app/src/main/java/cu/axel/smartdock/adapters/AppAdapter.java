@@ -87,7 +87,7 @@ public class AppAdapter extends ArrayAdapter<App> {
                 @Override
                 public boolean onTouch(View p1, MotionEvent p2) {
                     if (p2.getButtonState() == MotionEvent.BUTTON_SECONDARY) {
-                        rightClickListener.onRightClick(app.getPackageName(), p1);
+                        rightClickListener.onAppRightClick(app.getPackageName(), p1);
                         return true;
                     }
                     return false;
@@ -147,7 +147,7 @@ public class AppAdapter extends ArrayAdapter<App> {
     }
 
     public interface AppRightClickListener {
-        public abstract void onRightClick(String app, View view)
+        public abstract void onAppRightClick(String app, View view)
     }
 
 }
