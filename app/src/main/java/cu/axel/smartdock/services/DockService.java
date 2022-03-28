@@ -893,6 +893,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             }
             else if (event.getKeyCode() == KeyEvent.KEYCODE_F12)
                 DeviceUtils.sotfReboot();
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_F4)
+                AppUtils.removeTask(am, AppUtils.getRunningTasks(am, pm).get(0).getID());
         }
         else if (event.getAction() == KeyEvent.ACTION_UP)
         {

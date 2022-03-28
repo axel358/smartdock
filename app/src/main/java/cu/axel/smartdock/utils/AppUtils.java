@@ -182,4 +182,13 @@ public class AppUtils {
 
         return appTasks;
     }
+    
+    public static void removeTask(ActivityManager am, int id){
+        try {
+            Method removeTask = am.getClass().getMethod("removeTask", int.class);
+            removeTask.invoke(am, id);
+        } catch (Exception e) {
+            Log.e("Dock", e.toString()+e.getCause().toString());
+        }
+    }
 }

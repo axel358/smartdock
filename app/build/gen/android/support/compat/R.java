@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package cu.axel.smartdock;
+package android.support.compat;
 
 public final class R {
     public static final class anim {

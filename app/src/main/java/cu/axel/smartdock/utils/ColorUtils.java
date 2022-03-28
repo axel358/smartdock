@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import android.support.v7.graphics.Palette;
 
 public class ColorUtils {
 
@@ -62,19 +63,21 @@ public class ColorUtils {
         Drawable wallpaperDrawable = wallpaperManager.getDrawable();
         wallpaperDrawable.mutate();
         wallpaperDrawable.invalidateSelf();
-        return getDrawableDominantColor(wallpaperDrawable);
-    }
-
-    public static int getBitmapDominantColorl(Bitmap bitmap) {
-        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true);
-        final int color = newBitmap.getPixel(0, 0);
-        newBitmap.recycle();
-        return color;
+        return getBitmapDominantColorAccurate(drawableToBitmap(wallpaperDrawable));
     }
     
     public static int getBitmapDominantColor(Bitmap bitmap) {
-        int color = bitmap.getPixel(bitmap.getWidth()/2, bitmap.getHeight()/7);
+        int color = bitmap.getPixel(bitmap.getWidth()/2, bitmap.getHeight()/9);
+        if(color==Color.TRANSPARENT)
+            color=bitmap.getPixel(bitmap.getWidth()/4, bitmap.getHeight()/2);
+        if(color==Color.TRANSPARENT)
+            color=bitmap.getPixel(bitmap.getWidth()/2, bitmap.getHeight()/2);
         return color;
+    }
+    
+    public static int getBitmapDominantColorAccurate(Bitmap bitmap) {
+      return  Palette.from(bitmap).generate().getDominantColor(Color.WHITE);
+        
     }
     
     public static int getDrawableDominantColor(Drawable drawable){
