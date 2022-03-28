@@ -898,7 +898,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         }
         else if (event.getAction() == KeyEvent.ACTION_UP)
         {
-            if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT && sp.getBoolean("enable_ctrl_back", false))
+            if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT && sp.getBoolean("enable_ctrl_back", true))
             {
                     performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
                     return true;
@@ -1367,7 +1367,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     private void placeRunningApps() {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        if(sp.getBoolean("center_running_apps", false)){
+        if(sp.getBoolean("center_running_apps", true)){
              lp.addRule(RelativeLayout.CENTER_IN_PARENT);
              lp.leftMargin=-120;
                }

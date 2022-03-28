@@ -55,7 +55,7 @@
         <CheckBoxPreference
             android:key="center_running_apps"
             android:title="@string/center_running_apps_title"
-            android:defaultValue="false" />
+            android:defaultValue="true" />
         <EditTextPreference
             android:inputType="number"
             android:key="dock_activation_area"

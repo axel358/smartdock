@@ -39,7 +39,7 @@
 	<CheckBoxPreference
 		android:key="enable_ctrl_back"
 		android:title="@string/enable_ctrl_back_title"
-		android:defaultValue="false" />
+		android:defaultValue="true" />
     <CheckBoxPreference
         android:key="enable_f10"
         android:title="@string/enable_f10_title"
