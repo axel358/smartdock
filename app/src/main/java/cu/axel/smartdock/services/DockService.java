@@ -89,8 +89,9 @@ import cu.axel.smartdock.adapters.AppActionsAdapter;
 import cu.axel.smartdock.models.Action;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
 
-public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener  
-{
+public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, View.OnTouchListener , AppAdapter.AppRightClickListener
+{   
+    
     private PackageManager pm;
     private SharedPreferences sp;
     private ActivityManager am;
@@ -851,7 +852,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     @Override
     public void onInterrupt()
     {}
-
+    
+   
     //Handle keyboard shortcuts
     @Override
     protected boolean onKeyEvent(KeyEvent event)
@@ -929,7 +931,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         return super.onKeyEvent(event);
     }
-
+    
+    @Override
+    public void onRightClick(String app, View view) {
+        showAppContextMenu(app, view);
+    }
+    
     public void showDock()
     {
         dockHandler.removeCallbacksAndMessages(null);
@@ -1601,7 +1608,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     {
         ArrayList<App> apps = AppUtils.getPinnedApps(DockService.this,pm, AppUtils.PINNED_LIST);
         toggleFavorites(apps.size() > 0);
-        favoritesGv.setAdapter(new AppAdapter(this, apps));
+        favoritesGv.setAdapter(new AppAdapter(this, this, apps));
 
     }
     
@@ -1636,7 +1643,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             super.onPostExecute(result);
 
             //TODO: Implement efficent adapter
-            appAdapter = new AppAdapter(DockService.this, result);
+            appAdapter = new AppAdapter(DockService.this, DockService.this, result);
             appsGv.setAdapter(appAdapter);
 
         }
