@@ -857,8 +857,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             }
             
             int menuKey=Integer.parseInt(sp.getString("menu_key", "3"));
+            int menuAltKey = menuKey == 3 ? KeyEvent.KEYCODE_META_LEFT : menuKey;
+            
 
-            if (event.getKeyCode() == menuKey && sp.getBoolean("enable_app_menu", true))
+            if ((event.getKeyCode() == menuKey || event.getKeyCode() == menuAltKey)  && sp.getBoolean("enable_app_menu", true))
             {
                     toggleAppMenu(null);
                     return true;
