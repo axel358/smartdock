@@ -20,6 +20,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import android.view.MotionEvent;
 
 public class Utils {
     public static boolean notificationPanelVisible, shouldPlayChargeComplete;
@@ -195,5 +196,6 @@ public class Utils {
             return Double.parseDouble(expression.split("\\*")[0]) * Double.parseDouble(expression.split("\\*")[1]);
         return 0;
     }
+    
 
 }

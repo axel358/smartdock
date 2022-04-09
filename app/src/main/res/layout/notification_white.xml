@@ -5,7 +5,8 @@
 	android:layout_height="70dp"
 	android:orientation="horizontal"
 	android:background="@drawable/round_rect"
-	android:padding="5dp">
+	android:padding="5dp"
+	android:gravity="center_vertical">
 
 	<ImageView
 		android:layout_height="55dp"
@@ -20,14 +21,13 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="vertical"
-		android:layout_marginLeft="10dp"
-		android:layout_marginTop="3dp">
+		android:layout_marginLeft="10dp">
 
 		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			android:orientation="horizontal"
-			android:gravity="center">
+			android:gravity="bottom">
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -42,11 +42,11 @@
 
 			<ImageView
 				android:id="@+id/notif_w_close_btn"
-				android:visibility="invisible"
 				android:layout_height="22dp"
 				android:layout_width="22dp"
 				android:src="@android:drawable/ic_menu_close_clear_cancel"
-				android:padding="2dp"/>
+				android:padding="2dp"
+				android:alpha="0"/>
 
 		</LinearLayout>
 
@@ -55,8 +55,11 @@
 			style="?android:attr/progressBarStyleHorizontal"
 			android:layout_height="wrap_content"
 			android:id="@+id/notif_w_pb"
-			android:visibility="gone"
-			android:layout_marginRight="10dp"/>
+			android:visibility="visible"
+			android:layout_marginRight="10dp"
+			android:alpha="0"
+			android:layout_marginTop="-5dp"
+			android:layout_marginBottom="-5dp"/>
 
 		<TextView
 			android:maxLines="2"
@@ -65,6 +68,15 @@
 			android:text="Text"
 			android:textColor="#FF151515"
 			android:id="@+id/notif_w_text_tv"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:id="@+id/notif_actions_container"
+			android:gravity="center"
+			android:paddingStart="16dp"
+			android:paddingEnd="16dp"/>
 
 	</LinearLayout>
 

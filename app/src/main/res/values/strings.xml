@@ -243,6 +243,10 @@
     <string name="files">Files</string>
     <string name="settings">Settings</string>
     <string name="dock_settings">Dock Settings</string>
-    
+    <string name="hide_status_bar_title">Hide status bar</string>
+    <string name="hide_status_bar_summary">Hides Android status bar. Needs soft reboot</string>
+    <string name="wifi">WiFi</string>
+    <string name="not_connected">Not connected</string>
+    <string name="select_network">Select network</string>
     
 </resources>

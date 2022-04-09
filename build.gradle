@@ -15,5 +15,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'http://nexus.prod.uci.cu/repository/maven-all/' }
     }
 }

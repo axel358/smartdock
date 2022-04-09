@@ -88,26 +88,29 @@ import cu.axel.smartdock.utils.ColorUtils;
 import cu.axel.smartdock.adapters.AppActionsAdapter;
 import cu.axel.smartdock.models.Action;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
+import android.widget.SeekBar;
+import android.media.AudioManager;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.net.wifi.WifiInfo;
+import android.widget.Switch;
+import android.widget.CompoundButton;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener, 
                                                                  View.OnTouchListener , AppAdapter.AppRightClickListener, DockAppAdapter.TaskRightClickListener
 {
-       
     private PackageManager pm;
     private SharedPreferences sp;
     private ActivityManager am;
-    private ImageView appsBtn,backBtn,homeBtn,recentBtn,assistBtn,powerBtn,bluetoothBtn,wifiBtn,batteryBtn,volBtn,pinBtn,avatarIv;
-    private TextView notificationBtn,searchTv,userNameTv;
-    private TextClock dateTv;
-    private Button topRightCorner,bottomRightCorner;
-    private LinearLayout appMenu,searchLayout,powerMenu;
+    private ImageView appsBtn,backBtn,homeBtn,recentBtn,assistBtn,powerBtn,bluetoothBtn,wifiBtn,batteryBtn,volBtn,pinBtn;
+    private TextView notificationBtn,searchTv;
+    private Button topRightCorner, bottomRightCorner;
+    private LinearLayout appMenu, searchLayout, powerMenu, audioPanel, wifiPanel;
     private RelativeLayout dockLayout;
     private WindowManager wm;
     private View appsSeparator;
-    private boolean appMenuVisible,powerMenuVisible,shouldHide = true,isPinned,reflectionAllowed;
+    private boolean appMenuVisible, powerMenuVisible, shouldHide = true, isPinned, reflectionAllowed, audioPanelVisible, wifiPanelVisible;
     private WindowManager.LayoutParams dockLayoutParams;
     private EditText searchEt;
-    private AppAdapter appAdapter;
     private GridView appsGv,favoritesGv,tasksGv;
     private WifiManager wifiManager;
     private BatteryStatsReceiver batteryReceiver;
@@ -163,7 +166,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         wifiBtn = dock.findViewById(R.id.wifi_btn);
         volBtn = dock.findViewById(R.id.volume_btn);
         batteryBtn = dock.findViewById(R.id.battery_btn);
-        dateTv = dock.findViewById(R.id.date_btn);
+        TextClock dateTv = dock.findViewById(R.id.date_btn);
 
 
         dock.setOnHoverListener(new OnHoverListener(){
@@ -336,8 +339,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     //performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
                     if(Utils.notificationPanelVisible)
                         sendBroadcast(new Intent(getPackageName()+".NOTIFICATION_PANEL").putExtra("action","hide"));
-                    else
-                        sendBroadcast(new Intent(getPackageName()+".NOTIFICATION_PANEL").putExtra("action","show"));                        
+                    else{
+                        
+                        if(audioPanelVisible)
+                            hideAudioPanel();
+                        
+                        if(wifiPanelVisible)
+                            hideWiFiPanel();
+                            
+                        sendBroadcast(new Intent(getPackageName()+".NOTIFICATION_PANEL").putExtra("action","show"));
+                      }                        
                 }
             });
         pinBtn.setOnClickListener(new OnClickListener(){
@@ -518,17 +529,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         searchTv = appMenu.findViewById(R.id.search_tv);
         appsSeparator = appMenu.findViewById(R.id.apps_separator);
 
-        avatarIv = appMenu.findViewById(R.id.avatar_iv);
-        userNameTv = appMenu.findViewById(R.id.user_name_tv);
-
-        avatarIv.setOnClickListener(new OnClickListener(){
-
-                @Override
-                public void onClick(View p1)
-                {
-                    showUserContextMenu(p1);
-                }
-            });
             
         powerBtn.setOnClickListener(new OnClickListener(){
 
@@ -627,7 +627,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
                 @Override
                 public void afterTextChanged(Editable p1)
-                {    if (appAdapter != null)
+                {
+                    AppAdapter appAdapter = (AppAdapter) appsGv.getAdapter();
+                    
+                    if (appAdapter != null)
                         appAdapter.getFilter().filter(p1.toString());
                     
                     if (p1.length() > 1)
@@ -679,7 +682,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
         //Listen for launcher messages
         registerReceiver(new BroadcastReceiver(){
-
+            
                 @Override
                 public void onReceive(Context p1, Intent p2)
                 {
@@ -736,6 +739,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 
         }, new IntentFilter(getPackageName()+".MENU"));
        }
+        
         //Run startup script
         if(sp.getBoolean("run_autostart",false))
             Utils.doAutostart(this);
@@ -1008,7 +1012,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 else if (mode.equals("maximized"))
                 {
                     width = deviceWidth;
-                    height = deviceHeight - (dockLayout.getMeasuredHeight() + DeviceUtils.getStatusBarHeight(this));
+                    int statusHeight = sp.getBoolean("hide_status_bar", false)? 0 : DeviceUtils.getStatusBarHeight(this);
+                    height = deviceHeight - (statusHeight + dockLayout.getMeasuredHeight());
                 }
                 else if (mode.equals("portrait"))
                 {
@@ -1069,31 +1074,42 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void showAppMenu()
     {
-        WindowManager.LayoutParams appMenuLayoutParams = null;
+        WindowManager.LayoutParams lp = null;
         if(sp.getBoolean("app_menu_fullscreen", false)){
             int deviceWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
             int deviceHeight  = Resources.getSystem().getDisplayMetrics().heightPixels;
-            appMenuLayoutParams = Utils.makeWindowParams(deviceWidth - Utils.dpToPx(this, 4), deviceHeight - Utils.dpToPx(this, 60) - DeviceUtils.getStatusBarHeight(this));
-            appMenuLayoutParams.x = Utils.dpToPx(this, 2);
-            appMenuLayoutParams.y = Utils.dpToPx(this, 2) + dockLayout.getMeasuredHeight();
+            lp = Utils.makeWindowParams(deviceWidth - Utils.dpToPx(this, 4), deviceHeight - Utils.dpToPx(this, 60) - DeviceUtils.getStatusBarHeight(this));
+            lp.x = Utils.dpToPx(this, 2);
+            lp.y = Utils.dpToPx(this, 2) + dockLayout.getMeasuredHeight();
 
             favoritesGv.setNumColumns(10);
             appsGv.setNumColumns(10);
             
         }else{
-            appMenuLayoutParams = Utils.makeWindowParams(Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_width", "650"))),Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_height", "540"))));
-            appMenuLayoutParams.x = Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_x", "2")));
-            appMenuLayoutParams.y = Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
+            lp = Utils.makeWindowParams(Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_width", "650"))),Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_height", "540"))));
+            lp.x = Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_x", "2")));
+            lp.y = Utils.dpToPx(this, Integer.parseInt(sp.getString("app_menu_y", "2"))) + dockLayout.getMeasuredHeight();
             favoritesGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
             appsGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
             
         }
         
-        appMenuLayoutParams.flags =  WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
-        appMenuLayoutParams.gravity = Gravity.BOTTOM | Gravity.LEFT;
+        lp.flags =  WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+        lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
         
+        ImageView avatarIv = appMenu.findViewById(R.id.avatar_iv);
+        TextView userNameTv = appMenu.findViewById(R.id.user_name_tv);
 
-        wm.addView(appMenu, appMenuLayoutParams);
+        avatarIv.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1)
+                {
+                    showUserContextMenu(p1);
+                }
+            });
+
+        wm.addView(appMenu, lp);
 
         //Load apps
         new UpdateAppMenuTask().execute();
@@ -1477,27 +1493,198 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void toggleWifi(View v)
     {
-        boolean enabled = wifiManager.isWifiEnabled();
+        /*boolean enabled = wifiManager.isWifiEnabled();
         int icon= !enabled ?R.drawable.ic_wifi_on: R.drawable.ic_wifi_off;
         wifiBtn.setImageResource(icon);
-        wifiManager.setWifiEnabled(!enabled);
+        wifiManager.setWifiEnabled(!enabled);*/
+        if(wifiPanelVisible)
+            hideWiFiPanel();
+        else
+            showWiFiPanel();
 
     }
 
     public void toggleVolume(View v)
     {
-        DeviceUtils.toggleVolume(this);
+        //DeviceUtils.toggleVolume(this);
+        
+        if(!audioPanelVisible)
+            showAudioPanel();
+         else
+             hideAudioPanel();
+    }
+    
+    public void hideAudioPanel(){
+        wm.removeView(audioPanel);
+        audioPanelVisible = false;
+        audioPanel = null;
+    }
+    
+    public void showAudioPanel(){
+        
+        if(Utils.notificationPanelVisible)
+            sendBroadcast(new Intent(getPackageName()+".NOTIFICATION_PANEL").putExtra("action","hide"));
+            
+        if(wifiPanelVisible)
+            hideWiFiPanel();
+            
+        
+        final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this,270), -2);
+        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+        lp.y = Utils.dpToPx(this, 2) + dockLayout.getMeasuredHeight();
+        lp.x = Utils.dpToPx(this, 2);
+        lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+        
+        audioPanel = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.audio_panel,null);
+
+        audioPanel.setOnTouchListener(new OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View p1, MotionEvent p2)
+                {
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE && (p2.getY() < audioPanel.getMeasuredHeight() || p2.getX() < audioPanel.getX()))
+                    {
+                       hideAudioPanel();
+                    }
+                    return false;
+                }
+            });
+            
+         ImageView musicIcon = audioPanel.findViewById(R.id.ap_music_icon);
+         SeekBar musicSb = audioPanel.findViewById(R.id.ap_music_sb);
+         musicSb.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+         musicSb.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+         musicSb.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+
+                @Override
+                public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, p2, 0);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar p1) {
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar p1) {
+
+                }
+            });
+         
+         ColorUtils.applySecondaryColor(sp, musicIcon);
+         ColorUtils.applyMainColor(sp, audioPanel);
+         wm.addView(audioPanel, lp);
+         audioPanelVisible = true;
+    }
+    
+    public void hideWiFiPanel(){
+        wm.removeView(wifiPanel);
+        wifiPanelVisible = false;
+        wifiPanel = null;
+    }
+    
+    public void showWiFiPanel(){
+        
+        if(Utils.notificationPanelVisible)
+            sendBroadcast(new Intent(getPackageName()+".NOTIFICATION_PANEL").putExtra("action","hide"));
+
+        if(audioPanelVisible)
+            hideAudioPanel();
+        
+        WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this,300), -2);
+        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+        lp.y = Utils.dpToPx(this, 2) + dockLayout.getMeasuredHeight();
+        lp.x = Utils.dpToPx(this, 2);
+        lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+
+        wifiPanel = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.wifi_panel,null);
+
+        wifiPanel.setOnTouchListener(new OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View p1, MotionEvent p2)
+                {
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE && (p2.getY() < wifiPanel.getMeasuredHeight() || p2.getX() < wifiPanel.getX()))
+                    {
+                        hideWiFiPanel();
+                    }
+                    return false;
+                }
+            });
+            
+        final TextView ssidTv = wifiPanel.findViewById(R.id.wp_ssid_tv);
+        Switch wifiSwtch = wifiPanel.findViewById(R.id.wp_switch);
+        Button selectBtn = wifiPanel.findViewById(R.id.wp_select_btn);
+        final LinearLayout infoLayout = wifiPanel.findViewById(R.id.wp_info);
+        
+        selectBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    launchApp("standard", (new Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+                    hideWiFiPanel();
+                }
+            });
+        
+        wifiSwtch.setChecked(wifiManager.isWifiEnabled());
+        
+        wifiSwtch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener(){
+
+                @Override
+                public void onCheckedChanged(CompoundButton p1, boolean p2) {
+                    if(p2){
+                        wifiManager.setWifiEnabled(true);
+                        wifiBtn.setImageResource(R.drawable.ic_wifi_on);
+                    }else{
+                        wifiManager.setWifiEnabled(false);
+                        ssidTv.setText(R.string.not_connected);
+                        wifiBtn.setImageResource(R.drawable.ic_wifi_off);
+                    }
+                    
+                }
+            });
+        
+        WifiInfo wi = wifiManager.getConnectionInfo();
+        
+        if(wifiManager.isWifiEnabled()){
+            infoLayout.setVisibility(View.VISIBLE);
+        if(wi != null && wi.getNetworkId() != -1){
+            ssidTv.setText(wi.getSSID());
+        }
+       }
+       
+        registerReceiver(new BroadcastReceiver(){
+
+                @Override
+                public void onReceive(Context p1, Intent p2) {
+                    WifiInfo wi = wifiManager.getConnectionInfo();
+
+                    if(wifiManager.isWifiEnabled()){
+                        infoLayout.setVisibility(View.VISIBLE);
+                        if(wi != null && wi.getNetworkId() != -1){
+                            ssidTv.setText(wi.getSSID());
+                        }else
+                            ssidTv.setText(R.string.not_connected);
+                    }else
+                        infoLayout.setVisibility(View.GONE);
+                    
+                }
+            }, new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION));
+            
+       ColorUtils.applyMainColor(sp, wifiPanel);
+            
+            
+        wm.addView(wifiPanel, lp);
+        wifiPanelVisible = true;
+      
     }
     
     public void showPowerMenu(){
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.width = Utils.dpToPx(this,120); 
-        layoutParams.height = Utils.dpToPx(this,400);
+        WindowManager.LayoutParams layoutParams = Utils.makeWindowParams(Utils.dpToPx(this,120), Utils.dpToPx(this,400));
         layoutParams.gravity = Gravity.CENTER_VERTICAL|Gravity.RIGHT;
-        layoutParams.format = PixelFormat.TRANSLUCENT;
         layoutParams.x = Utils.dpToPx(this,10);
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
-        layoutParams.type = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_PHONE;
         
         powerMenu = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.power_menu,null);
         
@@ -1567,6 +1754,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     public void hidePowerMenu(){
         wm.removeView(powerMenu);
         powerMenuVisible = false;
+        powerMenu = null;
     }
     
     
@@ -1654,8 +1842,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             super.onPostExecute(result);
 
             //TODO: Implement efficent adapter
-            appAdapter = new AppAdapter(DockService.this, DockService.this, result);
-            appsGv.setAdapter(appAdapter);
+            appsGv.setAdapter(new AppAdapter(DockService.this, DockService.this, result));
 
         }
     }

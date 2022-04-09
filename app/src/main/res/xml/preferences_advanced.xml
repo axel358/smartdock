@@ -32,6 +32,11 @@
         android:title="@string/hide_nav_buttons_title"
         android:defaultValue="false" />
     <CheckBoxPreference
+        android:title="@string/hide_status_bar_title"
+        android:key="hide_status_bar"
+        android:summary="@string/hide_status_bar_summary"
+        android:defaultValue="false" />
+    <CheckBoxPreference
         android:summary="@string/enable_soft_reboot_summary"
         android:key="enable_soft_reboot"
         android:title="@string/enable_soft_reboot_title"

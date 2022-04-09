@@ -94,6 +94,28 @@ public class AdvancedPreferences extends PreferenceFragment {
                     return false;
                 }
             });
+        CheckBoxPreference hideStatus = (CheckBoxPreference) findPreference("hide_status_bar");
+        hideStatus.setChecked(DeviceUtils.runAsRoot("settings get global policy_control").contains("immersive.status=apps"));
+        hideStatus.setOnPreferenceChangeListener(new CheckBoxPreference.OnPreferenceChangeListener(){
+
+                @Override
+                public boolean onPreferenceChange(Preference p1, Object p2) {
+                    if ((boolean) p2) {
+                        String status = DeviceUtils.runAsRoot("settings put global policy_control immersive.status=apps");
+                        if (!status.equals("error")) {
+                            showRebootDialog(getActivity(), true);
+                            return true;
+                        }
+                    } else {
+                        String status = DeviceUtils.runAsRoot("settings delete global policy_control");
+                        if (!status.equals("error")) {
+                            showRebootDialog(getActivity(), true);
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
     }
 
     public void showEditAutostartDialog(final Context context) {
