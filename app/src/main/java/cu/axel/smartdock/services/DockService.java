@@ -136,7 +136,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         sp.registerOnSharedPreferenceChangeListener(this);
         wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        wifiManager = (WifiManager) this.getSystemService(WIFI_SERVICE);
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         dockHandler = new Handler();
 
@@ -1493,14 +1493,17 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
     public void toggleWifi(View v)
     {
-        /*boolean enabled = wifiManager.isWifiEnabled();
-        int icon= !enabled ?R.drawable.ic_wifi_on: R.drawable.ic_wifi_off;
-        wifiBtn.setImageResource(icon);
-        wifiManager.setWifiEnabled(!enabled);*/
-        if(wifiPanelVisible)
-            hideWiFiPanel();
-        else
-            showWiFiPanel();
+        if(sp.getBoolean("enable_wifi_panel", false)){
+            if(wifiPanelVisible)
+                hideWiFiPanel();
+            else
+                showWiFiPanel();
+        }else{
+            boolean enabled = wifiManager.isWifiEnabled();
+            int icon= !enabled ?R.drawable.ic_wifi_on: R.drawable.ic_wifi_off;
+            wifiBtn.setImageResource(icon);
+            wifiManager.setWifiEnabled(!enabled);
+        }
 
     }
 

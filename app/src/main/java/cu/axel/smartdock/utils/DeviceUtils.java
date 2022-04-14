@@ -142,6 +142,10 @@ public class DeviceUtils {
     public static boolean hasStoragePermission(Context context) {
         return Build.VERSION.SDK_INT < 23 || context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
+    
+    public static boolean hasLocationPermission(Context context) {
+        return Build.VERSION.SDK_INT < 23 || context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
 
     public static void playEventSound(Context context, String event) {
         String soundUri= PreferenceManager.getDefaultSharedPreferences(context).getString(event, "default");

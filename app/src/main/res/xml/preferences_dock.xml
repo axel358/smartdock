@@ -33,9 +33,9 @@
             android:title="@string/enable_qs_battery_title"
             android:defaultValue="true" />
         <CheckBoxPreference
-            android:key="enable_power_menu"
-            android:title="@string/enable_power_menu_title"
-            android:summary="@string/enable_power_menu_summary"
+            android:key="enable_wifi_panel"
+            android:title="@string/enable_wifi_panel_title"
+            android:summary="@string/enable_wifi_panel_summary"
             android:defaultValue="false" />
 
     </PreferenceCategory>

@@ -122,7 +122,6 @@
     <string name="advanced">Advanced</string>
     <string name="help_and_about">Help and about</string>
 
-    
     <string name="fade">Fade</string>
     <string name="slide_up">Slide up</string>
     <string name="slide_left">Slide left</string>
@@ -248,5 +247,9 @@
     <string name="wifi">WiFi</string>
     <string name="not_connected">Not connected</string>
     <string name="select_network">Select network</string>
+    <string name="enable_wifi_panel_title">Enable WiFi panel</string>
+    <string name="enable_wifi_panel_summary">Enables built in WiFi panel. This requires location access</string>
+    <string name="location">Location</string>
+    <string name="used_to_retrieve_wifi_info_on_">Used to retrieve WiFi info on Android 8+</string>
     
 </resources>

@@ -191,6 +191,47 @@
 				android:id="@+id/btn_grant_storage"/>
 
 		</LinearLayout>
+        
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:src="@drawable/ic_folder"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:layout_marginLeft="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"
+                    android:textSize="16sp"
+                    android:textColor="#FF141414"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/used_to_retrieve_wifi_info_on_"/>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="wrap_content"
+                android:text="@string/grant"
+                android:id="@+id/btn_grant_location"/>
+
+		</LinearLayout>
 
 		<LinearLayout
 			android:orientation="horizontal"
@@ -232,6 +273,8 @@
 				android:id="@+id/btn_grant_notifications"/>
 
 		</LinearLayout>
+
+
 
 		<LinearLayout
 			android:orientation="horizontal"

@@ -85,6 +85,7 @@ public class MainActivity extends PreferenceActivity {
         Button grantAdminBtn = view.findViewById(R.id.btn_grant_admin);
         Button grantNotificationsBtn = view.findViewById(R.id.btn_grant_notifications);
         Button manageServiceBtn = view.findViewById(R.id.btn_manage_service);
+        Button locationBtn = view.findViewById(R.id.btn_grant_location);
 
         manageServiceBtn.setEnabled(canDrawOverOtherApps());
 
@@ -100,6 +101,11 @@ public class MainActivity extends PreferenceActivity {
         if (DeviceUtils.hasStoragePermission(this)) {
             grantStorageBtn.setEnabled(false);
             grantStorageBtn.setText(R.string.granted);
+        }
+        
+        if(DeviceUtils.hasLocationPermission(this)){
+            locationBtn.setEnabled(false);
+            locationBtn.setText(R.string.granted);
         }
 
         builder.setView(view);
@@ -142,6 +148,15 @@ public class MainActivity extends PreferenceActivity {
                 @Override
                 public void onClick(View p1) {
                     startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                }
+            });
+            
+        locationBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 8);
+                    dialog.dismiss();
                 }
             });
 

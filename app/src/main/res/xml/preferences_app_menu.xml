@@ -34,6 +34,11 @@
             android:hint="5"
             android:defaultValue="5"
             android:title="@string/num_columns_title"/>
+        <CheckBoxPreference
+            android:key="enable_power_menu"
+            android:title="@string/enable_power_menu_title"
+            android:summary="@string/enable_power_menu_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/app_launch">
