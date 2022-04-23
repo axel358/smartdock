@@ -147,7 +147,7 @@ public class AppAdapter extends ArrayAdapter<App> {
     }
 
     public interface AppRightClickListener {
-        public abstract void onAppRightClick(String app, View view)
+        public abstract void onAppRightClick(String app, View view);
     }
 
 }
