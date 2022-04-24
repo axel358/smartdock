@@ -251,5 +251,6 @@
     <string name="enable_wifi_panel_summary">Enables built in WiFi panel. This requires location access</string>
     <string name="location">Location</string>
     <string name="used_to_retrieve_wifi_info_on_">Used to retrieve WiFi info on Android 8+</string>
-    
+    <string name="scale_factor_summary">Defines how big standard windows are</string>
+    <string name="scale_factor_title">Standard window scale factor</string>
 </resources>

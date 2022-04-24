@@ -562,6 +562,8 @@ containing a value of this type.
         public static final int run_autostart_title=0x7f070095;
         public static final int save=0x7f0700af;
         public static final int save_log=0x7f0700c0;
+        public static final int scale_factor_summary=0x7f0700db;
+        public static final int scale_factor_title=0x7f0700dc;
         public static final int screenshot=0x7f07007e;
         public static final int search=0x7f070092;
         public static final int search_for=0x7f0700b8;

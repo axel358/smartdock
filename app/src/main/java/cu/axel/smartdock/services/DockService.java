@@ -1003,8 +1003,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 windowMode = Build.VERSION.SDK_INT >= 28 ? 5: 2;
                 if (mode.equals("standard"))
                 {
-                    x = deviceWidth / 5;
-                    y = deviceHeight / 6;
+                    float scaleFactor = Float.parseFloat(sp.getString("scale_factor", "1.0"));
+                    x = (int) (deviceWidth / (5 * scaleFactor));
+                    y = (int) (deviceHeight / (6 * scaleFactor));
                     width = deviceWidth - x;
                     height = deviceHeight - y;
 

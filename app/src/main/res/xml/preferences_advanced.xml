@@ -16,6 +16,13 @@
         android:hint="@string/custom_display_size_hint"
         android:defaultValue=""
         android:title="@string/custom_display_size_title"/>
+    <EditTextPreference
+        android:summary="@string/scale_factor_summary"
+        android:inputType="numberDecimal"
+        android:key="scale_factor"
+        android:hint="1.0"
+        android:defaultValue="1.0"
+        android:title="@string/scale_factor_title"/>
     <CheckBoxPreference
         android:key="allow_broadcasts"
         android:title="@string/allow_broadcasts_title"
