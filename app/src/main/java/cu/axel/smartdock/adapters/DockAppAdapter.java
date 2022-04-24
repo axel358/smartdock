@@ -111,6 +111,6 @@ public class DockAppAdapter extends ArrayAdapter<DockApp>
     }
     
     public interface TaskRightClickListener {
-        public abstract void onTaskRightClick(String app, View view)
+        public abstract void onTaskRightClick(String app, View view);
     }
 }
