@@ -196,7 +196,6 @@
     \n
     \nThe app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
     \n
-    \nClick here for more info
     </string>
     
     <string name="standard">Standard</string>
@@ -255,4 +254,6 @@
     <string name="scale_factor_title">Standard window scale factor</string>
     <string name="change_wallpaper">Change wallpaper</string>
     <string name="display_settings">Display settings</string>
+    <string name="show_help_summary">Tap for help</string>
+    <string name="more_help">More help</string>
 </resources>

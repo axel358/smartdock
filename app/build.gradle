@@ -8,8 +8,8 @@ android {
         applicationId "cu.axel.smartdock"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 193
-        versionName "1.9.3"
+        versionCode 194
+        versionName "1.9.4"
     }
     buildTypes {
         release {
@@ -23,6 +23,6 @@ android {
 }
 
 dependencies {
-	   compile fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:palette-v7:27.+'
+	   implementation fileTree(dir: 'libs', include: ['*.jar'])
+       implementation 'com.android.support:palette-v7:27.+'
 }

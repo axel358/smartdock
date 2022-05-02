@@ -374,21 +374,22 @@ containing a value of this type.
         public static final int color_entry=0x7f040006;
         public static final int dialog_color_picker=0x7f040007;
         public static final int dialog_edit_autostart=0x7f040008;
-        public static final int dialog_permissions=0x7f040009;
-        public static final int dock=0x7f04000a;
-        public static final int notification=0x7f04000b;
-        public static final int notification_action=0x7f04000c;
-        public static final int notification_action_tombstone=0x7f04000d;
-        public static final int notification_panel=0x7f04000e;
-        public static final int notification_template_custom_big=0x7f04000f;
-        public static final int notification_template_icon_group=0x7f040010;
-        public static final int notification_template_part_chronometer=0x7f040011;
-        public static final int notification_template_part_time=0x7f040012;
-        public static final int notification_white=0x7f040013;
-        public static final int pin_entry=0x7f040014;
-        public static final int power_menu=0x7f040015;
-        public static final int task_list=0x7f040016;
-        public static final int wifi_panel=0x7f040017;
+        public static final int dialog_help=0x7f040009;
+        public static final int dialog_permissions=0x7f04000a;
+        public static final int dock=0x7f04000b;
+        public static final int notification=0x7f04000c;
+        public static final int notification_action=0x7f04000d;
+        public static final int notification_action_tombstone=0x7f04000e;
+        public static final int notification_panel=0x7f04000f;
+        public static final int notification_template_custom_big=0x7f040010;
+        public static final int notification_template_icon_group=0x7f040011;
+        public static final int notification_template_part_chronometer=0x7f040012;
+        public static final int notification_template_part_time=0x7f040013;
+        public static final int notification_white=0x7f040014;
+        public static final int pin_entry=0x7f040015;
+        public static final int power_menu=0x7f040016;
+        public static final int task_list=0x7f040017;
+        public static final int wifi_panel=0x7f040018;
     }
     public static final class menu {
         public static final int app_menu=0x7f0f0000;
@@ -531,6 +532,7 @@ containing a value of this type.
         public static final int menu_icon_uri_title=0x7f07004d;
         public static final int menu_key_dialogTitle=0x7f070056;
         public static final int menu_key_title=0x7f070057;
+        public static final int more_help=0x7f0700e0;
         public static final int move_to_system_summary=0x7f0700a2;
         public static final int move_to_system_title=0x7f0700a3;
         public static final int navigation=0x7f07002f;
@@ -575,6 +577,7 @@ containing a value of this type.
         public static final int shortcut_key_dialogTitle=0x7f070013;
         public static final int shortcut_key_title=0x7f070014;
         public static final int shortcuts=0x7f0700cd;
+        public static final int show_help_summary=0x7f0700df;
         public static final int show_notes_title=0x7f070041;
         public static final int show_ongoing_title=0x7f07000e;
         public static final int silenced_notifications=0x7f0700c7;

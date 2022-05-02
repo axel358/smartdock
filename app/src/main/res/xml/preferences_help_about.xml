@@ -6,10 +6,9 @@
         android:title="@string/special_thanks_to"
         android:summary="@string/k_s_maan_nblisslabs_project" />
     <Preference
-        android:summary="@string/app_help"
+        android:key="show_help"
+        android:summary="@string/show_help_summary"
         android:title="@string/help" >
-        <intent android:action="android.intent.action.VIEW" 
-            android:data="https://github.com/axel358/smartdock"/>
     </Preference>
     <Preference
         android:summary="@string/smart_dock_its_free_and_open_"
