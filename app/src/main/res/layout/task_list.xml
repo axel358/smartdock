@@ -11,7 +11,7 @@
 	<ListView
 		android:divider="@null"
 		android:layout_height="wrap_content"
-		android:layout_width="180dp"
+		android:layout_width="190dp"
 		android:id="@+id/tasks_lv"/>
 
 </LinearLayout>

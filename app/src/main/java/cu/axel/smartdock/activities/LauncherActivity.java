@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import android.content.pm.ShortcutInfo;
 import cu.axel.smartdock.utils.DeepShortcutManager;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
+import android.widget.Adapter;
 
 public class LauncherActivity extends Activity {
 	private LinearLayout backgroundLayout;
@@ -61,6 +62,7 @@ public class LauncherActivity extends Activity {
     private GridView appsGv;
     private EditText notesEt;
     private SharedPreferences sp;
+    private float x,y;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,22 +85,62 @@ public class LauncherActivity extends Activity {
 
 				@Override
 				public boolean onLongClick(View p1) {
-					AlertDialog.Builder dialog =new AlertDialog.Builder(LauncherActivity.this);
-                    dialog.setAdapter(new ArrayAdapter<String>(LauncherActivity.this, android.R.layout.simple_list_item_1, new String[]{"Change wallpaper"})
-                        , new DialogInterface.OnClickListener(){
+                    final View view = LayoutInflater.from(LauncherActivity.this).inflate(R.layout.task_list, null);
+                    WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
+                    ColorUtils.applyMainColor(sp, view);
+                    lp.gravity = Gravity.TOP | Gravity.LEFT;
+                    lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+                    lp.x = (int) x;
+                    lp.y = (int) y;
+
+                    final WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+
+                    view.setOnTouchListener(new OnTouchListener(){
 
                             @Override
-                            public void onClick(DialogInterface p1, int p2) {
-                                switch (p2) {
-                                    case 0:
-                                        startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));
+                            public boolean onTouch(View p1, MotionEvent p2) {
+                                if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
+                                    wm.removeView(view);
                                 }
+                                return false;
                             }
                         });
-                    dialog.show();
+                    final ListView actionsLv = view.findViewById(R.id.tasks_lv);
+                    ArrayList<Action> actions = new ArrayList<Action>();
+                    actions.add(new Action(R.drawable.ic_wallpaper, getString(R.string.change_wallpaper)));
+                    actions.add(new Action(R.drawable.ic_fullscreen, getString(R.string.display_settings)));
+
+
+                    actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, actions));
+
+                    actionsLv.setOnItemClickListener(new OnItemClickListener(){
+
+                            @Override
+                            public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+                                Action action = (Action) p1.getItemAtPosition(p3);
+                                if(action.getText().equals(getString(R.string.change_wallpaper)))
+                                    startActivity(Intent.createChooser(new Intent(Intent.ACTION_SET_WALLPAPER), getString(R.string.change_wallpaper)));
+                                else if(action.getText().equals(getString(R.string.display_settings)))
+                                    startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));
+                                    
+                                wm.removeView(view);
+                            }
+                        });
+                        
+                    wm.addView(view, lp);
 					return true;
 				}
 			});
+
+        backgroundLayout.setOnTouchListener(new OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View p1, MotionEvent p2) {
+                    x = p2.getX();
+                    y = p2.getY();
+                    return false;
+                }
+            });
 
         appsGv.setOnItemClickListener(new OnItemClickListener(){
 
@@ -148,7 +190,7 @@ public class LauncherActivity extends Activity {
         else
             serviceBtn.setVisibility(View.VISIBLE);
         loadDesktopApps();
-        
+
         if (sp.getBoolean("show_notes", false)) {
             notesEt.setVisibility(View.VISIBLE);
             loadNotes();
@@ -208,29 +250,28 @@ public class LauncherActivity extends Activity {
     public void launchApp(String mode, String app) {
         sendBroadcast(new Intent(getPackageName() + ".HOME").putExtra("action", "launch").putExtra("mode", mode).putExtra("app", app));
     }
-    
-    public ArrayList<Action> getAppActions(String app){
+
+    public ArrayList<Action> getAppActions(String app) {
         ArrayList<Action> actions = new ArrayList<Action>();
-        if(DeepShortcutManager.hasHostPermission(this)) {
-            if(DeepShortcutManager.getShortcuts(app, this).size()>0)
+        if (DeepShortcutManager.hasHostPermission(this)) {
+            if (DeepShortcutManager.getShortcuts(app, this).size() > 0)
                 actions.add(new Action(R.drawable.ic_shortcuts, getString(R.string.shortcuts)));
         }
-        actions.add(new Action(R.drawable.ic_manage,getString(R.string.manage)));
-        actions.add(new Action(R.drawable.ic_launch_mode,getString(R.string.open_in)));
-        
-        if (AppUtils.isPinned(this,app, AppUtils.DESKTOP_LIST))
+        actions.add(new Action(R.drawable.ic_manage, getString(R.string.manage)));
+        actions.add(new Action(R.drawable.ic_launch_mode, getString(R.string.open_in)));
+
+        if (AppUtils.isPinned(this, app, AppUtils.DESKTOP_LIST))
             actions.add(new Action(R.drawable.ic_unpin, getString(R.string.unpin)));
 
         return actions;
     }
-    
-    public void showAppContextMenu(final String app, View anchor)
-    {
+
+    public void showAppContextMenu(final String app, View anchor) {
         final WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
         final View view = LayoutInflater.from(this).inflate(R.layout.task_list, null);
-        WindowManager.LayoutParams lp = Utils.makeWindowParams(-2,-2);
+        WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
         ColorUtils.applyMainColor(sp, view);
-        lp.gravity=Gravity.TOP|Gravity.LEFT;
+        lp.gravity = Gravity.TOP | Gravity.LEFT;
         lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
         Rect rect = new Rect();
@@ -242,10 +283,8 @@ public class LauncherActivity extends Activity {
         view.setOnTouchListener(new OnTouchListener(){
 
                 @Override
-                public boolean onTouch(View p1, MotionEvent p2)
-                {
-                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE)
-                    {
+                public boolean onTouch(View p1, MotionEvent p2) {
+                    if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
                         wm.removeView(view);
                     }
                     return false;
@@ -259,62 +298,61 @@ public class LauncherActivity extends Activity {
 
                 @Override
                 public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
-                    if(p1.getItemAtPosition(p3) instanceof Action){
-                    Action action = (Action) p1.getItemAtPosition(p3);
-                    if(action.getText().equals(getString(R.string.manage))){
-                        ArrayList<Action> actions = new ArrayList<Action>();
-                        actions.add(new Action(R.drawable.ic_arrow_back, ""));
-                        actions.add(new Action(R.drawable.ic_info, getString(R.string.app_info)));
-                        actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
-                        if(sp.getBoolean("allow_app_freeze", false))
-                            actions.add(new Action(R.drawable.ic_freeze,getString(R.string.freeze)));
+                    if (p1.getItemAtPosition(p3) instanceof Action) {
+                        Action action = (Action) p1.getItemAtPosition(p3);
+                        if (action.getText().equals(getString(R.string.manage))) {
+                            ArrayList<Action> actions = new ArrayList<Action>();
+                            actions.add(new Action(R.drawable.ic_arrow_back, ""));
+                            actions.add(new Action(R.drawable.ic_info, getString(R.string.app_info)));
+                            actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
+                            if (sp.getBoolean("allow_app_freeze", false))
+                                actions.add(new Action(R.drawable.ic_freeze, getString(R.string.freeze)));
 
-                        actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, actions));
-                    }else if(action.getText().equals(getString(R.string.shortcuts))){
-                        actionsLv.setAdapter(new AppShortcutAdapter(LauncherActivity.this, DeepShortcutManager.getShortcuts(app, LauncherActivity.this)));
-                    }else if(action.getText().equals("")){
-                        actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, getAppActions(app)));   
-                    }else if(action.getText().equals(getString(R.string.open_in)))
-                    {
-                        ArrayList<Action> actions = new ArrayList<Action>();
-                        actions.add(new Action(R.drawable.ic_arrow_back ,""));
-                        actions.add(new Action(R.drawable.ic_standard,getString(R.string.standard)));
-                        actions.add(new Action(R.drawable.ic_maximized,getString(R.string.maximized)));
-                        actions.add(new Action(R.drawable.ic_portrait,getString(R.string.portrait)));
-                        actions.add(new Action(R.drawable.ic_fullscreen,getString(R.string.fullscreen)));
-                        actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, actions));
-                    }else if(action.getText().equals(getString(R.string.app_info))){
-                        startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                        wm.removeView(view);
-                    }else if(action.getText().equals(getString(R.string.uninstall))){
-                        startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                        wm.removeView(view);
-                    }else if(action.getText().equals(getString(R.string.freeze))){
-                        String status = DeviceUtils.runAsRoot("pm disable "+app);
-                        if(!status.equals("error"))
-                            Toast.makeText(LauncherActivity.this, R.string.app_frozen, Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(LauncherActivity.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
-                        wm.removeView(view);
-                        loadDesktopApps();
-                    }else if(action.getText().equals(getString(R.string.unpin))){
-                        AppUtils.unpinApp(LauncherActivity.this,app, AppUtils.DESKTOP_LIST);
-                        wm.removeView(view);
-                        loadDesktopApps();
-                    }else if(action.getText().equals(getString(R.string.standard))){
-                        wm.removeView(view);
-                        launchApp("standard", app);
-                    }else if(action.getText().equals(getString(R.string.maximized))){
-                        wm.removeView(view);
-                        launchApp("maximized", app);
-                    }else if(action.getText().equals(getString(R.string.portrait))){
-                        wm.removeView(view);
-                        launchApp("portrait", app);
-                    }else if(action.getText().equals(getString(R.string.fullscreen))){
-                        wm.removeView(view);
-                        launchApp("fullscreen", app);
-                    }
-                    }else if(p1.getItemAtPosition(p3) instanceof ShortcutInfo){
+                            actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, actions));
+                        } else if (action.getText().equals(getString(R.string.shortcuts))) {
+                            actionsLv.setAdapter(new AppShortcutAdapter(LauncherActivity.this, DeepShortcutManager.getShortcuts(app, LauncherActivity.this)));
+                        } else if (action.getText().equals("")) {
+                            actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, getAppActions(app)));   
+                        } else if (action.getText().equals(getString(R.string.open_in))) {
+                            ArrayList<Action> actions = new ArrayList<Action>();
+                            actions.add(new Action(R.drawable.ic_arrow_back , ""));
+                            actions.add(new Action(R.drawable.ic_standard, getString(R.string.standard)));
+                            actions.add(new Action(R.drawable.ic_maximized, getString(R.string.maximized)));
+                            actions.add(new Action(R.drawable.ic_portrait, getString(R.string.portrait)));
+                            actions.add(new Action(R.drawable.ic_fullscreen, getString(R.string.fullscreen)));
+                            actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, actions));
+                        } else if (action.getText().equals(getString(R.string.app_info))) {
+                            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            wm.removeView(view);
+                        } else if (action.getText().equals(getString(R.string.uninstall))) {
+                            startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            wm.removeView(view);
+                        } else if (action.getText().equals(getString(R.string.freeze))) {
+                            String status = DeviceUtils.runAsRoot("pm disable " + app);
+                            if (!status.equals("error"))
+                                Toast.makeText(LauncherActivity.this, R.string.app_frozen, Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(LauncherActivity.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
+                            wm.removeView(view);
+                            loadDesktopApps();
+                        } else if (action.getText().equals(getString(R.string.unpin))) {
+                            AppUtils.unpinApp(LauncherActivity.this, app, AppUtils.DESKTOP_LIST);
+                            wm.removeView(view);
+                            loadDesktopApps();
+                        } else if (action.getText().equals(getString(R.string.standard))) {
+                            wm.removeView(view);
+                            launchApp("standard", app);
+                        } else if (action.getText().equals(getString(R.string.maximized))) {
+                            wm.removeView(view);
+                            launchApp("maximized", app);
+                        } else if (action.getText().equals(getString(R.string.portrait))) {
+                            wm.removeView(view);
+                            launchApp("portrait", app);
+                        } else if (action.getText().equals(getString(R.string.fullscreen))) {
+                            wm.removeView(view);
+                            launchApp("fullscreen", app);
+                        }
+                    } else if (p1.getItemAtPosition(p3) instanceof ShortcutInfo) {
                         ShortcutInfo shortcut = (ShortcutInfo) p1.getItemAtPosition(p3);
                         wm.removeView(view);
                         DeepShortcutManager.startShortcut(shortcut, LauncherActivity.this);
@@ -353,7 +391,7 @@ public class LauncherActivity extends Activity {
             TextView nameTv=convertView.findViewById(R.id.desktop_app_name_tv);
             final App app = getItem(position);
             nameTv.setText(app.getName());
-            
+
 
             IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
 
@@ -361,14 +399,14 @@ public class LauncherActivity extends Activity {
                 iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
             else 
                 iconIv.setImageDrawable(app.getIcon());
-                
+
             if (iconBackground != -1) {
                 iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
                 iconIv.setBackgroundResource(iconBackground);
                 ColorUtils.applyColor(iconIv, ColorUtils.getDrawableDominantColor(iconIv.getDrawable()));
-                
+
             }
-            
+
             convertView.setOnTouchListener(new OnTouchListener(){
 
                     @Override
