@@ -1,0 +1,18 @@
+[
+  {
+    "name": "maven",
+    "url": "https://repo1.maven.org/maven2"
+  },
+  {
+    "name": "google-maven",
+    "url": "https://maven.google.com"
+  },
+  {
+    "name": "jitpack",
+    "url": "https://jitpack.io"
+  },
+  {
+    "name": "jcenter",
+    "url": "https://jcenter.bintray.com"
+  }
+]

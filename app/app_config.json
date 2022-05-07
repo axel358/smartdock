@@ -1,0 +1,10 @@
+{
+  "minSdkVersion": 21.0,
+  "viewBindingEnabled": false,
+  "libraries": "[{\"declaration\":\"com.android.support:palette-v7:27.1.1\",\"sourceFile\":\"/storage/emulated/0/Android/data/com.tyron.code/files/cache/google-maven/com/android/support/palette-v7/27.1.1/palette-v7-27.1.1.aar\"},{\"declaration\":\"com.android.support:support-core-utils:27.1.1\",\"sourceFile\":\"/storage/emulated/0/Android/data/com.tyron.code/files/cache/google-maven/com/android/support/support-core-utils/27.1.1/support-core-utils-27.1.1.aar\"},{\"declaration\":\"com.android.support:support-compat:27.1.1\",\"sourceFile\":\"/storage/emulated/0/Android/data/com.tyron.code/files/cache/google-maven/com/android/support/support-compat/27.1.1/support-compat-27.1.1.aar\"},{\"declaration\":\"com.android.support:support-annotations:27.1.1\",\"sourceFile\":\"/storage/emulated/0/Android/data/com.tyron.code/files/cache/google-maven/com/android/support/support-annotations/27.1.1/support-annotations-27.1.1.jar\"},{\"declaration\":\"android.arch.lifecycle:runtime:1.1.0\",\"sourceFile\":\"/storage/emulated/0/Android/data/com.tyron.code/files/cache/google-maven/android/arch/lifecycle/runtime/1.1.0/runtime-1.1.0.aar\"},{\"declaration\":\"android.arch.core:common:1.1.0\",\"sourceFile\":\"/storage/emulated/0/Android/data/com.tyron.code/files/cache/google-maven/android/arch/core/common/1.1.0/common-1.1.0.jar\"},{\"declaration\":\"android.arch.lifecycle:common:1.1.0\",\"sourceFile\":\"/storage/emulated/0/Android/data/com.tyron.code/files/cache/google-maven/android/arch/lifecycle/common/1.1.0/common-1.1.0.jar\"}]",
+  "useR8": false,
+  "targetSdkVersion": 30.0,
+  "versionName": "1.0",
+  "versionCode": 1.0,
+  "zipAlignEnabled": false
+}
