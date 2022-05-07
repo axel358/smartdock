@@ -24,7 +24,6 @@ public class DebugActivity extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
-
                 }
             });
         dialog.setNeutralButton(R.string.save_log, new DialogInterface.OnClickListener(){
