@@ -727,9 +727,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		actions.add(new Action(R.drawable.ic_manage, getString(R.string.manage)));
 		actions.add(new Action(R.drawable.ic_launch_mode, getString(R.string.open_in)));
 		if (AppUtils.isPinned(DockService.this, app, AppUtils.PINNED_LIST))
-			actions.add(new Action(R.drawable.ic_unpin, getString(R.string.unpin)));
+			actions.add(new Action(R.drawable.ic_remove_favorite, getString(R.string.remove)));
 		else
-			actions.add(new Action(R.drawable.ic_pin, getString(R.string.pin)));
+			actions.add(new Action(R.drawable.ic_add_favorite, getString(R.string.to_favorites)));
 
 		if (!AppUtils.isPinned(DockService.this, app, AppUtils.DESKTOP_LIST))
 			actions.add(new Action(R.drawable.ic_add_to_desktop, getString(R.string.to_desktop)));
@@ -1134,11 +1134,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 						wm.removeView(view);
 						if (appMenuVisible)
 							hideAppMenu();
-					} else if (action.getText().equals(getString(R.string.pin))) {
+					} else if (action.getText().equals(getString(R.string.to_favorites))) {
 						AppUtils.pinApp(DockService.this, app, AppUtils.PINNED_LIST);
 						wm.removeView(view);
 						loadFavoriteApps();
-					} else if (action.getText().equals(getString(R.string.unpin))) {
+					} else if (action.getText().equals(getString(R.string.remove))) {
 						AppUtils.unpinApp(DockService.this, app, AppUtils.PINNED_LIST);
 						wm.removeView(view);
 						loadFavoriteApps();

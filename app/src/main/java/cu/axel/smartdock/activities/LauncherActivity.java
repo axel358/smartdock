@@ -265,9 +265,7 @@ public class LauncherActivity extends Activity {
 		}
 		actions.add(new Action(R.drawable.ic_manage, getString(R.string.manage)));
 		actions.add(new Action(R.drawable.ic_launch_mode, getString(R.string.open_in)));
-
-		if (AppUtils.isPinned(this, app, AppUtils.DESKTOP_LIST))
-			actions.add(new Action(R.drawable.ic_unpin, getString(R.string.unpin)));
+		actions.add(new Action(R.drawable.ic_remove_from_desktop, getString(R.string.remove)));
 
 		return actions;
 	}
@@ -344,7 +342,7 @@ public class LauncherActivity extends Activity {
 							Toast.makeText(LauncherActivity.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
 						wm.removeView(view);
 						loadDesktopApps();
-					} else if (action.getText().equals(getString(R.string.unpin))) {
+					} else if (action.getText().equals(getString(R.string.remove))) {
 						AppUtils.unpinApp(LauncherActivity.this, app, AppUtils.DESKTOP_LIST);
 						wm.removeView(view);
 						loadDesktopApps();
