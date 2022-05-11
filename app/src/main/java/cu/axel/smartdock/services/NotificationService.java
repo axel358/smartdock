@@ -63,6 +63,7 @@ public class NotificationService extends NotificationListenerService {
 	private ListView notificationsLv;
 	private NotificationManager nm;
 	private Button cancelAllBtn;
+    private LinearLayout notifActionsLayout;
 
 	@Override
 	public void onCreate() {
@@ -73,9 +74,14 @@ public class NotificationService extends NotificationListenerService {
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this, 300), -2);
-		lp.gravity = Gravity.TOP | Gravity.RIGHT;
-		lp.y = 5;
-		lp.x = 5;
+        lp.x = 5;
+        if (sp.getBoolean("notification_bottom", false)) {
+            lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+            lp.y = Utils.dpToPx(this, 60);
+        } else {
+            lp.gravity = Gravity.TOP | Gravity.RIGHT;
+            lp.y = 5;
+        }
 
 		notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification, null);
 		notificationLayout.setVisibility(View.GONE);
@@ -85,6 +91,8 @@ public class NotificationService extends NotificationListenerService {
 		notifIcon = notificationLayout.findViewById(R.id.notif_icon_iv);
 		notifCancelBtn = notificationLayout.findViewById(R.id.notif_close_btn);
 
+        notifActionsLayout = notificationLayout.findViewById(R.id.notif_actions_container2);
+
 		wm.addView(notificationLayout, lp);
 
 		handler = new Handler();
@@ -92,24 +100,24 @@ public class NotificationService extends NotificationListenerService {
 
 		notificationLayout.setOnHoverListener(new OnHoverListener() {
 
-			@Override
-			public boolean onHover(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
-					notifCancelBtn.setVisibility(View.VISIBLE);
-					handler.removeCallbacksAndMessages(null);
-				} else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT) {
-					new Handler().postDelayed(new Runnable() {
+                @Override
+                public boolean onHover(View p1, MotionEvent p2) {
+                    if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
+                        notifCancelBtn.setVisibility(View.VISIBLE);
+                        handler.removeCallbacksAndMessages(null);
+                    } else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT) {
+                        new Handler().postDelayed(new Runnable() {
 
-						@Override
-						public void run() {
-							notifCancelBtn.setVisibility(View.INVISIBLE);
-						}
-					}, 200);
-					hideNotification();
-				}
-				return false;
-			}
-		});
+                                @Override
+                                public void run() {
+                                    notifCancelBtn.setVisibility(View.INVISIBLE);
+                                }
+                            }, 200);
+                        hideNotification();
+                    }
+                    return false;
+                }
+            });
 
 		dockReceiver = new DockServiceReceiver();
 		registerReceiver(dockReceiver, new IntentFilter(getPackageName() + ".NOTIFICATION_PANEL"));
@@ -131,84 +139,149 @@ public class NotificationService extends NotificationListenerService {
 
 		updateNotificationCount();
 
-		if (Utils.notificationPanelVisible)
+		if (Utils.notificationPanelVisible) {
 			updateNotificationPanel();
+        } else {
+            final Notification notification = sbn.getNotification();
 
-		final Notification notification = sbn.getNotification();
+            if (sbn.isOngoing() && !PreferenceManager.getDefaultSharedPreferences(this).getBoolean("show_ongoing", false)) {
+            } else if (notification.contentView == null && !isBlackListed(sbn.getPackageName())) {
+                Bundle extras = notification.extras;
 
-		if (sbn.isOngoing() && !PreferenceManager.getDefaultSharedPreferences(this).getBoolean("show_ongoing", false)) {
-		} else if (notification.contentView == null && !isBlackListed(sbn.getPackageName())) {
-			Bundle extras = notification.extras;
+                String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
 
-			String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
+                CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
 
-			CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
+                ColorUtils.applySecondaryColor(sp, notifIcon);
+                ColorUtils.applyMainColor(sp, notificationLayout);
+                ColorUtils.applySecondaryColor(sp, notifCancelBtn);
 
-			ColorUtils.applySecondaryColor(sp, notifIcon);
-			ColorUtils.applyMainColor(sp, notificationLayout);
-			ColorUtils.applySecondaryColor(sp, notifCancelBtn);
+                try {
+                    Drawable notificationIcon = getPackageManager().getApplicationIcon(sbn.getPackageName());
+                    notifIcon.setPadding(12, 12, 12, 12);
+                    notifIcon.setImageDrawable(notificationIcon);
 
-			try {
-				Drawable notificationIcon = getPackageManager().getApplicationIcon(sbn.getPackageName());
-				notifIcon.setPadding(12, 12, 12, 12);
-				notifIcon.setImageDrawable(notificationIcon);
+                } catch (PackageManager.NameNotFoundException e) {
+                }
+                
+                int progress = extras.getInt(Notification.EXTRA_PROGRESS);
 
-			} catch (PackageManager.NameNotFoundException e) {
-			}
+                String p = progress != 0 ? " " + progress + "%" : "";
 
-			notifTitle.setText(notificationTitle);
-			notifText.setText(notificationText);
+                notifTitle.setText(notificationTitle + p);
+                notifText.setText(notificationText);
 
-			notifCancelBtn.setOnClickListener(new OnClickListener() {
+                Notification.Action[] actions = notification.actions;
 
-				@Override
-				public void onClick(View p1) {
-					notificationLayout.setVisibility(View.GONE);
+                notifActionsLayout.removeAllViews();
 
-					if (sbn.isClearable())
-						cancelNotification(sbn.getKey());
-				}
+                if (actions != null) {
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);
+                    lp.weight = 1f;
 
-			});
+                    if (extras.get(Notification.EXTRA_MEDIA_SESSION) != null) {
+                        //lp.height = Utils.dpToPx(NotificationService.this, 30);
+                        for (final Notification.Action action : actions) {
+                            ImageView actionTv = new ImageView(NotificationService.this);
+                            try {
+                                Resources res = getPackageManager().getResourcesForApplication(sbn.getPackageName());
 
-			notificationLayout.setOnClickListener(new OnClickListener() {
+                                Drawable drawable = res
+                                    .getDrawable(res.getIdentifier(action.icon + "", "drawable", sbn.getPackageName()));
+                                drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                                actionTv.setImageDrawable(drawable);
+                                //actionTv.setImageIcon(action.getIcon());
+                                actionTv.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View p1) {
-					notificationLayout.setVisibility(View.GONE);
-					notificationLayout.setAlpha(0);
+                                        @Override
+                                        public void onClick(View p1) {
+                                            try {
+                                                action.actionIntent.send();
+                                            } catch (PendingIntent.CanceledException e) {
+                                            }
+                                        }
+                                    });
 
-					PendingIntent intent = notification.contentIntent;
-					if (intent != null) {
-						try {
-							intent.send();
-							if (sbn.isClearable())
-								cancelNotification(sbn.getKey());
-						} catch (PendingIntent.CanceledException e) {
-						}
-					}
-				}
-			});
+                                notifActionsLayout.addView(actionTv, lp);
 
-			notificationLayout.setOnLongClickListener(new OnLongClickListener() {
+                            } catch (PackageManager.NameNotFoundException e) {
 
-				@Override
-				public boolean onLongClick(View p1) {
-					sp.edit()
-							.putString("blocked_notifications",
-									sp.getString("blocked_notifications", "").trim() + " " + sbn.getPackageName())
-							.commit();
-					notificationLayout.setVisibility(View.GONE);
-					notificationLayout.setAlpha(0);
-					Toast.makeText(NotificationService.this, R.string.silenced_notifications, 5000).show();
+                            }
+                        }
+                    } else {
+                        for (final Notification.Action action : actions) {
+                            TextView actionTv = new TextView(NotificationService.this);
+                            actionTv.setSingleLine(true);
+                            actionTv.setText(action.title);
+                            actionTv.setTextColor(Color.WHITE);
+                            actionTv.setOnClickListener(new OnClickListener() {
 
-					if (sbn.isClearable())
-						cancelNotification(sbn.getKey());
-					return true;
-				}
-			});
+                                    @Override
+                                    public void onClick(View p1) {
+                                        try {
+                                            action.actionIntent.send();
+                                            notificationLayout.setVisibility(View.GONE);
+                                            notificationLayout.setAlpha(0);
+                                        } catch (PendingIntent.CanceledException e) {
+                                        }
+                                    }
+                                });
 
-			notificationLayout.animate().alpha(1).setDuration(300)
+                            notifActionsLayout.addView(actionTv, lp);
+                        }
+                    }
+                }
+
+                notifCancelBtn.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View p1) {
+                            notificationLayout.setVisibility(View.GONE);
+
+                            if (sbn.isClearable())
+                                cancelNotification(sbn.getKey());
+                        }
+
+                    });
+
+                notificationLayout.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View p1) {
+                            notificationLayout.setVisibility(View.GONE);
+                            notificationLayout.setAlpha(0);
+
+                            PendingIntent intent = notification.contentIntent;
+                            if (intent != null) {
+                                try {
+                                    intent.send();
+                                    if (sbn.isClearable())
+                                        cancelNotification(sbn.getKey());
+                                } catch (PendingIntent.CanceledException e) {
+                                }
+                            }
+                        }
+                    });
+
+                notificationLayout.setOnLongClickListener(new OnLongClickListener() {
+
+                        @Override
+                        public boolean onLongClick(View p1) {
+                            sp.edit()
+                                .putString("blocked_notifications",
+                                           sp.getString("blocked_notifications", "").trim() + " " + sbn.getPackageName())
+                                .commit();
+                            notificationLayout.setVisibility(View.GONE);
+                            notificationLayout.setAlpha(0);
+                            Toast.makeText(NotificationService.this, R.string.silenced_notifications, 5000).show();
+
+                            if (sbn.isClearable())
+                                cancelNotification(sbn.getKey());
+                            return true;
+                        }
+                    });
+
+                notificationLayout.animate().alpha(1).setDuration(300)
 					.setInterpolator(new AccelerateDecelerateInterpolator()).setListener(new AnimatorListenerAdapter() {
 						@Override
 						public void onAnimationStart(Animator animation) {
@@ -216,20 +289,21 @@ public class NotificationService extends NotificationListenerService {
 						}
 					});
 
-			if (sp.getBoolean("enable_notification_sound", false))
-				DeviceUtils.playEventSound(this, "notification_sound");
+                if (sp.getBoolean("enable_notification_sound", false))
+                    DeviceUtils.playEventSound(this, "notification_sound");
 
-			hideNotification();
-		}
+                hideNotification();
+            }
+        }
 	}
 
 	public void hideNotification() {
 		handler.removeCallbacksAndMessages(null);
 		handler.postDelayed(new Runnable() {
 
-			@Override
-			public void run() {
-				notificationLayout.animate().alpha(0).setDuration(300)
+                @Override
+                public void run() {
+                    notificationLayout.animate().alpha(0).setDuration(300)
 						.setInterpolator(new AccelerateDecelerateInterpolator())
 						.setListener(new AnimatorListenerAdapter() {
 							@Override
@@ -239,8 +313,8 @@ public class NotificationService extends NotificationListenerService {
 							}
 						});
 
-			}
-		}, Integer.parseInt(sp.getString("notification_timeout", "5000")));
+                }
+            }, Integer.parseInt(sp.getString("notification_timeout", "5000")));
 
 	}
 
@@ -263,7 +337,7 @@ public class NotificationService extends NotificationListenerService {
 		if (notifications != null) {
 			for (StatusBarNotification notification : notifications) {
 				if (notification != null
-						&& (notification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) == 0) {
+                    && (notification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) == 0) {
 					count++;
 
 					if (notification.isClearable())
@@ -291,32 +365,32 @@ public class NotificationService extends NotificationListenerService {
 
 		notificationsLv.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
-				final StatusBarNotification sbn = (StatusBarNotification) p1.getItemAtPosition(p3);
-				final Notification notification = sbn.getNotification();
+                @Override
+                public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+                    final StatusBarNotification sbn = (StatusBarNotification) p1.getItemAtPosition(p3);
+                    final Notification notification = sbn.getNotification();
 
-				if (notification.contentIntent != null) {
-					hideNotificationPanel();
-					try {
-						notification.contentIntent.send();
+                    if (notification.contentIntent != null) {
+                        hideNotificationPanel();
+                        try {
+                            notification.contentIntent.send();
 
-						if (sbn.isClearable())
-							cancelNotification(sbn.getKey());
-					} catch (PendingIntent.CanceledException e) {
-					}
-				}
+                            if (sbn.isClearable())
+                                cancelNotification(sbn.getKey());
+                        } catch (PendingIntent.CanceledException e) {
+                        }
+                    }
 
-			}
-		});
+                }
+            });
 
 		cancelAllBtn.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View p1) {
-				cancelAllNotifications();
-			}
-		});
+                @Override
+                public void onClick(View p1) {
+                    cancelAllNotifications();
+                }
+            });
 
 		ColorUtils.applyMainColor(sp, notificationPanel);
 		wm.addView(notificationPanel, lp);
@@ -325,15 +399,15 @@ public class NotificationService extends NotificationListenerService {
 
 		notificationPanel.setOnTouchListener(new OnTouchListener() {
 
-			@Override
-			public boolean onTouch(View p1, MotionEvent p2) {
-				if (p2.getAction() == p2.ACTION_OUTSIDE && (p2.getY() < notificationPanel.getMeasuredHeight()
+                @Override
+                public boolean onTouch(View p1, MotionEvent p2) {
+                    if (p2.getAction() == p2.ACTION_OUTSIDE && (p2.getY() < notificationPanel.getMeasuredHeight()
 						|| p2.getX() < notificationPanel.getX())) {
-					hideNotificationPanel();
-				}
-				return false;
-			}
-		});
+                        hideNotificationPanel();
+                    }
+                    return false;
+                }
+            });
 
 		Utils.notificationPanelVisible = true;
 	}
@@ -385,7 +459,7 @@ public class NotificationService extends NotificationListenerService {
 				holder.notifText = convertView.findViewById(R.id.notif_w_text_tv);
 				holder.notifIcon = convertView.findViewById(R.id.notif_w_icon_iv);
 				holder.notifCancelBtn = convertView.findViewById(R.id.notif_w_close_btn);
-				holder.notifPb = convertView.findViewById(R.id.notif_w_pb);
+				//holder.notifPb = convertView.findViewById(R.id.notif_w_pb);
 				holder.notifActionsLayout = convertView.findViewById(R.id.notif_actions_container);
 				convertView.setTag(holder);
 
@@ -409,20 +483,20 @@ public class NotificationService extends NotificationListenerService {
 							Resources res = getPackageManager().getResourcesForApplication(sbn.getPackageName());
 
 							Drawable drawable = res
-									.getDrawable(res.getIdentifier(action.icon + "", "drawable", sbn.getPackageName()));
+                                .getDrawable(res.getIdentifier(action.icon + "", "drawable", sbn.getPackageName()));
 							drawable.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
 							actionTv.setImageDrawable(drawable);
 							//actionTv.setImageIcon(action.getIcon());
 							actionTv.setOnClickListener(new OnClickListener() {
 
-								@Override
-								public void onClick(View p1) {
-									try {
-										action.actionIntent.send();
-									} catch (PendingIntent.CanceledException e) {
-									}
-								}
-							});
+                                    @Override
+                                    public void onClick(View p1) {
+                                        try {
+                                            action.actionIntent.send();
+                                        } catch (PendingIntent.CanceledException e) {
+                                        }
+                                    }
+                                });
 
 							holder.notifActionsLayout.addView(actionTv, lp);
 
@@ -437,14 +511,14 @@ public class NotificationService extends NotificationListenerService {
 						actionTv.setText(action.title);
 						actionTv.setOnClickListener(new OnClickListener() {
 
-							@Override
-							public void onClick(View p1) {
-								try {
-									action.actionIntent.send();
-								} catch (PendingIntent.CanceledException e) {
-								}
-							}
-						});
+                                @Override
+                                public void onClick(View p1) {
+                                    try {
+                                        action.actionIntent.send();
+                                    } catch (PendingIntent.CanceledException e) {
+                                    }
+                                }
+                            });
 
 						holder.notifActionsLayout.addView(actionTv, lp);
 					}
@@ -455,14 +529,9 @@ public class NotificationService extends NotificationListenerService {
 			CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
 			int progress = extras.getInt(Notification.EXTRA_PROGRESS);
 
-			if (progress != 0) {
-				holder.notifPb.setAlpha(1f);
-				holder.notifPb.setProgress(progress);
-			} else {
-				holder.notifPb.setAlpha(0);
-			}
+			String p = progress != 0 ? " " + progress + "%" : "";
 
-			holder.notifTitle.setText(notificationTitle);
+			holder.notifTitle.setText(notificationTitle + p);
 			holder.notifText.setText(notificationText);
 
 			try {
@@ -478,13 +547,13 @@ public class NotificationService extends NotificationListenerService {
 				holder.notifCancelBtn.setAlpha(1f);
 				holder.notifCancelBtn.setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View p1) {
+                        @Override
+                        public void onClick(View p1) {
 
-						if (sbn.isClearable())
-							cancelNotification(sbn.getKey());
-					}
-				});
+                            if (sbn.isClearable())
+                                cancelNotification(sbn.getKey());
+                        }
+                    });
 			} else
 				holder.notifCancelBtn.setAlpha(0f);
 

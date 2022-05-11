@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="please_note_that_you_must_prov">Please note that you must provide your own sounds</string>
     <string name="enable_startup_sound_title">Play a custom sound at Dock startup*</string>
     <string name="startup_sound_title">Choose startup sound</string>
@@ -257,4 +258,5 @@
     <string name="show_help_summary">Tap for help</string>
     <string name="more_help">More help</string>
     <string name="to_favorites">To favorites</string>
+    <string name="notification_bottom_title">Show notifications at the bottom(needs re enabling the service atm)</string>
 </resources>

@@ -56,6 +56,15 @@
 			android:text="Text"
 			android:textColor="#DDDDDD"
 			android:id="@+id/notif_text_tv"/>
+        
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/notif_actions_container2"
+            android:gravity="center"
+            android:paddingStart="16dp"
+			android:paddingEnd="16dp"/>
 
 	</LinearLayout>
 

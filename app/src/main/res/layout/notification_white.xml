@@ -6,7 +6,7 @@
 	android:orientation="horizontal"
 	android:background="@drawable/round_rect"
 	android:padding="5dp"
-	android:gravity="center_vertical">
+    android:gravity="center_vertical">
 
 	<ImageView
 		android:layout_height="55dp"
@@ -49,17 +49,6 @@
 				android:alpha="0"/>
 
 		</LinearLayout>
-
-		<ProgressBar
-			android:layout_width="match_parent"
-			style="?android:attr/progressBarStyleHorizontal"
-			android:layout_height="wrap_content"
-			android:id="@+id/notif_w_pb"
-			android:visibility="visible"
-			android:layout_marginRight="10dp"
-			android:alpha="0"
-			android:layout_marginTop="-5dp"
-			android:layout_marginBottom="-5dp"/>
 
 		<TextView
 			android:maxLines="2"
