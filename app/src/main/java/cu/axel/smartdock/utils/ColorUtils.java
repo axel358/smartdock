@@ -123,6 +123,10 @@ public class ColorUtils {
                 color = "#000000";
                 alpha = 225;
                 break;
+            case "nanashi":
+                color = "#202020";
+                alpha = 235;
+                break;
             case "custom":
                 color = sp.getString("theme_main_color", "#212121");
                 alpha = sp.getInt("theme_main_alpha", 255);
@@ -144,6 +148,10 @@ public class ColorUtils {
             case "transparent":
                 color = "#000000";
                 alpha = 80;
+                break;
+            case "nanashi":
+                color = "#cccccc";
+                alpha = 40;
                 break;
             case "custom":
                 color = sp.getString("theme_secondary_color", "#292929");
