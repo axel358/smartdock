@@ -702,6 +702,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		updateNavigationBar();
 		updateQuickSettings();
+        updateDockShape();
 		applyTheme();
 		updateMenuIcon();
 		loadPinnedApps();
@@ -1299,6 +1300,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			updateNavigationBar();
 		else if (p2.startsWith("enable_qs_"))
 			updateQuickSettings();
+        else if(p2.equals("dock_square"))
+            updateDockShape();
 	}
 
 	private void updateDockTrigger() {
@@ -1361,6 +1364,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		bluetoothBtn
 				.setImageResource(bm.getAdapter().isEnabled() ? R.drawable.ic_bluetooth : R.drawable.ic_bluetooth_off);
 	}
+    
+    private void updateDockShape(){
+        dockLayout.setBackgroundResource(sp.getBoolean("dock_square", false)? R.drawable.rect : R.drawable.round_rect);
+        ColorUtils.applyMainColor(sp, dockLayout);
+    }
 
 	public void updateNavigationBar() {
 		backBtn.setVisibility(sp.getBoolean("enable_nav_back", true) ? View.VISIBLE : View.GONE);

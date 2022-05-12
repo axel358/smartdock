@@ -41,6 +41,10 @@
         <Preference
             android:key="restore_menu_icon"
             android:title="@string/restore_menu_icon_title"/>
+        <CheckBoxPreference
+            android:key="dock_square"
+            android:title="@string/dock_square_title"
+            android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/animations">

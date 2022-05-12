@@ -259,4 +259,6 @@
     <string name="more_help">More help</string>
     <string name="to_favorites">To favorites</string>
     <string name="notification_bottom_title">Show notifications at the bottom(needs re enabling the service atm)</string>
+    <string name="dock_square_title">Disable rounded corners for the dock</string>
+
 </resources>
