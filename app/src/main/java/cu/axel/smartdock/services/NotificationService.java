@@ -50,6 +50,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.widget.ImageButton;
 
 public class NotificationService extends NotificationListenerService {
 	private WindowManager wm;
@@ -62,7 +63,7 @@ public class NotificationService extends NotificationListenerService {
 	private View notificationPanel;
 	private ListView notificationsLv;
 	private NotificationManager nm;
-	private Button cancelAllBtn;
+	private ImageButton cancelAllBtn;
     private LinearLayout notifActionsLayout;
 
 	@Override
@@ -362,6 +363,7 @@ public class NotificationService extends NotificationListenerService {
 		notificationPanel = LayoutInflater.from(this).inflate(R.layout.notification_panel, null);
 		cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
 		notificationsLv = notificationPanel.findViewById(R.id.notification_lv);
+        
 
 		notificationsLv.setOnItemClickListener(new OnItemClickListener() {
 
