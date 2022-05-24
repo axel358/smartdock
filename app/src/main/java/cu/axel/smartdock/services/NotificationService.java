@@ -51,6 +51,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.widget.ImageButton;
+import cu.axel.smartdock.utils.AppUtils;
 
 public class NotificationService extends NotificationListenerService {
 	private WindowManager wm;
@@ -123,7 +124,15 @@ public class NotificationService extends NotificationListenerService {
 		dockReceiver = new DockServiceReceiver();
 		registerReceiver(dockReceiver, new IntentFilter(getPackageName() + ".NOTIFICATION_PANEL"));
 
+
 	}
+
+    @Override
+    public void onListenerConnected() {
+        super.onListenerConnected();
+        updateNotificationCount();
+    }
+
 
 	@Override
 	public void onNotificationRemoved(StatusBarNotification sbn) {
@@ -146,7 +155,7 @@ public class NotificationService extends NotificationListenerService {
             final Notification notification = sbn.getNotification();
 
             if (sbn.isOngoing() && !PreferenceManager.getDefaultSharedPreferences(this).getBoolean("show_ongoing", false)) {
-            } else if (notification.contentView == null && !isBlackListed(sbn.getPackageName())) {
+            } else if (notification.contentView == null && !isBlackListed(sbn.getPackageName()) && !sbn.getPackageName().equals(AppUtils.currentApp)) {
                 Bundle extras = notification.extras;
 
                 String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
@@ -159,12 +168,12 @@ public class NotificationService extends NotificationListenerService {
 
                 try {
                     Drawable notificationIcon = getPackageManager().getApplicationIcon(sbn.getPackageName());
-                    notifIcon.setPadding(12, 12, 12, 12);
                     notifIcon.setImageDrawable(notificationIcon);
+                    ColorUtils.applyColor(notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
 
                 } catch (PackageManager.NameNotFoundException e) {
                 }
-                
+
                 int progress = extras.getInt(Notification.EXTRA_PROGRESS);
 
                 String p = progress != 0 ? " " + progress + "%" : "";
@@ -328,29 +337,22 @@ public class NotificationService extends NotificationListenerService {
 		int count = 0;
 		int cancelableCount = 0;
 
-		StatusBarNotification[] notifications;
-		try {
-			notifications = getActiveNotifications();
-		} catch (Exception e) {
-			notifications = new StatusBarNotification[0];
-		}
+		StatusBarNotification[] notifications = getActiveNotifications();
 
-		if (notifications != null) {
-			for (StatusBarNotification notification : notifications) {
-				if (notification != null
-                    && (notification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) == 0) {
-					count++;
+        for (StatusBarNotification notification : notifications) {
+            if (notification != null
+                && (notification.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) == 0) {
+                count++;
 
-					if (notification.isClearable())
-						cancelableCount++;
-				}
-				if (Utils.notificationPanelVisible)
-					cancelAllBtn.setVisibility(cancelableCount > 0 ? View.VISIBLE : View.INVISIBLE);
+                if (notification.isClearable())
+                    cancelableCount++;
+            }
+            if (Utils.notificationPanelVisible)
+                cancelAllBtn.setVisibility(cancelableCount > 0 ? View.VISIBLE : View.INVISIBLE);
 
-			}
-			sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_COUNT_CHANGED").putExtra("count", count));
-		}
-
+        }
+        sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_COUNT_CHANGED").putExtra("count", count));
+		
 	}
 
 	public void showNotificationPanel() {
@@ -363,7 +365,7 @@ public class NotificationService extends NotificationListenerService {
 		notificationPanel = LayoutInflater.from(this).inflate(R.layout.notification_panel, null);
 		cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
 		notificationsLv = notificationPanel.findViewById(R.id.notification_lv);
-        
+
 
 		notificationsLv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -412,6 +414,7 @@ public class NotificationService extends NotificationListenerService {
             });
 
 		Utils.notificationPanelVisible = true;
+        updateNotificationCount();
 	}
 
 	public void hideNotificationPanel() {
@@ -538,8 +541,8 @@ public class NotificationService extends NotificationListenerService {
 
 			try {
 				Drawable notificationIcon = getPackageManager().getApplicationIcon(sbn.getPackageName());
-				holder.notifIcon.setPadding(12, 12, 12, 12);
 				holder.notifIcon.setImageDrawable(notificationIcon);
+                ColorUtils.applyColor(holder.notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
 
 			} catch (PackageManager.NameNotFoundException e) {
 			}

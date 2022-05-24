@@ -24,5 +24,4 @@ android {
 
 dependencies {
 	   implementation fileTree(dir: 'libs', include: ['*.jar'])
-       implementation 'com.android.support:palette-v7:27.+'
 }

@@ -94,6 +94,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.net.wifi.WifiInfo;
 import android.widget.Switch;
 import android.widget.CompoundButton;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener,
 		View.OnTouchListener, AppAdapter.AppRightClickListener, DockAppAdapter.TaskRightClickListener {
@@ -108,7 +110,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private RelativeLayout dockLayout;
 	private WindowManager wm;
 	private View appsSeparator;
-	private boolean appMenuVisible, powerMenuVisible, shouldHide = true, isPinned, reflectionAllowed, audioPanelVisible,
+	private boolean appMenuVisible, powerMenuVisible, isPinned, reflectionAllowed, audioPanelVisible,
 			wifiPanelVisible;
 	private WindowManager.LayoutParams dockLayoutParams;
 	private EditText searchEt;
@@ -123,6 +125,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private BluetoothManager bm;
 	private View dockTrigger;
 	private ArrayList<App> pinnedApps;
+
+    private long lastUpdate;
 
 	@Override
 	public void onCreate() {
@@ -175,7 +179,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					if (dockLayout.getVisibility() == View.GONE)
 						showDock();
 				} else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT)
+                    if (dockLayout.getVisibility() == View.VISIBLE){
 					hideDock(Integer.parseInt(sp.getString("dock_hide_delay", "500")));
+                    }
 
 				return false;
 			}
@@ -185,7 +191,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			@Override
 			public boolean onSwipe(Direction direction) {
 				if (direction == Direction.up) {
-					showDock();
 					pinDock();
 				}
 				return true;
@@ -287,14 +292,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					launchApp(getDefaultLaunchMode(app.getPackageName()), app.getPackageName());
 
 				if (getDefaultLaunchMode(app.getPackageName()).equals("fullscreen")) {
-					if (isPinned)
-						unpinDock();
-				} else {
-					if (!isPinned) {
-						showDock();
-						pinDock();
-					}
-				}
+                    if (isPinned){
+                        unpinDock();
+                    }
+                } else {
+                    if (!isPinned) {
+                        pinDock();
+                    }
+                }
 			}
 
 		});
@@ -334,8 +339,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 			@Override
 			public void onClick(View p1) {
-				if (isPinned)
-					unpinDock();
+				if (isPinned){
+                    unpinDock();
+                }
 				else
 					pinDock();
 			}
@@ -640,13 +646,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			@Override
 			public void onReceive(Context p1, Intent p2) {
 				switch (p2.getStringExtra("action")) {
-				case "pause":
-					shouldHide = true;
-					hideDock(500);
-					break;
 				case "resume":
-					shouldHide = false;
-					showDock();
+					pinDock();
 					break;
 				case "launch":
 					launchApp(p2.getStringExtra("mode"), p2.getStringExtra("app"));
@@ -705,17 +706,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         updateDockShape();
 		applyTheme();
 		updateMenuIcon();
-		loadPinnedApps();
 		placeRunningApps();
 		updateDockTrigger();
 
-		Toast.makeText(this, R.string.start_message, 5000).show();
-
-		showDock();
-		if (sp.getBoolean("pin_dock", false))
-			pinDock();
-		else
-			hideDock(2000);
+        if(sp.getBoolean("pin_dock", true))
+		    pinDock();
+        else
+            Toast.makeText(this, R.string.start_message, 5000).show();
 
 	}
 
@@ -744,9 +741,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			//getSource() might throw an exception
 			try {
 				if (p1.getSource() != null) {
-					//Refresh the app list when the window state changes
+					//Refresh the app list when the window state changes only it has been at least a second since last update
 					//TODO: Filter events that also trigger window state change other than app switching
-					updateRunningTasks();
+                    if(System.currentTimeMillis() - lastUpdate > 1000)
+                         //Log.e("beaut", System.currentTimeMillis() -  lastUpdate + "");
+					     updateRunningTasks();
 				}
 			} catch (Exception e) {
 			}
@@ -812,7 +811,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				return true;
 			}
 			if (event.getKeyCode() == KeyEvent.KEYCODE_F10 && sp.getBoolean("enable_f10", true)) {
-				if (shouldHide) {
+				if (true) {
 					performGlobalAction(AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN);
 					return true;
 				}
@@ -840,20 +839,26 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void showDock() {
 		dockHandler.removeCallbacksAndMessages(null);
+        loadPinnedApps();
 		updateRunningTasks();
-		dockLayout.setVisibility(View.VISIBLE);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+        dockLayout.setVisibility(View.VISIBLE);
+		dockLayout.startAnimation(anim);
 	}
 
 	public void pinDock() {
 		isPinned = true;
 		pinBtn.setImageResource(R.drawable.ic_pin);
+        if (dockLayout.getVisibility() == View.GONE)
+            showDock();
 
 	}
 
 	private void unpinDock() {
 		pinBtn.setImageResource(R.drawable.ic_unpin);
 		isPinned = false;
-		hideDock(500);
+        if (dockLayout.getVisibility() == View.VISIBLE)
+            hideDock(500);
 	}
 
 	private void launchApp(String mode, String packagename) {
@@ -911,7 +916,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					startActivity(intent, options.toBundle());
 				if (appMenuVisible)
 					hideAppMenu();
-				unpinDock();
+                
+                if(isPinned)
+				    unpinDock();
 			} catch (Exception e) {
 			}
 			return;
@@ -956,11 +963,17 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			startActivity(intent, options.toBundle());
 			if (appMenuVisible)
 				hideAppMenu();
-			if (!mode.equals("fullscreen")) {
-				showDock();
-				pinDock();
-			} else
-				unpinDock();
+                
+            if (mode.equals("fullscreen")) {
+                if (isPinned){
+                    unpinDock();
+                }
+            } else {
+                if (!isPinned) {
+                    pinDock();
+                }
+            }
+            
 		} catch (Exception e) {
 			Toast.makeText(this, e.toString(), 5000).show();
 			//Utils.saveLog(this,"app_launch",e.toString());
@@ -968,12 +981,30 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void hideDock(int delay) {
+        dockHandler.removeCallbacksAndMessages(null);
 		dockHandler.postDelayed(new Runnable() {
 
 			@Override
 			public void run() {
-				if (shouldHide && !isPinned)
-					dockLayout.setVisibility(View.GONE);
+				if (!isPinned){
+                    Animation anim = AnimationUtils.loadAnimation(DockService.this, R.anim.slide_down);
+                    anim.setAnimationListener(new Animation.AnimationListener(){
+
+                            @Override
+                            public void onAnimationStart(Animation p1) {
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation p1) {
+                                dockLayout.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation p1) {
+                            }
+                        });
+                      dockLayout.startAnimation(anim);
+                    }
 
 			}
 		}, delay);
@@ -1290,8 +1321,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			loadFavoriteApps();
 		} else if (p2.equals("lock_landscape"))
 			setOrientation();
-		else if (p2.equals("center_running_apps"))
+		else if (p2.equals("center_running_apps")){
 			placeRunningApps();
+            updateRunningTasks();
+            }
 		else if (p2.equals("dock_activation_area"))
 			updateDockTrigger();
 		else if (p2.startsWith("enable_corner_"))
@@ -1316,13 +1349,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		if (sp.getBoolean("center_running_apps", true)) {
 			lp.addRule(RelativeLayout.CENTER_IN_PARENT);
-			lp.leftMargin = -120;
 		} else {
 			lp.addRule(RelativeLayout.END_OF, R.id.nav_panel);
 			lp.addRule(RelativeLayout.START_OF, R.id.notifications_btn);
 		}
 		tasksGv.setLayoutParams(lp);
-		updateRunningTasks();
 	}
 
 	private void loadPinnedApps() {
@@ -1338,7 +1369,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	private void updateRunningTasks() {
-		ArrayList<DockApp> apps = new ArrayList<DockApp>();
+        lastUpdate = System.currentTimeMillis();
+		
+        ArrayList<DockApp> apps = new ArrayList<DockApp>();
 
 		for (App pinnedApp : pinnedApps) {
 			apps.add(new DockApp(pinnedApp.getName(), pinnedApp.getPackageName(), pinnedApp.getIcon()));

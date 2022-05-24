@@ -4,17 +4,17 @@
 	android:layout_width="match_parent"
 	android:layout_height="70dp"
 	android:orientation="horizontal"
-	android:background="@drawable/round_rect"
+	android:background="@drawable/round_rect_gray"
 	android:padding="5dp"
     android:gravity="center_vertical">
 
 	<ImageView
-		android:layout_height="55dp"
-		android:layout_width="55dp"
+		android:layout_height="52dp"
+		android:layout_width="52dp"
 		android:src="@android:drawable/ic_delete"
 		android:id="@+id/notif_w_icon_iv"
 		android:layout_marginTop="2dp"
-		android:background="@drawable/circle_solid_gray"
+		android:background="@drawable/circle"
 		android:padding="5dp"/>
 
 	<LinearLayout

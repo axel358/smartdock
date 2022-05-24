@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import android.support.v7.graphics.Palette;
 
 public class ColorUtils {
 
@@ -63,7 +62,7 @@ public class ColorUtils {
         Drawable wallpaperDrawable = wallpaperManager.getDrawable();
         wallpaperDrawable.mutate();
         wallpaperDrawable.invalidateSelf();
-        return getBitmapDominantColorAccurate(drawableToBitmap(wallpaperDrawable));
+        return getBitmapDominantColor(drawableToBitmap(wallpaperDrawable));
     }
     
     public static int getBitmapDominantColor(Bitmap bitmap) {
@@ -74,11 +73,11 @@ public class ColorUtils {
             color=bitmap.getPixel(bitmap.getWidth()/2, bitmap.getHeight()/2);
         return color;
     }
-    
+    /*
     public static int getBitmapDominantColorAccurate(Bitmap bitmap) {
       return  Palette.from(bitmap).generate().getDominantColor(Color.WHITE);
         
-    }
+    }*/
     
     public static int getDrawableDominantColor(Drawable drawable){
         return getBitmapDominantColor(drawableToBitmap(drawable));

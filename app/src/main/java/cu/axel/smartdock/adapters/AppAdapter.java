@@ -37,7 +37,7 @@ public class AppAdapter extends ArrayAdapter<App> {
         this.originalList = new ArrayList<App>(apps);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         iconParserUtilities = new IconParserUtilities(context);
-        iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "4")));
+        iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
         iconTheming = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming", false);
 
         switch (sp.getString("icon_shape", "circle")) {

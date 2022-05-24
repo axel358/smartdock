@@ -24,11 +24,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import android.content.Context;
+import android.widget.Toast;
 
 public class AppUtils {
     public static final String PINNED_LIST="pinned.lst";
     public static final String DOCK_PINNED_LIST="dock_pinned.lst";
     public static final String DESKTOP_LIST="desktop.lst";
+    public static String currentApp = "";
 
     public static ArrayList<App> getInstalledApps(PackageManager pm) {
         ArrayList<App> apps = new ArrayList<App>();
@@ -153,6 +155,7 @@ public class AppUtils {
 
     public static ArrayList<AppTask> getRunningTasks(ActivityManager am, PackageManager pm) {
         List<ActivityManager.RunningTaskInfo> tasksInfo = am.getRunningTasks(20);
+        currentApp = tasksInfo.get(0).baseActivity.getPackageName();
 
         ArrayList<AppTask> appTasks = new ArrayList<AppTask>();
         for (ActivityManager.RunningTaskInfo taskInfo : tasksInfo) {
@@ -163,7 +166,8 @@ public class AppUtils {
                     continue;
 
                 //Hack to save Dock settings activity ftom being excluded
-                if (!taskInfo.topActivity.getClassName().equals("cu.axel.smartdock.activities.MainActivity") 
+                if (!(taskInfo.topActivity.getClassName().equals("cu.axel.smartdock.activities.MainActivity") || 
+                    taskInfo.topActivity.getClassName().equals("cu.axel.smartdock.activities.DebugActivity"))
                     && taskInfo.topActivity.getPackageName().equals(AppUtils.getCurrentLauncher(pm)))
                     continue;
 

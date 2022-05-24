@@ -58,7 +58,6 @@ import android.widget.Adapter;
 public class LauncherActivity extends Activity {
 	private LinearLayout backgroundLayout;
 	private Button serviceBtn;
-	private String state;
 	private GridView appsGv;
 	private EditText notesEt;
 	private SharedPreferences sp;
@@ -168,7 +167,6 @@ public class LauncherActivity extends Activity {
 			public void onReceive(Context p1, Intent p2) {
 				String action = p2.getStringExtra("action");
 				if (action.equals("CONNECTED")) {
-					sendBroadcastToService(state);
 					serviceBtn.setVisibility(View.GONE);
 				} else if (action.equals("PINNED")) {
 					loadDesktopApps();
@@ -186,8 +184,8 @@ public class LauncherActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		state = "resume";
-		sendBroadcastToService(state);
+        
+		sendBroadcastToService("resume");
 
 		if (DeviceUtils.isAccessibilityServiceEnabled(this))
 			serviceBtn.setVisibility(View.GONE);
@@ -208,8 +206,6 @@ public class LauncherActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		state = "pause";
-		sendBroadcastToService(state);
 		if (sp.getBoolean("show_notes", false))
 			saveNotes();
 
@@ -377,7 +373,7 @@ public class LauncherActivity extends Activity {
 		public AppAdapterDesktop(Context context, ArrayList<App> apps) {
 			super(context, R.layout.app_entry_desktop, apps);
 			this.context = context;
-			iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "4")) + 3);
+			iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")) + 2);
 			switch (sp.getString("icon_shape", "circle")) {
 			case "circle":
 				iconBackground = R.drawable.circle;

@@ -30,8 +30,8 @@
             android:summary="@string/icon_padding_summary"
             android:inputType="number"
             android:key="icon_padding"
-            android:hint="4"
-            android:defaultValue="4"
+            android:hint="5"
+            android:defaultValue="5"
             android:title="@string/icon_padding_title"/>
         <Preference
             android:key="menu_icon_uri"

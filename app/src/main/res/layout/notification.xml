@@ -8,6 +8,7 @@
 	android:padding="10dp">
 
 	<ImageView
+        android:padding="7dp"
 		android:layout_height="60dp"
 		android:layout_width="60dp"
 		android:src="@android:drawable/ic_delete"
