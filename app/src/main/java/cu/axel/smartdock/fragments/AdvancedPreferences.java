@@ -140,7 +140,7 @@ public class AdvancedPreferences extends PreferenceFragment {
     }
 
     public void showRebootDialog(Context context, final boolean softReboot) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.DialogTheme);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
         dialog.setTitle(getString(R.string.reboot_required_title));
         dialog.setMessage(getString(R.string.reboot_required_text));
         dialog.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener(){

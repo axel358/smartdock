@@ -77,7 +77,7 @@ public class MainActivity extends PreferenceActivity {
 	}
 
     public void showPermissionsDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogTheme);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.manage_permissions);
         View view = getLayoutInflater().inflate(R.layout.dialog_permissions, null);
         Button grantOverlayBtn = view.findViewById(R.id.btn_grant_overlay);

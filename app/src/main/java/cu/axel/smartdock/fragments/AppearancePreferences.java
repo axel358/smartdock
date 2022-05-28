@@ -107,7 +107,7 @@ public class AppearancePreferences extends PreferenceFragment {
     }
 
     public void showColorPickerDialog(Context context, final String type) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(), R.style.DialogTheme);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         //dialog.setTitle(R.string.choose_color);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_color_picker, null);
         final View colorPreview = view.findViewById(R.id.color_preview);

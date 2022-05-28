@@ -143,6 +143,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 		bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
 		dockHandler = new Handler();
+        
 
 	}
 

@@ -32,7 +32,7 @@ public class HelpAboutPreferences extends PreferenceFragment {
 
                 @Override
                 public boolean onPreferenceClick(Preference p1) {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(), R.style.DialogTheme);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                     dialog.setTitle(R.string.help);
                     dialog.setView(R.layout.dialog_help);
                     dialog.setPositiveButton(R.string.ok, null);
