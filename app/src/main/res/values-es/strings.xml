@@ -259,5 +259,8 @@
     <string name="to_favorites">A favoritos</string>
     <string name="notification_bottom_title">Mostrar notificaciones en la parte inferior(requiere reiniciar el servicio de notificaciones)</string>
     <string name="dock_square_title">Deshabilitar esquinas redondeadas en el Dock</string>
+    <string name="show_current_title">Ocultar notificaciones de la app actual</string>
+    <string name="enable_notif_panel_title">Habilitar panel de notificaciones</string>
+    
     
 </resources>

@@ -323,6 +323,7 @@ public final class R {
         public static final int enable_nav_back_title=0x7f08002f;
         public static final int enable_nav_home_title=0x7f080030;
         public static final int enable_nav_recents_title=0x7f080031;
+        public static final int enable_notif_panel_title=0x7f0800e4;
         public static final int enable_notification_sound_title=0x7f080005;
         public static final int enable_open_browser_title=0x7f080017;
         public static final int enable_open_music_title=0x7f080016;
@@ -429,6 +430,7 @@ public final class R {
         public static final int shortcut_key_dialogTitle=0x7f080012;
         public static final int shortcut_key_title=0x7f080013;
         public static final int shortcuts=0x7f0800cc;
+        public static final int show_current_title=0x7f0800e3;
         public static final int show_help_summary=0x7f0800de;
         public static final int show_notes_title=0x7f080040;
         public static final int show_ongoing_title=0x7f08000d;

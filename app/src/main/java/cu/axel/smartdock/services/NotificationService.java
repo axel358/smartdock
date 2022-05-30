@@ -155,7 +155,7 @@ public class NotificationService extends NotificationListenerService {
             final Notification notification = sbn.getNotification();
 
             if (sbn.isOngoing() && !PreferenceManager.getDefaultSharedPreferences(this).getBoolean("show_ongoing", false)) {
-            } else if (notification.contentView == null && !isBlackListed(sbn.getPackageName()) && !sbn.getPackageName().equals(AppUtils.currentApp)) {
+            } else if (notification.contentView == null && !isBlackListed(sbn.getPackageName()) && !(sbn.getPackageName().equals(AppUtils.currentApp) && sp.getBoolean("show_current", true))) {
                 Bundle extras = notification.extras;
 
                 String notificationTitle = extras.getString(Notification.EXTRA_TITLE);

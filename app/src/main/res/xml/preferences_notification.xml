@@ -15,9 +15,19 @@
 		android:defaultValue="false" />
     
     <CheckBoxPreference
+        android:title="@string/show_current_title"
+        android:key="show_current"
+        android:defaultValue="true" />
+    
+    <CheckBoxPreference
         android:key="notification_bottom"
         android:title="@string/notification_bottom_title"
 		android:defaultValue="false" />
+    
+    <CheckBoxPreference
+        android:title="@string/enable_notif_panel_title"
+        android:key="enable_notif_panel"
+        android:defaultValue="true" />
     
     <EditTextPreference
         android:key="blocked_notifications"

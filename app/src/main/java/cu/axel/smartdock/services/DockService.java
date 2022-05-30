@@ -321,7 +321,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		notificationBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View p1) {
-				//performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
+                if(sp.getBoolean("enable_notif_panel", true)){
 				if (Utils.notificationPanelVisible)
 					sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "hide"));
 				else {
@@ -334,6 +334,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 					sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "show"));
 				}
+                }else
+                    performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
 			}
 		});
 		pinBtn.setOnClickListener(new OnClickListener() {
