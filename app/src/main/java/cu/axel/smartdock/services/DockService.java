@@ -198,6 +198,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			}
 		});
 		dock.setOnTouchListener(this);
+        dockLayout.setOnLongClickListener(new OnLongClickListener(){
+
+                @Override
+                public boolean onLongClick(View p1) {
+                    togglePin();
+                    return true;
+                }
+            });
 		appsBtn.setOnLongClickListener(new OnLongClickListener() {
 
 			@Override
@@ -342,11 +350,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 			@Override
 			public void onClick(View p1) {
-				if (isPinned){
-                    unpinDock();
-                }
-				else
-					pinDock();
+				togglePin();
 			}
 
 		});
@@ -785,6 +789,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_K)
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_W)
+                togglePin();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_M && sp.getBoolean("enable_open_music", true))
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("enable_open_browser", true))
@@ -834,6 +840,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void onAppRightClick(String app, View view) {
 		showAppContextMenu(app, view);
 	}
+    
+    public void togglePin(){
+        if (isPinned){
+            unpinDock();
+        }
+        else
+            pinDock();
+    }
 
 	@Override
 	public void onTaskRightClick(String app, View view) {

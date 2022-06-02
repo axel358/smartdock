@@ -265,7 +265,7 @@
     <string name="enable_qs_vol_title">Habilitar botón de volumen</string>
     <string name="enable_qs_date_title">Habilitar reloj</string>
     <string name="enable_qs_pin_title">Habilitar botón pin</string>
-    <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by long pressing it or using the keyboard shortcut</string>
+    <string name="enable_qs_pin_summary">Puedes anclar/desancler el Dock manteniendolo presionado o usando el atajo de teclado</string>
     
     
 </resources>
