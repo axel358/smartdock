@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="please_note_that_you_must_prov">Please note that you must provide your own sounds</string>
     <string name="enable_startup_sound_title">Play a custom sound at Dock startup*</string>
     <string name="startup_sound_title">Choose startup sound</string>
@@ -262,5 +261,10 @@
     <string name="dock_square_title">Disable rounded corners for the dock</string>
     <string name="show_current_title">Hide notifications for the current app</string>
     <string name="enable_notif_panel_title">Enable notification panel</string>
+    <string name="enable_qs_wifi_title">Enable Wi-Fi button</string>
+    <string name="enable_qs_vol_title">Enable volume button</string>
+    <string name="enable_qs_date_title">Enable clock</string>
+    <string name="enable_qs_pin_title">Enable pin button</string>
+    <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by long pressing it or using the keyboard shortcut</string>
 
 </resources>

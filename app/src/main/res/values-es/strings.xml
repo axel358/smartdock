@@ -261,6 +261,11 @@
     <string name="dock_square_title">Deshabilitar esquinas redondeadas en el Dock</string>
     <string name="show_current_title">Ocultar notificaciones de la app actual</string>
     <string name="enable_notif_panel_title">Habilitar panel de notificaciones</string>
+    <string name="enable_qs_wifi_title">Habilitar botón Wi-Fi</string>
+    <string name="enable_qs_vol_title">Habilitar botón de volumen</string>
+    <string name="enable_qs_date_title">Habilitar reloj</string>
+    <string name="enable_qs_pin_title">Habilitar botón pin</string>
+    <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by long pressing it or using the keyboard shortcut</string>
     
     
 </resources>

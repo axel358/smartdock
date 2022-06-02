@@ -125,7 +125,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private BluetoothManager bm;
 	private View dockTrigger;
 	private ArrayList<App> pinnedApps;
-
+    private TextClock dateTv;
     private long lastUpdate;
 
 	@Override
@@ -170,7 +170,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wifiBtn = dock.findViewById(R.id.wifi_btn);
 		volBtn = dock.findViewById(R.id.volume_btn);
 		batteryBtn = dock.findViewById(R.id.battery_btn);
-		TextClock dateTv = dock.findViewById(R.id.date_btn);
+		dateTv = dock.findViewById(R.id.date_btn);
 
 		dock.setOnHoverListener(new OnHoverListener() {
 
@@ -746,7 +746,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				if (p1.getSource() != null) {
 					//Refresh the app list when the window state changes only it has been at least a second since last update
 					//TODO: Filter events that also trigger window state change other than app switching
-                    if(System.currentTimeMillis() - lastUpdate > 1000)
+                    if(System.currentTimeMillis() - lastUpdate > 700)
                          //Log.e("beaut", System.currentTimeMillis() -  lastUpdate + "");
 					     updateRunningTasks();
 				}
@@ -1416,6 +1416,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void updateQuickSettings() {
 		bluetoothBtn.setVisibility(sp.getBoolean("enable_qs_bluetooth", false) ? View.VISIBLE : View.GONE);
 		batteryBtn.setVisibility(sp.getBoolean("enable_qs_battery", false) ? View.VISIBLE : View.GONE);
+        wifiBtn.setVisibility(sp.getBoolean("enable_qs_wifi", true) ? View.VISIBLE : View.GONE);
+        pinBtn.setVisibility(sp.getBoolean("enable_qs_pin", true) ? View.VISIBLE : View.GONE);
+        volBtn.setVisibility(sp.getBoolean("enable_qs_vol", true) ? View.VISIBLE : View.GONE);
+        dateTv.setVisibility(sp.getBoolean("enable_qs_date", true) ? View.VISIBLE : View.GONE);
 	}
 
 	public void launchAssistant(View v) {

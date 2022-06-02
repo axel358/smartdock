@@ -333,6 +333,11 @@ public final class R {
         public static final int enable_power_menu_title=0x7f080038;
         public static final int enable_qs_battery_title=0x7f080037;
         public static final int enable_qs_bluetooth_title=0x7f080036;
+        public static final int enable_qs_date_title=0x7f0800e7;
+        public static final int enable_qs_pin_summary=0x7f0800e9;
+        public static final int enable_qs_pin_title=0x7f0800e8;
+        public static final int enable_qs_vol_title=0x7f0800e6;
+        public static final int enable_qs_wifi_title=0x7f0800e5;
         public static final int enable_soft_reboot_summary=0x7f08009f;
         public static final int enable_soft_reboot_title=0x7f0800a0;
         public static final int enable_startup_sound_title=0x7f080001;
