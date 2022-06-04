@@ -10,6 +10,10 @@
 		android:key="enable_lock_desktop"
 		android:title="@string/enable_lock_desktop_title"
 		android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="enable_take_screenshot"
+        android:title="Enable Modifier+K to take a screenshot"
+		android:defaultValue="true" />
 	<CheckBoxPreference
 		android:key="enable_open_settings"
 		android:title="@string/enable_open_settings_title"
@@ -43,5 +47,9 @@
     <CheckBoxPreference
         android:key="enable_f10"
         android:title="@string/enable_f10_title"
+		android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="enable_toggle_pin"
+        android:title="Enable Modifier+W to pin/unpin the dock"
 		android:defaultValue="true" />
 </PreferenceScreen>
