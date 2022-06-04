@@ -787,14 +787,19 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				launchApp("standard", sp.getString("terminal_package", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_A && sp.getBoolean("enable_expand_notifications", true))
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_K)
+			else if (event.getKeyCode() == KeyEvent.KEYCODE_K && sp.getBoolean("enable_take_screenshot", true))
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
-            else if (event.getKeyCode() == KeyEvent.KEYCODE_W)
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_W && sp.getBoolean("enable_toggle_pin", true))
                 togglePin();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_M && sp.getBoolean("enable_open_music", true))
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("enable_open_browser", true))
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_R){
+                String app = sp.getString("fav_app","");
+                if(!app.isEmpty())
+                    launchApp("standard", app);
+            }
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
 				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
 						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

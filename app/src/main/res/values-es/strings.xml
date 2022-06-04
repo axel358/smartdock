@@ -266,6 +266,9 @@
     <string name="enable_qs_date_title">Habilitar reloj</string>
     <string name="enable_qs_pin_title">Habilitar botón pin</string>
     <string name="enable_qs_pin_summary">Puedes anclar/desancler el Dock manteniendolo presionado o usando el atajo de teclado</string>
-    
+    <string name="enable_take_screenshot_title">Habilitar Atajo+K para tomar una captura de pantalla</string>
+    <string name="enable_toggle_pin_title">Habilitar Atajo+W para anclar/desanclar el dock</string>
+    <string name="fav_app_summary">Nombre del paquete de una app a lanzar usando Atajo+R</string>
+    <string name="fav_app_title">App favorita</string>
     
 </resources>

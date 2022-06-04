@@ -341,10 +341,14 @@ public final class R {
         public static final int enable_soft_reboot_summary=0x7f08009f;
         public static final int enable_soft_reboot_title=0x7f0800a0;
         public static final int enable_startup_sound_title=0x7f080001;
+        public static final int enable_take_screenshot_title=0x7f0800ea;
+        public static final int enable_toggle_pin_title=0x7f0800eb;
         public static final int enable_usb_sound_title=0x7f080003;
         public static final int enable_wifi_panel_summary=0x7f0800d7;
         public static final int enable_wifi_panel_title=0x7f0800d6;
         public static final int fade=0x7f080070;
+        public static final int fav_app_summary=0x7f0800ec;
+        public static final int fav_app_title=0x7f0800ed;
         public static final int files=0x7f0800ce;
         public static final int fine_tune=0x7f080064;
         public static final int freeze=0x7f0800b9;

@@ -12,7 +12,7 @@
 		android:defaultValue="true" />
     <CheckBoxPreference
         android:key="enable_take_screenshot"
-        android:title="Enable Modifier+K to take a screenshot"
+        android:title="@string/enable_take_screenshot_title"
 		android:defaultValue="true" />
 	<CheckBoxPreference
 		android:key="enable_open_settings"
@@ -50,6 +50,10 @@
 		android:defaultValue="true" />
     <CheckBoxPreference
         android:key="enable_toggle_pin"
-        android:title="Enable Modifier+W to pin/unpin the dock"
+        android:title="@string/enable_toggle_pin_title"
 		android:defaultValue="true" />
+    <EditTextPreference
+        android:summary="@string/fav_app_summary"
+        android:key="fav_app"
+        android:title="@string/fav_app_title"/>
 </PreferenceScreen>

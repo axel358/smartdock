@@ -266,5 +266,9 @@
     <string name="enable_qs_date_title">Enable clock</string>
     <string name="enable_qs_pin_title">Enable pin button</string>
     <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by long pressing it or using the keyboard shortcut</string>
-
+    <string name="enable_take_screenshot_title">Enable Modifier+K to take a screenshot</string>
+    <string name="enable_toggle_pin_title">Enable Modifier+W to pin/unpin the dock</string>
+    <string name="fav_app_summary">Package name of an app to launch using Modifier+R</string>
+    <string name="fav_app_title">Favorite app</string>
+    
 </resources>
