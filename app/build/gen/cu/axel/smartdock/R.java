@@ -285,6 +285,7 @@ public final class R {
         public static final int choose_color=0x7f0800c4;
         public static final int circle=0x7f080073;
         public static final int clear_all=0x7f08007f;
+        public static final int contributors=0x7f0800ee;
         public static final int copied_to_clipboard=0x7f0800b6;
         public static final int custom=0x7f080079;
         public static final int custom_animation_dialogTitle=0x7f080051;
@@ -461,6 +462,7 @@ public final class R {
         public static final int system=0x7f080075;
         public static final int tablet_mode_off=0x7f0800b4;
         public static final int tablet_mode_on=0x7f0800b3;
+        public static final int tap_to_see_the_list_of_great_p=0x7f0800ef;
         public static final int terminal_package_hint=0x7f080019;
         public static final int terminal_package_title=0x7f08001a;
         public static final int theme_dialogTitle=0x7f080042;

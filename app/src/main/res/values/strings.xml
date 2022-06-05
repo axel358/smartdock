@@ -270,5 +270,7 @@
     <string name="enable_toggle_pin_title">Enable Modifier+W to pin/unpin the dock</string>
     <string name="fav_app_summary">Package name of an app to launch using Modifier+R</string>
     <string name="fav_app_title">Favorite app</string>
+    <string name="contributors">Contributors</string>
+    <string name="tap_to_see_the_list_of_great_p">Tap to see the list of great people that has contributed to Smart Dock</string>
     
 </resources>
