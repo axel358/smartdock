@@ -261,6 +261,16 @@
     <string name="dock_square_title">Deshabilitar esquinas redondeadas en el Dock</string>
     <string name="show_current_title">Ocultar notificaciones de la app actual</string>
     <string name="enable_notif_panel_title">Habilitar panel de notificaciones</string>
-    
-    
+    <string name="enable_qs_wifi_title">Habilitar botón Wi-Fi</string>
+    <string name="enable_qs_vol_title">Habilitar botón de volumen</string>
+    <string name="enable_qs_date_title">Habilitar reloj</string>
+    <string name="enable_qs_pin_title">Habilitar botón pin</string>
+    <string name="enable_qs_pin_summary">Puedes anclar/desancler el Dock manteniendolo presionado o usando el atajo de teclado</string>
+    <string name="enable_take_screenshot_title">Habilitar Atajo+K para tomar una captura de pantalla</string>
+    <string name="enable_toggle_pin_title">Habilitar Atajo+W para anclar/desanclar el dock</string>
+    <string name="fav_app_summary">Nombre del paquete de una app a lanzar usando Atajo+R</string>
+    <string name="fav_app_title">App favorita</string>
+    <string name="contributors">Contribuidores</string>
+    <string name="tap_to_see_the_list_of_great_p">Toca para ver la lista de personas asombrosas que ha contribuido a Smart Dock</string>
+
 </resources>

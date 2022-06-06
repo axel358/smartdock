@@ -125,7 +125,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private BluetoothManager bm;
 	private View dockTrigger;
 	private ArrayList<App> pinnedApps;
-
+    private TextClock dateTv;
     private long lastUpdate;
 
 	@Override
@@ -170,7 +170,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wifiBtn = dock.findViewById(R.id.wifi_btn);
 		volBtn = dock.findViewById(R.id.volume_btn);
 		batteryBtn = dock.findViewById(R.id.battery_btn);
-		TextClock dateTv = dock.findViewById(R.id.date_btn);
+		dateTv = dock.findViewById(R.id.date_btn);
 
 		dock.setOnHoverListener(new OnHoverListener() {
 
@@ -198,6 +198,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			}
 		});
 		dock.setOnTouchListener(this);
+        dockLayout.setOnLongClickListener(new OnLongClickListener(){
+
+                @Override
+                public boolean onLongClick(View p1) {
+                    togglePin();
+                    return true;
+                }
+            });
 		appsBtn.setOnLongClickListener(new OnLongClickListener() {
 
 			@Override
@@ -342,11 +350,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 			@Override
 			public void onClick(View p1) {
-				if (isPinned){
-                    unpinDock();
-                }
-				else
-					pinDock();
+				togglePin();
 			}
 
 		});
@@ -746,7 +750,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				if (p1.getSource() != null) {
 					//Refresh the app list when the window state changes only it has been at least a second since last update
 					//TODO: Filter events that also trigger window state change other than app switching
-                    if(System.currentTimeMillis() - lastUpdate > 1000)
+                    if(System.currentTimeMillis() - lastUpdate > 700)
                          //Log.e("beaut", System.currentTimeMillis() -  lastUpdate + "");
 					     updateRunningTasks();
 				}
@@ -783,12 +787,19 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				launchApp("standard", sp.getString("terminal_package", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_A && sp.getBoolean("enable_expand_notifications", true))
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_K)
+			else if (event.getKeyCode() == KeyEvent.KEYCODE_K && sp.getBoolean("enable_take_screenshot", true))
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_W && sp.getBoolean("enable_toggle_pin", true))
+                togglePin();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_M && sp.getBoolean("enable_open_music", true))
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("enable_open_browser", true))
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_R){
+                String app = sp.getString("fav_app","");
+                if(!app.isEmpty())
+                    launchApp("standard", app);
+            }
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
 				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
 						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -834,6 +845,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void onAppRightClick(String app, View view) {
 		showAppContextMenu(app, view);
 	}
+    
+    public void togglePin(){
+        if (isPinned){
+            unpinDock();
+        }
+        else
+            pinDock();
+    }
 
 	@Override
 	public void onTaskRightClick(String app, View view) {
@@ -1416,6 +1435,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void updateQuickSettings() {
 		bluetoothBtn.setVisibility(sp.getBoolean("enable_qs_bluetooth", false) ? View.VISIBLE : View.GONE);
 		batteryBtn.setVisibility(sp.getBoolean("enable_qs_battery", false) ? View.VISIBLE : View.GONE);
+        wifiBtn.setVisibility(sp.getBoolean("enable_qs_wifi", true) ? View.VISIBLE : View.GONE);
+        pinBtn.setVisibility(sp.getBoolean("enable_qs_pin", true) ? View.VISIBLE : View.GONE);
+        volBtn.setVisibility(sp.getBoolean("enable_qs_vol", true) ? View.VISIBLE : View.GONE);
+        dateTv.setVisibility(sp.getBoolean("enable_qs_date", true) ? View.VISIBLE : View.GONE);
 	}
 
 	public void launchAssistant(View v) {

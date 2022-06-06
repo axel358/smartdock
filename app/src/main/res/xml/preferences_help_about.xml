@@ -3,8 +3,11 @@
         android:title="@string/app_name"
         android:summary="@string/a_launcher_for_android_x86_by_" />
     <Preference
-        android:title="@string/special_thanks_to"
-        android:summary="@string/k_s_maan_nblisslabs_project" />
+        android:title="@string/contributors"
+        android:summary="@string/tap_to_see_the_list_of_great_p" >
+        <intent android:action="android.intent.action.VIEW" 
+            android:data="https://github.com/axel358/smartdock/blob/main/Contributors.md"/>
+    </Preference>
     <Preference
         android:key="show_help"
         android:summary="@string/show_help_summary"
