@@ -231,4 +231,37 @@
     <string name="choose_color">रंग पसंद करें</string>
     <string name="invalid_color">अमान्य रंग</string>
     <string name="silenced_notifications">इस ऐप के लिए नोटिफिकेशन मूक करें</string>
+    
+    <string name="wallpaper">वॉलपेपर</string>
+    <string name="presets">प्रीसेट</string>
+    <string name="app_info">ऐप इन्फो</string>
+    <string name="uninstall">अनइंस्टाल करें</string>
+    <string name="open_in">में खुलेगा...</string>
+    <string name="shortcuts">शॉर्टकट...</string>
+    
+    <string name="users">उपयोगकर्ता</string>
+    <string name="files">फाइल्स</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="dock_settings">डॉक सेटिंग्स</string>
+    <string name="hide_status_bar_title">स्टेटस बार छुपाएँ</string>
+    <string name="hide_status_bar_summary">एंड्राइड का स्टेटस बार छुपाये| सॉफ्ट रिबूट की जरूरत है</string>
+    <string name="wifi">वाईफाई</string>
+    <string name="not_connected">जुड़ा नहीं है </string>
+    <string name="select_network">नेटवर्क चुनें</string>
+    <string name="enable_wifi_panel_title">वाईफाई पैनल सक्षम करें</string>
+    <string name="enable_wifi_panel_summary">डॉक के वाईफाई पैनल को सक्षम करें| इसके लिए लोकेशन की आवश्यकता है</string>
+    <string name="location">लोकेशन</string>
+    <string name="used_to_retrieve_wifi_info_on_">एंड्राइड 8+ पर वाई-फ़ाई जानकारी पुनर्प्राप्त करने के लिए उपयोग किया जाता है</string>
+    <string name="scale_factor_summary">परिभाषित करता है कि सामान्य विंडो कितनी बड़ी हैं</string>
+    <string name="scale_factor_title">सामान्य विंडो स्केल फैक्टर</string>
+    <string name="change_wallpaper">वॉलपेपर बदलें</string>
+    <string name="display_settings">डिस्प्ले सेटिंग</string>
+    <string name="show_help_summary">मदद के लिए टैप करें</string>
+    <string name="more_help">अधिक सहायता</string>
+    <string name="to_favorites">पसंदीदा बनाने के लिए</string>
+    <string name="notification_bottom_title">सूचनाएं नीचे दिखाएं (सेवा को तुरंत फिर से सक्षम करने की आवश्यकता है)</string>
+    <string name="dock_square_title">डॉक के लिए गोल कोनों को अक्षम करें</string>
+    <string name="show_current_title">वर्तमान ऐप के लिए सूचनाएं छिपाएं</string>
+    <string name="enable_notif_panel_title">सूचना पैनल सक्षम करें</string>
+
 </resources>
