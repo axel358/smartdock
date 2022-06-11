@@ -68,7 +68,7 @@
 			android:gravity="center_vertical">
 
 			<ImageView
-				android:src="@drawable/ic_manage_service"
+				android:src="@drawable/ic_accessibility"
 				android:layout_width="30dp"
 				android:layout_height="30dp"/>
 

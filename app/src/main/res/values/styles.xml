@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light">
 		<item name="android:alertDialogTheme">@style/DialogTheme</item>
 	</style>
 	<style name="AppTheme.Launcher" parent="@android:style/Theme.Material.NoActionBar">
@@ -10,7 +10,7 @@
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 	</style>
-    <style name="DialogTheme" parent="@android:style/Theme.Material.Light.Dialog.MinWidth">
+    <style name="DialogTheme" parent="@android:style/Theme.Material.Light.Dialog">
         <item name="android:windowBackground">@drawable/dialog</item>
     </style>
 </resources>
