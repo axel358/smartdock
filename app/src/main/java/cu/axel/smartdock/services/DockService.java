@@ -795,7 +795,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_M && sp.getBoolean("enable_open_music", true))
 				launchApp("standard", sp.getString("app_music", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("enable_open_browser", true))
-				launchApp("standard", sp.getString("app_files", ""));
+				launchApp("standard", sp.getString("app_browser", ""));
             else if (event.getKeyCode() == KeyEvent.KEYCODE_R && sp.getBoolean("enable_open_assist", true))
                 launchApp("standard", sp.getString("app_assistant", ""));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
@@ -1317,7 +1317,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					launchApp("standard",
 							new Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 				else if (action.getText().equals(getString(R.string.files)))
-					launchApp("standard", "com.android.documentsui");
+					launchApp("standard", sp.getString("app_files", "com.android.documentsui"));
 				else if (action.getText().equals(getString(R.string.settings)))
 					launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 				else if (action.getText().equals(getString(R.string.dock_settings)))

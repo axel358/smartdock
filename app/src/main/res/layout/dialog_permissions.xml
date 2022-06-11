@@ -28,8 +28,10 @@
 
 			<ImageView
 				android:src="@drawable/ic_overlay"
-				android:layout_width="30dp"
-				android:layout_height="30dp"/>
+				android:layout_width="35dp"
+				android:layout_height="35dp"
+                android:padding="5dp"
+				android:background="@drawable/circle_gray"/>
 
 			<LinearLayout
 				android:orientation="vertical"
@@ -69,8 +71,10 @@
 
 			<ImageView
 				android:src="@drawable/ic_accessibility"
-				android:layout_width="30dp"
-				android:layout_height="30dp"/>
+				android:layout_width="35dp"
+				android:layout_height="35dp"
+                android:padding="5dp"
+				android:background="@drawable/circle_gray"/>
 
 			<LinearLayout
 				android:orientation="vertical"
@@ -117,9 +121,11 @@
 			android:gravity="center_vertical">
 
 			<ImageView
+                android:padding="5dp"
+				android:background="@drawable/circle_gray"
 				android:src="@drawable/ic_device_admin"
-				android:layout_width="30dp"
-				android:layout_height="30dp"/>
+				android:layout_width="35dp"
+				android:layout_height="35dp"/>
 
 			<LinearLayout
 				android:orientation="vertical"
@@ -158,9 +164,11 @@
 			android:gravity="center_vertical">
 
 			<ImageView
+                android:padding="5dp"
+				android:background="@drawable/circle_gray"
 				android:src="@drawable/ic_folder"
-				android:layout_width="30dp"
-				android:layout_height="30dp"/>
+				android:layout_width="35dp"
+				android:layout_height="35dp"/>
 
 			<LinearLayout
 				android:orientation="vertical"
@@ -191,45 +199,47 @@
 				android:id="@+id/btn_grant_storage"/>
 
 		</LinearLayout>
-        
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
 
-            <ImageView
-                android:src="@drawable/ic_location"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:layout_marginLeft="5dp">
+			<ImageView
+                android:padding="5dp"
+				android:background="@drawable/circle_gray"
+				android:src="@drawable/ic_location"
+				android:layout_width="35dp"
+				android:layout_height="35dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/location"
-                    android:textSize="16sp"
-                    android:textColor="#FF141414"/>
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1.0"
+				android:layout_marginLeft="5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/used_to_retrieve_wifi_info_on_"/>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/location"
+					android:textSize="16sp"
+					android:textColor="#FF141414"/>
 
-            </LinearLayout>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/used_to_retrieve_wifi_info_on_"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_height="wrap_content"
-                android:text="@string/grant"
-                android:id="@+id/btn_grant_location"/>
+			</LinearLayout>
+
+			<Button
+				android:layout_width="wrap_content"
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:text="@string/grant"
+				android:id="@+id/btn_grant_location"/>
 
 		</LinearLayout>
 
@@ -240,9 +250,11 @@
 			android:gravity="center_vertical">
 
 			<ImageView
+                android:padding="5dp"
+				android:background="@drawable/circle_gray"
 				android:src="@drawable/ic_notifications"
-				android:layout_width="30dp"
-				android:layout_height="30dp"/>
+				android:layout_width="35dp"
+				android:layout_height="35dp"/>
 
 			<LinearLayout
 				android:orientation="vertical"
@@ -274,8 +286,6 @@
 
 		</LinearLayout>
 
-
-
 		<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="match_parent"
@@ -283,9 +293,11 @@
 			android:gravity="center_vertical">
 
 			<ImageView
+                android:padding="5dp"
+				android:background="@drawable/circle_gray"
 				android:src="@drawable/ic_root"
-				android:layout_width="30dp"
-				android:layout_height="30dp"/>
+				android:layout_width="35dp"
+				android:layout_height="35dp"/>
 
 			<LinearLayout
 				android:orientation="vertical"
