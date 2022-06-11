@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <cu.axel.smartdock.preferences.AppChooserPreference
+        android:title="@string/app_browser_title"
+        android:key="app_browser"/>
+    <cu.axel.smartdock.preferences.AppChooserPreference
+        android:title="@string/app_files_title"
+        android:key="app_files"/>
+    <cu.axel.smartdock.preferences.AppChooserPreference
+        android:title="@string/app_music_title"
+        android:key="app_music"/>
+    <cu.axel.smartdock.preferences.AppChooserPreference
+        android:title="@string/app_movies_title"
+        android:key="app_movies"/>
+    <cu.axel.smartdock.preferences.AppChooserPreference
+        android:title="@string/app_assistant_title"
+        android:key="app_assistant"/>
+    <cu.axel.smartdock.preferences.AppChooserPreference
+        android:title="@string/app_clock_title"
+        android:key="app_clock"/>
+    <cu.axel.smartdock.preferences.AppChooserPreference
+        android:title="@string/app_terminal_title"
+        android:key="app_terminal"/>
+</PreferenceScreen>

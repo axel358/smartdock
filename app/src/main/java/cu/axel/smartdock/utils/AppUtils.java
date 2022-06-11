@@ -195,4 +195,14 @@ public class AppUtils {
             Log.e("Dock", e.toString()+e.getCause().toString());
         }
     }
+    
+    public static String getPackageLabel(Context context, String packageName) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            ApplicationInfo appInfo=pm.getApplicationInfo(packageName, 0);
+            return pm.getApplicationLabel(appInfo).toString();
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+        return "";
+    }
 }

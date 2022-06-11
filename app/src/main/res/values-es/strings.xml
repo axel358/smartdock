@@ -56,8 +56,6 @@
     <string name="enable_nav_home_title">Habilitar botón inicio</string>
     <string name="enable_nav_recents_title">Habilitar botón recientes</string>
     <string name="enable_nav_assist_title">Habilitar botón asistente</string>
-    <string name="custom_assist_summary">Usar la siguiente app como asistente, dejar el blanco para usar por defecto</string>
-    <string name="custom_assist_title">App asistente</string>
     <string name="quick_settings">Ajustes rápidos</string>
     <string name="enable_qs_bluetooth_title">Habilitar botón bluetooth</string>
     <string name="enable_qs_battery_title">Habilitar botón batería</string>
@@ -268,9 +266,18 @@
     <string name="enable_qs_pin_summary">Puedes anclar/desancler el Dock manteniendolo presionado o usando el atajo de teclado</string>
     <string name="enable_take_screenshot_title">Habilitar Atajo+K para tomar una captura de pantalla</string>
     <string name="enable_toggle_pin_title">Habilitar Atajo+W para anclar/desanclar el dock</string>
-    <string name="fav_app_summary">Nombre del paquete de una app a lanzar usando Atajo+R</string>
-    <string name="fav_app_title">App favorita</string>
     <string name="contributors">Contribuidores</string>
     <string name="tap_to_see_the_list_of_great_p">Toca para ver la lista de personas asombrosas que ha contribuido a Smart Dock</string>
-
+    <string name="default_apps">Apps por defecto</string>
+    <string name="icon_pack">Pack de iconos</string>
+    <string name="select_icon_pack">Selecciona un pack de iconos</string>
+    <string name="enable_open_assist_title">Habilitar Atajo+R para abrir la app asistente</string>
+    <string name="app_browser_title">Navegador</string>
+    <string name="app_files_title">Archivos</string>
+    <string name="app_music_title">Música</string>
+    <string name="app_movies_title">Videos</string>
+    <string name="app_assistant_title">Asistente</string>
+    <string name="app_clock_title">Reloj</string>
+    <string name="app_terminal_title">Terminal</string>
+    
 </resources>

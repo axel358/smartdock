@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
+import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +22,15 @@ import java.util.Set;
 
 import cu.axel.smartdock.icons.IconPackHelper;
 import cu.axel.smartdock.icons.IconParserUtilities;
+import cu.axel.smartdock.utils.AppUtils;
+import cu.axel.smartdock.R;
 
-public class IconPackSwitchPreference extends SwitchPreference {
+public class IconPackPreference extends Preference {
 
     private Context mContext;
     private IconParserUtilities iconParserUtilities;
-    private SharedPreferences sharedPreferences;
-    private Switch aSwitch;
+    private SharedPreferences sp;
+    private IconPackHelper iconPackHelper;
 
     /*
     Create 2 list
@@ -55,20 +57,17 @@ public class IconPackSwitchPreference extends SwitchPreference {
             "net.oneplus.launcher.icons.ACTION_PICK_ICON"
     };
 
-    private SharedPreferences.Editor myEdit;
-    private IconPackHelper iconPackHelper;
-
-    public IconPackSwitchPreference(Context context) {
+    public IconPackPreference(Context context) {
         super(context);
         setupPreference(context);
     }
 
-    public IconPackSwitchPreference(Context context, AttributeSet attrs) {
+    public IconPackPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupPreference(context);
     }
 
-    public IconPackSwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public IconPackPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setupPreference(context);
     }
@@ -78,15 +77,13 @@ public class IconPackSwitchPreference extends SwitchPreference {
         iconParserUtilities = new IconParserUtilities(mContext);
         iconPackHelper = new IconPackHelper();
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        setTitle("Icon Theming");
+        sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+        setTitle(R.string.icon_pack);
 
-        if(iconPackHelper.getIconPack(sharedPreferences).equals("")){
-            setSummary("Default");
-            setIcon(iconParserUtilities.getPackageIcon(mContext.getPackageName()));
+        if(iconPackHelper.getIconPack(sp).equals("")){
+            setSummary(R.string.system);
         }else{
-            setSummary(iconParserUtilities.getPackageLabel(iconPackHelper.getIconPack(sharedPreferences)));
-            setIcon(iconParserUtilities.getPackageIcon(iconPackHelper.getIconPack(sharedPreferences)));
+            setSummary(AppUtils.getPackageLabel(context, iconPackHelper.getIconPack(sp)));
         }
 
         PackageManager pm = mContext.getPackageManager();
@@ -95,9 +92,7 @@ public class IconPackSwitchPreference extends SwitchPreference {
         We manually add Smart Dock context as a default item so Smart Dock has a default item to rely on
          */
         iconPackageList.add(mContext.getPackageName());
-        iconNameList.add("Default");
-
-        myEdit = sharedPreferences.edit();
+        iconNameList.add(mContext.getString(R.string.system));
 
         List<ResolveInfo> launcherActivities = new ArrayList<>();
         /*
@@ -110,69 +105,29 @@ public class IconPackSwitchPreference extends SwitchPreference {
         }
         for (ResolveInfo ri : launcherActivities) {
             iconPackageList.add(ri.activityInfo.packageName);
-            iconNameList.add(iconParserUtilities.getPackageLabel(ri.activityInfo.packageName));
+            iconNameList.add(AppUtils.getPackageLabel(context, ri.activityInfo.packageName));
         }
-    }
-
-    @Override
-    protected void onBindView(View view) {
-        super.onBindView(view);
-        /*
-        Find the view ID of the switch and adjust its state based on icon pack status
-         */
-        aSwitch = findSwitchInChildviews((ViewGroup) view);
-
-        if(aSwitch != null){
-            aSwitch.setChecked(!iconPackHelper.getIconPack(sharedPreferences).equals(""));
-        }
-    }
-
-    private Switch findSwitchInChildviews(ViewGroup view) {
-        for (int i = 0; i < view.getChildCount(); i++) {
-            View thisChildview = view.getChildAt(i);
-            if (thisChildview instanceof Switch) {
-                return (Switch) thisChildview;
-            } else if (thisChildview instanceof ViewGroup) {
-                Switch theSwitch = findSwitchInChildviews((ViewGroup) thisChildview);
-                if (theSwitch != null) return theSwitch;
-            }
-        }
-        return null;
     }
 
     @Override
     protected void onClick() {
-        /*
-        Disable the preference click listener from binding to the Switch change listener
-        Default icon pack will turn the switch off
-        Selected icon pack will turn the switch on
-        The switch will tell Smart Dock Preference Listener to reload the icons
-         */
-       // super.onClick();
-
         Set<String> cleanedNameList = new LinkedHashSet<>(iconNameList);
         String[] newNameList = cleanedNameList.toArray(new String[0]);
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-        dialog.setTitle("Select Icon Pack");
+        dialog.setTitle(R.string.select_icon_pack);
         dialog.setItems(newNameList, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 if(iconPackageList.get(item).equals(mContext.getPackageName())){
-                    myEdit.putString("icon_pack", "").apply();
-                    setSummary("Default");
-                    setIcon(iconParserUtilities.getPackageIcon(mContext.getPackageName()));
-                    aSwitch.setChecked(false);
+                    sp.edit().putString("icon_pack", "").commit();
+                    setSummary(R.string.system);
                 }else{
-                    myEdit.putString("icon_pack", iconPackageList.get(item)).apply();
-                    setSummary(iconParserUtilities.getPackageLabel(iconPackHelper.getIconPack(sharedPreferences)));
-                    setIcon(iconParserUtilities.getPackageIcon(iconPackHelper.getIconPack(sharedPreferences)));
-                    aSwitch.setChecked(true);
+                    sp.edit().putString("icon_pack", iconPackageList.get(item)).commit();
+                    setSummary(AppUtils.getPackageLabel(mContext, iconPackHelper.getIconPack(sp)));
                 }
-                dialog.dismiss();
             }
         });
-        AlertDialog alert = dialog.create();
-        alert.show();
+        dialog.show();
     }
 
 }

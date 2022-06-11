@@ -75,15 +75,5 @@ public class IconParserUtilities {
         return getPackageIcon(packageName);
     }
 
-    public String getPackageLabel(String packageName) {
-        try {
-            PackageManager pm = context.getPackageManager();
-            ApplicationInfo appInfo=pm.getApplicationInfo(packageName, 0);
-            return pm.getApplicationLabel(appInfo).toString();
-        } catch (PackageManager.NameNotFoundException e) {
-        }
-        return "";
-    }
-
 
 }

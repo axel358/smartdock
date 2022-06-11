@@ -17,10 +17,6 @@
             android:key="enable_nav_assist"
             android:title="@string/enable_nav_assist_title"
             android:defaultValue="false" />
-        <EditTextPreference
-            android:key="custom_assist"
-            android:summary="@string/custom_assist_summary"
-            android:title="@string/custom_assist_title"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/quick_settings">

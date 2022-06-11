@@ -26,16 +26,14 @@
 		android:key="enable_open_browser"
 		android:title="@string/enable_open_browser_title"
 		android:defaultValue="true" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="enable_open_assist"
+        android:title="@string/enable_open_assist_title"/>
 	<CheckBoxPreference
 		android:key="enable_open_terminal"
 		android:title="@string/enable_open_terminal_title"
 		android:defaultValue="false" />
-	<EditTextPreference
-		android:key="terminal_package"
-		android:hint="@string/terminal_package_hint"
-		android:defaultValue="com.termux"
-		android:dependency="enable_open_terminal"
-		android:title="@string/terminal_package_title"/>
 	<CheckBoxPreference
 		android:key="enable_expand_notifications"
 		android:title="@string/enable_expand_notifications_title"
@@ -52,8 +50,4 @@
         android:key="enable_toggle_pin"
         android:title="@string/enable_toggle_pin_title"
 		android:defaultValue="true" />
-    <EditTextPreference
-        android:summary="@string/fav_app_summary"
-        android:key="fav_app"
-        android:title="@string/fav_app_title"/>
 </PreferenceScreen>

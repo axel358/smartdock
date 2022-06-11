@@ -56,8 +56,6 @@
     <string name="enable_nav_home_title">Enable home button</string>
     <string name="enable_nav_recents_title">Enable recents button</string>
     <string name="enable_nav_assist_title">Enable assistant button</string>
-    <string name="custom_assist_summary">Use a custom assistant app, leave blank for default</string>
-    <string name="custom_assist_title">Custom assistant app</string>
     <string name="quick_settings">Quick settings</string>
     <string name="enable_qs_bluetooth_title">Enable bluetooth button</string>
     <string name="enable_qs_battery_title">Enable battery button</string>
@@ -268,9 +266,17 @@
     <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by long pressing it or using the keyboard shortcut</string>
     <string name="enable_take_screenshot_title">Enable Modifier+K to take a screenshot</string>
     <string name="enable_toggle_pin_title">Enable Modifier+W to pin/unpin the dock</string>
-    <string name="fav_app_summary">Package name of an app to launch using Modifier+R</string>
-    <string name="fav_app_title">Favorite app</string>
     <string name="contributors">Contributors</string>
     <string name="tap_to_see_the_list_of_great_p">Tap to see the list of great people that has contributed to Smart Dock</string>
-    
+    <string name="default_apps">Default apps</string>
+    <string name="icon_pack">Icon pack</string>
+    <string name="select_icon_pack">Select icon pack</string>
+    <string name="enable_open_assist_title">Enable Modifier+R to launch your default assistant app</string>
+    <string name="app_browser_title">Web browser</string>
+    <string name="app_files_title">Files</string>
+    <string name="app_music_title">Music</string>
+    <string name="app_movies_title">Movies</string>
+    <string name="app_assistant_title">Assistant</string>
+    <string name="app_clock_title">Clock</string>
+    <string name="app_terminal_title">Terminal</string>
 </resources>

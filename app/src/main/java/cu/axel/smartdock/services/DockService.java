@@ -418,7 +418,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 			@Override
 			public void onClick(View p1) {
-				launchApp("standard", pm.getLaunchIntentForPackage("com.android.deskclock"));
+                
+				launchApp("standard", pm.getLaunchIntentForPackage(sp.getString("app_clock", "com.android.deskclock")));
 			}
 
 		});
@@ -784,7 +785,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_P && sp.getBoolean("enable_open_settings", true))
 				launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_T && sp.getBoolean("enable_open_terminal", false))
-				launchApp("standard", sp.getString("terminal_package", "com.termux"));
+				launchApp("standard", sp.getString("app_terminal", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_A && sp.getBoolean("enable_expand_notifications", true))
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_K && sp.getBoolean("enable_take_screenshot", true))
@@ -792,14 +793,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             else if (event.getKeyCode() == KeyEvent.KEYCODE_W && sp.getBoolean("enable_toggle_pin", true))
                 togglePin();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_M && sp.getBoolean("enable_open_music", true))
-				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_MUSIC);
+				launchApp("standard", sp.getString("app_music", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("enable_open_browser", true))
-				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_EXPLORER);
-            else if (event.getKeyCode() == KeyEvent.KEYCODE_R){
-                String app = sp.getString("fav_app","");
-                if(!app.isEmpty())
-                    launchApp("standard", app);
-            }
+				launchApp("standard", sp.getString("app_files", ""));
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_R && sp.getBoolean("enable_open_assist", true))
+                launchApp("standard", sp.getString("app_assistant", ""));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
 				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
 						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -1442,7 +1440,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void launchAssistant(View v) {
-		String assistant = sp.getString("custom_assist", "");
+		String assistant = sp.getString("app_assistant", "");
 		if (!assistant.isEmpty())
 			launchApp("standard", assistant);
 		else {

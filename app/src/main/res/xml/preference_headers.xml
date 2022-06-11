@@ -17,6 +17,10 @@
         android:fragment="cu.axel.smartdock.fragments.DesktopPreferences"
         android:title="@string/desktop" />
     <header 
+        android:icon="@drawable/ic_star"
+        android:fragment="cu.axel.smartdock.fragments.DefaultAppsPreferences"
+        android:title="@string/default_apps" />
+    <header 
         android:icon="@drawable/ic_keyboard"
         android:fragment="cu.axel.smartdock.fragments.KeyboardPreferences"
         android:title="@string/keyboard" />
