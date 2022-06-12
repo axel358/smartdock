@@ -279,4 +279,7 @@
     <string name="app_assistant_title">Assistant</string>
     <string name="app_clock_title">Clock</string>
     <string name="app_terminal_title">Terminal</string>
+    <string name="apps">Apps</string>
+    <string name="enable_menu_recents_title">Enable Menu key to show recents</string>
+    <string name="general">General</string>
 </resources>

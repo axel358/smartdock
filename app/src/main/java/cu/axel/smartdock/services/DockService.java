@@ -500,7 +500,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wm.addView(bottomRightCorner, cornersLayoutParams);
 
 		//App menu
-		appMenu = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.apps_menu, null);
+		appMenu = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(this, R.style.AppTheme)).inflate(R.layout.apps_menu, null);
 		searchEt = appMenu.findViewById(R.id.menu_et);
 		powerBtn = appMenu.findViewById(R.id.power_btn);
 		appsGv = appMenu.findViewById(R.id.menu_applist_lv);
@@ -809,20 +809,23 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_F4)
 				AppUtils.removeTask(am, AppUtils.getRunningTasks(am, pm).get(0).getID());
 		} else if (event.getAction() == KeyEvent.ACTION_UP) {
+            int menuKey = Integer.parseInt(sp.getString("menu_key", "3"));
+            int menuAltKey = menuKey == 3 ? KeyEvent.KEYCODE_META_LEFT : menuKey;
+            
 			if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT && sp.getBoolean("enable_ctrl_back", true)) {
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
 				return true;
 			}
-
-			int menuKey = Integer.parseInt(sp.getString("menu_key", "3"));
-			int menuAltKey = menuKey == 3 ? KeyEvent.KEYCODE_META_LEFT : menuKey;
-
-			if ((event.getKeyCode() == menuKey || event.getKeyCode() == menuAltKey)
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_MENU && sp.getBoolean("enable_menu_recents", false)) {
+                performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
+                return true;
+			}
+			else if ((event.getKeyCode() == menuKey || event.getKeyCode() == menuAltKey)
 					&& sp.getBoolean("enable_app_menu", true)) {
 				toggleAppMenu(null);
 				return true;
 			}
-			if (event.getKeyCode() == KeyEvent.KEYCODE_F10 && sp.getBoolean("enable_f10", true)) {
+			else if (event.getKeyCode() == KeyEvent.KEYCODE_F10 && sp.getBoolean("enable_f10", true)) {
 				if (true) {
 					performGlobalAction(AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN);
 					return true;
@@ -1510,7 +1513,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		lp.x = Utils.dpToPx(this, 2);
 		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
 
-		audioPanel = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.audio_panel, null);
+		audioPanel = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(this, R.style.AppTheme)).inflate(R.layout.audio_panel, null);
 
 		audioPanel.setOnTouchListener(new OnTouchListener() {
 
@@ -1571,7 +1574,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		lp.x = Utils.dpToPx(this, 2);
 		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
 
-		wifiPanel = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.wifi_panel, null);
+		wifiPanel = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(this, R.style.AppTheme)).inflate(R.layout.wifi_panel, null);
 
 		wifiPanel.setOnTouchListener(new OnTouchListener() {
 

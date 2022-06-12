@@ -6,48 +6,61 @@
         android:entryValues="@array/shortcut_keys_values" 
         android:key="shortcut_key"
         android:defaultValue="57" />
-	<CheckBoxPreference
-		android:key="enable_lock_desktop"
-		android:title="@string/enable_lock_desktop_title"
-		android:defaultValue="true" />
+    <PreferenceCategory
+        android:title="@string/general">
+        <CheckBoxPreference
+            android:key="enable_lock_desktop"
+            android:title="@string/enable_lock_desktop_title"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="enable_take_screenshot"
+            android:title="@string/enable_take_screenshot_title"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="enable_open_settings"
+            android:title="@string/enable_open_settings_title"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="enable_toggle_pin"
+            android:title="@string/enable_toggle_pin_title"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="enable_expand_notifications"
+            android:title="@string/enable_expand_notifications_title"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="enable_f10"
+            android:title="@string/enable_f10_title"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/apps">
+        <CheckBoxPreference
+            android:key="enable_open_music"
+            android:title="@string/enable_open_music_title"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="enable_open_browser"
+            android:title="@string/enable_open_browser_title"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="enable_open_assist"
+            android:title="@string/enable_open_assist_title"/>
+        <CheckBoxPreference
+            android:key="enable_open_terminal"
+            android:title="@string/enable_open_terminal_title"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/navigation">
     <CheckBoxPreference
-        android:key="enable_take_screenshot"
-        android:title="@string/enable_take_screenshot_title"
-		android:defaultValue="true" />
-	<CheckBoxPreference
-		android:key="enable_open_settings"
-		android:title="@string/enable_open_settings_title"
-		android:defaultValue="true" />
-	<CheckBoxPreference
-		android:key="enable_open_music"
-		android:title="@string/enable_open_music_title"
-		android:defaultValue="true" />
-	<CheckBoxPreference
-		android:key="enable_open_browser"
-		android:title="@string/enable_open_browser_title"
-		android:defaultValue="true" />
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="enable_open_assist"
-        android:title="@string/enable_open_assist_title"/>
-	<CheckBoxPreference
-		android:key="enable_open_terminal"
-		android:title="@string/enable_open_terminal_title"
+        android:key="enable_menu_recents"
+        android:title="@string/enable_menu_recents_title"
 		android:defaultValue="false" />
-	<CheckBoxPreference
-		android:key="enable_expand_notifications"
-		android:title="@string/enable_expand_notifications_title"
-		android:defaultValue="true" />
 	<CheckBoxPreference
 		android:key="enable_ctrl_back"
 		android:title="@string/enable_ctrl_back_title"
 		android:defaultValue="true" />
-    <CheckBoxPreference
-        android:key="enable_f10"
-        android:title="@string/enable_f10_title"
-		android:defaultValue="true" />
-    <CheckBoxPreference
-        android:key="enable_toggle_pin"
-        android:title="@string/enable_toggle_pin_title"
-		android:defaultValue="true" />
+    </PreferenceCategory>
 </PreferenceScreen>

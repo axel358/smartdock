@@ -281,6 +281,7 @@ public final class R {
         public static final int app_name=0x7f0800a4;
         public static final int app_terminal_title=0x7f0800f6;
         public static final int appearance=0x7f080065;
+        public static final int apps=0x7f0800f7;
         public static final int behaviour=0x7f080038;
         public static final int black=0x7f080075;
         public static final int blocked_notifications_hint=0x7f08000e;
@@ -299,8 +300,8 @@ public final class R {
         public static final int custom=0x7f080077;
         public static final int custom_animation_dialogTitle=0x7f08004f;
         public static final int custom_animation_title=0x7f080050;
-        public static final int custom_assist_summary=0x7f0800f7;
-        public static final int custom_assist_title=0x7f0800f8;
+        public static final int custom_assist_summary=0x7f0800fa;
+        public static final int custom_assist_title=0x7f0800fb;
         public static final int custom_display_size_hint=0x7f080095;
         public static final int custom_display_size_summary=0x7f080094;
         public static final int custom_display_size_title=0x7f080096;
@@ -330,6 +331,7 @@ public final class R {
         public static final int enable_expand_notifications_title=0x7f08001b;
         public static final int enable_f10_title=0x7f08001d;
         public static final int enable_lock_desktop_title=0x7f080014;
+        public static final int enable_menu_recents_title=0x7f0800f8;
         public static final int enable_nav_assist_title=0x7f080032;
         public static final int enable_nav_back_title=0x7f08002f;
         public static final int enable_nav_home_title=0x7f080030;
@@ -363,6 +365,7 @@ public final class R {
         public static final int fine_tune=0x7f080062;
         public static final int freeze=0x7f0800b7;
         public static final int fullscreen=0x7f0800aa;
+        public static final int general=0x7f0800f9;
         public static final int github=0x7f080028;
         public static final int gnu_general_public_licence_v3=0x7f08002b;
         public static final int grant=0x7f0800a3;
