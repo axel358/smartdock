@@ -279,5 +279,7 @@
     <string name="app_assistant_title">Asistente</string>
     <string name="app_clock_title">Reloj</string>
     <string name="app_terminal_title">Terminal</string>
-    
+    <string name="apps">Apps</string>
+    <string name="enable_menu_recents_title">Habilitar la tecla Menu para abrir recientes</string>
+    <string name="general">General</string>
 </resources>
