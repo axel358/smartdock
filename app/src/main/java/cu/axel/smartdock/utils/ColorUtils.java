@@ -27,21 +27,39 @@ public class ColorUtils {
          */
 
         if (DeviceUtils.hasStoragePermission(context)) {
-            int wallpaperColor = getHomeScreenWallpaperColor(context);
+            
+            WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
+            Drawable wallpaperDrawable = wallpaperManager.getDrawable();
+            wallpaperDrawable.mutate();
+            wallpaperDrawable.invalidateSelf();
+            Bitmap wallpaperBitmap = drawableToBitmap(wallpaperDrawable);
+            
+            int color1 = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth()/4, wallpaperBitmap.getHeight()/4);
+            int color2 = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth() - wallpaperBitmap.getWidth()/4, wallpaperBitmap.getHeight()/4);
+            int color3 = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth()/2, wallpaperBitmap.getHeight() - wallpaperBitmap.getHeight()/4);
 
-            wallpaperColors.add(toHexColor(wallpaperColor));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, 1.5f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, 1.4f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, 1.3f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, 1.2f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, 1.1f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, 1f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, .9f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, .8f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, .7f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, .6f)));
-            wallpaperColors.add(toHexColor(manipulateColor(wallpaperColor, .5f)));
-        }
+            
+            
+            wallpaperColors.add(toHexColor(manipulateColor(color1, 1.5f)));
+            wallpaperColors.add(toHexColor(manipulateColor(color1, 1.2f)));
+            wallpaperColors.add(toHexColor(color1));
+            wallpaperColors.add(toHexColor(manipulateColor(color1, .8f)));
+            wallpaperColors.add(toHexColor(manipulateColor(color1, .5f)));
+            
+            wallpaperColors.add(toHexColor(manipulateColor(color2, 1.5f)));
+            wallpaperColors.add(toHexColor(manipulateColor(color2, 1.2f)));
+            wallpaperColors.add(toHexColor(color2));
+            wallpaperColors.add(toHexColor(manipulateColor(color2, .8f)));
+            wallpaperColors.add(toHexColor(manipulateColor(color2, .5f)));
+            
+            wallpaperColors.add(toHexColor(manipulateColor(color3, 1.5f)));
+            wallpaperColors.add(toHexColor(manipulateColor(color3, 1.2f)));
+            wallpaperColors.add(toHexColor(color3));
+            wallpaperColors.add(toHexColor(manipulateColor(color3, .8f)));
+            wallpaperColors.add(toHexColor(manipulateColor(color3, .5f)));
+            
+            
+          }
 
         return wallpaperColors;
     }
@@ -57,13 +75,6 @@ public class ColorUtils {
                           Math.min(b, 255));
     }
 
-    public static int getHomeScreenWallpaperColor(Context context) {
-        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
-        Drawable wallpaperDrawable = wallpaperManager.getDrawable();
-        wallpaperDrawable.mutate();
-        wallpaperDrawable.invalidateSelf();
-        return getBitmapDominantColor(drawableToBitmap(wallpaperDrawable));
-    }
     
     public static int getBitmapDominantColor(Bitmap bitmap) {
         int color = bitmap.getPixel(bitmap.getWidth()/2, bitmap.getHeight()/9);
