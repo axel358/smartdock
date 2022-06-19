@@ -75,10 +75,11 @@
         <item>#669900</item>
         <item>#ff8800</item>
         <item>#cc0000</item>
-        <item>#eeeeee</item>
-        <item>#dddddd</item>
-        <item>#cccccc</item>
-        <item>#888888</item>
+        
+        <item>#959595</item>
+        <item>#727272</item>
+        <item>#565656</item>
+        <item>#3E3E3E</item>
         <item>#000000</item>
     </string-array>
     
