@@ -262,7 +262,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				} else if (tasks.size() > 1) {
 					final View view = LayoutInflater.from(DockService.this).inflate(R.layout.task_list, null);
 					WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
-					ColorUtils.applyMainColor(sp, view);
+					ColorUtils.applyMainColor(DockService.this, sp, view);
 					lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
 					lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 							| WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
@@ -700,6 +700,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 			}, new IntentFilter(getPackageName() + ".MENU"));
 		}
+        
+        registerReceiver(new BroadcastReceiver(){
+
+                @Override
+                public void onReceive(Context p1, Intent p2) {
+                    applyTheme();
+                }
+            }, new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED));
 
 		//Run startup script
 		if (sp.getBoolean("run_autostart", false))
@@ -1117,7 +1125,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		final View view = LayoutInflater.from(DockService.this).inflate(R.layout.task_list, null);
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
-		ColorUtils.applyMainColor(sp, view);
+		ColorUtils.applyMainColor(DockService.this, sp, view);
 		lp.gravity = Gravity.TOP | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
@@ -1229,7 +1237,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		final View view = LayoutInflater.from(DockService.this).inflate(R.layout.pin_entry, null);
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
 		view.setBackgroundResource(R.drawable.round_rect);
-		ColorUtils.applyMainColor(sp, view);
+		ColorUtils.applyMainColor(DockService.this, sp, view);
 		lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
@@ -1252,7 +1260,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		});
 
 		ImageView icon = view.findViewById(R.id.pin_entry_iv);
-		ColorUtils.applySecondaryColor(sp, icon);
+		ColorUtils.applySecondaryColor(DockService.this, sp, icon);
 		TextView text = view.findViewById(R.id.pin_entry_tv);
 
 		if (AppUtils.isPinned(DockService.this, app, AppUtils.DOCK_PINNED_LIST)) {
@@ -1281,7 +1289,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void showUserContextMenu(View anchor) {
 		final View view = LayoutInflater.from(DockService.this).inflate(R.layout.task_list, null);
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
-		ColorUtils.applyMainColor(sp, view);
+		ColorUtils.applyMainColor(DockService.this, sp, view);
 		lp.gravity = Gravity.TOP | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
@@ -1423,7 +1431,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
     
     private void updateDockShape(){
         dockLayout.setBackgroundResource(sp.getBoolean("dock_square", false)? R.drawable.rect : R.drawable.round_rect);
-        ColorUtils.applyMainColor(sp, dockLayout);
+        ColorUtils.applyMainColor(DockService.this, sp, dockLayout);
     }
 
 	public void updateNavigationBar() {
@@ -1548,8 +1556,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			}
 		});
 
-		ColorUtils.applySecondaryColor(sp, musicIcon);
-		ColorUtils.applyMainColor(sp, audioPanel);
+		ColorUtils.applySecondaryColor(DockService.this, sp, musicIcon);
+		ColorUtils.applyMainColor(DockService.this, sp, audioPanel);
 		wm.addView(audioPanel, lp);
 		audioPanelVisible = true;
 	}
@@ -1648,7 +1656,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			}
 		}, new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION));
 
-		ColorUtils.applyMainColor(sp, wifiPanel);
+		ColorUtils.applyMainColor(DockService.this, sp, wifiPanel);
 
 		wm.addView(wifiPanel, lp);
 		wifiPanelVisible = true;
@@ -1681,10 +1689,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		ImageButton softRestartBtn = powerMenu.findViewById(R.id.soft_restart_btn);
 		ImageButton screenshotBtn = powerMenu.findViewById(R.id.screenshot_btn);
 
-		ColorUtils.applySecondaryColor(sp, powerOffBtn);
-		ColorUtils.applySecondaryColor(sp, restartBtn);
-		ColorUtils.applySecondaryColor(sp, softRestartBtn);
-		ColorUtils.applySecondaryColor(sp, screenshotBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, powerOffBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, restartBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, softRestartBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, screenshotBtn);
 
 		powerOffBtn.setOnClickListener(new OnClickListener() {
 
@@ -1720,7 +1728,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
 			}
 		});
-		ColorUtils.applyMainColor(sp, powerMenu);
+		ColorUtils.applyMainColor(DockService.this, sp, powerMenu);
 		wm.addView(powerMenu, layoutParams);
 		topRightCorner.setVisibility(sp.getBoolean("enable_corner_top_right", false) ? View.VISIBLE : View.GONE);
 		powerMenuVisible = true;
@@ -1733,19 +1741,19 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void applyTheme() {
-		ColorUtils.applyMainColor(sp, dockLayout);
-		ColorUtils.applyMainColor(sp, appMenu);
-		ColorUtils.applySecondaryColor(sp, searchEt);
-		ColorUtils.applySecondaryColor(sp, backBtn);
-		ColorUtils.applySecondaryColor(sp, homeBtn);
-		ColorUtils.applySecondaryColor(sp, recentBtn);
-		ColorUtils.applySecondaryColor(sp, assistBtn);
-		ColorUtils.applySecondaryColor(sp, pinBtn);
-		ColorUtils.applySecondaryColor(sp, bluetoothBtn);
-		ColorUtils.applySecondaryColor(sp, wifiBtn);
-		ColorUtils.applySecondaryColor(sp, volBtn);
-		ColorUtils.applySecondaryColor(sp, powerBtn);
-		ColorUtils.applySecondaryColor(sp, batteryBtn);
+		ColorUtils.applyMainColor(DockService.this, sp, dockLayout);
+		ColorUtils.applyMainColor(DockService.this, sp, appMenu);
+		ColorUtils.applySecondaryColor(DockService.this, sp, searchEt);
+		ColorUtils.applySecondaryColor(DockService.this, sp, backBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, homeBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, recentBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, assistBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, pinBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, bluetoothBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, wifiBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, volBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, powerBtn);
+		ColorUtils.applySecondaryColor(DockService.this, sp, batteryBtn);
 	}
 
 	public void updateCorners() {

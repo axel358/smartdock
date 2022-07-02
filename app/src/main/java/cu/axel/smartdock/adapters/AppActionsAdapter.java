@@ -30,7 +30,7 @@ public class AppActionsAdapter extends ArrayAdapter<Action> {
         ImageView icon = convertView.findViewById(R.id.pin_entry_iv);
         TextView text=convertView.findViewById(R.id.pin_entry_tv);
         
-        ColorUtils.applySecondaryColor(PreferenceManager.getDefaultSharedPreferences(context), icon);
+        ColorUtils.applySecondaryColor(context, PreferenceManager.getDefaultSharedPreferences(context), icon);
         
         text.setText(action.getText());
         icon.setImageResource(action.getIcon());

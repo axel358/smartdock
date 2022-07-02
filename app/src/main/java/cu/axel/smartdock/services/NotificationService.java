@@ -162,9 +162,9 @@ public class NotificationService extends NotificationListenerService {
 
                 CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
 
-                ColorUtils.applySecondaryColor(sp, notifIcon);
-                ColorUtils.applyMainColor(sp, notificationLayout);
-                ColorUtils.applySecondaryColor(sp, notifCancelBtn);
+                ColorUtils.applySecondaryColor(NotificationService.this, sp, notifIcon);
+                ColorUtils.applyMainColor(NotificationService.this, sp, notificationLayout);
+                ColorUtils.applySecondaryColor(NotificationService.this, sp, notifCancelBtn);
 
                 try {
                     Drawable notificationIcon = getPackageManager().getApplicationIcon(sbn.getPackageName());
@@ -396,7 +396,7 @@ public class NotificationService extends NotificationListenerService {
                 }
             });
 
-		ColorUtils.applyMainColor(sp, notificationPanel);
+		ColorUtils.applyMainColor(NotificationService.this, sp, notificationPanel);
 		wm.addView(notificationPanel, lp);
 
 		updateNotificationPanel();

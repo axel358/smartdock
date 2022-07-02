@@ -5,6 +5,7 @@
         <item>@string/black</item>
         <item>@string/transparent</item>
         <item>Nanashi</item>
+        <item>@string/material_u</item>
         <item>@string/custom</item>
     </string-array>
 
@@ -13,6 +14,7 @@
         <item>black</item>
         <item>transparent</item>
         <item>nanashi</item>
+        <item>material_u</item>
         <item>custom</item>
     </string-array>
 
@@ -70,6 +72,7 @@
         <item>#99cc00</item>
         <item>#ffbb33</item>
         <item>#ff4444</item>
+        
         <item>#0099cc</item>
         <item>#9933cc</item>
         <item>#669900</item>

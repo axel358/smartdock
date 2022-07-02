@@ -37,8 +37,6 @@ public class ColorUtils {
             int color1 = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth()/4, wallpaperBitmap.getHeight()/4);
             int color2 = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth() - wallpaperBitmap.getWidth()/4, wallpaperBitmap.getHeight()/4);
             int color3 = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth()/2, wallpaperBitmap.getHeight() - wallpaperBitmap.getHeight()/4);
-
-            
             
             wallpaperColors.add(toHexColor(manipulateColor(color1, 1.5f)));
             wallpaperColors.add(toHexColor(manipulateColor(color1, 1.2f)));
@@ -58,11 +56,11 @@ public class ColorUtils {
             wallpaperColors.add(toHexColor(manipulateColor(color3, .8f)));
             wallpaperColors.add(toHexColor(manipulateColor(color3, .5f)));
             
-            
           }
 
         return wallpaperColors;
     }
+    
 
     public static int manipulateColor(int color, float factor) {
         int a = Color.alpha(color);
@@ -84,11 +82,6 @@ public class ColorUtils {
             color=bitmap.getPixel(bitmap.getWidth()/2, bitmap.getHeight()/2);
         return color;
     }
-    /*
-    public static int getBitmapDominantColorAccurate(Bitmap bitmap) {
-      return  Palette.from(bitmap).generate().getDominantColor(Color.WHITE);
-        
-    }*/
     
     public static int getDrawableDominantColor(Drawable drawable){
         return getBitmapDominantColor(drawableToBitmap(drawable));
@@ -119,7 +112,7 @@ public class ColorUtils {
         view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
     }
     
-    public static void applyMainColor(SharedPreferences sp, View view) {
+    public static void applyMainColor(Context context,SharedPreferences sp, View view) {
         String color = "";
         int alpha = 255;
         switch (sp.getString("theme", "dark")) {
@@ -137,6 +130,9 @@ public class ColorUtils {
                 color = "#202020";
                 alpha = 235;
                 break;
+            case "material_u":
+                color = getWallpaperColors(context).get(4);
+                break;
             case "custom":
                 color = sp.getString("theme_main_color", "#212121");
                 alpha = sp.getInt("theme_main_alpha", 255);
@@ -145,7 +141,7 @@ public class ColorUtils {
         view.getBackground().setAlpha(alpha);
     }
 
-    public static void applySecondaryColor(SharedPreferences sp,  View view) {
+    public static void applySecondaryColor(Context context, SharedPreferences sp,  View view) {
         String color = "";
         int alpha = 255;
         switch (sp.getString("theme", "dark")) {
@@ -162,6 +158,9 @@ public class ColorUtils {
             case "nanashi":
                 color = "#cccccc";
                 alpha = 40;
+                break;
+            case "material_u":
+                color = getWallpaperColors(context).get(3);
                 break;
             case "custom":
                 color = sp.getString("theme_secondary_color", "#292929");

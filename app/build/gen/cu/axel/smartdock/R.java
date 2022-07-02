@@ -300,8 +300,8 @@ public final class R {
         public static final int custom=0x7f080077;
         public static final int custom_animation_dialogTitle=0x7f08004f;
         public static final int custom_animation_title=0x7f080050;
-        public static final int custom_assist_summary=0x7f0800fa;
-        public static final int custom_assist_title=0x7f0800fb;
+        public static final int custom_assist_summary=0x7f0800fb;
+        public static final int custom_assist_title=0x7f0800fc;
         public static final int custom_display_size_hint=0x7f080095;
         public static final int custom_display_size_summary=0x7f080094;
         public static final int custom_display_size_title=0x7f080096;
@@ -402,6 +402,7 @@ public final class R {
         public static final int manage=0x7f080083;
         public static final int manage_permissions=0x7f0800c0;
         public static final int manage_service=0x7f08000b;
+        public static final int material_u=0x7f0800fa;
         public static final int maximized=0x7f0800a8;
         public static final int menu=0x7f080051;
         public static final int menu_icon_uri_title=0x7f08004a;

@@ -87,7 +87,7 @@ public class LauncherActivity extends Activity {
 			public boolean onLongClick(View p1) {
 				final View view = LayoutInflater.from(LauncherActivity.this).inflate(R.layout.task_list, null);
 				WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
-				ColorUtils.applyMainColor(sp, view);
+				ColorUtils.applyMainColor(LauncherActivity.this,sp, view);
 				lp.gravity = Gravity.TOP | Gravity.LEFT;
 				lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 						| WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
@@ -119,8 +119,8 @@ public class LauncherActivity extends Activity {
 					public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
 						Action action = (Action) p1.getItemAtPosition(p3);
 						if (action.getText().equals(getString(R.string.change_wallpaper)))
-							startActivity(Intent.createChooser(new Intent(Intent.ACTION_SET_WALLPAPER),
-									getString(R.string.change_wallpaper)));
+							startActivityForResult(Intent.createChooser(new Intent(Intent.ACTION_SET_WALLPAPER),
+									getString(R.string.change_wallpaper)), 18);
 						else if (action.getText().equals(getString(R.string.display_settings)))
 							startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));
 
@@ -270,7 +270,7 @@ public class LauncherActivity extends Activity {
 		final WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
 		final View view = LayoutInflater.from(this).inflate(R.layout.task_list, null);
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
-		ColorUtils.applyMainColor(sp, view);
+		ColorUtils.applyMainColor(LauncherActivity.this, sp, view);
 		lp.gravity = Gravity.TOP | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
@@ -365,6 +365,15 @@ public class LauncherActivity extends Activity {
 
 		wm.addView(view, lp);
 	}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 18){
+            //Toast.makeText(this, resultCode + "", 5000).show();
+        }
+    }
+    
 
 	public class AppAdapterDesktop extends ArrayAdapter<App> {
 		private Context context;

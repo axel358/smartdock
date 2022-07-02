@@ -282,4 +282,5 @@
     <string name="apps">Apps</string>
     <string name="enable_menu_recents_title">Habilitar la tecla Menu para abrir recientes</string>
     <string name="general">General</string>
+    <string name="material_u">Material U</string>
 </resources>
