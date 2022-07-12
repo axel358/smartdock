@@ -1169,7 +1169,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 						ArrayList<Action> actions = new ArrayList<Action>();
 						actions.add(new Action(R.drawable.ic_arrow_back, ""));
 						actions.add(new Action(R.drawable.ic_info, getString(R.string.app_info)));
-						actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
+                        if(!AppUtils.isSystemApp(DockService.this, app) || sp.getBoolean("allow_sysapp_uninstall", false))
+						    actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
 						if (sp.getBoolean("allow_app_freeze", false))
 							actions.add(new Action(R.drawable.ic_freeze, getString(R.string.freeze)));
 
@@ -1192,7 +1193,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 								.setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 						wm.removeView(view);
 					} else if (action.getText().equals(getString(R.string.uninstall))) {
-						startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app))
+                        if(AppUtils.isSystemApp(DockService.this, app))
+                            DeviceUtils.runAsRoot("pm uninstall --user 0 " + app);
+                        else
+						    startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app))
 								.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 						if (appMenuVisible)
 							hideAppMenu();

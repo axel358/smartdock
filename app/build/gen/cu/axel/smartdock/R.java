@@ -263,6 +263,8 @@ public final class R {
         public static final int allow_app_freeze_title=0x7f080099;
         public static final int allow_broadcasts_summary=0x7f080098;
         public static final int allow_broadcasts_title=0x7f080097;
+        public static final int allow_sysapp_uninstall_summary=0x7f0800fe;
+        public static final int allow_sysapp_uninstall_title=0x7f0800fd;
         public static final int allows_to_show_recent_apps_on_=0x7f0800fc;
         public static final int animations=0x7f08004c;
         public static final int app_assistant_title=0x7f0800f4;
@@ -303,8 +305,8 @@ public final class R {
         public static final int custom=0x7f080077;
         public static final int custom_animation_dialogTitle=0x7f08004f;
         public static final int custom_animation_title=0x7f080050;
-        public static final int custom_assist_summary=0x7f0800fd;
-        public static final int custom_assist_title=0x7f0800fe;
+        public static final int custom_assist_summary=0x7f0800ff;
+        public static final int custom_assist_title=0x7f080100;
         public static final int custom_display_size_hint=0x7f080095;
         public static final int custom_display_size_summary=0x7f080094;
         public static final int custom_display_size_title=0x7f080096;

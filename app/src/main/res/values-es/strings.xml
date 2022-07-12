@@ -285,5 +285,7 @@
     <string name="material_u">Material U</string>
     <string name="usage_stats">Datos de uso</string>
     <string name="allows_to_show_recent_apps_on_">Permite mostrar apps recientes en dispositivos donde Smart Dock no puede ser instalado como app del sistema</string>
+    <string name="allow_sysapp_uninstall_title">Permitir desinstalar apps del sistema</string>
+    <string name="allow_sysapp_uninstall_summary">Por favor sea cuidadoso puede ser muy peligroso</string>
     
 </resources>

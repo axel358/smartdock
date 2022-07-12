@@ -34,6 +34,11 @@
         android:summary="@string/allow_app_freeze_summary"
         android:defaultValue="false" />
     <CheckBoxPreference
+        android:key="allow_sysapp_uninstall"
+        android:title="@string/allow_sysapp_uninstall_title"
+        android:summary="@string/allow_sysapp_uninstall_summary"
+        android:defaultValue="false" />
+    <CheckBoxPreference
         android:summary="@string/hide_nav_buttons_summary"
         android:key="hide_nav_buttons"
         android:title="@string/hide_nav_buttons_title"
