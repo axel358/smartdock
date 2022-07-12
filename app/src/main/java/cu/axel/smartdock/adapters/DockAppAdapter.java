@@ -62,7 +62,10 @@ public class DockAppAdapter extends ArrayAdapter<DockApp> {
         int size = app.getTasks().size();
 
         if (size > 0) {
-            holder.runningIndicator.setAlpha(1f);
+            
+            if(app.getTasks().get(0).getID() != -1)
+               holder.runningIndicator.setAlpha(1f);
+            
             if (app.getPackageName().equals(AppUtils.currentApp)) {
                 holder.runningIndicator.getLayoutParams().width = Utils.dpToPx(context, 16);
             }
