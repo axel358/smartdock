@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
 	<uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>
     <application
         android:name=".App"
         android:allowBackup="true"

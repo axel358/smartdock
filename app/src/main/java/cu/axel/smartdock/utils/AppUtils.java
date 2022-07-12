@@ -1,6 +1,9 @@
 package cu.axel.smartdock.utils;
 
 import android.app.ActivityManager;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -11,7 +14,6 @@ import android.util.Log;
 import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.models.AppTask;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,8 +25,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import android.content.Context;
-import android.widget.Toast;
+import android.os.SystemClock;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 public class AppUtils {
     public static final String PINNED_LIST="pinned.lst";
@@ -185,6 +187,48 @@ public class AppUtils {
         }
 
         return appTasks;
+    }
+    
+    public static ArrayList<AppTask> getRecentTasks(Context context) {
+        UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
+        long start = System.currentTimeMillis() - SystemClock.elapsedRealtime();
+        List<UsageStats> usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, start, System.currentTimeMillis());
+        ArrayList<AppTask> appTasks = new ArrayList<>();
+        
+        Collections.sort(usageStats, new Comparator<UsageStats>(){
+
+                @Override
+                public int compare(UsageStats p1, UsageStats p2) {
+                    return  Long.compare(p2.getLastTimeUsed(), p1.getLastTimeUsed());
+                }
+            });
+
+        for(UsageStats stat : usageStats) {
+            String app = stat.getPackageName();
+            try {
+                if(isLaunchable(context, app) && !app.equals(AppUtils.getCurrentLauncher(context.getPackageManager())))
+                    appTasks.add(new AppTask(-1, getPackageLabel(context, app), app, context.getPackageManager().getApplicationIcon(app)));
+            } catch (PackageManager.NameNotFoundException e) {}
+            
+            if(appTasks.size() > 12)
+                break;
+        }
+
+        return appTasks;
+    }
+    
+    public static boolean isSystemApp(Context context, String app) {
+        try {
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(app, 0);
+            return (appInfo.flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+    
+    private static boolean isLaunchable(Context context, String app) {
+        List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER).setPackage(app), 0);
+        return resolveInfo != null && resolveInfo.size() > 0;
     }
     
     public static void removeTask(ActivityManager am, int id){

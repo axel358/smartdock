@@ -111,7 +111,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private WindowManager wm;
 	private View appsSeparator;
 	private boolean appMenuVisible, powerMenuVisible, isPinned, reflectionAllowed, audioPanelVisible,
-			wifiPanelVisible;
+			wifiPanelVisible, systemApp;
 	private WindowManager.LayoutParams dockLayoutParams;
 	private EditText searchEt;
 	private GridView appsGv, favoritesGv, tasksGv;
@@ -150,6 +150,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	@Override
 	protected void onServiceConnected() {
 		super.onServiceConnected();
+        
+        Utils.startupTime = System.currentTimeMillis();
+        systemApp = AppUtils.isSystemApp(this, getPackageName());
 
 		//Create the dock
 		dock = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.dock, null);
@@ -258,7 +261,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				ArrayList<AppTask> tasks = app.getTasks();
 
 				if (tasks.size() == 1) {
-					am.moveTaskToFront(tasks.get(0).getID(), 0);
+                    int taskId =tasks.get(0).getID();
+                    if(taskId == -1)
+                        launchApp(getDefaultLaunchMode(app.getPackageName()), app.getPackageName());
+                    else
+                        am.moveTaskToFront(taskId, 0);
+                    
 				} else if (tasks.size() > 1) {
 					final View view = LayoutInflater.from(DockService.this).inflate(R.layout.task_list, null);
 					WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
@@ -724,6 +732,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		updateMenuIcon();
 		placeRunningApps();
 		updateDockTrigger();
+        
 
         if(sp.getBoolean("pin_dock", true))
 		    pinDock();
@@ -1409,7 +1418,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 
 		//TODO: We can eliminate another for
-		ArrayList<AppTask> tasks = AppUtils.getRunningTasks(am, pm);
+        ArrayList<AppTask> tasks = systemApp? AppUtils.getRunningTasks(am, pm) : AppUtils.getRecentTasks(this);
+        
 
 		for (int j = 1; j <= tasks.size(); j++) {
 			AppTask task = tasks.get(tasks.size() - j);
