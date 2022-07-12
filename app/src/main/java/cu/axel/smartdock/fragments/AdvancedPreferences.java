@@ -17,6 +17,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
 import android.preference.CheckBoxPreference;
+import cu.axel.smartdock.utils.AppUtils;
 
 public class AdvancedPreferences extends PreferenceFragment {
     @Override
@@ -58,6 +59,7 @@ public class AdvancedPreferences extends PreferenceFragment {
             });
 
         Preference moveToSystem = findPreference("move_to_system");
+        moveToSystem.setEnabled(!AppUtils.isSystemApp(getActivity(), getActivity().getPackageName()));
         moveToSystem.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
                 @Override
