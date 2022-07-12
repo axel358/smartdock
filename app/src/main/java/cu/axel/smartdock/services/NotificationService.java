@@ -77,7 +77,7 @@ public class NotificationService extends NotificationListenerService {
 
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this, 300), -2);
         lp.x = 5;
-        if (sp.getBoolean("notification_bottom", false)) {
+        if (sp.getBoolean("notification_bottom", true)) {
             lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
             lp.y = Utils.dpToPx(this, 60);
         } else {
