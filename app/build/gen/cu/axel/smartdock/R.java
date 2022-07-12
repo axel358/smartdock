@@ -305,8 +305,8 @@ public final class R {
         public static final int custom=0x7f080077;
         public static final int custom_animation_dialogTitle=0x7f08004f;
         public static final int custom_animation_title=0x7f080050;
-        public static final int custom_assist_summary=0x7f0800ff;
-        public static final int custom_assist_title=0x7f080100;
+        public static final int custom_assist_summary=0x7f080101;
+        public static final int custom_assist_title=0x7f080102;
         public static final int custom_display_size_hint=0x7f080095;
         public static final int custom_display_size_summary=0x7f080094;
         public static final int custom_display_size_title=0x7f080096;
@@ -447,6 +447,8 @@ public final class R {
         public static final int restore_menu_icon_title=0x7f08004b;
         public static final int root_access=0x7f08008b;
         public static final int run_autostart_title=0x7f080092;
+        public static final int running_apps_number_summary=0x7f0800ff;
+        public static final int running_apps_number_title=0x7f080100;
         public static final int save=0x7f0800ac;
         public static final int save_log=0x7f0800bd;
         public static final int scale_factor_summary=0x7f0800d8;

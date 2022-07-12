@@ -155,8 +155,8 @@ public class AppUtils {
         }
     }
 
-    public static ArrayList<AppTask> getRunningTasks(ActivityManager am, PackageManager pm) {
-        List<ActivityManager.RunningTaskInfo> tasksInfo = am.getRunningTasks(20);
+    public static ArrayList<AppTask> getRunningTasks(ActivityManager am, PackageManager pm, int max) {
+        List<ActivityManager.RunningTaskInfo> tasksInfo = am.getRunningTasks(max);
         currentApp = tasksInfo.get(0).baseActivity.getPackageName();
 
         ArrayList<AppTask> appTasks = new ArrayList<AppTask>();
@@ -189,7 +189,7 @@ public class AppUtils {
         return appTasks;
     }
     
-    public static ArrayList<AppTask> getRecentTasks(Context context) {
+    public static ArrayList<AppTask> getRecentTasks(Context context, int max) {
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         long start = System.currentTimeMillis() - SystemClock.elapsedRealtime();
         List<UsageStats> usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, start, System.currentTimeMillis());
@@ -210,7 +210,7 @@ public class AppUtils {
                     appTasks.add(new AppTask(-1, getPackageLabel(context, app), app, context.getPackageManager().getApplicationIcon(app)));
             } catch (PackageManager.NameNotFoundException e) {}
             
-            if(appTasks.size() > 12)
+            if(appTasks.size() > max)
                 break;
         }
 

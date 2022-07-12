@@ -127,6 +127,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private ArrayList<App> pinnedApps;
     private TextClock dateTv;
     private long lastUpdate;
+    private int maxApps;
 
 	@Override
 	public void onCreate() {
@@ -153,6 +154,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
         
         Utils.startupTime = System.currentTimeMillis();
         systemApp = AppUtils.isSystemApp(this, getPackageName());
+        maxApps = Integer.parseInt(sp.getString("max_running_apps", "15"));
 
 		//Create the dock
 		dock = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.dock, null);
@@ -824,7 +826,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_F12)
 				DeviceUtils.sotfReboot();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_F4)
-				AppUtils.removeTask(am, AppUtils.getRunningTasks(am, pm).get(0).getID());
+				AppUtils.removeTask(am, AppUtils.getRunningTasks(am, pm, maxApps).get(0).getID());
 		} else if (event.getAction() == KeyEvent.ACTION_UP) {
             int menuKey = Integer.parseInt(sp.getString("menu_key", "3"));
             int menuAltKey = menuKey == 3 ? KeyEvent.KEYCODE_META_LEFT : menuKey;
@@ -1379,6 +1381,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			updateQuickSettings();
         else if(p2.equals("dock_square"))
             updateDockShape();
+        else if(p2.equals("max_running_apps")){
+            maxApps = Integer.parseInt(sp.getString("max_running_apps", "15"));
+            updateRunningTasks();
+        }
 	}
 
 	private void updateDockTrigger() {
@@ -1422,7 +1428,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 
 		//TODO: We can eliminate another for
-        ArrayList<AppTask> tasks = systemApp? AppUtils.getRunningTasks(am, pm) : AppUtils.getRecentTasks(this);
+        ArrayList<AppTask> tasks = systemApp? AppUtils.getRunningTasks(am, pm, maxApps) : AppUtils.getRecentTasks(this, maxApps);
         
 
 		for (int j = 1; j <= tasks.size(); j++) {

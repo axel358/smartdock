@@ -287,5 +287,7 @@
     <string name="allows_to_show_recent_apps_on_">Permite mostrar apps recientes en dispositivos donde Smart Dock no puede ser instalado como app del sistema</string>
     <string name="allow_sysapp_uninstall_title">Permitir desinstalar apps del sistema</string>
     <string name="allow_sysapp_uninstall_summary">Por favor sea cuidadoso puede ser muy peligroso</string>
+    <string name="running_apps_number_summary">Este ajuste puede ser útil en dispositivos con pantalla pequeña</string>
+    <string name="running_apps_number_title">Número de apps recientes/corriendo a mostar</string>
     
 </resources>
