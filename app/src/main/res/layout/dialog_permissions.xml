@@ -105,6 +105,50 @@
 				android:id="@+id/btn_manage_service"/>
 
 		</LinearLayout>
+        
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:src="@drawable/ic_usage_stats"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="5dp"
+                android:background="@drawable/circle_gray"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:layout_marginLeft="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/usage_stats"
+                    android:textSize="16sp"
+                    android:textColor="#FF141414"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/allows_to_show_recent_apps_on_"/>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="wrap_content"
+                android:text="@string/manage"
+                android:id="@+id/btn_manage_usage"/>
+
+        </LinearLayout>
+        
 
 		<TextView
 			android:layout_width="wrap_content"

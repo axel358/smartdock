@@ -86,6 +86,7 @@ public class MainActivity extends PreferenceActivity {
         Button grantNotificationsBtn = view.findViewById(R.id.btn_grant_notifications);
         Button manageServiceBtn = view.findViewById(R.id.btn_manage_service);
         Button locationBtn = view.findViewById(R.id.btn_grant_location);
+        Button usageBtn = view.findViewById(R.id.btn_manage_usage);
 
         manageServiceBtn.setEnabled(canDrawOverOtherApps());
 
@@ -157,6 +158,14 @@ public class MainActivity extends PreferenceActivity {
                 public void onClick(View p1) {
                     requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 8);
                     dialog.dismiss();
+                }
+            });
+            
+        usageBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
                 }
             });
 

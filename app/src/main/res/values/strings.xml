@@ -283,4 +283,7 @@
     <string name="enable_menu_recents_title">Enable Menu key to show recents</string>
     <string name="general">General</string>
     <string name="material_u">Material U</string>
+    <string name="usage_stats">Usage stats</string>
+    <string name="allows_to_show_recent_apps_on_">Allows to show recent apps on devices where Smart Dock can\'t be installed as a system app</string>
+    
 </resources>
