@@ -23,6 +23,9 @@ import java.util.List;
 import android.util.Log;
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.view.Display;
+import android.hardware.display.DisplayManager;
+import android.util.DisplayMetrics;
 
 public class DeviceUtils {
 
@@ -165,5 +168,23 @@ public class DeviceUtils {
                 }
             } catch (Exception e) {}
         }
+    }
+    
+    public static Display getSecondaryDisplay(Context context){
+        DisplayManager dm = (DisplayManager) context.getSystemService(context.DISPLAY_SERVICE);
+        Display[] displays = dm.getDisplays();
+        return dm.getDisplays()[displays.length - 1];
+    }
+    
+    public static DisplayMetrics getDisplayMetrics(Context context, boolean secondary){
+        DisplayManager dm = (DisplayManager) context.getSystemService(context.DISPLAY_SERVICE);
+        Display display = secondary ? getSecondaryDisplay(context) : dm.getDisplay(Display.DEFAULT_DISPLAY);
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        return metrics;
+    }
+    
+    public static Context getDisplayContext(Context context, boolean secondary){
+        return secondary ? context.createDisplayContext(getSecondaryDisplay(context)) : context;
     }
 }

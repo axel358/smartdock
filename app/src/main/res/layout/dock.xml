@@ -33,7 +33,6 @@
 			android:id="@+id/nav_panel">
 
 			<ImageView
-                android:onClick="toggleAppMenu"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
 				android:id="@+id/apps_btn"
@@ -67,7 +66,6 @@
 				android:src="@drawable/ic_recents"
 				android:id="@+id/recents_btn"/>
             <ImageView
-                android:onClick="launchAssistant"
                 android:background="@drawable/circle"
                 android:padding="8dp"
                 android:layout_height="40dp"
@@ -114,10 +112,9 @@
 				android:id="@+id/pin_btn"
 				android:layout_margin="5dp"
 				android:padding="8dp"
-				android:background="@drawable/circle"
-				android:onClick="toggleVolume"/>
+				android:background="@drawable/circle"/>
+            
             <ImageView
-                android:onClick="toggleBluetooth"
                 android:background="@drawable/circle"
                 android:padding="5dp"
                 android:layout_height="35dp"
@@ -133,8 +130,7 @@
 				android:id="@+id/wifi_btn"
 				android:layout_margin="5dp"
 				android:padding="8dp"
-				android:background="@drawable/circle"
-				android:onClick="toggleWifi"/>
+				android:background="@drawable/circle"/>
 
 			<ImageView
 				android:layout_height="35dp"
@@ -143,8 +139,7 @@
 				android:id="@+id/volume_btn"
 				android:layout_margin="5dp"
 				android:padding="5dp"
-				android:background="@drawable/circle"
-				android:onClick="toggleVolume"/>
+				android:background="@drawable/circle"/>
 
 			<ImageView
 				android:layout_height="35dp"
