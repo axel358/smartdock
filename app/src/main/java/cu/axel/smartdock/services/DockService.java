@@ -824,9 +824,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
     
     public void restart(){
-        Toast.makeText(context, "Restartin...", 5000).show();
+        Toast.makeText(context, "Restartinkg...", 5000).show();
         context = DeviceUtils.getDisplayContext(this, true);
-        stopSelf();
     }
 
 	//Handle keyboard shortcuts
@@ -868,8 +867,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
 						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_O) {
+                if(Build.VERSION.SDK_INT < 24){
 				InputMethodManager im = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 				im.showInputMethodPicker();
+                }else{
+                    AccessibilityService.SoftKeyboardController kc = getSoftKeyboardController();
+                    int mode = kc.getShowMode();
+                }
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_F12)
 				DeviceUtils.sotfReboot();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_F4)
@@ -1022,13 +1026,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				windowMode = 1;
 			else {
 				int width = 0, height = 0, x = 0, y = 0;
-				//int deviceWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-				//int deviceHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-                
                 int deviceWidth = DeviceUtils.getDisplayMetrics(context, true).widthPixels;
                 int deviceHeight = DeviceUtils.getDisplayMetrics(context, true).heightPixels;
-                
-                Toast.makeText(context, "dwidth: " + deviceWidth + " height: " + deviceHeight, 5000).show();
                 
 
 				windowMode = Build.VERSION.SDK_INT >= 28 ? 5 : 2;
@@ -1150,6 +1149,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		ImageView avatarIv = appMenu.findViewById(R.id.avatar_iv);
 		TextView userNameTv = appMenu.findViewById(R.id.user_name_tv);
+        ColorUtils.applyColor(appsSeparator, ColorUtils.getMainColors(sp, this)[4]);
 
 		avatarIv.setOnClickListener(new OnClickListener() {
 

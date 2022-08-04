@@ -4,9 +4,8 @@
 	android:layout_width="match_parent"
 	android:layout_height="70dp"
 	android:orientation="horizontal"
-	android:background="@drawable/round_rect_gray"
 	android:padding="5dp"
-    android:gravity="center_vertical">
+	android:gravity="center_vertical">
 
 	<ImageView
 		android:layout_height="52dp"
@@ -34,7 +33,7 @@
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:text="Small Text"
-				android:textColor="#FF000000"
+				android:textColor="#FFFFFFFF"
 				android:textSize="15sp"
 				android:id="@+id/notif_w_title_tv"
 				android:layout_weight="1.0"
@@ -55,7 +54,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			android:text="Text"
-			android:textColor="#FF151515"
+			android:textColor="#FFFFFFFF"
 			android:id="@+id/notif_w_text_tv"/>
 
 		<LinearLayout

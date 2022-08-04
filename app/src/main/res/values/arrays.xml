@@ -4,7 +4,6 @@
         <item>@string/dark</item>
         <item>@string/black</item>
         <item>@string/transparent</item>
-        <item>Nanashi</item>
         <item>@string/material_u</item>
         <item>@string/custom</item>
     </string-array>
@@ -13,7 +12,6 @@
         <item>dark</item>
         <item>black</item>
         <item>transparent</item>
-        <item>nanashi</item>
         <item>material_u</item>
         <item>custom</item>
     </string-array>
@@ -67,23 +65,23 @@
     </string-array>
     
     <string-array name="default_color_values" translatable="false">
-        <item>#33b5e5</item>
-        <item>#aa66cc</item>
-        <item>#99cc00</item>
-        <item>#ffbb33</item>
-        <item>#ff4444</item>
-        
-        <item>#0099cc</item>
+        <item>#0089B6</item>
         <item>#9933cc</item>
         <item>#669900</item>
         <item>#ff8800</item>
-        <item>#cc0000</item>
+        <item>#BB0D95</item>
+        
+        <item>#0B229F</item>
+        <item>#680F95</item>
+        <item>#078011</item>
+        <item>#A95C04</item>
+        <item>#BB0D0D</item>
         
         <item>#959595</item>
         <item>#727272</item>
         <item>#565656</item>
         <item>#3E3E3E</item>
-        <item>#000000</item>
+        <item>#101010</item>
     </string-array>
     
     

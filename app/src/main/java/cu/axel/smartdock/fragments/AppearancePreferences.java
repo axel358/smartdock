@@ -34,7 +34,7 @@ import cu.axel.smartdock.utils.ColorUtils;
 
 public class AppearancePreferences extends PreferenceFragment {
     private final int OPEN_REQUEST_CODE=4;
-    private Preference menuIconPref, mainColorPref, secondaryColorPref;
+    private Preference menuIconPref, mainColorPref;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,29 +69,16 @@ public class AppearancePreferences extends PreferenceFragment {
                 }
             });
 
-        secondaryColorPref = findPreference("theme_secondary_color");
-        secondaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
-
-                @Override
-                public boolean onPreferenceClick(Preference p1) {
-                    showColorPickerDialog(getActivity(), "secondary");
-                    return false;
-                }
-            });
-
         findPreference("theme").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
 
                 @Override
                 public boolean onPreferenceChange(Preference p1, Object p2) {
                     mainColorPref.setEnabled(p2.toString().equals("custom"));
-                    secondaryColorPref.setEnabled(p2.toString().equals("custom"));
                     return true;
                 }
             });
 
         mainColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("theme", "dark").equals("custom"));
-        secondaryColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("theme", "dark").equals("custom"));
-
 	}
 
     @Override
@@ -223,21 +210,16 @@ public class AppearancePreferences extends PreferenceFragment {
                 public void onClick(DialogInterface p1, int p2) {
                     String color = colorHexEt.getText().toString();
                     if (ColorUtils.toColor(color) != -1) {
-                        if (type.equals("main")) {
-                            mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).commit();
-                            mainColorPref.getSharedPreferences().edit().putInt("theme_main_alpha", alphaSb.getProgress()).commit();
-                        } else {
-                            secondaryColorPref.getSharedPreferences().edit().putString(secondaryColorPref.getKey(), color).commit();
-                            secondaryColorPref.getSharedPreferences().edit().putInt("theme_secondary_alpha", alphaSb.getProgress()).commit();
-                        }
+                        mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).commit();
+                        mainColorPref.getSharedPreferences().edit().putInt("theme_main_alpha", alphaSb.getProgress()).commit();
                     }
 
 
                 }
             });
         dialog.setView(view);
-        alphaSb.setProgress(type.equals("main") ? mainColorPref.getSharedPreferences().getInt("theme_main_alpha", 255): mainColorPref.getSharedPreferences().getInt("theme_secondary_alpha", 255));
-        String hexColor = type.equals("main") ? mainColorPref.getSharedPreferences().getString(mainColorPref.getKey(), "#212121"): secondaryColorPref.getSharedPreferences().getString(secondaryColorPref.getKey(), "#292929");
+        alphaSb.setProgress(mainColorPref.getSharedPreferences().getInt("theme_main_alpha", 255));
+        String hexColor = mainColorPref.getSharedPreferences().getString(mainColorPref.getKey(), "#212121");
         colorHexEt.setText(hexColor);
 
         GridView presetsGv = view.findViewById(R.id.presets_gv);
@@ -251,7 +233,7 @@ public class AppearancePreferences extends PreferenceFragment {
                     th.setCurrentTab(0);
                 }
             });
-            
+
         GridView wallColorsGv = view.findViewById(R.id.wallpaper_colors_gv);
         wallColorsGv.setAdapter(new HexColorAdapter(context, ColorUtils.getWallpaperColors(context)));
 
@@ -263,9 +245,9 @@ public class AppearancePreferences extends PreferenceFragment {
                     th.setCurrentTab(0);
                 }
             });
-            
+
         dialog.show();
-        
+
     }
 
     class HexColorAdapter extends ArrayAdapter<String> {

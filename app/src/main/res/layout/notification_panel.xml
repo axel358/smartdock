@@ -1,41 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
+	android:layout_height="wrap_content"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@drawable/round_rect"
-	android:padding="16dp">
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:maxHeight="200dp"
+		android:background="@drawable/round_rect"
+		android:paddingStart="16dp"
+		android:paddingBottom="6dp"
+		android:paddingEnd="16dp"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/notification_area"
+		android:gravity="bottom">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:gravity="center">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:text="@string/notifications"
+				android:textColor="#FFFFFFFF"
+				android:layout_weight="1.0"/>
+
+			<ImageButton
+				style="?android:attr/buttonBarButtonStyle"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:src="@drawable/ic_notification_clear_all"
+				android:id="@+id/cancel_all_n_btn"/>
+
+		</LinearLayout>
+
+		<ListView
+			android:maxHeight="200dp"
+			android:dividerHeight="2dp"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:id="@+id/notification_lv"
+			android:layout_marginTop="-5dp"
+			android:divider="@drawable/running_indicator"/>
+
+	</LinearLayout>
 
 	<LinearLayout
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
-		android:gravity="center">
+		android:layout_marginTop="2dp"
+		android:padding="10dp"
+		android:background="@drawable/round_rect"
+		android:id="@+id/qs_area">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="@string/notifications"
-			android:textColor="#FFFFFFFF"
-			android:layout_weight="1.0"/>
-
-		<ImageButton
-			style="?android:attr/buttonBarButtonStyle"
+		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:src="@drawable/ic_notification_clear_all"
-			android:id="@+id/cancel_all_n_btn"/>
+			android:orientation="horizontal"
+			android:layout_weight="1.0"
+			android:gravity="center">
+
+			<ImageView
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_keyboard_off"
+				android:background="@drawable/circle_gray"
+				android:padding="9dp"
+				android:id="@+id/btn_keyboard"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_marginStart="10dp"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_weight="1.0"
+			android:gravity="center">
+
+			<ImageView
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_screen_rotation_off"
+				android:background="@drawable/circle_gray"
+				android:padding="9dp"
+				android:id="@+id/btn_orientation"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_marginStart="10dp"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_weight="1.0"
+			android:gravity="center">
+
+			<ImageView
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_sscreen_off"
+				android:background="@drawable/circle_gray"
+				android:padding="9dp"
+				android:id="@+id/btn_sscreen"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_marginStart="10dp"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_weight="1.0"
+			android:gravity="center">
+
+			<ImageView
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_screenshot"
+				android:background="@drawable/circle_gray"
+				android:padding="9dp"
+				android:id="@+id/btn_screenshot"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_marginStart="10dp"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_weight="1.0"
+			android:gravity="center">
+
+			<ImageView
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_record"
+				android:background="@drawable/circle_gray"
+				android:padding="9dp"
+				android:id="@+id/btn_screencast"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_marginStart="10dp"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_weight="1.0"
+			android:gravity="center">
+
+			<ImageView
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_settings"
+				android:background="@drawable/circle_gray"
+				android:padding="9dp"
+				android:id="@+id/btn_settings"/>
+
+		</LinearLayout>
 
 	</LinearLayout>
-
-
-    <ListView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:id="@+id/notification_lv"
-        android:dividerHeight="5dp"/>
 
 </LinearLayout>
 

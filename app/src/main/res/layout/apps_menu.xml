@@ -75,8 +75,7 @@
 
 	<View
 		android:id="@+id/apps_separator"
-		android:color="@android:color/white"
-		android:background="?android:attr/dividerVertical"
+		android:background="@drawable/running_indicator"
 		android:layout_height="2dp"
 		android:layout_width="match_parent"
 		android:layout_marginLeft="10dp"

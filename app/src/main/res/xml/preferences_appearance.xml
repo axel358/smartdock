@@ -12,10 +12,6 @@
             android:summary="@string/theme_main_color_summary"
             android:key="theme_main_color"
             android:title="@string/theme_main_color_title"/>
-        <Preference
-            android:summary="@string/theme_secondary_color_summary"
-            android:key="theme_secondary_color"
-            android:title="@string/theme_secondary_color_title"/>
         <cu.axel.smartdock.preferences.IconPackPreference
             android:key="icon_theming"
             android:defaultValue="false"/>

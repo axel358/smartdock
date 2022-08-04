@@ -356,7 +356,7 @@ public class NotificationService extends NotificationListenerService {
 	}
 
 	public void showNotificationPanel() {
-		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this, 400), Utils.dpToPx(this, 400));
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this, 400), -2);
 		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
 		lp.y = Utils.dpToPx(this, 60);
 		lp.x = Utils.dpToPx(this, 2);
@@ -365,7 +365,21 @@ public class NotificationService extends NotificationListenerService {
 		notificationPanel = LayoutInflater.from(this).inflate(R.layout.notification_panel, null);
 		cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
 		notificationsLv = notificationPanel.findViewById(R.id.notification_lv);
-
+        LinearLayout notificationArea = notificationPanel.findViewById(R.id.notification_area);
+        LinearLayout qsArea = notificationPanel.findViewById(R.id.qs_area);
+        ImageView keyboardBtn = notificationPanel.findViewById(R.id.btn_keyboard);
+        ImageView orientationBtn = notificationPanel.findViewById(R.id.btn_orientation);
+        ImageView sscreenBtn = notificationPanel.findViewById(R.id.btn_sscreen);
+        ImageView screenshotBtn = notificationPanel.findViewById(R.id.btn_screenshot);
+        ImageView screencapBtn = notificationPanel.findViewById(R.id.btn_screencast);
+        ImageView settingsBtn = notificationPanel.findViewById(R.id.btn_settings);
+        
+        ColorUtils.applySecondaryColor(this, sp, keyboardBtn);
+        ColorUtils.applySecondaryColor(this, sp, orientationBtn);
+        ColorUtils.applySecondaryColor(this, sp, sscreenBtn);
+        ColorUtils.applySecondaryColor(this, sp, screencapBtn);
+        ColorUtils.applySecondaryColor(this, sp, screenshotBtn);
+        ColorUtils.applySecondaryColor(this, sp, settingsBtn);
 
 		notificationsLv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -396,8 +410,10 @@ public class NotificationService extends NotificationListenerService {
                 }
             });
 
-		ColorUtils.applyMainColor(NotificationService.this, sp, notificationPanel);
+		ColorUtils.applyMainColor(NotificationService.this, sp, notificationArea);
+        ColorUtils.applyMainColor(NotificationService.this, sp, qsArea);
 		wm.addView(notificationPanel, lp);
+        ColorUtils.applyColor(notificationsLv.getDivider(), ColorUtils.getMainColors(sp, this)[4]);
 
 		updateNotificationPanel();
 
@@ -489,7 +505,7 @@ public class NotificationService extends NotificationListenerService {
 
 							Drawable drawable = res
                                 .getDrawable(res.getIdentifier(action.icon + "", "drawable", sbn.getPackageName()));
-							drawable.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
+							drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 							actionTv.setImageDrawable(drawable);
 							//actionTv.setImageIcon(action.getIcon());
 							actionTv.setOnClickListener(new OnClickListener() {
@@ -512,6 +528,7 @@ public class NotificationService extends NotificationListenerService {
 				} else {
 					for (final Notification.Action action : actions) {
 						TextView actionTv = new TextView(NotificationService.this);
+                        actionTv.setTextColor(Color.WHITE);
 						actionTv.setSingleLine(true);
 						actionTv.setText(action.title);
 						actionTv.setOnClickListener(new OnClickListener() {
