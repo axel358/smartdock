@@ -4,6 +4,9 @@
 		<item name="android:alertDialogTheme">@style/DialogTheme</item>
         <item name="android:colorAccent">#FF0066F4</item>
 	</style>
+    <style name="AppTheme.Dock" parent="@android:style/Theme.Material">
+        <item name="android:colorAccent">#FFFFFF</item>
+	</style>
 	<style name="AppTheme.Launcher" parent="@android:style/Theme.Material.NoActionBar">
 		<item name="android:windowShowWallpaper">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

@@ -549,7 +549,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wm.addView(bottomRightCorner, cornersLayoutParams);
 
 		//App menu
-		appMenu = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(context, R.style.AppTheme)).inflate(R.layout.apps_menu, null);
+		appMenu = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(context, R.style.AppTheme_Dock)).inflate(R.layout.apps_menu, null);
 		searchEt = appMenu.findViewById(R.id.menu_et);
 		powerBtn = appMenu.findViewById(R.id.power_btn);
 		appsGv = appMenu.findViewById(R.id.menu_applist_lv);
@@ -1598,7 +1598,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		lp.x = Utils.dpToPx(context, 2);
 		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
 
-		audioPanel = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(context, R.style.AppTheme)).inflate(R.layout.audio_panel, null);
+		audioPanel = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(context, R.style.AppTheme_Dock)).inflate(R.layout.audio_panel, null);
 
 		audioPanel.setOnTouchListener(new OnTouchListener() {
 
@@ -1659,7 +1659,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		lp.x = Utils.dpToPx(context, 2);
 		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
 
-		wifiPanel = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(context, R.style.AppTheme)).inflate(R.layout.wifi_panel, null);
+		wifiPanel = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(context, R.style.AppTheme_Dock)).inflate(R.layout.wifi_panel, null);
 
 		wifiPanel.setOnTouchListener(new OnTouchListener() {
 

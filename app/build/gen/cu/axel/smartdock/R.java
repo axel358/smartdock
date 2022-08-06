@@ -532,8 +532,9 @@ public final class R {
     }
     public static final class style {
         public static final int AppTheme=0x7f090000;
-        public static final int AppTheme_Launcher=0x7f090001;
-        public static final int DialogTheme=0x7f090002;
+        public static final int AppTheme_Dock=0x7f090001;
+        public static final int AppTheme_Launcher=0x7f090002;
+        public static final int DialogTheme=0x7f090003;
     }
     public static final class xml {
         public static final int accessibility_service=0x7f060000;
