@@ -95,7 +95,6 @@ public class AppearancePreferences extends PreferenceFragment {
 
     public void showColorPickerDialog(Context context, final String type) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        //dialog.setTitle(R.string.choose_color);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_color_picker, null);
         final View colorPreview = view.findViewById(R.id.color_preview);
         final EditText colorHexEt = view.findViewById(R.id.color_hex_et);
@@ -104,14 +103,9 @@ public class AppearancePreferences extends PreferenceFragment {
         final SeekBar greenSb = view.findViewById(R.id.color_green_sb);
         final SeekBar blueSb = view.findViewById(R.id.color_blue_sb);
         final TextView alphaTv = view.findViewById(R.id.color_alpha_tv);
-        alphaSb.setMax(255);
-        redSb.setMax(255);
         redSb.setProgressTintList(ColorStateList.valueOf(Color.RED));
-        greenSb.setMax(255);
         greenSb.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-        blueSb.setMax(255);
         blueSb.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
-
 
         final TabHost th = view.findViewById(R.id.dialog_color_th);
         th.setup();
@@ -136,10 +130,8 @@ public class AppearancePreferences extends PreferenceFragment {
                         redSb.setProgress(Color.red(color));
                         greenSb.setProgress(Color.green(color));
                         blueSb.setProgress(Color.blue(color));
-
                     } else
                         colorHexEt.setError(getString(R.string.invalid_color));
-
                 }
             });
         alphaSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -151,12 +143,10 @@ public class AppearancePreferences extends PreferenceFragment {
                 }
 
                 @Override
-                public void onStartTrackingTouch(SeekBar p1) {
-                }
+                public void onStartTrackingTouch(SeekBar p1) {}
 
                 @Override
-                public void onStopTrackingTouch(SeekBar p1) {
-                }
+                public void onStopTrackingTouch(SeekBar p1) {}
             });
         redSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
@@ -166,12 +156,10 @@ public class AppearancePreferences extends PreferenceFragment {
                 }
 
                 @Override
-                public void onStartTrackingTouch(SeekBar p1) {
-                }
+                public void onStartTrackingTouch(SeekBar p1) {}
 
                 @Override
-                public void onStopTrackingTouch(SeekBar p1) {
-                }
+                public void onStopTrackingTouch(SeekBar p1) {}
             });
         greenSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
@@ -181,12 +169,10 @@ public class AppearancePreferences extends PreferenceFragment {
                 }
 
                 @Override
-                public void onStartTrackingTouch(SeekBar p1) {
-                }
+                public void onStartTrackingTouch(SeekBar p1) {}
 
                 @Override
-                public void onStopTrackingTouch(SeekBar p1) {
-                }
+                public void onStopTrackingTouch(SeekBar p1) {}
             });
         blueSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
@@ -196,12 +182,10 @@ public class AppearancePreferences extends PreferenceFragment {
                 }
 
                 @Override
-                public void onStartTrackingTouch(SeekBar p1) {
-                }
+                public void onStartTrackingTouch(SeekBar p1) {}
 
                 @Override
-                public void onStopTrackingTouch(SeekBar p1) {
-                }
+                public void onStopTrackingTouch(SeekBar p1) {}
             });
         dialog.setNegativeButton(R.string.cancel, null);
         dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){

@@ -136,18 +136,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		reflectionAllowed = Build.VERSION.SDK_INT < 28 || Utils.allowReflection();
         
-        context = DeviceUtils.getDisplayContext(this, true);
-
 		db = new DBHelper(context);
 		pm = getPackageManager();
 		am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-		sp = PreferenceManager.getDefaultSharedPreferences(context);
+		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
+        context = DeviceUtils.getDisplayContext(this, true);
 		wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
 		wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 		bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
 		dockHandler = new Handler();
-        
 
 	}
 
@@ -381,26 +379,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				togglePin();
 			}
 
-		});
-		pinBtn.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View p1) {
-				if (sp.getBoolean("tablet_mode", false)) {
-					Utils.toggleBuiltinNavigation(sp.edit(), false);
-					sp.edit().putBoolean("app_menu_fullscreen", false).commit();
-					sp.edit().putBoolean("tablet_mode", false).commit();
-					Toast.makeText(context, R.string.tablet_mode_off, Toast.LENGTH_SHORT).show();
-				} else {
-					Utils.toggleBuiltinNavigation(sp.edit(), true);
-					sp.edit().putBoolean("app_menu_fullscreen", true).commit();
-					sp.edit().putBoolean("tablet_mode", true).commit();
-					Toast.makeText(context, R.string.tablet_mode_on, Toast.LENGTH_SHORT).show();
-				}
-				if (appMenuVisible)
-					hideAppMenu();
-				return true;
-			}
 		});
         bluetoothBtn.setOnClickListener(new OnClickListener(){
 

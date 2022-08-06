@@ -70,6 +70,7 @@
 							android:text="R"/>
 
 						<SeekBar
+                            android:max="255"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content"
 							android:id="@+id/color_red_sb"
@@ -95,6 +96,7 @@
 							android:text="G"/>
 
 						<SeekBar
+                            android:max="255"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content"
 							android:id="@+id/color_green_sb"
@@ -120,6 +122,7 @@
 							android:text="B"/>
 
 						<SeekBar
+                            android:max="255"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content"
 							android:id="@+id/color_blue_sb"
@@ -146,6 +149,7 @@
 						android:gravity="center_vertical">
 
 						<SeekBar
+                            android:max="255"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content"
 							android:id="@+id/color_alpha_sb"

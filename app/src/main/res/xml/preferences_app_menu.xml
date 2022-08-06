@@ -60,11 +60,6 @@
             android:title="@string/launch_games_fullscreen_title"
             android:summary="@string/launch_games_fullscreen_summary"
             android:defaultValue="true" />
-        <CheckBoxPreference
-            android:key="lock_landscape"
-            android:title="@string/lock_landscape_title"
-            android:summary="@string/lock_landscape_summary"
-            android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/fine_tune">

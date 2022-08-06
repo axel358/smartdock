@@ -66,13 +66,15 @@ public class NotificationService extends NotificationListenerService {
 	private NotificationManager nm;
 	private ImageButton cancelAllBtn;
     private LinearLayout notifActionsLayout;
+    private Context context;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
-		wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        context = DeviceUtils.getDisplayContext(this, true);
+		wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this, 300), -2);
@@ -368,18 +370,48 @@ public class NotificationService extends NotificationListenerService {
         LinearLayout notificationArea = notificationPanel.findViewById(R.id.notification_area);
         LinearLayout qsArea = notificationPanel.findViewById(R.id.qs_area);
         ImageView keyboardBtn = notificationPanel.findViewById(R.id.btn_keyboard);
-        ImageView orientationBtn = notificationPanel.findViewById(R.id.btn_orientation);
-        ImageView sscreenBtn = notificationPanel.findViewById(R.id.btn_sscreen);
+        final ImageView orientationBtn = notificationPanel.findViewById(R.id.btn_orientation);
+        ImageView touchModeBtn = notificationPanel.findViewById(R.id.btn_touch_mode);
         ImageView screenshotBtn = notificationPanel.findViewById(R.id.btn_screenshot);
         ImageView screencapBtn = notificationPanel.findViewById(R.id.btn_screencast);
         ImageView settingsBtn = notificationPanel.findViewById(R.id.btn_settings);
         
         ColorUtils.applySecondaryColor(this, sp, keyboardBtn);
         ColorUtils.applySecondaryColor(this, sp, orientationBtn);
-        ColorUtils.applySecondaryColor(this, sp, sscreenBtn);
+        ColorUtils.applySecondaryColor(this, sp, touchModeBtn);
         ColorUtils.applySecondaryColor(this, sp, screencapBtn);
         ColorUtils.applySecondaryColor(this, sp, screenshotBtn);
         ColorUtils.applySecondaryColor(this, sp, settingsBtn);
+        
+        touchModeBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    if (sp.getBoolean("tablet_mode", false)) {
+                        Utils.toggleBuiltinNavigation(sp.edit(), false);
+                        sp.edit().putBoolean("app_menu_fullscreen", false).commit();
+                        sp.edit().putBoolean("tablet_mode", false).commit();
+                        Toast.makeText(context, R.string.tablet_mode_off, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Utils.toggleBuiltinNavigation(sp.edit(), true);
+                        sp.edit().putBoolean("app_menu_fullscreen", true).commit();
+                        sp.edit().putBoolean("tablet_mode", true).commit();
+                        Toast.makeText(context, R.string.tablet_mode_on, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            
+        orientationBtn.setImageResource(sp.getBoolean("lock_landscape", true) ? R.drawable.ic_screen_rotation_off : R.drawable.ic_screen_rotation_on);
+        
+        orientationBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    sp.edit().putBoolean("lock_landscape", !sp.getBoolean("lock_landscape", true)).commit();
+                    orientationBtn.setImageResource(sp.getBoolean("lock_landscape", true) ? R.drawable.ic_screen_rotation_off : R.drawable.ic_screen_rotation_on);
+                    
+                }
+            });
 
 		notificationsLv.setOnItemClickListener(new OnItemClickListener() {
 

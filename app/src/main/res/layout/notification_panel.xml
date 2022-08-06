@@ -106,10 +106,10 @@
 			<ImageView
 				android:layout_height="40dp"
 				android:layout_width="40dp"
-				android:src="@drawable/ic_sscreen_off"
+				android:src="@drawable/ic_touch_mode"
 				android:background="@drawable/circle_gray"
 				android:padding="9dp"
-				android:id="@+id/btn_sscreen"/>
+				android:id="@+id/btn_touch_mode"/>
 
 		</LinearLayout>
 
