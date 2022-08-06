@@ -6,7 +6,6 @@
 	android:orientation="vertical">
 
 	<LinearLayout
-		android:maxHeight="200dp"
 		android:background="@drawable/round_rect"
 		android:paddingStart="16dp"
 		android:paddingBottom="6dp"
@@ -41,7 +40,6 @@
 		</LinearLayout>
 
 		<ListView
-			android:maxHeight="200dp"
 			android:dividerHeight="2dp"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"

@@ -474,7 +474,14 @@ public class NotificationService extends NotificationListenerService {
 	}
 
 	public void updateNotificationPanel() {
-		notificationsLv.setAdapter(new NotificationAdapter(this, getActiveNotifications()));
+		NotificationAdapter adapter = new NotificationAdapter(this, getActiveNotifications());
+        notificationsLv.setAdapter(adapter);
+        View item = adapter.getView(0, null, notificationsLv);
+        item.measure(0, 0);
+        ViewGroup.LayoutParams lp = notificationsLv.getLayoutParams();
+        lp.height = adapter.getCount() > 3 ? 3 * item.getMeasuredHeight() : -2;
+        notificationsLv.setLayoutParams(lp);
+        
 	}
 
 	class DockServiceReceiver extends BroadcastReceiver {
