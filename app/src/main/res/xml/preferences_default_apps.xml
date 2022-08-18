@@ -20,4 +20,7 @@
     <cu.axel.smartdock.preferences.AppChooserPreference
         android:title="@string/app_terminal_title"
         android:key="app_terminal"/>
+    <cu.axel.smartdock.preferences.AppChooserPreference
+        android:title="@string/app_rec_title"
+        android:key="app_rec"/>
 </PreferenceScreen>

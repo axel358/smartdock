@@ -52,6 +52,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.widget.ImageButton;
 import cu.axel.smartdock.utils.AppUtils;
+import android.view.KeyEvent;
 
 public class NotificationService extends NotificationListenerService {
 	private WindowManager wm;
@@ -354,7 +355,7 @@ public class NotificationService extends NotificationListenerService {
 
         }
         sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_COUNT_CHANGED").putExtra("count", count));
-		
+
 	}
 
 	public void showNotificationPanel() {
@@ -375,14 +376,14 @@ public class NotificationService extends NotificationListenerService {
         ImageView screenshotBtn = notificationPanel.findViewById(R.id.btn_screenshot);
         ImageView screencapBtn = notificationPanel.findViewById(R.id.btn_screencast);
         ImageView settingsBtn = notificationPanel.findViewById(R.id.btn_settings);
-        
+
         ColorUtils.applySecondaryColor(this, sp, keyboardBtn);
         ColorUtils.applySecondaryColor(this, sp, orientationBtn);
         ColorUtils.applySecondaryColor(this, sp, touchModeBtn);
         ColorUtils.applySecondaryColor(this, sp, screencapBtn);
         ColorUtils.applySecondaryColor(this, sp, screenshotBtn);
         ColorUtils.applySecondaryColor(this, sp, settingsBtn);
-        
+
         touchModeBtn.setOnClickListener(new OnClickListener(){
 
                 @Override
@@ -400,19 +401,44 @@ public class NotificationService extends NotificationListenerService {
                     }
                 }
             });
-            
+
         orientationBtn.setImageResource(sp.getBoolean("lock_landscape", true) ? R.drawable.ic_screen_rotation_off : R.drawable.ic_screen_rotation_on);
-        
+
         orientationBtn.setOnClickListener(new OnClickListener(){
 
                 @Override
                 public void onClick(View p1) {
                     sp.edit().putBoolean("lock_landscape", !sp.getBoolean("lock_landscape", true)).commit();
                     orientationBtn.setImageResource(sp.getBoolean("lock_landscape", true) ? R.drawable.ic_screen_rotation_off : R.drawable.ic_screen_rotation_on);
-                    
+
                 }
             });
-            
+
+        screenshotBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    hideNotificationPanel();
+                    DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
+                }
+            });
+        screencapBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    hideNotificationPanel();
+                    launchApp("standard", sp.getString("app_rec", ""));
+                }
+            });
+        settingsBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    hideNotificationPanel();
+                    launchApp("standard", getPackageName());
+                }
+            });
+
 
 		notificationsLv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -466,6 +492,11 @@ public class NotificationService extends NotificationListenerService {
         updateNotificationCount();
 	}
 
+    public void launchApp(String mode, String app) {
+        sendBroadcast(new Intent(getPackageName() + ".HOME").putExtra("action", "launch").putExtra("mode", mode)
+                      .putExtra("app", app));
+	}
+
 	public void hideNotificationPanel() {
 		wm.removeView(notificationPanel);
 		Utils.notificationPanelVisible = false;
@@ -482,7 +513,7 @@ public class NotificationService extends NotificationListenerService {
         ViewGroup.LayoutParams lp = notificationsLv.getLayoutParams();
         lp.height = adapter.getCount() > 3 ? 3 * item.getMeasuredHeight() : -2;
         notificationsLv.setLayoutParams(lp);
-        
+
 	}
 
 	class DockServiceReceiver extends BroadcastReceiver {

@@ -51,6 +51,10 @@
             android:key="enable_open_terminal"
             android:title="@string/enable_open_terminal_title"
             android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="enable_open_rec"
+            android:title="@string/enable_open_rec_title"
+            android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/navigation">

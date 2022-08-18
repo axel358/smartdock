@@ -29,7 +29,7 @@
     <string name="enable_open_terminal_title">Enable Modifier+T to open terminal</string>
     <string name="terminal_package_hint">com.termux</string>
     <string name="terminal_package_title">Terminal app package name</string>
-    <string name="enable_expand_notifications_title">Enable Modifier+A to open notifications</string>
+    <string name="enable_expand_notifications_title">Enable Modifier+N to open notifications</string>
     <string name="enable_ctrl_back_title">Enable right Ctrl to act as back button</string>
     <string name="enable_f10_title">Toggle split screen by pressing F10</string>
 
@@ -268,7 +268,8 @@
     <string name="default_apps">Default apps</string>
     <string name="icon_pack">Icon pack</string>
     <string name="select_icon_pack">Select icon pack</string>
-    <string name="enable_open_assist_title">Enable Modifier+R to launch your default assistant app</string>
+    <string name="enable_open_assist_title">Enable Modifier+A to launch your default assistant app</string>
+    <string name="enable_open_rec_title">Enable Modifier+R to launch your default screen recorder app</string>
     <string name="app_browser_title">Web browser</string>
     <string name="app_files_title">Files</string>
     <string name="app_music_title">Music</string>
@@ -276,6 +277,7 @@
     <string name="app_assistant_title">Assistant</string>
     <string name="app_clock_title">Clock</string>
     <string name="app_terminal_title">Terminal</string>
+    <string name="app_rec_title">Screen recorder</string>
     <string name="apps">Apps</string>
     <string name="enable_menu_recents_title">Enable Menu key to show recents</string>
     <string name="general">General</string>
@@ -288,4 +290,5 @@
     <string name="running_apps_number_title">Number of running/recent apps to show</string>
     <string name="tint_indicators_title">Tint running indicators</string>
     <string name="none">None</string>
+    <string name="lock">Lock</string>
 </resources>

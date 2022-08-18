@@ -92,14 +92,14 @@
 			style="?android:attr/buttonBarButtonStyle"
 			android:layout_height="60dp"
 			android:layout_width="60dp"
-			android:src="@drawable/ic_screenshot"
-			android:id="@+id/screenshot_btn"
+			android:src="@drawable/ic_lock"
+			android:id="@+id/lock_btn"
 			android:background="@drawable/circle"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="@string/screenshot"
+			android:text="@string/lock"
 			android:textColor="#FFFFFFFF"
 			android:layout_marginTop="5dp"/>
 

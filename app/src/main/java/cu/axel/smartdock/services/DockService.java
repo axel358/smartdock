@@ -827,7 +827,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_T && sp.getBoolean("enable_open_terminal", false))
 				launchApp("standard", sp.getString("app_terminal", "com.termux"));
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_A && sp.getBoolean("enable_expand_notifications", true))
+			else if (event.getKeyCode() == KeyEvent.KEYCODE_N && sp.getBoolean("enable_expand_notifications", true))
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_K && sp.getBoolean("enable_take_screenshot", true))
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
@@ -839,8 +839,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				launchApp("standard", sp.getString("app_music", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("enable_open_browser", true))
 				launchApp("standard", sp.getString("app_browser", ""));
-            else if (event.getKeyCode() == KeyEvent.KEYCODE_R && sp.getBoolean("enable_open_assist", true))
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_A && sp.getBoolean("enable_open_assist", true))
                 launchApp("standard", sp.getString("app_assistant", ""));
+            else if (event.getKeyCode() == KeyEvent.KEYCODE_R && sp.getBoolean("enable_open_rec", true))
+                launchApp("standard", sp.getString("app_rec", ""));    
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
 				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
 						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -1051,8 +1053,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             }
             
 		} catch (Exception e) {
-			Toast.makeText(context, e.toString(), 5000).show();
-			//Utils.saveLog(context,"app_launch",e.toString());
+			Toast.makeText(context, R.string.something_wrong, 5000).show();
 		}
 	}
 
@@ -1743,12 +1744,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		ImageButton powerOffBtn = powerMenu.findViewById(R.id.power_off_btn);
 		ImageButton restartBtn = powerMenu.findViewById(R.id.restart_btn);
 		ImageButton softRestartBtn = powerMenu.findViewById(R.id.soft_restart_btn);
-		ImageButton screenshotBtn = powerMenu.findViewById(R.id.screenshot_btn);
+		ImageButton lockBtn = powerMenu.findViewById(R.id.lock_btn);
 
 		ColorUtils.applySecondaryColor(context, sp, powerOffBtn);
 		ColorUtils.applySecondaryColor(context, sp, restartBtn);
 		ColorUtils.applySecondaryColor(context, sp, softRestartBtn);
-		ColorUtils.applySecondaryColor(context, sp, screenshotBtn);
+		ColorUtils.applySecondaryColor(context, sp, lockBtn);
 
 		powerOffBtn.setOnClickListener(new OnClickListener() {
 
@@ -1776,12 +1777,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				DeviceUtils.sotfReboot();
 			}
 		});
-		screenshotBtn.setOnClickListener(new OnClickListener() {
+		lockBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View p1) {
 				hidePowerMenu();
-				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
+				DeviceUtils.lockScreen(DockService.this);
 			}
 		});
 		ColorUtils.applyMainColor(context, sp, powerMenu);

@@ -29,7 +29,7 @@
     <string name="enable_open_terminal_title">Habilitar Atajo+T para abrir la terminal</string>
     <string name="terminal_package_hint">com.termux</string>
     <string name="terminal_package_title">Nombre del paquete de la terminal</string>
-    <string name="enable_expand_notifications_title">Habilitar Atajo+A para abrir el panel de notificaciones</string>
+    <string name="enable_expand_notifications_title">Habilitar Atajo+N para abrir el panel de notificaciones</string>
     <string name="enable_ctrl_back_title">Habilitar Ctrl derecho como botón atrás</string>
     <string name="enable_f10_title">Activar pantalla dividida al presionar F10</string>
 
@@ -271,7 +271,8 @@
     <string name="default_apps">Apps por defecto</string>
     <string name="icon_pack">Pack de iconos</string>
     <string name="select_icon_pack">Selecciona un pack de iconos</string>
-    <string name="enable_open_assist_title">Habilitar Atajo+R para abrir la app asistente</string>
+    <string name="enable_open_assist_title">Habilitar Atajo+A para abrir la app asistente</string>
+    <string name="enable_open_rec_title">Habilitar Atajo+R para abrir la app de capturar pantalla</string>
     <string name="app_browser_title">Navegador</string>
     <string name="app_files_title">Archivos</string>
     <string name="app_music_title">Música</string>
@@ -289,5 +290,6 @@
     <string name="allow_sysapp_uninstall_summary">Por favor sea cuidadoso puede ser muy peligroso</string>
     <string name="running_apps_number_summary">Este ajuste puede ser útil en dispositivos con pantalla pequeña</string>
     <string name="running_apps_number_title">Número de apps recientes/corriendo a mostar</string>
-    
+    <string name="app_rec_title">Capturar pantalla</string>
+    <string name="lock">Bloquear</string>
 </resources>
