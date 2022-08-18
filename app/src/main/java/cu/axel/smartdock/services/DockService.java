@@ -136,7 +136,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		reflectionAllowed = Build.VERSION.SDK_INT < 28 || Utils.allowReflection();
         
-		db = new DBHelper(context);
+		db = new DBHelper(this);
 		pm = getPackageManager();
 		am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -955,28 +955,30 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	private void launchApp(String mode, Intent intent) {
-		if (sp.getBoolean("disable_animations", false))
-			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-		ActivityOptions options = null;
-		int animResId = 0;
-		if (sp.getBoolean("enable_custom_animations", false) && !sp.getBoolean("disable_animations", false)) {
-			switch (sp.getString("custom_animation", "fade")) {
-			case "fade":
-				animResId = R.anim.fade_in;
-				break;
-			case "slide_up":
-				animResId = R.anim.slide_up;
-				break;
-			case "slide_left":
-				animResId = R.anim.slide_left;
-			}
-			options = ActivityOptions.makeCustomAnimation(context, animResId, R.anim.fade_out);
-		} else {
-			if (Build.VERSION.SDK_INT >= 24)
-				options = ActivityOptions.makeBasic();
-			else
-				options = null;
+        ActivityOptions options = null;
+        String animation = sp.getString("custom_animation", "system");
+		
+        if (animation.equals("none") || animation.equals("system")){
+            
+            if (Build.VERSION.SDK_INT >= 24)
+                options = ActivityOptions.makeBasic();
+                
+            if(animation.equals("none"))
+			    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        }
+        else {
+            int animResId = 0;
+            switch (sp.getString("custom_animation", "fade")) {
+                case "fade":
+                    animResId = R.anim.fade_in;
+                    break;
+                case "slide_up":
+                    animResId = R.anim.slide_up;
+                    break;
+                case "slide_left":
+                    animResId = R.anim.slide_left;
+            }
+            options = ActivityOptions.makeCustomAnimation(context, animResId, R.anim.fade_out);
 		}
 
 		if (Build.VERSION.SDK_INT < 24) {
@@ -990,8 +992,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                 
                 if(isPinned)
 				    unpinDock();
-			} catch (Exception e) {
-			}
+			} catch (Exception e) {}
 			return;
 		}
 

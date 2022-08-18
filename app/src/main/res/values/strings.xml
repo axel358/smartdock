@@ -83,11 +83,8 @@
     <string name="icon_padding_title">Icon padding</string>
     <string name="menu_icon_uri_title">Select menu icon</string>
     <string name="restore_menu_icon_title">Restore default menu icon</string>
-    <string name="animations">Animations</string>
-    <string name="disable_animations_title">Disable app launch animations</string>
-    <string name="enable_custom_animations_title">Use a custom animation when launching apps</string>
     <string name="custom_animation_dialogTitle">Animation</string>
-    <string name="custom_animation_title">Custom animation</string>
+    <string name="custom_animation_title">App launch animation</string>
 
     <string name="menu">Menu</string>
     <string name="enable_app_menu_title">Toggle App Menu with modifier key</string>
@@ -290,4 +287,5 @@
     <string name="running_apps_number_summary">This setting can help devices with smaller screens avoid app overflow on the Dock</string>
     <string name="running_apps_number_title">Number of running/recent apps to show</string>
     <string name="tint_indicators_title">Tint running indicators</string>
+    <string name="none">None</string>
 </resources>

@@ -38,28 +38,13 @@
             android:key="tint_indicators"
             android:title="@string/tint_indicators_title"
             android:defaultValue="false" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/animations">
-        <CheckBoxPreference
-            android:disableDependentsState="true"
-            android:key="disable_animations"
-            android:title="@string/disable_animations_title"
-            android:defaultValue="false" />
-
-        <CheckBoxPreference
-            android:dependency="disable_animations"
-            android:key="enable_custom_animations"
-            android:title="@string/enable_custom_animations_title"
-            android:defaultValue="false" />
-
+        
         <ListPreference
-            android:dependency="enable_custom_animations"
             android:entries="@array/animations" 
             android:dialogTitle="@string/custom_animation_dialogTitle" 
             android:entryValues="@array/animation_values" 
             android:key="custom_animation"
             android:title="@string/custom_animation_title"
-            android:defaultValue="fade" />
+            android:defaultValue="system" />
     </PreferenceCategory>
 </PreferenceScreen>
