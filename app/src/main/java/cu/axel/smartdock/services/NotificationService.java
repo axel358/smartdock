@@ -412,6 +412,7 @@ public class NotificationService extends NotificationListenerService {
                     
                 }
             });
+            
 
 		notificationsLv.setOnItemClickListener(new OnItemClickListener() {
 

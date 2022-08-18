@@ -289,5 +289,5 @@
     <string name="allow_sysapp_uninstall_summary">Please be careful, this can be really dangerous</string>
     <string name="running_apps_number_summary">This setting can help devices with smaller screens avoid app overflow on the Dock</string>
     <string name="running_apps_number_title">Number of running/recent apps to show</string>
-    
+    <string name="tint_indicators_title">Tint running indicators</string>
 </resources>

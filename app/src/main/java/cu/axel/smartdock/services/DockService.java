@@ -1392,16 +1392,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences p1, String p2) {
-		if (p2.startsWith("theme"))
+        if (p2.startsWith("theme"))
 			applyTheme();
 		else if (p2.equals("menu_icon_uri"))
 			updateMenuIcon();
-		else if (p2.startsWith("icon_")) {
+		else if (p2.startsWith("icon_")|| p2.equals("tint_indicators")) {
 			updateRunningTasks();
 			loadFavoriteApps();
 		} else if (p2.equals("lock_landscape"))
 			setOrientation();
-		else if (p2.equals("center_running_apps")){
+		else if (p2.equals("center_running_apps") ){
 			placeRunningApps();
             updateRunningTasks();
             }

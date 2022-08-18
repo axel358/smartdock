@@ -33,31 +33,12 @@ import android.widget.Adapter;
 import cu.axel.smartdock.utils.ColorUtils;
 
 public class AppearancePreferences extends PreferenceFragment {
-    private final int OPEN_REQUEST_CODE=4;
-    private Preference menuIconPref, mainColorPref;
+    private Preference mainColorPref;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences_appearance);
 
-        menuIconPref = findPreference("menu_icon_uri");
-        menuIconPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
-
-                @Override
-                public boolean onPreferenceClick(Preference p1) {
-                    startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/*"), OPEN_REQUEST_CODE);
-
-                    return false;
-                }
-            });
-        findPreference("restore_menu_icon").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
-
-                @Override
-                public boolean onPreferenceClick(Preference p1) {
-                    menuIconPref.getSharedPreferences().edit().putString(menuIconPref.getKey(), "default").commit();
-                    return false;
-                }
-            });
 
         mainColorPref = findPreference("theme_main_color");
         mainColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
@@ -81,17 +62,6 @@ public class AppearancePreferences extends PreferenceFragment {
         mainColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("theme", "dark").equals("custom"));
 	}
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == OPEN_REQUEST_CODE) {
-                Uri openUri = data.getData();
-                getActivity().getContentResolver().takePersistableUriPermission(openUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                menuIconPref.getSharedPreferences().edit().putString(menuIconPref.getKey(), openUri.toString()).commit();
-            }
-        }
-
-    }
 
     public void showColorPickerDialog(Context context, final String type) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());

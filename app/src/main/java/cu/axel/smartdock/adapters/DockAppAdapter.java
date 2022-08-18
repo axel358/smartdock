@@ -23,15 +23,16 @@ public class DockAppAdapter extends ArrayAdapter<DockApp> {
     private final Context context;
     private int iconBackground;
     private final int iconPadding;
-    private boolean iconTheming;
+    private boolean iconTheming, tintIndicators;
     private TaskRightClickListener rightClickListener;
     public DockAppAdapter(Context context, TaskRightClickListener listener, ArrayList<DockApp> apps) {
         super(context, R.layout.app_task_entry, apps);
         this.context = context;
         rightClickListener = listener;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        iconTheming = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming", false);
+        iconTheming = sp.getBoolean("icon_theming", false);
         iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
+        tintIndicators = sp.getBoolean("tint_indicators", false);
         switch (sp.getString("icon_shape", "circle")) {
             case "circle":
                 iconBackground = R.drawable.circle;
@@ -62,7 +63,8 @@ public class DockAppAdapter extends ArrayAdapter<DockApp> {
         int size = app.getTasks().size();
 
         if (size > 0) {
-            
+            if(tintIndicators)
+                ColorUtils.applyColor(holder.runningIndicator, ColorUtils.manipulateColor(ColorUtils.getDrawableDominantColor(app.getIcon()),2f));
             if(app.getTasks().get(0).getID() != -1)
                holder.runningIndicator.setAlpha(1f);
             

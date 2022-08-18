@@ -321,8 +321,8 @@ public final class R {
         public static final int custom=0x7f080077;
         public static final int custom_animation_dialogTitle=0x7f08004f;
         public static final int custom_animation_title=0x7f080050;
-        public static final int custom_assist_summary=0x7f080101;
-        public static final int custom_assist_title=0x7f080102;
+        public static final int custom_assist_summary=0x7f080102;
+        public static final int custom_assist_title=0x7f080103;
         public static final int custom_display_size_hint=0x7f080095;
         public static final int custom_display_size_summary=0x7f080094;
         public static final int custom_display_size_title=0x7f080096;
@@ -512,6 +512,7 @@ public final class R {
         public static final int these_permissions_are_needed_b=0x7f080084;
         public static final int these_permissions_are_needed_f=0x7f08007e;
         public static final int these_settings_are_intended_fo=0x7f080091;
+        public static final int tint_indicators_title=0x7f080101;
         public static final int to_desktop=0x7f0800ba;
         public static final int to_favorites=0x7f0800de;
         public static final int transparency=0x7f08008d;
