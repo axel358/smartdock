@@ -1,18 +1,16 @@
-1. Install magisk with [MagiskOnEmu](https://github.com/HuskyDG/MagiskOnEmu/releases) tool by HuskyDG.
+1. Install [initrd-magisk](https://github.com/HuskyDG/initrd-magisk) by HuskyDG following installation wiki.
 
-2. Install [LSPosed](https://github.com/LSPosed/LSPosed/releases) magisk module.
-([Riru Core](https://github.com/RikkaApps/Riru/releases) magisk module required for riru version, riru will no longer updated)
+2. Install [LSPosed](https://github.com/LSPosed/LSPosed/releases) using magisk manager.
+([Riru](https://github.com/RikkaApps/Riru/releases) magisk module required for riru version of lsposed.)
 
-3. Install GravityBox app from LSPosed repository.
-(Make sure to choose compatible variant for android version)
+3. Install and enable GravityBox from LSPosed modules repository, and reboot.
+(Make sure to choose suitable variant for running android version.)
 
-4. Enable GravityBox from LSPosed module manager, and reboot.
+4. Open GravityBox, go to;
+ - Display tweaks > Expanded desktop mode,
+and choose "Hide navigation bar"
 
-5. Open GravityBox, 
-Go to Display tweaks > Expanded desktop mode
-And choose "Hide navigation bar"
-
-6. Now you can toggle expanded desktop mode from power menu
+5. Now you can toggle expanded desktop mode from power menu.
 (use Ctrl+Alt+Del for power menu)
 
 *. Alternatively you can toggle Navigation bar tweaks from GravityBox and you can change height and width of navbar to 0%.
