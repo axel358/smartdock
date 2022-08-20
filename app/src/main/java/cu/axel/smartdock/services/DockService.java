@@ -106,7 +106,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			volBtn, pinBtn;
 	private TextView notificationBtn, searchTv;
 	private Button topRightCorner, bottomRightCorner;
-	private LinearLayout appMenu, searchLayout, powerMenu, audioPanel, wifiPanel;
+	private LinearLayout appMenu, searchLayout, powerMenu, audioPanel, wifiPanel, searchEntry;
 	private RelativeLayout dockLayout;
 	private WindowManager wm;
 	private View appsSeparator;
@@ -528,7 +528,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		//App menu
 		appMenu = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(context, R.style.AppTheme_Dock)).inflate(R.layout.apps_menu, null);
-		searchEt = appMenu.findViewById(R.id.menu_et);
+		searchEntry = appMenu.findViewById(R.id.search_entry);
+        searchEt = appMenu.findViewById(R.id.menu_et);
 		powerBtn = appMenu.findViewById(R.id.power_btn);
 		appsGv = appMenu.findViewById(R.id.menu_applist_lv);
 		favoritesGv = appMenu.findViewById(R.id.fav_applist_lv);
@@ -1102,15 +1103,23 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void showAppMenu() {
 		WindowManager.LayoutParams lp = null;
 		if (sp.getBoolean("app_menu_fullscreen", false)) {
-			int deviceWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-			int deviceHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-			lp = Utils.makeWindowParams(deviceWidth - Utils.dpToPx(context, 4),
-					deviceHeight - Utils.dpToPx(context, 60) - DeviceUtils.getStatusBarHeight(context));
-			lp.x = Utils.dpToPx(context, 2);
+			int deviceWidth = DeviceUtils.getDisplayMetrics(context, true).widthPixels;
+            int deviceHeight = DeviceUtils.getDisplayMetrics(context, true).heightPixels;
+            lp = Utils.makeWindowParams(-1,
+                                        deviceHeight - Utils.dpToPx(context,60) - DeviceUtils.getStatusBarHeight(context));
+			//lp.x = Utils.dpToPx(context, 2);
 			lp.y = Utils.dpToPx(context, 2) + dockLayout.getMeasuredHeight();
 
 			favoritesGv.setNumColumns(10);
+            appsGv.setVerticalSpacing(Utils.dpToPx(context, 45));
+            favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 45));
+            int padding = Utils.dpToPx(context, 30);
+            appMenu.setPadding(padding,padding,padding,padding);
+            searchEntry.setGravity(Gravity.CENTER);
+            searchLayout.setGravity(Gravity.CENTER);
 			appsGv.setNumColumns(10);
+            //appMenu.setBackgroundResource(R.drawable.rect);
+            //ColorUtils.applyMainColor(context, sp, appMenu);
 
 		} else {
 			lp = Utils.makeWindowParams(Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_width", "650"))),
@@ -1120,7 +1129,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					+ dockLayout.getMeasuredHeight();
 			favoritesGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
 			appsGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
-
+            appsGv.setVerticalSpacing(Utils.dpToPx(context, 5));
+            favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 5));
+            int padding = Utils.dpToPx(context, 10);
+            appMenu.setPadding(padding,padding,padding,padding);
+            searchEntry.setGravity(Gravity.START);
+            searchLayout.setGravity(Gravity.START);
+            appMenu.setBackgroundResource(R.drawable.round_rect);
+            ColorUtils.applyMainColor(context, sp, appMenu);
 		}
 
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
@@ -1800,7 +1816,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void applyTheme() {
 		ColorUtils.applyMainColor(context, sp, dockLayout);
 		ColorUtils.applyMainColor(context, sp, appMenu);
-		ColorUtils.applySecondaryColor(context, sp, searchEt);
+		ColorUtils.applySecondaryColor(context, sp, searchEntry);
 		ColorUtils.applySecondaryColor(context, sp, backBtn);
 		ColorUtils.applySecondaryColor(context, sp, homeBtn);
 		ColorUtils.applySecondaryColor(context, sp, recentBtn);

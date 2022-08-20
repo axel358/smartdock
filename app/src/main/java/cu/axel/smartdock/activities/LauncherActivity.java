@@ -406,8 +406,8 @@ public class LauncherActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null)
 				convertView = LayoutInflater.from(context).inflate(R.layout.app_entry_desktop, null);
-			ImageView iconIv = convertView.findViewById(R.id.desktop_app_icon_iv);
-			TextView nameTv = convertView.findViewById(R.id.desktop_app_name_tv);
+			ImageView iconIv = convertView.findViewById(R.id.app_icon_iv);
+			TextView nameTv = convertView.findViewById(R.id.app_name_tv);
 			final App app = getItem(position);
 			nameTv.setText(app.getName());
 

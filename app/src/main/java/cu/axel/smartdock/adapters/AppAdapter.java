@@ -25,7 +25,7 @@ public class AppAdapter extends ArrayAdapter<App> {
     private final int iconPadding;
     private ArrayList<App> apps, originalList;
     private AppFilter filter;
-    private boolean iconTheming;
+    private boolean iconTheming, tabletMode;
     private IconParserUtilities iconParserUtilities;
     private AppRightClickListener rightClickListener;
 
@@ -37,8 +37,9 @@ public class AppAdapter extends ArrayAdapter<App> {
         this.originalList = new ArrayList<App>(apps);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         iconParserUtilities = new IconParserUtilities(context);
+        tabletMode = sp.getBoolean("app_menu_fullscreen", false);
         iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
-        iconTheming = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("icon_theming", false);
+        iconTheming = sp.getBoolean("icon_theming", false);
 
         switch (sp.getString("icon_shape", "circle")) {
             case "circle":
@@ -58,10 +59,10 @@ public class AppAdapter extends ArrayAdapter<App> {
 
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.app_entry, null);
+            convertView = LayoutInflater.from(context).inflate(tabletMode ? R.layout.app_entry_desktop : R.layout.app_entry, null);
             holder = new ViewHolder();
-            holder.iconIv = convertView.findViewById(R.id.menu_app_icon_iv);
-            holder.nameTv = convertView.findViewById(R.id.menu_app_name_tv);
+            holder.iconIv = convertView.findViewById(R.id.app_icon_iv);
+            holder.nameTv = convertView.findViewById(R.id.app_name_tv);
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();

@@ -388,6 +388,7 @@ public class NotificationService extends NotificationListenerService {
 
                 @Override
                 public void onClick(View p1) {
+                    hideNotificationPanel();
                     if (sp.getBoolean("tablet_mode", false)) {
                         Utils.toggleBuiltinNavigation(sp.edit(), false);
                         sp.edit().putBoolean("app_menu_fullscreen", false).commit();

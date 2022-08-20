@@ -36,23 +36,31 @@
 			android:maxEms="10"
 			android:singleLine="true"/>
 
-		<EditText
-			android:imeOptions="actionGo"
-			android:background="@drawable/search_background"
-			android:textColorHint="@android:color/white"
-			android:hint="@string/search"
-			android:textColor="@android:color/white"
+		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:id="@+id/menu_et"
-			android:textSize="17sp"
+			android:orientation="horizontal"
+			android:layout_weight="1.0"
 			android:paddingLeft="10dp"
 			android:paddingRight="10dp"
-			android:paddingTop="6dp"
-			android:paddingBottom="6dp"
-			android:layout_weight="1.0"
-			android:layout_marginLeft="10dp"
-			android:singleLine="true"/>
+			android:paddingTop="5dp"
+			android:paddingBottom="5dp"
+			android:background="@drawable/search_background"
+			android:id="@+id/search_entry">
+
+			<EditText
+				android:imeOptions="actionGo"
+				android:textColorHint="@android:color/white"
+				android:hint="@string/search"
+				android:textColor="@android:color/white"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:background="@null"
+				android:id="@+id/menu_et"
+				android:textSize="17sp"
+				android:singleLine="true"/>
+
+		</LinearLayout>
 
 		<ImageView
 			android:background="@drawable/circle"
@@ -111,7 +119,7 @@
 			android:id="@+id/search_tv"
 			android:textColor="@android:color/white"
 			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:textSize="16sp"
 			android:layout_marginLeft="5dp"/>
 
