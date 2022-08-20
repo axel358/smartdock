@@ -803,7 +803,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
     
     public void restart(){
-        Toast.makeText(context, "Restartinkg...", 5000).show();
+        Toast.makeText(context, "Restarting...", 5000).show();
         context = DeviceUtils.getDisplayContext(this, true);
     }
 

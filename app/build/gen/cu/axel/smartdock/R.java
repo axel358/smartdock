@@ -253,13 +253,14 @@ public final class R {
         public static final int dialog_help=0x7f040009;
         public static final int dialog_permissions=0x7f04000a;
         public static final int dock=0x7f04000b;
-        public static final int notification=0x7f04000c;
-        public static final int notification_panel=0x7f04000d;
-        public static final int notification_white=0x7f04000e;
-        public static final int pin_entry=0x7f04000f;
-        public static final int power_menu=0x7f040010;
-        public static final int task_list=0x7f040011;
-        public static final int wifi_panel=0x7f040012;
+        public static final int layout_secondarylauncheractivity=0x7f04000c;
+        public static final int notification=0x7f04000d;
+        public static final int notification_panel=0x7f04000e;
+        public static final int notification_white=0x7f04000f;
+        public static final int pin_entry=0x7f040010;
+        public static final int power_menu=0x7f040011;
+        public static final int task_list=0x7f040012;
+        public static final int wifi_panel=0x7f040013;
     }
     public static final class menu {
         public static final int app_menu=0x7f0a0000;

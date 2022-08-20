@@ -45,7 +45,7 @@
         <activity
             android:excludeFromRecents="true"
             android:theme="@style/AppTheme.Launcher"
-            android:name=".activities.LauncherActivity"
+            android:name=".activities.SecondaryLauncherActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -77,6 +77,7 @@
 				<action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
 			</intent-filter>
 		</receiver>
-    </application>
+    <activity android:name=".SecondaryLauncherActivity"/>
+</application>
 
 </manifest>
