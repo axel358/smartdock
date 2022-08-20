@@ -41,6 +41,12 @@
 				<category android:name="android.intent.category.DEFAULT"/>
 				<category android:name="android.intent.category.HOME"/>
 			</intent-filter>
+        </activity>
+        <activity
+            android:excludeFromRecents="true"
+            android:theme="@style/AppTheme.Launcher"
+            android:name=".activities.LauncherActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.DEFAULT"/>
