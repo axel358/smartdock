@@ -1492,7 +1492,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				apps.add(new DockApp(task));
 		}
 
-		tasksGv.getLayoutParams().width = Utils.dpToPx(context, 60) * apps.size();
+		tasksGv.getLayoutParams().width = Utils.dpToPx(context, 56) * apps.size();
 		tasksGv.setAdapter(new DockAppAdapter(context, this, apps));
 
 		//TODO: Move context outta here

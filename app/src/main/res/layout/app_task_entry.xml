@@ -9,26 +9,27 @@
 	<RelativeLayout
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
-		android:layout_marginEnd="9dp"
-		android:layout_marginStart="9dp"
+		android:layout_marginEnd="6dp"
+		android:layout_marginStart="6dp"
 		android:layout_marginTop="8dp">
 
 		<ImageView
 			android:layout_height="40dp"
 			android:layout_width="40dp"
 			android:src="@android:drawable/ic_delete"
-			android:id="@+id/icon_iv"/>
+			android:id="@+id/icon_iv"
+			android:layout_centerInParent="true"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:background="@drawable/circle"
-			android:padding="3dp"
 			android:textSize="11sp"
 			android:translationY="-4dp"
-            android:alpha="0"
+			android:alpha="0"
 			android:elevation="3dp"
-			android:id="@+id/task_count_badge"/>
+			android:id="@+id/task_count_badge"
+			android:padding="3dp"/>
 
 	</RelativeLayout>
 

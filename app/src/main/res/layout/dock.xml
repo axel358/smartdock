@@ -77,13 +77,13 @@
 		</LinearLayout>
 
 		<GridView
-			android:layout_centerInParent="true"
+            android:layout_centerInParent="true"
 			android:layout_centerVertical="true"
 			android:layout_height="wrap_content"
-			android:layout_width="60dp"
+			android:layout_width="56dp"
 			android:stretchMode="none"
 			android:numColumns="auto_fit"
-			android:columnWidth="60dp"
+			android:columnWidth="56dp"
 			android:id="@+id/apps_lv"/>
 
 		<LinearLayout
