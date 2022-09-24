@@ -45,11 +45,20 @@ public class DeviceUtils {
         runAsRoot("input keyevent " + keycode);
 	}
 
-    
+	
+    public static Process getRootAccess() throws IOException {
+        String[] paths = {"/sbin/su", "/system/sbin/su", "/system/bin/su", "/system/xbin/su", "/su/bin/su", "/magisk/.core/bin/su"};
+        for (String path : paths) {
+            if (new java.io.File(path).exists())
+                return Runtime.getRuntime().exec(path);
+        }
+        return Runtime.getRuntime().exec("su");
+    }
+	
     public static String runAsRoot(String command) {
         String output = "";
         try {
-            java.lang.Process proccess = Runtime.getRuntime().exec("su");
+            java.lang.Process proccess = getRootAccess();
             DataOutputStream os = new DataOutputStream(proccess.getOutputStream());
             os.writeBytes(command + "\n");
             os.flush();
