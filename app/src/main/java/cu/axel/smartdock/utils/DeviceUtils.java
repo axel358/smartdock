@@ -52,7 +52,7 @@ public class DeviceUtils {
             if (new java.io.File(path).exists())
                 return Runtime.getRuntime().exec(path);
         }
-        return Runtime.getRuntime().exec("su");
+        return Runtime.getRuntime().exec("/system/bin/su");
     }
 	
     public static String runAsRoot(String command) {
