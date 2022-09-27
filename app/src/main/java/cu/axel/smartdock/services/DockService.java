@@ -1302,6 +1302,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	private void showTaskContextMenu(final String app, View anchor) {
 		final View view = LayoutInflater.from(context).inflate(R.layout.pin_entry, null);
+        LinearLayout pinLayout = view.findViewById(R.id.pin_entry_pin);
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
 		view.setBackgroundResource(R.drawable.round_rect);
 		ColorUtils.applyMainColor(context, sp, view);
@@ -1333,9 +1334,36 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		if (AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST)) {
 			icon.setImageResource(R.drawable.ic_unpin);
 			text.setText(R.string.unpin);
+            
+            LinearLayout moveLayout = view.findViewById(R.id.pin_entry_move);
+            moveLayout.setVisibility(View.VISIBLE);
+            ImageView moveLeft = view.findViewById(R.id.pin_entry_left);
+            ImageView moveRight = view.findViewById(R.id.pin_entry_right);
+            ColorUtils.applySecondaryColor(context, sp, moveLeft);
+            ColorUtils.applySecondaryColor(context, sp, moveRight);
+            
+            moveLeft.setOnClickListener(new OnClickListener(){
+
+                    @Override
+                    public void onClick(View p1) {
+                        AppUtils.moveApp(DockService.this, app, AppUtils.DOCK_PINNED_LIST, 0);
+                        loadPinnedApps();
+                        updateRunningTasks();
+                    }
+                });
+            
+            moveRight.setOnClickListener(new OnClickListener(){
+
+                    @Override
+                    public void onClick(View p1) {
+                        AppUtils.moveApp(DockService.this, app, AppUtils.DOCK_PINNED_LIST, 1);
+                        loadPinnedApps();
+                        updateRunningTasks();
+                    }
+                });
 		}
 
-		view.setOnClickListener(new OnClickListener() {
+		pinLayout.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View p1) {

@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.List;
 import android.os.SystemClock;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.widget.Toast;
 
 public class AppUtils {
     public static final String PINNED_LIST="pinned.lst";
@@ -112,6 +113,39 @@ public class AppUtils {
             }
 
         } catch (IOException e) {}   
+    }
+    
+    public static void moveApp(Context context, String app, String type, int direction) {
+        try {
+            File file=new File(context.getFilesDir(), type);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String applist="", what="", with="";
+
+            if ((applist = br.readLine()) != null) {
+                String apps[] = applist.split(" ");
+                int pos = findInArray(app, apps);
+                if(direction == 0 && pos > 0) {
+                    what = apps[pos -1] + " " + app;
+                    with = app + " " + apps[pos -1];
+                }else if(direction == 1 && pos < apps.length - 1) {
+                    what = app + " " + apps[pos+1];
+                    with = apps[pos+1] + " " + app;
+                }
+                applist = applist.replace(what, with);
+                FileWriter fw = new FileWriter(file, false);
+                fw.write(applist);
+                fw.close();
+            }
+
+        } catch (IOException e) {} 
+    }
+    
+    public static int findInArray(String key, String[] array){
+        for(int i=0; i < array.length; i++){
+            if(array[i].contains(key))
+                return i;
+        }
+        return -1;
     }
 
     public static boolean isPinned(Context context, String app, String type) {
