@@ -2,13 +2,13 @@
 <cu.axel.smartdock.widgets.HoverInterceptorLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="wrap_content"
-    android:elevation="5dp"
+	android:elevation="5dp"
 	android:gravity="center"
 	android:layout_height="wrap_content"
 	android:orientation="vertical">
 
 	<View
-        android:id="@+id/dock_trigger"
+		android:id="@+id/dock_trigger"
 		android:background="@android:color/transparent"
 		android:layout_height="10dp"
 		android:layout_width="match_parent"/>
@@ -65,19 +65,20 @@
 				android:layout_width="40dp"
 				android:src="@drawable/ic_recents"
 				android:id="@+id/recents_btn"/>
-            <ImageView
-                android:background="@drawable/circle"
-                android:padding="8dp"
-                android:layout_height="40dp"
-                android:layout_width="40dp"
-                android:src="@drawable/ic_assistant"
-                android:id="@+id/assist_btn"
+
+			<ImageView
+				android:background="@drawable/circle"
+				android:padding="8dp"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_assistant"
+				android:id="@+id/assist_btn"
 				android:layout_margin="5dp"/>
 
 		</LinearLayout>
 
 		<GridView
-            android:layout_centerInParent="true"
+			android:layout_centerInParent="true"
 			android:layout_centerVertical="true"
 			android:layout_height="wrap_content"
 			android:layout_width="56dp"
@@ -101,9 +102,8 @@
 				android:layout_margin="5dp"
 				android:padding="2dp"
 				android:textSize="12sp"
-				android:text="0"
 				android:gravity="center"
-				android:background="@drawable/circle"/>
+				android:background="@drawable/ic_expand_up"/>
 
 			<ImageView
 				android:layout_height="35dp"
@@ -113,16 +113,16 @@
 				android:layout_margin="5dp"
 				android:padding="8dp"
 				android:background="@drawable/circle"/>
-            
-            <ImageView
-                android:background="@drawable/circle"
-                android:padding="5dp"
-                android:layout_height="35dp"
-                android:layout_width="35dp"
-                android:src="@drawable/ic_bluetooth_off"
-                android:id="@+id/bluetooth_btn"
-                android:layout_margin="5dp"/>
-            
+
+			<ImageView
+				android:background="@drawable/circle"
+				android:padding="5dp"
+				android:layout_height="35dp"
+				android:layout_width="35dp"
+				android:src="@drawable/ic_bluetooth_off"
+				android:id="@+id/bluetooth_btn"
+				android:layout_margin="5dp"/>
+
 			<ImageView
 				android:layout_height="35dp"
 				android:layout_width="35dp"

@@ -701,10 +701,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			public void onReceive(Context p1, Intent p2) {
 				int count = p2.getIntExtra("count", 0);
 				if (count > 0) {
-					notificationBtn.setVisibility(View.VISIBLE);
+                    notificationBtn.setBackgroundResource(R.drawable.circle);
 					notificationBtn.setText(count + "");
 				} else {
-					notificationBtn.setVisibility(View.GONE);
+                    notificationBtn.setBackgroundResource(R.drawable.ic_expand_up);
 					notificationBtn.setText("");
 				}
 			}

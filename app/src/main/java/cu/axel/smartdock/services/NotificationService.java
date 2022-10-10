@@ -509,10 +509,15 @@ public class NotificationService extends NotificationListenerService {
 	public void updateNotificationPanel() {
 		NotificationAdapter adapter = new NotificationAdapter(this, getActiveNotifications());
         notificationsLv.setAdapter(adapter);
-        View item = adapter.getView(0, null, notificationsLv);
-        item.measure(0, 0);
         ViewGroup.LayoutParams lp = notificationsLv.getLayoutParams();
-        lp.height = adapter.getCount() > 3 ? 3 * item.getMeasuredHeight() : -2;
+        
+        if (adapter.getCount() > 3) {
+            View item = adapter.getView(0, null, notificationsLv);
+            item.measure(0, 0);
+            lp.height = 3 * item.getMeasuredHeight();
+        } else
+            lp.height = -2;
+
         notificationsLv.setLayoutParams(lp);
 
 	}
