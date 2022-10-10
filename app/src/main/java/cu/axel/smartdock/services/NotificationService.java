@@ -125,7 +125,7 @@ public class NotificationService extends NotificationListenerService {
             });
 
 		dockReceiver = new DockServiceReceiver();
-		registerReceiver(dockReceiver, new IntentFilter(getPackageName() + ".NOTIFICATION_PANEL"));
+		registerReceiver(dockReceiver, new IntentFilter(getPackageName() + ".DOCK"));
 
 
 	}
@@ -354,9 +354,10 @@ public class NotificationService extends NotificationListenerService {
                 cancelAllBtn.setVisibility(cancelableCount > 0 ? View.VISIBLE : View.INVISIBLE);
 
         }
-        sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_COUNT_CHANGED").putExtra("count", count));
+        sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "COUNT_CHANGED").putExtra("count", count));
 
 	}
+    
 
 	public void showNotificationPanel() {
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this, 400), -2);
@@ -383,6 +384,15 @@ public class NotificationService extends NotificationListenerService {
         ColorUtils.applySecondaryColor(this, sp, screencapBtn);
         ColorUtils.applySecondaryColor(this, sp, screenshotBtn);
         ColorUtils.applySecondaryColor(this, sp, settingsBtn);
+        
+        keyboardBtn.setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View p1) {
+                    sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "TOGGLE_KB"));
+                    
+                }
+            });
 
         touchModeBtn.setOnClickListener(new OnClickListener(){
 
@@ -526,7 +536,7 @@ public class NotificationService extends NotificationListenerService {
 		@Override
 		public void onReceive(Context p1, Intent p2) {
 			String action = p2.getStringExtra("action");
-			if (action.equals("show"))
+			if (action.equals("SHOW_NOTIF_PANEL"))
 				showNotificationPanel();
 			else
 				hideNotificationPanel();

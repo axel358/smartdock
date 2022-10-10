@@ -357,7 +357,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			public void onClick(View p1) {
                 if(sp.getBoolean("enable_notif_panel", true)){
 				if (Utils.notificationPanelVisible)
-					sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "hide"));
+                        sendBroadcast(new Intent(getPackageName() + ".DOCK").putExtra("action", "HIDE_NOTIF_PANEL"));
 				else {
 
 					if (audioPanelVisible)
@@ -366,7 +366,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					if (wifiPanelVisible)
 						hideWiFiPanel();
 
-					sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "show"));
+					sendBroadcast(new Intent(getPackageName() + ".DOCK").putExtra("action", "SHOW_NOTIF_PANEL"));
 				}
                 }else
                     performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
@@ -699,16 +699,20 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		registerReceiver(new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context p1, Intent p2) {
-				int count = p2.getIntExtra("count", 0);
-				if (count > 0) {
-                    notificationBtn.setBackgroundResource(R.drawable.circle);
-					notificationBtn.setText(count + "");
-				} else {
-                    notificationBtn.setBackgroundResource(R.drawable.ic_expand_up);
-					notificationBtn.setText("");
-				}
+                if(p2.getStringExtra("action").equals("COUNT_CHANGED")){
+				    int count = p2.getIntExtra("count", 0);
+				    if (count > 0) {
+                        notificationBtn.setBackgroundResource(R.drawable.circle);
+					    notificationBtn.setText(count + "");
+				    } else {
+                        notificationBtn.setBackgroundResource(R.drawable.ic_expand_up);
+					    notificationBtn.setText("");
+				      }
+                }else{
+                    toggleSoftKeyboard();
+                }
 			}
-		}, new IntentFilter(getPackageName() + ".NOTIFICATION_COUNT_CHANGED"));
+		}, new IntentFilter(getPackageName() + ".NOTIFICATION_PANEL"));
 
 		batteryReceiver = new BatteryStatsReceiver(batteryBtn, sp);
 		registerReceiver(batteryReceiver, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
@@ -848,13 +852,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
 						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_O) {
-                if(Build.VERSION.SDK_INT < 24){
-				InputMethodManager im = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-				im.showInputMethodPicker();
-                }else{
-                    AccessibilityService.SoftKeyboardController kc = getSoftKeyboardController();
-                    int mode = kc.getShowMode();
-                }
+                toggleSoftKeyboard();
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_F12)
 				DeviceUtils.sotfReboot();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_F4)
@@ -892,6 +890,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		return super.onKeyEvent(event);
 	}
+
+    private void toggleSoftKeyboard() {
+        if(Build.VERSION.SDK_INT < 26){
+            InputMethodManager im = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            im.showInputMethodPicker();
+        }else{
+            AccessibilityService.SoftKeyboardController kc = getSoftKeyboardController();
+            int mode = kc.getShowMode();
+        }
+    }
 
 	@Override
 	public void onAppRightClick(String app, View view) {

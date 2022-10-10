@@ -68,7 +68,7 @@
 			<ImageView
 				android:layout_height="40dp"
 				android:layout_width="40dp"
-				android:src="@drawable/ic_keyboard_off"
+				android:src="@drawable/ic_keyboard_on"
 				android:background="@drawable/circle_gray"
 				android:padding="9dp"
 				android:id="@+id/btn_keyboard"/>
@@ -140,7 +140,7 @@
 			<ImageView
 				android:layout_height="40dp"
 				android:layout_width="40dp"
-				android:src="@drawable/ic_record"
+				android:src="@drawable/ic_screencap"
 				android:background="@drawable/circle_gray"
 				android:padding="9dp"
 				android:id="@+id/btn_screencast"/>
