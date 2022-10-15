@@ -33,14 +33,12 @@ You should also hide the Android navigation buttons. There are several ways to d
 
 The app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
 
-## Contributors:
+## Contributing:
 
 [See contributors](Contributors.md)
+
+If you like the project you can give it a star or consider making a [donation](https://paypal.me/KSMaan7)
 
 ## Support:
 
 Telegram support group: https://t.me/smartdock358
-
-## Like what you see?
-
-If you like the project you can give it a star or consider making a [donation](https://paypal.me/KSMaan7)
