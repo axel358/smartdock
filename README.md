@@ -6,10 +6,10 @@
 ![Screenshot](screenshot.png)
 
 ## Building:
-The project itself was created using AIDE on Android x86. To build just clone the project and import it to AIDE.
-You might require additional steps to build on Android Studio
-
+The project itself was created using AIDE on Android x86. Just clone the project and import it into AIDE. 
 To support android versions lower than Pie you must compile against SDK 27
+
+You might require additional steps to build on Android Studio
 
 ## Usage:
 The application should be installed as a system app in order to obtain the right permissions.
