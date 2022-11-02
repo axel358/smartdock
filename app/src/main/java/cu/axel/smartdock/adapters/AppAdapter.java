@@ -1,7 +1,11 @@
 package cu.axel.smartdock.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +32,7 @@ public class AppAdapter extends ArrayAdapter<App> {
     private boolean iconTheming, tabletMode;
     private IconParserUtilities iconParserUtilities;
     private AppRightClickListener rightClickListener;
+    private String query;
 
     public AppAdapter(Context context, AppRightClickListener listener, ArrayList<App> apps) {
         super(context, R.layout.app_entry, apps);
@@ -68,8 +73,21 @@ public class AppAdapter extends ArrayAdapter<App> {
             holder = (ViewHolder) convertView.getTag();
 
         final App app = apps.get(position);
-        holder.nameTv.setText(app.getName());
+        String name = app.getName();
 
+        if (query != null) {
+            int spanStart = name.toLowerCase().indexOf(query.toLowerCase());
+            int spanEnd = spanStart + query.length();
+            if (spanStart != -1) {
+                Spannable spannable = new SpannableString(name);
+                spannable.setSpan(new ForegroundColorSpan(Color.GREEN), spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.nameTv.setText(spannable);
+            } else {
+                holder.nameTv.setText(name);
+            }
+        } else {
+            holder.nameTv.setText(name);
+        }
 
         if (iconTheming)
             holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
@@ -114,6 +132,7 @@ public class AppAdapter extends ArrayAdapter<App> {
         protected Filter.FilterResults performFiltering(CharSequence p1) {
             FilterResults results = new FilterResults();
             String query = p1.toString().trim().toLowerCase();
+            AppAdapter.this.query = query;
             if (query.length() > 1) {
                 ArrayList<App> filteredResults = new ArrayList<App>();
 
