@@ -1,11 +1,10 @@
 package cu.axel.smartdock.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.graphics.Typeface;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.icons.IconParserUtilities;
 import cu.axel.smartdock.models.App;
@@ -79,8 +79,8 @@ public class AppAdapter extends ArrayAdapter<App> {
             int spanStart = name.toLowerCase().indexOf(query.toLowerCase());
             int spanEnd = spanStart + query.length();
             if (spanStart != -1) {
-                Spannable spannable = new SpannableString(name);
-                spannable.setSpan(new ForegroundColorSpan(Color.GREEN), spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                SpannableString spannable = new SpannableString(name);
+                spannable.setSpan(new StyleSpan(Typeface.BOLD), spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.nameTv.setText(spannable);
             } else {
                 holder.nameTv.setText(name);
