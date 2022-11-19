@@ -68,6 +68,7 @@ public class NotificationService extends NotificationListenerService {
 	private ImageButton cancelAllBtn;
     private LinearLayout notifActionsLayout;
     private Context context;
+    private LinearLayout notificationArea;
 
 	@Override
 	public void onCreate() {
@@ -369,7 +370,7 @@ public class NotificationService extends NotificationListenerService {
 		notificationPanel = LayoutInflater.from(this).inflate(R.layout.notification_panel, null);
 		cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
 		notificationsLv = notificationPanel.findViewById(R.id.notification_lv);
-        LinearLayout notificationArea = notificationPanel.findViewById(R.id.notification_area);
+        notificationArea = notificationPanel.findViewById(R.id.notification_area);
         LinearLayout qsArea = notificationPanel.findViewById(R.id.qs_area);
         ImageView keyboardBtn = notificationPanel.findViewById(R.id.btn_keyboard);
         final ImageView orientationBtn = notificationPanel.findViewById(R.id.btn_orientation);
@@ -521,12 +522,16 @@ public class NotificationService extends NotificationListenerService {
         notificationsLv.setAdapter(adapter);
         ViewGroup.LayoutParams lp = notificationsLv.getLayoutParams();
         
-        if (adapter.getCount() > 3) {
+        int count = adapter.getCount();
+        
+        if (count > 3) {
             View item = adapter.getView(0, null, notificationsLv);
             item.measure(0, 0);
             lp.height = 3 * item.getMeasuredHeight();
         } else
             lp.height = -2;
+            
+        notificationArea.setVisibility(count==0 ? View.GONE : View.VISIBLE);
 
         notificationsLv.setLayoutParams(lp);
 
