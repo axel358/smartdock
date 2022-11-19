@@ -289,7 +289,7 @@ public final class R {
         public static final int allow_sysapp_uninstall_summary=0x7f0800fd;
         public static final int allow_sysapp_uninstall_title=0x7f0800fc;
         public static final int allows_to_show_recent_apps_on_=0x7f0800fb;
-        public static final int animations=0x7f080106;
+        public static final int animations=0x7f080108;
         public static final int app_assistant_title=0x7f0800f2;
         public static final int app_browser_title=0x7f0800ee;
         public static final int app_clock_title=0x7f0800f3;
@@ -311,6 +311,8 @@ public final class R {
         public static final int app_terminal_title=0x7f0800f4;
         public static final int appearance=0x7f080062;
         public static final int apps=0x7f0800f6;
+        public static final int auto_pin_summary=0x7f080105;
+        public static final int auto_pin_title=0x7f080104;
         public static final int behaviour=0x7f080038;
         public static final int black=0x7f080072;
         public static final int blocked_notifications_hint=0x7f08000e;
@@ -329,8 +331,8 @@ public final class R {
         public static final int custom=0x7f080074;
         public static final int custom_animation_dialogTitle=0x7f08004c;
         public static final int custom_animation_title=0x7f08004d;
-        public static final int custom_assist_summary=0x7f080104;
-        public static final int custom_assist_title=0x7f080105;
+        public static final int custom_assist_summary=0x7f080106;
+        public static final int custom_assist_title=0x7f080107;
         public static final int custom_display_size_hint=0x7f080092;
         public static final int custom_display_size_summary=0x7f080091;
         public static final int custom_display_size_title=0x7f080093;
@@ -338,7 +340,7 @@ public final class R {
         public static final int default_apps=0x7f0800e9;
         public static final int desktop=0x7f080065;
         public static final int device_administrator=0x7f080082;
-        public static final int disable_animations_title=0x7f080107;
+        public static final int disable_animations_title=0x7f080109;
         public static final int display_over_other_apps=0x7f08007c;
         public static final int display_settings=0x7f0800d8;
         public static final int dock=0x7f080064;
@@ -356,7 +358,7 @@ public final class R {
         public static final int enable_corner_top_right_summary=0x7f08001f;
         public static final int enable_corner_top_right_title=0x7f08001e;
         public static final int enable_ctrl_back_title=0x7f08001c;
-        public static final int enable_custom_animations_title=0x7f080108;
+        public static final int enable_custom_animations_title=0x7f08010a;
         public static final int enable_expand_notifications_title=0x7f08001b;
         public static final int enable_f10_title=0x7f08001d;
         public static final int enable_lock_desktop_title=0x7f080014;

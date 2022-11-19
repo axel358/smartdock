@@ -292,4 +292,6 @@
     <string name="none">None</string>
     <string name="lock">Lock</string>
     <string name="move">Move</string>
+    <string name="auto_pin_title">Auto pin</string>
+    <string name="auto_pin_summary">Automatically pin the Dock when switching to windowed apps</string>
 </resources>

@@ -331,7 +331,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                         unpinDock();
                     }
                 } else {
-                    if (!isPinned) {
+                    if (!isPinned && sp.getBoolean("auto_pin", true)) {
                         pinDock();
                     }
                 }
@@ -1056,7 +1056,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
                     unpinDock();
                 }
             } else {
-                if (!isPinned) {
+                if (!isPinned && sp.getBoolean("auto_pin", true)) {
                     pinDock();
                 }
             }

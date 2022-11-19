@@ -59,6 +59,12 @@
             android:title="@string/pin_dock_title"
             android:summary="@string/pin_dock_summary"
             android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="auto_pin"
+            android:title="@string/auto_pin_title"
+            android:summary="@string/auto_pin_summary"
+            android:defaultValue="true" />
+        
         <EditTextPreference
             android:inputType="number"
             android:key="dock_hide_delay"
