@@ -118,6 +118,15 @@ public class AdvancedPreferences extends PreferenceFragment {
                     return false;
                 }
             });
+        findPreference("status_icon_blacklist").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+
+                @Override
+                public boolean onPreferenceClick(Preference p1) {
+                    
+                    showIBDialog(getActivity());
+                    return false;
+                }
+            });
     }
 
     public void showEditAutostartDialog(final Context context) {
@@ -134,6 +143,24 @@ public class AdvancedPreferences extends PreferenceFragment {
                     if (!content.isEmpty()) {
                         Utils.saveAutoStart(context, content);
                     }
+                }
+            });
+        dialog.setNegativeButton(getString(R.string.cancel), null);
+        dialog.setView(view);
+        dialog.show();
+    }
+    
+    public void showIBDialog(final Context context) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setTitle("Blacklisted icons");
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_icon_blacklist, null);
+        final EditText contentEt = view.findViewById(R.id.icon_blacklist_et);
+        contentEt.setText(DeviceUtils.runAsRoot("settings get secure icon_blacklist").replace("\n", ""));
+        dialog.setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface p1, int p2) {
+                    DeviceUtils.runAsRoot("settings put secure icon_blacklist " + contentEt.getText());
                 }
             });
         dialog.setNegativeButton(getString(R.string.cancel), null);
