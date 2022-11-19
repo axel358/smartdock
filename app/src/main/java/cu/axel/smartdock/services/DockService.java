@@ -1031,7 +1031,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				} else if (mode.equals("maximized")) {
 					width = deviceWidth;
 					int statusHeight = sp.getBoolean("hide_status_bar", false) ? 0
-							: DeviceUtils.getStatusBarHeight(context);
+                        : (sp.getString("status_bar_height","").isEmpty() ? DeviceUtils.getStatusBarHeight(context) : Integer.parseInt(sp.getString("status_bar_height","")));
 					height = deviceHeight - (statusHeight + dockLayout.getMeasuredHeight());
 				} else if (mode.equals("portrait")) {
 					x = deviceWidth / 3;
