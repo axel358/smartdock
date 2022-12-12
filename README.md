@@ -3,7 +3,7 @@
   A desktop mode launcher for Android
 </div>
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot.webp)
 
 ## Building:
 The project itself was created using AIDE on Android x86. Just clone the project and import it into AIDE. 
