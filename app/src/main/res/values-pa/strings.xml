@@ -51,13 +51,11 @@
     <string name="license">ਲਾਇਸੰਸ</string>
     <string name="options_marked_with__are_expe">* ਨਾਲ ਚਿੰਨ੍ਹਿਤ ਵਿਕਲਪ ਪ੍ਰਯੋਗਾਤਮਕ ਹਨ ਅਤੇ ਸਮੱਸਿਆ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ। ਜੇ ਤੁਸੀਂ ਕਰੈਸ਼ਾਂ ਦਾ ਅਨੁਭਵ ਕਰਦੇ ਹੋ ਤਾਂ ਉਹਨਾਂ ਨੂੰ ਅਯੋਗ ਕਰੋ</string>
 
-	<string name="navigation">ਨੇਵੀਗੇਸ਼ਨ</string>
+    <string name="navigation">ਨੇਵੀਗੇਸ਼ਨ</string>
     <string name="enable_nav_back_title">ਬੈਕ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_nav_home_title">ਹੋਮ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_nav_recents_title">ਰੀਸੈਟ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_nav_assist_title">ਸਹਾਇਕ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="custom_assist_summary">ਇੱਕ ਕਸਟਮ ਸਹਾਇਕ ਐਪ ਦੀ ਵਰਤੋਂ ਕਰੋ, ਡਿਫੌਲਟ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
-    <string name="custom_assist_title">ਕਸਟਮ ਸਹਾਇਕ ਐਪ</string>
     <string name="quick_settings">ਕਵੀਕ ਸੈਟਿੰਗਾਂ</string>
     <string name="enable_qs_bluetooth_title">ਬਲੂਟੁੱਥ ਬਟਨ ਨੂੰ ਚਾਲੂ ਬਣਾਓ</string>
     <string name="enable_qs_battery_title">ਬੈਟਰੀ ਬਟਨ ਨੂੰ ਚਾਲੂ ਬਣਾਓ</string>
@@ -85,9 +83,6 @@
     <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>
     <string name="menu_icon_uri_title">ਮੀਨੂ ਆਈਕਨ ਚੁਣੋ</string>
     <string name="restore_menu_icon_title">ਡਿਫੌਲਟ ਮੀਨੂ ਆਈਕਨ ਰੀਸਟੋਰ ਕਰੋ</string>
-    <string name="animations">ਐਨੀਮੇਸ਼ਨ</string>
-    <string name="disable_animations_title">ਐਪ ਲਾਂਚ ਐਨੀਮੇਸ਼ਨਾਂ ਨੂੰ ਬੰਦ ਕਰੋ</string>
-    <string name="enable_custom_animations_title">ਐਪਸ ਲਾਂਚ ਕਰਨ ਵੇਲੇ ਇੱਕ ਕਸਟਮ ਐਨੀਮੇਸ਼ਨ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="custom_animation_dialogTitle">ਐਨੀਮੇਸ਼ਨ</string>
     <string name="custom_animation_title">ਕਸਟਮ ਐਨੀਮੇਸ਼ਨ</string>
 
@@ -122,7 +117,6 @@
     <string name="advanced">ਉੱਨਤ</string>
     <string name="help_and_about">ਮਦਦ ਅਤੇ ਇਸ ਬਾਰੇ</string>
 
-    
     <string name="fade">ਫੇਡ</string>
     <string name="slide_up">ਉੱਪਰ ਸਲਾਈਡ ਕਰੋ</string>
     <string name="slide_left">ਖੱਬੇ ਪਾਸੇ ਸਲਾਈਡ ਕਰੋ</string>
@@ -231,4 +225,74 @@
     <string name="choose_color">ਰੰਗ ਚੁਣੋ</string>
     <string name="invalid_color">ਅਵੈਧ ਰੰਗ</string>
     <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਚੁੱਪ ਨੋਟੀਫੀਕੇਸਨਵਾਂ</string>
+	
+    <string name="wallpaper">ਵਾਲਪੇਪਰ</string>
+    <string name="presets">ਪ੍ਰੀਸੈਟਸ</string>
+    <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
+    <string name="uninstall">ਅਣਇੰਸਟੌਲ ਕਰੋ</string>
+    <string name="open_in">ਇਸ ਵਿੱਚ ਖੋਲ੍ਹੋ...</string>
+    <string name="shortcuts">ਸ਼ਾਰਟਕੱਟ...</string>
+    
+    <string name="users">ਉਪਭੋਗਤਾ</string>
+    <string name="files">ਫਾਈਲਾਂ</string>
+    <string name="settings">ਸੈਟਿੰਗਾਂ</string>
+    <string name="dock_settings">ਡੌਕ ਸੈਟਿੰਗਾਂ</string>
+    <string name="hide_status_bar_title">ਸਟੇਟਸ ਬਾਰ ਨੂੰ ਲੁਕਾਓ</string>
+    <string name="hide_status_bar_summary">Android ਸਟੇਟਸ ਬਾਰ ਨੂੰ ਲੁਕਾਓ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੋਵੇਗੀ</string>
+    <string name="wifi">ਵਾਈਫਾਈ</string>
+    <string name="not_connected">ਕਨੈਕਟ ਨਹੀਂ ਹੈ</string>
+    <string name="select_network">ਨੈੱਟਵਰਕ ਚੁਣੋ</string>
+    <string name="enable_wifi_panel_title">ਵਾਈਫਾਈ ਪੈਨਲ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_wifi_panel_summary">ਬਿਲਟ-ਇਨ ਵਾਈਫਾਈ ਪੈਨਲ ਨੂੰ ਸਮਰੱਥ ਬਣਾਉਂਦਾ ਹੈ। ਇਸ ਲਈ Location ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="location">Location</string>
+    <string name="used_to_retrieve_wifi_info_on_">Android 8+ ਤੇ ਵਾਈਫਾਈ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
+    <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
+    <string name="change_wallpaper">ਵਾਲਪੇਪਰ ਬਦਲੋ</string>
+    <string name="display_settings">ਡਿਸਪਲੇ ਸੈਟਿੰਗਜ਼</string>
+    <string name="show_help_summary">ਮਦਦ ਲਈ ਟੈਪ ਕਰੋ</string>
+    <string name="more_help">ਹੋਰ ਮਦਦ</string>
+    <string name="to_favorites">ਮਨਪਸੰਦ ਨੂੰ</string>
+    <string name="notification_bottom_title">ਹੇਠਾਂ ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਓ (ਸੇਵਾ ਏਟੀਐਮ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੈ)</string>
+    <string name="dock_square_title">ਡੌਕ ਲਈ ਗੋਲ ਕੋਨਿਆਂ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="show_current_title">ਮੌਜੂਦਾ ਐਪ ਲਈ ਨੋਟੀਫੀਕੇਸਨ ਲੁਕਾਓ</string>
+    <string name="enable_notif_panel_title">ਨੋਟੀਫੀਕੇਸਨ ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_qs_wifi_title">ਵਾਈਫਾਈ ਬਟਨ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_qs_vol_title">ਵਾਲੀਅਮ ਬਟਨ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_qs_date_title">ਕਲਾਕ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_qs_pin_title">ਪਿੰਨ ਬਟਨ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_qs_pin_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ ਨੂੰ ਲੰਬੇ ਸਮੇਂ ਤੱਕ ਦਬਾ ਕੇ ਜਾਂ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰ ਸਕਦੇ ਹੋ</string>
+    <string name="enable_take_screenshot_title">ਸਕ੍ਰੀਨਸ਼ੌਟ ਲੈਣ ਲਈ Modifier+K ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_toggle_pin_title">ਡੌਕ ਨੂੰ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰਨ ਲਈ Modifier+W ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="contributors">ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ</string>
+    <string name="tap_to_see_the_list_of_great_p">ਸਮਾਰਟ ਡੌਕ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ ਮਹਾਨ ਲੋਕਾਂ ਦੀ ਸੂਚੀ ਦੇਖਣ ਲਈ ਟੈਪ ਕਰੋ</string>
+    <string name="default_apps">ਡਿਫੌਲਟ ਐਪਸ</string>
+    <string name="icon_pack">ਆਈਕਨ ਪੈਕ</string>
+    <string name="select_icon_pack">ਆਈਕਨ ਪੈਕ ਚੁਣੋ</string>
+    <string name="enable_open_assist_title">ਆਪਣੀ ਡਿਫੌਲਟ ਸਹਾਇਕ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ Modifier+A ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_open_rec_title">ਆਪਣੀ ਡਿਫੌਲਟ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਰ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ Modifier+R ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="app_browser_title">ਵੈੱਬ ਬਰਾਊਜ਼ਰ</string>
+    <string name="app_files_title">ਫਾਈਲਾਂ</string>
+    <string name="app_music_title">ਸੰਗੀਤ</string>
+    <string name="app_movies_title">ਫਿਲਮਾਂ</string>
+    <string name="app_assistant_title">ਸਹਾਇਕ</string>
+    <string name="app_clock_title">ਕਲੋਕ</string>
+    <string name="app_terminal_title">ਟਰਮੀਨੈਲ</string>
+    <string name="app_rec_title">ਸਕਰੀਨ ਰਿਕਾਰਡਰ</string>
+    <string name="apps">ਐਪਸ</string>
+    <string name="enable_menu_recents_title">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮੀਨੂ ਕੁੰਜੀ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="general">ਜਨਰਲ</string>
+    <string name="material_u">ਮਟੀਰੀਅਲ</string>
+    <string name="usage_stats">ਵਰਤੋਂ ਦੇ ਅੰਕੜੇ</string>
+    <string name="allows_to_show_recent_apps_on_">ਉਹਨਾਂ ਡੀਵਾਈਸਾਂ ਤੇ ਹਾਲੀਆ ਐਪਾਂ ਦਿਖਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ ਜਿੱਥੇ ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
+    <string name="allow_sysapp_uninstall_title">ਸਿਸਟਮ ਐਪਸ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਦਿਓ</string>
+    <string name="allow_sysapp_uninstall_summary">ਕਿਰਪਾ ਕਰਕੇ ਸਾਵਧਾਨ ਰਹੋ, ਇਹ ਅਸਲ ਵਿੱਚ ਖਤਰਨਾਕ ਹੋ ਸਕਦਾ ਹੈ</string>
+    <string name="running_apps_number_summary">ਇਹ ਸੈਟਿੰਗ ਛੋਟੀਆਂ ਸਕ੍ਰੀਨਾਂ ਵਾਲੇ ਡਿਵਾਈਸਾਂ ਨੂੰ ਡੌਕ ਤੇ ਐਪ ਓਵਰਫਲੋ ਤੋਂ ਬਚਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ</string>
+    <string name="running_apps_number_title">ਦਿਖਾਉਣ ਲਈ ਚੱਲ ਰਹੀਆਂ/ਹਾਲੀਆ ਐਪਾਂ ਦੀ ਸੰਖਿਆ</string>
+    <string name="tint_indicators_title">ਟਿੰਟ ਚੱਲ ਰਹੇ ਸੂਚਕ</string>
+    <string name="none">ਕੋਈ ਨਹੀਂ</string>
+    <string name="lock">ਲੋਕ</string>
+    <string name="move">ਮੂਵ ਕਰੋ</string>
+    <string name="auto_pin_title">ਆਟੋ ਪਿੰਨ</string>
+    <string name="auto_pin_summary">ਵਿੰਡੋਡ ਐਪਾਂ ਤੇ ਸਵਿਚ ਕਰਨ ਵੇਲੇ ਆਪਣੇ ਆਪ ਡੌਕ ਨੂੰ ਪਿੰਨ ਕਰੋ</string>
 </resources>
