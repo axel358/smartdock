@@ -245,7 +245,7 @@
     <string name="enable_wifi_panel_title">ਵਾਈਫਾਈ ਪੈਨਲ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_wifi_panel_summary">ਬਿਲਟ-ਇਨ ਵਾਈਫਾਈ ਪੈਨਲ ਨੂੰ ਸਮਰੱਥ ਬਣਾਉਂਦਾ ਹੈ। ਇਸ ਲਈ Location ਦੀ ਲੋੜ ਹੈ</string>
     <string name="location">Location</string>
-    <string name="used_to_retrieve_wifi_info_on_">Android 8+ 'ਤੇ ਵਾਈਫਾਈ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="used_to_retrieve_wifi_info_on_">Android 8+ ਤੇ ਵਾਈਫਾਈ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="change_wallpaper">ਵਾਲਪੇਪਰ ਬਦਲੋ</string>
@@ -287,12 +287,12 @@
     <string name="allows_to_show_recent_apps_on_">ਉਹਨਾਂ ਡੀਵਾਈਸਾਂ 'ਤੇ ਹਾਲੀਆ ਐਪਾਂ ਦਿਖਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ ਜਿੱਥੇ ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
     <string name="allow_sysapp_uninstall_title">ਸਿਸਟਮ ਐਪਸ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਦਿਓ</string>
     <string name="allow_sysapp_uninstall_summary">ਕਿਰਪਾ ਕਰਕੇ ਸਾਵਧਾਨ ਰਹੋ, ਇਹ ਅਸਲ ਵਿੱਚ ਖਤਰਨਾਕ ਹੋ ਸਕਦਾ ਹੈ</string>
-    <string name="running_apps_number_summary">ਇਹ ਸੈਟਿੰਗ ਛੋਟੀਆਂ ਸਕ੍ਰੀਨਾਂ ਵਾਲੇ ਡਿਵਾਈਸਾਂ ਨੂੰ ਡੌਕ 'ਤੇ ਐਪ ਓਵਰਫਲੋ ਤੋਂ ਬਚਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ</string>
+    <string name="running_apps_number_summary">ਇਹ ਸੈਟਿੰਗ ਛੋਟੀਆਂ ਸਕ੍ਰੀਨਾਂ ਵਾਲੇ ਡਿਵਾਈਸਾਂ ਨੂੰ ਡੌਕ ਤੇ ਐਪ ਓਵਰਫਲੋ ਤੋਂ ਬਚਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ</string>
     <string name="running_apps_number_title">ਦਿਖਾਉਣ ਲਈ ਚੱਲ ਰਹੀਆਂ/ਹਾਲੀਆ ਐਪਾਂ ਦੀ ਸੰਖਿਆ</string>
     <string name="tint_indicators_title">ਟਿੰਟ ਚੱਲ ਰਹੇ ਸੂਚਕ</string>
     <string name="none">ਕੋਈ ਨਹੀਂ</string>
     <string name="lock">ਲੋਕ</string>
     <string name="move">ਮੂਵ ਕਰੋ</string>
     <string name="auto_pin_title">ਆਟੋ ਪਿੰਨ</string>
-    <string name="auto_pin_summary">ਵਿੰਡੋਡ ਐਪਾਂ 'ਤੇ ਸਵਿਚ ਕਰਨ ਵੇਲੇ ਆਪਣੇ ਆਪ ਡੌਕ ਨੂੰ ਪਿੰਨ ਕਰੋ</string>
+    <string name="auto_pin_summary">ਵਿੰਡੋਡ ਐਪਾਂ ਤੇ ਸਵਿਚ ਕਰਨ ਵੇਲੇ ਆਪਣੇ ਆਪ ਡੌਕ ਨੂੰ ਪਿੰਨ ਕਰੋ</string>
 </resources>
