@@ -36,7 +36,7 @@
     <string name="enable_corner_top_right_title">Enable top right corner</string>
     <string name="enable_corner_top_right_summary">Place the mouse on the top right corner of the screen to show recents</string>
     <string name="enable_corner_bottom_right_title">Enable bottom right corner</string>
-    <string name="enable_corner_bottom_right_summary">Place the mouse on the top right corner of the screen to lock the screen</string>
+    <string name="enable_corner_bottom_right_summary">Place the mouse on the bottom right corner of the screen to lock the screen</string>
     <string name="hot_corners_delay_title">Hot corners activation delay in ms</string>
 
     <string name="a_launcher_for_android_x86_by_">A launcher for Android x86 by Axel358</string>
