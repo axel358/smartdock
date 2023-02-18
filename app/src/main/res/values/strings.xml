@@ -238,13 +238,13 @@
     <string name="dock_settings">Dock Settings</string>
     <string name="hide_status_bar_title">Hide status bar</string>
     <string name="hide_status_bar_summary">Hides Android status bar. Needs soft reboot</string>
-    <string name="wifi">WiFi</string>
+    <string name="wifi">WLAN</string>
     <string name="not_connected">Not connected</string>
     <string name="select_network">Select network</string>
-    <string name="enable_wifi_panel_title">Enable WiFi panel</string>
-    <string name="enable_wifi_panel_summary">Enables built in WiFi panel. This requires location access</string>
+    <string name="enable_wifi_panel_title">Enable WLAN panel</string>
+    <string name="enable_wifi_panel_summary">Enables built in WLAN panel. This requires location access</string>
     <string name="location">Location</string>
-    <string name="used_to_retrieve_wifi_info_on_">Used to retrieve WiFi info on Android 8+</string>
+    <string name="used_to_retrieve_wifi_info_on_">Used to retrieve WLAN info on Android 8+</string>
     <string name="scale_factor_summary">Defines how big standard windows are</string>
     <string name="scale_factor_title">Standard window scale factor</string>
     <string name="change_wallpaper">Change wallpaper</string>
@@ -256,7 +256,7 @@
     <string name="dock_square_title">Disable rounded corners for the dock</string>
     <string name="show_current_title">Hide notifications for the current app</string>
     <string name="enable_notif_panel_title">Enable notification panel</string>
-    <string name="enable_qs_wifi_title">Enable Wi-Fi button</string>
+    <string name="enable_qs_wifi_title">Enable WLAN button</string>
     <string name="enable_qs_vol_title">Enable volume button</string>
     <string name="enable_qs_date_title">Enable clock</string>
     <string name="enable_qs_pin_title">Enable pin button</string>
