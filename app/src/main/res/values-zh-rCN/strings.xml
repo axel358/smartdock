@@ -12,7 +12,7 @@
     <string name="enable_charge_complete_sound_title">设备结束充电后🔋，播放自定义音频*🔊</string>
     <string name="charge_complete_sound_title">选择『充电完成提示音』🔋</string>
 
-    <string name="manage_service">管理服务🕹️</string>
+    <string name="manage_service">🕹️管理通知服务</string>
     <string name="notification_timeout_title">通知显示时间（毫秒）⏳️</string>
     <string name="show_ongoing_title">显示正在进行的通知（Buggy）</string>
     <string name="blocked_notifications_hint">android</string>
@@ -20,8 +20,8 @@
     <string name="blocked_notifications_title">已忽略的通知</string>
     <string name="long_press_a_notification_to_a">长按通知，将其添加到忽略列表</string>
 
-    <string name="shortcut_key_dialogTitle">键盘快捷键⌨️</string>
-    <string name="shortcut_key_title">键盘快捷键⌨️</string>
+    <string name="shortcut_key_dialogTitle">设置修饰键⌨️</string>
+    <string name="shortcut_key_title">设置修饰键⌨️</string>
     <string name="enable_lock_desktop_title">「修饰键+L」锁定桌面（需要设备管理应用权限）🔒️</string>
     <string name="enable_open_settings_title">「修饰键+P」打开『系统设置』⚙️</string>
     <string name="enable_open_music_title">「修饰键+M」打开默认的音乐应用🎵</string>
@@ -51,21 +51,21 @@
     <string name="license">许可证</string>
     <string name="options_marked_with__are_expe">标有*的选项是实验性的，可能会造成麻烦。如果遇到崩溃，请禁用它们。‼️</string>
 
-    <string name="navigation">导航🚢</string>
+    <string name="navigation">设置『导航键』🚢</string>
     <string name="enable_nav_back_title">启用『返回键』🔙</string>
     <string name="enable_nav_home_title">启用『主页键』🏠️</string>
     <string name="enable_nav_recents_title">启用『近期应用按钮』📃</string>
     <string name="enable_nav_assist_title">启用『语音助手按钮』🎙️</string>
-    <string name="quick_settings">控制中心🎛️</string>
+    <string name="quick_settings">设置『控制中心』🎛️</string>
     <string name="enable_qs_bluetooth_title">显示蓝牙图标🟦🦷</string>
     <string name="enable_qs_battery_title">显示电池图标🔋</string>
     <string name="enable_power_menu_title">使用内置电源菜单</string>
     <string name="enable_power_menu_summary">使用自定义电源菜单来代替系统电源菜单</string>
-    <string name="behaviour">行为🦾</string>
+    <string name="behaviour">设置任务栏行为🦾</string>
     <string name="pin_dock_title">启动时固定『任务栏』📌</string>
     <string name="pin_dock_summary">使用其他桌面时仍然有用</string>
     <string name="dock_hide_delay_title">『任务栏』隐藏延迟（毫秒）⏳️</string>
-    <string name="center_running_apps_title">居中显示程序坞上的应用图标</string>
+    <string name="center_running_apps_title">「居中」显示程序坞上的应用图标</string>
     <string name="dock_activation_area_title">『任务栏』激活区域</string>
 
     <string name="show_notes_title">显示备注小部件📝</string>
@@ -81,20 +81,20 @@
     <string name="icon_shape_title">图标形状</string>
     <string name="icon_padding_summary">定义图标与其边框之间的间隔🚧</string>
     <string name="icon_padding_title">图标间隔🚧</string>
-    <string name="menu_icon_uri_title">选择『App_抽屉』的图标</string>
-    <string name="restore_menu_icon_title">恢复默认的『App_抽屉』的图标</string>
+    <string name="menu_icon_uri_title">选择『启动器』的图标</string>
+    <string name="restore_menu_icon_title">恢复默认的『启动器』的图标</string>
     <string name="custom_animation_dialogTitle">动画</string>
     <string name="custom_animation_title">App_启动动画</string>
 
-    <string name="menu">『App_抽屉』</string>
-    <string name="enable_app_menu_title">使用修饰键展开『App_抽屉』</string>
-    <string name="menu_key_dialogTitle">『App_抽屉』的修饰键</string>
-    <string name="menu_key_title">『App_抽屉』的修饰键</string>
-    <string name="app_menu_fullscreen_title">全屏展开『App_抽屉』</string>
-    <string name="app_menu_height_title">『App_抽屉』高度</string>
-    <string name="app_menu_width_title">『App_抽屉』宽度</string>
+    <string name="menu">布置『启动器』</string>
+    <string name="enable_app_menu_title">使用修饰键展开『启动器』</string>
+    <string name="menu_key_dialogTitle">『启动器』的修饰键</string>
+    <string name="menu_key_title">『启动器』的修饰键</string>
+    <string name="app_menu_fullscreen_title">全屏展开『启动器』</string>
+    <string name="app_menu_height_title">『启动器』高度</string>
+    <string name="app_menu_width_title">『启动器』宽度</string>
     <string name="num_columns_title">每排容纳 App_图标 的数量</string>
-    <string name="app_launch">App_启动方式</string>
+    <string name="app_launch">设置 App_启动 的窗口模式</string>
     <string name="launch_mode_dialogTitle">主题</string>
     <string name="launch_mode_title">默认启动模式</string>
     <string name="remember_launch_mode_title">保存启动模式</string>
@@ -103,12 +103,12 @@
     <string name="launch_games_fullscreen_summary">默认情况下，全屏💻启动检测为游戏🎮️的 Apps</string>
     <string name="lock_landscape_title">以『横屏模式』显示全屏的 Apps💻</string>
     <string name="lock_landscape_summary">某些全屏启动的 Apps 可能会强制以『竖屏模式』📱显示；使用此选项可以防止该行为</string>
-    <string name="fine_tune">微调🤏</string>
-    <string name="app_menu_x_title">『App_抽屉』的 x translation</string>
-    <string name="app_menu_y_title">『App_抽屉』的 y translation</string>
+    <string name="fine_tune">🤏微调『启动器』的位置</string>
+    <string name="app_menu_x_title">『启动器』的 x translation</string>
+    <string name="app_menu_y_title">『启动器』的 y translation</string>
 
     <string name="appearance">外观</string>
-    <string name="app_menu">App_抽屉</string>
+    <string name="app_menu">启动器</string>
     <string name="dock">任务栏</string>
     <string name="desktop">桌面</string>
     <string name="keyboard">键盘</string>
@@ -143,7 +143,7 @@
     <string name="required_to_display_the_dock_">若没有这个权限，则无法显示任务栏</string>
     <string name="accessibility_service">无障碍服务🦮</string>
     <string name="use_this_to_start_and_stop_the">此项用于启动和停止『本应用』</string>
-    <string name="manage">🕹️管理……</string>
+    <string name="manage">管理……</string>
     <string name="these_permissions_are_needed_b">某些功能需要这些权限</string>
     <string name="device_administrator">设备管理应用🕹️</string>
     <string name="used_to_lock_the_screen">用于锁定屏幕</string>
@@ -176,8 +176,8 @@
     <string name="enable_soft_reboot_title">使用「修饰键+F12」软重启安卓系统🔄</string>
     <string name="move_to_system_summary">将『本应用』转化成系统应用；要求重启</string>
     <string name="move_to_system_title">转化成系统应用</string>
-    <string name="soft_reboot_summary">现在软重启；您将丢失所有未保存的工作</string>
-    <string name="soft_reboot_title">正在软重启</string>
+    <string name="soft_reboot_summary">立即软重启；您将丢失所有未保存的工作</string>
+    <string name="soft_reboot_title">软重启</string>
     <string name="grant">允许🆗</string>
 
 
@@ -193,10 +193,10 @@
     \n
     </string>
     
-    <string name="standard">标准🗔</string>
-    <string name="maximized">最大化🖥️</string>
-    <string name="portrait">竖屏📱</string>
-    <string name="fullscreen">全屏💻️</string>
+    <string name="standard">标准</string>
+    <string name="maximized">最大化</string>
+    <string name="portrait">竖屏</string>
+    <string name="fullscreen">全屏</string>
     
     <string name="edit_autostart">编辑自启动📝</string>
     <string name="save">保存💾</string>
@@ -213,12 +213,12 @@
     <string name="freeze">冻结🧊</string>
     <string name="pin">固定📌</string>
     <string name="unpin">取消固定🪒</string>
-    <string name="to_desktop">发送到桌面📤️</string>
+    <string name="to_desktop">发送到桌面</string>
     <string name="app_frozen">应用程序已冻结🧊</string>
     <string name="something_wrong">出现错误️❗️</string>
     <string name="save_log">保存日志💾</string>
     <string name="open_again">再次打开应用</string>
-    <string name="remove">移除🧹</string>
+    <string name="remove">移除</string>
     <string name="manage_permissions">管理权限🕹️</string>
     <string name="granted">已允许的🆗</string>
     <string name="choose_color">选择颜色🎨</string>
@@ -227,15 +227,15 @@
     
     <string name="wallpaper">壁纸</string>
     <string name="presets">预设</string>
-    <string name="app_info">应用信息ℹ️</string>
+    <string name="app_info">应用信息</string>
     <string name="uninstall">卸载🛻</string>
-    <string name="open_in">📂打开……</string>
+    <string name="open_in">打开……</string>
     <string name="shortcuts">🔗快捷方式...</string>
     
-    <string name="users">用户</string>
+    <string name="users">多用户</string>
     <string name="files">文件管理器</string>
     <string name="settings">系统设置</string>
-    <string name="dock_settings">任务栏设置</string>
+    <string name="dock_settings">『SmartDock』设置</string>
     <string name="hide_status_bar_title">隐藏状态栏</string>
     <string name="hide_status_bar_summary">隐藏 Android 状态栏；要求软重启</string>
     <string name="wifi">WLAN🛜</string>
@@ -251,7 +251,7 @@
     <string name="display_settings">显示设置</string>
     <string name="show_help_summary">🖱️点击以获取帮助</string>
     <string name="more_help">更多帮助</string>
-    <string name="to_favorites">收藏⭐️</string>
+    <string name="to_favorites">收藏</string>
     <string name="notification_bottom_title">在底部显示通知（需要重新启用 ActivityTaskManager）</string>
     <string name="dock_square_title">禁用任务栏圆角</string>
     <string name="show_current_title">隐藏当前应用的通知</string>
@@ -278,9 +278,9 @@
     <string name="app_clock_title">时钟⏰</string>
     <string name="app_terminal_title">终端#️</string>
     <string name="app_rec_title">屏幕录制📹️</string>
-    <string name="apps">Apps</string>
+    <string name="apps">快捷键打开对应的应用</string>
     <string name="enable_menu_recents_title">启用菜单键显示『近期应用』📃</string>
-    <string name="general">全局</string>
+    <string name="general">设置全局快捷键</string>
     <string name="material_u">Material You</string>
     <string name="usage_stats">使用情况统计</string>
     <string name="allows_to_show_recent_apps_on_">允许在无法将『本应用』安装为系统应用的设备上显示『近期应用』📃</string>
