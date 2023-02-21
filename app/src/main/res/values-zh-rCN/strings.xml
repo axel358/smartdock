@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="please_note_that_you_must_prov">请注意❗，您必须提供自己的音频文件🎶</string>
+    <string name="please_note_that_you_must_prov">请注意，❗\n您必须提供自己的音频文件🎶</string>
     <string name="enable_startup_sound_title">『本应用』启动时🖥️，播放自定义音频*🔊</string>
     <string name="startup_sound_title">设置『启动音』🖥️</string>
     <string name="enable_usb_sound_title">插入『USB设备』时⏏️，播放自定义音频🔊</string>
@@ -13,7 +13,7 @@
     <string name="charge_complete_sound_title">选择『充电完成提示音』🔋</string>
 
     <string name="manage_service">🕹️管理通知服务</string>
-    <string name="notification_timeout_title">通知显示时间（毫秒）⏳️</string>
+    <string name="notification_timeout_title">自定义通知显示时间（毫秒）⏳️</string>
     <string name="show_ongoing_title">显示正在进行的通知（Buggy）</string>
     <string name="blocked_notifications_hint">android</string>
     <string name="blocked_notifications_summary">要忽略通知的应用列表，包名以空格分割</string>
@@ -21,7 +21,7 @@
     <string name="long_press_a_notification_to_a">长按通知，将其添加到忽略列表</string>
 
     <string name="shortcut_key_dialogTitle">选择修饰键⌨️</string>
-    <string name="shortcut_key_title">设置键盘快捷键用到的修饰键⌨️</string>
+    <string name="shortcut_key_title">设置快捷键用到的修饰键⌨️</string>
     <string name="enable_lock_desktop_title">「修饰键+L」锁定桌面（需要设备管理应用权限）🔒️</string>
     <string name="enable_open_settings_title">「修饰键+P」打开『系统设置』⚙️</string>
     <string name="enable_open_music_title">「修饰键+M」打开默认的音乐应用🎵</string>
@@ -37,7 +37,7 @@
     <string name="enable_corner_top_right_summary">将鼠标放在屏幕右上角以显示『近期应用』📃</string>
     <string name="enable_corner_bottom_right_title">启用『右下角』↘️</string>
     <string name="enable_corner_bottom_right_summary">将鼠标放在屏幕右下角以锁定屏幕🔒️</string>
-    <string name="hot_corners_delay_title">『边角热区』激活延迟（毫秒）⏳️</string>
+    <string name="hot_corners_delay_title">自定义『边角热区』激活延迟（毫秒）⏳️</string>
 
     <string name="a_launcher_for_android_x86_by_">由 Axel358 开发的，适用于 Android-x86 的桌面ℹ️</string>
     <string name="special_thanks_to">特别感谢🎉</string>
@@ -49,7 +49,7 @@
     <string name="join_telegram_summary">如果遇到问题⁉️，欢迎加入 Telegram 群组以获取支持🗨️</string>
     <string name="gnu_general_public_licence_v3">GNU General Public Licence v3.0</string>
     <string name="license">许可证</string>
-    <string name="options_marked_with__are_expe">标有*的选项是实验性的，可能会造成麻烦。如果遇到崩溃，请禁用它们。‼️</string>
+    <string name="options_marked_with__are_expe">标有*的选项是实验性的，可能会造成麻烦。\n如果遇到崩溃，请禁用它们。‼️</string>
 
     <string name="navigation">设置『导航键』🚢</string>
     <string name="enable_nav_back_title">启用『返回键』🔙</string>
@@ -59,18 +59,18 @@
     <string name="quick_settings">设置『控制中心』🎛️</string>
     <string name="enable_qs_bluetooth_title">显示蓝牙图标🟦🦷</string>
     <string name="enable_qs_battery_title">显示电池图标🔋</string>
-    <string name="enable_power_menu_title">使用内置电源菜单</string>
-    <string name="enable_power_menu_summary">使用自定义电源菜单来代替系统电源菜单</string>
+    <string name="enable_power_menu_title">使用『本应用』内置的电源菜单</string>
+    <string name="enable_power_menu_summary">使用自定义的电源菜单来代替系统电源菜单</string>
     <string name="behaviour">设置任务栏行为🦾</string>
     <string name="pin_dock_title">启动时固定『任务栏』📌</string>
     <string name="pin_dock_summary">使用其他桌面时仍然有用</string>
-    <string name="dock_hide_delay_title">『任务栏』隐藏延迟（毫秒）⏳️</string>
+    <string name="dock_hide_delay_title">自定义『任务栏』隐藏延迟（毫秒）⏳️</string>
     <string name="center_running_apps_title">「居中」显示程序坞上的应用图标</string>
-    <string name="dock_activation_area_title">『任务栏』激活区域</string>
+    <string name="dock_activation_area_title">自定义『任务栏』激活区域</string>
 
     <string name="show_notes_title">显示备注小部件📝</string>
 
-    <string name="look_and_feel">外观和感受👀</string>
+    <string name="look_and_feel">🎨外观和感受👀</string>
     <string name="theme_dialogTitle">选择主题🎨</string>
     <string name="theme_title">设置『本应用』的主题🖼️</string>
     <string name="theme_main_color_summary">定义项目背景的主色调🖌️</string>
@@ -79,8 +79,8 @@
     <string name="theme_secondary_color_title">辅助颜色🖍️</string>
     <string name="icon_shape_dialogTitle">选择形状</string>
     <string name="icon_shape_title">设置 App_图标 的形状</string>
-    <string name="icon_padding_summary">定义 App_图标 与其边框之间的间隔🚧</string>
-    <string name="icon_padding_title">App_图标 与其边框之间的间隔🚧</string>
+    <string name="icon_padding_summary">自定义 App_图标 与其边框之间的间隔🚧</string>
+    <string name="icon_padding_title">调整 App_图标 大小</string>
     <string name="menu_icon_uri_title">选择『启动器』的图标</string>
     <string name="restore_menu_icon_title">恢复默认的『启动器』的图标</string>
     <string name="custom_animation_dialogTitle">选择动画</string>
@@ -89,16 +89,16 @@
     <string name="menu">布置『启动器』</string>
     <string name="enable_app_menu_title">使用配合键展开『启动器』</string>
     <string name="menu_key_dialogTitle">选择配合键</string>
-    <string name="menu_key_title">设置『启动器』的配合键</string>
+    <string name="menu_key_title">设置展开『启动器』的配合键</string>
     <string name="app_menu_fullscreen_title">全屏展开『启动器』</string>
     <string name="app_menu_height_title">自定义『启动器』的高度</string>
     <string name="app_menu_width_title">自定义『启动器』的宽度</string>
     <string name="num_columns_title">自定义每排容纳 App_图标 的数量</string>
-    <string name="app_launch">设置 App_启动 的窗口模式</string>
-    <string name="launch_mode_dialogTitle">选择窗口模式</string>
-    <string name="launch_mode_title">设置 App_启动 的窗口模式</string>
-    <string name="remember_launch_mode_title">保存每个 App_启动 的窗口模式</string>
-    <string name="remember_launch_mode_summary">为每个 App 使用上次的启动模式</string>
+    <string name="app_launch">配置『窗口模式』</string>
+    <string name="launch_mode_dialogTitle">选择『窗口模式』</string>
+    <string name="launch_mode_title">设置默认的 Apps 启动后的『窗口模式』</string>
+    <string name="remember_launch_mode_title">保存每个 App 的『窗口模式』</string>
+    <string name="remember_launch_mode_summary">为每个 App 使用上次的『窗口模式』</string>
     <string name="launch_games_fullscreen_title">全屏💻启动游戏🎮️</string>
     <string name="launch_games_fullscreen_summary">默认情况下，全屏💻启动检测为游戏🎮️的 Apps</string>
     <string name="lock_landscape_title">以『横屏模式』显示全屏的 Apps💻</string>
@@ -111,7 +111,7 @@
     <string name="app_menu">启动器</string>
     <string name="dock">任务栏</string>
     <string name="desktop">桌面</string>
-    <string name="keyboard">键盘</string>
+    <string name="keyboard">键盘快捷键</string>
     <string name="hot_corners">边角热区</string>
     <string name="sounds">声音</string>
     <string name="advanced">高级</string>
@@ -160,7 +160,7 @@
     <string name="lets_start">让我们开始吧</string>
 
     
-    <string name="these_settings_are_intended_fo">这些设置适用于高级用户；只有当你知道自己在做什么时，才能改变它们。</string>
+    <string name="these_settings_are_intended_fo">这些设置适用于高级用户；\n只有当你知道自己在做什么时，才能改变它们。</string>
     <string name="run_autostart_title">运行自启动脚本📄</string>
     <string name="edit_autostart_title">编辑自启动脚本✍️</string>
     <string name="custom_display_size_summary">允许您微调屏幕元素的显示大小；要求重新启动</string>
@@ -204,7 +204,7 @@
     <string name="cancel">取消❌</string>
     <string name="reboot_required_title">要求重新启动</string>
     <string name="reboot_required_text">需要重新启动才能使你的更改生效。是否要立即重新启动？</string>
-    <string name="tablet_mode_on">平板模式已打开</string>
+    <string name="tablet_mode_on">平板模式已开启</string>
     <string name="tablet_mode_off">平板模式已关闭</string>
     <string name="start_message">『本应用』已启动</string>
     <string name="copied_to_clipboard">已复制到剪贴板📋️</string>
@@ -220,7 +220,7 @@
     <string name="open_again">再次打开应用</string>
     <string name="remove">移除</string>
     <string name="manage_permissions">管理权限🕹️</string>
-    <string name="granted">已允许的🆗</string>
+    <string name="granted">🆗已允许的</string>
     <string name="choose_color">选择颜色🎨</string>
     <string name="invalid_color">无效的颜色</string>
     <string name="silenced_notifications">此应用静音通知🔈️</string>
@@ -243,7 +243,7 @@
     <string name="select_network">选择网络</string>
     <string name="enable_wifi_panel_title">启用 WLAN_面板🛜</string>
     <string name="enable_wifi_panel_summary">启用内置的 WLAN_面板🛜；需要位置访问权限📍</string>
-    <string name="location">位置信息📍</string>
+    <string name="location">位置信息权限📍</string>
     <string name="used_to_retrieve_wifi_info_on_">用于在 Android 8+ 上检索 WLAN 信息🛜</string>
     <string name="scale_factor_summary">定义标准窗口的大小</string>
     <string name="scale_factor_title">标准窗口比例系数</string>
@@ -266,7 +266,7 @@
     <string name="contributors">贡献者👨‍💻</string>
     <string name="tap_to_see_the_list_of_great_p">点击查看『本应用』的贡献者👨‍💻列表</string>
     <string name="default_apps">默认应用</string>
-    <string name="icon_pack">图标包</string>
+    <string name="icon_pack">设置启动器里的 App 的图标包</string>
     <string name="select_icon_pack">选择图标包</string>
     <string name="enable_open_assist_title">「修饰键+A」打开默认的语音助手🎙️</string>
     <string name="enable_open_rec_title">「修饰键+R」打开默认的屏幕录制程序📹️</string>
@@ -282,14 +282,14 @@
     <string name="enable_menu_recents_title">启用菜单键显示『近期应用』📃</string>
     <string name="general">设置全局快捷键</string>
     <string name="material_u">Material You</string>
-    <string name="usage_stats">使用情况统计</string>
+    <string name="usage_stats">使用情况访问权限</string>
     <string name="allows_to_show_recent_apps_on_">允许在无法将『本应用』安装为系统应用的设备上显示『近期应用』📃</string>
     <string name="allow_sysapp_uninstall_title">允许卸载系统应用</string>
     <string name="allow_sysapp_uninstall_summary">请小心，这可能很危险❗️</string>
     <string name="running_apps_number_summary">此设置可以帮助屏幕较小的设备避免程序坞上的应用图标显示异常</string>
     <string name="running_apps_number_title">显示正在运行/最近使用的应用数量</string>
     <string name="tint_indicators_title">色调指示器</string>
-    <string name="none">无</string>
+    <string name="none">无❌</string>
     <string name="lock">锁定🔒️</string>
     <string name="move">移动</string>
     <string name="auto_pin_title">自动固定📌</string>
