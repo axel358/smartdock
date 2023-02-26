@@ -257,7 +257,7 @@
 				<string name="move_to_system_title">Move as system app</string>
 					<string name="move_to_system_summary">Move Smart Dock as a system app. Android will 🔄restart</string>
 				<string name="soft_reboot_title">Soft reboot now</string>
-					<<string name="soft_reboot_summary">Soft 🔄reboot now. You will lose all unsaved work</string>
+					<string name="soft_reboot_summary">Soft 🔄reboot now. You will lose all unsaved work</string>
 
 		<!-- help_and_aboutℹ️; -->
 			<string name="app_name">Smart Dock💙</string>
