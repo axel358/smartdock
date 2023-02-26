@@ -225,7 +225,7 @@
 			<string name="these_settings_are_intended_fo">这些设置适用于高级用户；只有当你知道自己在做什么时，才能改变它们。</string>
 			<string name="run_autostart_title">运行📄自启动脚本</string>
 			<string name="edit_autostart_title">编辑✍️自启动脚本</string>
-				<string name="edit_autostart">编辑📝自启动</string>
+				<string name="edit_autostart">编辑📝脚本</string>
 				<!-- 第60行；取消❌ -->
 				<string name="save">保存💾</string>
 			<string name="custom_display_size_title">显示尺寸</string>
