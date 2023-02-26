@@ -141,7 +141,7 @@
 			<string name="show_notes_title">Show notes widget📝</string>
 
 		<!-- default_apps🔝; -->
-			<string name="app_browser_title">Web browser🌐</string
+	<string name="app_browser_title">Web browser🌐</string>
 				<!-- Tap to set -->
 					<!-- Choose an app -->
 			<string name="app_files_title">Files🗂️</string>
