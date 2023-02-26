@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import android.view.MotionEvent;
+import android.content.pm.ApplicationInfo;
+import cu.axel.smartdock.services.ElevatedService;
+import android.widget.Toast;
 
 public class Utils {
     public static boolean notificationPanelVisible, shouldPlayChargeComplete;
@@ -197,6 +200,31 @@ public class Utils {
             return Double.parseDouble(expression.split("\\*")[0]) * Double.parseDouble(expression.split("\\*")[1]);
         return 0;
     }
-    
+
+    public static void startElevatedService(Context context) {
+        final String className = ElevatedService.class.getName();
+        ApplicationInfo appInfo = context.getApplicationInfo();
+
+        File file = new File(context.getFilesDir(), "start_elevated_service.sh");
+        try {
+
+            FileWriter linesToWrite = new FileWriter(file);
+            linesToWrite.append("#!/system/bin/sh\n");
+            linesToWrite.append("exec env ");
+            linesToWrite.append("LD_LIBRARY_PATH=\"").append(appInfo.nativeLibraryDir)  //path containing lib*.so
+                .append("\" CLASSPATH=\"").append(appInfo.publicSourceDir) // Absolute path to apk in /data/app
+                .append("\" /system/bin/app_process /system/bin ")
+                .append(className + " Thailand").append("\n");
+
+            linesToWrite.flush();
+            linesToWrite.close();
+
+            Toast.makeText(context, DeviceUtils.runAsRoot("sh " + file.getAbsolutePath()), 5000).show();
+
+        } catch (IOException e) {
+            Toast.makeText(context, e.getMessage(), 5000).show();
+        }
+    }
+
 
 }

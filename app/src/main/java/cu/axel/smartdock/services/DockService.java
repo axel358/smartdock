@@ -839,7 +839,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
             else if (event.getKeyCode() == KeyEvent.KEYCODE_W && sp.getBoolean("enable_toggle_pin", true))
                 togglePin();
             else if (event.getKeyCode() == KeyEvent.KEYCODE_S)
-                restart();
+                Utils.startElevatedService(DockService.this);
+                //restart();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_M && sp.getBoolean("enable_open_music", true))
 				launchApp("standard", sp.getString("app_music", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("enable_open_browser", true))
