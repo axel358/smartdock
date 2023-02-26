@@ -296,10 +296,10 @@
 				<string name="app_frozen">应用程序🧊已冻结</string>
 				<string name="something_wrong">出现错误️⁉️</string>
 		<string name="open_in">打开……📂</string>
-			<!-- 第101行；标准窗口🗖 --->
-			<!-- 第102行；最大化的🖥️ --->
-			<!-- 第103行；竖屏窗口📲 --->
-			<!-- 第104行；全屏模式💻️ --->
+			<!-- 第101行；标准窗口🗖 -->
+			<!-- 第102行；最大化的🖥️ -->
+			<!-- 第103行；竖屏窗口📲 -->
+			<!-- 第104行；全屏模式💻️ -->
 		<string name="to_favorites">收藏应用❤️</string>
 			<string name="remove">移除收藏💔</string>
 		<string name="to_desktop">送至桌面🖥️</string>
