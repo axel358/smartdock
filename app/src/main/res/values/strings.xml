@@ -296,10 +296,10 @@
 				<string name="app_frozen">App 🧊frozen</string>
 				<string name="something_wrong">Something went wrong⁉️</string>
 		<string name="open_in">Open in...📂</string>
-			<!-- Line 101; Standard🗖 --->
-			<!-- Line 102; Maximized🖥️ --->
-			<!-- Line 103; Portrait📲 --->
-			<!-- Line 104; Fullscreen💻️ --->
+			<!-- Line 101; Standard🗖 -->
+			<!-- Line 102; Maximized🖥️ -->
+			<!-- Line 103; Portrait📲 -->
+			<!-- Line 104; Fullscreen💻️ -->
 		<string name="to_favorites">To favorites❤️</string>
 			<string name="remove">Remove💔</string>
 		<string name="to_desktop">To desktop🖥️</string>
