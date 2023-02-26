@@ -27,8 +27,6 @@
     <string name="enable_open_music_title">Enable Modifier+M to open you default music app</string>
     <string name="enable_open_browser_title">Enable Modifier+B to open your default browser</string>
     <string name="enable_open_terminal_title">Enable Modifier+T to open terminal</string>
-    <string name="terminal_package_hint">com.termux</string>
-    <string name="terminal_package_title">Terminal app package name</string>
     <string name="enable_expand_notifications_title">Enable Modifier+N to open notifications</string>
     <string name="enable_ctrl_back_title">Enable right Ctrl to act as back button</string>
     <string name="enable_f10_title">Toggle split screen by pressing F10</string>
@@ -40,8 +38,6 @@
     <string name="hot_corners_delay_title">Hot corners activation delay in ms</string>
 
     <string name="a_launcher_for_android_x86_by_">A launcher for Android x86 by Axel358</string>
-    <string name="special_thanks_to">Special thanks to</string>
-    <string name="k_s_maan_nblisslabs_project">K S Maan \nBlissLabs project</string>
     <string name="help">Help</string>
     <string name="smart_dock_its_free_and_open_">Smart Dock it\'s free and open source. Contribute on GitHub</string>
     <string name="github">GitHub</string>
@@ -75,8 +71,6 @@
     <string name="theme_title">Dock theme</string>
     <string name="theme_main_color_summary">Defines main color for item backgrounds</string>
     <string name="theme_main_color_title">Main color</string>
-    <string name="theme_secondary_color_summary">Defines secondary color for item backgrounds</string>
-    <string name="theme_secondary_color_title">Secondary color</string>
     <string name="icon_shape_dialogTitle">Icon Shape</string>
     <string name="icon_shape_title">Icon Shape</string>
     <string name="icon_padding_summary">Defines the amount of whitespace between the icon and it\'s border</string>
@@ -101,8 +95,6 @@
     <string name="remember_launch_mode_summary">Remember last launch mode used for every app</string>
     <string name="launch_games_fullscreen_title">Launch games in full screen</string>
     <string name="launch_games_fullscreen_summary">Launch apps detected as games in full screen by default</string>
-    <string name="lock_landscape_title">Launch full screen apps in landscpape</string>
-    <string name="lock_landscape_summary">Some full screen apps might try to force screen orientation to portrait. Use this to prevent such behaviour</string>
     <string name="fine_tune">Fine tune</string>
     <string name="app_menu_x_title">App menu x translation</string>
     <string name="app_menu_y_title">App menu y translation</string>
@@ -172,6 +164,8 @@
     <string name="allow_app_freeze_summary">You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps</string>
     <string name="hide_nav_buttons_summary">Hides Android software navigation buttons. Needs reboot</string>
     <string name="hide_nav_buttons_title">Hide navigation buttons</string>
+    <string name="override_sb_height">Override status bar height</string>
+    <string name="icon_blacklist">Icon blacklist</string>
     <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
     <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot Android</string>
     <string name="move_to_system_summary">Move Smart Dock as a system app. Android will restart</string>
@@ -270,6 +264,7 @@
     <string name="select_icon_pack">Select icon pack</string>
     <string name="enable_open_assist_title">Enable Modifier+A to launch your default assistant app</string>
     <string name="enable_open_rec_title">Enable Modifier+R to launch your default screen recorder app</string>
+   
     <string name="app_browser_title">Web browser</string>
     <string name="app_files_title">Files</string>
     <string name="app_music_title">Music</string>
@@ -278,6 +273,9 @@
     <string name="app_clock_title">Clock</string>
     <string name="app_terminal_title">Terminal</string>
     <string name="app_rec_title">Screen recorder</string>
+    <string name="choose_app">Choose an app</string>
+    <string name="tap_to_set">Tap to set</string>
+    
     <string name="apps">Apps</string>
     <string name="enable_menu_recents_title">Enable Menu key to show recents</string>
     <string name="general">General</string>
