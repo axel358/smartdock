@@ -32,7 +32,7 @@
 		<string name="app_menu">App Menu📱</string>
 		<string name="dock">Dock📏</string>
 		<string name="desktop">Desktop🖥️</string>
-		<string name="default_apps">Default apps🔝</string>
+		<string name="default_apps">Default apps⭐️</string>
 		<string name="keyboard">Keyboard⌨️</string>
 		<string name="hot_corners">Hot Corners📐</string>
 		<string name="notifications">Notifications🔔</string>
@@ -140,7 +140,7 @@
 		<!-- desktop🖥️; -->
 			<string name="show_notes_title">Show notes widget📝</string>
 
-		<!-- default_apps🔝; -->
+		<!-- default_apps⭐️; -->
 			<string name="app_browser_title">Web browser🌐</string>
 				<string name="tap_to_set">🖱️Tap to set🖱️</string>
 					<string name="choose_app">Choose an app</string>
