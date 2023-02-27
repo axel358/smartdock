@@ -142,29 +142,29 @@
 
 		<!-- default_apps; 默认应用🔝 -->
 			<string name="app_browser_title">网页浏览器🌐</string>
-				<!-- Tap to set -->
-					<!-- Choose an app -->
+				<string name="tap_to_set">🖱️点击设置🖱️</string>
+					<string name="choose_app">选择一个 App</string>
 			<string name="app_files_title">文件管理器🗂️</string>
-				<!-- Tap to set -->
-					<!-- Choose an app -->
+				<!-- 🖱️点击设置🖱️ -->
+					<!-- 选择一个 App -->
 			<string name="app_music_title">音频播放器🎵</string>
-				<!-- Tap to set -->
-					<!-- Choose an app -->
+				<!-- 🖱️点击设置🖱️ -->
+					<!-- 选择一个 App -->
 			<string name="app_movies_title">视频播放器🎬️</string>
-				<!-- Tap to set -->
-					<!-- Choose an app -->
+				<!-- 🖱️点击设置🖱️ -->
+					<!-- 选择一个 App -->
 			<string name="app_assistant_title">语音小助手🎙️</string>
-				<!-- Tap to set -->
-					<!-- Choose an app -->
+				<!-- 🖱️点击设置🖱️ -->
+					<!-- 选择一个 App -->
 			<string name="app_clock_title">时间与闹钟⏰</string>
-				<!-- Tap to set -->
-					<!-- Choose an app -->
+				<!-- 🖱️点击设置🖱️ -->
+					<!-- 选择一个 App -->
 			<string name="app_terminal_title">终端模拟器#️</string>
-				<!-- Tap to set -->
-					<!-- Choose an app -->
+				<!-- 🖱️点击设置🖱️ -->
+					<!-- 选择一个 App -->
 			<string name="app_rec_title">屏幕录制器📹️</string>
-				<!-- Tap to set -->
-					<!-- Choose an app -->
+				<!-- 🖱️点击设置🖱️ -->
+					<!-- 选择一个 App -->
 
 		<!-- keyboard; 键盘快捷键⌨️ -->
 			<string name="shortcut_key_title">设置⌨️快捷键用到的修饰键</string>
@@ -230,6 +230,7 @@
 				<string name="save">保存💾</string>
 			<string name="custom_display_size_title">显示尺寸</string>
 				<string name="custom_display_size_summary">允许您微调屏幕元素的显示大小；要求🔄重新启动</string>
+					<string name="custom_display_size_hint">默认为空</string>
 			<string name="scale_factor_title">标准窗口🪟比例系数</string>
 				<string name="scale_factor_summary">自定义🪟标准窗口的大小</string>
 			<string name="allow_broadcasts_title">允许 Apps 向通知面板📢发送广播</string>
@@ -246,12 +247,18 @@
 					<!-- 第61行；好的👌 -->
 				<string name="hide_status_bar_title">隐藏🪄状态栏</string>
 					<string name="hide_status_bar_summary">隐藏🪄安卓状态栏；要求🔄软重启</string>
-					<!-- 第243行；要求🔄重新启动 -->
-					<!-- 第244行；🔄 -->
+					<!-- 第244行；要求🔄重新启动 -->
+					<!-- 第245行；🔄 -->
 					<!-- 第60行；取消❌ -->
 					<!-- 第61行；好的👌 -->
-				<!-- Override status bar height -->
-				<!-- Icon blacklist -->
+				<string name="override_sb_height">自定义状态栏高度</string>
+					<!-- Use a custtom status bar height when calculating maximized window size -->
+				<string name="icon_blacklist">图标黑名单</string>
+					<!-- Icons to hide from the status bar -->
+						<!-- Blacklisted icons -->
+						<!-- null -->
+						<!-- 第60行；取消❌ -->
+						<!-- 第230行；保存💾 -->
 				<string name="enable_soft_reboot_title">使用「修饰键+F12」软重启🔄安卓系统</string>
 					<string name="enable_soft_reboot_summary">系统可能有一段时间没有响应</string>
 				<string name="move_to_system_title">转化成系统应用</string>
@@ -338,22 +345,9 @@
 		<string name="tablet_mode_off">已关闭平板模式</string>
 
 	<!-- Unknown; 未知的 -->
-		<string name="theme_secondary_color_title">设置🖍️辅助颜色</string>
-		<string name="theme_secondary_color_summary">自定义🖍️项目背景的辅助颜色</string>
-
-		<string name="lock_landscape_title">以横屏模式💻显示全屏的 Apps</string>
-		<string name="lock_landscape_summary">某些全屏启动的 Apps 可能会强制📱以竖屏模式显示；使用此选项可以防止该行为</string>
-
-		<string name="terminal_package_hint">com.termux</string>
-		<string name="terminal_package_title">终端模拟器#️的App_包名称🆔</string>
-
-		<string name="special_thanks_to">特别感谢🎉</string>
-		<string name="k_s_maan_nblisslabs_project">K S Maan \nBliss Labs project</string>
-
 		<string name="user">用户</string>
 		<string name="lets_start">让我们开始吧</string>
-		<string name="custom_display_size_hint">默认为空</string>
-
+		
 		<string name="copied_to_clipboard">已复制到剪贴板📋️</string>
 		<string name="search_for">搜索🔍️</string>
 		<string name="on_google">使用 Google</string>
