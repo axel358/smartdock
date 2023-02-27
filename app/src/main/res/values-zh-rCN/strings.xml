@@ -32,7 +32,7 @@
 		<string name="app_menu">启动器📱</string>
 		<string name="dock">任务栏📏</string>
 		<string name="desktop">桌面🖥️</string>
-		<string name="default_apps">默认应用🔝</string>
+		<string name="default_apps">默认应用⭐️</string>
 		<string name="keyboard">键盘快捷键⌨️</string>
 		<string name="hot_corners">边角热区📐</string>
 		<string name="notifications">通知🔔</string>
@@ -140,7 +140,7 @@
 		<!-- desktop; 桌面🖥️ -->
 			<string name="show_notes_title">显示备注小部件📝</string>
 
-		<!-- default_apps; 默认应用🔝 -->
+		<!-- default_apps; 默认应用⭐️ -->
 			<string name="app_browser_title">网页浏览器🌐</string>
 				<string name="tap_to_set">🖱️点击设置🖱️</string>
 					<string name="choose_app">选择一个 App</string>
