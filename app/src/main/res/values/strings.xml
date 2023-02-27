@@ -208,7 +208,7 @@
 					<string name="blocked_notifications_hint">android</string>
 			<string name="long_press_a_notification_to_a">Long press a notification to add it to the ignored list</string>
 
-		<!-- sounds🔊; -->
+		<!-- sounds; -->
 			<string name="please_note_that_you_must_prov">Please note that you must provide your own sounds</string>
 			<string name="enable_startup_sound_title">Play a custom sound at Dock startup*</string>
 			<string name="startup_sound_title">Choose startup sound</string>
@@ -221,12 +221,12 @@
 			<string name="enable_charge_complete_sound_title">Play a custom sound when the device has completed charging*</string>
 			<string name="charge_complete_sound_title">Choose charge complete sound</string>
 
-		<!-- advanced🔬; -->
+		<!-- advanced; -->
 			<string name="these_settings_are_intended_fo">These settings are intended for advanced users. Only change them if you know what you are doing</string>
 			<string name="run_autostart_title">Run autostart script</string>
 			<string name="edit_autostart_title">Edit autostart script</string>
 				<string name="edit_autostart">Edit autostart</string>
-				<!-- Line 60; Cancel❌ -->
+				<!-- Line 60; Cancel -->
 				<string name="save">Save</string>
 			<string name="custom_display_size_title">Display size</string>
 				<string name="custom_display_size_summary">Allows you to fine tune the display size of screen elements. Needs reboot</string>
