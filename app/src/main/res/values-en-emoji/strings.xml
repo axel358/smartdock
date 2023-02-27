@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="manage_permissions">Manage🕹️ permissions</string>
+		<string name="these_permissions_are_needed_f">These permissions are needed for the app to work</string>
+		<!-- Upper part; -->
+			<string name="display_over_other_apps">Display over other apps🔝</string>
+				<string name="required_to_display_the_dock_">Required to display the Dock, you cannot start the service without this</string>
+			<string name="accessibility_service">Accessibility service🦮</string>
+				<string name="use_this_to_start_and_stop_the">Use this to start and stop the Dock. Requires the above permission</string>
+			<string name="usage_stats">Usage stats📊</string>
+				<string name="allows_to_show_recent_apps_on_">Allows to show recent apps on devices where Smart Dock can\'t be installed as a system app</string>
+		<string name="these_permissions_are_needed_b">These permissions are needed by some features</string>
+		<!-- Lower part; -->
+			<string name="device_administrator">Device administrator🕹️</string>
+				<string name="used_to_lock_the_screen">Used to lock the screen</string>
+			<string name="storage">Storage🖴</string>
+				<string name="used_to_change_the_menu_icon_a">Used to change the menu icon and event sounds</string>
+			<string name="location">Location📍</string>
+				<string name="used_to_retrieve_wifi_info_on_">Used to retrieve 🛜WLAN info🛜 on Android 8+</string>
+			<string name="notification_access">Notification access🔔</string>
+				<string name="used_to_display_notifications">Used to display notifications</string>
+			<string name="root_access">Root access👨‍💻</string>
+				<string name="used_to_perform_some_keyboard_">Used to perform some keyboard shortcuts and other features</string>
+		<!-- Right switches; -->
+			<string name="manage">Manage...🔧</string>
+			<string name="grant">Grant🆗</string>
+			<string name="granted">🆗Granted</string>
+
+	<!-- Primary Menu; -->
+		<string name="appearance">Appearance🖌️</string>
+		<string name="app_menu">App Menu📱</string>
+		<string name="dock">Dock📏</string>
+		<string name="desktop">Desktop🖥️</string>
+		<string name="default_apps">Default apps⭐️</string>
+		<string name="keyboard">Keyboard⌨️</string>
+		<string name="hot_corners">Hot Corners📐</string>
+		<string name="notifications">Notifications🔔</string>
+		<string name="sounds">Sounds🔊</string>
+		<string name="advanced">Advanced🔬</string>
+		<string name="help_and_about">Help and aboutℹ️</string>
+
+	<!-- Secondary Menu; -->
+
+		<!-- appearance🖌️; -->
+			<string name="look_and_feel">🎨Look and feel👀</string>
+				<string name="theme_title">Dock theme🖼️</string>
+					<string name="theme_dialogTitle">Theme🎨</string>
+					<string name="dark">Dark</string>
+					<string name="black">Black</string>
+					<string name="transparent">Transparent</string>
+					<string name="material_u">Material You</string>
+					<string name="custom">Custom</string>
+				<string name="theme_main_color_title">Main color🖌️</string>
+					<string name="theme_main_color_summary">Defines main color🖌️ for item backgrounds</string>
+					<!-- Line 53; Custom -->
+					<string name="presets">Presets</string>
+					<string name="wallpaper">Wallpaper</string>
+					<string name="transparency">Transparency</string>
+					<string name="cancel">Cancel❌</string>
+					<string name="ok">OK👌</string>
+				<string name="icon_pack">Icon pack</string>
+					<string name="select_icon_pack">Select icon pack</string>
+					<string name="system">System⚙️</string>
+				<string name="icon_shape_title">Icon Shape</string>
+					<string name="icon_shape_dialogTitle">Icon Shape</string>
+					<string name="circle">Circle🔵</string>
+					<string name="squircle">Squircle🟦</string>
+					<!-- Line 64；System⚙️ -->
+				<string name="icon_padding_title">Icon padding</string>
+					<string name="icon_padding_summary">Defines the amount🚧 of whitespace between the icon and it\'s border</string>
+				<string name="dock_square_title">Disable rounded corners for the dock</string>
+				<string name="tint_indicators_title">Tint running indicators</string>
+				<string name="custom_animation_title">App launch animation</string>
+					<string name="custom_animation_dialogTitle">Animation</string>
+					<!-- Line 64；System⚙️ -->
+					<string name="fade">Fade🪽</string>
+					<string name="slide_up">Slide up⬆️</string>
+					<string name="slide_left">Slide left⬅️</string>
+					<string name="none">None❌</string>
+
+		<!-- app_menu📱; -->
+			<string name="menu">Menu</string>
+				<string name="menu_icon_uri_title">Select menu icon</string>
+				<string name="restore_menu_icon_title">Restore default menu icon</string>
+				<string name="enable_app_menu_title">Toggle App Menu ⌨️with modifier key</string>
+				<string name="menu_key_title">Menu ⌨️modifier key</string>
+					<string name="menu_key_dialogTitle">Menu ⌨️modifier key</string>
+					<!-- Alt -->
+					<!-- Ctrl -->
+					<!-- Meta -->
+				<string name="app_menu_fullscreen_title">Open App Menu in full screen</string>
+				<string name="app_menu_height_title">App menu ↕️height</string>
+				<string name="app_menu_width_title">App menu ↔️width</string>
+				<string name="num_columns_title">Number of columns</string>
+				<string name="enable_power_menu_title">Use built-in 📴power menu</string>
+					<string name="enable_power_menu_summary">Use a built-in 📴power menu instead of the system one</string>
+			<string name="app_launch">App launch</string>
+				<string name="launch_mode_title">Default 🪟app launch mode</string>
+					<string name="launch_mode_dialogTitle">launch mode🪟</string>
+					<string name="standard">Standard🗖</string>
+					<string name="maximized">Maximized🖥️</string>
+					<string name="portrait">Portrait📲</string>
+					<string name="fullscreen">Fullscreen💻️</string>
+				<string name="remember_launch_mode_title">Remember 🪟launch mode</string>
+					<string name="remember_launch_mode_summary">Remember last 🪟launch mode used for every app</string>
+				<string name="launch_games_fullscreen_title">Launch games🎮️ in full screen💻</string>
+					<string name="launch_games_fullscreen_summary">Launch apps detected as games🎮️ in full screen💻 by default</string>
+			<string name="fine_tune">Fine tune🔩</string>
+				<string name="app_menu_x_title">App menu ➡️x translation</string>
+				<string name="app_menu_y_title">App menu ⬇️y translation</string>
+
+		<!-- dock📏; -->
+			<string name="navigation">Navigation🚢</string>
+				<string name="enable_nav_back_title">Enable 🔙back button</string>
+				<string name="enable_nav_home_title">Enable 🏠️home button</string>
+				<string name="enable_nav_recents_title">Enable 📃recents button</string>
+				<string name="enable_nav_assist_title">Enable 🎙️assistant button</string>
+			<string name="quick_settings">Quick settings🎛️</string>
+				<string name="enable_qs_bluetooth_title">Enable 🟦bluetooth button🦷</string>
+				<string name="enable_qs_battery_title">Enable 🔋battery button</string>
+				<string name="enable_qs_wifi_title">Enable 🛜WLAN button</string>
+				<string name="enable_qs_vol_title">Enable 🔊volume button</string>
+				<string name="enable_qs_date_title">Enable ⏰clock</string>
+				<string name="enable_qs_pin_title">Enable 📌pin button</string>
+					<string name="enable_qs_pin_summary">You can still pin/unpin📌 the Dock by long pressing it or using the keyboard shortcut⌨️</string>
+				<string name="enable_wifi_panel_title">Enable 🛜WLAN panel</string>
+					<string name="enable_wifi_panel_summary">Enables built-in 🛜WLAN panel. This requires 📍location access</string>
+			<string name="behaviour">Behaviour🦾</string>
+				<string name="pin_dock_title">Pin📌 the dock on startup</string>
+					<string name="pin_dock_summary">Useful when working with other launchers</string>
+				<string name="auto_pin_title">Auto pin📌</string>
+					<string name="auto_pin_summary">Automatically pin📌 the Dock when switching to windowed apps</string>
+				<string name="dock_hide_delay_title">Dock ⏳️hide delay in ms</string>
+				<string name="running_apps_number_title">Number of running/recent apps to show</string>
+					<string name="running_apps_number_summary">This setting can help devices with smaller screens avoid app overflow on the Dock</string>
+				<string name="center_running_apps_title">Center running apps</string>
+				<string name="dock_activation_area_title">Dock activation area</string>
+
+		<!-- desktop🖥️; -->
+			<string name="show_notes_title">Show notes widget📝</string>
+
+		<!-- default_apps⭐️; -->
+			<string name="app_browser_title">Web browser🌐</string>
+				<string name="tap_to_set">🖱️Tap to set🖱️</string>
+					<string name="choose_app">Choose an app</string>
+			<string name="app_files_title">Files🗂️</string>
+				<!-- 🖱️Tap to set🖱️ -->
+					<!-- Choose an app -->
+			<string name="app_music_title">Music🎵</string>
+				<!-- 🖱️Tap to set🖱️ -->
+					<!-- Choose an app -->
+			<string name="app_movies_title">Movies🎬️</string>
+				<!-- 🖱️Tap to set🖱️ -->
+					<!-- Choose an app -->
+			<string name="app_assistant_title">Assistant🎙️</string>
+				<!-- 🖱️Tap to set🖱️ -->
+					<!-- Choose an app -->
+			<string name="app_clock_title">Clock⏰</string>
+				<!-- 🖱️Tap to set🖱️ -->
+					<!-- Choose an app -->
+			<string name="app_terminal_title">Terminal#️</string>
+				<!-- 🖱️Tap to set🖱️ -->
+					<!-- Choose an app -->
+			<string name="app_rec_title">Screen recorder📹️</string>
+				<!-- 🖱️Tap to set🖱️ -->
+					<!-- Choose an app -->
+
+		<!-- keyboard⌨️; -->
+			<string name="shortcut_key_title">Shortcut modifier key⌨️</string>
+				<string name="shortcut_key_dialogTitle">Shortcut modifier key⌨️</string>
+					<!-- Alt -->
+					<!-- Ctrl -->
+					<!-- Meta -->
+				<string name="general">General</string>
+					<string name="enable_lock_desktop_title">Enable Modifier+L 🔒️to lock the desktop(requires 🕹️Device Admin permission)</string>
+					<string name="enable_take_screenshot_title">Enable Modifier+K ✃to take a screenshot</string>
+					<string name="enable_open_settings_title">Enable Modifier+P ⚙️to open settings</string>
+					<string name="enable_toggle_pin_title">Enable Modifier+W 📌to pin/unpin the dock</string>
+					<string name="enable_expand_notifications_title">Enable Modifier+N 🔔to open notifications</string>
+					<string name="enable_f10_title">Toggle 🪛split screen by pressing F10</string>
+				<string name="apps">Apps</string>
+					<string name="enable_open_music_title">Enable Modifier+M 🎵to open you default music app</string>
+					<string name="enable_open_browser_title">Enable Modifier+B 🌐to open your default browser</string>
+					<string name="enable_open_assist_title">Enable Modifier+A 🎙️to launch your default assistant app</string>
+					<string name="enable_open_terminal_title">Enable Modifier+T #️to open terminal</string>
+					<string name="enable_open_rec_title">Enable Modifier+R 📹️to launch your default screen recorder app</string>
+				<!-- Line 114; Navigation -->
+					<string name="enable_menu_recents_title">Enable Menu key 📃to show recents</string>
+					<string name="enable_ctrl_back_title">Enable right Ctrl 🔙to act as back button</string>
+
+		<!-- hot_corners📐; -->
+			<string name="enable_corner_top_right_title">Enable ↗️top right corner</string>
+				<string name="enable_corner_top_right_summary">Place the mouse on the top right corner of the screen 📃to show recents</string>
+			<string name="enable_corner_bottom_right_title">Enable ↘️bottom right corner</string>
+				<string name="enable_corner_bottom_right_summary">Place the mouse on the bottom right corner of the screen 🔒️to lock the screen</string>
+			<string name="hot_corners_delay_title">Hot corners ⏳️activation delay in ms</string>
+
+		<!-- notifications🔔; -->
+			<string name="manage_service">Manage🕹️ notification service</string>
+			<string name="notification_timeout_title">Notification ⏳️display time in ms</string>
+			<string name="show_ongoing_title">Show 🔔ongoing notifications (buggy)</string>
+			<string name="show_current_title">Hide 🪄notifications for the current app</string>
+			<string name="notification_bottom_title">Show notifications at the bottom(needs re enabling the service atm)</string>
+			<string name="enable_notif_panel_title">Enable 🔔notification panel</string>
+			<string name="blocked_notifications_title">Ignored notifications</string>
+				<string name="blocked_notifications_summary">List of space separated package names to ignore notifications from</string>
+					<string name="blocked_notifications_hint">android</string>
+			<string name="long_press_a_notification_to_a">Long press a notification to add it to the ignored list</string>
+
+		<!-- sounds🔊; -->
+			<string name="please_note_that_you_must_prov">Please note that you must provide 🎶your own sounds❗</string>
+			<string name="enable_startup_sound_title">🕪Play a custom sound 🖥️at Dock startup*</string>
+			<string name="startup_sound_title">Choose 🖥️startup sound🕪</string>
+			<string name="enable_usb_sound_title">🕪Play a custom sound ⏏️when connecting usb devices</string>
+			<string name="usb_sound_title">Choose ⏏️usb sound🕪</string>
+			<string name="enable_notification_sound_title">🕪Play a custom sound 🔔when showing notifications</string>
+			<string name="notification_sound_title">Choose 🔔notification sound🕪</string>
+			<string name="enable_charge_sound_title">🕪Play a custom sound 🔌when pluging into a power source</string>
+			<string name="charge_sound_title">Choose 🔌charge sound🕪</string>
+			<string name="enable_charge_complete_sound_title">🕪Play a custom sound 🔋when the device has completed charging*🔋</string>
+			<string name="charge_complete_sound_title">Choose 🔋charge complete sound🕪</string>
+
+		<!-- advanced🔬; -->
+			<string name="these_settings_are_intended_fo">These settings are intended for advanced users. Only change them if you know what you are doing</string>
+			<string name="run_autostart_title">Run 📄autostart script</string>
+			<string name="edit_autostart_title">Edit ✍️autostart script</string>
+				<string name="edit_autostart">Edit 📝autostart</string>
+				<!-- Line 60; Cancel❌ -->
+				<string name="save">Save💾</string>
+			<string name="custom_display_size_title">Display size</string>
+				<string name="custom_display_size_summary">Allows you to fine tune the display size of screen elements. Needs 🔄reboot</string>
+					<string name="custom_display_size_hint">leave blank for default</string>
+			<string name="scale_factor_title">Standard window 🪟scale factor</string>
+				<string name="scale_factor_summary">Defines 🪟how big standard windows are</string>
+			<string name="allow_broadcasts_title">Allow apps to send broadcasts📢 to the Dock</string>
+				<string name="allow_broadcasts_summary">Expose feautures to apps such as toggling the app drawer using broadcasts. Needs 🔄reboot</string>
+			<string name="allow_app_freeze_title">Show an option to disable🚫 apps from the app context menu</string>
+				<string name="allow_app_freeze_summary">You will need an external tool such as Ice Box ❄️(or running pm enable [pkgname]) to re-enable apps</string>
+			<string name="allow_sysapp_uninstall_title">Allow 🗑️uninstalling system apps</string>
+				<string name="allow_sysapp_uninstall_summary">Please be careful, this can be really dangerous❗️</string>
+			<string name="hide_nav_buttons_title">Hide navigation buttons</string>
+				<string name="hide_nav_buttons_summary">Hides Android software navigation buttons. Needs 🔄reboot</string>
+					<string name="reboot_required_title">Reboot🔄 required</string>
+					<string name="reboot_required_text">A reboot is required for changes to take effect. Do you want to 🔄reboot now?</string>
+					<!-- Line 60; Cancel❌ -->
+					<!-- Line 61; OK👌 -->
+				<string name="hide_status_bar_title">Hide status bar</string>
+					<string name="hide_status_bar_summary">Hides Android status bar. Needs soft reboot</string>
+					<!-- Line 243; Reboot🔄 required -->
+					<!-- Line 244； 🔄-->
+					<!-- Line 60; Cancel❌ -->
+					<!-- Line 61; OK👌 -->
+				<string name="override_sb_height">Override status bar height</string>
+					<!-- Use a custtom status bar height when calculating maximized window size -->
+				<string name="icon_blacklist">Icon blacklist</string>
+					<!-- Icons to hide from the status bar -->
+						<!-- Blacklisted icons -->
+						<!-- null -->
+						<!-- Line 60; Cancel❌ -->
+						<!-- Line 230; Save💾 -->
+				<string name="enable_soft_reboot_title">Use Modifier+F12 🔄to soft reboot Android</string>
+					<string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
+				<string name="move_to_system_title">Move as system app</string>
+					<string name="move_to_system_summary">Move Smart Dock as a system app. Android will 🔄restart</string>
+				<string name="soft_reboot_title">Soft reboot now</string>
+					<string name="soft_reboot_summary">Soft 🔄reboot now. You will lose all unsaved work</string>
+
+		<!-- help_and_aboutℹ️; -->
+			<string name="app_name">Smart Dock💙</string>
+				<string name="a_launcher_for_android_x86_by_">A launcher for Android x86 by Axel358🪛</string>
+			<string name="contributors">Contributors👨‍💻</string>
+				<string name="tap_to_see_the_list_of_great_p">Tap to see the list of great people👨‍💻 that has contributed to Smart Dock</string>
+			<string name="help">Help🫱🏻‍🫲🏿</string>
+				<string name="show_help_summary">🖱️Tap for help🫱🏻‍🫲🏿</string>
+					<string name="app_help">
+						The application should be installed as a system app in order to obtain the right permissions.
+						Without this functionallity will be limited.
+						\n
+						\nYou should also 🪄hide the 🚢Android navigation buttons. For more info on how to do this check the full help on GitHub
+						\n
+						\nThe app uses an accessibility service🦮 to capture keyboard input, if that service is crashed you might need to re-enable it and/or 🔄restart the system.
+						\n
+					</string>
+					<string name="more_help">More help🫱🏻‍🫲🏿</string>
+					<!-- Line 61; OK👌 -->
+				<string name="github">GitHub</string>
+					<string name="smart_dock_its_free_and_open_">Smart Dock💙 it\'s free🆓 and open source📖. Contribute on GitHub🪪</string>
+				<string name="join_telegram_title">📄✈️Telegram group🗫</string>
+					<string name="join_telegram_summary">Got any questions⁉️ Join the Telegram 🗫support group🗨️</string>
+				<string name="license">License📑</string>
+					<string name="gnu_general_public_licence_v3">GNU General Public Licence v3.0</string>
+				<string name="options_marked_with__are_expe">Options marked with * are experimental and may cause trouble. If you experience crashes disable them‼️</string>
+
+	<!-- Into Settings, Accessibility Service Description; -->
+		<string name="accessibility_service_description">Allows to perform actions such as Back🔙</string>
+
+	<!-- Long press a App_icon; -->
+		<!-- Line 26; Manage...🔧 -->
+			<string name="app_info">App Infoℹ️</string>
+			<string name="uninstall">Uninstall🗑️</string>
+			<string name="freeze">Freeze🧊</string>
+				<string name="app_frozen">App 🧊frozen</string>
+				<string name="something_wrong">Something went wrong⁉️</string>
+		<string name="open_in">Open in...📂</string>
+			<!-- Line 101; Standard🗖 -->
+			<!-- Line 102; Maximized🖥️ -->
+			<!-- Line 103; Portrait📲 -->
+			<!-- Line 104; Fullscreen💻️ -->
+		<string name="to_favorites">To favorites❤️</string>
+			<string name="remove">Remove💔</string>
+		<string name="to_desktop">To desktop🖥️</string>
+
+	<!-- Search box; -->
+		<string name="search">🔎Search...</string>
+
+	<!-- Built in power menu; -->
+		<string name="power_off">Power off</string>
+		<string name="restart">Restart</string>
+		<string name="soft_restart">Soft restart</string>
+		<string name="screenshot">Screenshot</string>
+
+	<!-- After clicking user profile picture from App_menu; -->
+		<string name="users">Users👨‍👨‍👧‍👦</string>
+		<string name="files">Files🗂️</string>
+		<string name="settings">Settings⚙️</string>
+		<string name="dock_settings">Dock Settings💙</string>
+
+	<!-- Dock; -->
+		<string name="pin">Pin📌</string>
+		<string name="unpin">Unpin🪒</string>
+		<string name="move">Move</string>
+
+	<!-- Notification Panel; -->
+		<string name="clear_all">Clear all🧹</string>
+
+	<!-- WLAN panel; -->
+		<string name="wifi">WLAN🛜</string>
+		<string name="not_connected">Not connected</string>
+		<string name="select_network">Select network</string>
+
+	<!-- Android Toast; -->
+		<string name="start_message">Smart Dock started</string>
+		<string name="tablet_mode_on">Tablet mode on</string>
+		<string name="tablet_mode_off">Tablet mode off</string>
+
+	<!-- Unknown; -->
+		<string name="user">User</string>
+		<string name="lets_start">Let\'s start</string>
+
+		<string name="copied_to_clipboard">Copied to clipboard📋</string>
+		<string name="search_for">Search for🔍</string>
+		<string name="on_google">on Google</string>
+
+		<string name="save_log">Save log💾</string>
+		<string name="open_again">Open app again</string>
+
+		<string name="choose_color">Choose color🎨</string>
+		<string name="invalid_color">Invalid color</string>
+		<string name="silenced_notifications">Silenced notifications🔈️ for this app</string>
+
+		<string name="shortcuts">🔗Shortcuts...</string>
+
+		<string name="change_wallpaper">Change wallpaper</string>
+		<string name="display_settings">Display settings</string>
+
+		<string name="lock">Lock🔒️</string>
+
+</resources>
