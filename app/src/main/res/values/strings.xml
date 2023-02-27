@@ -90,20 +90,20 @@
 					<!-- Ctrl -->
 					<!-- Meta -->
 				<string name="app_menu_fullscreen_title">Open App Menu in full screen</string>
-				<string name="app_menu_height_title">App menu ↕️height</string>
-				<string name="app_menu_width_title">App menu ↔️width</string>
+				<string name="app_menu_height_title">App menu height</string>
+				<string name="app_menu_width_title">App menu width</string>
 				<string name="num_columns_title">Number of columns</string>
 				<string name="enable_power_menu_title">Use built-in power menu</string>
 					<string name="enable_power_menu_summary">Use a built-in power menu instead of the system one</string>
 			<string name="app_launch">App launch</string>
-				<string name="launch_mode_title">Default 🪟app launch mode</string>
-					<string name="launch_mode_dialogTitle">launch mode🪟</string>
+				<string name="launch_mode_title">Default app launch mode</string>
+					<string name="launch_mode_dialogTitle">launch mode</string>
 					<string name="standard">Standard</string>
 					<string name="maximized">Maximized</string>
 					<string name="portrait">Portrait</string>
 					<string name="fullscreen">Fullscreen</string>
-				<string name="remember_launch_mode_title">Remember 🪟launch mode</string>
-					<string name="remember_launch_mode_summary">Remember last 🪟launch mode used for every app</string>
+				<string name="remember_launch_mode_title">Remember launch mode</string>
+					<string name="remember_launch_mode_summary">Remember last launch mode used for every app</string>
 				<string name="launch_games_fullscreen_title">Launch games in full screen</string>
 					<string name="launch_games_fullscreen_summary">Launch apps detected as games in full screen by default</string>
 			<string name="fine_tune">Fine tune</string>
@@ -124,7 +124,7 @@
 				<string name="enable_qs_date_title">Enable clock</string>
 				<string name="enable_qs_pin_title">Enable pin button</string>
 					<string name="enable_qs_pin_summary">You can still pin/unpin the Dock by long pressing it or using the keyboard shortcut</string>
-				<string name="enable_wifi_panel_title">Enable 🛜WLAN panel</string>
+				<string name="enable_wifi_panel_title">Enable WLAN panel</string>
 					<string name="enable_wifi_panel_summary">Enables built-in WLAN panel. This requires location access</string>
 			<string name="behaviour">Behaviour</string>
 				<string name="pin_dock_title">Pin the dock on startup</string>
@@ -178,7 +178,7 @@
 					<string name="enable_open_settings_title">Enable Modifier+P to open settings</string>
 					<string name="enable_toggle_pin_title">Enable Modifier+W to pin/unpin the dock</string>
 					<string name="enable_expand_notifications_title">Enable Modifier+N to open notifications</string>
-					<string name="enable_f10_title">Toggle 🪛split screen by pressing F10</string>
+					<string name="enable_f10_title">Toggle split screen by pressing F10</string>
 				<string name="apps">Apps</string>
 					<string name="enable_open_music_title">Enable Modifier+M to open you default music app</string>
 					<string name="enable_open_browser_title">Enable Modifier+B to open your default browser</string>
@@ -287,7 +287,7 @@
 				<string name="github">GitHub</string>
 					<string name="smart_dock_its_free_and_open_">Smart Dock it\'s free and open source. Contribute on GitHub🪪</string>
 				<string name="join_telegram_title">Telegram group</string>
-					<string name="join_telegram_summary">Got any questions⁉️ Join the Telegram support group</string>
+					<string name="join_telegram_summary">Got any questions Join the Telegram support group</string>
 				<string name="license">License</string>
 					<string name="gnu_general_public_licence_v3">GNU General Public Licence v3.0</string>
 				<string name="options_marked_with__are_expe">Options marked with * are experimental and may cause trouble. If you experience crashes disable them</string>
