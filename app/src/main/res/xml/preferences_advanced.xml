@@ -49,14 +49,14 @@
         android:summary="@string/hide_status_bar_summary"
         android:defaultValue="false" />
     <EditTextPreference
-        android:title="Override status bar height"
+        android:title="@string/override_sb_height"
         android:key="status_bar_height"
         android:inputType="number"
         android:summary="Use a custom status bar height when calculating maximized window size"/>
     <Preference
         android:key="status_icon_blacklist"
         android:summary="Icons to hide from the status bar"
-        android:title="Icon blacklist"/>
+        android:title="@string/icon_blacklist"/>
     
     <CheckBoxPreference
         android:summary="@string/enable_soft_reboot_summary"

@@ -79,6 +79,7 @@
 			</intent-filter>
 		</receiver>
     <activity android:name=".SecondaryLauncherActivity"/>
+<service android:name=".ElevatedService"/>
 </application>
 
 </manifest>

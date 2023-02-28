@@ -23,5 +23,6 @@ android {
 }
 
 dependencies {
+	   //api project(':app:src:hidden-api')
 	   implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

@@ -43,13 +43,13 @@ public class AppChooserPreference extends Preference {
         this.context = context;
         sp = PreferenceManager.getDefaultSharedPreferences(context);
         String packageName = sp.getString(getKey(), "");
-        setSummary(packageName.isEmpty() ? "Tap to set" : AppUtils.getPackageLabel(context, packageName));
+        setSummary(packageName.isEmpty() ? context.getString(R.string.tap_to_set) : AppUtils.getPackageLabel(context, packageName));
     }
 
     @Override
     protected void onClick() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        dialog.setTitle("Choose an app");
+        dialog.setTitle(R.string.choose_app);
         final ArrayList<App> apps = AppUtils.getInstalledApps(context.getPackageManager());
         dialog.setAdapter(new AppAdapter(context, apps), new DialogInterface.OnClickListener(){
 
