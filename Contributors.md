@@ -2,7 +2,7 @@
 
 - [utzcoz](https://github.com/utzcoz)
 
-- [Jose Ricardo](https://github.com/josericardo03)
+- [Jose Ricardo](https://github.com/jr20xx)
 
 - [Jon West](https://github.com/electrikjesus)
 
