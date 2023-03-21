@@ -111,7 +111,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private WindowManager wm;
 	private View appsSeparator;
 	private boolean appMenuVisible, powerMenuVisible, isPinned, reflectionAllowed, audioPanelVisible, wifiPanelVisible,
-			systemApp;
+			systemApp, preferLastDisplay;
 	private WindowManager.LayoutParams dockLayoutParams;
 	private EditText searchEt;
 	private GridView appsGv, favoritesGv, tasksGv;
@@ -141,7 +141,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
-		context = DeviceUtils.getDisplayContext(this, true);
+		preferLastDisplay = sp.getBoolean("prefer_last_display", false);
+		context = DeviceUtils.getDisplayContext(this, preferLastDisplay);
 		wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
 		wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 		bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
@@ -1012,8 +1013,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				windowMode = 1;
 			else {
 				int width = 0, height = 0, x = 0, y = 0;
-				int deviceWidth = DeviceUtils.getDisplayMetrics(context, true).widthPixels;
-				int deviceHeight = DeviceUtils.getDisplayMetrics(context, true).heightPixels;
+				int deviceWidth = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).widthPixels;
+				int deviceHeight = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).heightPixels;
 
 				windowMode = Build.VERSION.SDK_INT >= 28 ? 5 : 2;
 				if (mode.equals("standard")) {
@@ -1037,7 +1038,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				}
 				options.setLaunchBounds(new Rect(x, y, width, height));
 
-				if (Build.VERSION.SDK_INT > 28)
+				if (Build.VERSION.SDK_INT > 28 && preferLastDisplay)
 					options.setLaunchDisplayId(DeviceUtils.getSecondaryDisplay(this).getDisplayId());
 			}
 

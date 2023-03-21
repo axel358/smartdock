@@ -57,6 +57,12 @@
         android:key="status_icon_blacklist"
         android:summary="@string/icon_blacklist_summary"
         android:title="@string/icon_blacklist"/>
+		
+	<CheckBoxPreference
+        android:title="Prefer last attached display"
+        android:key="prefer_last_display"
+        android:summary="Prefer the last attached display for displaying apps and the dock"
+        android:defaultValue="false" />
     
     <CheckBoxPreference
         android:summary="@string/enable_soft_reboot_summary"
