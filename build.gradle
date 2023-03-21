@@ -2,7 +2,6 @@
 
 buildscript {
     repositories {
-        maven { url 'http://nexus.prod.uci.cu/repository/maven-all/' }
         jcenter()
         google()
     }
