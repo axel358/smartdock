@@ -25,4 +25,5 @@ android {
 dependencies {
 	   //api project(':app:src:hidden-api')
 	   implementation fileTree(dir: 'libs', include: ['*.jar'])
+	   implementation 'com.github.ChickenHook:RestrictionBypass:2.2'
 }

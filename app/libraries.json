@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "artifactId": "RestrictionBypass",
+    "excludes": [],
+    "groupId": "com.github.ChickenHook",
+    "scope": "compile",
+    "versionName": "2.2"
+  }
+]
