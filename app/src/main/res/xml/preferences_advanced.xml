@@ -55,7 +55,7 @@
         android:summary="Use a custom status bar height when calculating maximized window size"/>
     <Preference
         android:key="status_icon_blacklist"
-        android:summary="Icons to hide from the status bar"
+        android:summary="@string/icon_blacklist_summary"
         android:title="@string/icon_blacklist"/>
     
     <CheckBoxPreference

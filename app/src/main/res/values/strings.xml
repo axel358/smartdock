@@ -166,6 +166,7 @@
     <string name="hide_nav_buttons_title">Hide navigation buttons</string>
     <string name="override_sb_height">Override status bar height</string>
     <string name="icon_blacklist">Icon blacklist</string>
+	<string name="icon_blacklist_summary">Icons to hide from the status bar</string>
     <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
     <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot Android</string>
     <string name="move_to_system_summary">Move Smart Dock as a system app. Android will restart</string>
