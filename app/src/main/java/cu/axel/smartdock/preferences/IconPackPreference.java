@@ -1,6 +1,5 @@
 package cu.axel.smartdock.preferences;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 
 import java.util.ArrayList;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -107,7 +107,7 @@ public class IconPackPreference extends Preference {
 		Set<String> cleanedNameList = new LinkedHashSet<>(iconNameList);
 		String[] newNameList = cleanedNameList.toArray(new String[0]);
 
-		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(mContext);
 		dialog.setTitle(R.string.select_icon_pack);
 		dialog.setItems(newNameList, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int item) {

@@ -1,6 +1,5 @@
 package cu.axel.smartdock.preferences;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import androidx.preference.Preference;
 import android.util.AttributeSet;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.models.AppTask;
@@ -51,7 +51,7 @@ public class AppChooserPreference extends Preference {
 
 	@Override
 	protected void onClick() {
-		final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context);
 		dialog.setTitle(R.string.choose_app);
 		final ArrayList<App> apps = AppUtils.getInstalledApps(context.getPackageManager());
 		dialog.setAdapter(new AppAdapter(context, apps), new DialogInterface.OnClickListener() {
