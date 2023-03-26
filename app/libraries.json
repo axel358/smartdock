@@ -25,6 +25,6 @@
     "excludes": [],
     "groupId": "androidx.preference",
     "scope": "compile",
-    "versionName": "1.2.0"
+    "versionName": "1.1.0"
   }
 ]

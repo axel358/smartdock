@@ -1,47 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
-    <header
-        android:icon="@drawable/ic_appearance"
-        android:fragment="cu.axel.smartdock.fragments.AppearancePreferences"
-        android:title="@string/appearance" />
-	<header
-        android:icon="@drawable/ic_app_menu"
-        android:fragment="cu.axel.smartdock.fragments.AppMenuPreferences"
-        android:title="@string/app_menu" />
-	<header 
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+		android:icon="@drawable/ic_appearance"
+		android:title="@string/appearance" 
+		app:fragment="cu.axel.smartdock.fragments.AppearancePreferences" />
+    <Preference
+		android:icon="@drawable/ic_app_menu" 
+		app:fragment="cu.axel.smartdock.fragments.AppMenuPreferences" 
+		android:title="@string/app_menu"  />
+	<Preference 
         android:icon="@drawable/ic_dock"
         android:fragment="cu.axel.smartdock.fragments.DockPreferences"
         android:title="@string/dock" />
-	<header 
+	<Preference 
         android:icon="@drawable/ic_desktop"
         android:fragment="cu.axel.smartdock.fragments.DesktopPreferences"
         android:title="@string/desktop" />
-    <header 
+    <Preference 
         android:icon="@drawable/ic_star"
         android:fragment="cu.axel.smartdock.fragments.DefaultAppsPreferences"
         android:title="@string/default_apps" />
-    <header 
+    <Preference 
         android:icon="@drawable/ic_keyboard"
         android:fragment="cu.axel.smartdock.fragments.KeyboardPreferences"
         android:title="@string/keyboard" />
-	<header
+	<Preference
         android:icon="@drawable/ic_corners"
         android:fragment="cu.axel.smartdock.fragments.HotCornersPreferences"
         android:title="@string/hot_corners" />
-	<header
+	<Preference
         android:icon="@drawable/ic_notifications"
         android:fragment="cu.axel.smartdock.fragments.NotificationPreferences"
         android:title="@string/notifications" />
-    <header
+    <Preference
         android:icon="@drawable/ic_sounds"
         android:fragment="cu.axel.smartdock.fragments.SoundsPreferences"
         android:title="@string/sounds" />
-    <header
+    <Preference
         android:icon="@drawable/ic_advanced"
         android:fragment="cu.axel.smartdock.fragments.AdvancedPreferences"
         android:title="@string/advanced" />
-    <header
+    <Preference
         android:icon="@drawable/ic_about"
         android:fragment="cu.axel.smartdock.fragments.HelpAboutPreferences"
         android:title="@string/help_and_about" />
-</preference-headers>
+
+</PreferenceScreen>

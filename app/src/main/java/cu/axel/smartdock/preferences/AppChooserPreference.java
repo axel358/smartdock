@@ -1,7 +1,8 @@
 package cu.axel.smartdock.preferences;
+
 import android.app.AlertDialog;
 import android.content.Context;
-import android.preference.Preference;
+import androidx.preference.Preference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,82 +18,83 @@ import cu.axel.smartdock.utils.ColorUtils;
 import java.util.ArrayList;
 import android.content.DialogInterface;
 import android.widget.Toast;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 
 public class AppChooserPreference extends Preference {
-    private Context context;
-    private SharedPreferences sp;
-    public AppChooserPreference(Context context) {
-        super(context);
-        setupPreference(context);
-    }
+	private Context context;
+	private SharedPreferences sp;
 
-    public AppChooserPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        setupPreference(context);
-    }
+	public AppChooserPreference(Context context) {
+		super(context);
+		setupPreference(context);
+	}
 
-    public AppChooserPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        setupPreference(context);
-    }
-    
-    public void setupPreference(Context context){
-        this.context = context;
-        sp = PreferenceManager.getDefaultSharedPreferences(context);
-        String packageName = sp.getString(getKey(), "");
-        setSummary(packageName.isEmpty() ? context.getString(R.string.tap_to_set) : AppUtils.getPackageLabel(context, packageName));
-    }
+	public AppChooserPreference(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		setupPreference(context);
+	}
 
-    @Override
-    protected void onClick() {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        dialog.setTitle(R.string.choose_app);
-        final ArrayList<App> apps = AppUtils.getInstalledApps(context.getPackageManager());
-        dialog.setAdapter(new AppAdapter(context, apps), new DialogInterface.OnClickListener(){
+	public AppChooserPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		setupPreference(context);
+	}
 
-                @Override
-                public void onClick(DialogInterface p1, int p2) {
-                    App app = apps.get(p2);
-                    sp.edit().putString(getKey(), app.getPackageName()).commit();
-                    setSummary(app.getName());
-                }
-            });
-       dialog.show();
-    }
-    
-    class AppAdapter extends ArrayAdapter<App> {
-        private Context context;
+	public void setupPreference(Context context) {
+		this.context = context;
+		sp = PreferenceManager.getDefaultSharedPreferences(context);
+		String packageName = sp.getString(getKey(), "");
+		setSummary(packageName.isEmpty() ? context.getString(R.string.tap_to_set)
+				: AppUtils.getPackageLabel(context, packageName));
+	}
 
-        public AppAdapter(Context context, ArrayList<App> apps) {
-            super(context, R.layout.pin_entry, apps);
-            this.context = context;
-        }
+	@Override
+	protected void onClick() {
+		final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+		dialog.setTitle(R.string.choose_app);
+		final ArrayList<App> apps = AppUtils.getInstalledApps(context.getPackageManager());
+		dialog.setAdapter(new AppAdapter(context, apps), new DialogInterface.OnClickListener() {
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+			@Override
+			public void onClick(DialogInterface p1, int p2) {
+				App app = apps.get(p2);
+				sp.edit().putString(getKey(), app.getPackageName()).commit();
+				setSummary(app.getName());
+			}
+		});
+		dialog.show();
+	}
 
-            if (convertView == null)
-                convertView = LayoutInflater.from(context).inflate(R.layout.pin_entry, null);
+	class AppAdapter extends ArrayAdapter<App> {
+		private Context context;
 
-            ImageView icon = convertView.findViewById(R.id.pin_entry_iv);
-            TextView text=convertView.findViewById(R.id.pin_entry_tv);
+		public AppAdapter(Context context, ArrayList<App> apps) {
+			super(context, R.layout.pin_entry, apps);
+			this.context = context;
+		}
 
-            App app = getItem(position);
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
 
-            icon.setImageDrawable(app.getIcon());
-            text.setText(app.getName());
-            text.setTextColor(Color.BLACK);
+			if (convertView == null)
+				convertView = LayoutInflater.from(context).inflate(R.layout.pin_entry, null);
 
-            ColorUtils.applyColor(icon, ColorUtils.getDrawableDominantColor(icon.getDrawable()));
+			ImageView icon = convertView.findViewById(R.id.pin_entry_iv);
+			TextView text = convertView.findViewById(R.id.pin_entry_tv);
 
-            return convertView;
+			App app = getItem(position);
 
+			icon.setImageDrawable(app.getIcon());
+			text.setText(app.getName());
+			text.setTextColor(Color.BLACK);
 
-        } 
+			ColorUtils.applyColor(icon, ColorUtils.getDrawableDominantColor(icon.getDrawable()));
 
-    }
-    
+			return convertView;
+
+		}
+
+	}
+
 }

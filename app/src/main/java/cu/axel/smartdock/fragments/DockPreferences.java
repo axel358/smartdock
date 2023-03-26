@@ -1,18 +1,15 @@
 package cu.axel.smartdock.fragments;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragmentCompat;
 import cu.axel.smartdock.R;
 
-public class DockPreferences extends PreferenceFragment 
+public class DockPreferences extends PreferenceFragmentCompat 
 {
-
+	
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		// TODO: Implement this method
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.preferences_dock);
+	public void onCreatePreferences(Bundle arg0, String arg1) {
+		setPreferencesFromResource(R.xml.preferences_dock, arg1);
 	}
 
 }

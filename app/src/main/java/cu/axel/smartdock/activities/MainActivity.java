@@ -11,55 +11,49 @@ import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import cu.axel.smartdock.fragments.PreferencesFragment;
 import java.util.List;
 import android.os.Build;
 import cu.axel.smartdock.services.DockService;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.utils.DeviceUtils;
-import android.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-public class MainActivity extends PreferenceActivity {
+public class MainActivity extends AppCompatActivity {
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        if (!DeviceUtils.hasStoragePermission(this)) {
-            requestStoragePermission(0);
-        }
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_settings);
+		getSupportFragmentManager().beginTransaction().replace(R.id.settings_container, new PreferencesFragment())
+				.commit();
 
-        if (!canDrawOverOtherApps() || !DeviceUtils.isAccessibilityServiceEnabled(this))
-            showPermissionsDialog();
-    }
+		if (!DeviceUtils.hasStoragePermission(this)) {
+			requestStoragePermission(0);
+		}
 
-    public void requestStoragePermission(int code) {
-        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, code);
-    }
+		if (!canDrawOverOtherApps() || !DeviceUtils.isAccessibilityServiceEnabled(this))
+			showPermissionsDialog();
+	}
+
+	public void requestStoragePermission(int code) {
+		requestPermissions(new String[] { Manifest.permission.READ_EXTERNAL_STORAGE }, code);
+	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		invalidateOptionsMenu();
 	}
-
-	@Override
-	public void onBuildHeaders(List<PreferenceActivity.Header> target) {
-		loadHeadersFromResource(R.xml.preference_headers, target);
-	}
-
-	@Override
-	protected boolean isValidFragment(String fragmentName) {
-		return true;
-	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,116 +65,116 @@ public class MainActivity extends PreferenceActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-			case R.id.action_grant_permissions:
-				showPermissionsDialog();
+		case R.id.action_grant_permissions:
+			showPermissionsDialog();
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-    public void showPermissionsDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.manage_permissions);
-        View view = getLayoutInflater().inflate(R.layout.dialog_permissions, null);
-        Button grantOverlayBtn = view.findViewById(R.id.btn_grant_overlay);
-        Button grantStorageBtn = view.findViewById(R.id.btn_grant_storage);
-        Button grantAdminBtn = view.findViewById(R.id.btn_grant_admin);
-        Button grantNotificationsBtn = view.findViewById(R.id.btn_grant_notifications);
-        Button manageServiceBtn = view.findViewById(R.id.btn_manage_service);
-        Button locationBtn = view.findViewById(R.id.btn_grant_location);
-        Button usageBtn = view.findViewById(R.id.btn_manage_usage);
+	public void showPermissionsDialog() {
+		MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+		builder.setTitle(R.string.manage_permissions);
+		View view = getLayoutInflater().inflate(R.layout.dialog_permissions, null);
+		Button grantOverlayBtn = view.findViewById(R.id.btn_grant_overlay);
+		Button grantStorageBtn = view.findViewById(R.id.btn_grant_storage);
+		Button grantAdminBtn = view.findViewById(R.id.btn_grant_admin);
+		Button grantNotificationsBtn = view.findViewById(R.id.btn_grant_notifications);
+		Button manageServiceBtn = view.findViewById(R.id.btn_manage_service);
+		Button locationBtn = view.findViewById(R.id.btn_grant_location);
+		Button usageBtn = view.findViewById(R.id.btn_manage_usage);
 
-        manageServiceBtn.setEnabled(canDrawOverOtherApps());
+		manageServiceBtn.setEnabled(canDrawOverOtherApps());
 
-        if (canDrawOverOtherApps()) {
-            grantOverlayBtn.setEnabled(false);
-            grantOverlayBtn.setText(R.string.granted);
-        }
-        if (isdeviceAdminEnabled()) {
-            grantAdminBtn.setEnabled(false);
-            grantAdminBtn.setText(R.string.granted);
-        }
+		if (canDrawOverOtherApps()) {
+			grantOverlayBtn.setEnabled(false);
+			grantOverlayBtn.setText(R.string.granted);
+		}
+		if (isdeviceAdminEnabled()) {
+			grantAdminBtn.setEnabled(false);
+			grantAdminBtn.setText(R.string.granted);
+		}
 
-        if (DeviceUtils.hasStoragePermission(this)) {
-            grantStorageBtn.setEnabled(false);
-            grantStorageBtn.setText(R.string.granted);
-        }
-        
-        if(DeviceUtils.hasLocationPermission(this)){
-            locationBtn.setEnabled(false);
-            locationBtn.setText(R.string.granted);
-        }
+		if (DeviceUtils.hasStoragePermission(this)) {
+			grantStorageBtn.setEnabled(false);
+			grantStorageBtn.setText(R.string.granted);
+		}
 
-        builder.setView(view);
-        final AlertDialog dialog = builder.create();
+		if (DeviceUtils.hasLocationPermission(this)) {
+			locationBtn.setEnabled(false);
+			locationBtn.setText(R.string.granted);
+		}
 
-        grantOverlayBtn.setOnClickListener(new OnClickListener(){
+		builder.setView(view);
+		final AlertDialog dialog = builder.create();
 
-                @Override
-                public void onClick(View p1) {
-                    grantOverlayPermissions();
-                    dialog.dismiss();
-                }
-            });
-        grantStorageBtn.setOnClickListener(new OnClickListener(){
+		grantOverlayBtn.setOnClickListener(new OnClickListener() {
 
-                @Override
-                public void onClick(View p1) {
-                    requestStoragePermission(8);
-                    dialog.dismiss();
-                }
-            });
-        grantAdminBtn.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View p1) {
+				grantOverlayPermissions();
+				dialog.dismiss();
+			}
+		});
+		grantStorageBtn.setOnClickListener(new OnClickListener() {
 
-                @Override
-                public void onClick(View p1) {
-                    enableDeviceAdmin();
-                    dialog.dismiss();
-                }
-            });
-        grantNotificationsBtn.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View p1) {
+				requestStoragePermission(8);
+				dialog.dismiss();
+			}
+		});
+		grantAdminBtn.setOnClickListener(new OnClickListener() {
 
-                @Override
-                public void onClick(View p1) {
-                    startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
-                }
-            });
+			@Override
+			public void onClick(View p1) {
+				enableDeviceAdmin();
+				dialog.dismiss();
+			}
+		});
+		grantNotificationsBtn.setOnClickListener(new OnClickListener() {
 
-        manageServiceBtn.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View p1) {
+				startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+			}
+		});
 
-                @Override
-                public void onClick(View p1) {
-                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-                }
-            });
-            
-        locationBtn.setOnClickListener(new OnClickListener(){
+		manageServiceBtn.setOnClickListener(new OnClickListener() {
 
-                @Override
-                public void onClick(View p1) {
-                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 8);
-                    dialog.dismiss();
-                }
-            });
-            
-        usageBtn.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View p1) {
+				startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+			}
+		});
 
-                @Override
-                public void onClick(View p1) {
-                    startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-                }
-            });
+		locationBtn.setOnClickListener(new OnClickListener() {
 
-        dialog.show();
-    }
+			@Override
+			public void onClick(View p1) {
+				requestPermissions(new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 8);
+				dialog.dismiss();
+			}
+		});
+
+		usageBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View p1) {
+				startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+			}
+		});
+
+		dialog.show();
+	}
 
 	public boolean canDrawOverOtherApps() {
 		return Build.VERSION.SDK_INT < 23 || Settings.canDrawOverlays(this);
 	}
 
 	public void grantOverlayPermissions() {
-		startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 8);
+		startActivityForResult(
+				new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 8);
 	}
-
 
 	public void enableDeviceAdmin() {
 		Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
@@ -203,11 +197,11 @@ public class MainActivity extends PreferenceActivity {
 		return false;
 	}
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 8) {
-            showPermissionsDialog();
-        }
-    }
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == 8) {
+			showPermissionsDialog();
+		}
+	}
 }

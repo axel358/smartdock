@@ -1,11 +1,12 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.Material3.DayNight">
-        <item name="android:colorAccent">#FF0066F4</item>
+		<item name="colorPrimary">#FF0066F4</item>
+		<item name="alertDialogTheme">@style/DialogTheme</item>
     </style>
 
-    <style name="AppTheme.Dock" parent="@android:style/Theme.Material">
-        <item name="android:colorAccent">#FFFFFF</item>
+    <style name="AppTheme.Dock" parent="Theme.Material3.DayNight">
+        <item name="colorAccent">#FFFFFF</item>
     </style>
 
     <style name="AppTheme.Launcher" parent="Theme.Material3.DayNight.NoActionBar">
@@ -16,9 +17,12 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="DialogTheme" parent="@android:style/Theme.Material.Light.Dialog.MinWidth">
-        <item name="android:windowBackground">@drawable/dialog</item>
-        <item name="android:colorAccent">#FF0066F4</item>
+    <style name="DialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+	    <item name="dialogCornerRadius">28dp</item>
+		<item name="cornerFamily">rounded</item>
+        <item name="android:colorBackground">?attr/colorSurface</item>
+        <item name="android:layout">@layout/m3_alert_dialog</item>
+		<item name="colorPrimary">#FF0066F4</item>
     </style>
 
 </resources>

@@ -1,9 +1,9 @@
 package cu.axel.smartdock.fragments;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragmentCompat;
 import cu.axel.smartdock.R;
-import android.preference.Preference;
+import androidx.preference.Preference;
 import android.content.Intent;
 import android.app.Activity;
 import android.net.Uri;
@@ -32,14 +32,13 @@ import android.widget.AdapterView;
 import android.widget.Adapter;
 import cu.axel.smartdock.utils.ColorUtils;
 
-public class AppearancePreferences extends PreferenceFragment {
+public class AppearancePreferences extends PreferenceFragmentCompat {
     private Preference mainColorPref;
+	
+	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.preferences_appearance);
-
-
+	public void onCreatePreferences(Bundle arg0, String arg1) {
+		setPreferencesFromResource(R.xml.preferences_appearance, arg1);
         mainColorPref = findPreference("theme_main_color");
         mainColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 
