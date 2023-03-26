@@ -10,7 +10,9 @@
         <item name="colorAccent">#FFFFFF</item>
     </style>
 
-    <style name="AppTheme.Launcher" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="AppTheme.Launcher" parent="AppTheme">
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
         <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">false</item>
