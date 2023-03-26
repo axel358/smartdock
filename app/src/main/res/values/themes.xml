@@ -1,7 +1,8 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.Material3.DayNight">
-		<item name="colorPrimary">#FF0066F4</item>
+		<item name="colorPrimary">@color/primary</item>
+		<item name="colorSecondary">@color/primary</item>
 		<item name="alertDialogTheme">@style/DialogTheme</item>
     </style>
 
@@ -22,7 +23,6 @@
 		<item name="cornerFamily">rounded</item>
         <item name="android:colorBackground">?attr/colorSurface</item>
         <item name="android:layout">@layout/m3_alert_dialog</item>
-		<item name="colorPrimary">#FF0066F4</item>
     </style>
 
 </resources>
