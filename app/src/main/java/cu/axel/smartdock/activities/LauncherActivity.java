@@ -1,6 +1,5 @@
 package cu.axel.smartdock.activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -34,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.adapters.AppActionsAdapter;
 import cu.axel.smartdock.icons.IconParserUtilities;
@@ -55,7 +55,7 @@ import cu.axel.smartdock.utils.DeepShortcutManager;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
 import android.widget.Adapter;
 
-public class LauncherActivity extends Activity {
+public class LauncherActivity extends AppCompatActivity {
 	private LinearLayout backgroundLayout;
 	private Button serviceBtn;
 	private GridView appsGv;

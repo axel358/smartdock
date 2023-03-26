@@ -16,6 +16,7 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
+import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 import android.os.Build;
 import cu.axel.smartdock.services.DockService;

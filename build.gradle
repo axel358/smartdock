@@ -12,7 +12,7 @@ buildscript {
 
 allprojects {
     repositories {
-		maven { url "https://jitpack.io" }
+	   maven { url "https://jitpack.io" }
         maven { url 'http://nexus.prod.uci.cu/repository/maven-all/' }
         jcenter()
         google()

@@ -1,7 +1,7 @@
 [
   {
     "name": "maven",
-    "url": "https://repo1.maven.org/maven2"
+    "url": "http://nexus.prod.uci.cu/repository/maven-all/"
   },
   {
     "name": "google-maven",
