@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import cu.axel.smartdock.fragments.PreferencesFragment;
 import java.util.List;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void requestStoragePermission(int code) {
-		requestPermissions(new String[] { Manifest.permission.READ_EXTERNAL_STORAGE }, code);
+		ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.READ_EXTERNAL_STORAGE }, code);
 	}
 
 	@Override
@@ -151,7 +152,8 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onClick(View p1) {
-				requestPermissions(new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 8);
+				ActivityCompat.requestPermissions(MainActivity.this,
+						new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 8);
 				dialog.dismiss();
 			}
 		});

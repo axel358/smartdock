@@ -13,6 +13,7 @@ import android.os.UserManager;
 import android.preference.PreferenceManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
+import androidx.core.content.ContextCompat;
 import cu.axel.smartdock.services.DockService;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -152,11 +153,11 @@ public class DeviceUtils {
     }
     
     public static boolean hasStoragePermission(Context context) {
-        return Build.VERSION.SDK_INT < 23 || context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
     
     public static boolean hasLocationPermission(Context context) {
-        return Build.VERSION.SDK_INT < 23 || context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     public static void playEventSound(Context context, String event) {
