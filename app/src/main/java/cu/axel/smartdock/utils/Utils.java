@@ -53,25 +53,6 @@ public class Utils {
 		}
 	}
 
-	public static boolean allowReflection() {
-		try {
-			Method forName = Class.class.getDeclaredMethod("forName", String.class);
-			Method getDeclaredMethod = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
-
-			Class<?> vmRuntimeClass = (Class<?>) forName.invoke(null, "dalvik.system.VMRuntime");
-			Method getRuntime = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "getRuntime", null);
-			Method setHiddenApiExemptions = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "setHiddenApiExemptions",
-					new Class[] { String[].class });
-
-			Object vmRuntime = getRuntime.invoke(null);
-			setHiddenApiExemptions.invoke(vmRuntime, new Object[] { new String[] { "L" } });
-		} catch (Throwable ignored) {
-			return false;
-		}
-
-		return true;
-	}
-
 	public static int dpToPx(Context context, int dp) {
 		return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
 	}

@@ -24,7 +24,7 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -110,7 +110,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private RelativeLayout dockLayout;
 	private WindowManager wm;
 	private View appsSeparator;
-	private boolean appMenuVisible, powerMenuVisible, isPinned, reflectionAllowed, audioPanelVisible, wifiPanelVisible,
+	private boolean appMenuVisible, powerMenuVisible, isPinned, audioPanelVisible, wifiPanelVisible,
 			systemApp, preferLastDisplay;
 	private WindowManager.LayoutParams dockLayoutParams;
 	private EditText searchEt;
@@ -133,8 +133,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
-		reflectionAllowed = Build.VERSION.SDK_INT < 28 || Utils.allowReflection();
 
 		db = new DBHelper(this);
 		pm = getPackageManager();
@@ -1005,8 +1003,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 
 		try {
-			if (!reflectionAllowed)
-				Utils.allowReflection();
 			String methodName = Build.VERSION.SDK_INT >= 28 ? "setLaunchWindowingMode" : "setLaunchStackId";
 			int windowMode;
 			if (mode.equals("fullscreen"))
