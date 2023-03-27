@@ -29,7 +29,8 @@ public class ColorUtils {
         if (DeviceUtils.hasStoragePermission(context)) {
 
             WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
-            Drawable wallpaperDrawable = wallpaperManager.getDrawable();
+   		 //noinspection all         
+			Drawable wallpaperDrawable = wallpaperManager.getDrawable();
             wallpaperDrawable.mutate();
             wallpaperDrawable.invalidateSelf();
             Bitmap wallpaperBitmap = drawableToBitmap(wallpaperDrawable);
