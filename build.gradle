@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
+        maven { url "https://jitpack.io" }
         google()
         mavenCentral()
     }
@@ -12,14 +13,7 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-	   maven { url "https://jitpack.io" }
-        maven { url 'http://nexus.prod.uci.cu/repository/maven-all/' }
-        jcenter()
-        google()
-    }
-}
+
 
 
 task clean(type: Delete) {
