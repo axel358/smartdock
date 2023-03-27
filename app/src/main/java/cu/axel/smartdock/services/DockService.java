@@ -3,6 +3,7 @@ package cu.axel.smartdock.services;
 import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -110,8 +111,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private RelativeLayout dockLayout;
 	private WindowManager wm;
 	private View appsSeparator;
-	private boolean appMenuVisible, powerMenuVisible, isPinned, audioPanelVisible, wifiPanelVisible,
-			systemApp, preferLastDisplay;
+	private boolean appMenuVisible, powerMenuVisible, isPinned, audioPanelVisible, wifiPanelVisible, systemApp,
+			preferLastDisplay;
 	private WindowManager.LayoutParams dockLayoutParams;
 	private EditText searchEt;
 	private GridView appsGv, favoritesGv, tasksGv;
@@ -1525,8 +1526,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		//TODO: Move context outta here
 		wifiBtn.setImageResource(wifiManager.isWifiEnabled() ? R.drawable.ic_wifi_on : R.drawable.ic_wifi_off);
-		bluetoothBtn
-				.setImageResource(bm.getAdapter().isEnabled() ? R.drawable.ic_bluetooth : R.drawable.ic_bluetooth_off);
+		BluetoothAdapter bAdapter = bm.getAdapter();
+		if (bAdapter != null)
+			bluetoothBtn.setImageResource(bAdapter.isEnabled() ? R.drawable.ic_bluetooth : R.drawable.ic_bluetooth_off);
 	}
 
 	private void updateDockShape() {
