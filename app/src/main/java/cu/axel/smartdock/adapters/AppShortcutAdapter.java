@@ -32,6 +32,8 @@ public class AppShortcutAdapter extends ArrayAdapter<ShortcutInfo> {
         ShortcutInfo shortcut = getItem(position);
 
         icon.setImageDrawable(DeepShortcutManager.getShortcutIcon(shortcut, context));
+		
+		//noinspection NewApi
         text.setText(shortcut.getShortLabel());
 
         return convertView;
