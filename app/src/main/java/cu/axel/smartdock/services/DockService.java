@@ -1291,7 +1291,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 						wm.removeView(view);
 						launchApp("fullscreen", app);
 					}
-				} else if (p1.getItemAtPosition(p3) instanceof ShortcutInfo) {
+
+				}
+				//noinspection NewApi 
+				else if (p1.getItemAtPosition(p3) instanceof ShortcutInfo) {
 					ShortcutInfo shortcut = (ShortcutInfo) p1.getItemAtPosition(p3);
 					wm.removeView(view);
 					DeepShortcutManager.startShortcut(shortcut, context);

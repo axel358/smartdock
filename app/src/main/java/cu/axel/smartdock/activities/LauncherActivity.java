@@ -87,7 +87,7 @@ public class LauncherActivity extends AppCompatActivity {
 			public boolean onLongClick(View p1) {
 				final View view = LayoutInflater.from(LauncherActivity.this).inflate(R.layout.task_list, null);
 				WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
-				ColorUtils.applyMainColor(LauncherActivity.this,sp, view);
+				ColorUtils.applyMainColor(LauncherActivity.this, sp, view);
 				lp.gravity = Gravity.TOP | Gravity.LEFT;
 				lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 						| WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
@@ -184,7 +184,7 @@ public class LauncherActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-        
+
 		sendBroadcastToService("resume");
 
 		if (DeviceUtils.isAccessibilityServiceEnabled(this))
@@ -304,8 +304,9 @@ public class LauncherActivity extends AppCompatActivity {
 						ArrayList<Action> actions = new ArrayList<Action>();
 						actions.add(new Action(R.drawable.ic_arrow_back, ""));
 						actions.add(new Action(R.drawable.ic_info, getString(R.string.app_info)));
-						if(!AppUtils.isSystemApp(LauncherActivity.this, app) || sp.getBoolean("allow_sysapp_uninstall", false))
-						    actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
+						if (!AppUtils.isSystemApp(LauncherActivity.this, app)
+								|| sp.getBoolean("allow_sysapp_uninstall", false))
+							actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
 						if (sp.getBoolean("allow_app_freeze", false))
 							actions.add(new Action(R.drawable.ic_freeze, getString(R.string.freeze)));
 
@@ -328,13 +329,13 @@ public class LauncherActivity extends AppCompatActivity {
 								.setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 						wm.removeView(view);
 					} else if (action.getText().equals(getString(R.string.uninstall))) {
-						if(AppUtils.isSystemApp(LauncherActivity.this, app))
-                            DeviceUtils.runAsRoot("pm uninstall --user 0 " + app);
-                        else
-                            startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app))
-                                          .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-						
-                        wm.removeView(view);
+						if (AppUtils.isSystemApp(LauncherActivity.this, app))
+							DeviceUtils.runAsRoot("pm uninstall --user 0 " + app);
+						else
+							startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app))
+									.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+						wm.removeView(view);
 					} else if (action.getText().equals(getString(R.string.freeze))) {
 						String status = DeviceUtils.runAsRoot("pm disable " + app);
 						if (!status.equals("error"))
@@ -360,7 +361,9 @@ public class LauncherActivity extends AppCompatActivity {
 						wm.removeView(view);
 						launchApp("fullscreen", app);
 					}
-				} else if (p1.getItemAtPosition(p3) instanceof ShortcutInfo) {
+				}
+				//noinspection NewApi 
+				else if (p1.getItemAtPosition(p3) instanceof ShortcutInfo) {
 					ShortcutInfo shortcut = (ShortcutInfo) p1.getItemAtPosition(p3);
 					wm.removeView(view);
 					DeepShortcutManager.startShortcut(shortcut, LauncherActivity.this);
@@ -371,14 +374,13 @@ public class LauncherActivity extends AppCompatActivity {
 		wm.addView(view, lp);
 	}
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 18){
-            //Toast.makeText(this, resultCode + "", 5000).show();
-        }
-    }
-    
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == 18) {
+			//Toast.makeText(this, resultCode + "", 5000).show();
+		}
+	}
 
 	public class AppAdapterDesktop extends ArrayAdapter<App> {
 		private Context context;
