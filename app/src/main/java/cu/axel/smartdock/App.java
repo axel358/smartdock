@@ -48,6 +48,8 @@ public class App extends Application {
                 }
             });
 		super.onCreate();
+Logger.initialize(this);
+;
 	}
 
 }

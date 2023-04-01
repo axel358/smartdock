@@ -12,37 +12,27 @@ import cu.axel.smartdock.R;
 import cu.axel.smartdock.utils.Utils;
 
 public class DebugActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
+		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
 		dialog.setTitle(R.string.something_wrong);
 		final String report = getIntent().getStringExtra("report");
-        dialog.setMessage(report);
-		dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-        dialog.setNeutralButton(R.string.save_log, new DialogInterface.OnClickListener(){
-
-                @Override
-                public void onClick(DialogInterface p1, int p2) {
-                    Utils.saveLog(DebugActivity.this, "crash_log", report);
-                    finish();
-                }
-            });
-        dialog.setNegativeButton(R.string.open_again, new DialogInterface.OnClickListener(){
-
-                @Override
-                public void onClick(DialogInterface p1, int p2) {
-                    startActivity(new Intent(DebugActivity.this, MainActivity.class));
-                    finish();
-                }
-            });
-        dialog.setCancelable(false);
+		dialog.setMessage(report);
+		dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int which) -> {
+			finish();
+		});
+		
+		dialog.setNeutralButton(R.string.save_log, (DialogInterface p1, int p2) -> {
+				Utils.saveLog(DebugActivity.this, "crash_log", report);
+				finish();
+		});
+		dialog.setNegativeButton(R.string.open_again, (DialogInterface p1, int p2) -> {
+				startActivity(new Intent(DebugActivity.this, MainActivity.class));
+				finish();
+		});
+		dialog.setCancelable(false);
 		dialog.create().show();
-    }
+	}
 }
