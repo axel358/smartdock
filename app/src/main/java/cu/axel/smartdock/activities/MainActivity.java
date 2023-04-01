@@ -108,64 +108,35 @@ public class MainActivity extends AppCompatActivity {
 		builder.setView(view);
 		final AlertDialog dialog = builder.create();
 
-		grantOverlayBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
+		grantOverlayBtn.setOnClickListener((View p1) -> {
 				grantOverlayPermissions();
 				dialog.dismiss();
-			}
 		});
-		grantStorageBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
+		grantStorageBtn.setOnClickListener((View p1) -> {
 				requestStoragePermission(8);
 				dialog.dismiss();
-			}
 		});
-		grantAdminBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
+		grantAdminBtn.setOnClickListener((View p1) -> {
 				enableDeviceAdmin();
 				dialog.dismiss();
-			}
 		});
-		grantNotificationsBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
+		grantNotificationsBtn.setOnClickListener((View p1) -> {
 				startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
-			}
 		});
 
-		manageServiceBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
+		manageServiceBtn.setOnClickListener((View p1) {
 				startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-			}
 		});
 
-		locationBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
+		locationBtn.setOnClickListener((View p1) -> {
 				ActivityCompat.requestPermissions(MainActivity.this,
 						new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 8);
 				dialog.dismiss();
-			}
 		});
 
-		usageBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
+		usageBtn.setOnClickListener((View p1) -> {
 				startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-			}
 		});
-
 		dialog.show();
 	}
 
