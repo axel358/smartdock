@@ -178,22 +178,18 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		batteryBtn = dock.findViewById(R.id.battery_btn);
 		dateTv = dock.findViewById(R.id.date_btn);
 
-		dock.setOnHoverListener(new OnHoverListener() {
+		dock.setOnHoverListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
+				if (dockLayout.getVisibility() == View.GONE)
+					showDock();
+			} else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT)
+				if (dockLayout.getVisibility() == View.VISIBLE) {
+					hideDock(Integer.parseInt(sp.getString("dock_hide_delay", "500")));
+				}
 
-			@Override
-			public boolean onHover(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
-					if (dockLayout.getVisibility() == View.GONE)
-						showDock();
-				} else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT)
-					if (dockLayout.getVisibility() == View.VISIBLE) {
-						hideDock(Integer.parseInt(sp.getString("dock_hide_delay", "500")));
-					}
-
-				return false;
-			}
-
+			return false;
 		});
+
 		gestureDetector = new GestureDetector(context, new OnSwipeListener() {
 			@Override
 			public boolean onSwipe(Direction direction) {
@@ -203,261 +199,157 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				return true;
 			}
 		});
+
 		dock.setOnTouchListener(this);
-		dockLayout.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View p1) {
-				togglePin();
-				return true;
-			}
+		dockLayout.setOnLongClickListener((View p1) -> {
+			togglePin();
+			return true;
 		});
 
-		appsBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				toggleAppMenu();
-			}
-		});
-		appsBtn.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View p1) {
-				launchApp("standard",
-						(new Intent(Settings.ACTION_APPLICATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
-				return true;
-			}
-		});
-		assistBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				launchAssistant();
-			}
-		});
-		backBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-			}
-
+		appsBtn.setOnClickListener((View p1) -> {
+			toggleAppMenu();
 		});
 
-		homeBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME);
-			}
-
-		});
-		recentBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
-			}
-
+		appsBtn.setOnLongClickListener((View p1) -> {
+			launchApp("standard",
+					(new Intent(Settings.ACTION_APPLICATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			return true;
 		});
 
-		recentBtn.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View p1) {
-				performGlobalAction(AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN);
-				return true;
-			}
+		assistBtn.setOnClickListener((View p1) -> {
+			launchAssistant();
 		});
 
-		tasksGv.setOnItemClickListener(new OnItemClickListener() {
+		backBtn.setOnClickListener((View p1) -> {
+			performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+		});
 
-			@Override
-			public void onItemClick(AdapterView<?> p1, View anchor, int p3, long p4) {
-				DockApp app = (DockApp) p1.getItemAtPosition(p3);
-				ArrayList<AppTask> tasks = app.getTasks();
+		homeBtn.setOnClickListener((View p1) -> {
+			performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME);
+		});
 
-				if (tasks.size() == 1) {
-					int taskId = tasks.get(0).getID();
-					if (taskId == -1)
-						launchApp(getDefaultLaunchMode(app.getPackageName()), app.getPackageName());
-					else
-						am.moveTaskToFront(taskId, 0);
+		recentBtn.setOnClickListener((View p1) -> {
+			performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
+		});
 
-				} else if (tasks.size() > 1) {
-					final View view = LayoutInflater.from(context).inflate(R.layout.task_list, null);
-					WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
-					ColorUtils.applyMainColor(context, sp, view);
-					lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
-					lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-							| WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+		recentBtn.setOnLongClickListener((View p1) -> {
+			performGlobalAction(AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN);
+			return true;
+		});
 
-					lp.y = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_y", "2")))
-							+ dockLayout.getMeasuredHeight();
+		tasksGv.setOnItemClickListener((AdapterView<?> p1, View anchor, int p3, long p4) -> {
+			DockApp app = (DockApp) p1.getItemAtPosition(p3);
+			ArrayList<AppTask> tasks = app.getTasks();
 
-					Rect rect = new Rect();
-					anchor.getGlobalVisibleRect(rect);
-
-					lp.x = rect.left;
-					view.setOnTouchListener(new OnTouchListener() {
-
-						@Override
-						public boolean onTouch(View p1, MotionEvent p2) {
-							if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
-								wm.removeView(view);
-							}
-							return false;
-						}
-					});
-					ListView tasksLv = view.findViewById(R.id.tasks_lv);
-					tasksLv.setAdapter(new AppTaskAdaper(context, tasks));
-
-					tasksLv.setOnItemClickListener(new OnItemClickListener() {
-
-						@Override
-						public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
-							am.moveTaskToFront(((AppTask) p1.getItemAtPosition(p3)).getID(), 0);
-							wm.removeView(view);
-						}
-					});
-
-					wm.addView(view, lp);
-				} else
+			if (tasks.size() == 1) {
+				int taskId = tasks.get(0).getID();
+				if (taskId == -1)
 					launchApp(getDefaultLaunchMode(app.getPackageName()), app.getPackageName());
+				else
+					am.moveTaskToFront(taskId, 0);
 
-				if (getDefaultLaunchMode(app.getPackageName()).equals("fullscreen")) {
-					if (isPinned) {
-						unpinDock();
+			} else if (tasks.size() > 1) {
+				final View view = LayoutInflater.from(context).inflate(R.layout.task_list, null);
+				WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
+				ColorUtils.applyMainColor(context, sp, view);
+				lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
+				lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+						| WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+
+				lp.y = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_y", "2")))
+						+ dockLayout.getMeasuredHeight();
+
+				Rect rect = new Rect();
+				anchor.getGlobalVisibleRect(rect);
+
+				lp.x = rect.left;
+				view.setOnTouchListener((View view1, MotionEvent p2) -> {
+					if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
+						wm.removeView(view);
 					}
-				} else {
-					if (!isPinned && sp.getBoolean("auto_pin", true)) {
-						pinDock();
-					}
+					return false;
+				});
+				ListView tasksLv = view.findViewById(R.id.tasks_lv);
+				tasksLv.setAdapter(new AppTaskAdaper(context, tasks));
+
+				tasksLv.setOnItemClickListener((AdapterView<?> pos, View view2, int position, long p14) -> {
+					am.moveTaskToFront(((AppTask) p1.getItemAtPosition(p3)).getID(), 0);
+					wm.removeView(view);
+				});
+
+				wm.addView(view, lp);
+			} else
+				launchApp(getDefaultLaunchMode(app.getPackageName()), app.getPackageName());
+
+			if (getDefaultLaunchMode(app.getPackageName()).equals("fullscreen")) {
+				if (isPinned) {
+					unpinDock();
+				}
+			} else {
+				if (!isPinned && sp.getBoolean("auto_pin", true)) {
+					pinDock();
 				}
 			}
-
 		});
 
-		tasksGv.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> p1, View anchor, int p3, long p4) {
-
-				final String app = ((DockApp) p1.getItemAtPosition(p3)).getPackageName();
-				showTaskContextMenu(app, anchor);
-
-				return true;
-			}
-
+		tasksGv.setOnItemLongClickListener((AdapterView<?> p1, View anchor, int p3, long p4) -> {
+			final String app = ((DockApp) p1.getItemAtPosition(p3)).getPackageName();
+			showTaskContextMenu(app, anchor);
+			return true;
 		});
 
-		notificationBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View p1) {
-				if (sp.getBoolean("enable_notif_panel", true)) {
-					if (Utils.notificationPanelVisible)
-						sendBroadcast(new Intent(getPackageName() + ".DOCK").putExtra("action", "HIDE_NOTIF_PANEL"));
-					else {
+		notificationBtn.setOnClickListener((View p1) -> {
+			if (sp.getBoolean("enable_notif_panel", true)) {
+				if (Utils.notificationPanelVisible)
+					sendBroadcast(new Intent(getPackageName() + ".DOCK").putExtra("action", "HIDE_NOTIF_PANEL"));
+				else {
 
-						if (audioPanelVisible)
-							hideAudioPanel();
+					if (audioPanelVisible)
+						hideAudioPanel();
 
-						if (wifiPanelVisible)
-							hideWiFiPanel();
+					if (wifiPanelVisible)
+						hideWiFiPanel();
 
-						sendBroadcast(new Intent(getPackageName() + ".DOCK").putExtra("action", "SHOW_NOTIF_PANEL"));
-					}
-				} else
-					performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
-			}
+					sendBroadcast(new Intent(getPackageName() + ".DOCK").putExtra("action", "SHOW_NOTIF_PANEL"));
+				}
+			} else
+				performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
 		});
-		pinBtn.setOnClickListener(new OnClickListener() {
+		pinBtn.setOnClickListener((View p1) -> togglePin());
 
-			@Override
-			public void onClick(View p1) {
-				togglePin();
-			}
-
-		});
-		bluetoothBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				toggleBluetooth();
-			}
-		});
-		bluetoothBtn.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View p1) {
-				launchApp("standard",
-						(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
-				return true;
-			}
-		});
-		wifiBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				toggleWifi();
-			}
-		});
-		wifiBtn.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View p1) {
-				launchApp("standard",
-						(new Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
-				return true;
-			}
-		});
-		volBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				toggleVolume();
-			}
+		bluetoothBtn.setOnClickListener((View p1) -> toggleBluetooth());
+		bluetoothBtn.setOnLongClickListener((View p1) -> {
+			launchApp("standard",
+					(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			return true;
 		});
 
-		volBtn.setOnLongClickListener(new OnLongClickListener() {
+		wifiBtn.setOnClickListener((View p1) -> toggleWifi());
+		wifiBtn.setOnLongClickListener((View p1) -> {
+			launchApp("standard", (new Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			return true;
+		});
 
-			@Override
-			public boolean onLongClick(View p1) {
-				launchApp("standard",
-						(new Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
-				return true;
-			}
+		volBtn.setOnClickListener((View p1) -> toggleVolume());
+		volBtn.setOnLongClickListener((View p1) -> {
+			launchApp("standard", (new Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			return true;
 		});
 
 		if (Build.VERSION.SDK_INT > 21) {
-			batteryBtn.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View p1) {
-					launchApp("standard", (new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
-							.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
-				}
+			batteryBtn.setOnClickListener((View p1) -> {
+				launchApp("standard",
+						(new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
 			});
 		}
 
-		dateTv.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-
-				launchApp("standard", pm.getLaunchIntentForPackage(sp.getString("app_clock", "com.android.deskclock")));
-			}
-
+		dateTv.setOnClickListener((View p1) -> {
+			launchApp("standard", pm.getLaunchIntentForPackage(sp.getString("app_clock", "com.android.deskclock")));
 		});
-		dateTv.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View p1) {
-				launchApp("standard",
-						(new Intent(Settings.ACTION_DATE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
-				return true;
-			}
+		dateTv.setOnLongClickListener((View p1) -> {
+			launchApp("standard", (new Intent(Settings.ACTION_DATE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			return true;
 		});
 
 		dockLayoutParams = Utils.makeWindowParams(-1, -2);
@@ -473,48 +365,28 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		bottomRightCorner = new Button(context);
 		bottomRightCorner.setBackgroundResource(R.drawable.corner_background);
 
-		topRightCorner.setOnHoverListener(new OnHoverListener() {
+		topRightCorner.setOnHoverListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
+				Handler handler = new Handler();
+				handler.postDelayed(() -> {
+					if (topRightCorner.isHovered())
+						performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
 
-			@Override
-			public boolean onHover(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
-					Handler handler = new Handler();
-					handler.postDelayed(new Runnable() {
-
-						@Override
-						public void run() {
-							if (topRightCorner.isHovered())
-								performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
-						}
-
-					}, Integer.parseInt(sp.getString("hot_corners_delay", "300")));
-				}
-
-				return false;
+				}, Integer.parseInt(sp.getString("hot_corners_delay", "300")));
 			}
-
+			return false;
 		});
 
-		bottomRightCorner.setOnHoverListener(new OnHoverListener() {
+		bottomRightCorner.setOnHoverListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
+				Handler handler = new Handler();
+				handler.postDelayed(() -> {
+					if (bottomRightCorner.isHovered())
+						DeviceUtils.lockScreen(context);
 
-			@Override
-			public boolean onHover(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_HOVER_ENTER) {
-					Handler handler = new Handler();
-					handler.postDelayed(new Runnable() {
-
-						@Override
-						public void run() {
-							if (bottomRightCorner.isHovered())
-								DeviceUtils.lockScreen(context);
-						}
-
-					}, Integer.parseInt(sp.getString("hot_corners_delay", "300")));
-
-				}
-				return false;
+				}, Integer.parseInt(sp.getString("hot_corners_delay", "300")));
 			}
-
+			return false;
 		});
 
 		updateCorners();
@@ -538,81 +410,52 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		searchTv = appMenu.findViewById(R.id.search_tv);
 		appsSeparator = appMenu.findViewById(R.id.apps_separator);
 
-		powerBtn.setOnClickListener(new OnClickListener() {
+		powerBtn.setOnClickListener((View p1) -> {
 
-			@Override
-			public void onClick(View p1) {
+			if (sp.getBoolean("enable_power_menu", false)) {
+				if (powerMenuVisible)
+					hidePowerMenu();
+				else
+					showPowerMenu();
+			} else
+				performGlobalAction(AccessibilityService.GLOBAL_ACTION_POWER_DIALOG);
 
-				if (sp.getBoolean("enable_power_menu", false)) {
-					if (powerMenuVisible)
-						hidePowerMenu();
-					else
-						showPowerMenu();
-				} else
-					performGlobalAction(AccessibilityService.GLOBAL_ACTION_POWER_DIALOG);
-
-				hideAppMenu();
-			}
-
+			hideAppMenu();
 		});
 
-		appsGv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
-				App app = (App) p1.getItemAtPosition(p3);
-				if (app.getPackageName().equals(getPackageName() + ".calc")) {
-					ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-					cm.setPrimaryClip(ClipData.newPlainText("results", app.getName()));
-					Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
-				} else
-					launchApp(null, app.getPackageName());
-			}
-
-		});
-
-		appsGv.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> p1, View anchor, int p3, long p4) {
-				final String app = ((App) p1.getItemAtPosition(p3)).getPackageName();
-
-				if (!app.equals(getPackageName() + ".calc")) {
-					showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), anchor);
-				}
-				return true;
-			}
-		});
-
-		favoritesGv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
-				App app = (App) p1.getItemAtPosition(p3);
+		appsGv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
+			App app = (App) p1.getItemAtPosition(p3);
+			if (app.getPackageName().equals(getPackageName() + ".calc")) {
+				ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+				cm.setPrimaryClip(ClipData.newPlainText("results", app.getName()));
+				Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
+			} else
 				launchApp(null, app.getPackageName());
-			}
-
 		});
 
-		favoritesGv.setOnItemLongClickListener(new OnItemLongClickListener() {
+		appsGv.setOnItemLongClickListener((AdapterView<?> p1, View anchor, int p3, long p4) -> {
+			final String app = ((App) p1.getItemAtPosition(p3)).getPackageName();
 
-			@Override
-			public boolean onItemLongClick(AdapterView<?> p1, View p2, int p3, long p4) {
-				showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), p2);
-				return true;
+			if (!app.equals(getPackageName() + ".calc")) {
+				showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), anchor);
 			}
+			return true;
 		});
 
-		searchTv.setOnClickListener(new OnClickListener() {
+		favoritesGv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
+			App app = (App) p1.getItemAtPosition(p3);
+			launchApp(null, app.getPackageName());
+		});
 
-			@Override
-			public void onClick(View p1) {
-				launchApp("standard",
-						new Intent(Intent.ACTION_VIEW,
-								Uri.parse("https://www.google.com/search?q="
-										+ URLEncoder.encode(searchEt.getText().toString())))
-												.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-			}
+		favoritesGv.setOnItemLongClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
+			showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), p2);
+			return true;
+		});
+
+		searchTv.setOnClickListener((View p1) -> {
+			launchApp("standard", new Intent(Intent.ACTION_VIEW,
+					Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(searchEt.getText().toString())))
+							.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 		});
 
 		searchEt.addTextChangedListener(new TextWatcher() {
@@ -644,37 +487,29 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			}
 
 		});
-		searchEt.setOnKeyListener(new OnKeyListener() {
-
-			@Override
-			public boolean onKey(View p1, int p2, KeyEvent p3) {
-				if (p3.getAction() == KeyEvent.ACTION_DOWN) {
-					if (p2 == KeyEvent.KEYCODE_ENTER && searchEt.getText().toString().length() > 1) {
-						launchApp("standard",
-								new Intent(Intent.ACTION_VIEW,
-										Uri.parse("https://www.google.com/search?q="
-												+ URLEncoder.encode(searchEt.getText().toString())))
-														.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-						return true;
-					}
+		searchEt.setOnKeyListener((View p1, int p2, KeyEvent p3) -> {
+			if (p3.getAction() == KeyEvent.ACTION_DOWN) {
+				if (p2 == KeyEvent.KEYCODE_ENTER && searchEt.getText().toString().length() > 1) {
+					launchApp("standard",
+							new Intent(Intent.ACTION_VIEW,
+									Uri.parse("https://www.google.com/search?q="
+											+ URLEncoder.encode(searchEt.getText().toString())))
+													.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+					return true;
 				}
-				return false;
 			}
+			return false;
 		});
 
 		new UpdateAppMenuTask().execute();
 
 		//TODO: Filter app button menu click only
-		appMenu.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_OUTSIDE
-						&& (p2.getY() < appMenu.getMeasuredHeight() || p2.getX() > appMenu.getMeasuredWidth())) {
-					hideAppMenu();
-				}
-				return false;
+		appMenu.setOnTouchListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE
+					&& (p2.getY() < appMenu.getMeasuredHeight() || p2.getX() > appMenu.getMeasuredWidth())) {
+				hideAppMenu();
 			}
+			return false;
 		});
 
 		//Listen for launcher messages
@@ -1062,31 +897,27 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void hideDock(int delay) {
 		dockHandler.removeCallbacksAndMessages(null);
-		dockHandler.postDelayed(new Runnable() {
+		dockHandler.postDelayed(() -> {
+			if (!isPinned) {
+				Animation anim = AnimationUtils.loadAnimation(context, R.anim.slide_down);
+				anim.setAnimationListener(new Animation.AnimationListener() {
 
-			@Override
-			public void run() {
-				if (!isPinned) {
-					Animation anim = AnimationUtils.loadAnimation(context, R.anim.slide_down);
-					anim.setAnimationListener(new Animation.AnimationListener() {
+					@Override
+					public void onAnimationStart(Animation p1) {
+					}
 
-						@Override
-						public void onAnimationStart(Animation p1) {
-						}
+					@Override
+					public void onAnimationEnd(Animation p1) {
+						dockLayout.setVisibility(View.GONE);
+					}
 
-						@Override
-						public void onAnimationEnd(Animation p1) {
-							dockLayout.setVisibility(View.GONE);
-						}
-
-						@Override
-						public void onAnimationRepeat(Animation p1) {
-						}
-					});
-					dockLayout.startAnimation(anim);
-				}
-
+					@Override
+					public void onAnimationRepeat(Animation p1) {
+					}
+				});
+				dockLayout.startAnimation(anim);
 			}
+
 		}, delay);
 	}
 
@@ -1149,13 +980,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		TextView userNameTv = appMenu.findViewById(R.id.user_name_tv);
 		ColorUtils.applyColor(appsSeparator, ColorUtils.getMainColors(sp, this)[4]);
 
-		avatarIv.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				showUserContextMenu(p1);
-			}
-		});
+		avatarIv.setOnClickListener((View p1) -> showUserContextMenu(p1));
 
 		wm.addView(appMenu, lp);
 
@@ -1200,105 +1025,96 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		lp.x = rect.left;
 		lp.y = rect.centerY();
 
-		view.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
-					wm.removeView(view);
-				}
-				return false;
+		view.setOnTouchListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
+				wm.removeView(view);
 			}
+			return false;
 		});
 		final ListView actionsLv = view.findViewById(R.id.tasks_lv);
 
 		actionsLv.setAdapter(new AppActionsAdapter(context, getAppActions(app)));
 
-		actionsLv.setOnItemClickListener(new OnItemClickListener() {
+		actionsLv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
+			if (p1.getItemAtPosition(p3) instanceof Action) {
+				Action action = (Action) p1.getItemAtPosition(p3);
+				if (action.getText().equals(getString(R.string.manage))) {
+					ArrayList<Action> actions = new ArrayList<Action>();
+					actions.add(new Action(R.drawable.ic_arrow_back, ""));
+					actions.add(new Action(R.drawable.ic_info, getString(R.string.app_info)));
+					if (!AppUtils.isSystemApp(context, app) || sp.getBoolean("allow_sysapp_uninstall", false))
+						actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
+					if (sp.getBoolean("allow_app_freeze", false))
+						actions.add(new Action(R.drawable.ic_freeze, getString(R.string.freeze)));
 
-			@Override
-			public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
-
-				if (p1.getItemAtPosition(p3) instanceof Action) {
-					Action action = (Action) p1.getItemAtPosition(p3);
-					if (action.getText().equals(getString(R.string.manage))) {
-						ArrayList<Action> actions = new ArrayList<Action>();
-						actions.add(new Action(R.drawable.ic_arrow_back, ""));
-						actions.add(new Action(R.drawable.ic_info, getString(R.string.app_info)));
-						if (!AppUtils.isSystemApp(context, app) || sp.getBoolean("allow_sysapp_uninstall", false))
-							actions.add(new Action(R.drawable.ic_uninstall, getString(R.string.uninstall)));
-						if (sp.getBoolean("allow_app_freeze", false))
-							actions.add(new Action(R.drawable.ic_freeze, getString(R.string.freeze)));
-
-						actionsLv.setAdapter(new AppActionsAdapter(context, actions));
-					} else if (action.getText().equals(getString(R.string.shortcuts))) {
-						actionsLv.setAdapter(
-								new AppShortcutAdapter(context, DeepShortcutManager.getShortcuts(app, context)));
-					} else if (action.getText().equals("")) {
-						actionsLv.setAdapter(new AppActionsAdapter(context, getAppActions(app)));
-					} else if (action.getText().equals(getString(R.string.open_in))) {
-						ArrayList<Action> actions = new ArrayList<Action>();
-						actions.add(new Action(R.drawable.ic_arrow_back, ""));
-						actions.add(new Action(R.drawable.ic_standard, getString(R.string.standard)));
-						actions.add(new Action(R.drawable.ic_maximized, getString(R.string.maximized)));
-						actions.add(new Action(R.drawable.ic_portrait, getString(R.string.portrait)));
-						actions.add(new Action(R.drawable.ic_fullscreen, getString(R.string.fullscreen)));
-						actionsLv.setAdapter(new AppActionsAdapter(context, actions));
-					} else if (action.getText().equals(getString(R.string.app_info))) {
-						launchApp("standard", new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-								.setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-						wm.removeView(view);
-					} else if (action.getText().equals(getString(R.string.uninstall))) {
-						if (AppUtils.isSystemApp(context, app))
-							DeviceUtils.runAsRoot("pm uninstall --user 0 " + app);
-						else
-							startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app))
-									.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-						if (appMenuVisible)
-							hideAppMenu();
-						wm.removeView(view);
-					} else if (action.getText().equals(getString(R.string.freeze))) {
-						String status = DeviceUtils.runAsRoot("pm disable " + app);
-						if (!status.equals("error"))
-							Toast.makeText(context, R.string.app_frozen, Toast.LENGTH_SHORT).show();
-						else
-							Toast.makeText(context, R.string.something_wrong, Toast.LENGTH_SHORT).show();
-						wm.removeView(view);
-						if (appMenuVisible)
-							hideAppMenu();
-					} else if (action.getText().equals(getString(R.string.to_favorites))) {
-						AppUtils.pinApp(context, app, AppUtils.PINNED_LIST);
-						wm.removeView(view);
-						loadFavoriteApps();
-					} else if (action.getText().equals(getString(R.string.remove))) {
-						AppUtils.unpinApp(context, app, AppUtils.PINNED_LIST);
-						wm.removeView(view);
-						loadFavoriteApps();
-					} else if (action.getText().equals(getString(R.string.to_desktop))) {
-						AppUtils.pinApp(context, app, AppUtils.DESKTOP_LIST);
-						sendBroadcast(new Intent(getPackageName() + ".SERVICE").putExtra("action", "PINNED"));
-						wm.removeView(view);
-					} else if (action.getText().equals(getString(R.string.standard))) {
-						wm.removeView(view);
-						launchApp("standard", app);
-					} else if (action.getText().equals(getString(R.string.maximized))) {
-						wm.removeView(view);
-						launchApp("maximized", app);
-					} else if (action.getText().equals(getString(R.string.portrait))) {
-						wm.removeView(view);
-						launchApp("portrait", app);
-					} else if (action.getText().equals(getString(R.string.fullscreen))) {
-						wm.removeView(view);
-						launchApp("fullscreen", app);
-					}
-
-				}
-				//noinspection NewApi 
-				else if (p1.getItemAtPosition(p3) instanceof ShortcutInfo) {
-					ShortcutInfo shortcut = (ShortcutInfo) p1.getItemAtPosition(p3);
+					actionsLv.setAdapter(new AppActionsAdapter(context, actions));
+				} else if (action.getText().equals(getString(R.string.shortcuts))) {
+					actionsLv.setAdapter(
+							new AppShortcutAdapter(context, DeepShortcutManager.getShortcuts(app, context)));
+				} else if (action.getText().equals("")) {
+					actionsLv.setAdapter(new AppActionsAdapter(context, getAppActions(app)));
+				} else if (action.getText().equals(getString(R.string.open_in))) {
+					ArrayList<Action> actions = new ArrayList<Action>();
+					actions.add(new Action(R.drawable.ic_arrow_back, ""));
+					actions.add(new Action(R.drawable.ic_standard, getString(R.string.standard)));
+					actions.add(new Action(R.drawable.ic_maximized, getString(R.string.maximized)));
+					actions.add(new Action(R.drawable.ic_portrait, getString(R.string.portrait)));
+					actions.add(new Action(R.drawable.ic_fullscreen, getString(R.string.fullscreen)));
+					actionsLv.setAdapter(new AppActionsAdapter(context, actions));
+				} else if (action.getText().equals(getString(R.string.app_info))) {
+					launchApp("standard", new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+							.setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 					wm.removeView(view);
-					DeepShortcutManager.startShortcut(shortcut, context);
+				} else if (action.getText().equals(getString(R.string.uninstall))) {
+					if (AppUtils.isSystemApp(context, app))
+						DeviceUtils.runAsRoot("pm uninstall --user 0 " + app);
+					else
+						startActivity(new Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:" + app))
+								.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+					if (appMenuVisible)
+						hideAppMenu();
+					wm.removeView(view);
+				} else if (action.getText().equals(getString(R.string.freeze))) {
+					String status = DeviceUtils.runAsRoot("pm disable " + app);
+					if (!status.equals("error"))
+						Toast.makeText(context, R.string.app_frozen, Toast.LENGTH_SHORT).show();
+					else
+						Toast.makeText(context, R.string.something_wrong, Toast.LENGTH_SHORT).show();
+					wm.removeView(view);
+					if (appMenuVisible)
+						hideAppMenu();
+				} else if (action.getText().equals(getString(R.string.to_favorites))) {
+					AppUtils.pinApp(context, app, AppUtils.PINNED_LIST);
+					wm.removeView(view);
+					loadFavoriteApps();
+				} else if (action.getText().equals(getString(R.string.remove))) {
+					AppUtils.unpinApp(context, app, AppUtils.PINNED_LIST);
+					wm.removeView(view);
+					loadFavoriteApps();
+				} else if (action.getText().equals(getString(R.string.to_desktop))) {
+					AppUtils.pinApp(context, app, AppUtils.DESKTOP_LIST);
+					sendBroadcast(new Intent(getPackageName() + ".SERVICE").putExtra("action", "PINNED"));
+					wm.removeView(view);
+				} else if (action.getText().equals(getString(R.string.standard))) {
+					wm.removeView(view);
+					launchApp("standard", app);
+				} else if (action.getText().equals(getString(R.string.maximized))) {
+					wm.removeView(view);
+					launchApp("maximized", app);
+				} else if (action.getText().equals(getString(R.string.portrait))) {
+					wm.removeView(view);
+					launchApp("portrait", app);
+				} else if (action.getText().equals(getString(R.string.fullscreen))) {
+					wm.removeView(view);
+					launchApp("fullscreen", app);
 				}
+
+			}
+			//noinspection NewApi 
+			else if (p1.getItemAtPosition(p3) instanceof ShortcutInfo) {
+				ShortcutInfo shortcut = (ShortcutInfo) p1.getItemAtPosition(p3);
+				wm.removeView(view);
+				DeepShortcutManager.startShortcut(shortcut, context);
 			}
 		});
 
@@ -1321,15 +1137,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		anchor.getGlobalVisibleRect(rect);
 
 		lp.x = rect.left;
-		view.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
-					wm.removeView(view);
-				}
-				return false;
+		view.setOnTouchListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
+				wm.removeView(view);
 			}
+			return false;
 		});
 
 		ImageView icon = view.findViewById(R.id.pin_entry_iv);
@@ -1347,40 +1159,28 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			ColorUtils.applySecondaryColor(context, sp, moveLeft);
 			ColorUtils.applySecondaryColor(context, sp, moveRight);
 
-			moveLeft.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View p1) {
-					AppUtils.moveApp(DockService.this, app, AppUtils.DOCK_PINNED_LIST, 0);
-					loadPinnedApps();
-					updateRunningTasks();
-				}
+			moveLeft.setOnClickListener((View p1) -> {
+				AppUtils.moveApp(DockService.this, app, AppUtils.DOCK_PINNED_LIST, 0);
+				loadPinnedApps();
+				updateRunningTasks();
 			});
 
-			moveRight.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View p1) {
-					AppUtils.moveApp(DockService.this, app, AppUtils.DOCK_PINNED_LIST, 1);
-					loadPinnedApps();
-					updateRunningTasks();
-				}
+			moveRight.setOnClickListener((View p1) -> {
+				AppUtils.moveApp(DockService.this, app, AppUtils.DOCK_PINNED_LIST, 1);
+				loadPinnedApps();
+				updateRunningTasks();
 			});
 		}
 
-		pinLayout.setOnClickListener(new OnClickListener() {
+		pinLayout.setOnClickListener((View p1) -> {
+			if (AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST))
+				AppUtils.unpinApp(context, app, AppUtils.DOCK_PINNED_LIST);
+			else
+				AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST);
 
-			@Override
-			public void onClick(View p1) {
-				if (AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST))
-					AppUtils.unpinApp(context, app, AppUtils.DOCK_PINNED_LIST);
-				else
-					AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST);
-
-				loadPinnedApps();
-				updateRunningTasks();
-				wm.removeView(view);
-			}
+			loadPinnedApps();
+			updateRunningTasks();
+			wm.removeView(view);
 		});
 
 		wm.addView(view, lp);
@@ -1399,15 +1199,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		lp.x = rect.left;
 		lp.y = rect.bottom;
 
-		view.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
-					wm.removeView(view);
-				}
-				return false;
+		view.setOnTouchListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
+				wm.removeView(view);
 			}
+			return false;
 		});
 		final ListView actionsLv = view.findViewById(R.id.tasks_lv);
 
@@ -1419,24 +1215,20 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		actionsLv.setAdapter(new AppActionsAdapter(context, actions));
 
-		actionsLv.setOnItemClickListener(new OnItemClickListener() {
+		actionsLv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
+			Action action = (Action) p1.getItemAtPosition(p3);
+			if (action.getText().equals(getString(R.string.users)))
+				launchApp("standard",
+						new Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			else if (action.getText().equals(getString(R.string.files)))
+				launchApp("standard", sp.getString("app_files", "com.android.documentsui"));
+			else if (action.getText().equals(getString(R.string.settings)))
+				launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			else if (action.getText().equals(getString(R.string.dock_settings)))
+				launchApp("standard", new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
-			@Override
-			public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
-				Action action = (Action) p1.getItemAtPosition(p3);
-				if (action.getText().equals(getString(R.string.users)))
-					launchApp("standard",
-							new Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-				else if (action.getText().equals(getString(R.string.files)))
-					launchApp("standard", sp.getString("app_files", "com.android.documentsui"));
-				else if (action.getText().equals(getString(R.string.settings)))
-					launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-				else if (action.getText().equals(getString(R.string.dock_settings)))
-					launchApp("standard", new Intent(context, MainActivity.class)
-							.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-
-				wm.removeView(view);
-			}
+			wm.removeView(view);
 		});
 		wm.addView(view, lp);
 	}
@@ -1597,6 +1389,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void toggleVolume() {
+		//TODO: Implement setting
 		//DeviceUtils.toggleVolume(context);
 
 		if (!audioPanelVisible)
@@ -1629,16 +1422,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		audioPanel = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(context, R.style.AppTheme_Dock))
 				.inflate(R.layout.audio_panel, null);
 
-		audioPanel.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_OUTSIDE
-						&& (p2.getY() < audioPanel.getMeasuredHeight() || p2.getX() < audioPanel.getX())) {
-					hideAudioPanel();
-				}
-				return false;
+		audioPanel.setOnTouchListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE
+					&& (p2.getY() < audioPanel.getMeasuredHeight() || p2.getX() < audioPanel.getX())) {
+				hideAudioPanel();
 			}
+			return false;
 		});
 
 		ImageView musicIcon = audioPanel.findViewById(R.id.ap_music_icon);
@@ -1691,16 +1480,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wifiPanel = (LinearLayout) LayoutInflater.from(new ContextThemeWrapper(context, R.style.AppTheme_Dock))
 				.inflate(R.layout.wifi_panel, null);
 
-		wifiPanel.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_OUTSIDE
-						&& (p2.getY() < wifiPanel.getMeasuredHeight() || p2.getX() < wifiPanel.getX())) {
-					hideWiFiPanel();
-				}
-				return false;
+		wifiPanel.setOnTouchListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE
+					&& (p2.getY() < wifiPanel.getMeasuredHeight() || p2.getX() < wifiPanel.getX())) {
+				hideWiFiPanel();
 			}
+			return false;
 		});
 
 		final TextView ssidTv = wifiPanel.findViewById(R.id.wp_ssid_tv);
@@ -1708,31 +1493,21 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		Button selectBtn = wifiPanel.findViewById(R.id.wp_select_btn);
 		final LinearLayout infoLayout = wifiPanel.findViewById(R.id.wp_info);
 
-		selectBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				launchApp("standard",
-						(new Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
-				hideWiFiPanel();
-			}
+		selectBtn.setOnClickListener((View p1) -> {
+			launchApp("standard", (new Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			hideWiFiPanel();
 		});
 
 		wifiSwtch.setChecked(wifiManager.isWifiEnabled());
 
-		wifiSwtch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton p1, boolean p2) {
-				if (p2) {
-					wifiManager.setWifiEnabled(true);
-					wifiBtn.setImageResource(R.drawable.ic_wifi_on);
-				} else {
-					wifiManager.setWifiEnabled(false);
-					ssidTv.setText(R.string.not_connected);
-					wifiBtn.setImageResource(R.drawable.ic_wifi_off);
-				}
-
+		wifiSwtch.setOnCheckedChangeListener((CompoundButton p1, boolean p2) -> {
+			if (p2) {
+				wifiManager.setWifiEnabled(true);
+				wifiBtn.setImageResource(R.drawable.ic_wifi_on);
+			} else {
+				wifiManager.setWifiEnabled(false);
+				ssidTv.setText(R.string.not_connected);
+				wifiBtn.setImageResource(R.drawable.ic_wifi_off);
 			}
 		});
 
@@ -1780,15 +1555,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		powerMenu = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.power_menu, null);
 
-		powerMenu.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View p1, MotionEvent p2) {
-				if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
-					hidePowerMenu();
-				}
-				return false;
+		powerMenu.setOnTouchListener((View p1, MotionEvent p2) -> {
+			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
+				hidePowerMenu();
 			}
+			return false;
 		});
 
 		ImageButton powerOffBtn = powerMenu.findViewById(R.id.power_off_btn);
@@ -1801,39 +1572,24 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		ColorUtils.applySecondaryColor(context, sp, softRestartBtn);
 		ColorUtils.applySecondaryColor(context, sp, lockBtn);
 
-		powerOffBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				hidePowerMenu();
-				DeviceUtils.shutdown();
-			}
+		powerOffBtn.setOnClickListener((View p1) -> {
+			hidePowerMenu();
+			DeviceUtils.shutdown();
 		});
 
-		restartBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				hidePowerMenu();
-				DeviceUtils.reboot();
-			}
+		restartBtn.setOnClickListener((View p1) -> {
+			hidePowerMenu();
+			DeviceUtils.reboot();
 		});
 
-		softRestartBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				hidePowerMenu();
-				DeviceUtils.sotfReboot();
-			}
+		softRestartBtn.setOnClickListener((View p1) -> {
+			hidePowerMenu();
+			DeviceUtils.sotfReboot();
 		});
-		lockBtn.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View p1) {
-				hidePowerMenu();
-				DeviceUtils.lockScreen(DockService.this);
-			}
+		lockBtn.setOnClickListener((View p1) -> {
+			hidePowerMenu();
+			DeviceUtils.lockScreen(DockService.this);
 		});
 		ColorUtils.applyMainColor(context, sp, powerMenu);
 		wm.addView(powerMenu, layoutParams);
