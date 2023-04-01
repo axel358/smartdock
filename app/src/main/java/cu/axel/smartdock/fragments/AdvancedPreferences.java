@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import androidx.preference.PreferenceFragmentCompat;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
@@ -104,7 +105,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 	}
 
 	public void showEditAutostartDialog(final Context context) {
-		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context);
 		dialog.setTitle(getString(R.string.edit_autostart));
 		View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_autostart, null);
 		final EditText contentEt = view.findViewById(R.id.edit_autostart_et);
@@ -121,7 +122,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 	}
 
 	public void showIBDialog(final Context context) {
-		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context);
 		dialog.setTitle("Blacklisted icons");
 		View view = LayoutInflater.from(context).inflate(R.layout.dialog_icon_blacklist, null);
 		final EditText contentEt = view.findViewById(R.id.icon_blacklist_et);
@@ -135,7 +136,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 	}
 
 	public void showRebootDialog(Context context, final boolean softReboot) {
-		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context);
 		dialog.setTitle(getString(R.string.reboot_required_title));
 		dialog.setMessage(getString(R.string.reboot_required_text));
 		dialog.setPositiveButton(getString(R.string.ok), (DialogInterface p1, int p2) -> {
