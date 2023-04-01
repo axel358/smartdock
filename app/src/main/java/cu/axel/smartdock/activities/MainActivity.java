@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 				startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
 		});
 
-		manageServiceBtn.setOnClickListener((View p1) {
+		manageServiceBtn.setOnClickListener((View p1) -> {
 				startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
 		});
 
