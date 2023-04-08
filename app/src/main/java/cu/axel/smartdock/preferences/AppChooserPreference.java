@@ -54,14 +54,10 @@ public class AppChooserPreference extends Preference {
 		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context);
 		dialog.setTitle(R.string.choose_app);
 		final ArrayList<App> apps = AppUtils.getInstalledApps(context.getPackageManager());
-		dialog.setAdapter(new AppAdapter(context, apps), new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface p1, int p2) {
+		dialog.setAdapter(new AppAdapter(context, apps), (DialogInterface p1, int p2) -> {
 				App app = apps.get(p2);
 				sp.edit().putString(getKey(), app.getPackageName()).commit();
 				setSummary(app.getName());
-			}
 		});
 		dialog.show();
 	}

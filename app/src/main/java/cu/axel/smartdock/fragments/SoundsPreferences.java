@@ -18,49 +18,29 @@ public class SoundsPreferences extends PreferenceFragmentCompat {
 		setPreferencesFromResource(R.xml.preferences_sounds, arg1);
 
 		startSoundPref = findPreference("startup_sound");
-		startSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference p1) {
+		startSoundPref.setOnPreferenceClickListener((Preference p1) -> {
 				openSound(0);
 				return false;
-			}
 		});
 		usbSoundPref = findPreference("usb_sound");
-		usbSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference p1) {
+		usbSoundPref.setOnPreferenceClickListener((Preference p1) -> {
 				openSound(1);
 				return false;
-			}
 		});
 		notifSoundPref = findPreference("notification_sound");
-		notifSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference p1) {
+		notifSoundPref.setOnPreferenceClickListener((Preference p1) -> {
 				openSound(2);
 				return false;
-			}
 		});
 		chargeSoundPref = findPreference("charge_sound");
-		chargeSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference p1) {
+		chargeSoundPref.setOnPreferenceClickListener((Preference p1) -> {
 				openSound(3);
 				return false;
-			}
 		});
 		chargeCompleteSoundPref = findPreference("charge_complete_sound");
-		chargeCompleteSoundPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference p1) {
+		chargeCompleteSoundPref.setOnPreferenceClickListener((Preference p1) -> {
 				openSound(4);
 				return false;
-			}
 		});
 	}
 

@@ -17,23 +17,16 @@ public class AppMenuPreferences extends PreferenceFragmentCompat {
 		setPreferencesFromResource(R.xml.preferences_app_menu, arg1);
 
 		menuIconPref = findPreference("menu_icon_uri");
-		menuIconPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+		menuIconPref.setOnPreferenceClickListener((Preference p1) -> {
+			startActivityForResult(
+					new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/*"),
+					OPEN_REQUEST_CODE);
 
-			@Override
-			public boolean onPreferenceClick(Preference p1) {
-				startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
-						.setType("image/*"), OPEN_REQUEST_CODE);
-
-				return false;
-			}
+			return false;
 		});
-		findPreference("restore_menu_icon").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference p1) {
-				menuIconPref.getSharedPreferences().edit().putString(menuIconPref.getKey(), "default").commit();
-				return false;
-			}
+		findPreference("restore_menu_icon").setOnPreferenceClickListener((Preference p1) -> {
+			menuIconPref.getSharedPreferences().edit().putString(menuIconPref.getKey(), "default").commit();
+			return false;
 		});
 	}
 

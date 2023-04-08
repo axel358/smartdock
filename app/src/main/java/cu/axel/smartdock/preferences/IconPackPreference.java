@@ -109,15 +109,13 @@ public class IconPackPreference extends Preference {
 
 		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(mContext);
 		dialog.setTitle(R.string.select_icon_pack);
-		dialog.setItems(newNameList, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int item) {
-				if (iconPackageList.get(item).equals(mContext.getPackageName())) {
-					sp.edit().putString("icon_pack", "").commit();
-					setSummary(R.string.system);
-				} else {
-					sp.edit().putString("icon_pack", iconPackageList.get(item)).commit();
-					setSummary(AppUtils.getPackageLabel(mContext, iconPackHelper.getIconPack(sp)));
-				}
+		dialog.setItems(newNameList, (DialogInterface d1, int item) -> {
+			if (iconPackageList.get(item).equals(mContext.getPackageName())) {
+				sp.edit().putString("icon_pack", "").commit();
+				setSummary(R.string.system);
+			} else {
+				sp.edit().putString("icon_pack", iconPackageList.get(item)).commit();
+				setSummary(AppUtils.getPackageLabel(mContext, iconPackHelper.getIconPack(sp)));
 			}
 		});
 		dialog.show();
