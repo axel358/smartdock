@@ -39,22 +39,14 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
 	public void onCreatePreferences(Bundle arg0, String arg1) {
 		setPreferencesFromResource(R.xml.preferences_appearance, arg1);
 		mainColorPref = findPreference("theme_main_color");
-		mainColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference p1) {
+		mainColorPref.setOnPreferenceClickListener((Preference p1) -> {
 				showColorPickerDialog(getActivity(), "main");
 				return false;
-			}
 		});
 
-		findPreference("theme").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-			@Override
-			public boolean onPreferenceChange(Preference p1, Object p2) {
+		findPreference("theme").setOnPreferenceChangeListener((Preference p1, Object p2) -> {
 				mainColorPref.setEnabled(p2.toString().equals("custom"));
 				return true;
-			}
 		});
 
 		mainColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("theme", "dark").equals("custom"));
@@ -172,18 +164,13 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
 			}
 		});
 		dialog.setNegativeButton(R.string.cancel, null);
-		dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface p1, int p2) {
+		dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int p2) -> {
 				String color = colorHexEt.getText().toString();
 				if (ColorUtils.toColor(color) != -1) {
 					mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).commit();
 					mainColorPref.getSharedPreferences().edit().putInt("theme_main_alpha", alphaSb.getProgress())
 							.commit();
 				}
-
-			}
 		});
 		dialog.setView(view);
 		alphaSb.setProgress(mainColorPref.getSharedPreferences().getInt("theme_main_alpha", 255));
@@ -194,25 +181,17 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
 		presetsGv.setAdapter(
 				new HexColorAdapter(context, context.getResources().getStringArray(R.array.default_color_values)));
 
-		presetsGv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+		presetsGv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
 				colorHexEt.setText(p1.getItemAtPosition(p3).toString());
 				th.setCurrentTab(0);
-			}
 		});
 
 		GridView wallColorsGv = view.findViewById(R.id.wallpaper_colors_gv);
 		wallColorsGv.setAdapter(new HexColorAdapter(context, ColorUtils.getWallpaperColors(context)));
 
-		wallColorsGv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4) {
+		wallColorsGv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
 				colorHexEt.setText(p1.getItemAtPosition(p3).toString());
 				th.setCurrentTab(0);
-			}
 		});
 
 		dialog.show();
