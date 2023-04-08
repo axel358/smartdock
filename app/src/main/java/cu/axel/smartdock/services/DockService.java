@@ -273,8 +273,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				ListView tasksLv = view.findViewById(R.id.tasks_lv);
 				tasksLv.setAdapter(new AppTaskAdaper(context, tasks));
 
-				tasksLv.setOnItemClickListener((AdapterView<?> pos, View view2, int position, long p14) -> {
-					am.moveTaskToFront(((AppTask) p1.getItemAtPosition(p3)).getID(), 0);
+				tasksLv.setOnItemClickListener((AdapterView<?> adapter, View view2, int position, long p14) -> {
+					am.moveTaskToFront(((AppTask) adapter.getItemAtPosition(position)).getID(), 0);
 					wm.removeView(view);
 				});
 
