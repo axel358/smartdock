@@ -923,7 +923,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void setOrientation() {
-		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? 0 : -1;
+		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 		wm.updateViewLayout(dock, dockLayoutParams);
 	}
 
