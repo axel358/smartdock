@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.content.res.Resources;
@@ -353,7 +354,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		});
 
 		dockLayoutParams = Utils.makeWindowParams(-1, -2);
-		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? 0 : -1;
+		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 		dockLayoutParams.gravity = Gravity.BOTTOM;
 
 		wm.addView(dock, dockLayoutParams);
