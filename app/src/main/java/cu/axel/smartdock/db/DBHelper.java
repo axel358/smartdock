@@ -62,7 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
 			if (c != null && c.getCount() > 0) {
 				c.moveToFirst();
 				//TODO: recheck this
-				//noinspection
+				//noinspection all
 				mode = c.getString(c.getColumnIndex(LaunchModesTable.COLUMN_LAUNCH_MODE));
 				c.close();
 			}
