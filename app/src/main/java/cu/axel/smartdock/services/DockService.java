@@ -597,7 +597,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		if (sp.getBoolean("pin_dock", true))
 			pinDock();
 		else
-			Toast.makeText(context, R.string.start_message, 5000).show();
+			Toast.makeText(context, R.string.start_message, Toast.LENGTH_LONG).show();
 
 	}
 
@@ -643,7 +643,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void restart() {
-		Toast.makeText(context, "Restarting...", 5000).show();
+		Toast.makeText(context, "Restarting...", Toast.LENGTH_LONG).show();
 		context = DeviceUtils.getDisplayContext(this, true);
 	}
 
@@ -892,7 +892,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			}
 
 		} catch (Exception e) {
-			Toast.makeText(context, R.string.something_wrong + e.toString(), 5000).show();
+			Toast.makeText(context, R.string.something_wrong + e.toString(), Toast.LENGTH_LONG).show();
 		}
 	}
 
