@@ -26,49 +26,50 @@ import android.content.Intent;
  * Performs operations related to deep shortcuts, such as querying for them, pinning them, etc.
  */
 public class DeepShortcutManager {
-    // TODO: Replace this with platform constants when the new sdk is available.
-    public static final int FLAG_MATCH_DYNAMIC = 1 << 0;
-    public static final int FLAG_MATCH_MANIFEST = 1 << 3;
-    public static final int FLAG_MATCH_PINNED = 1 << 1;
 
-    //TODO: Add free form support
-    @TargetApi(25)
-    public static void startShortcut(ShortcutInfo shortcutInfo, Context context) {
-        LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
-        try {
-            launcherApps.startShortcut(shortcutInfo.getPackage(), shortcutInfo.getId(), null, null, android.os.Process.myUserHandle());
-        } catch (Exception e) {}
-    }
+	//TODO: Add free form support
+	@TargetApi(25)
+	public static void startShortcut(ShortcutInfo shortcutInfo, Context context) {
+		LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
+		try {
+			launcherApps.startShortcut(shortcutInfo.getPackage(), shortcutInfo.getId(), null, null,
+					android.os.Process.myUserHandle());
+		} catch (Exception e) {
+		}
+	}
 
-    @TargetApi(25)
-    public static Drawable getShortcutIcon(ShortcutInfo shortcutInfo, Context context) {
-        LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
-        try {
-            float density = context.getResources().getDisplayMetrics().density * 48;
-            return launcherApps.getShortcutIconDrawable(shortcutInfo,(int) density);
-        } catch (Exception e) {}
-        return null;
-    }
+	@TargetApi(25)
+	public static Drawable getShortcutIcon(ShortcutInfo shortcutInfo, Context context) {
+		LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
+		try {
+			float density = context.getResources().getDisplayMetrics().density * 48;
+			return launcherApps.getShortcutIconDrawable(shortcutInfo, (int) density);
+		} catch (Exception e) {
+		}
+		return null;
+	}
 
-    @TargetApi(25)
-    public static List<ShortcutInfo> getShortcuts(String app, Context context) {
-        LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
-        
-        ShortcutQuery queryParams = new ShortcutQuery();
-        queryParams.setQueryFlags(FLAG_MATCH_MANIFEST | FLAG_MATCH_DYNAMIC);
-        queryParams.setPackage(app);
-        
-        List<ShortcutInfo> shortcutInfos = Collections.EMPTY_LIST;
-        try {
-            shortcutInfos = launcherApps.getShortcuts(queryParams, android.os.Process.myUserHandle());
-        } catch (Exception e) {}
+	@TargetApi(25)
+	public static List<ShortcutInfo> getShortcuts(String app, Context context) {
+		LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
 
-        return shortcutInfos;
-    }
+		ShortcutQuery queryParams = new ShortcutQuery();
+		queryParams.setQueryFlags(
+				LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST | LauncherApps.ShortcutQuery.FLAG_MATCH_DYNAMIC);
+		queryParams.setPackage(app);
 
-    public static boolean hasHostPermission(Context context) {
-        LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
-        return Build.VERSION.SDK_INT > 24 && launcherApps.hasShortcutHostPermission();
-    }
+		List<ShortcutInfo> shortcutInfos = Collections.EMPTY_LIST;
+		try {
+			shortcutInfos = launcherApps.getShortcuts(queryParams, android.os.Process.myUserHandle());
+		} catch (Exception e) {
+		}
+
+		return shortcutInfos;
+	}
+
+	public static boolean hasHostPermission(Context context) {
+		LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
+		return Build.VERSION.SDK_INT > 24 && launcherApps.hasShortcutHostPermission();
+	}
 
 }

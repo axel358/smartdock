@@ -723,6 +723,7 @@ public final class R {
      */
     public static final int backgroundStacked=0x7f040048;
     /**
+     * Tint to apply to the background.
      * <p>May be a color value, in the form of "<code>#<i>rgb</i></code>",
      * "<code>#<i>argb</i></code>", "<code>#<i>rrggbb</i></code>", or
      * "<code>#<i>aarrggbb</i></code>".
@@ -1655,7 +1656,7 @@ public final class R {
      */
     public static final int clockNumberTextColor=0x7f0400b3;
     /**
-     * Close icon drawable to display at the end of the chip.
+     * Close button icon
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -3880,7 +3881,10 @@ public final class R {
      */
     public static final int fontStyle=0x7f0401bb;
     /**
-     * OpenType font variation settings, available after api 26.
+     * The variation settings to be applied to the font. The string should be in the following
+     * format: "'tag1' value1, 'tag2' value2, ...". If the default variation settings should be
+     * used, or the font used does not support variation settings, this attribute needs not be
+     * specified.
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      */
@@ -4111,7 +4115,7 @@ public final class R {
      */
     public static final int hoveredFocusedTranslationZ=0x7f0401d9;
     /**
-     * Icon drawable to display at the start of this view.
+     * Specifies the drawable used for the application icon.
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -4184,7 +4188,7 @@ public final class R {
      */
     public static final int iconStartPadding=0x7f0401e0;
     /**
-     * Tint for icon drawable to display.
+     * Tint to apply to the icon.
      * <p>May be a color value, in the form of "<code>#<i>rgb</i></code>",
      * "<code>#<i>argb</i></code>", "<code>#<i>rrggbb</i></code>", or
      * "<code>#<i>aarrggbb</i></code>".
@@ -5441,6 +5445,8 @@ public final class R {
      */
     public static final int limitBoundsTo=0x7f04025e;
     /**
+     * Explicit height between lines of text. If set, this will override the values set
+     * for lineSpacingExtra and lineSpacingMultiplier.
      * <p>May be a dimension value, which is a floating point number appended with a
      * unit such as "<code>14.5sp</code>".
      * Available units are: px (pixels), dp (density-independent pixels),
@@ -6018,7 +6024,7 @@ public final class R {
      */
     public static final int measureWithLargestChild=0x7f0402a7;
     /**
-     * The menu resource to inflate and populate items from.
+     * Menu resource to inflate to be shown in the toolbar
      * <p>May be a reference to another resource, in the form
      * "<code>@[+][<i>package</i>:]<i>type</i>/<i>name</i></code>" or a theme
      * attribute in the form
@@ -11068,169 +11074,168 @@ public final class R {
     public static final int postLayout=0x7f09018c;
     public static final int power_btn=0x7f09018d;
     public static final int power_off_btn=0x7f09018e;
-    public static final int preferences_fragment=0x7f09018f;
-    public static final int presets_color_container=0x7f090190;
-    public static final int presets_gv=0x7f090191;
-    public static final int progress_circular=0x7f090192;
-    public static final int progress_horizontal=0x7f090193;
-    public static final int qs_area=0x7f090194;
-    public static final int radio=0x7f090195;
-    public static final int ratio=0x7f090196;
-    public static final int recents_btn=0x7f090197;
-    public static final int rectangles=0x7f090198;
-    public static final int recycler_view=0x7f090199;
-    public static final int restart_btn=0x7f09019a;
-    public static final int reverseSawtooth=0x7f09019b;
-    public static final int right=0x7f09019c;
-    public static final int rightToLeft=0x7f09019d;
-    public static final int right_icon=0x7f09019e;
-    public static final int right_side=0x7f09019f;
-    public static final int rounded=0x7f0901a0;
-    public static final int row_index_key=0x7f0901a1;
-    public static final int running_indicator=0x7f0901a2;
-    public static final int save_non_transition_alpha=0x7f0901a3;
-    public static final int save_overlay_view=0x7f0901a4;
-    public static final int sawtooth=0x7f0901a5;
-    public static final int scale=0x7f0901a6;
-    public static final int screen=0x7f0901a7;
-    public static final int scroll=0x7f0901a8;
-    public static final int scrollIndicatorDown=0x7f0901a9;
-    public static final int scrollIndicatorUp=0x7f0901aa;
-    public static final int scrollView=0x7f0901ab;
-    public static final int scrollable=0x7f0901ac;
-    public static final int search_badge=0x7f0901ad;
-    public static final int search_bar=0x7f0901ae;
-    public static final int search_button=0x7f0901af;
-    public static final int search_close_btn=0x7f0901b0;
-    public static final int search_edit_frame=0x7f0901b1;
-    public static final int search_entry=0x7f0901b2;
-    public static final int search_go_btn=0x7f0901b3;
-    public static final int search_icon=0x7f0901b4;
-    public static final int search_layout=0x7f0901b5;
-    public static final int search_mag_icon=0x7f0901b6;
-    public static final int search_plate=0x7f0901b7;
-    public static final int search_src_text=0x7f0901b8;
-    public static final int search_tv=0x7f0901b9;
-    public static final int search_voice_btn=0x7f0901ba;
-    public static final int seekbar=0x7f0901bb;
-    public static final int seekbar_value=0x7f0901bc;
-    public static final int select_dialog_listview=0x7f0901bd;
-    public static final int selected=0x7f0901be;
-    public static final int selection_type=0x7f0901bf;
-    public static final int service_btn=0x7f0901c0;
-    public static final int settings_container=0x7f0901c1;
-    public static final int shortcut=0x7f0901c2;
-    public static final int showCustom=0x7f0901c3;
-    public static final int showHome=0x7f0901c4;
-    public static final int showTitle=0x7f0901c5;
-    public static final int sin=0x7f0901c6;
-    public static final int skipCollapsed=0x7f0901c7;
-    public static final int slide=0x7f0901c8;
-    public static final int snackbar_action=0x7f0901c9;
-    public static final int snackbar_text=0x7f0901ca;
-    public static final int snap=0x7f0901cb;
-    public static final int snapMargins=0x7f0901cc;
-    public static final int soft_restart_btn=0x7f0901cd;
-    public static final int spacer=0x7f0901ce;
-    public static final int special_effects_controller_view_tag=0x7f0901cf;
-    public static final int spinner=0x7f0901d0;
-    public static final int spline=0x7f0901d1;
-    public static final int split_action_bar=0x7f0901d2;
-    public static final int spread=0x7f0901d3;
-    public static final int spread_inside=0x7f0901d4;
-    public static final int square=0x7f0901d5;
-    public static final int src_atop=0x7f0901d6;
-    public static final int src_in=0x7f0901d7;
-    public static final int src_over=0x7f0901d8;
-    public static final int standard=0x7f0901d9;
-    public static final int start=0x7f0901da;
-    public static final int startHorizontal=0x7f0901db;
-    public static final int startToEnd=0x7f0901dc;
-    public static final int startVertical=0x7f0901dd;
-    public static final int staticLayout=0x7f0901de;
-    public static final int staticPostLayout=0x7f0901df;
-    public static final int stop=0x7f0901e0;
-    public static final int stretch=0x7f0901e1;
-    public static final int submenuarrow=0x7f0901e2;
-    public static final int submit_area=0x7f0901e3;
-    public static final int switchWidget=0x7f0901e4;
-    public static final int tabMode=0x7f0901e5;
-    public static final int tag_accessibility_actions=0x7f0901e6;
-    public static final int tag_accessibility_clickable_spans=0x7f0901e7;
-    public static final int tag_accessibility_heading=0x7f0901e8;
-    public static final int tag_accessibility_pane_title=0x7f0901e9;
-    public static final int tag_on_apply_window_listener=0x7f0901ea;
-    public static final int tag_on_receive_content_listener=0x7f0901eb;
-    public static final int tag_on_receive_content_mime_types=0x7f0901ec;
-    public static final int tag_screen_reader_focusable=0x7f0901ed;
-    public static final int tag_state_description=0x7f0901ee;
-    public static final int tag_transition_group=0x7f0901ef;
-    public static final int tag_unhandled_key_event_manager=0x7f0901f0;
-    public static final int tag_unhandled_key_listeners=0x7f0901f1;
-    public static final int tag_window_insets_animation_callback=0x7f0901f2;
-    public static final int task_count_badge=0x7f0901f3;
-    public static final int tasks_lv=0x7f0901f4;
-    public static final int test_checkbox_android_button_tint=0x7f0901f5;
-    public static final int test_checkbox_app_button_tint=0x7f0901f6;
-    public static final int test_radiobutton_android_button_tint=0x7f0901f7;
-    public static final int test_radiobutton_app_button_tint=0x7f0901f8;
-    public static final int text=0x7f0901f9;
-    public static final int text2=0x7f0901fa;
-    public static final int textEnd=0x7f0901fb;
-    public static final int textSpacerNoButtons=0x7f0901fc;
-    public static final int textSpacerNoTitle=0x7f0901fd;
-    public static final int textStart=0x7f0901fe;
-    public static final int textTop=0x7f0901ff;
-    public static final int text_input_end_icon=0x7f090200;
-    public static final int text_input_error_icon=0x7f090201;
-    public static final int text_input_start_icon=0x7f090202;
-    public static final int textinput_counter=0x7f090203;
-    public static final int textinput_error=0x7f090204;
-    public static final int textinput_helper_text=0x7f090205;
-    public static final int textinput_placeholder=0x7f090206;
-    public static final int textinput_prefix_text=0x7f090207;
-    public static final int textinput_suffix_text=0x7f090208;
-    public static final int time=0x7f090209;
-    public static final int title=0x7f09020a;
-    public static final int titleDividerNoCustom=0x7f09020b;
-    public static final int title_template=0x7f09020c;
-    public static final int toggle=0x7f09020d;
-    public static final int top=0x7f09020e;
-    public static final int topPanel=0x7f09020f;
-    public static final int touch_outside=0x7f090210;
-    public static final int transitionToEnd=0x7f090211;
-    public static final int transitionToStart=0x7f090212;
-    public static final int transition_current_scene=0x7f090213;
-    public static final int transition_layout_save=0x7f090214;
-    public static final int transition_position=0x7f090215;
-    public static final int transition_scene_layoutid_cache=0x7f090216;
-    public static final int transition_transform=0x7f090217;
-    public static final int triangle=0x7f090218;
-    public static final int unchecked=0x7f090219;
-    public static final int uniform=0x7f09021a;
-    public static final int unlabeled=0x7f09021b;
-    public static final int up=0x7f09021c;
-    public static final int useLogo=0x7f09021d;
-    public static final int user_name_tv=0x7f09021e;
-    public static final int view_offset_helper=0x7f09021f;
-    public static final int view_tree_lifecycle_owner=0x7f090220;
-    public static final int view_tree_saved_state_registry_owner=0x7f090221;
-    public static final int view_tree_view_model_store_owner=0x7f090222;
-    public static final int visible=0x7f090223;
-    public static final int visible_removing_fragment_view_tag=0x7f090224;
-    public static final int volume_btn=0x7f090225;
-    public static final int wallpaper_color_container=0x7f090226;
-    public static final int wallpaper_colors_gv=0x7f090227;
-    public static final int wifi_btn=0x7f090228;
-    public static final int withText=0x7f090229;
-    public static final int withinBounds=0x7f09022a;
-    public static final int wp_info=0x7f09022b;
-    public static final int wp_select_btn=0x7f09022c;
-    public static final int wp_ssid_tv=0x7f09022d;
-    public static final int wp_switch=0x7f09022e;
-    public static final int wrap=0x7f09022f;
-    public static final int wrap_content=0x7f090230;
-    public static final int zero_corner_chip=0x7f090231;
+    public static final int presets_color_container=0x7f09018f;
+    public static final int presets_gv=0x7f090190;
+    public static final int progress_circular=0x7f090191;
+    public static final int progress_horizontal=0x7f090192;
+    public static final int qs_area=0x7f090193;
+    public static final int radio=0x7f090194;
+    public static final int ratio=0x7f090195;
+    public static final int recents_btn=0x7f090196;
+    public static final int rectangles=0x7f090197;
+    public static final int recycler_view=0x7f090198;
+    public static final int restart_btn=0x7f090199;
+    public static final int reverseSawtooth=0x7f09019a;
+    public static final int right=0x7f09019b;
+    public static final int rightToLeft=0x7f09019c;
+    public static final int right_icon=0x7f09019d;
+    public static final int right_side=0x7f09019e;
+    public static final int rounded=0x7f09019f;
+    public static final int row_index_key=0x7f0901a0;
+    public static final int running_indicator=0x7f0901a1;
+    public static final int save_non_transition_alpha=0x7f0901a2;
+    public static final int save_overlay_view=0x7f0901a3;
+    public static final int sawtooth=0x7f0901a4;
+    public static final int scale=0x7f0901a5;
+    public static final int screen=0x7f0901a6;
+    public static final int scroll=0x7f0901a7;
+    public static final int scrollIndicatorDown=0x7f0901a8;
+    public static final int scrollIndicatorUp=0x7f0901a9;
+    public static final int scrollView=0x7f0901aa;
+    public static final int scrollable=0x7f0901ab;
+    public static final int search_badge=0x7f0901ac;
+    public static final int search_bar=0x7f0901ad;
+    public static final int search_button=0x7f0901ae;
+    public static final int search_close_btn=0x7f0901af;
+    public static final int search_edit_frame=0x7f0901b0;
+    public static final int search_entry=0x7f0901b1;
+    public static final int search_go_btn=0x7f0901b2;
+    public static final int search_icon=0x7f0901b3;
+    public static final int search_layout=0x7f0901b4;
+    public static final int search_mag_icon=0x7f0901b5;
+    public static final int search_plate=0x7f0901b6;
+    public static final int search_src_text=0x7f0901b7;
+    public static final int search_tv=0x7f0901b8;
+    public static final int search_voice_btn=0x7f0901b9;
+    public static final int seekbar=0x7f0901ba;
+    public static final int seekbar_value=0x7f0901bb;
+    public static final int select_dialog_listview=0x7f0901bc;
+    public static final int selected=0x7f0901bd;
+    public static final int selection_type=0x7f0901be;
+    public static final int service_btn=0x7f0901bf;
+    public static final int settings_container=0x7f0901c0;
+    public static final int shortcut=0x7f0901c1;
+    public static final int showCustom=0x7f0901c2;
+    public static final int showHome=0x7f0901c3;
+    public static final int showTitle=0x7f0901c4;
+    public static final int sin=0x7f0901c5;
+    public static final int skipCollapsed=0x7f0901c6;
+    public static final int slide=0x7f0901c7;
+    public static final int snackbar_action=0x7f0901c8;
+    public static final int snackbar_text=0x7f0901c9;
+    public static final int snap=0x7f0901ca;
+    public static final int snapMargins=0x7f0901cb;
+    public static final int soft_restart_btn=0x7f0901cc;
+    public static final int spacer=0x7f0901cd;
+    public static final int special_effects_controller_view_tag=0x7f0901ce;
+    public static final int spinner=0x7f0901cf;
+    public static final int spline=0x7f0901d0;
+    public static final int split_action_bar=0x7f0901d1;
+    public static final int spread=0x7f0901d2;
+    public static final int spread_inside=0x7f0901d3;
+    public static final int square=0x7f0901d4;
+    public static final int src_atop=0x7f0901d5;
+    public static final int src_in=0x7f0901d6;
+    public static final int src_over=0x7f0901d7;
+    public static final int standard=0x7f0901d8;
+    public static final int start=0x7f0901d9;
+    public static final int startHorizontal=0x7f0901da;
+    public static final int startToEnd=0x7f0901db;
+    public static final int startVertical=0x7f0901dc;
+    public static final int staticLayout=0x7f0901dd;
+    public static final int staticPostLayout=0x7f0901de;
+    public static final int stop=0x7f0901df;
+    public static final int stretch=0x7f0901e0;
+    public static final int submenuarrow=0x7f0901e1;
+    public static final int submit_area=0x7f0901e2;
+    public static final int switchWidget=0x7f0901e3;
+    public static final int tabMode=0x7f0901e4;
+    public static final int tag_accessibility_actions=0x7f0901e5;
+    public static final int tag_accessibility_clickable_spans=0x7f0901e6;
+    public static final int tag_accessibility_heading=0x7f0901e7;
+    public static final int tag_accessibility_pane_title=0x7f0901e8;
+    public static final int tag_on_apply_window_listener=0x7f0901e9;
+    public static final int tag_on_receive_content_listener=0x7f0901ea;
+    public static final int tag_on_receive_content_mime_types=0x7f0901eb;
+    public static final int tag_screen_reader_focusable=0x7f0901ec;
+    public static final int tag_state_description=0x7f0901ed;
+    public static final int tag_transition_group=0x7f0901ee;
+    public static final int tag_unhandled_key_event_manager=0x7f0901ef;
+    public static final int tag_unhandled_key_listeners=0x7f0901f0;
+    public static final int tag_window_insets_animation_callback=0x7f0901f1;
+    public static final int task_count_badge=0x7f0901f2;
+    public static final int tasks_lv=0x7f0901f3;
+    public static final int test_checkbox_android_button_tint=0x7f0901f4;
+    public static final int test_checkbox_app_button_tint=0x7f0901f5;
+    public static final int test_radiobutton_android_button_tint=0x7f0901f6;
+    public static final int test_radiobutton_app_button_tint=0x7f0901f7;
+    public static final int text=0x7f0901f8;
+    public static final int text2=0x7f0901f9;
+    public static final int textEnd=0x7f0901fa;
+    public static final int textSpacerNoButtons=0x7f0901fb;
+    public static final int textSpacerNoTitle=0x7f0901fc;
+    public static final int textStart=0x7f0901fd;
+    public static final int textTop=0x7f0901fe;
+    public static final int text_input_end_icon=0x7f0901ff;
+    public static final int text_input_error_icon=0x7f090200;
+    public static final int text_input_start_icon=0x7f090201;
+    public static final int textinput_counter=0x7f090202;
+    public static final int textinput_error=0x7f090203;
+    public static final int textinput_helper_text=0x7f090204;
+    public static final int textinput_placeholder=0x7f090205;
+    public static final int textinput_prefix_text=0x7f090206;
+    public static final int textinput_suffix_text=0x7f090207;
+    public static final int time=0x7f090208;
+    public static final int title=0x7f090209;
+    public static final int titleDividerNoCustom=0x7f09020a;
+    public static final int title_template=0x7f09020b;
+    public static final int toggle=0x7f09020c;
+    public static final int top=0x7f09020d;
+    public static final int topPanel=0x7f09020e;
+    public static final int touch_outside=0x7f09020f;
+    public static final int transitionToEnd=0x7f090210;
+    public static final int transitionToStart=0x7f090211;
+    public static final int transition_current_scene=0x7f090212;
+    public static final int transition_layout_save=0x7f090213;
+    public static final int transition_position=0x7f090214;
+    public static final int transition_scene_layoutid_cache=0x7f090215;
+    public static final int transition_transform=0x7f090216;
+    public static final int triangle=0x7f090217;
+    public static final int unchecked=0x7f090218;
+    public static final int uniform=0x7f090219;
+    public static final int unlabeled=0x7f09021a;
+    public static final int up=0x7f09021b;
+    public static final int useLogo=0x7f09021c;
+    public static final int user_name_tv=0x7f09021d;
+    public static final int view_offset_helper=0x7f09021e;
+    public static final int view_tree_lifecycle_owner=0x7f09021f;
+    public static final int view_tree_saved_state_registry_owner=0x7f090220;
+    public static final int view_tree_view_model_store_owner=0x7f090221;
+    public static final int visible=0x7f090222;
+    public static final int visible_removing_fragment_view_tag=0x7f090223;
+    public static final int volume_btn=0x7f090224;
+    public static final int wallpaper_color_container=0x7f090225;
+    public static final int wallpaper_colors_gv=0x7f090226;
+    public static final int wifi_btn=0x7f090227;
+    public static final int withText=0x7f090228;
+    public static final int withinBounds=0x7f090229;
+    public static final int wp_info=0x7f09022a;
+    public static final int wp_select_btn=0x7f09022b;
+    public static final int wp_ssid_tv=0x7f09022c;
+    public static final int wp_switch=0x7f09022d;
+    public static final int wrap=0x7f09022e;
+    public static final int wrap_content=0x7f09022f;
+    public static final int zero_corner_chip=0x7f090230;
   }
   public static final class integer {
     public static final int abc_config_activityDefaultDur=0x7f0a0000;
@@ -11330,136 +11335,135 @@ public final class R {
     public static final int abc_select_dialog_material=0x7f0c001a;
     public static final int abc_tooltip=0x7f0c001b;
     public static final int activity_launcher=0x7f0c001c;
-    public static final int activity_main=0x7f0c001d;
-    public static final int activity_settings=0x7f0c001e;
-    public static final int app_entry=0x7f0c001f;
-    public static final int app_entry_desktop=0x7f0c0020;
-    public static final int app_task_entry=0x7f0c0021;
-    public static final int apps_menu=0x7f0c0022;
-    public static final int audio_panel=0x7f0c0023;
-    public static final int color_entry=0x7f0c0024;
-    public static final int custom_dialog=0x7f0c0025;
-    public static final int design_bottom_navigation_item=0x7f0c0026;
-    public static final int design_bottom_sheet_dialog=0x7f0c0027;
-    public static final int design_layout_snackbar=0x7f0c0028;
-    public static final int design_layout_snackbar_include=0x7f0c0029;
-    public static final int design_layout_tab_icon=0x7f0c002a;
-    public static final int design_layout_tab_text=0x7f0c002b;
-    public static final int design_menu_item_action_area=0x7f0c002c;
-    public static final int design_navigation_item=0x7f0c002d;
-    public static final int design_navigation_item_header=0x7f0c002e;
-    public static final int design_navigation_item_separator=0x7f0c002f;
-    public static final int design_navigation_item_subheader=0x7f0c0030;
-    public static final int design_navigation_menu=0x7f0c0031;
-    public static final int design_navigation_menu_item=0x7f0c0032;
-    public static final int design_text_input_end_icon=0x7f0c0033;
-    public static final int design_text_input_start_icon=0x7f0c0034;
-    public static final int dialog_color_picker=0x7f0c0035;
-    public static final int dialog_edit_autostart=0x7f0c0036;
-    public static final int dialog_help=0x7f0c0037;
-    public static final int dialog_icon_blacklist=0x7f0c0038;
-    public static final int dialog_permissions=0x7f0c0039;
-    public static final int dock=0x7f0c003a;
-    public static final int expand_button=0x7f0c003b;
-    public static final int image_frame=0x7f0c003c;
-    public static final int layout_secondarylauncheractivity=0x7f0c003d;
-    public static final int m3_alert_dialog=0x7f0c003e;
-    public static final int m3_alert_dialog_actions=0x7f0c003f;
-    public static final int m3_alert_dialog_title=0x7f0c0040;
-    public static final int m3_auto_complete_simple_item=0x7f0c0041;
-    public static final int material_chip_input_combo=0x7f0c0042;
-    public static final int material_clock_display=0x7f0c0043;
-    public static final int material_clock_display_divider=0x7f0c0044;
-    public static final int material_clock_period_toggle=0x7f0c0045;
-    public static final int material_clock_period_toggle_land=0x7f0c0046;
-    public static final int material_clockface_textview=0x7f0c0047;
-    public static final int material_clockface_view=0x7f0c0048;
-    public static final int material_radial_view_group=0x7f0c0049;
-    public static final int material_textinput_timepicker=0x7f0c004a;
-    public static final int material_time_chip=0x7f0c004b;
-    public static final int material_time_input=0x7f0c004c;
-    public static final int material_timepicker=0x7f0c004d;
-    public static final int material_timepicker_dialog=0x7f0c004e;
-    public static final int material_timepicker_textinput_display=0x7f0c004f;
-    public static final int mtrl_alert_dialog=0x7f0c0050;
-    public static final int mtrl_alert_dialog_actions=0x7f0c0051;
-    public static final int mtrl_alert_dialog_title=0x7f0c0052;
-    public static final int mtrl_alert_select_dialog_item=0x7f0c0053;
-    public static final int mtrl_alert_select_dialog_multichoice=0x7f0c0054;
-    public static final int mtrl_alert_select_dialog_singlechoice=0x7f0c0055;
-    public static final int mtrl_auto_complete_simple_item=0x7f0c0056;
-    public static final int mtrl_calendar_day=0x7f0c0057;
-    public static final int mtrl_calendar_day_of_week=0x7f0c0058;
-    public static final int mtrl_calendar_days_of_week=0x7f0c0059;
-    public static final int mtrl_calendar_horizontal=0x7f0c005a;
-    public static final int mtrl_calendar_month=0x7f0c005b;
-    public static final int mtrl_calendar_month_labeled=0x7f0c005c;
-    public static final int mtrl_calendar_month_navigation=0x7f0c005d;
-    public static final int mtrl_calendar_months=0x7f0c005e;
-    public static final int mtrl_calendar_vertical=0x7f0c005f;
-    public static final int mtrl_calendar_year=0x7f0c0060;
-    public static final int mtrl_layout_snackbar=0x7f0c0061;
-    public static final int mtrl_layout_snackbar_include=0x7f0c0062;
-    public static final int mtrl_navigation_rail_item=0x7f0c0063;
-    public static final int mtrl_picker_actions=0x7f0c0064;
-    public static final int mtrl_picker_dialog=0x7f0c0065;
-    public static final int mtrl_picker_fullscreen=0x7f0c0066;
-    public static final int mtrl_picker_header_dialog=0x7f0c0067;
-    public static final int mtrl_picker_header_fullscreen=0x7f0c0068;
-    public static final int mtrl_picker_header_selection_text=0x7f0c0069;
-    public static final int mtrl_picker_header_title_text=0x7f0c006a;
-    public static final int mtrl_picker_header_toggle=0x7f0c006b;
-    public static final int mtrl_picker_text_input_date=0x7f0c006c;
-    public static final int mtrl_picker_text_input_date_range=0x7f0c006d;
-    public static final int notification=0x7f0c006e;
-    public static final int notification_action=0x7f0c006f;
-    public static final int notification_action_tombstone=0x7f0c0070;
-    public static final int notification_panel=0x7f0c0071;
-    public static final int notification_template_custom_big=0x7f0c0072;
-    public static final int notification_template_icon_group=0x7f0c0073;
-    public static final int notification_template_part_chronometer=0x7f0c0074;
-    public static final int notification_template_part_time=0x7f0c0075;
-    public static final int notification_white=0x7f0c0076;
-    public static final int pin_entry=0x7f0c0077;
-    public static final int power_menu=0x7f0c0078;
-    public static final int preference=0x7f0c0079;
-    public static final int preference_category=0x7f0c007a;
-    public static final int preference_category_material=0x7f0c007b;
-    public static final int preference_dialog_edittext=0x7f0c007c;
-    public static final int preference_dropdown=0x7f0c007d;
-    public static final int preference_dropdown_material=0x7f0c007e;
-    public static final int preference_information=0x7f0c007f;
-    public static final int preference_information_material=0x7f0c0080;
-    public static final int preference_list_fragment=0x7f0c0081;
-    public static final int preference_material=0x7f0c0082;
-    public static final int preference_recyclerview=0x7f0c0083;
-    public static final int preference_widget_checkbox=0x7f0c0084;
-    public static final int preference_widget_seekbar=0x7f0c0085;
-    public static final int preference_widget_seekbar_material=0x7f0c0086;
-    public static final int preference_widget_switch=0x7f0c0087;
-    public static final int preference_widget_switch_compat=0x7f0c0088;
-    public static final int select_dialog_item_material=0x7f0c0089;
-    public static final int select_dialog_multichoice_material=0x7f0c008a;
-    public static final int select_dialog_singlechoice_material=0x7f0c008b;
-    public static final int support_simple_spinner_dropdown_item=0x7f0c008c;
-    public static final int task_list=0x7f0c008d;
-    public static final int test_action_chip=0x7f0c008e;
-    public static final int test_chip_zero_corner_radius=0x7f0c008f;
-    public static final int test_design_checkbox=0x7f0c0090;
-    public static final int test_design_radiobutton=0x7f0c0091;
-    public static final int test_exposed_dropdown_menu=0x7f0c0092;
-    public static final int test_navigation_bar_item_layout=0x7f0c0093;
-    public static final int test_reflow_chipgroup=0x7f0c0094;
-    public static final int test_toolbar=0x7f0c0095;
-    public static final int test_toolbar_custom_background=0x7f0c0096;
-    public static final int test_toolbar_elevation=0x7f0c0097;
-    public static final int test_toolbar_surface=0x7f0c0098;
-    public static final int text_view_with_line_height_from_appearance=0x7f0c0099;
-    public static final int text_view_with_line_height_from_layout=0x7f0c009a;
-    public static final int text_view_with_line_height_from_style=0x7f0c009b;
-    public static final int text_view_with_theme_line_height=0x7f0c009c;
-    public static final int text_view_without_line_height=0x7f0c009d;
-    public static final int wifi_panel=0x7f0c009e;
+    public static final int activity_settings=0x7f0c001d;
+    public static final int app_entry=0x7f0c001e;
+    public static final int app_entry_desktop=0x7f0c001f;
+    public static final int app_task_entry=0x7f0c0020;
+    public static final int apps_menu=0x7f0c0021;
+    public static final int audio_panel=0x7f0c0022;
+    public static final int color_entry=0x7f0c0023;
+    public static final int custom_dialog=0x7f0c0024;
+    public static final int design_bottom_navigation_item=0x7f0c0025;
+    public static final int design_bottom_sheet_dialog=0x7f0c0026;
+    public static final int design_layout_snackbar=0x7f0c0027;
+    public static final int design_layout_snackbar_include=0x7f0c0028;
+    public static final int design_layout_tab_icon=0x7f0c0029;
+    public static final int design_layout_tab_text=0x7f0c002a;
+    public static final int design_menu_item_action_area=0x7f0c002b;
+    public static final int design_navigation_item=0x7f0c002c;
+    public static final int design_navigation_item_header=0x7f0c002d;
+    public static final int design_navigation_item_separator=0x7f0c002e;
+    public static final int design_navigation_item_subheader=0x7f0c002f;
+    public static final int design_navigation_menu=0x7f0c0030;
+    public static final int design_navigation_menu_item=0x7f0c0031;
+    public static final int design_text_input_end_icon=0x7f0c0032;
+    public static final int design_text_input_start_icon=0x7f0c0033;
+    public static final int dialog_color_picker=0x7f0c0034;
+    public static final int dialog_edit_autostart=0x7f0c0035;
+    public static final int dialog_help=0x7f0c0036;
+    public static final int dialog_icon_blacklist=0x7f0c0037;
+    public static final int dialog_permissions=0x7f0c0038;
+    public static final int dock=0x7f0c0039;
+    public static final int expand_button=0x7f0c003a;
+    public static final int image_frame=0x7f0c003b;
+    public static final int layout_secondarylauncheractivity=0x7f0c003c;
+    public static final int m3_alert_dialog=0x7f0c003d;
+    public static final int m3_alert_dialog_actions=0x7f0c003e;
+    public static final int m3_alert_dialog_title=0x7f0c003f;
+    public static final int m3_auto_complete_simple_item=0x7f0c0040;
+    public static final int material_chip_input_combo=0x7f0c0041;
+    public static final int material_clock_display=0x7f0c0042;
+    public static final int material_clock_display_divider=0x7f0c0043;
+    public static final int material_clock_period_toggle=0x7f0c0044;
+    public static final int material_clock_period_toggle_land=0x7f0c0045;
+    public static final int material_clockface_textview=0x7f0c0046;
+    public static final int material_clockface_view=0x7f0c0047;
+    public static final int material_radial_view_group=0x7f0c0048;
+    public static final int material_textinput_timepicker=0x7f0c0049;
+    public static final int material_time_chip=0x7f0c004a;
+    public static final int material_time_input=0x7f0c004b;
+    public static final int material_timepicker=0x7f0c004c;
+    public static final int material_timepicker_dialog=0x7f0c004d;
+    public static final int material_timepicker_textinput_display=0x7f0c004e;
+    public static final int mtrl_alert_dialog=0x7f0c004f;
+    public static final int mtrl_alert_dialog_actions=0x7f0c0050;
+    public static final int mtrl_alert_dialog_title=0x7f0c0051;
+    public static final int mtrl_alert_select_dialog_item=0x7f0c0052;
+    public static final int mtrl_alert_select_dialog_multichoice=0x7f0c0053;
+    public static final int mtrl_alert_select_dialog_singlechoice=0x7f0c0054;
+    public static final int mtrl_auto_complete_simple_item=0x7f0c0055;
+    public static final int mtrl_calendar_day=0x7f0c0056;
+    public static final int mtrl_calendar_day_of_week=0x7f0c0057;
+    public static final int mtrl_calendar_days_of_week=0x7f0c0058;
+    public static final int mtrl_calendar_horizontal=0x7f0c0059;
+    public static final int mtrl_calendar_month=0x7f0c005a;
+    public static final int mtrl_calendar_month_labeled=0x7f0c005b;
+    public static final int mtrl_calendar_month_navigation=0x7f0c005c;
+    public static final int mtrl_calendar_months=0x7f0c005d;
+    public static final int mtrl_calendar_vertical=0x7f0c005e;
+    public static final int mtrl_calendar_year=0x7f0c005f;
+    public static final int mtrl_layout_snackbar=0x7f0c0060;
+    public static final int mtrl_layout_snackbar_include=0x7f0c0061;
+    public static final int mtrl_navigation_rail_item=0x7f0c0062;
+    public static final int mtrl_picker_actions=0x7f0c0063;
+    public static final int mtrl_picker_dialog=0x7f0c0064;
+    public static final int mtrl_picker_fullscreen=0x7f0c0065;
+    public static final int mtrl_picker_header_dialog=0x7f0c0066;
+    public static final int mtrl_picker_header_fullscreen=0x7f0c0067;
+    public static final int mtrl_picker_header_selection_text=0x7f0c0068;
+    public static final int mtrl_picker_header_title_text=0x7f0c0069;
+    public static final int mtrl_picker_header_toggle=0x7f0c006a;
+    public static final int mtrl_picker_text_input_date=0x7f0c006b;
+    public static final int mtrl_picker_text_input_date_range=0x7f0c006c;
+    public static final int notification=0x7f0c006d;
+    public static final int notification_action=0x7f0c006e;
+    public static final int notification_action_tombstone=0x7f0c006f;
+    public static final int notification_panel=0x7f0c0070;
+    public static final int notification_template_custom_big=0x7f0c0071;
+    public static final int notification_template_icon_group=0x7f0c0072;
+    public static final int notification_template_part_chronometer=0x7f0c0073;
+    public static final int notification_template_part_time=0x7f0c0074;
+    public static final int notification_white=0x7f0c0075;
+    public static final int pin_entry=0x7f0c0076;
+    public static final int power_menu=0x7f0c0077;
+    public static final int preference=0x7f0c0078;
+    public static final int preference_category=0x7f0c0079;
+    public static final int preference_category_material=0x7f0c007a;
+    public static final int preference_dialog_edittext=0x7f0c007b;
+    public static final int preference_dropdown=0x7f0c007c;
+    public static final int preference_dropdown_material=0x7f0c007d;
+    public static final int preference_information=0x7f0c007e;
+    public static final int preference_information_material=0x7f0c007f;
+    public static final int preference_list_fragment=0x7f0c0080;
+    public static final int preference_material=0x7f0c0081;
+    public static final int preference_recyclerview=0x7f0c0082;
+    public static final int preference_widget_checkbox=0x7f0c0083;
+    public static final int preference_widget_seekbar=0x7f0c0084;
+    public static final int preference_widget_seekbar_material=0x7f0c0085;
+    public static final int preference_widget_switch=0x7f0c0086;
+    public static final int preference_widget_switch_compat=0x7f0c0087;
+    public static final int select_dialog_item_material=0x7f0c0088;
+    public static final int select_dialog_multichoice_material=0x7f0c0089;
+    public static final int select_dialog_singlechoice_material=0x7f0c008a;
+    public static final int support_simple_spinner_dropdown_item=0x7f0c008b;
+    public static final int task_list=0x7f0c008c;
+    public static final int test_action_chip=0x7f0c008d;
+    public static final int test_chip_zero_corner_radius=0x7f0c008e;
+    public static final int test_design_checkbox=0x7f0c008f;
+    public static final int test_design_radiobutton=0x7f0c0090;
+    public static final int test_exposed_dropdown_menu=0x7f0c0091;
+    public static final int test_navigation_bar_item_layout=0x7f0c0092;
+    public static final int test_reflow_chipgroup=0x7f0c0093;
+    public static final int test_toolbar=0x7f0c0094;
+    public static final int test_toolbar_custom_background=0x7f0c0095;
+    public static final int test_toolbar_elevation=0x7f0c0096;
+    public static final int test_toolbar_surface=0x7f0c0097;
+    public static final int text_view_with_line_height_from_appearance=0x7f0c0098;
+    public static final int text_view_with_line_height_from_layout=0x7f0c0099;
+    public static final int text_view_with_line_height_from_style=0x7f0c009a;
+    public static final int text_view_with_theme_line_height=0x7f0c009b;
+    public static final int text_view_without_line_height=0x7f0c009c;
+    public static final int wifi_panel=0x7f0c009d;
   }
   public static final class menu {
     public static final int app_menu=0x7f0d0000;
@@ -12982,7 +12986,7 @@ public final class R {
      * <tr><td><code>{@link #ActionBar_hideOnContentScroll cu.axel.smartdock:hideOnContentScroll}</code></td><td>Set true to hide the action bar on a vertical nested scroll of content.</td></tr>
      * <tr><td><code>{@link #ActionBar_homeAsUpIndicator cu.axel.smartdock:homeAsUpIndicator}</code></td><td>Specifies a drawable to use for the 'home as up' indicator.</td></tr>
      * <tr><td><code>{@link #ActionBar_homeLayout cu.axel.smartdock:homeLayout}</code></td><td>Specifies a layout to use for the "home" section of the action bar.</td></tr>
-     * <tr><td><code>{@link #ActionBar_icon cu.axel.smartdock:icon}</code></td><td>Icon drawable to display at the start of this view.</td></tr>
+     * <tr><td><code>{@link #ActionBar_icon cu.axel.smartdock:icon}</code></td><td>Specifies the drawable used for the application icon.</td></tr>
      * <tr><td><code>{@link #ActionBar_indeterminateProgressStyle cu.axel.smartdock:indeterminateProgressStyle}</code></td><td>Specifies a style resource to use for an indeterminate progress spinner.</td></tr>
      * <tr><td><code>{@link #ActionBar_itemPadding cu.axel.smartdock:itemPadding}</code></td><td>Specifies padding that should be applied to the left and right sides of
      * system-provided items in the bar.</td></tr>
@@ -14629,9 +14633,9 @@ public final class R {
      * <tr><td><code>{@link #AppCompatTextView_emojiCompatEnabled cu.axel.smartdock:emojiCompatEnabled}</code></td><td>Display the emoji if emojicompat has this character for emoji not on the system</td></tr>
      * <tr><td><code>{@link #AppCompatTextView_firstBaselineToTopHeight cu.axel.smartdock:firstBaselineToTopHeight}</code></td><td>Distance from the top of the TextView to the first text baseline.</td></tr>
      * <tr><td><code>{@link #AppCompatTextView_fontFamily cu.axel.smartdock:fontFamily}</code></td><td>The attribute for the font family.</td></tr>
-     * <tr><td><code>{@link #AppCompatTextView_fontVariationSettings cu.axel.smartdock:fontVariationSettings}</code></td><td>OpenType font variation settings, available after api 26.</td></tr>
+     * <tr><td><code>{@link #AppCompatTextView_fontVariationSettings cu.axel.smartdock:fontVariationSettings}</code></td><td>The variation settings to be applied to the font.</td></tr>
      * <tr><td><code>{@link #AppCompatTextView_lastBaselineToBottomHeight cu.axel.smartdock:lastBaselineToBottomHeight}</code></td><td>Distance from the bottom of the TextView to the last text baseline.</td></tr>
-     * <tr><td><code>{@link #AppCompatTextView_lineHeight cu.axel.smartdock:lineHeight}</code></td><td></td></tr>
+     * <tr><td><code>{@link #AppCompatTextView_lineHeight cu.axel.smartdock:lineHeight}</code></td><td>Explicit height between lines of text.</td></tr>
      * <tr><td><code>{@link #AppCompatTextView_textAllCaps cu.axel.smartdock:textAllCaps}</code></td><td>Present the text in ALL CAPS.</td></tr>
      * <tr><td><code>{@link #AppCompatTextView_textLocale cu.axel.smartdock:textLocale}</code></td><td>Set the textLocale by a comma-separated language tag string,
      * for example "ja-JP,zh-CN".</td></tr>
@@ -17442,7 +17446,7 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Attribute</th><th>Description</th></tr>
-     * <tr><td><code>{@link #BottomAppBar_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td></td></tr>
+     * <tr><td><code>{@link #BottomAppBar_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td>Tint to apply to the background.</td></tr>
      * <tr><td><code>{@link #BottomAppBar_elevation cu.axel.smartdock:elevation}</code></td><td></td></tr>
      * <tr><td><code>{@link #BottomAppBar_fabAlignmentMode cu.axel.smartdock:fabAlignmentMode}</code></td><td>The alignment of the fab relative to the BottomAppBar.</td></tr>
      * <tr><td><code>{@link #BottomAppBar_fabAnimationMode cu.axel.smartdock:fabAnimationMode}</code></td><td>The animation mode that should be used when the fab animates between alignment modes.</td></tr>
@@ -17685,7 +17689,7 @@ public final class R {
      * <tr><td><code>{@link #BottomSheetBehavior_Layout_android_maxWidth android:maxWidth}</code></td><td></td></tr>
      * <tr><td><code>{@link #BottomSheetBehavior_Layout_android_maxHeight android:maxHeight}</code></td><td></td></tr>
      * <tr><td><code>{@link #BottomSheetBehavior_Layout_android_elevation android:elevation}</code></td><td></td></tr>
-     * <tr><td><code>{@link #BottomSheetBehavior_Layout_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td></td></tr>
+     * <tr><td><code>{@link #BottomSheetBehavior_Layout_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td>Tint to apply to the background.</td></tr>
      * <tr><td><code>{@link #BottomSheetBehavior_Layout_behavior_draggable cu.axel.smartdock:behavior_draggable}</code></td><td>Whether this bottom sheet is draggable.</td></tr>
      * <tr><td><code>{@link #BottomSheetBehavior_Layout_behavior_expandedOffset cu.axel.smartdock:behavior_expandedOffset}</code></td><td>The top offset of the BottomSheet in the expanded-state when fitsToContent is false.</td></tr>
      * <tr><td><code>{@link #BottomSheetBehavior_Layout_behavior_fitToContents cu.axel.smartdock:behavior_fitToContents}</code></td><td>Whether height of expanded sheet wraps content or not</td></tr>
@@ -18527,7 +18531,7 @@ public final class R {
      * <tr><td><code>{@link #Chip_chipStrokeWidth cu.axel.smartdock:chipStrokeWidth}</code></td><td>Stroke width to apply to the chip's outline.</td></tr>
      * <tr><td><code>{@link #Chip_chipSurfaceColor cu.axel.smartdock:chipSurfaceColor}</code></td><td>Do not expose publicly because there is no public getter/setter and the user doesn't need
      * to configure this.</td></tr>
-     * <tr><td><code>{@link #Chip_closeIcon cu.axel.smartdock:closeIcon}</code></td><td>Close icon drawable to display at the end of the chip.</td></tr>
+     * <tr><td><code>{@link #Chip_closeIcon cu.axel.smartdock:closeIcon}</code></td><td>Close button icon</td></tr>
      * <tr><td><code>{@link #Chip_closeIconEnabled cu.axel.smartdock:closeIconEnabled}</code></td><td>Deprecated.</td></tr>
      * <tr><td><code>{@link #Chip_closeIconEndPadding cu.axel.smartdock:closeIconEndPadding}</code></td><td>Padding at the end of the close icon, before the end of the chip.</td></tr>
      * <tr><td><code>{@link #Chip_closeIconSize cu.axel.smartdock:closeIconSize}</code></td><td>Size of the chip's close icon.</td></tr>
@@ -26093,7 +26097,7 @@ public final class R {
      * <colgroup align="left" />
      * <tr><th>Attribute</th><th>Description</th></tr>
      * <tr><td><code>{@link #FloatingActionButton_android_enabled android:enabled}</code></td><td></td></tr>
-     * <tr><td><code>{@link #FloatingActionButton_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td></td></tr>
+     * <tr><td><code>{@link #FloatingActionButton_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td>Tint to apply to the background.</td></tr>
      * <tr><td><code>{@link #FloatingActionButton_backgroundTintMode cu.axel.smartdock:backgroundTintMode}</code></td><td>Blending mode used to apply the background tint.</td></tr>
      * <tr><td><code>{@link #FloatingActionButton_borderWidth cu.axel.smartdock:borderWidth}</code></td><td>The width of the border around the FAB.</td></tr>
      * <tr><td><code>{@link #FloatingActionButton_elevation cu.axel.smartdock:elevation}</code></td><td></td></tr>
@@ -26607,7 +26611,7 @@ public final class R {
      * <tr><td><code>{@link #FontFamilyFont_android_fontVariationSettings android:fontVariationSettings}</code></td><td></td></tr>
      * <tr><td><code>{@link #FontFamilyFont_font cu.axel.smartdock:font}</code></td><td>The reference to the font file to be used.</td></tr>
      * <tr><td><code>{@link #FontFamilyFont_fontStyle cu.axel.smartdock:fontStyle}</code></td><td>The style of the given font file.</td></tr>
-     * <tr><td><code>{@link #FontFamilyFont_fontVariationSettings cu.axel.smartdock:fontVariationSettings}</code></td><td>OpenType font variation settings, available after api 26.</td></tr>
+     * <tr><td><code>{@link #FontFamilyFont_fontVariationSettings cu.axel.smartdock:fontVariationSettings}</code></td><td>The variation settings to be applied to the font.</td></tr>
      * <tr><td><code>{@link #FontFamilyFont_fontWeight cu.axel.smartdock:fontWeight}</code></td><td>The weight of the given font file.</td></tr>
      * <tr><td><code>{@link #FontFamilyFont_ttcIndex cu.axel.smartdock:ttcIndex}</code></td><td>The index of the font in the tcc font file.</td></tr>
      * </table>
@@ -30475,15 +30479,15 @@ public final class R {
      * <tr><td><code>{@link #MaterialButton_android_insetTop android:insetTop}</code></td><td></td></tr>
      * <tr><td><code>{@link #MaterialButton_android_insetBottom android:insetBottom}</code></td><td></td></tr>
      * <tr><td><code>{@link #MaterialButton_android_checkable android:checkable}</code></td><td></td></tr>
-     * <tr><td><code>{@link #MaterialButton_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td></td></tr>
+     * <tr><td><code>{@link #MaterialButton_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td>Tint to apply to the background.</td></tr>
      * <tr><td><code>{@link #MaterialButton_backgroundTintMode cu.axel.smartdock:backgroundTintMode}</code></td><td>Blending mode used to apply the background tint.</td></tr>
      * <tr><td><code>{@link #MaterialButton_cornerRadius cu.axel.smartdock:cornerRadius}</code></td><td>Specifies the radius for the corners of the button.</td></tr>
      * <tr><td><code>{@link #MaterialButton_elevation cu.axel.smartdock:elevation}</code></td><td></td></tr>
-     * <tr><td><code>{@link #MaterialButton_icon cu.axel.smartdock:icon}</code></td><td>Icon drawable to display at the start of this view.</td></tr>
+     * <tr><td><code>{@link #MaterialButton_icon cu.axel.smartdock:icon}</code></td><td>Specifies the drawable used for the application icon.</td></tr>
      * <tr><td><code>{@link #MaterialButton_iconGravity cu.axel.smartdock:iconGravity}</code></td><td>Specifies how the icon should be positioned on the X axis.</td></tr>
      * <tr><td><code>{@link #MaterialButton_iconPadding cu.axel.smartdock:iconPadding}</code></td><td>Padding between icon and button text.</td></tr>
      * <tr><td><code>{@link #MaterialButton_iconSize cu.axel.smartdock:iconSize}</code></td><td>Specifies the width and height to use for the icon drawable.</td></tr>
-     * <tr><td><code>{@link #MaterialButton_iconTint cu.axel.smartdock:iconTint}</code></td><td>Tint for icon drawable to display.</td></tr>
+     * <tr><td><code>{@link #MaterialButton_iconTint cu.axel.smartdock:iconTint}</code></td><td>Tint to apply to the icon.</td></tr>
      * <tr><td><code>{@link #MaterialButton_iconTintMode cu.axel.smartdock:iconTintMode}</code></td><td>Blending mode used to apply the icon tint.</td></tr>
      * <tr><td><code>{@link #MaterialButton_rippleColor cu.axel.smartdock:rippleColor}</code></td><td></td></tr>
      * <tr><td><code>{@link #MaterialButton_shapeAppearance cu.axel.smartdock:shapeAppearance}</code></td><td>Shape appearance style reference to be used to construct a ShapeAppearanceModel.</td></tr>
@@ -30621,8 +30625,9 @@ public final class R {
      */
     public static final int MaterialButton_android_checkable=5;
     /**
-     * <p>This symbol is the offset where the {@link cu.axel.smartdock.R.attr#backgroundTint}
-     * attribute's value can be found in the {@link #MaterialButton} array.
+     * <p>
+     * @attr description
+     * Tint to apply to the background.
      *
      * <p>May be a color value, in the form of "<code>#<i>rgb</i></code>",
      * "<code>#<i>argb</i></code>", "<code>#<i>rrggbb</i></code>", or
@@ -31697,7 +31702,7 @@ public final class R {
      * <tr><th>Attribute</th><th>Description</th></tr>
      * <tr><td><code>{@link #MaterialTextAppearance_android_letterSpacing android:letterSpacing}</code></td><td></td></tr>
      * <tr><td><code>{@link #MaterialTextAppearance_android_lineHeight android:lineHeight}</code></td><td></td></tr>
-     * <tr><td><code>{@link #MaterialTextAppearance_lineHeight cu.axel.smartdock:lineHeight}</code></td><td></td></tr>
+     * <tr><td><code>{@link #MaterialTextAppearance_lineHeight cu.axel.smartdock:lineHeight}</code></td><td>Explicit height between lines of text.</td></tr>
      * </table>
      * @see #MaterialTextAppearance_android_letterSpacing
      * @see #MaterialTextAppearance_android_lineHeight
@@ -31729,8 +31734,10 @@ public final class R {
      */
     public static final int MaterialTextAppearance_android_lineHeight=1;
     /**
-     * <p>This symbol is the offset where the {@link cu.axel.smartdock.R.attr#lineHeight}
-     * attribute's value can be found in the {@link #MaterialTextAppearance} array.
+     * <p>
+     * @attr description
+     * Explicit height between lines of text. If set, this will override the values set
+     * for lineSpacingExtra and lineSpacingMultiplier.
      *
      * <p>May be a dimension value, which is a floating point number appended with a
      * unit such as "<code>14.5sp</code>".
@@ -31750,7 +31757,7 @@ public final class R {
      * <tr><th>Attribute</th><th>Description</th></tr>
      * <tr><td><code>{@link #MaterialTextView_android_textAppearance android:textAppearance}</code></td><td></td></tr>
      * <tr><td><code>{@link #MaterialTextView_android_lineHeight android:lineHeight}</code></td><td></td></tr>
-     * <tr><td><code>{@link #MaterialTextView_lineHeight cu.axel.smartdock:lineHeight}</code></td><td></td></tr>
+     * <tr><td><code>{@link #MaterialTextView_lineHeight cu.axel.smartdock:lineHeight}</code></td><td>Explicit height between lines of text.</td></tr>
      * </table>
      * @see #MaterialTextView_android_textAppearance
      * @see #MaterialTextView_android_lineHeight
@@ -31785,8 +31792,10 @@ public final class R {
      */
     public static final int MaterialTextView_android_lineHeight=1;
     /**
-     * <p>This symbol is the offset where the {@link cu.axel.smartdock.R.attr#lineHeight}
-     * attribute's value can be found in the {@link #MaterialTextView} array.
+     * <p>
+     * @attr description
+     * Explicit height between lines of text. If set, this will override the values set
+     * for lineSpacingExtra and lineSpacingMultiplier.
      *
      * <p>May be a dimension value, which is a floating point number appended with a
      * unit such as "<code>14.5sp</code>".
@@ -32078,7 +32087,7 @@ public final class R {
      * action view.</td></tr>
      * <tr><td><code>{@link #MenuItem_alphabeticModifiers cu.axel.smartdock:alphabeticModifiers}</code></td><td>The alphabetic modifier key.</td></tr>
      * <tr><td><code>{@link #MenuItem_contentDescription cu.axel.smartdock:contentDescription}</code></td><td>The content description associated with the item.</td></tr>
-     * <tr><td><code>{@link #MenuItem_iconTint cu.axel.smartdock:iconTint}</code></td><td>Tint for icon drawable to display.</td></tr>
+     * <tr><td><code>{@link #MenuItem_iconTint cu.axel.smartdock:iconTint}</code></td><td>Tint to apply to the icon.</td></tr>
      * <tr><td><code>{@link #MenuItem_iconTintMode cu.axel.smartdock:iconTintMode}</code></td><td>Blending mode used to apply the icon tint.</td></tr>
      * <tr><td><code>{@link #MenuItem_numericModifiers cu.axel.smartdock:numericModifiers}</code></td><td>The numeric modifier key.</td></tr>
      * <tr><td><code>{@link #MenuItem_showAsAction cu.axel.smartdock:showAsAction}</code></td><td>How this item should display in the Action Bar, if present.</td></tr>
@@ -33215,7 +33224,7 @@ public final class R {
      * <colgroup align="left" />
      * <colgroup align="left" />
      * <tr><th>Attribute</th><th>Description</th></tr>
-     * <tr><td><code>{@link #NavigationBarView_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td></td></tr>
+     * <tr><td><code>{@link #NavigationBarView_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td>Tint to apply to the background.</td></tr>
      * <tr><td><code>{@link #NavigationBarView_elevation cu.axel.smartdock:elevation}</code></td><td></td></tr>
      * <tr><td><code>{@link #NavigationBarView_itemActiveIndicatorStyle cu.axel.smartdock:itemActiveIndicatorStyle}</code></td><td>The style used for each navigation item's active indicator</td></tr>
      * <tr><td><code>{@link #NavigationBarView_itemBackground cu.axel.smartdock:itemBackground}</code></td><td>A background drawable to use for navigation items.</td></tr>
@@ -33231,7 +33240,7 @@ public final class R {
      * <tr><td><code>{@link #NavigationBarView_itemTextColor cu.axel.smartdock:itemTextColor}</code></td><td></td></tr>
      * <tr><td><code>{@link #NavigationBarView_labelVisibilityMode cu.axel.smartdock:labelVisibilityMode}</code></td><td>Whether navigation items display with a label, without a label, or with a label during
      * selected state.</td></tr>
-     * <tr><td><code>{@link #NavigationBarView_menu cu.axel.smartdock:menu}</code></td><td>The menu resource to inflate and populate items from.</td></tr>
+     * <tr><td><code>{@link #NavigationBarView_menu cu.axel.smartdock:menu}</code></td><td>Menu resource to inflate to be shown in the toolbar</td></tr>
      * </table>
      * @see #NavigationBarView_backgroundTint
      * @see #NavigationBarView_elevation
@@ -33589,7 +33598,7 @@ public final class R {
      * <tr><td><code>{@link #NavigationView_itemTextAppearance cu.axel.smartdock:itemTextAppearance}</code></td><td></td></tr>
      * <tr><td><code>{@link #NavigationView_itemTextColor cu.axel.smartdock:itemTextColor}</code></td><td></td></tr>
      * <tr><td><code>{@link #NavigationView_itemVerticalPadding cu.axel.smartdock:itemVerticalPadding}</code></td><td>Vertical padding (top and bottom) of navigation items.</td></tr>
-     * <tr><td><code>{@link #NavigationView_menu cu.axel.smartdock:menu}</code></td><td>The menu resource to inflate and populate items from.</td></tr>
+     * <tr><td><code>{@link #NavigationView_menu cu.axel.smartdock:menu}</code></td><td>Menu resource to inflate to be shown in the toolbar</td></tr>
      * <tr><td><code>{@link #NavigationView_shapeAppearance cu.axel.smartdock:shapeAppearance}</code></td><td>Shape appearance style reference to be used to construct a ShapeAppearanceModel.</td></tr>
      * <tr><td><code>{@link #NavigationView_shapeAppearanceOverlay cu.axel.smartdock:shapeAppearanceOverlay}</code></td><td>Shape appearance overlay style reference to be used to modify the shapeAppearance.</td></tr>
      * <tr><td><code>{@link #NavigationView_subheaderColor cu.axel.smartdock:subheaderColor}</code></td><td></td></tr>
@@ -34496,7 +34505,7 @@ public final class R {
      * <tr><td><code>{@link #Preference_enabled cu.axel.smartdock:enabled}</code></td><td>Whether the Preference is enabled.</td></tr>
      * <tr><td><code>{@link #Preference_fragment cu.axel.smartdock:fragment}</code></td><td>When used inside of a modern PreferenceActivity, this declares
      * a new PreferenceFragment to be shown when the user selects this item.</td></tr>
-     * <tr><td><code>{@link #Preference_icon cu.axel.smartdock:icon}</code></td><td>Icon drawable to display at the start of this view.</td></tr>
+     * <tr><td><code>{@link #Preference_icon cu.axel.smartdock:icon}</code></td><td>Specifies the drawable used for the application icon.</td></tr>
      * <tr><td><code>{@link #Preference_iconSpaceReserved cu.axel.smartdock:iconSpaceReserved}</code></td><td>Whether the space for the preference icon view will be reserved.</td></tr>
      * <tr><td><code>{@link #Preference_isPreferenceVisible cu.axel.smartdock:isPreferenceVisible}</code></td><td>Whether the Preference is visible.</td></tr>
      * <tr><td><code>{@link #Preference_key cu.axel.smartdock:key}</code></td><td>The key to store the Preference value.</td></tr>
@@ -35978,7 +35987,7 @@ public final class R {
      * <tr><td><code>{@link #SearchView_android_maxWidth android:maxWidth}</code></td><td></td></tr>
      * <tr><td><code>{@link #SearchView_android_inputType android:inputType}</code></td><td></td></tr>
      * <tr><td><code>{@link #SearchView_android_imeOptions android:imeOptions}</code></td><td></td></tr>
-     * <tr><td><code>{@link #SearchView_closeIcon cu.axel.smartdock:closeIcon}</code></td><td>Close icon drawable to display at the end of the chip.</td></tr>
+     * <tr><td><code>{@link #SearchView_closeIcon cu.axel.smartdock:closeIcon}</code></td><td>Close button icon</td></tr>
      * <tr><td><code>{@link #SearchView_commitIcon cu.axel.smartdock:commitIcon}</code></td><td>Commit icon shown in the query suggestion row</td></tr>
      * <tr><td><code>{@link #SearchView_defaultQueryHint cu.axel.smartdock:defaultQueryHint}</code></td><td>Default query hint used when {@code queryHint} is undefined and
      * the search view's {@code SearchableInfo} does not provide a hint.</td></tr>
@@ -37240,7 +37249,7 @@ public final class R {
      * the theme color used for Snackbar text buttons (e.g., colorPrimary).</td></tr>
      * <tr><td><code>{@link #SnackbarLayout_animationMode cu.axel.smartdock:animationMode}</code></td><td>Sets the enter and exit animations for a Snackbar.</td></tr>
      * <tr><td><code>{@link #SnackbarLayout_backgroundOverlayColorAlpha cu.axel.smartdock:backgroundOverlayColorAlpha}</code></td><td>Alpha level for the color that is overlaid on top of the background color.</td></tr>
-     * <tr><td><code>{@link #SnackbarLayout_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td></td></tr>
+     * <tr><td><code>{@link #SnackbarLayout_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td>Tint to apply to the background.</td></tr>
      * <tr><td><code>{@link #SnackbarLayout_backgroundTintMode cu.axel.smartdock:backgroundTintMode}</code></td><td>Blending mode used to apply the background tint.</td></tr>
      * <tr><td><code>{@link #SnackbarLayout_elevation cu.axel.smartdock:elevation}</code></td><td></td></tr>
      * <tr><td><code>{@link #SnackbarLayout_maxActionInlineWidth cu.axel.smartdock:maxActionInlineWidth}</code></td><td></td></tr>
@@ -38780,7 +38789,7 @@ public final class R {
      * <tr><td><code>{@link #TextAppearance_android_fontFamily android:fontFamily}</code></td><td></td></tr>
      * <tr><td><code>{@link #TextAppearance_android_textFontWeight android:textFontWeight}</code></td><td></td></tr>
      * <tr><td><code>{@link #TextAppearance_fontFamily cu.axel.smartdock:fontFamily}</code></td><td>The attribute for the font family.</td></tr>
-     * <tr><td><code>{@link #TextAppearance_fontVariationSettings cu.axel.smartdock:fontVariationSettings}</code></td><td>OpenType font variation settings, available after api 26.</td></tr>
+     * <tr><td><code>{@link #TextAppearance_fontVariationSettings cu.axel.smartdock:fontVariationSettings}</code></td><td>The variation settings to be applied to the font.</td></tr>
      * <tr><td><code>{@link #TextAppearance_textAllCaps cu.axel.smartdock:textAllCaps}</code></td><td>Present the text in ALL CAPS.</td></tr>
      * <tr><td><code>{@link #TextAppearance_textLocale cu.axel.smartdock:textLocale}</code></td><td>Set the textLocale by a comma-separated language tag string,
      * for example "ja-JP,zh-CN".</td></tr>
@@ -40210,7 +40219,7 @@ public final class R {
      * <tr><td><code>{@link #Toolbar_logoDescription cu.axel.smartdock:logoDescription}</code></td><td>A content description string to describe the appearance of the
      * associated logo image.</td></tr>
      * <tr><td><code>{@link #Toolbar_maxButtonHeight cu.axel.smartdock:maxButtonHeight}</code></td><td></td></tr>
-     * <tr><td><code>{@link #Toolbar_menu cu.axel.smartdock:menu}</code></td><td>The menu resource to inflate and populate items from.</td></tr>
+     * <tr><td><code>{@link #Toolbar_menu cu.axel.smartdock:menu}</code></td><td>Menu resource to inflate to be shown in the toolbar</td></tr>
      * <tr><td><code>{@link #Toolbar_navigationContentDescription cu.axel.smartdock:navigationContentDescription}</code></td><td>Text to set as the content description for the navigation button
      * located at the start of the toolbar.</td></tr>
      * <tr><td><code>{@link #Toolbar_navigationIcon cu.axel.smartdock:navigationIcon}</code></td><td>Icon drawable to use for the navigation button located at
@@ -40716,7 +40725,7 @@ public final class R {
      * <tr><td><code>{@link #Tooltip_android_minWidth android:minWidth}</code></td><td></td></tr>
      * <tr><td><code>{@link #Tooltip_android_minHeight android:minHeight}</code></td><td></td></tr>
      * <tr><td><code>{@link #Tooltip_android_text android:text}</code></td><td></td></tr>
-     * <tr><td><code>{@link #Tooltip_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td></td></tr>
+     * <tr><td><code>{@link #Tooltip_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td>Tint to apply to the background.</td></tr>
      * </table>
      * @see #Tooltip_android_textAppearance
      * @see #Tooltip_android_textColor
@@ -40821,8 +40830,9 @@ public final class R {
      */
     public static final int Tooltip_android_text=6;
     /**
-     * <p>This symbol is the offset where the {@link cu.axel.smartdock.R.attr#backgroundTint}
-     * attribute's value can be found in the {@link #Tooltip} array.
+     * <p>
+     * @attr description
+     * Tint to apply to the background.
      *
      * <p>May be a color value, in the form of "<code>#<i>rgb</i></code>",
      * "<code>#<i>argb</i></code>", "<code>#<i>rrggbb</i></code>", or
@@ -41387,7 +41397,7 @@ public final class R {
      * <colgroup align="left" />
      * <tr><th>Attribute</th><th>Description</th></tr>
      * <tr><td><code>{@link #ViewBackgroundHelper_android_background android:background}</code></td><td></td></tr>
-     * <tr><td><code>{@link #ViewBackgroundHelper_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td></td></tr>
+     * <tr><td><code>{@link #ViewBackgroundHelper_backgroundTint cu.axel.smartdock:backgroundTint}</code></td><td>Tint to apply to the background.</td></tr>
      * <tr><td><code>{@link #ViewBackgroundHelper_backgroundTintMode cu.axel.smartdock:backgroundTintMode}</code></td><td>Blending mode used to apply the background tint.</td></tr>
      * </table>
      * @see #ViewBackgroundHelper_android_background
@@ -41544,23 +41554,22 @@ public final class R {
   public static final class xml {
     public static final int accessibility_service=0x7f130000;
     public static final int device_admin=0x7f130001;
-    public static final int preference_headers=0x7f130002;
-    public static final int preferences_advanced=0x7f130003;
-    public static final int preferences_app_menu=0x7f130004;
-    public static final int preferences_appearance=0x7f130005;
-    public static final int preferences_default_apps=0x7f130006;
-    public static final int preferences_desktop=0x7f130007;
-    public static final int preferences_dock=0x7f130008;
-    public static final int preferences_help_about=0x7f130009;
-    public static final int preferences_hot_corners=0x7f13000a;
-    public static final int preferences_keyboard=0x7f13000b;
-    public static final int preferences_main=0x7f13000c;
-    public static final int preferences_notification=0x7f13000d;
-    public static final int preferences_sounds=0x7f13000e;
-    public static final int standalone_badge=0x7f13000f;
-    public static final int standalone_badge_gravity_bottom_end=0x7f130010;
-    public static final int standalone_badge_gravity_bottom_start=0x7f130011;
-    public static final int standalone_badge_gravity_top_start=0x7f130012;
-    public static final int standalone_badge_offset=0x7f130013;
+    public static final int preferences_advanced=0x7f130002;
+    public static final int preferences_app_menu=0x7f130003;
+    public static final int preferences_appearance=0x7f130004;
+    public static final int preferences_default_apps=0x7f130005;
+    public static final int preferences_desktop=0x7f130006;
+    public static final int preferences_dock=0x7f130007;
+    public static final int preferences_help_about=0x7f130008;
+    public static final int preferences_hot_corners=0x7f130009;
+    public static final int preferences_keyboard=0x7f13000a;
+    public static final int preferences_main=0x7f13000b;
+    public static final int preferences_notification=0x7f13000c;
+    public static final int preferences_sounds=0x7f13000d;
+    public static final int standalone_badge=0x7f13000e;
+    public static final int standalone_badge_gravity_bottom_end=0x7f13000f;
+    public static final int standalone_badge_gravity_bottom_start=0x7f130010;
+    public static final int standalone_badge_gravity_top_start=0x7f130011;
+    public static final int standalone_badge_offset=0x7f130012;
   }
 }
