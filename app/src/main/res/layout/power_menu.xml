@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="140dp"
-	android:layout_height="400dp"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
 	android:padding="10dp"
 	android:background="@drawable/round_rect"
-	android:gravity="center_horizontal"
+	android:gravity="center_vertical"
 	android:elevation="5dp">
 
 	<LinearLayout

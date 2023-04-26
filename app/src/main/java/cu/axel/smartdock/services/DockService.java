@@ -1547,9 +1547,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void showPowerMenu() {
-		WindowManager.LayoutParams layoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 120),
-				Utils.dpToPx(context, 400));
-		layoutParams.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
+		WindowManager.LayoutParams layoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 400),
+				Utils.dpToPx(context, 120));
+		layoutParams.gravity = Gravity.CENTER;
 		layoutParams.x = Utils.dpToPx(context, 10);
 		layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 				| WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
