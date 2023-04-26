@@ -142,8 +142,7 @@
     <string name="screenshot">स्क्रीनशॉट</string>
 
     <string name="notifications">नोटिफिकेशन</string>
-    <string name="clear_all">सभी को हटाए</string>
-
+    
     <string name="these_permissions_are_needed_f">ऐप को काम करने के लिए इन अनुमतियों की आवश्यकता है</string>
     <string name="display_over_other_apps">अन्य ऐप्स के ऊपर दिखाए</string>
     <string name="required_to_display_the_dock_">डॉक को दिखने के लिए आवश्यक, आप इसके बिना सर्विस स्टार्ट नहीं कर सकते हैं</string>
