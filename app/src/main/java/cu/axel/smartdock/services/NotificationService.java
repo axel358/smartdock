@@ -261,7 +261,7 @@ public class NotificationService extends NotificationListenerService {
 							.commit();
 					notificationLayout.setVisibility(View.GONE);
 					notificationLayout.setAlpha(0);
-					Toast.makeText(NotificationService.this, R.string.silenced_notifications, 5000).show();
+					Toast.makeText(NotificationService.this, R.string.silenced_notifications, Toast.LENGTH_LONG).show();
 
 					if (sbn.isClearable())
 						cancelNotification(sbn.getKey());

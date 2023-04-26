@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="MissingTranslation"
+	>
     <string name="please_note_that_you_must_prov">Please note that you must provide your own sounds</string>
     <string name="enable_startup_sound_title">Play a custom sound at Dock startup*</string>
     <string name="startup_sound_title">Choose startup sound</string>
@@ -128,8 +131,7 @@
     <string name="screenshot">Screenshot</string>
 
     <string name="notifications">Notifications</string>
-    <string name="clear_all">Clear all</string>
-
+    
     <string name="these_permissions_are_needed_f">These permissions are needed for the app to work</string>
     <string name="display_over_other_apps">Display over other apps</string>
     <string name="required_to_display_the_dock_">Required to display the Dock, you cannot start the service without this</string>

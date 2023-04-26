@@ -5,9 +5,9 @@ plugins {
 android {
     compileSdk 31
 	
-	lintOptions {
+	/*lintOptions {
 		abortOnError false
-	}
+	}*/
 
     defaultConfig {
         applicationId "cu.axel.smartdock"

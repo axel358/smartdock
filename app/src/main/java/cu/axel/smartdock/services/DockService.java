@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.content.res.Resources;
@@ -353,7 +354,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		});
 
 		dockLayoutParams = Utils.makeWindowParams(-1, -2);
-		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? 0 : -1;
+		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 		dockLayoutParams.gravity = Gravity.BOTTOM;
 
 		wm.addView(dock, dockLayoutParams);
@@ -596,7 +597,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		if (sp.getBoolean("pin_dock", true))
 			pinDock();
 		else
-			Toast.makeText(context, R.string.start_message, 5000).show();
+			Toast.makeText(context, R.string.start_message, Toast.LENGTH_LONG).show();
 
 	}
 
@@ -642,7 +643,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void restart() {
-		Toast.makeText(context, "Restarting...", 5000).show();
+		Toast.makeText(context, "Restarting...", Toast.LENGTH_LONG).show();
 		context = DeviceUtils.getDisplayContext(this, true);
 	}
 
@@ -891,7 +892,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			}
 
 		} catch (Exception e) {
-			Toast.makeText(context, R.string.something_wrong + e.toString(), 5000).show();
+			Toast.makeText(context, R.string.something_wrong + e.toString(), Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -922,7 +923,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void setOrientation() {
-		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? 0 : -1;
+		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 		wm.updateViewLayout(dock, dockLayoutParams);
 	}
 
