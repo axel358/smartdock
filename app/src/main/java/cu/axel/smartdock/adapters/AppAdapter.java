@@ -44,7 +44,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 		iconParserUtilities = new IconParserUtilities(context);
 		tabletMode = sp.getBoolean("app_menu_fullscreen", false);
 		iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
-		iconTheming = sp.getBoolean("icon_theming", false);
+		iconTheming = !sp.getString("icon_pack", "").equals("");
 
 		switch (sp.getString("icon_shape", "circle")) {
 		case "circle":

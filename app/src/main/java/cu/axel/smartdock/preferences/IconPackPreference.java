@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.widget.Toast;
 import androidx.preference.PreferenceManager;
 import androidx.preference.Preference;
 import android.util.AttributeSet;
@@ -31,14 +32,6 @@ public class IconPackPreference extends Preference {
 	private IconParserUtilities iconParserUtilities;
 	private SharedPreferences sp;
 	private IconPackHelper iconPackHelper;
-
-	/*
-	Create 2 list
-	One list holds all the icon pack packages
-	One list holds all the icon pack labels
-	 */
-	public static ArrayList<String> iconPackageList = new ArrayList<>();
-	public static ArrayList<String> iconNameList = new ArrayList<>();
 
 	/*
 	These are all icon pack intents to date
@@ -80,11 +73,17 @@ public class IconPackPreference extends Preference {
 			setSummary(AppUtils.getPackageLabel(context, iconPackHelper.getIconPack(sp)));
 		}
 
+	}
+
+	@Override
+	protected void onClick() {
 		PackageManager pm = mContext.getPackageManager();
 
 		/*
 		We manually add Smart Dock context as a default item so Smart Dock has a default item to rely on
 		 */
+		ArrayList<String> iconPackageList = new ArrayList<String>();
+		ArrayList<String> iconNameList = new ArrayList<String>();
 		iconPackageList.add(mContext.getPackageName());
 		iconNameList.add(mContext.getString(R.string.system));
 
@@ -98,12 +97,9 @@ public class IconPackPreference extends Preference {
 		}
 		for (ResolveInfo ri : launcherActivities) {
 			iconPackageList.add(ri.activityInfo.packageName);
-			iconNameList.add(AppUtils.getPackageLabel(context, ri.activityInfo.packageName));
+			iconNameList.add(AppUtils.getPackageLabel(mContext, ri.activityInfo.packageName));
 		}
-	}
 
-	@Override
-	protected void onClick() {
 		Set<String> cleanedNameList = new LinkedHashSet<>(iconNameList);
 		String[] newNameList = cleanedNameList.toArray(new String[0]);
 
