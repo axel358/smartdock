@@ -27,7 +27,6 @@
     <string name="enable_open_music_title">Habilitar Atajo+M para abrir la app de música</string>
     <string name="enable_open_browser_title">Habilitar Atajo+B para abrir el navegador</string>
     <string name="enable_open_terminal_title">Habilitar Atajo+T para abrir la terminal</string>
-    <string name="terminal_package_hint">com.termux</string>
     <string name="terminal_package_title">Nombre del paquete de la terminal</string>
     <string name="enable_expand_notifications_title">Habilitar Atajo+N para abrir el panel de notificaciones</string>
     <string name="enable_ctrl_back_title">Habilitar Ctrl derecho como botón atrás</string>
