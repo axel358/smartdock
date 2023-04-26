@@ -340,10 +340,12 @@ public class LauncherActivity extends AppCompatActivity {
 	public class AppAdapterDesktop extends ArrayAdapter<App> {
 		private Context context;
 		private int iconBackground, iconPadding;
+		private boolean iconTheming;
 
 		public AppAdapterDesktop(Context context, ArrayList<App> apps) {
 			super(context, R.layout.app_entry_desktop, apps);
 			this.context = context;
+			iconTheming = !sp.getString("icon_pack", "").equals("");
 			iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")) + 2);
 			switch (sp.getString("icon_shape", "circle")) {
 			case "circle":
@@ -369,7 +371,7 @@ public class LauncherActivity extends AppCompatActivity {
 
 			IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
 
-			if (sp.getBoolean("icon_theming", false))
+			if (iconTheming)
 				iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
 			else
 				iconIv.setImageDrawable(app.getIcon());

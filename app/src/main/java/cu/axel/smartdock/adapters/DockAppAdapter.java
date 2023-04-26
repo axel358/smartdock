@@ -31,7 +31,7 @@ public class DockAppAdapter extends ArrayAdapter<DockApp> {
 		this.context = context;
 		rightClickListener = listener;
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-		iconTheming = sp.getBoolean("icon_theming", false);
+		iconTheming = !sp.getString("icon_pack", "").equals("");
 		iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
 		tintIndicators = sp.getBoolean("tint_indicators", false);
 		switch (sp.getString("icon_shape", "circle")) {
