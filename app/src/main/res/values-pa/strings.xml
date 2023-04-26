@@ -27,8 +27,6 @@
     <string name="enable_open_music_title">ਤੁਹਾਡੀ ਪੂਰਵ-ਨਿਰਧਾਰਤ ਸੰਗੀਤ ਐਪ ਖੋਲ੍ਹਣ ਲਈ Modifier+M ਨੂੰ ਚਾਲੂ ਬਣਾਓ</string>
     <string name="enable_open_browser_title">ਆਪਣਾ ਪੂਰਵ-ਨਿਰਧਾਰਤ ਬ੍ਰਾਊਜ਼ਰ ਖੋਲ੍ਹਣ ਲਈ Modifier+B ਨੂੰ ਚਾਲੂ ਬਣਾਓ</string>
     <string name="enable_open_terminal_title">ਟਰਮੀਨਲ ਖੋਲ੍ਹਣ ਲਈ Modifier+T ਨੂੰ ਚਾਲੂ ਬਣਾਓ</string>
-    <string name="terminal_package_hint">com.termux</string>
-    <string name="terminal_package_title">ਟਰਮੀਨਲ ਐਪ ਪੈਕੇਜ ਦਾ ਨਾਮ</string>
     <string name="enable_expand_notifications_title">ਨੋਟੀਫੀਕੇਸਨਵਾਂ ਖੋਲ੍ਹਣ ਲਈ Modifier+A ਨੂੰ ਚਾਲੂ ਬਣਾਓ</string>
     <string name="enable_ctrl_back_title">ਬੈਕ ਬਟਨ ਵਜੋਂ ਕੰਮ ਕਰਨ ਲਈ ਸੱਜਾ Ctrl ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_f10_title">F10 ਦਬਾ ਕੇ ਸਪਲਿਟ ਸਕ੍ਰੀਨ ਨੂੰ ਟੌਗਲ ਕਰੋ</string>
@@ -40,8 +38,6 @@
     <string name="hot_corners_delay_title">ms ਵਿੱਚ ਹੋਟ ਕਾਰਨਰ ਐਕਟੀਵੇਸ਼ਨ ਦੇਰੀ</string>
 
     <string name="a_launcher_for_android_x86_by_">ਐਕਸਲ358 ਦੁਆਰਾ Android x86 ਲਈ ਇੱਕ ਲਾਂਚਰ</string>
-    <string name="special_thanks_to">ਵਿਸ਼ੇਸ਼ ਧੰਨਵਾਦ</string>
-    <string name="k_s_maan_nblisslabs_project">ਕੇ ਐਸ ਮਾਨ \nਬਲਿਸਲੈਬਸ ਪ੍ਰੋਜੈਕਟ</string>
     <string name="help">ਮਦਦ</string>
     <string name="smart_dock_its_free_and_open_">ਸਮਾਰਟ ਡੌਕ ਮੁਫਤ ਅਤੇ ਓਪਨ ਸੋਰਸ ਹੈ। GitHub ਤੇ ਯੋਗਦਾਨ ਪਾਓ</string>
     <string name="github">GitHub</string>
@@ -75,8 +71,6 @@
     <string name="theme_title">ਡੌਕ ਥੀਮ</string>
     <string name="theme_main_color_summary">ਬੈਕਗ੍ਰਾਊਂਡ ਆਈਟਮ ਲਈ ਮੁੱਖ ਰੰਗ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
     <string name="theme_main_color_title">ਮੁੱਖ ਰੰਗ</string>
-    <string name="theme_secondary_color_summary">ਬੈਕਗ੍ਰਾਊਂਡ ਆਈਟਮ ਲਈ ਸੈਕੰਡਰੀ ਰੰਗ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
-    <string name="theme_secondary_color_title">ਸੈਕੰਡਰੀ ਰੰਗ</string>
     <string name="icon_shape_dialogTitle">ਆਈਕਨ ਆਕਾਰ</string>
     <string name="icon_shape_title">ਆਈਕਨ ਆਕਾਰ</string>
     <string name="icon_padding_summary">ਆਈਕਨ ਅਤੇ ਇਸ ਦੇ ਬਾਰਡਰ ਦੇ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਪਰਿਭਾਸ਼ਿਤ ਕਰਨਾ</string>
@@ -101,8 +95,6 @@
     <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
     <string name="launch_games_fullscreen_summary">ਪੂਰਵ-ਨਿਰਧਾਰਤ ਤੌਰ ਤੇ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਗਈਆਂ ਐਪਾਂ ਨੂੰ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਲਾਂਚ ਕਰੋ</string>
-    <string name="lock_landscape_title">ਲੈਂਡਸਕੇਪ ਵਿੱਚ ਪੂਰੀ ਸਕ੍ਰੀਨ ਐਪਸ ਲਾਂਚ ਕਰੋ</string>
-    <string name="lock_landscape_summary">ਕੁਝ ਐਪਾਂ ਪੂਰੀ ਸਕ੍ਰੀਨ ਲਾਂਚ ਨੂੰ ਪੋਰਟਰੇਟ ਵਿੱਚ ਲਾਂਚ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰ ਸਕਦੀਆਂ ਹਨ। ਅਜਿਹੇ ਵਿਵਹਾਰ ਨੂੰ ਰੋਕਣ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="fine_tune">ਫਾਈਨ ਟੂਨ</string> 
     <string name="app_menu_x_title">ਐਪ ਮੀਨੂ x ਅਨੁਵਾਦ</string>
     <string name="app_menu_y_title">ਐਪ ਮੀਨੂ y ਅਨੁਵਾਦ</string>

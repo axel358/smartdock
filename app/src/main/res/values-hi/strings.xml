@@ -27,8 +27,6 @@
     <string name="enable_open_music_title">आपको डिफ़ॉल्ट संगीत ऐप खोलने के लिए संशोधक+एम सक्षम करें</string>
     <string name="enable_open_browser_title">अपना डिफ़ॉल्ट ब्राउज़र खोलने के लिए संशोधक+बी सक्षम करें</string>
     <string name="enable_open_terminal_title">टर्मिनल खोलने के लिए संशोधक + टी सक्षम करें</string>
-    <string name="terminal_package_hint">com.termux</string>
-    <string name="terminal_package_title">टर्मिनल ऐप पैकेज का नाम</string>
     <string name="enable_expand_notifications_title">सूचनाएं खोलने के लिए संशोधक+ए सक्षम करें</string>
     <string name="enable_ctrl_back_title">बैक बटन के रूप में कार्य करने के लिए दायां Ctrl सक्षम करें</string>
     <string name="enable_f10_title">F10 दबाकर स्प्लिट स्क्रीन को टॉगल करें</string>
@@ -40,8 +38,6 @@
     <string name="hot_corners_delay_title">मिलीसेकंड में हॉट कॉर्नर सक्रियण विलंब</string>
 
     <string name="a_launcher_for_android_x86_by_">Axel358 के द्वारा एंड्राइड के लिए एक लांचर</string>
-    <string name="special_thanks_to">विशेष धन्यवाद</string>
-    <string name="k_s_maan_nblisslabs_project">K S Maan \nBlissLabs project</string>
     <string name="help">हेल्प</string>
     <string name="smart_dock_its_free_and_open_">स्मार्ट डॉक, यह फ्री और ओपन सोर्स है| GitHub पर योगदान करें</string>
     <string name="github">GitHub</string>
@@ -56,8 +52,6 @@
     <string name="enable_nav_home_title">होम  बटन इनेबल  करे</string>
     <string name="enable_nav_recents_title">रीसेंट बटन इनेबल  करे</string>
     <string name="enable_nav_assist_title">असिस्टेंट  बटन इनेबल  करे</string>
-    <string name="custom_assist_summary">कस्टम असिस्टेंट ऐप का उपयोग करें, डिफ़ॉल्ट के लिए खाली छोड़ दें</string>
-    <string name="custom_assist_title">कस्टम असिस्टेंट ऐप</string>
     <string name="quick_settings">क्विक सेटिंग्स</string>
     <string name="enable_qs_bluetooth_title">ब्लूटूथ बटन इनेबल  करे</string>
     <string name="enable_qs_battery_title">बैटरी  बटन इनेबल  करे</string>
@@ -77,17 +71,12 @@
     <string name="theme_title">डॉक थीम </string>
     <string name="theme_main_color_summary">बैकग्राउंड के लिए मुख्य कलर सेट करे</string>
     <string name="theme_main_color_title">मुख्य कलर</string>
-    <string name="theme_secondary_color_summary">बैकग्राउंड के लिए माध्यमिक कलर सेट करे</string>
-    <string name="theme_secondary_color_title">माध्यमिक कलर</string>
     <string name="icon_shape_dialogTitle">आइकॉन  शेप</string>
     <string name="icon_shape_title">आइकॉन  शेप</string>
     <string name="icon_padding_summary">आइकॉन और बॉर्डर के बीच में  सफ़ेद जगह की मात्रा</string>
     <string name="icon_padding_title">आइकॉन  पैडिंग</string>
     <string name="menu_icon_uri_title">आइकॉन मेनू सेलेक्ट करें</string>
     <string name="restore_menu_icon_title">डिफ़ॉल्ट मेनू आइकॉन को रिस्टोर करे </string>
-    <string name="animations">एनीमेशन</string>
-    <string name="disable_animations_title">ऐप लॉन्च एनिमेशन को डिसएबल करे</string>
-    <string name="enable_custom_animations_title">ऐप लॉन्च करते समय कस्टम एनीमेशन का इस्तेमाल करें</string>
     <string name="custom_animation_dialogTitle">एनीमेशन</string>
     <string name="custom_animation_title">कस्टम एनीमेशन</string>
 
@@ -106,8 +95,6 @@
     <string name="remember_launch_mode_summary">सभी ऐप्स के लिए आखरी इस्तेमाल किया गया लांच मोड याद रखे </string>
     <string name="launch_games_fullscreen_title">गेम को फुल स्क्रीन में लंच करें</string>
     <string name="launch_games_fullscreen_summary">गेम के रूप में पहचाने गए ऐप्‍स को डिफ़ॉल्‍ट रूप से पूर्ण स्‍क्रीन में लॉन्‍च करें</string>
-    <string name="lock_landscape_title">फ़ुल स्क्रीन ऐप्स को लैंडस्केप मोड में लॉन्‍च करें</string>
-    <string name="lock_landscape_summary">कुछ फुल स्क्रीन अप्प्स बल पूर्वक स्क्रीन को पोट्रैट करने का प्रयास कर सकते है| इस तरह के व्यवहार को रोकने के लिए इसका इस्तेमाल करें</string>
     <string name="fine_tune">फ़ाइन ट्यून</string>
     <string name="app_menu_x_title">ऐप मेनू x ट्रांसलेशन </string>
     <string name="app_menu_y_title">ऐप मेनू y ट्रांसलेशन</string>

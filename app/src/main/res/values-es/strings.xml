@@ -27,7 +27,6 @@
     <string name="enable_open_music_title">Habilitar Atajo+M para abrir la app de música</string>
     <string name="enable_open_browser_title">Habilitar Atajo+B para abrir el navegador</string>
     <string name="enable_open_terminal_title">Habilitar Atajo+T para abrir la terminal</string>
-    <string name="terminal_package_title">Nombre del paquete de la terminal</string>
     <string name="enable_expand_notifications_title">Habilitar Atajo+N para abrir el panel de notificaciones</string>
     <string name="enable_ctrl_back_title">Habilitar Ctrl derecho como botón atrás</string>
     <string name="enable_f10_title">Activar pantalla dividida al presionar F10</string>
@@ -39,8 +38,6 @@
     <string name="hot_corners_delay_title">Retraso de activación en ms</string>
 
     <string name="a_launcher_for_android_x86_by_">Un launcher para Android x86 por Axel358</string>
-    <string name="special_thanks_to">Agradecimientos especiales a</string>
-    <string name="k_s_maan_nblisslabs_project">K S Maan \nProyecto BlissLabs</string>
     <string name="help">Ayuda</string>
     <string name="smart_dock_its_free_and_open_">Smart Dock es open source. Contribuir en GitHub</string>
     <string name="github">GitHub</string>
@@ -74,19 +71,14 @@
     <string name="theme_title">Tema del dock</string>
     <string name="theme_main_color_summary">Color principal de fondo de los elemantos</string>
     <string name="theme_main_color_title">Color principal</string>
-    <string name="theme_secondary_color_summary">Color secundario de fondo de los elemantos</string>
-    <string name="theme_secondary_color_title">Color secundario</string>
     <string name="icon_shape_dialogTitle">Forma de iconos</string>
     <string name="icon_shape_title">Forma de iconos</string>
     <string name="icon_padding_summary">Espacio entre el icono y su borde</string>
     <string name="icon_padding_title">Margen interno</string>
     <string name="menu_icon_uri_title">Seleccionar icono del menú de apps</string>
     <string name="restore_menu_icon_title">Restaurar icono del menú de apps</string>
-    <string name="animations">Animaciones</string>
-    <string name="disable_animations_title">Deshabilitar animaciones al lanzar apps</string>
-    <string name="enable_custom_animations_title">Usar una animación personalizada al lanzar apps</string>
     <string name="custom_animation_dialogTitle">Animación</string>
-    <string name="custom_animation_title">Animación</string>
+    <string name="custom_animation_title">Animación al lanzar apps</string>
 
     <string name="menu">Menu</string>
     <string name="enable_app_menu_title">Abrir menú al presionar una tecla</string>
@@ -103,8 +95,6 @@
     <string name="remember_launch_mode_summary">Recordar modo de lanzamiento usado por cada app</string>
     <string name="launch_games_fullscreen_title">Lanzar juegos en pantalla completa</string>
     <string name="launch_games_fullscreen_summary">Lanzar apps detectadas como juegos en pantalla completa</string>
-    <string name="lock_landscape_title">Forzar orientación en pantalla completa</string>
-    <string name="lock_landscape_summary">Forzar apps en pantalla completa a usar modo escritorio</string>
     <string name="fine_tune">Ajustes misc</string>
     <string name="app_menu_x_title">Desplazamiento horizontal del menú de apps</string>
     <string name="app_menu_y_title">Desplazamiento vertical del menú de apps</string>
