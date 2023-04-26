@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="MissingTranslation"
+	>
     <string name="please_note_that_you_must_prov">Please note that you must provide your own sounds</string>
     <string name="enable_startup_sound_title">Play a custom sound at Dock startup*</string>
     <string name="startup_sound_title">Choose startup sound</string>
