@@ -17,8 +17,8 @@
 
 		<ImageButton
 			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="60dp"
-			android:layout_width="60dp"
+			android:layout_height="65dp"
+			android:layout_width="65dp"
 			android:src="@drawable/ic_power"
 			android:id="@+id/power_off_btn"
 			android:background="@drawable/circle"/>
@@ -41,8 +41,8 @@
 
 		<ImageButton
 			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="60dp"
-			android:layout_width="60dp"
+			android:layout_height="65dp"
+			android:layout_width="65dp"
 			android:src="@drawable/ic_restart"
 			android:id="@+id/restart_btn"
 			android:background="@drawable/circle"/>
@@ -89,8 +89,8 @@
 
 		<ImageButton
 			style="?android:attr/buttonBarButtonStyle"
-			android:layout_height="60dp"
-			android:layout_width="60dp"
+			android:layout_height="65dp"
+			android:layout_width="65dp"
 			android:src="@drawable/ic_lock"
 			android:id="@+id/lock_btn"
 			android:background="@drawable/circle"/>
