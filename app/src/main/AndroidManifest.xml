@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="cu.axel.smartdock"
-    tools:ignore="ProtectedPermissions" >
+    tools:ignore="ProtectedPermissions,QueryAllPackagesPermission" >
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_TASKS" />
