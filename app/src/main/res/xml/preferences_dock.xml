@@ -27,7 +27,7 @@
         <CheckBoxPreference
             android:key="enable_qs_battery"
             android:title="@string/enable_qs_battery_title"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
         <CheckBoxPreference
             android:key="enable_qs_wifi"
             android:title="@string/enable_qs_wifi_title"

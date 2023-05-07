@@ -651,7 +651,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	@Override
 	protected boolean onKeyEvent(KeyEvent event) {
 		boolean isModifierPressed = false;
-		switch (sp.getString("shortcut_key", "alt")) {
+		switch (sp.getString("shortcut_key", "57")) {
 		case "57":
 			isModifierPressed = event.isAltPressed();
 			break;
