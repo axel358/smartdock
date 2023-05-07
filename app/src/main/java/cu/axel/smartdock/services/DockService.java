@@ -156,7 +156,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		Utils.startupTime = System.currentTimeMillis();
 		systemApp = AppUtils.isSystemApp(context, getPackageName());
-		maxApps = Integer.parseInt(sp.getString("max_running_apps", "15"));
+		maxApps = Integer.parseInt(sp.getString("max_running_apps", "10"));
 
 		//Create the dock
 		dock = (HoverInterceptorLayout) LayoutInflater.from(context).inflate(R.layout.dock, null);
@@ -1259,7 +1259,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		else if (p2.equals("dock_square"))
 			updateDockShape();
 		else if (p2.equals("max_running_apps")) {
-			maxApps = Integer.parseInt(sp.getString("max_running_apps", "15"));
+			maxApps = Integer.parseInt(sp.getString("max_running_apps", "10"));
 			updateRunningTasks();
 		}
 	}
