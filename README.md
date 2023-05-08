@@ -5,9 +5,14 @@
 
 ![Screenshot](screenshot.webp)
 
-## Usage:
-The application should be installed as a system app in order to obtain the right permissions.
+## Install
+
+You can grab the latest release from [here](https://github.com/axel358/smartdock/releases)
+
+Note: The application should be installed as a system app in order to obtain the right permissions.
 Without this functionallity will be limited.
+
+## Usage
 
 **Hiding Android navigation buttons:**
 You should also hide the Android navigation buttons. There are several ways to do this
@@ -27,12 +32,12 @@ You should also hide the Android navigation buttons. There are several ways to d
 
 The app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
 
-## Contributing:
+## Contributing
 
 [See contributors](Contributors.md)
 
 If you like the project you can give it a star or consider making a [donation](https://paypal.me/KSMaan7)
 
-## Support:
+## Support
 
 Telegram support group: https://t.me/smartdock358
