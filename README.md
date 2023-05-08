@@ -7,7 +7,7 @@
 
 ## Install
 
-You can grab the latest release from [here](https://github.com/axel358/smartdock/releases)
+You can grab the latest release [here](https://github.com/axel358/smartdock/releases)
 
 Note: The application should be installed as a system app in order to obtain the right permissions.
 Without this functionallity will be limited.
