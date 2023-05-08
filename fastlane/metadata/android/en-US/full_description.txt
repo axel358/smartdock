@@ -1,0 +1,1 @@
+A desktop mode launcher for Android

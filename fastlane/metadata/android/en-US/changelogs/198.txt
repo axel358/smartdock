@@ -1,0 +1,5 @@
+Fix Bluetooth related crashes
+Fix some features not working until their respective settings page was open
+Port to Material 3
+Better power menu positioning
+Partially fix icon pack support

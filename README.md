@@ -3,7 +3,7 @@
   A desktop mode launcher for Android
 </div>
 
-![Screenshot](screenshot.webp)
+![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/1.png)
 
 ## Install
 
