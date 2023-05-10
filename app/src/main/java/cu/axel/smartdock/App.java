@@ -5,6 +5,7 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import com.google.android.material.color.DynamicColors;
 import cu.axel.smartdock.activities.DebugActivity;
 import cu.axel.smartdock.utils.Utils;
 
@@ -12,6 +13,7 @@ public class App extends Application {
 	private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
 	@Override
 	public void onCreate() {
+		DynamicColors.applyToActivitiesIfAvailable(this);
 		uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
                 @Override
