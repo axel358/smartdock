@@ -68,33 +68,29 @@ public class ColorUtils {
 		return wallpaperColors;
 	}
 
+   //noinspection ResourceType
 	public static int[] getDynamicColors(Context context) {
+	   int[] colors = new int[3];
 		if (DynamicColors.isDynamicColorAvailable()) {
-			// if your base context is already using Material3 theme you can omit R.style argument
-			Context dynamicColorContext = DynamicColors.wrapContextIfAvailable(context,
-					R.style.ThemeOverlay_Material3_DynamicColors_DayNight);
-			// define attributes to resolve in an array
-			int[] attrsToResolve = { R.attr.colorPrimary, // 0
-					R.attr.colorOnPrimary, // 1
-					R.attr.colorSecondary, // 2
-					R.attr.colorAccent // 3
+			
+			// Force dark color variants
+			Context styledContext = DynamicColors.wrapContextIfAvailable(context,
+					R.style.ThemeOverlay_Material3_DynamicColors_Dark);
+			
+			int[] attrsToResolve = { R.attr.colorPrimary,
+					R.attr.colorSurface,
+					R.attr.colorSurfaceVariant
 			};
-			// now resolve them
-			//noinspection ResourceType
-			TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
-			int primary = ta.getColor(0, 0);
-			int onPrimary = ta.getColor(1, 0);
-			int secondary = ta.getColor(2, 0);
-			int accent = ta.getColor(3, 0);
-			ta.recycle(); // recycle TypedArray
-
+			
+			TypedArray attrs = styledContext.obtainStyledAttributes(attrsToResolve);
 			int[] colors = new int[3];
-			colors[0] = primary;
-
-			return colors;
+			colors[0] = attrs.getColor(0, 0);
+			colors[1] = attrs.getColor(1, 0);
+			colors[2] = attrs.getColor(2, 0);
+			attrs.recycle();
 		}
 
-		return new int[1];
+		return colors;
 	}
 
 	public static int manipulateColor(int color, float factor) {
