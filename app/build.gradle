@@ -4,15 +4,12 @@ plugins {
 
 android {
     compileSdk 33
+    namespace "cu.axel.smartdock"
 	
-	/*lintOptions {
-		abortOnError false
-	}*/
-
     defaultConfig {
         applicationId "cu.axel.smartdock"
         minSdk 21
-        targetSdk 31
+        targetSdk 33
         versionCode 198
         versionName "1.9.8"
     }
@@ -30,9 +27,8 @@ android {
 }
 
 dependencies {
-        implementation fileTree(dir: 'libs', include: ['*.jar'])
-        implementation 'androidx.appcompat:appcompat:1.6.1'
-		implementation 'com.google.android.material:material:1.9.0'
-        implementation 'androidx.preference:preference:1.2.0'
-		implementation 'com.github.ChickenHook:RestrictionBypass:2.2'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'com.github.ChickenHook:RestrictionBypass:2.2'
 }
