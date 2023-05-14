@@ -80,6 +80,7 @@ public class ColorUtils {
 					R.attr.colorAccent // 3
 			};
 			// now resolve them
+			//noinspection ResourceType
 			TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
 			int primary = ta.getColor(0, 0);
 			int onPrimary = ta.getColor(1, 0);
