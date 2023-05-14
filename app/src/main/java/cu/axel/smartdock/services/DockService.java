@@ -1360,6 +1360,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 	}
 
+  //noinspection MissingPermission
 	public void toggleBluetooth() {
 		try {
 			if (bm.getAdapter().isEnabled()) {
