@@ -83,7 +83,6 @@ public class ColorUtils {
 			};
 			
 			TypedArray attrs = styledContext.obtainStyledAttributes(attrsToResolve);
-			int[] colors = new int[3];
 			colors[0] = attrs.getColor(0, 0);
 			colors[1] = attrs.getColor(1, 0);
 			colors[2] = attrs.getColor(2, 0);
