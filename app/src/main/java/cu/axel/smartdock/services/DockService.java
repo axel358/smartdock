@@ -1364,9 +1364,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		try {
 			if (bm.getAdapter().isEnabled()) {
 				bluetoothBtn.setImageResource(R.drawable.ic_bluetooth_off);
+				//noinspection MissingPermission
 				bm.getAdapter().disable();
 			} else {
 				bluetoothBtn.setImageResource(R.drawable.ic_bluetooth);
+				//noinspection MissingPermission
 				bm.getAdapter().enable();
 			}
 		} catch (Exception e) {
