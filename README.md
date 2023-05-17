@@ -14,7 +14,11 @@
 
 ## Install
 
-You can grab the latest release [here](https://github.com/axel358/smartdock/releases)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/packages/cu.axel.smartdock)
+
+You can grab the latest release from F-Droid
 
 Note: The application should be installed as a system app in order to obtain the right permissions.
 Without this functionallity will be limited.
@@ -22,6 +26,7 @@ Without this functionallity will be limited.
 ## Usage
 
 **Hiding Android navigation buttons:**
+
 You should also hide the Android navigation buttons. There are several ways to do this
 
 **With root:**
