@@ -5,6 +5,13 @@
 
 ![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/1.png)
 
+## Main features
+- Very customizable, icons, colors, shapes, sounds
+- Multi window support
+- Keyboard shortcuts
+- Support for both desktop and tablet layouts
+- Compatible with all Android versions since Lollipop, no root required
+
 ## Install
 
 You can grab the latest release [here](https://github.com/axel358/smartdock/releases)
