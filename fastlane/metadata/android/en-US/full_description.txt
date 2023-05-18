@@ -1,1 +1,7 @@
-A desktop mode launcher for Android
+Main features:
+
+* Very customizable, icons, colors, shapes, sounds
+* Multi window support
+* Keyboard shortcuts
+* Support for both desktop and tablet layouts
+* Compatible with all Android versions since Lollipop, no root required
