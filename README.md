@@ -1,6 +1,6 @@
 <div align="center">
   <h1>Smart Dock</h1>
-  A desktop mode launcher for Android
+  A user-friendly desktop mode launcher that offers a modern and customizable user interface
 </div>
 
 ![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/1.png)
