@@ -257,7 +257,7 @@ public class AppUtils {
 			} catch (PackageManager.NameNotFoundException e) {
 			}
 
-			if (appTasks.size() > max)
+			if (appTasks.size() >= max)
 				break;
 		}
 

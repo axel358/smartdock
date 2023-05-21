@@ -95,9 +95,6 @@
     <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
     <string name="launch_games_fullscreen_summary">ਪੂਰਵ-ਨਿਰਧਾਰਤ ਤੌਰ ਤੇ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਗਈਆਂ ਐਪਾਂ ਨੂੰ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਲਾਂਚ ਕਰੋ</string>
-    <string name="fine_tune">ਫਾਈਨ ਟੂਨ</string> 
-    <string name="app_menu_x_title">ਐਪ ਮੀਨੂ x ਅਨੁਵਾਦ</string>
-    <string name="app_menu_y_title">ਐਪ ਮੀਨੂ y ਅਨੁਵਾਦ</string>
 
     <string name="appearance">ਦਿੱਖਣਾ</string>
     <string name="app_menu">ਐਪ ਮੀਨੂ</string>

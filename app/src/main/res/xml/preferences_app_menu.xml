@@ -68,19 +68,4 @@
             android:summary="@string/launch_games_fullscreen_summary"
             android:defaultValue="true" />
     </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/fine_tune">
-    <EditTextPreference
-        android:inputType="number"
-        android:key="app_menu_x"
-        android:hint="2"
-        android:defaultValue="2"
-        android:title="@string/app_menu_x_title"/>
-    <EditTextPreference
-        android:inputType="number"
-        android:key="app_menu_y"
-        android:hint="2"
-        android:defaultValue="2"
-        android:title="@string/app_menu_y_title"/>
-    </PreferenceCategory>
 </PreferenceScreen>

@@ -108,7 +108,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			volBtn, pinBtn;
 	private TextView notificationBtn, searchTv;
 	private Button topRightCorner, bottomRightCorner;
-	private LinearLayout appMenu, searchLayout, powerMenu, audioPanel, wifiPanel, searchEntry;
+	private LinearLayout appMenu, searchLayout, powerMenu, audioPanel, wifiPanel, searchEntry, navPanel, systemTray;
 	private RelativeLayout dockLayout;
 	private WindowManager wm;
 	private View appsSeparator;
@@ -162,6 +162,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		dock = (HoverInterceptorLayout) LayoutInflater.from(context).inflate(R.layout.dock, null);
 		dockLayout = dock.findViewById(R.id.dock_layout);
 		dockTrigger = dock.findViewById(R.id.dock_trigger);
+		navPanel = dock.findViewById(R.id.nav_panel);
+		systemTray = dock.findViewById(R.id.system_tray);
 
 		appsBtn = dock.findViewById(R.id.apps_btn);
 		tasksGv = dock.findViewById(R.id.apps_lv);
@@ -354,7 +356,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		});
 
 		dockLayoutParams = Utils.makeWindowParams(-1, -2);
-		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false)
+				? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+				: ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 		dockLayoutParams.gravity = Gravity.BOTTOM;
 
 		wm.addView(dock, dockLayoutParams);
@@ -593,7 +597,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		updateMenuIcon();
 		placeRunningApps();
 		updateDockTrigger();
-
+		
 		if (sp.getBoolean("pin_dock", true))
 			pinDock();
 		else
@@ -729,6 +733,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			InputMethodManager im = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 			im.showInputMethodPicker();
 		} else {
+			//TODO
 			AccessibilityService.SoftKeyboardController kc = getSoftKeyboardController();
 			int mode = kc.getShowMode();
 		}
@@ -765,7 +770,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		pinBtn.setImageResource(R.drawable.ic_pin);
 		if (dockLayout.getVisibility() == View.GONE)
 			showDock();
-
 	}
 
 	private void unpinDock() {
@@ -923,7 +927,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void setOrientation() {
-		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false) ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false)
+				? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+				: ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 		wm.updateViewLayout(dock, dockLayoutParams);
 	}
 
@@ -936,18 +942,21 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void showAppMenu() {
 		WindowManager.LayoutParams lp = null;
+		int deviceWidth = DeviceUtils.getDisplayMetrics(context, true).widthPixels;
+		int deviceHeight = DeviceUtils.getDisplayMetrics(context, true).heightPixels;
+		int dockHeight = dockLayout.getMeasuredHeight();
+		int margins = Utils.dpToPx(context, 2);
+		int usableHeight = deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins;
+
 		if (sp.getBoolean("app_menu_fullscreen", false)) {
-			int deviceWidth = DeviceUtils.getDisplayMetrics(context, true).widthPixels;
-			int deviceHeight = DeviceUtils.getDisplayMetrics(context, true).heightPixels;
-			lp = Utils.makeWindowParams(-1,
-					deviceHeight - Utils.dpToPx(context, 60) - DeviceUtils.getStatusBarHeight(context));
+			lp = Utils.makeWindowParams(-1, usableHeight);
 			//lp.x = Utils.dpToPx(context, 2);
-			lp.y = Utils.dpToPx(context, 2) + dockLayout.getMeasuredHeight();
+			lp.y = margins + dockHeight;
 
 			favoritesGv.setNumColumns(10);
 			appsGv.setVerticalSpacing(Utils.dpToPx(context, 45));
 			favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 45));
-			int padding = Utils.dpToPx(context, 30);
+			int padding = Utils.dpToPx(context, 24);
 			appMenu.setPadding(padding, padding, padding, padding);
 			searchEntry.setGravity(Gravity.CENTER);
 			searchLayout.setGravity(Gravity.CENTER);
@@ -956,11 +965,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			//ColorUtils.applyMainColor(context, sp, appMenu);
 
 		} else {
-			lp = Utils.makeWindowParams(Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_width", "650"))),
-					Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_height", "540"))));
-			lp.x = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_x", "2")));
-			lp.y = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_y", "2")))
-					+ dockLayout.getMeasuredHeight();
+			int width = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_width", "650")));
+			int height = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_height", "540")));
+			lp = Utils.makeWindowParams(Math.min(width, deviceWidth - margins * 2), Math.min(height, usableHeight));
+			lp.x = margins;
+			lp.y = margins + dockHeight;
 			favoritesGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
 			appsGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
 			appsGv.setVerticalSpacing(Utils.dpToPx(context, 5));
@@ -1252,11 +1261,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			updateDockTrigger();
 		else if (p2.startsWith("enable_corner_"))
 			updateCorners();
-		else if (p2.startsWith("enable_nav_"))
+		else if (p2.startsWith("enable_nav_")) {
 			updateNavigationBar();
-		else if (p2.startsWith("enable_qs_"))
+		} else if (p2.startsWith("enable_qs_")) {
 			updateQuickSettings();
-		else if (p2.equals("dock_square"))
+		} else if (p2.equals("dock_square"))
 			updateDockShape();
 		else if (p2.equals("max_running_apps")) {
 			maxApps = Integer.parseInt(sp.getString("max_running_apps", "10"));
@@ -1274,11 +1283,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private void placeRunningApps() {
 		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		if (sp.getBoolean("center_running_apps", true)) {
+		if (sp.getBoolean("center_running_apps", true) ) {
 			lp.addRule(RelativeLayout.CENTER_IN_PARENT);
 		} else {
 			lp.addRule(RelativeLayout.END_OF, R.id.nav_panel);
-			lp.addRule(RelativeLayout.START_OF, R.id.notifications_btn);
+			lp.addRule(RelativeLayout.START_OF, R.id.system_tray);
 		}
 		tasksGv.setLayoutParams(lp);
 	}
@@ -1297,12 +1306,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	private void updateRunningTasks() {
 		lastUpdate = System.currentTimeMillis();
-
 		ArrayList<DockApp> apps = new ArrayList<DockApp>();
 
 		for (App pinnedApp : pinnedApps) {
 			apps.add(new DockApp(pinnedApp.getName(), pinnedApp.getPackageName(), pinnedApp.getIcon()));
 		}
+		
+		int gridSize = Utils.dpToPx(context, 56);
 
 		//TODO: We can eliminate another for
 		ArrayList<AppTask> tasks = systemApp ? AppUtils.getRunningTasks(am, pm, maxApps)
@@ -1316,8 +1326,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			else
 				apps.add(new DockApp(task));
 		}
-
-		tasksGv.getLayoutParams().width = Utils.dpToPx(context, 56) * apps.size();
+		tasksGv.getLayoutParams().width = gridSize * apps.size();
+		tasksGv.getLayoutParams().height = gridSize;
 		tasksGv.setAdapter(new DockAppAdapter(context, this, apps));
 
 		//TODO: Move context outta here
@@ -1360,7 +1370,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 	}
 
-  //noinspection MissingPermission
+	//noinspection MissingPermission
 	public void toggleBluetooth() {
 		try {
 			if (bm.getAdapter().isEnabled()) {

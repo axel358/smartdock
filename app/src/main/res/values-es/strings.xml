@@ -95,9 +95,6 @@
     <string name="remember_launch_mode_summary">Recordar modo de lanzamiento usado por cada app</string>
     <string name="launch_games_fullscreen_title">Lanzar juegos en pantalla completa</string>
     <string name="launch_games_fullscreen_summary">Lanzar apps detectadas como juegos en pantalla completa</string>
-    <string name="fine_tune">Ajustes misc</string>
-    <string name="app_menu_x_title">Desplazamiento horizontal del menú de apps</string>
-    <string name="app_menu_y_title">Desplazamiento vertical del menú de apps</string>
 
     <string name="appearance">Apariencia</string>
     <string name="app_menu">Menú de apps</string>

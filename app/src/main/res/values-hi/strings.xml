@@ -95,9 +95,6 @@
     <string name="remember_launch_mode_summary">सभी ऐप्स के लिए आखरी इस्तेमाल किया गया लांच मोड याद रखे </string>
     <string name="launch_games_fullscreen_title">गेम को फुल स्क्रीन में लंच करें</string>
     <string name="launch_games_fullscreen_summary">गेम के रूप में पहचाने गए ऐप्‍स को डिफ़ॉल्‍ट रूप से पूर्ण स्‍क्रीन में लॉन्‍च करें</string>
-    <string name="fine_tune">फ़ाइन ट्यून</string>
-    <string name="app_menu_x_title">ऐप मेनू x ट्रांसलेशन </string>
-    <string name="app_menu_y_title">ऐप मेनू y ट्रांसलेशन</string>
 
     <string name="appearance">अपीयरेंस</string>
     <string name="app_menu">ऐप मेनू</string>

@@ -433,7 +433,7 @@ public class NotificationService extends NotificationListenerService {
 		updateNotificationPanel();
 
 		notificationPanel.setOnTouchListener((View p1, MotionEvent p2) -> {
-			if (p2.getAction() == p2.ACTION_OUTSIDE
+			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE
 					&& (p2.getY() < notificationPanel.getMeasuredHeight() || p2.getX() < notificationPanel.getX())) {
 				hideNotificationPanel();
 			}

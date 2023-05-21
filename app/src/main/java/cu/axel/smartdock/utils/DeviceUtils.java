@@ -181,13 +181,13 @@ public class DeviceUtils {
     }
     
     public static Display getSecondaryDisplay(Context context){
-        DisplayManager dm = (DisplayManager) context.getSystemService(context.DISPLAY_SERVICE);
+        DisplayManager dm = (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
         Display[] displays = dm.getDisplays();
         return dm.getDisplays()[displays.length - 1];
     }
     
     public static DisplayMetrics getDisplayMetrics(Context context, boolean secondary){
-        DisplayManager dm = (DisplayManager) context.getSystemService(context.DISPLAY_SERVICE);
+        DisplayManager dm = (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
         Display display = secondary ? getSecondaryDisplay(context) : dm.getDisplay(Display.DEFAULT_DISPLAY);
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
