@@ -292,4 +292,8 @@
     <string name="move">Move</string>
     <string name="auto_pin_title">Auto pin</string>
     <string name="auto_pin_summary">Automatically pin the Dock when switching to windowed apps</string>
+	<string name="choose_dock_layout">Choose a Dock layout</string>
+	<string name="phone">Phone</string>
+	<string name="tablet">Tablet</string>
+	<string name="enable_notif_btn">Enable notifications button</string>
 </resources>

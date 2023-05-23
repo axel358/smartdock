@@ -20,6 +20,11 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/quick_settings">
+		<CheckBoxPreference
+			android:title="@string/enable_notif_btn"
+			android:key="enable_qs_notif"
+			android:defaultValue="false"
+			/>
         <CheckBoxPreference
             android:key="enable_qs_bluetooth"
             android:title="@string/enable_qs_bluetooth_title"

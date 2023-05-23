@@ -1350,6 +1350,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void updateQuickSettings() {
+		notificationBtn.setVisibility(sp.getBoolean("enable_qs_notif", true) ? View.VISIBLE : View.GONE);
 		bluetoothBtn.setVisibility(sp.getBoolean("enable_qs_bluetooth", false) ? View.VISIBLE : View.GONE);
 		batteryBtn.setVisibility(sp.getBoolean("enable_qs_battery", false) ? View.VISIBLE : View.GONE);
 		wifiBtn.setVisibility(sp.getBoolean("enable_qs_wifi", true) ? View.VISIBLE : View.GONE);

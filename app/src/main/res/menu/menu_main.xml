@@ -1,6 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+ 
+    <item
+	   android:icon="@drawable/ic_switch_layout"
+	   app:showAsAction="always"
+	   android:id="@+id/action_switch_layout"/>  
+	
 	<item
         android:icon="@drawable/ic_manage_service"
 		app:showAsAction="always"

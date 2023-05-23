@@ -6,7 +6,9 @@ import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import android.view.accessibility.AccessibilityManager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.preference.PreferenceManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import cu.axel.smartdock.fragments.PreferencesFragment;
 import java.util.List;
@@ -31,10 +34,13 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+	private SharedPreferences sp;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
+		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		getSupportFragmentManager().beginTransaction().replace(R.id.settings_container, new PreferencesFragment())
 				.commit();
 
@@ -68,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
 		switch (item.getItemId()) {
 		case R.id.action_grant_permissions:
 			showPermissionsDialog();
+			break;
+		case R.id.action_switch_layout:
+			showDockLayoutsDialog();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -109,33 +118,59 @@ public class MainActivity extends AppCompatActivity {
 		final AlertDialog dialog = builder.create();
 
 		grantOverlayBtn.setOnClickListener((View p1) -> {
-				grantOverlayPermissions();
-				dialog.dismiss();
+			grantOverlayPermissions();
+			dialog.dismiss();
 		});
 		grantStorageBtn.setOnClickListener((View p1) -> {
-				requestStoragePermission(8);
-				dialog.dismiss();
+			requestStoragePermission(8);
+			dialog.dismiss();
 		});
 		grantAdminBtn.setOnClickListener((View p1) -> {
-				enableDeviceAdmin();
-				dialog.dismiss();
+			enableDeviceAdmin();
+			dialog.dismiss();
 		});
 		grantNotificationsBtn.setOnClickListener((View p1) -> {
-				startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+			startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
 		});
 
 		manageServiceBtn.setOnClickListener((View p1) -> {
-				startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+			startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
 		});
 
 		locationBtn.setOnClickListener((View p1) -> {
-				ActivityCompat.requestPermissions(MainActivity.this,
-						new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 8);
-				dialog.dismiss();
+			ActivityCompat.requestPermissions(MainActivity.this,
+					new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 8);
+			dialog.dismiss();
 		});
 
 		usageBtn.setOnClickListener((View p1) -> {
-				startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+			startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+		});
+		dialog.show();
+	}
+
+	public void showDockLayoutsDialog() {
+		SharedPreferences.Editor editor = sp.edit();
+		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
+		dialog.setTitle(R.string.choose_dock_layout);
+		int layout = sp.getInt("dock_layout", -1);
+		dialog.setSingleChoiceItems(R.array.layouts, layout, (DialogInterface arg0, int wich) -> {
+			editor.putBoolean("enable_qs_bluetooth", wich != 0);
+			editor.putBoolean("enable_qs_wifi", wich != 0);
+			editor.putBoolean("enable_qs_vol", wich != 0);
+			editor.putBoolean("enable_qs_date", wich != 0);
+			editor.putBoolean("enable_qs_notif", wich != 0);
+			editor.putBoolean("app_menu_fullscreen", wich != 2);
+			editor.putString("launch_mode", wich != 2 ? "fullscreen" : "standard");
+			editor.putString("max_running_apps", wich == 0 ? "4" : "10");
+			editor.putInt("dock_layout", wich);
+
+			switch (wich) {
+			case 0:
+				//editor.putBoolean("enable_nav_back");
+				break;
+			}
+			editor.commit();
 		});
 		dialog.show();
 	}
