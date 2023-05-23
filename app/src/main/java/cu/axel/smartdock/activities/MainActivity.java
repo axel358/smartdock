@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
 		dialog.setTitle(R.string.choose_dock_layout);
 		int layout = sp.getInt("dock_layout", -1);
 		dialog.setSingleChoiceItems(R.array.layouts, layout, (DialogInterface arg0, int wich) -> {
-			editor.putBoolean("enable_qs_bluetooth", wich != 0);
 			editor.putBoolean("enable_qs_wifi", wich != 0);
 			editor.putBoolean("enable_qs_vol", wich != 0);
 			editor.putBoolean("enable_qs_date", wich != 0);
@@ -164,12 +163,6 @@ public class MainActivity extends AppCompatActivity {
 			editor.putString("launch_mode", wich != 2 ? "fullscreen" : "standard");
 			editor.putString("max_running_apps", wich == 0 ? "4" : "10");
 			editor.putInt("dock_layout", wich);
-
-			switch (wich) {
-			case 0:
-				//editor.putBoolean("enable_nav_back");
-				break;
-			}
 			editor.commit();
 		});
 		dialog.show();
