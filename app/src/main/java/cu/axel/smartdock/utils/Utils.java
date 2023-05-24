@@ -163,15 +163,18 @@ public class Utils {
 		}
 	}
 
-	public static WindowManager.LayoutParams makeWindowParams(int width, int height) {
+	public static WindowManager.LayoutParams makeWindowParams(int width, int height, Context context,
+			boolean preferLastDisplay) {
+		int displayWidth = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).widthPixels;
+		int displayHeight = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).heightPixels;
 		WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
 		layoutParams.format = PixelFormat.TRANSLUCENT;
 		layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
 		layoutParams.type = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
 				? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
 				: WindowManager.LayoutParams.TYPE_PHONE;
-		layoutParams.width = width;
-		layoutParams.height = height;
+		layoutParams.width = Math.min(displayWidth, width);
+		layoutParams.height = Math.min(displayHeight, height);
 		return layoutParams;
 	}
 

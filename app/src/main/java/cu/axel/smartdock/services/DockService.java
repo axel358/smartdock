@@ -254,7 +254,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 			} else if (tasks.size() > 1) {
 				final View view = LayoutInflater.from(context).inflate(R.layout.task_list, null);
-				WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
+				WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay);
 				ColorUtils.applyMainColor(context, sp, view);
 				lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
 				lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -355,7 +355,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			return true;
 		});
 
-		dockLayoutParams = Utils.makeWindowParams(-1, -2);
+		dockLayoutParams = Utils.makeWindowParams(-1, -2, context, preferLastDisplay);
 		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false)
 				? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 				: ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
@@ -396,7 +396,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		updateCorners();
 
-		WindowManager.LayoutParams cornersLayoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 2), -2);
+		WindowManager.LayoutParams cornersLayoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 2), -2, context,
+				preferLastDisplay);
 		cornersLayoutParams.gravity = Gravity.TOP | Gravity.RIGHT;
 		wm.addView(topRightCorner, cornersLayoutParams);
 
@@ -602,7 +603,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			pinDock();
 		else
 			Toast.makeText(context, R.string.start_message, Toast.LENGTH_LONG).show();
-
 	}
 
 	public ArrayList<Action> getAppActions(String app) {
@@ -638,7 +638,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				}
 			} catch (Exception e) {
 			}
-
 		}
 	}
 
@@ -942,14 +941,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void showAppMenu() {
 		WindowManager.LayoutParams lp = null;
-		int deviceWidth = DeviceUtils.getDisplayMetrics(context, true).widthPixels;
-		int deviceHeight = DeviceUtils.getDisplayMetrics(context, true).heightPixels;
+		int deviceWidth = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).widthPixels;
+		int deviceHeight = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).heightPixels;
 		int dockHeight = dockLayout.getMeasuredHeight();
 		int margins = Utils.dpToPx(context, 2);
 		int usableHeight = deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins;
 
 		if (sp.getBoolean("app_menu_fullscreen", false)) {
-			lp = Utils.makeWindowParams(-1, usableHeight);
+			lp = Utils.makeWindowParams(-1, usableHeight, context, preferLastDisplay);
 			//lp.x = Utils.dpToPx(context, 2);
 			lp.y = margins + dockHeight;
 
@@ -962,6 +961,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				searchEntry.setGravity(Gravity.CENTER);
 				searchLayout.setGravity(Gravity.CENTER);
 				appsGv.setNumColumns(10);
+			} else {
+				appsGv.setNumColumns(5);
+				favoritesGv.setNumColumns(5);
 			}
 			//appMenu.setBackgroundResource(R.drawable.rect);
 			//ColorUtils.applyMainColor(context, sp, appMenu);
@@ -969,7 +971,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		} else {
 			int width = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_width", "650")));
 			int height = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_height", "540")));
-			lp = Utils.makeWindowParams(Math.min(width, deviceWidth - margins * 2), Math.min(height, usableHeight));
+			lp = Utils.makeWindowParams(Math.min(width, deviceWidth - margins * 2), Math.min(height, usableHeight),
+					context, preferLastDisplay);
 			lp.x = margins;
 			lp.y = margins + dockHeight;
 			favoritesGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
@@ -1026,7 +1029,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void showAppContextMenu(final String app, View anchor) {
 
 		final View view = LayoutInflater.from(context).inflate(R.layout.task_list, null);
-		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay);
 		ColorUtils.applyMainColor(context, sp, view);
 		lp.gravity = Gravity.TOP | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
@@ -1136,7 +1139,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private void showTaskContextMenu(final String app, View anchor) {
 		final View view = LayoutInflater.from(context).inflate(R.layout.pin_entry, null);
 		LinearLayout pinLayout = view.findViewById(R.id.pin_entry_pin);
-		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay);
 		view.setBackgroundResource(R.drawable.round_rect);
 		ColorUtils.applyMainColor(context, sp, view);
 		lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
@@ -1200,7 +1203,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void showUserContextMenu(View anchor) {
 		final View view = LayoutInflater.from(context).inflate(R.layout.task_list, null);
-		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay);
 		ColorUtils.applyMainColor(context, sp, view);
 		lp.gravity = Gravity.TOP | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
@@ -1428,7 +1431,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			hideWiFiPanel();
 
 		final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 270), -2);
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 270), -2, context,
+				preferLastDisplay);
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 		lp.y = Utils.dpToPx(context, 2) + dockLayout.getMeasuredHeight();
 		lp.x = Utils.dpToPx(context, 2);
@@ -1486,7 +1490,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		if (audioPanelVisible)
 			hideAudioPanel();
 
-		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2);
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
+				preferLastDisplay);
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 		lp.y = Utils.dpToPx(context, 2) + dockLayout.getMeasuredHeight();
 		lp.x = Utils.dpToPx(context, 2);
@@ -1562,7 +1567,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	public void showPowerMenu() {
 		WindowManager.LayoutParams layoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 400),
-				Utils.dpToPx(context, 120));
+				Utils.dpToPx(context, 120), context, preferLastDisplay);
 		layoutParams.gravity = Gravity.CENTER;
 		layoutParams.x = Utils.dpToPx(context, 10);
 		layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
