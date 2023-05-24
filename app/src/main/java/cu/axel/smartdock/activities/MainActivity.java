@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
 			editor.putBoolean("app_menu_fullscreen", wich != 2);
 			editor.putString("launch_mode", wich != 2 ? "fullscreen" : "standard");
 			editor.putString("max_running_apps", wich == 0 ? "4" : "10");
+			editor.putString("dock_activation_area", wich == 2 ? "5" : "25");
 			editor.putInt("dock_layout", wich);
 			editor.commit();
 		});
