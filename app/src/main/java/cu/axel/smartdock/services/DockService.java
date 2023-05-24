@@ -197,12 +197,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			@Override
 			public boolean onSwipe(Direction direction) {
 				if (direction == Direction.up) {
-					if(!isPinned)
+					if (!isPinned)
 						pinDock();
-					else
+					else if (!appMenuVisible)
 						showAppMenu();
-				}
-				else
+				} else
 					unpinDock();
 				return true;
 			}
@@ -216,7 +215,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		});
 
 		dockLayout.setOnTouchListener(this);
-		
+
 		appsBtn.setOnClickListener((View p1) -> {
 			toggleAppMenu();
 		});
