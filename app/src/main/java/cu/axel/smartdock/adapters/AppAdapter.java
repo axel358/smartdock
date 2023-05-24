@@ -29,7 +29,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 	private final int iconPadding;
 	private ArrayList<App> apps, originalList;
 	private AppFilter filter;
-	private boolean iconTheming, tabletMode;
+	private boolean iconTheming, menuFullscreen, phoneLayout;
 	private IconParserUtilities iconParserUtilities;
 	private AppRightClickListener rightClickListener;
 	private String query;
@@ -42,7 +42,8 @@ public class AppAdapter extends ArrayAdapter<App> {
 		this.originalList = new ArrayList<App>(apps);
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		iconParserUtilities = new IconParserUtilities(context);
-		tabletMode = sp.getBoolean("app_menu_fullscreen", false);
+		menuFullscreen = sp.getBoolean("app_menu_fullscreen", false);
+		phoneLayout = sp.getInt("dock_layout", -1) == 0;
 		iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
 		iconTheming = !sp.getString("icon_pack", "").equals("");
 
@@ -66,7 +67,7 @@ public class AppAdapter extends ArrayAdapter<App> {
 		ViewHolder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context)
-					.inflate(tabletMode ? R.layout.app_entry_desktop : R.layout.app_entry, null);
+					.inflate(menuFullscreen && !phoneLayout ? R.layout.app_entry_desktop : R.layout.app_entry, null);
 			holder = new ViewHolder();
 			holder.iconIv = convertView.findViewById(R.id.app_icon_iv);
 			holder.nameTv = convertView.findViewById(R.id.app_name_tv);

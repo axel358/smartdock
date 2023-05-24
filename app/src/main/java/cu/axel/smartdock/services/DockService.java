@@ -597,7 +597,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		updateMenuIcon();
 		placeRunningApps();
 		updateDockTrigger();
-		
+
 		if (sp.getBoolean("pin_dock", true))
 			pinDock();
 		else
@@ -953,14 +953,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			//lp.x = Utils.dpToPx(context, 2);
 			lp.y = margins + dockHeight;
 
-			favoritesGv.setNumColumns(10);
-			appsGv.setVerticalSpacing(Utils.dpToPx(context, 45));
-			favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 45));
-			int padding = Utils.dpToPx(context, 24);
-			appMenu.setPadding(padding, padding, padding, padding);
-			searchEntry.setGravity(Gravity.CENTER);
-			searchLayout.setGravity(Gravity.CENTER);
-			appsGv.setNumColumns(10);
+			if (sp.getInt("dock_layout", -1) != 0) {
+				favoritesGv.setNumColumns(10);
+				appsGv.setVerticalSpacing(Utils.dpToPx(context, 45));
+				favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 45));
+				int padding = Utils.dpToPx(context, 24);
+				appMenu.setPadding(padding, padding, padding, padding);
+				searchEntry.setGravity(Gravity.CENTER);
+				searchLayout.setGravity(Gravity.CENTER);
+				appsGv.setNumColumns(10);
+			}
 			//appMenu.setBackgroundResource(R.drawable.rect);
 			//ColorUtils.applyMainColor(context, sp, appMenu);
 
@@ -1283,7 +1285,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private void placeRunningApps() {
 		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		if (sp.getBoolean("center_running_apps", true) ) {
+		if (sp.getBoolean("center_running_apps", true)) {
 			lp.addRule(RelativeLayout.CENTER_IN_PARENT);
 		} else {
 			lp.addRule(RelativeLayout.END_OF, R.id.nav_panel);
@@ -1311,7 +1313,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		for (App pinnedApp : pinnedApps) {
 			apps.add(new DockApp(pinnedApp.getName(), pinnedApp.getPackageName(), pinnedApp.getIcon()));
 		}
-		
+
 		int gridSize = Utils.dpToPx(context, 56);
 
 		//TODO: We can eliminate another for
