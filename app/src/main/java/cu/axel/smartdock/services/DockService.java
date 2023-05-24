@@ -197,8 +197,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			@Override
 			public boolean onSwipe(Direction direction) {
 				if (direction == Direction.up) {
-					pinDock();
+					if(!isPinned)
+						pinDock();
+					else
+						showAppMenu();
 				}
+				else
+					unpinDock();
 				return true;
 			}
 		});
@@ -210,6 +215,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			return true;
 		});
 
+		dockLayout.setOnTouchListener(this);
+		
 		appsBtn.setOnClickListener((View p1) -> {
 			toggleAppMenu();
 		});
@@ -762,6 +769,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		Animation anim = AnimationUtils.loadAnimation(context, R.anim.slide_up);
 		dockLayout.setVisibility(View.VISIBLE);
 		dockLayout.startAnimation(anim);
+		dockTrigger.setVisibility(View.GONE);
 	}
 
 	public void pinDock() {
@@ -913,6 +921,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					@Override
 					public void onAnimationEnd(Animation p1) {
 						dockLayout.setVisibility(View.GONE);
+						dockTrigger.setVisibility(View.VISIBLE);
 					}
 
 					@Override
@@ -1280,9 +1289,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	private void updateDockTrigger() {
 		int height = Integer.parseInt(sp.getString("dock_activation_area", "10"));
-		if (height < 1)
-			height = 1;
-		dockTrigger.getLayoutParams().height = Utils.dpToPx(context, height);
+		dockTrigger.getLayoutParams().height = Utils.dpToPx(context, Math.max(1, height));
 	}
 
 	private void placeRunningApps() {
@@ -1674,7 +1681,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	@Override
 	public boolean onTouch(View p1, MotionEvent p2) {
 		gestureDetector.onTouchEvent(p2);
-		return true;
+		return false;
 	}
 
 	@Override
