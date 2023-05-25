@@ -769,7 +769,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void showDock() {
 
 		dockHandle.setVisibility(View.GONE);
-		
+
 		if (dockLayoutParams.width != -1) {
 			dockLayoutParams.width = -1;
 			wm.updateViewLayout(dock, dockLayoutParams);
@@ -1306,7 +1306,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 	private void updateDockTrigger() {
 		int height = Integer.parseInt(sp.getString("dock_activation_area", "10"));
-		dockTrigger.getLayoutParams().height = Utils.dpToPx(context, Math.max(1, height));
+		dockTrigger.getLayoutParams().height = Utils.dpToPx(context, Math.min(Math.max(1, height), 50));
 	}
 
 	private void placeRunningApps() {
