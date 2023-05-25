@@ -155,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
 		dialog.setTitle(R.string.choose_dock_layout);
 		int layout = sp.getInt("dock_layout", -1);
 		dialog.setSingleChoiceItems(R.array.layouts, layout, (DialogInterface arg0, int wich) -> {
+			editor.putBoolean("enable_nav_back", wich != 0);
+			editor.putBoolean("enable_nav_home", wich != 0);
+			editor.putBoolean("enable_nav_recents", wich != 0);
 			editor.putBoolean("enable_qs_wifi", wich != 0);
 			editor.putBoolean("enable_qs_vol", wich != 0);
 			editor.putBoolean("enable_qs_date", wich != 0);
