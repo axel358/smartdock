@@ -107,7 +107,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private ImageView appsBtn, backBtn, homeBtn, recentBtn, assistBtn, powerBtn, bluetoothBtn, wifiBtn, batteryBtn,
 			volBtn, pinBtn;
 	private TextView notificationBtn, searchTv;
-	private Button topRightCorner, bottomRightCorner;
+	private Button topRightCorner, bottomRightCorner, dockHandle;
 	private LinearLayout appMenu, searchLayout, powerMenu, audioPanel, wifiPanel, searchEntry, navPanel, systemTray;
 	private RelativeLayout dockLayout;
 	private WindowManager wm;
@@ -162,6 +162,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		dock = (HoverInterceptorLayout) LayoutInflater.from(context).inflate(R.layout.dock, null);
 		dockLayout = dock.findViewById(R.id.dock_layout);
 		dockTrigger = dock.findViewById(R.id.dock_trigger);
+		dockHandle = dock.findViewById(R.id.dock_handle);
 		navPanel = dock.findViewById(R.id.nav_panel);
 		systemTray = dock.findViewById(R.id.system_tray);
 
@@ -215,6 +216,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		});
 
 		dockLayout.setOnTouchListener(this);
+
+		dockHandle.setOnClickListener((View v) -> {
+			pinDock();
+		});
 
 		appsBtn.setOnClickListener((View p1) -> {
 			toggleAppMenu();
@@ -365,7 +370,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false)
 				? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 				: ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
-		dockLayoutParams.gravity = Gravity.BOTTOM;
+		dockLayoutParams.gravity = Gravity.BOTTOM | Gravity.START;
 
 		wm.addView(dock, dockLayoutParams);
 
@@ -553,7 +558,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 						notificationBtn.setBackgroundResource(R.drawable.circle);
 						notificationBtn.setText(count + "");
 					} else {
-						notificationBtn.setBackgroundResource(R.drawable.ic_expand_up);
+						notificationBtn.setBackgroundResource(R.drawable.ic_expand_up_circle);
 						notificationBtn.setText("");
 					}
 				} else {
@@ -762,6 +767,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void showDock() {
+
+		dockHandle.setVisibility(View.GONE);
+		
+		if (dockLayoutParams.width != -1) {
+			dockLayoutParams.width = -1;
+			wm.updateViewLayout(dock, dockLayoutParams);
+		}
+
 		dockHandler.removeCallbacksAndMessages(null);
 		loadPinnedApps();
 		updateRunningTasks();
@@ -921,6 +934,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					public void onAnimationEnd(Animation p1) {
 						dockLayout.setVisibility(View.GONE);
 						dockTrigger.setVisibility(View.VISIBLE);
+						if (sp.getInt("dock_layout", -1) == 0) {
+							dockHandle.setVisibility(View.VISIBLE);
+							dockLayoutParams.width = Utils.dpToPx(context, 24);
+							wm.updateViewLayout(dock, dockLayoutParams);
+						}
 					}
 
 					@Override
