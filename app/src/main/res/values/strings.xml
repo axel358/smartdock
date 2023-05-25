@@ -296,4 +296,6 @@
 	<string name="phone">Phone</string>
 	<string name="tablet">Tablet</string>
 	<string name="enable_notif_btn">Enable notifications button</string>
+	<string name="enable_apps_btn">Enable apps menu button</string>
+	<string name="enable_apps_btn_summary">You can still open/close the app menu by swiping up/down on the dock</string>
 </resources>

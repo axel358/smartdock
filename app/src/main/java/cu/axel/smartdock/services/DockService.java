@@ -202,8 +202,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 						pinDock();
 					else if (!appMenuVisible)
 						showAppMenu();
-				} else
-					unpinDock();
+				} else if (direction == Direction.down && appMenuVisible)
+					hideAppMenu();
 				return true;
 			}
 		});
@@ -1372,6 +1372,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void updateNavigationBar() {
+		appsBtn.setVisibility(sp.getBoolean("enable_nav_apps", true) ? View.VISIBLE : View.GONE);
 		backBtn.setVisibility(sp.getBoolean("enable_nav_back", true) ? View.VISIBLE : View.GONE);
 		homeBtn.setVisibility(sp.getBoolean("enable_nav_home", true) ? View.VISIBLE : View.GONE);
 		recentBtn.setVisibility(sp.getBoolean("enable_nav_recents", true) ? View.VISIBLE : View.GONE);

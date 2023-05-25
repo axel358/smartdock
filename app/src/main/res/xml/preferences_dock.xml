@@ -1,6 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="@string/navigation">
+		<CheckBoxPreference
+            android:key="enable_nav_apps"
+            android:title="@string/enable_apps_btn"
+			android:summary="@string/enable_apps_btn_summary"
+            android:defaultValue="true" />
         <CheckBoxPreference
             android:key="enable_nav_back"
             android:title="@string/enable_nav_back_title"
