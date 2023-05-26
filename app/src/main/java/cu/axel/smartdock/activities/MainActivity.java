@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
 		if (!canDrawOverOtherApps() || !DeviceUtils.isAccessibilityServiceEnabled(this))
 			showPermissionsDialog();
+
+		if (sp.getInt("dock_layout", -1) == -1)
+			showDockLayoutsDialog();
 	}
 
 	public void requestStoragePermission(int code) {
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
 			editor.putString("activation_method", wich != 2 ? "handle" : "swipe");
 			editor.commit();
 		});
+		dialog.setPositiveButton(R.string.ok, null);
 		dialog.show();
 	}
 
