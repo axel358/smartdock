@@ -292,4 +292,15 @@
     <string name="move">Move</string>
     <string name="auto_pin_title">Auto pin</string>
     <string name="auto_pin_summary">Automatically pin the Dock when switching to windowed apps</string>
+	<string name="choose_dock_layout">Choose a Dock layout</string>
+	<string name="phone">Phone</string>
+	<string name="tablet">Tablet</string>
+	<string name="enable_notif_btn">Enable notifications button</string>
+	<string name="enable_apps_btn">Enable apps menu button</string>
+	<string name="enable_apps_btn_summary">You can still open/close the app menu by swiping up/down on the dock</string>
+	<string name="activation_method">Activation method</string>
+	<string name="activation_method_summary">The method used to bring up the dock when hidden</string>
+	<string name="swipe">Swipe/Hoover</string>
+	<string name="handle">Handle</string>
+	
 </resources>

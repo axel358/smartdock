@@ -69,17 +69,19 @@ public class NotificationService extends NotificationListenerService {
 	private LinearLayout notifActionsLayout;
 	private Context context;
 	private LinearLayout notificationArea;
+	private boolean preferLastDisplay;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
-		context = DeviceUtils.getDisplayContext(this, true);
+		preferLastDisplay = sp.getBoolean("prefer_last_display", false);
+		context = DeviceUtils.getDisplayContext(this, preferLastDisplay);
 		wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this, 300), -2);
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context, preferLastDisplay);
 		lp.x = 5;
 		if (sp.getBoolean("notification_bottom", true)) {
 			lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
@@ -328,13 +330,13 @@ public class NotificationService extends NotificationListenerService {
 	}
 
 	public void showNotificationPanel() {
-		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(this, 400), -2);
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 400), -2, context, preferLastDisplay);
 		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
-		lp.y = Utils.dpToPx(this, 60);
-		lp.x = Utils.dpToPx(this, 2);
+		lp.y = Utils.dpToPx(context, 60);
+		lp.x = Utils.dpToPx(context, 2);
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-		notificationPanel = LayoutInflater.from(this).inflate(R.layout.notification_panel, null);
+		notificationPanel = LayoutInflater.from(context).inflate(R.layout.notification_panel, null);
 		cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
 		notificationsLv = notificationPanel.findViewById(R.id.notification_lv);
 		notificationArea = notificationPanel.findViewById(R.id.notification_area);
@@ -346,12 +348,12 @@ public class NotificationService extends NotificationListenerService {
 		ImageView screencapBtn = notificationPanel.findViewById(R.id.btn_screencast);
 		ImageView settingsBtn = notificationPanel.findViewById(R.id.btn_settings);
 
-		ColorUtils.applySecondaryColor(this, sp, keyboardBtn);
-		ColorUtils.applySecondaryColor(this, sp, orientationBtn);
-		ColorUtils.applySecondaryColor(this, sp, touchModeBtn);
-		ColorUtils.applySecondaryColor(this, sp, screencapBtn);
-		ColorUtils.applySecondaryColor(this, sp, screenshotBtn);
-		ColorUtils.applySecondaryColor(this, sp, settingsBtn);
+		ColorUtils.applySecondaryColor(context, sp, keyboardBtn);
+		ColorUtils.applySecondaryColor(context, sp, orientationBtn);
+		ColorUtils.applySecondaryColor(context, sp, touchModeBtn);
+		ColorUtils.applySecondaryColor(context, sp, screencapBtn);
+		ColorUtils.applySecondaryColor(context, sp, screenshotBtn);
+		ColorUtils.applySecondaryColor(context, sp, settingsBtn);
 
 		keyboardBtn.setOnClickListener(new OnClickListener() {
 

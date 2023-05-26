@@ -79,7 +79,7 @@ public class LauncherActivity extends AppCompatActivity {
 
 		backgroundLayout.setOnLongClickListener((View v0) -> {
 			final View view = LayoutInflater.from(LauncherActivity.this).inflate(R.layout.task_list, null);
-			WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
+			WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, LauncherActivity.this, false);
 			ColorUtils.applyMainColor(LauncherActivity.this, sp, view);
 			lp.gravity = Gravity.TOP | Gravity.LEFT;
 			lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -240,7 +240,7 @@ public class LauncherActivity extends AppCompatActivity {
 	public void showAppContextMenu(final String app, View anchor) {
 		final WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
 		final View view = LayoutInflater.from(this).inflate(R.layout.task_list, null);
-		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2);
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, this, false);
 		ColorUtils.applyMainColor(LauncherActivity.this, sp, view);
 		lp.gravity = Gravity.TOP | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;

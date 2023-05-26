@@ -1,6 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="@string/navigation">
+		<CheckBoxPreference
+            android:key="enable_nav_apps"
+            android:title="@string/enable_apps_btn"
+			android:summary="@string/enable_apps_btn_summary"
+            android:defaultValue="true" />
         <CheckBoxPreference
             android:key="enable_nav_back"
             android:title="@string/enable_nav_back_title"
@@ -20,6 +25,11 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/quick_settings">
+		<CheckBoxPreference
+			android:title="@string/enable_notif_btn"
+			android:key="enable_qs_notif"
+			android:defaultValue="false"
+			/>
         <CheckBoxPreference
             android:key="enable_qs_bluetooth"
             android:title="@string/enable_qs_bluetooth_title"
@@ -54,6 +64,13 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/behaviour">
+		<ListPreference
+			android:summary="@string/activation_method_summary"
+			android:entries="@array/activation_methods" 
+            android:title="@string/activation_method" 
+            android:entryValues="@array/activation_method_values" 
+            android:key="activation_method"
+            android:defaultValue="swipe" />
         <CheckBoxPreference
             android:key="pin_dock"
             android:title="@string/pin_dock_title"
