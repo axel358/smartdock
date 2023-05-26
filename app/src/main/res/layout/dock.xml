@@ -5,7 +5,7 @@
 
     <Button
         android:id="@+id/dock_handle"
-        android:layout_width="24dp"
+        android:layout_width="22dp"
         android:layout_height="match_parent"
         android:background="@drawable/dock_handle_bg"
         android:drawableStart="@drawable/ic_expand_right"
@@ -21,7 +21,7 @@
             android:id="@+id/dock_trigger"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@android:color/black" />
+            android:background="@android:color/transparent" />
 
         <RelativeLayout
             android:id="@+id/dock_layout"

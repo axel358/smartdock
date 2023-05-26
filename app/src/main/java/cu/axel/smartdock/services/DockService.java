@@ -767,14 +767,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void showDock() {
-
 		dockHandle.setVisibility(View.GONE);
-
 		if (dockLayoutParams.width != -1) {
 			dockLayoutParams.width = -1;
 			wm.updateViewLayout(dock, dockLayoutParams);
 		}
-
 		dockHandler.removeCallbacksAndMessages(null);
 		loadPinnedApps();
 		updateRunningTasks();
@@ -796,6 +793,42 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		isPinned = false;
 		if (dockLayout.getVisibility() == View.VISIBLE)
 			hideDock(500);
+	}
+
+	public void hideDock(int delay) {
+		dockHandler.removeCallbacksAndMessages(null);
+		dockHandler.postDelayed(() -> {
+			if (!isPinned) {
+				Animation anim = AnimationUtils.loadAnimation(context, R.anim.slide_down);
+				anim.setAnimationListener(new Animation.AnimationListener() {
+
+					@Override
+					public void onAnimationStart(Animation p1) {
+					}
+
+					@Override
+					public void onAnimationEnd(Animation p1) {
+						dockLayout.setVisibility(View.GONE);
+						if (sp.getString("activation_method", "swipe").equals("swipe"))
+							dockTrigger.setVisibility(View.VISIBLE);
+						else {
+							if (dockLayoutParams.width == -1) {
+								dockLayoutParams.width = Utils.dpToPx(context, 24);
+								wm.updateViewLayout(dock, dockLayoutParams);
+							}
+							dockHandle.setVisibility(View.VISIBLE);
+						}
+
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation p1) {
+					}
+				});
+				dockLayout.startAnimation(anim);
+			}
+
+		}, delay);
 	}
 
 	private void launchApp(String mode, String packagename) {
@@ -919,38 +952,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 	}
 
-	public void hideDock(int delay) {
-		dockHandler.removeCallbacksAndMessages(null);
-		dockHandler.postDelayed(() -> {
-			if (!isPinned) {
-				Animation anim = AnimationUtils.loadAnimation(context, R.anim.slide_down);
-				anim.setAnimationListener(new Animation.AnimationListener() {
-
-					@Override
-					public void onAnimationStart(Animation p1) {
-					}
-
-					@Override
-					public void onAnimationEnd(Animation p1) {
-						dockLayout.setVisibility(View.GONE);
-						dockTrigger.setVisibility(View.VISIBLE);
-						if (sp.getInt("dock_layout", -1) == 0) {
-							dockHandle.setVisibility(View.VISIBLE);
-							dockLayoutParams.width = Utils.dpToPx(context, 24);
-							wm.updateViewLayout(dock, dockLayoutParams);
-						}
-					}
-
-					@Override
-					public void onAnimationRepeat(Animation p1) {
-					}
-				});
-				dockLayout.startAnimation(anim);
-			}
-
-		}, delay);
-	}
-
 	public void setOrientation() {
 		dockLayoutParams.screenOrientation = sp.getBoolean("lock_landscape", false)
 				? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
@@ -1043,7 +1044,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		searchEt.requestFocus();
 
 		appMenuVisible = true;
-
 	}
 
 	public void hideAppMenu() {
@@ -1053,7 +1053,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void showAppContextMenu(final String app, View anchor) {
-
 		final View view = LayoutInflater.from(context).inflate(R.layout.task_list, null);
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay);
 		ColorUtils.applyMainColor(context, sp, view);
@@ -1301,6 +1300,21 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		else if (p2.equals("max_running_apps")) {
 			maxApps = Integer.parseInt(sp.getString("max_running_apps", "10"));
 			updateRunningTasks();
+		} else if (p2.equals("activation_method")) {
+			if (!isPinned) {
+				String method = sp.getString(p2, "swipe");
+				if (method.equals("swipe")) {
+					dockLayoutParams.width = -1;
+					wm.updateViewLayout(dock, dockLayoutParams);
+					dockTrigger.setVisibility(View.VISIBLE);
+					dockHandle.setVisibility(View.GONE);
+				} else {
+					dockLayoutParams.width = Utils.dpToPx(context, 24);
+					wm.updateViewLayout(dock, dockLayoutParams);
+					dockTrigger.setVisibility(View.GONE);
+					dockHandle.setVisibility(View.VISIBLE);
+				}
+			}
 		}
 	}
 

@@ -64,6 +64,13 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/behaviour">
+		<ListPreference
+			android:summary="@string/activation_method_summary"
+			android:entries="@array/activation_methods" 
+            android:title="@string/activation_method" 
+            android:entryValues="@array/activation_method_values" 
+            android:key="activation_method"
+            android:defaultValue="swipe" />
         <CheckBoxPreference
             android:key="pin_dock"
             android:title="@string/pin_dock_title"

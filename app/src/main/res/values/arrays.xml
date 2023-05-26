@@ -73,7 +73,17 @@
 		<item>@string/tablet</item>
 		<item>@string/desktop</item>
 	</string-array>
-    
+	
+	<string-array name="activation_methods">
+		<item>@string/swipe</item>
+		<item>@string/handle</item>
+	</string-array>
+	
+	<string-array name="activation_method_values">
+		<item>swipe</item>
+		<item>handle</item>
+	</string-array>
+ 
     <string-array name="default_color_values" translatable="false">
         <item>#0089B6</item>
         <item>#9933cc</item>
