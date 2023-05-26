@@ -135,7 +135,7 @@
     <string name="manage">Administrar...</string>
     <string name="these_permissions_are_needed_b">Estos permisos son necesarios para algunas funciones</string>
     <string name="device_administrator">Administrador de dispositivo</string>
-    <string name="used_to_lock_the_screen">Usado para bloquear la pantalla</string>
+    <string name="used_to_lock_the_screen">Usado para bloquear la pantalla. Deshabilitalo antes de desinstalar</string>
     <string name="storage">Almacenamiento</string>
     <string name="used_to_change_the_menu_icon_a">Usado para el icono del menú y los sonidos</string>
     <string name="notification_access">Notificaciones</string>

@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
 		manageServiceBtn.setOnClickListener((View p1) -> {
 			startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+			Toast.makeText(this, R.string.enable_access_help, Toast.LENGTH_LONG).show();
 		});
 
 		locationBtn.setOnClickListener((View p1) -> {

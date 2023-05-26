@@ -137,7 +137,7 @@
     <string name="manage">Manage...</string>
     <string name="these_permissions_are_needed_b">These permissions are needed by some features</string>
     <string name="device_administrator">Device administrator</string>
-    <string name="used_to_lock_the_screen">Used to lock the screen</string>
+    <string name="used_to_lock_the_screen">Used to lock the screen. Disable before uninstalling</string>
     <string name="storage">Storage</string>
     <string name="used_to_change_the_menu_icon_a">Used to change the menu icon and event sounds</string>
     <string name="notification_access">Notification access</string>
@@ -302,5 +302,5 @@
 	<string name="activation_method_summary">The method used to bring up the dock when hidden</string>
 	<string name="swipe">Swipe/Hoover</string>
 	<string name="handle">Handle</string>
-	
+	<string name="enable_access_help">Find and enable Smart Dock service</string>
 </resources>
