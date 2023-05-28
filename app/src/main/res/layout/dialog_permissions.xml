@@ -9,11 +9,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-		app:checkedButton="@+id/show_required_button"
+        app:checkedButton="@+id/show_required_button"
+        app:selectionRequired="true"
         app:singleSelection="true" >
 
         <Button
-			android:id="@+id/show_required_button"
+            android:id="@+id/show_required_button"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
