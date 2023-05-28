@@ -17,6 +17,7 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.ViewSwitcher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -85,16 +86,20 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void showPermissionsDialog() {
-		MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+		final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 		builder.setTitle(R.string.manage_permissions);
-		View view = getLayoutInflater().inflate(R.layout.dialog_permissions, null);
-		Button grantOverlayBtn = view.findViewById(R.id.btn_grant_overlay);
-		Button grantStorageBtn = view.findViewById(R.id.btn_grant_storage);
-		Button grantAdminBtn = view.findViewById(R.id.btn_grant_admin);
-		Button grantNotificationsBtn = view.findViewById(R.id.btn_grant_notifications);
-		Button manageServiceBtn = view.findViewById(R.id.btn_manage_service);
-		Button locationBtn = view.findViewById(R.id.btn_grant_location);
-		Button usageBtn = view.findViewById(R.id.btn_manage_usage);
+		final View view = getLayoutInflater().inflate(R.layout.dialog_permissions, null);
+		final ViewSwitcher viewSwitcher = view.findViewById(R.id.permissions_view_switcher);
+		final Button requiredBtn = view.findViewById(R.id.show_required_button);
+		final Button optionalBtn = view.findViewById(R.id.show_optional_button);
+		
+		final Button grantOverlayBtn = view.findViewById(R.id.btn_grant_overlay);
+		final Button grantStorageBtn = view.findViewById(R.id.btn_grant_storage);
+		final Button grantAdminBtn = view.findViewById(R.id.btn_grant_admin);
+		final Button grantNotificationsBtn = view.findViewById(R.id.btn_grant_notifications);
+		final Button manageServiceBtn = view.findViewById(R.id.btn_manage_service);
+		final Button locationBtn = view.findViewById(R.id.btn_grant_location);
+		final Button usageBtn = view.findViewById(R.id.btn_manage_usage);
 
 		manageServiceBtn.setEnabled(canDrawOverOtherApps());
 
@@ -150,6 +155,15 @@ public class MainActivity extends AppCompatActivity {
 		usageBtn.setOnClickListener((View p1) -> {
 			startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
 		});
+		
+		requiredBtn.setOnClickListener((View p1) -> {
+			viewSwitcher.showPrevious();
+		});
+		
+		optionalBtn.setOnClickListener((View p1) -> {
+			viewSwitcher.showNext();
+		});
+		
 		dialog.show();
 	}
 

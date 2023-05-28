@@ -3,6 +3,7 @@
     <style name="AppTheme" parent="Theme.Material3.DayNight">
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorSecondary">@color/primary</item>
+		<item name="colorAccent">@color/primary</item>
 		<item name="alertDialogTheme">@style/DialogTheme</item>
     </style>
 
