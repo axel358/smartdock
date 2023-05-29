@@ -303,4 +303,5 @@
 	<string name="swipe">Swipe/Hoover</string>
 	<string name="handle">Handle</string>
 	<string name="enable_access_help">Find and enable Smart Dock service</string>
+	<string name="root_required">Root required</string>
 </resources>
