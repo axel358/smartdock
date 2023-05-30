@@ -51,19 +51,33 @@
     <string name="options_marked_with__are_expe">Options marked with * are experimental and may cause trouble. If you experience crashes disable them</string>
 
     <string name="navigation">Navigation</string>
+	<string name="enable_apps_btn">Enable apps menu button</string>
     <string name="enable_nav_back_title">Enable back button</string>
     <string name="enable_nav_home_title">Enable home button</string>
     <string name="enable_nav_recents_title">Enable recents button</string>
     <string name="enable_nav_assist_title">Enable assistant button</string>
     <string name="quick_settings">Quick settings</string>
     <string name="enable_qs_bluetooth_title">Enable bluetooth button</string>
-    <string name="enable_qs_battery_title">Enable battery button</string>
+    <string name="enable_notif_btn">Enable notifications button</string>   
+	<string name="enable_qs_battery_title">Enable battery button</string>
     <string name="enable_power_menu_title">Use built in power menu</string>
     <string name="enable_power_menu_summary">Use a custom power menu instead of the system one</string>
     <string name="behaviour">Behaviour</string>
+	<string name="enable_apps_btn_summary">You can still open/close the app menu by swiping up/down on the dock</string>
+	<string name="activation_method">Activation method</string>
+	<string name="activation_method_summary">The method used to bring up the dock when hidden</string>
+	<string name="swipe">Swipe/Hoover</string>
+	<string name="handle">Handle</string>
+	<string name="auto_pin_title">Auto pin</string>
+    <string name="auto_pin_summary">Configure auto pin</string>
+	<string name="pin_startup">Pin on startup</string>
+	<string name="pin_windowed">Pin on windowed apps</string>
+	<string name="unpin_fullscreen">Unpin on full screen apps</string>
+
     <string name="dock_hide_delay_title">Dock hide delay in ms</string>
     <string name="center_running_apps_title">Center running apps</string>
-    <string name="dock_activation_area_title">Dock activation area</string>
+    <string name="dock_activation_area_title">Dock activation area (max 50)</string>
+	<string name="dock_activation_area_summary">The height of the invisible activation area at the bottom of the screen</string>
 
     <string name="show_notes_title">Show notes widget</string>
 
@@ -289,23 +303,12 @@
     <string name="none">None</string>
     <string name="lock">Lock</string>
     <string name="move">Move</string>
-    <string name="auto_pin_title">Auto pin</string>
-    <string name="auto_pin_summary">Configure auto pin</string>
-	<string name="choose_dock_layout">Choose a Dock layout</string>
+    <string name="choose_dock_layout">Choose a Dock layout</string>
 	<string name="phone">Phone</string>
 	<string name="tablet">Tablet</string>
-	<string name="enable_notif_btn">Enable notifications button</string>
-	<string name="enable_apps_btn">Enable apps menu button</string>
-	<string name="enable_apps_btn_summary">You can still open/close the app menu by swiping up/down on the dock</string>
-	<string name="activation_method">Activation method</string>
-	<string name="activation_method_summary">The method used to bring up the dock when hidden</string>
-	<string name="swipe">Swipe/Hoover</string>
-	<string name="handle">Handle</string>
-	<string name="enable_access_help">Find and enable Smart Dock service</string>
-	<string name="root_required">Root required</string>
-	<string name="pin_startup">Pin on startup</string>
-	<string name="pin_windowed">Pin on windowed apps</string>
-	<string name="unpin_fullscreen">Unpin on full screen apps</string>
 	<string name="prefer_last_display">Prefer last attached display (Android 10+)</string>
 	<string name="prefer_last_display_summary">Prefer the last attached display for displaying apps and the dock</string>
+	<string name="enable_access_help">Find and enable Smart Dock service</string>
+	<string name="root_required">Root required</string>
+	
 </resources>
