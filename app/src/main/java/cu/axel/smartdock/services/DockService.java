@@ -1016,7 +1016,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
 				| WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
-		lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
+		int halign = sp.getBoolean("center_app_menu", false) ? Gravity.CENTER_HORIZONTAL : Gravity.LEFT;
+		lp.gravity = Gravity.BOTTOM | halign;
 
 		ImageView avatarIv = appMenu.findViewById(R.id.avatar_iv);
 		TextView userNameTv = appMenu.findViewById(R.id.user_name_tv);
@@ -1056,14 +1057,14 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		final View view = LayoutInflater.from(context).inflate(R.layout.task_list, null);
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay);
 		ColorUtils.applyMainColor(context, sp, view);
-		lp.gravity = Gravity.TOP | Gravity.LEFT;
+		lp.gravity = Gravity.LEFT | Gravity.TOP;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-		Rect rect = new Rect();
-		anchor.getGlobalVisibleRect(rect);
+		int[] location = new int[2];
+		anchor.getLocationOnScreen(location);
 
-		lp.x = rect.left;
-		lp.y = rect.centerY();
+		lp.x = location[0];
+		lp.y = location[1] + Utils.dpToPx(context, anchor.getMeasuredHeight() / 2);
 
 		view.setOnTouchListener((View p1, MotionEvent p2) -> {
 			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
@@ -1170,13 +1171,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-		lp.y = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_y", "2")))
-				+ dockLayout.getMeasuredHeight();
+		lp.y = Utils.dpToPx(context, 2) + dockLayout.getMeasuredHeight();
 
-		Rect rect = new Rect();
-		anchor.getGlobalVisibleRect(rect);
+		int[] location = new int[2];
+		anchor.getLocationOnScreen(location);
 
-		lp.x = rect.left;
+		lp.x = location[0];
+
 		view.setOnTouchListener((View p1, MotionEvent p2) -> {
 			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
 				wm.removeView(view);
@@ -1233,11 +1234,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		lp.gravity = Gravity.TOP | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-		Rect rect = new Rect();
-		anchor.getGlobalVisibleRect(rect);
-
-		lp.x = rect.left;
-		lp.y = rect.bottom;
+		int[] location = new int[2];
+		anchor.getLocationOnScreen(location);
+		
+		lp.x = location[0];
+		lp.y = location[1] + Utils.dpToPx(context, anchor.getMeasuredHeight()/2);
 
 		view.setOnTouchListener((View p1, MotionEvent p2) -> {
 			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {

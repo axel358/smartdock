@@ -32,16 +32,18 @@ public class AppMenuPreferences extends PreferenceFragmentCompat {
 
 		final Preference heightPreference = findPreference("app_menu_height");
 		final Preference widthPreference = findPreference("app_menu_width");
+		final Preference centerPreference = findPreference("center_app_menu");
 		final Preference fullscreenPreference = findPreference("app_menu_fullscreen");
 		SharedPreferences sp = fullscreenPreference.getSharedPreferences();
 		heightPreference.setEnabled(!sp.getBoolean(fullscreenPreference.getKey(), false));
 		widthPreference.setEnabled(!sp.getBoolean(fullscreenPreference.getKey(), false));
-
+		centerPreference.setEnabled(!sp.getBoolean(fullscreenPreference.getKey(), false));
 
 		fullscreenPreference.setOnPreferenceChangeListener((Preference p0, Object value) -> {
 			boolean checked = (boolean) value;
 			heightPreference.setEnabled(!checked);
 			widthPreference.setEnabled(!checked);
+			centerPreference.setEnabled(!checked);
 			return true;
 		});
 	}

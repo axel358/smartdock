@@ -103,6 +103,7 @@
     <string name="app_menu_height_title">App menu height</string>
     <string name="app_menu_width_title">App menu width</string>
     <string name="num_columns_title">Number of columns</string>
+	<string name="center_app_menu">Centered app menu</string>
     <string name="app_launch">App launch</string>
     <string name="launch_mode_dialogTitle">Theme</string>
     <string name="launch_mode_title">Default app launch mode</string>

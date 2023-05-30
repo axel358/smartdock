@@ -35,6 +35,10 @@
             android:hint="650"
             android:defaultValue="650"
             android:title="@string/app_menu_width_title"/>
+		<CheckBoxPreference
+            android:key="center_app_menu"
+            android:title="@string/center_app_menu"
+            android:defaultValue="false" />
         <EditTextPreference
             android:inputType="number"
             android:key="num_columns"
