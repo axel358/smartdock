@@ -1016,7 +1016,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
 				| WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
-		lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
+		int halign = sp.getBoolean("center_app_menu", false) ? Gravity.CENTER_HORIZONTAL : Gravity.LEFT;
+		lp.gravity = Gravity.BOTTOM | halign;
 
 		ImageView avatarIv = appMenu.findViewById(R.id.avatar_iv);
 		TextView userNameTv = appMenu.findViewById(R.id.user_name_tv);
