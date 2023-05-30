@@ -58,8 +58,6 @@
     <string name="enable_power_menu_title">ਬਿਲਟ ਇਨ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="enable_power_menu_summary">ਸਿਸਟਮ ਦੀ ਬਜਾਏ ਇੱਕ ਕਸਟਮ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="behaviour">ਵਿਵਹਾਰ</string>
-    <string name="pin_dock_title">ਸਟਾਰਟਅੱਪ ਤੇ ਡੌਕ ਨੂੰ ਪਿੰਨ ਕਰੋ</string>
-    <string name="pin_dock_summary">ਦੂਜੇ ਲਾਂਚਰਾਂ ਨਾਲ ਕੰਮ ਕਰਨ ਵੇਲੇ ਉਪਯੋਗੀ</string>
     <string name="dock_hide_delay_title">ms ਵਿੱਚ ਡੌਕ ਨੂੰ ਲੁਕਾਓ</string>
     <string name="center_running_apps_title">ਚੱਲ ਰਹੀਆਂ ਐਪਾਂ ਨੂੰ ਸੈਂਟਰ ਕਰੋ</string>
     <string name="dock_activation_area_title">ਡੌਕ ਦਾ ਸਰਗਰਮੀ ਖੇਤਰ</string>

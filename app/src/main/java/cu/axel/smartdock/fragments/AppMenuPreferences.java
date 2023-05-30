@@ -2,6 +2,7 @@ package cu.axel.smartdock.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.preference.Preference;
@@ -27,6 +28,21 @@ public class AppMenuPreferences extends PreferenceFragmentCompat {
 		findPreference("restore_menu_icon").setOnPreferenceClickListener((Preference p1) -> {
 			menuIconPref.getSharedPreferences().edit().putString(menuIconPref.getKey(), "default").commit();
 			return false;
+		});
+
+		final Preference heightPreference = findPreference("app_menu_height");
+		final Preference widthPreference = findPreference("app_menu_width");
+		final Preference fullscreenPreference = findPreference("app_menu_fullscreen");
+		SharedPreferences sp = fullscreenPreference.getSharedPreferences();
+		heightPreference.setEnabled(!sp.getBoolean(fullscreenPreference.getKey(), false));
+		widthPreference.setEnabled(!sp.getBoolean(fullscreenPreference.getKey(), false));
+
+
+		fullscreenPreference.setOnPreferenceChangeListener((Preference p0, Object value) -> {
+			boolean checked = (boolean) value;
+			heightPreference.setEnabled(!checked);
+			widthPreference.setEnabled(!checked);
+			return true;
 		});
 	}
 

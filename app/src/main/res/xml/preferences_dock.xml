@@ -71,17 +71,11 @@
             android:entryValues="@array/activation_method_values" 
             android:key="activation_method"
             android:defaultValue="swipe" />
-        <CheckBoxPreference
-            android:key="pin_dock"
-            android:title="@string/pin_dock_title"
-            android:summary="@string/pin_dock_summary"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:key="auto_pin"
-            android:title="@string/auto_pin_title"
-            android:summary="@string/auto_pin_summary"
-            android:defaultValue="true" />
-        
+			
+		<Preference
+			android:key="auto_pin"
+			android:summary="@string/auto_pin_summary"
+			android:title="@string/auto_pin_title"/>
         <EditTextPreference
             android:inputType="number"
             android:key="dock_hide_delay"
@@ -106,6 +100,7 @@
             android:key="dock_activation_area"
             android:hint="10"
             android:defaultValue="10"
+			android:summary="@string/dock_activation_area_summary"
             android:title="@string/dock_activation_area_title"/>
     </PreferenceCategory>
 </PreferenceScreen>
