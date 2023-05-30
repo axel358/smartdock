@@ -297,7 +297,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				launchApp(getDefaultLaunchMode(app.getPackageName()), app.getPackageName());
 
 			if (getDefaultLaunchMode(app.getPackageName()).equals("fullscreen")) {
-				if (isPinned) {
+				if (isPinned && sp.getBoolean("auto_unpin", true)) {
 					unpinDock();
 				}
 			} else {
@@ -937,7 +937,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			if (appMenuVisible)
 				hideAppMenu();
 
-			if (mode.equals("fullscreen")) {
+			if (mode.equals("fullscreen") && sp.getBoolean("auto_unpin", true)) {
 				if (isPinned) {
 					unpinDock();
 				}

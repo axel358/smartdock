@@ -58,8 +58,6 @@
     <string name="enable_power_menu_title">डिफ़ॉल्ट पावर मेन्यू इस्तेमाल करे</string>
     <string name="enable_power_menu_summary">सिस्टम एक के बजाय कस्टम पावर मेनू का उपयोग करें</string>
     <string name="behaviour">व्यवहार</string>
-    <string name="pin_dock_title">स्टार्टअप पर डॉक पिन करें</string>
-    <string name="pin_dock_summary">अन्य लॉन्चरों के साथ काम करते समय सहायक</string>
     <string name="dock_hide_delay_title">डॉक छिपाने की देरी मिली सेकंड में</string>
     <string name="center_running_apps_title">सेण्टर में</string>
     <string name="dock_activation_area_title">डॉक  एक्टिवेशन  एरिया</string>

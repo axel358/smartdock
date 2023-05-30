@@ -61,8 +61,6 @@
     <string name="enable_power_menu_title">Use built in power menu</string>
     <string name="enable_power_menu_summary">Use a custom power menu instead of the system one</string>
     <string name="behaviour">Behaviour</string>
-    <string name="pin_dock_title">Pin the dock on startup</string>
-    <string name="pin_dock_summary">Useful when working with other launchers</string>
     <string name="dock_hide_delay_title">Dock hide delay in ms</string>
     <string name="center_running_apps_title">Center running apps</string>
     <string name="dock_activation_area_title">Dock activation area</string>
@@ -291,7 +289,7 @@
     <string name="lock">Lock</string>
     <string name="move">Move</string>
     <string name="auto_pin_title">Auto pin</string>
-    <string name="auto_pin_summary">Automatically pin the Dock when switching to windowed apps</string>
+    <string name="auto_pin_summary">Configure auto pin</string>
 	<string name="choose_dock_layout">Choose a Dock layout</string>
 	<string name="phone">Phone</string>
 	<string name="tablet">Tablet</string>
@@ -304,4 +302,7 @@
 	<string name="handle">Handle</string>
 	<string name="enable_access_help">Find and enable Smart Dock service</string>
 	<string name="root_required">Root required</string>
+	<string name="pin_startup">Pin on startup</string>
+	<string name="pin_windowed">Pin on windowed apps</string>
+	<string name="unpin_fullscreen">Unpin on full screen apps</string>
 </resources>

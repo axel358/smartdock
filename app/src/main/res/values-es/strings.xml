@@ -58,8 +58,6 @@
     <string name="enable_power_menu_title">Usar menú de apagado interno</string>
     <string name="enable_power_menu_summary">Usar menú de apagado interno en vez del sistema</string>
     <string name="behaviour">Comportamiento</string>
-    <string name="pin_dock_title">Anclar el dock al iniciar</string>
-    <string name="pin_dock_summary">Útil cuando se usan otros launchers</string>
     <string name="dock_hide_delay_title">Retraso al esconder en ms</string>
     <string name="center_running_apps_title">Centrar apps corriendo</string>
     <string name="dock_activation_area_title">Área de activación del dock</string>
