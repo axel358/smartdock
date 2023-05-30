@@ -245,11 +245,11 @@ public class LauncherActivity extends AppCompatActivity {
 		lp.gravity = Gravity.TOP | Gravity.LEFT;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
-		Rect rect = new Rect();
-		anchor.getGlobalVisibleRect(rect);
-
-		lp.x = rect.left;
-		lp.y = rect.centerY();
+		int[] location = new int[2];
+		anchor.getLocationOnScreen(location);
+		
+		lp.x = location[0];
+		lp.y = location[1] + Utils.dpToPx(this, anchor.getMeasuredHeight()/2);
 
 		view.setOnTouchListener((View p1, MotionEvent p2) -> {
 			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {

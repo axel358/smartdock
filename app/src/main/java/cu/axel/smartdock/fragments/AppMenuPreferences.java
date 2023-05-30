@@ -39,7 +39,6 @@ public class AppMenuPreferences extends PreferenceFragmentCompat {
 		widthPreference.setEnabled(!sp.getBoolean(fullscreenPreference.getKey(), false));
 		centerPreference.setEnabled(!sp.getBoolean(fullscreenPreference.getKey(), false));
 
-
 		fullscreenPreference.setOnPreferenceChangeListener((Preference p0, Object value) -> {
 			boolean checked = (boolean) value;
 			heightPreference.setEnabled(!checked);
