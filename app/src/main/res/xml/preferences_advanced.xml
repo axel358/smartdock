@@ -3,9 +3,9 @@
         android:icon="@drawable/ic_about"
         android:title="@string/these_settings_are_intended_fo"/>
 	<CheckBoxPreference
-        android:title="Prefer last attached display"
+        android:title="@string/prefer_last_display"
         android:key="prefer_last_display"
-        android:summary="Prefer the last attached display for displaying apps and the dock"
+        android:summary="@string/prefer_last_display_summary"
         android:defaultValue="false" />
 
 	<PreferenceCategory

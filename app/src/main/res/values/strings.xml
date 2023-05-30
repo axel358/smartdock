@@ -305,4 +305,6 @@
 	<string name="pin_startup">Pin on startup</string>
 	<string name="pin_windowed">Pin on windowed apps</string>
 	<string name="unpin_fullscreen">Unpin on full screen apps</string>
+	<string name="prefer_last_display">Prefer last attached display (Android 10+)</string>
+	<string name="prefer_last_display_summary">Prefer the last attached display for displaying apps and the dock</string>
 </resources>
