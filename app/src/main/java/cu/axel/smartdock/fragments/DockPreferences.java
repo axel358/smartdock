@@ -48,6 +48,7 @@ public class DockPreferences extends PreferenceFragmentCompat {
 		});
 
 		dialogBuilder.setView(view);
+		dialogBuilder.setPositiveButton(R.string.ok, null);
 		dialogBuilder.show();
 	}
 }
