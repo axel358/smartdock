@@ -183,6 +183,7 @@
     \n
     \nThe app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
     \n
+	\nTo uninstall the app you must remove it\'s device admin permission on system settings
     </string>
     
     <string name="standard">Standard</string>
