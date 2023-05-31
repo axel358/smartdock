@@ -62,7 +62,13 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 		});
 
 		CheckBoxPreference hideNav = (CheckBoxPreference) findPreference("hide_nav_buttons");
-		hideNav.setChecked(DeviceUtils.runAsRoot("cat /system/build.prop").contains("qemu.hw.mainkeys=1"));
+
+		String result = DeviceUtils.runAsRoot("cat /system/build.prop");
+
+		hideNav.setChecked(result.contains("qemu.hw.mainkeys=1"));
+
+		findPreference("root_category").setEnabled(!result.equals("error"));
+
 		hideNav.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
 			if ((boolean) p2) {
 				String status = DeviceUtils.runAsRoot("echo qemu.hw.mainkeys=1 >> /system/build.prop");

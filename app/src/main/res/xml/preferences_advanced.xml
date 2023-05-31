@@ -9,6 +9,7 @@
         android:defaultValue="false" />
 
 	<PreferenceCategory
+		android:key="root_category"
         android:title="@string/root_required">
 	 
 	 <CheckBoxPreference
