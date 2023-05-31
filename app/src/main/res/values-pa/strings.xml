@@ -246,7 +246,6 @@
     <string name="enable_qs_date_title">ਕਲਾਕ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="enable_qs_pin_title">ਪਿੰਨ ਬਟਨ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="enable_qs_pin_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ ਨੂੰ ਲੰਬੇ ਸਮੇਂ ਤੱਕ ਦਬਾ ਕੇ ਜਾਂ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰ ਸਕਦੇ ਹੋ</string>
-    <string name="enable_take_screenshot_title">ਸਕ੍ਰੀਨਸ਼ੌਟ ਲੈਣ ਲਈ Modifier+K ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="enable_toggle_pin_title">ਡੌਕ ਨੂੰ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰਨ ਲਈ Modifier+W ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="contributors">ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ</string>
     <string name="tap_to_see_the_list_of_great_p">ਸਮਾਰਟ ਡੌਕ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ ਮਹਾਨ ਲੋਕਾਂ ਦੀ ਸੂਚੀ ਦੇਖਣ ਲਈ ਟੈਪ ਕਰੋ</string>
