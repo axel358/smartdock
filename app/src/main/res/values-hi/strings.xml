@@ -133,7 +133,7 @@
     <string name="device_administrator">डिवाइस  एडमिनिस्ट्रेटर</string>
     <string name="device_administrator_desc">स्‍क्रीन लॉक करने के लिए इस्तेमाल करें</string>
     <string name="storage">स्टोरेज</string>
-    <string name="used_to_change_the_menu_icon_a">मेनू आइकॉन और इवेंट साउंड्स बदलने के लिए इस्तेमाल करें</string>
+    <string name="storage_desc">मेनू आइकॉन और इवेंट साउंड्स बदलने के लिए इस्तेमाल करें</string>
     <string name="notification_access">नोटिफिकेशन  एक्सेस</string>
     <string name="notification_access_desc">नोटिफिकेशन दिखाने के लिए इस्तेमाल करें</string>
     <string name="root_access">रुट  एक्सेस</string>

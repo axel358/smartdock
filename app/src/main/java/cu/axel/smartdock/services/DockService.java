@@ -746,6 +746,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			//TODO
 			AccessibilityService.SoftKeyboardController kc = getSoftKeyboardController();
 			int mode = kc.getShowMode();
+			
+			if (mode == AccessibilityService.SHOW_MODE_AUTO || mode == AccessibilityService.SHOW_MODE_HIDDEN)
+				kc.setShowMode(AccessibilityService.SHOW_MODE_IGNORE_HARD_KEYBOARD);
+			else
+				kc.setShowMode(AccessibilityService.SHOW_MODE_HIDDEN);
 		}
 	}
 
@@ -1236,9 +1241,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		int[] location = new int[2];
 		anchor.getLocationOnScreen(location);
-		
+
 		lp.x = location[0];
-		lp.y = location[1] + Utils.dpToPx(context, anchor.getMeasuredHeight()/2);
+		lp.y = location[1] + Utils.dpToPx(context, anchor.getMeasuredHeight() / 2);
 
 		view.setOnTouchListener((View p1, MotionEvent p2) -> {
 			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
