@@ -142,21 +142,24 @@
 
     <string name="notifications">Notifications</string>
     
-    <string name="these_permissions_are_needed_f">These permissions are needed for the app to work</string>
     <string name="display_over_other_apps">Display over other apps</string>
-    <string name="required_to_display_the_dock_">Required to display the Dock, you cannot start the service without this</string>
+    <string name="display_over_other_apps_desc">Required to display the Dock, you cannot start the service without this</string>
     <string name="accessibility_service">Accessibility service</string>
-    <string name="use_this_to_start_and_stop_the">Use this to start and stop the Dock. Requires the above permission</string>
+    <string name="accessibility_service_desc">Use this to start and stop the Dock. Requires the above permission</string>
     <string name="manage">Manage...</string>
-    <string name="these_permissions_are_needed_b">These permissions are needed by some features</string>
     <string name="device_administrator">Device administrator</string>
-    <string name="used_to_lock_the_screen">Used to lock the screen. Disable before uninstalling</string>
+    <string name="device_administrator_desc">Used to lock the screen. Disable before uninstalling</string>
     <string name="storage">Storage</string>
-    <string name="used_to_change_the_menu_icon_a">Used to change the menu icon and event sounds</string>
+    <string name="storage_desc">Used to change the menu icon and event sounds</string>
     <string name="notification_access">Notification access</string>
-    <string name="used_to_display_notifications">Used to display notifications</string>
+    <string name="notification_access_desc">Used to display notifications</string>
     <string name="root_access">Root access</string>
-    <string name="used_to_perform_some_keyboard_">Used to perform some keyboard shortcuts and other features</string>
+    <string name="root_access_desc">Used to perform some keyboard shortcuts and other features</string>
+    <string name="usage_stats">Usage stats</string>	
+    <string name="usage_stats_desc">Allows to show recent apps on devices where Smart Dock can\'t be installed as a system app</string>
+    <string name="location">Location</string>
+    <string name="location_desc">Used to retrieve WiFi info on Android 8+</string>
+    
 
     <string name="transparency">Transparency</string>
     <string name="user">User</string>
@@ -251,8 +254,6 @@
     <string name="select_network">Select network</string>
     <string name="enable_wifi_panel_title">Enable WiFi panel</string>
     <string name="enable_wifi_panel_summary">Enables built in WiFi panel. This requires location access</string>
-    <string name="location">Location</string>
-    <string name="used_to_retrieve_wifi_info_on_">Used to retrieve WiFi info on Android 8+</string>
     <string name="scale_factor_summary">Defines how big standard windows are</string>
     <string name="scale_factor_title">Standard window scale factor</string>
     <string name="change_wallpaper">Change wallpaper</string>
@@ -294,8 +295,6 @@
     <string name="enable_menu_recents_title">Enable Menu key to show recents</string>
     <string name="general">General</string>
     <string name="material_u">Material U</string>
-    <string name="usage_stats">Usage stats</string>
-    <string name="allows_to_show_recent_apps_on_">Allows to show recent apps on devices where Smart Dock can\'t be installed as a system app</string>
     <string name="allow_sysapp_uninstall_title">Allow uninstalling system apps</string>
     <string name="allow_sysapp_uninstall_summary">Please be careful, this can be really dangerous</string>
     <string name="running_apps_number_summary">This setting can help devices with smaller screens avoid app overflow on the Dock</string>

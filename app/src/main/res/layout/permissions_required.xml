@@ -7,74 +7,57 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:gravity="center_vertical" >
 
         <Button
-			android:clickable="false"
             style="?attr/materialIconButtonFilledTonalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             app:icon="@drawable/ic_overlay" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1.0"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/display_over_other_apps"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/required_to_display_the_dock_" />
-        </LinearLayout>
+            android:text="@string/display_over_other_apps"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
-            style="@style/Widget.Material3.Button.TextButton"
             android:id="@+id/btn_grant_overlay"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/grant" />
+
+        <Button
+            android:id="@+id/overlay_info_btn"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_info" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:gravity="center_vertical" >
 
         <Button
-			android:clickable="false"
             style="?attr/materialIconButtonFilledTonalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             app:icon="@drawable/ic_accessibility" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1.0"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/accessibility_service"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/use_this_to_start_and_stop_the" />
-        </LinearLayout>
+            android:text="@string/accessibility_service"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
             android:id="@+id/btn_manage_service"
@@ -82,39 +65,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manage" />
+
+        <Button
+            android:id="@+id/accessibility_info_btn"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_info" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:gravity="center_vertical" >
 
         <Button
-			android:clickable="false"
             style="?attr/materialIconButtonFilledTonalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             app:icon="@drawable/ic_usage_stats" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1.0"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/usage_stats"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/allows_to_show_recent_apps_on_" />
-        </LinearLayout>
+            android:text="@string/usage_stats"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
             android:id="@+id/btn_manage_usage"
@@ -122,39 +100,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manage" />
+
+        <Button
+            android:id="@+id/stats_info_btn"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_info" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:gravity="center_vertical" >
 
         <Button
-			android:clickable="false"
             style="?attr/materialIconButtonFilledTonalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             app:icon="@drawable/ic_notifications_dark" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1.0"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/notification_access"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/used_to_display_notifications" />
-        </LinearLayout>
+            android:text="@string/notification_access"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
             android:id="@+id/btn_grant_notifications"
@@ -162,6 +135,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manage" />
+
+        <Button
+            android:id="@+id/notification_info_btn"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_info" />
     </LinearLayout>
 
 </LinearLayout>

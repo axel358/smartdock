@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 		final ViewSwitcher viewSwitcher = view.findViewById(R.id.permissions_view_switcher);
 		final Button requiredBtn = view.findViewById(R.id.show_required_button);
 		final Button optionalBtn = view.findViewById(R.id.show_optional_button);
-		
+
 		final Button grantOverlayBtn = view.findViewById(R.id.btn_grant_overlay);
 		final Button grantStorageBtn = view.findViewById(R.id.btn_grant_storage);
 		final Button grantAdminBtn = view.findViewById(R.id.btn_grant_admin);
@@ -155,15 +155,44 @@ public class MainActivity extends AppCompatActivity {
 		usageBtn.setOnClickListener((View p1) -> {
 			startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
 		});
-		
+
 		requiredBtn.setOnClickListener((View p1) -> {
 			viewSwitcher.showPrevious();
 		});
-		
+
 		optionalBtn.setOnClickListener((View p1) -> {
 			viewSwitcher.showNext();
 		});
-		
+
+		view.findViewById(R.id.overlay_info_btn)
+				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.display_over_other_apps,
+						R.string.display_over_other_apps_desc));
+
+		view.findViewById(R.id.accessibility_info_btn)
+				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.accessibility_service,
+						R.string.accessibility_service_desc));
+
+		view.findViewById(R.id.stats_info_btn).setOnClickListener(
+				(View v) -> showPermissionInfoDialog(R.string.usage_stats, R.string.usage_stats_desc));
+
+		view.findViewById(R.id.notification_info_btn).setOnClickListener(
+				(View v) -> showPermissionInfoDialog(R.string.notification_access, R.string.notification_access_desc));
+
+		view.findViewById(R.id.admin_info_btn)
+				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.device_administrator,
+						R.string.device_administrator_desc));
+
+		view.findViewById(R.id.storage_info_btn)
+				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.storage, R.string.storage_desc));
+
+		view.findViewById(R.id.location_info_btn)
+				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.location, R.string.location_desc));
+
+		view.findViewById(R.id.root_info_btn).setOnClickListener(
+				(View v) -> showPermissionInfoDialog(R.string.root_access, R.string.root_access_desc));
+
+		view.findViewById(R.id.btn_manage_root).setOnClickListener((View v) -> DeviceUtils.runAsRoot("ls"));
+
 		dialog.show();
 	}
 
@@ -188,8 +217,17 @@ public class MainActivity extends AppCompatActivity {
 			editor.putString("activation_method", wich != 2 ? "handle" : "swipe");
 			editor.commit();
 		});
+
 		dialog.setPositiveButton(R.string.ok, null);
 		dialog.show();
+	}
+
+	private void showPermissionInfoDialog(int permission, int description) {
+		MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+		dialogBuilder.setTitle(permission);
+		dialogBuilder.setMessage(description);
+		dialogBuilder.setPositiveButton(R.string.ok, null);
+		dialogBuilder.show();
 	}
 
 	public boolean canDrawOverOtherApps() {
