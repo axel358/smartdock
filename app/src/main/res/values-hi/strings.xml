@@ -125,21 +125,19 @@
 
     <string name="notifications">नोटिफिकेशन</string>
     
-    <string name="these_permissions_are_needed_f">ऐप को काम करने के लिए इन अनुमतियों की आवश्यकता है</string>
     <string name="display_over_other_apps">अन्य ऐप्स के ऊपर दिखाए</string>
-    <string name="required_to_display_the_dock_">डॉक को दिखने के लिए आवश्यक, आप इसके बिना सर्विस स्टार्ट नहीं कर सकते हैं</string>
+    <string name="display_over_other_apps_desc">डॉक को दिखने के लिए आवश्यक, आप इसके बिना सर्विस स्टार्ट नहीं कर सकते हैं</string>
     <string name="accessibility_service">एक्सेसिबिलिटी  सर्विस</string>
-    <string name="use_this_to_start_and_stop_the">डॉक को शुरू और बंद करने के लिए इसका इस्तेमाल करें। पहले वाली परमिशन की आवश्यकता है</string>
+    <string name="accessibility_service_desc">डॉक को शुरू और बंद करने के लिए इसका इस्तेमाल करें। पहले वाली परमिशन की आवश्यकता है</string>
     <string name="manage">मैनेज</string>
-    <string name="these_permissions_are_needed_b">कुछ सुविधाओं के लिए इन परमिशनस की आवश्यकता होती है</string>
     <string name="device_administrator">डिवाइस  एडमिनिस्ट्रेटर</string>
-    <string name="used_to_lock_the_screen">स्‍क्रीन लॉक करने के लिए इस्तेमाल करें</string>
+    <string name="device_administrator_desc">स्‍क्रीन लॉक करने के लिए इस्तेमाल करें</string>
     <string name="storage">स्टोरेज</string>
     <string name="used_to_change_the_menu_icon_a">मेनू आइकॉन और इवेंट साउंड्स बदलने के लिए इस्तेमाल करें</string>
     <string name="notification_access">नोटिफिकेशन  एक्सेस</string>
-    <string name="used_to_display_notifications">नोटिफिकेशन दिखाने के लिए इस्तेमाल करें</string>
+    <string name="notification_access_desc">नोटिफिकेशन दिखाने के लिए इस्तेमाल करें</string>
     <string name="root_access">रुट  एक्सेस</string>
-    <string name="used_to_perform_some_keyboard_">कुछ कीबोर्ड शॉर्टकट और अन्य सुविधाओं के लिए इस्तेमाल करें</string>
+    <string name="root_access_desc">कुछ कीबोर्ड शॉर्टकट और अन्य सुविधाओं के लिए इस्तेमाल करें</string>
 
     <string name="transparency">ट्रांसपेरेंसी</string>
     <string name="user">उपयोगकर्ता</string>
@@ -232,7 +230,7 @@
     <string name="enable_wifi_panel_title">वाईफाई पैनल सक्षम करें</string>
     <string name="enable_wifi_panel_summary">डॉक के वाईफाई पैनल को सक्षम करें| इसके लिए लोकेशन की आवश्यकता है</string>
     <string name="location">लोकेशन</string>
-    <string name="used_to_retrieve_wifi_info_on_">एंड्राइड 8+ पर वाई-फ़ाई जानकारी पुनर्प्राप्त करने के लिए उपयोग किया जाता है</string>
+    <string name="location_desc">एंड्राइड 8+ पर वाई-फ़ाई जानकारी पुनर्प्राप्त करने के लिए उपयोग किया जाता है</string>
     <string name="scale_factor_summary">परिभाषित करता है कि सामान्य विंडो कितनी बड़ी हैं</string>
     <string name="scale_factor_title">सामान्य विंडो स्केल फैक्टर</string>
     <string name="change_wallpaper">वॉलपेपर बदलें</string>

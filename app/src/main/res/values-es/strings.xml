@@ -125,22 +125,24 @@
 
     <string name="notifications">Notificaciones</string>
 
-    <string name="these_permissions_are_needed_f">Estos permisos son necesarios para que la app funcione</string>
     <string name="display_over_other_apps">Mostrar sobre otras apps</string>
-    <string name="required_to_display_the_dock_">Necesario para mostrar el Dock. No puedes iniciar el servicio sin esto</string>
+    <string name="display_over_other_apps_desc">Necesario para mostrar el Dock. No puedes iniciar el servicio sin esto</string>
     <string name="accessibility_service">Servicio de accesibilidad</string>
-    <string name="use_this_to_start_and_stop_the">Usa esto para iniciar el Dock. Requiere el permiso anterior</string>
+    <string name="accessibility_service_desc">Usa esto para iniciar el Dock. Requiere el permiso anterior</string>
     <string name="manage">Administrar...</string>
-    <string name="these_permissions_are_needed_b">Estos permisos son necesarios para algunas funciones</string>
     <string name="device_administrator">Administrador de dispositivo</string>
-    <string name="used_to_lock_the_screen">Usado para bloquear la pantalla. Deshabilitalo antes de desinstalar</string>
+    <string name="device_administrator_desc">Usado para bloquear la pantalla. Deshabilitalo antes de desinstalar</string>
     <string name="storage">Almacenamiento</string>
-    <string name="used_to_change_the_menu_icon_a">Usado para el icono del menú y los sonidos</string>
+    <string name="storage_desc">Usado para el icono del menú y los sonidos</string>
     <string name="notification_access">Notificaciones</string>
-    <string name="used_to_display_notifications">Usado para mostrar notificaciones</string>
+    <string name="notification_access_desc">Usado para mostrar notificaciones</string>
     <string name="root_access">Superusuario</string>
-    <string name="used_to_perform_some_keyboard_">Usado para atajos de teclado y otras funciones</string>
-
+    <string name="root_access_desc">Usado para atajos de teclado y otras funciones</string>
+    <string name="location">Ubicacion</string>
+    <string name="location_desc">Usado para obtener información de Wi-Fi en Android 8+</string>
+    <string name="usage_stats">Datos de uso</string>
+    <string name="usage_stats_desc">Permite mostrar apps recientes en dispositivos donde Smart Dock no puede ser instalado como app del sistema</string>
+    
     <string name="transparency">Transparencia</string>
     <string name="user">Usuario</string>
     <string name="search">Buscar...</string>
@@ -230,8 +232,6 @@
     <string name="select_network">Seleccionar red</string>
     <string name="enable_wifi_panel_title">Habilitar panel Wi-Fi</string>
     <string name="enable_wifi_panel_summary">Habilita el panel Wi-Fi interno. Requiere acceso a ubicacion</string>
-    <string name="location">Ubicacion</string>
-    <string name="used_to_retrieve_wifi_info_on_">Usado para obtener información de Wi-Fi en Android 8+</string>
     <string name="scale_factor_summary">Define que tan grandes son las ventanas estandar</string>
     <string name="scale_factor_title">Factor de escalado para ventanas estandares</string>
     <string name="change_wallpaper">Cambiar fondo de pantalla</string>
@@ -268,8 +268,6 @@
     <string name="enable_menu_recents_title">Habilitar la tecla Menu para abrir recientes</string>
     <string name="general">General</string>
     <string name="material_u">Material U</string>
-    <string name="usage_stats">Datos de uso</string>
-    <string name="allows_to_show_recent_apps_on_">Permite mostrar apps recientes en dispositivos donde Smart Dock no puede ser instalado como app del sistema</string>
     <string name="allow_sysapp_uninstall_title">Permitir desinstalar apps del sistema</string>
     <string name="allow_sysapp_uninstall_summary">Por favor sea cuidadoso puede ser muy peligroso</string>
     <string name="running_apps_number_summary">Este ajuste puede ser útil en dispositivos con pantalla pequeña</string>

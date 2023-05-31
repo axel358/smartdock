@@ -124,21 +124,19 @@
 
     <string name="notifications">ਨੋਟੀਫੀਕੇਸਨਵਾਂ</string>
     
-    <string name="these_permissions_are_needed_f">ਐਪ ਦੇ ਕੰਮ ਕਰਨ ਲਈ ਇਹਨਾਂ ਅਨੁਮਤੀਆਂ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="display_over_other_apps">ਹੋਰ ਐਪਸ ਉੱਤੇ ਡਿਸਪਲੇ ਕਰੋ</string>
-    <string name="required_to_display_the_dock_">ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਹੈ, ਤੁਸੀਂ ਇਸ ਤੋਂ ਬਿਨਾਂ ਸੇਵਾ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰ ਸਕਦੇ ਹੋ</string>
+    <string name="display_over_other_apps_desc">ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਹੈ, ਤੁਸੀਂ ਇਸ ਤੋਂ ਬਿਨਾਂ ਸੇਵਾ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰ ਸਕਦੇ ਹੋ</string>
     <string name="accessibility_service">ਪਹੁੰਚਯੋਗਤਾ ਸੇਵਾ</string>
-    <string name="use_this_to_start_and_stop_the">ਡੌਕ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਬੰਦ ਕਰਨ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ। ਉਪਰੋਕਤ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="accessibility_service_desc">ਡੌਕ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਬੰਦ ਕਰਨ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ। ਉਪਰੋਕਤ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="manage">ਮੈਨਜ</string>
-    <string name="these_permissions_are_needed_b">ਇਹ ਅਨੁਮਤੀਆਂ ਕੁਝ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਦੁਆਰਾ ਲੋੜੀਂਦੀਆਂ ਹਨ</string>
     <string name="device_administrator">ਡਿਵਾਈਸ ਪ੍ਰਸ਼ਾਸਕ</string>
-    <string name="used_to_lock_the_screen">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="device_administrator_desc">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="storage">ਸਟੋਰੇਜ</string>
-    <string name="used_to_change_the_menu_icon_a">ਮੀਨੂ ਆਈਕਨ ਅਤੇ ਇਵੈਂਟ ਆਵਾਜ਼ਾਂ ਨੂੰ ਬਦਲਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="storage_desc">ਮੀਨੂ ਆਈਕਨ ਅਤੇ ਇਵੈਂਟ ਆਵਾਜ਼ਾਂ ਨੂੰ ਬਦਲਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="notification_access">ਨੋਟੀਫੀਕੇਸਨ ਐਕਸ਼ਸ਼</string>
-    <string name="used_to_display_notifications">ਨੋਟੀਫੀਕੇਸਨਵਾਂ ਦਿਖਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="notification_access_desc">ਨੋਟੀਫੀਕੇਸਨਵਾਂ ਦਿਖਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="root_access">ਰੂਟ ਐਕਸ਼ਸ਼</string>
-    <string name="used_to_perform_some_keyboard_">ਕੁਝ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਅਤੇ ਹੋਰ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="root_access_desc">ਕੁਝ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਅਤੇ ਹੋਰ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
 
     <string name="transparency">ਪਾਰਦਰਸ਼ਤਾ</string>
     <string name="user">ਉਪਭੋਗਤਾ</string>
@@ -231,7 +229,7 @@
     <string name="enable_wifi_panel_title">ਵਾਈਫਾਈ ਪੈਨਲ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_wifi_panel_summary">ਬਿਲਟ-ਇਨ ਵਾਈਫਾਈ ਪੈਨਲ ਨੂੰ ਸਮਰੱਥ ਬਣਾਉਂਦਾ ਹੈ। ਇਸ ਲਈ Location ਦੀ ਲੋੜ ਹੈ</string>
     <string name="location">Location</string>
-    <string name="used_to_retrieve_wifi_info_on_">Android 8+ ਤੇ ਵਾਈਫਾਈ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="location_desc">Android 8+ ਤੇ ਵਾਈਫਾਈ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="change_wallpaper">ਵਾਲਪੇਪਰ ਬਦਲੋ</string>
