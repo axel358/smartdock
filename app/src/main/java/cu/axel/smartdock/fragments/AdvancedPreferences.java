@@ -3,6 +3,7 @@ package cu.axel.smartdock.fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.preference.Preference;
 import android.view.LayoutInflater;
@@ -25,6 +26,9 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 	@Override
 	public void onCreatePreferences(Bundle arg0, String arg1) {
 		setPreferencesFromResource(R.xml.preferences_advanced, arg1);
+
+		findPreference("prefer_last_display").setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q);
+
 		Preference editAutostart = findPreference("edit_autostart");
 		editAutostart.setOnPreferenceClickListener((Preference p1) -> {
 			showEditAutostartDialog(getActivity());
