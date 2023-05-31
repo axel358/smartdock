@@ -68,14 +68,4 @@
             android:summary="@string/launch_games_fullscreen_summary"
             android:defaultValue="true" />
     </PreferenceCategory>
-	
-	<PreferenceCategory
-        android:title="@string/root_required">
-    
-        <CheckBoxPreference
-            android:key="enable_power_menu"
-            android:title="@string/enable_power_menu_title"
-            android:summary="@string/enable_power_menu_summary"
-            android:defaultValue="false" />
-	</PreferenceCategory>
 </PreferenceScreen>

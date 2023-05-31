@@ -10,6 +10,12 @@
 
 	<PreferenceCategory
         android:title="@string/root_required">
+	 
+	 <CheckBoxPreference
+         android:key="enable_power_menu"
+         android:title="@string/enable_power_menu_title"
+         android:summary="@string/enable_power_menu_summary"
+         android:defaultValue="false" />
     <CheckBoxPreference
         android:key="run_autostart"
         android:title="@string/run_autostart_title"
