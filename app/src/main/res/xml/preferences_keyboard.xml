@@ -64,11 +64,4 @@
 		android:defaultValue="true" />
     </PreferenceCategory>
 	
-	<PreferenceCategory
-        android:title="@string/root_required">
-		<CheckBoxPreference
-            android:key="enable_take_screenshot"
-            android:title="@string/enable_take_screenshot_title"
-            android:defaultValue="true" />
-    </PreferenceCategory>
 </PreferenceScreen>

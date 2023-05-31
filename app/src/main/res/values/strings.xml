@@ -270,7 +270,6 @@
     <string name="enable_qs_date_title">Enable clock</string>
     <string name="enable_qs_pin_title">Enable pin button</string>
     <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by long pressing it or using the keyboard shortcut</string>
-    <string name="enable_take_screenshot_title">Enable Modifier+K to take a screenshot</string>
     <string name="enable_toggle_pin_title">Enable Modifier+W to pin/unpin the dock</string>
     <string name="contributors">Contributors</string>
     <string name="tap_to_see_the_list_of_great_p">Tap to see the list of great people that has contributed to Smart Dock</string>

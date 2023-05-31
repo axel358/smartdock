@@ -684,7 +684,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				launchApp("standard", sp.getString("app_terminal", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_N && sp.getBoolean("enable_expand_notifications", true))
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_K && sp.getBoolean("enable_take_screenshot", true))
+			else if (event.getKeyCode() == KeyEvent.KEYCODE_K)
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_W && sp.getBoolean("enable_toggle_pin", true))
 				togglePin();
