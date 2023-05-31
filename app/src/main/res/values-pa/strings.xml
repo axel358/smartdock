@@ -267,7 +267,7 @@
     <string name="general">ਜਨਰਲ</string>
     <string name="material_u">ਮਟੀਰੀਅਲ</string>
     <string name="usage_stats">ਵਰਤੋਂ ਦੇ ਅੰਕੜੇ</string>
-    <string name="allows_to_show_recent_apps_on_">ਉਹਨਾਂ ਡੀਵਾਈਸਾਂ ਤੇ ਹਾਲੀਆ ਐਪਾਂ ਦਿਖਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ ਜਿੱਥੇ ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
+    <string name="usage_stats_desc">ਉਹਨਾਂ ਡੀਵਾਈਸਾਂ ਤੇ ਹਾਲੀਆ ਐਪਾਂ ਦਿਖਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ ਜਿੱਥੇ ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
     <string name="allow_sysapp_uninstall_title">ਸਿਸਟਮ ਐਪਸ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਦਿਓ</string>
     <string name="allow_sysapp_uninstall_summary">ਕਿਰਪਾ ਕਰਕੇ ਸਾਵਧਾਨ ਰਹੋ, ਇਹ ਅਸਲ ਵਿੱਚ ਖਤਰਨਾਕ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="running_apps_number_summary">ਇਹ ਸੈਟਿੰਗ ਛੋਟੀਆਂ ਸਕ੍ਰੀਨਾਂ ਵਾਲੇ ਡਿਵਾਈਸਾਂ ਨੂੰ ਡੌਕ ਤੇ ਐਪ ਓਵਰਫਲੋ ਤੋਂ ਬਚਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ</string>
