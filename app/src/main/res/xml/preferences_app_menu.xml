@@ -14,7 +14,6 @@
             android:defaultValue="true" />
         <ListPreference
             android:entries="@array/shortcut_keys" 
-            android:dialogTitle="@string/menu_key_dialogTitle" 
             android:title="@string/menu_key_title" 
             android:entryValues="@array/shortcut_keys_values" 
             android:key="menu_key"
@@ -51,7 +50,6 @@
         android:title="@string/app_launch">
         <ListPreference
             android:entries="@array/launch_modes" 
-            android:dialogTitle="@string/launch_mode_dialogTitle" 
             android:entryValues="@array/launch_mode_values" 
             android:key="launch_mode"
             android:title="@string/launch_mode_title"

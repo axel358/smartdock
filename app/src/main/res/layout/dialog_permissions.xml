@@ -18,14 +18,14 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Required" />
+            android:text="@string/required" />
 
         <Button
             android:id="@+id/show_optional_button"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Optional" />
+            android:text="@string/optional" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <ScrollView

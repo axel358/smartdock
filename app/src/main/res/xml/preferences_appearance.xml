@@ -2,8 +2,7 @@
     <PreferenceCategory
         android:title="@string/look_and_feel">
         <ListPreference
-            android:entries="@array/themes" 
-            android:dialogTitle="@string/theme_dialogTitle" 
+            android:entries="@array/themes"
             android:entryValues="@array/theme_values" 
             android:key="theme"
             android:title="@string/theme_title"
@@ -16,8 +15,7 @@
             android:key="icon_pack"
             android:defaultValue=""/>
         <ListPreference
-            android:entries="@array/icon_shapes" 
-            android:dialogTitle="@string/icon_shape_dialogTitle" 
+            android:entries="@array/icon_shapes"  
             android:entryValues="@array/icon_shapes_values" 
             android:key="icon_shape"
             android:title="@string/icon_shape_title"
@@ -41,7 +39,6 @@
         
         <ListPreference
             android:entries="@array/animations" 
-            android:dialogTitle="@string/custom_animation_dialogTitle" 
             android:entryValues="@array/animation_values" 
             android:key="custom_animation"
             android:title="@string/custom_animation_title"

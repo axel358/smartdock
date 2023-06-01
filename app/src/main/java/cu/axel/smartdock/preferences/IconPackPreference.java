@@ -104,7 +104,7 @@ public class IconPackPreference extends Preference {
 		String[] newNameList = cleanedNameList.toArray(new String[0]);
 
 		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(mContext);
-		dialog.setTitle(R.string.select_icon_pack);
+		dialog.setTitle(R.string.icon_pack);
 		dialog.setItems(newNameList, (DialogInterface d1, int item) -> {
 			if (iconPackageList.get(item).equals(mContext.getPackageName())) {
 				sp.edit().putString("icon_pack", "").commit();
