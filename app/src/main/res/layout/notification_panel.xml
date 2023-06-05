@@ -34,13 +34,6 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_notification_clear_all" />
-
-            <ImageButton
-                android:id="@+id/dont_disturb_btn"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_do_not_disturb" />
         </LinearLayout>
 
         <ListView
@@ -69,12 +62,12 @@
             android:orientation="horizontal" >
 
             <ImageView
-                android:id="@+id/btn_keyboard"
+                android:id="@+id/dont_disturb_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/circle_gray"
                 android:padding="9dp"
-                android:src="@drawable/ic_keyboard_on" />
+                android:src="@drawable/ic_do_not_disturb" />
         </LinearLayout>
 
         <LinearLayout

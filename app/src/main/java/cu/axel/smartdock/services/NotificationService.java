@@ -344,32 +344,22 @@ public class NotificationService extends NotificationListenerService {
 
 		notificationPanel = LayoutInflater.from(context).inflate(R.layout.notification_panel, null);
 		cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
-		ImageButton dontDisturbBtn = notificationPanel.findViewById(R.id.dont_disturb_btn);
 		notificationsLv = notificationPanel.findViewById(R.id.notification_lv);
 		notificationArea = notificationPanel.findViewById(R.id.notification_area);
 		LinearLayout qsArea = notificationPanel.findViewById(R.id.qs_area);
-		ImageView keyboardBtn = notificationPanel.findViewById(R.id.btn_keyboard);
+		ImageView dontDisturbBtn = notificationPanel.findViewById(R.id.dont_disturb_btn);
 		final ImageView orientationBtn = notificationPanel.findViewById(R.id.btn_orientation);
 		ImageView touchModeBtn = notificationPanel.findViewById(R.id.btn_touch_mode);
 		ImageView screenshotBtn = notificationPanel.findViewById(R.id.btn_screenshot);
 		ImageView screencapBtn = notificationPanel.findViewById(R.id.btn_screencast);
 		ImageView settingsBtn = notificationPanel.findViewById(R.id.btn_settings);
 
-		ColorUtils.applySecondaryColor(context, sp, keyboardBtn);
+		ColorUtils.applySecondaryColor(context, sp, dontDisturbBtn);
 		ColorUtils.applySecondaryColor(context, sp, orientationBtn);
 		ColorUtils.applySecondaryColor(context, sp, touchModeBtn);
 		ColorUtils.applySecondaryColor(context, sp, screencapBtn);
 		ColorUtils.applySecondaryColor(context, sp, screenshotBtn);
 		ColorUtils.applySecondaryColor(context, sp, settingsBtn);
-
-		keyboardBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View p1) {
-				sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "TOGGLE_KB"));
-
-			}
-		});
 
 		touchModeBtn.setOnClickListener((View p1) -> {
 			hideNotificationPanel();
@@ -397,7 +387,6 @@ public class NotificationService extends NotificationListenerService {
 				orientationBtn
 						.setImageResource(sp.getBoolean("lock_landscape", true) ? R.drawable.ic_screen_rotation_off
 								: R.drawable.ic_screen_rotation_on);
-
 			}
 		});
 
@@ -441,7 +430,6 @@ public class NotificationService extends NotificationListenerService {
 			sp.edit().putBoolean("do_not_disturb", !dontDisturb).commit();
 			dontDisturbBtn
 					.setImageResource(!dontDisturb ? R.drawable.ic_do_not_disturb : R.drawable.ic_do_not_disturb_off);
-
 		});
 
 		ColorUtils.applyMainColor(NotificationService.this, sp, notificationArea);
