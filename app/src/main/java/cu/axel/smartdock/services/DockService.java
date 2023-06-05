@@ -677,7 +677,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		}
 		if (event.getAction() == KeyEvent.ACTION_UP && isModifierPressed) {
 			if (event.getKeyCode() == KeyEvent.KEYCODE_L && sp.getBoolean("enable_lock_desktop", true))
-				DeviceUtils.lockScreen(context);
+				lockScreen();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_P && sp.getBoolean("enable_open_settings", true))
 				launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_T && sp.getBoolean("enable_open_terminal", false))
@@ -746,7 +746,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			//TODO
 			AccessibilityService.SoftKeyboardController kc = getSoftKeyboardController();
 			int mode = kc.getShowMode();
-			
+
 			if (mode == AccessibilityService.SHOW_MODE_AUTO || mode == AccessibilityService.SHOW_MODE_HIDDEN)
 				kc.setShowMode(AccessibilityService.SHOW_MODE_IGNORE_HARD_KEYBOARD);
 			else
@@ -1654,7 +1654,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		lockBtn.setOnClickListener((View p1) -> {
 			hidePowerMenu();
-			DeviceUtils.lockScreen(DockService.this);
+			lockScreen();
 		});
 		ColorUtils.applyMainColor(context, sp, powerMenu);
 		wm.addView(powerMenu, layoutParams);
@@ -1715,9 +1715,20 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		favoritesGv.setAdapter(new AppAdapter(context, this, apps));
 
 	}
-	
-	public void takeScreenshot(){
-		performGlobalAction(AccessibilityService.GLOBAL_ACTION_TAKE_SCREENSHOT);
+
+	public void takeScreenshot() {
+
+		if (Build.VERSION.SDK_INT >= 28) {
+			performGlobalAction(AccessibilityService.GLOBAL_ACTION_TAKE_SCREENSHOT);
+		} else
+			DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
+	}
+
+	public void lockScreen() {
+		if (Build.VERSION.SDK_INT >= 28) {
+			performGlobalAction(AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN);
+		} else
+			DeviceUtils.lockScreen(context);
 	}
 
 	@Override
