@@ -562,7 +562,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 						notificationBtn.setText("");
 					}
 				} else {
-					toggleSoftKeyboard();
+					takeScreenshot();
 				}
 			}
 		}, new IntentFilter(getPackageName() + ".NOTIFICATION_PANEL"));
@@ -1714,6 +1714,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		toggleFavorites(apps.size() > 0);
 		favoritesGv.setAdapter(new AppAdapter(context, this, apps));
 
+	}
+	
+	public void takeScreenshot(){
+		performGlobalAction(AccessibilityService.GLOBAL_ACTION_TAKE_SCREENSHOT);
 	}
 
 	@Override

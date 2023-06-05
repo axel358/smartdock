@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.preference.PreferenceManager;
@@ -392,7 +393,10 @@ public class NotificationService extends NotificationListenerService {
 
 		screenshotBtn.setOnClickListener((View p1) -> {
 			hideNotificationPanel();
-			DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
+			if (Build.VERSION.SDK_INT >= 28) {
+				sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "TAKE_SCREENSHOT"));
+			} else
+				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
 		});
 
 		screencapBtn.setOnClickListener((View p1) -> {
