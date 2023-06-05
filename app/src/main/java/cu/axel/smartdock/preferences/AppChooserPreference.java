@@ -74,16 +74,15 @@ public class AppChooserPreference extends Preference {
 		public View getView(int position, View convertView, ViewGroup parent) {
 
 			if (convertView == null)
-				convertView = LayoutInflater.from(context).inflate(R.layout.pin_entry, null);
+				convertView = LayoutInflater.from(context).inflate(R.layout.app_chooser_entry, null);
 
-			ImageView icon = convertView.findViewById(R.id.pin_entry_iv);
-			TextView text = convertView.findViewById(R.id.pin_entry_tv);
+			ImageView icon = convertView.findViewById(R.id.app_chooser_entry_iv);
+			TextView text = convertView.findViewById(R.id.app_chooser_entry_tv);
 
 			App app = getItem(position);
 
 			icon.setImageDrawable(app.getIcon());
 			text.setText(app.getName());
-			text.setTextColor(Color.BLACK);
 
 			ColorUtils.applyColor(icon, ColorUtils.getDrawableDominantColor(icon.getDrawable()));
 

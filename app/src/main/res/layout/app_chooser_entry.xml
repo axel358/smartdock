@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:padding="6dp" >
+
+    <ImageView
+        android:id="@+id/app_chooser_entry_iv"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/circle"
+        android:padding="5dp"
+        android:src="@drawable/ic_pin" />
+
+    <TextView
+        android:id="@+id/app_chooser_entry_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:layout_marginStart="6dp"
+        android:text="@string/pin"
+        android:textSize="16sp" />
+
+</LinearLayout>
