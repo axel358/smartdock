@@ -158,6 +158,8 @@ public class NotificationService extends NotificationListenerService {
 					Bundle extras = notification.extras;
 
 					String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
+					if (notificationTitle == null)
+						notificationTitle = AppUtils.getPackageLabel(context, sbn.getPackageName());
 
 					CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
 
@@ -394,7 +396,8 @@ public class NotificationService extends NotificationListenerService {
 		screenshotBtn.setOnClickListener((View p1) -> {
 			hideNotificationPanel();
 			if (Build.VERSION.SDK_INT >= 28) {
-				sendBroadcast(new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "TAKE_SCREENSHOT"));
+				sendBroadcast(
+						new Intent(getPackageName() + ".NOTIFICATION_PANEL").putExtra("action", "TAKE_SCREENSHOT"));
 			} else
 				DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ);
 		});
@@ -582,6 +585,8 @@ public class NotificationService extends NotificationListenerService {
 			}
 
 			String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
+			if (notificationTitle == null)
+				notificationTitle = AppUtils.getPackageLabel(context, sbn.getPackageName());
 			CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
 			int progress = extras.getInt(Notification.EXTRA_PROGRESS);
 
