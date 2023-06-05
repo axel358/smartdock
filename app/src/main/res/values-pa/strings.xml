@@ -192,6 +192,8 @@
   <string name="long_press_a_notification_to_a">ਰੌਕੇ ਸੂਚੀ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰਨ ਲਈ ਇੱਕ ਨੋਟੀਫੀਕੇਸਨ ਨੂੰ ਦੇਰ ਤੱਕ ਦਬਾਓ</string>
   <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਸਾਈਲੈਨਸਡ ਨੋਟੀਫੀਕੇਸਨ</string>
   <string name="enable_notif_panel_title">ਸੂਚਨਾ ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+  <string name="do_not_disturb">Do not disturb</string>
+  <string name="do_not_disturb_summary">Disable notification pop-ups</string>
 
   <!--Hot corners page-->  
   <string name="hot_corners">ਗਰਮ ਕੋਨੇ</string>

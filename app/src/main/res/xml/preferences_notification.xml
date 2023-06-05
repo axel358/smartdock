@@ -38,5 +38,11 @@
     <Preference
         android:icon="@drawable/ic_about"
         android:title="@string/long_press_a_notification_to_a"/>
+		
+	<CheckBoxPreference
+        android:key="do_not_disturb"
+        android:title="@string/do_not_disturb"
+		android:summary="@string/do_not_disturb_summary"
+		android:defaultValue="true" />
     
 </PreferenceScreen>

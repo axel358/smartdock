@@ -190,6 +190,8 @@
   <string name="long_press_a_notification_to_a">Mantenga presionada una notificación para agregarla a la lista ignorada</string>
   <string name="silenced_notifications">Notificaciones silenciadas para esta aplicación</string>
   <string name="enable_notif_panel_title">Habilitar panel de notificaciones</string>
+  <string name="do_not_disturb">No molestar</string>
+  <string name="do_not_disturb_summary">Deshabilitar notificaciones emergentes</string>
 
   <!--Hot corners page-->
   <string name="hot_corners">Esquinas Calientes</string>
