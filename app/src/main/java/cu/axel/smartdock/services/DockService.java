@@ -575,16 +575,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		soundEventsFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
 		soundEventsFilter.addAction(Intent.ACTION_POWER_CONNECTED);
 		registerReceiver(soundEventsReceiver, soundEventsFilter);
-		if (sp.getBoolean("allow_broadcasts", false)) {
-			registerReceiver(new BroadcastReceiver() {
-
-				@Override
-				public void onReceive(Context p1, Intent p2) {
-					toggleAppMenu();
-				}
-
-			}, new IntentFilter(getPackageName() + ".MENU"));
-		}
 
 		registerReceiver(new BroadcastReceiver() {
 
