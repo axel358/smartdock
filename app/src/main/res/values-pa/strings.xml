@@ -263,7 +263,6 @@
   <string name="contributors">ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ</string>
   <string name="tap_to_see_the_list_of_great_p">ਸਮਾਰਟ ਡੌਕ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ ਮਹਾਨ ਲੋਕਾਂ ਦੀ ਸੂਚੀ ਦੇਖਣ ਲਈ ਟੈਪ ਕਰੋ</string>
   <string name="accessibility_service_description">ਬੈਕ ਵਰਗੀਆਂ ਕਾਰਵਾਈਆਂ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ</string>
-  <string name="enable_access_help">ਸਮਾਰਟ ਡੌਕ ਸੇਵਾ ਲੱਭੋ ਅਤੇ ਚਾਲੂ ਕਰੋ</string>
   <string name="join_telegram_title">ਟੈਲੀਗ੍ਰਾਮ ਸਮੂਹ</string>
   <string name="join_telegram_summary">ਕੋਈ ਸਵਾਲ ਹਨ? ਟੈਲੀਗ੍ਰਾਮ ਸਹਾਇਤਾ ਸਮੂਹ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ</string>
   <string name="gnu_general_public_licence_v3">GNU ਜਨਰਲ ਪਬਲਿਕ ਲਾਇਸੈਂਸ v3.0</string>
@@ -305,6 +304,7 @@
   <string name="tablet_mode_on">ਟੈਬਲੈੱਟ ਮੋਡ ਚਾਲੂ ਹੈ</string>
   <string name="tablet_mode_off">ਟੈਬਲੈੱਟ ਮੋਡ ਬੰਦ</string>
   <string name="start_message">ਸਮਾਰਟ ਡੌਕ ਸ਼ੁਰੂ ਹੋਇਆ</string>
+  <string name="enable_access_help">ਸਮਾਰਟ ਡੌਕ ਸੇਵਾ ਲੱਭੋ ਅਤੇ ਚਾਲੂ ਕਰੋ</string>
 
   <!--Crash dialog-->  
   <string name="something_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>

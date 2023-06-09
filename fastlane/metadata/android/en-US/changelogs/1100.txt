@@ -1,0 +1,7 @@
+- Improved support for small and medium screens
+- Dynamic colors on Android 12+
+- Simplified settings
+- Better first time setup experience
+- Option to center the apps menu
+- Improved gestures support
+- Better notification handling

@@ -263,7 +263,6 @@
   <string name="contributors">Contributors</string>
   <string name="tap_to_see_the_list_of_great_p">Tap to see the list of great people that has contributed to Smart Dock</string>
   <string name="accessibility_service_description">Allows to perform actions such as Back</string>
-  <string name="enable_access_help">Find and enable Smart Dock service</string>
   <string name="join_telegram_title">Telegram group</string>
   <string name="join_telegram_summary">Got any questions? Join the Telegram support group</string>
   <string name="gnu_general_public_licence_v3">GNU General Public Licence v3.0</string>
@@ -305,6 +304,7 @@
   <string name="tablet_mode_on">Tablet mode on</string>
   <string name="tablet_mode_off">Tablet mode off</string>
   <string name="start_message">Smart Dock started</string>
+  <string name="enable_access_help">Find and enable Smart Dock service</string>
 
   <!--Crash dialog-->
   <string name="something_wrong">Something went wrong</string>
