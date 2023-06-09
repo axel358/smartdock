@@ -40,11 +40,6 @@
         android:defaultValue=""
         android:title="@string/custom_display_size_title"/>
     <CheckBoxPreference
-        android:key="allow_broadcasts"
-        android:title="@string/allow_broadcasts_title"
-        android:summary="@string/allow_broadcasts_summary"
-        android:defaultValue="false" />
-    <CheckBoxPreference
         android:key="allow_app_freeze"
         android:title="@string/allow_app_freeze_title"
         android:summary="@string/allow_app_freeze_summary"

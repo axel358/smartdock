@@ -222,8 +222,6 @@
   <string name="custom_display_size_hint">leave blank for default</string>
   <string name="scale_factor_title">Standard window scale factor</string>
   <string name="scale_factor_summary">Defines how big standard windows are</string>
-  <string name="allow_broadcasts_title">Allow apps to send broadcasts to the Dock</string>
-  <string name="allow_broadcasts_summary">Expose feautures to apps such as toggling the app drawer using broadcasts. Needs reboot</string>
   <string name="allow_app_freeze_title">Show an option to disable apps from the app context menu</string>
   <string name="allow_app_freeze_summary">You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps</string>
   <string name="allow_sysapp_uninstall_title">Allow uninstalling system apps</string>

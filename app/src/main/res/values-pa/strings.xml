@@ -224,8 +224,6 @@
   <string name="custom_display_size_hint">ਡਿਫੌਲਟ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
   <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
   <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
-  <string name="allow_broadcasts_title">ਐਪਾਂ ਨੂੰ ਡੌਕ \'ਤੇ ਬਰੋਡਕਾਸਟ ਭੇਜਣ ਦਿਓ</string>
-  <string name="allow_broadcasts_summary">ਐਪਸ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਜਿਵੇਂ ਕਿ ਬਰੋਡਕਾਸਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਐਪ ਦਰਾਜ਼ ਨੂੰ ਟੌਗਲ ਕਰਨਾ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
   <string name="allow_app_freeze_title">ਐਪ ਸੰਦਰਭ ਮੀਨੂ ਤੋਂ ਐਪਸ ਨੂੰ ਡੀਸਏਬਲ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕਲਪ ਦਿਖਾਓ</string>
   <string name="allow_app_freeze_summary">ਐਪਾਂ ਨੂੰ ਮੁੜ-ਸਮਰੱਥ ਬਣਾਉਣ ਲਈ ਤੁਹਾਨੂੰ ਇੱਕ ਬਾਹਰੀ ਟੂਲ ਦੀ ਲੋੜ ਹੋਵੇਗੀ ਜਿਵੇਂ ਕਿ ਆਈਸ ਬਾਕਸ (ਜਾਂ ਚੱਲ ਰਹੇ pm ਯੋਗ [pkgname])</string>
   <string name="allow_sysapp_uninstall_title">ਸਿਸਟਮ ਐਪਸ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਦਿਓ</string>
