@@ -48,7 +48,6 @@ The app uses an accessibility service to capture keyboard input, if that service
 
 [See contributors](Contributors.md)
 
-If you like the project you can give it a star or consider making a [donation](https://paypal.me/KSMaan7)
 
 ## Support
 
