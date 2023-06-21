@@ -165,8 +165,9 @@ public class ColorUtils {
 			break;
 		case "material_u":
 			if (DynamicColors.isDynamicColorAvailable()) {
-				color = getDynamicColors(context)[0];
-				color2 = ColorUtils.manipulateColor(color, 1.2f);
+				int surfaceColor = getDynamicColors(context)[1];
+				color = ColorUtils.manipulateColor(surfaceColor, 0.9f);
+				color2 = ColorUtils.manipulateColor(surfaceColor, 1.2f);
 			} else {
 				color = Color.parseColor(getWallpaperColors(context).get(4));
 				color2 = Color.parseColor(getWallpaperColors(context).get(3));
