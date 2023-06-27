@@ -506,7 +506,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					toggleFavorites(AppUtils.getPinnedApps(context, pm, AppUtils.PINNED_LIST).size() > 0);
 				}
 			}
-
 		});
 		searchEt.setOnKeyListener((View p1, int p2, KeyEvent p3) -> {
 			if (p3.getAction() == KeyEvent.ACTION_DOWN) {
