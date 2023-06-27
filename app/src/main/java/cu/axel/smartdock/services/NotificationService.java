@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import androidx.preference.PreferenceManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
@@ -36,7 +37,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import cu.axel.smartdock.R;
@@ -105,7 +105,7 @@ public class NotificationService extends NotificationListenerService {
 
 		wm.addView(notificationLayout, lp);
 
-		handler = new Handler();
+		handler = new Handler(Looper.getMainLooper());
 		notificationLayout.setAlpha(0);
 
 		notificationLayout.setOnHoverListener((View p1, MotionEvent p2) -> {
@@ -113,7 +113,7 @@ public class NotificationService extends NotificationListenerService {
 				notifCancelBtn.setVisibility(View.VISIBLE);
 				handler.removeCallbacksAndMessages(null);
 			} else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT) {
-				new Handler().postDelayed(() -> {
+				new Handler(Looper.getMainLooper()).postDelayed(() -> {
 					notifCancelBtn.setVisibility(View.INVISIBLE);
 				}, 200);
 				hideNotification();
@@ -167,13 +167,9 @@ public class NotificationService extends NotificationListenerService {
 					ColorUtils.applyMainColor(NotificationService.this, sp, notificationLayout);
 					ColorUtils.applySecondaryColor(NotificationService.this, sp, notifCancelBtn);
 
-					try {
-						Drawable notificationIcon = getPackageManager().getApplicationIcon(sbn.getPackageName());
-						notifIcon.setImageDrawable(notificationIcon);
-						ColorUtils.applyColor(notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
-
-					} catch (PackageManager.NameNotFoundException e) {
-					}
+					Drawable notificationIcon = AppUtils.getAppIcon(context, sbn.getPackageName());
+					notifIcon.setImageDrawable(notificationIcon);
+					ColorUtils.applyColor(notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
 
 					int progress = extras.getInt(Notification.EXTRA_PROGRESS);
 
@@ -280,10 +276,12 @@ public class NotificationService extends NotificationListenerService {
 					notificationLayout.animate().alpha(1).setDuration(300)
 							.setInterpolator(new AccelerateDecelerateInterpolator())
 							.setListener(new AnimatorListenerAdapter() {
+
 								@Override
 								public void onAnimationStart(Animator animation) {
 									notificationLayout.setVisibility(View.VISIBLE);
 								}
+
 							});
 
 					if (sp.getBoolean("enable_notification_sound", false))
@@ -303,7 +301,6 @@ public class NotificationService extends NotificationListenerService {
 						@Override
 						public void onAnimationEnd(Animator animation) {
 							notificationLayout.setVisibility(View.GONE);
-							notificationLayout.setAlpha(0);
 						}
 					});
 		}, Integer.parseInt(sp.getString("notification_timeout", "5000")));
@@ -526,7 +523,6 @@ public class NotificationService extends NotificationListenerService {
 				holder.notifText = convertView.findViewById(R.id.notif_w_text_tv);
 				holder.notifIcon = convertView.findViewById(R.id.notif_w_icon_iv);
 				holder.notifCancelBtn = convertView.findViewById(R.id.notif_w_close_btn);
-				//holder.notifPb = convertView.findViewById(R.id.notif_w_pb);
 				holder.notifActionsLayout = convertView.findViewById(R.id.notif_actions_container);
 				convertView.setTag(holder);
 
@@ -543,7 +539,6 @@ public class NotificationService extends NotificationListenerService {
 				lp.weight = 1f;
 
 				if (extras.get(Notification.EXTRA_MEDIA_SESSION) != null) {
-					//lp.height = Utils.dpToPx(NotificationService.this, 30);
 					for (final Notification.Action action : actions) {
 						ImageView actionTv = new ImageView(NotificationService.this);
 						try {
@@ -553,7 +548,6 @@ public class NotificationService extends NotificationListenerService {
 									.getDrawable(res.getIdentifier(action.icon + "", "drawable", sbn.getPackageName()));
 							drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 							actionTv.setImageDrawable(drawable);
-							//actionTv.setImageIcon(action.getIcon());
 							actionTv.setOnClickListener((View p1) -> {
 								try {
 									action.actionIntent.send();
@@ -595,13 +589,9 @@ public class NotificationService extends NotificationListenerService {
 			holder.notifTitle.setText(notificationTitle + p);
 			holder.notifText.setText(notificationText);
 
-			try {
-				Drawable notificationIcon = getPackageManager().getApplicationIcon(sbn.getPackageName());
-				holder.notifIcon.setImageDrawable(notificationIcon);
-				ColorUtils.applyColor(holder.notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
-
-			} catch (PackageManager.NameNotFoundException e) {
-			}
+			Drawable notificationIcon = AppUtils.getAppIcon(context, sbn.getPackageName());
+			holder.notifIcon.setImageDrawable(notificationIcon);
+			ColorUtils.applyColor(holder.notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
 
 			if (sbn.isClearable()) {
 
@@ -621,7 +611,6 @@ public class NotificationService extends NotificationListenerService {
 			ImageView notifIcon, notifCancelBtn;
 			TextView notifTitle, notifText;
 			LinearLayout notifActionsLayout;
-			ProgressBar notifPb;
 		}
 
 	}

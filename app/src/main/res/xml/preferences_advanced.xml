@@ -15,6 +15,12 @@
         android:hint="1.0"
         android:defaultValue="1.0"
         android:title="@string/scale_factor_title"/>
+		
+	<CheckBoxPreference
+        android:title="Custom Toasts"
+        android:key="custom_toasts"
+        android:summary="Use built-in custom Toasts for apps when the Dock is pinned"
+        android:defaultValue="false" />
    
 	<PreferenceCategory
 		android:key="root_category"

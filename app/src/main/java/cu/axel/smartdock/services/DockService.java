@@ -3,6 +3,7 @@ package cu.axel.smartdock.services;
 import android.accessibilityservice.AccessibilityService;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
+import android.app.Notification;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.ActivityNotFoundException;
@@ -20,12 +21,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.hardware.usb.UsbManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import androidx.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Editable;
@@ -96,8 +99,10 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.net.wifi.WifiInfo;
 import android.widget.Switch;
 import android.widget.CompoundButton;
+import android.animation.Animator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.animation.AnimatorListenerAdapter;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener,
 		View.OnTouchListener, AppAdapter.AppRightClickListener, DockAppAdapter.TaskRightClickListener {
@@ -146,8 +151,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
 		wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 		bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
-		dockHandler = new Handler();
-
+		dockHandler = new Handler(Looper.getMainLooper());
 	}
 
 	@Override
@@ -626,11 +630,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	@Override
-	public void onAccessibilityEvent(AccessibilityEvent p1) {
-		if (p1.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+	public void onAccessibilityEvent(AccessibilityEvent event) {
+		if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
 			//getSource() might throw an exception
 			try {
-				if (p1.getSource() != null) {
+				if (event.getSource() != null) {
 					//Refresh the app list when the window state changes only it has been at least a second since last update
 					//TODO: Filter events that also trigger window state change other than app switching
 					if (System.currentTimeMillis() - lastUpdate > 700)
@@ -639,7 +643,42 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				}
 			} catch (Exception e) {
 			}
+		} else if (isPinned && sp.getBoolean("custom_toasts", false)
+				&& event.getEventType() == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED
+				&& !(event.getParcelableData() instanceof Notification)) {
+
+			String text = event.getText().get(0).toString();
+			String app = event.getPackageName().toString();
+			showToast(app, text);
 		}
+	}
+
+	public void showToast(String app, String text) {
+		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay);
+		lp.gravity = Gravity.BOTTOM | Gravity.CENTER;
+		lp.y = dock.getMeasuredHeight() + Utils.dpToPx(context, 4);
+		View toast = LayoutInflater.from(context).inflate(R.layout.toast, null);
+		ColorUtils.applyMainColor(context, sp, toast);
+		TextView textTv = toast.findViewById(R.id.toast_tv);
+		ImageView iconIv = toast.findViewById(R.id.toast_iv);
+		textTv.setText(text);
+		Drawable notificationIcon = AppUtils.getAppIcon(context, app);
+		iconIv.setImageDrawable(notificationIcon);
+		ColorUtils.applyColor(iconIv, ColorUtils.getDrawableDominantColor(notificationIcon));
+
+		toast.setAlpha(0);
+		toast.animate().alpha(1).setDuration(250).setInterpolator(new AccelerateDecelerateInterpolator());
+
+		new Handler(Looper.getMainLooper()).postDelayed(() -> {
+			toast.animate().alpha(0).setDuration(400).setInterpolator(new AccelerateDecelerateInterpolator())
+					.setListener(new AnimatorListenerAdapter() {
+						@Override
+						public void onAnimationEnd(Animator animation) {
+							wm.removeView(toast);
+						}
+					});
+		}, 5000);
+		wm.addView(toast, lp);
 	}
 
 	@Override

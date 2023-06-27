@@ -297,4 +297,12 @@ public class AppUtils {
 		}
 		return "";
 	}
+
+	public static Drawable getAppIcon(Context context, String app) {
+		try {
+			return context.getPackageManager().getApplicationIcon(app);
+		} catch (PackageManager.NameNotFoundException e) {
+		}
+		return context.getDrawable(android.R.drawable.sym_def_app_icon);
+	}
 }
