@@ -33,9 +33,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.adapters.AppActionsAdapter;
+import cu.axel.smartdock.adapters.AppAdapter;
 import cu.axel.smartdock.icons.IconParserUtilities;
 import cu.axel.smartdock.models.Action;
 import cu.axel.smartdock.models.App;
@@ -55,10 +58,10 @@ import cu.axel.smartdock.utils.DeepShortcutManager;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
 import android.widget.Adapter;
 
-public class LauncherActivity extends AppCompatActivity {
+public class LauncherActivity extends AppCompatActivity implements AppAdapter.OnAppClickListener {
 	private LinearLayout backgroundLayout;
 	private MaterialButton serviceBtn;
-	private GridView appsGv;
+	private RecyclerView appsGv;
 	private EditText notesEt;
 	private SharedPreferences sp;
 	private float x, y;
@@ -70,6 +73,7 @@ public class LauncherActivity extends AppCompatActivity {
 		backgroundLayout = findViewById(R.id.ll_background);
 		serviceBtn = findViewById(R.id.service_btn);
 		appsGv = findViewById(R.id.desktop_apps_gv);
+		appsGv.setLayoutManager(new GridLayoutManager(this, 2));
 		notesEt = findViewById(R.id.notes_et);
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -123,16 +127,6 @@ public class LauncherActivity extends AppCompatActivity {
 			return false;
 		});
 
-		appsGv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
-			final App app = (App) p1.getItemAtPosition(p3);
-			launchApp(null, app.getPackageName());
-		});
-
-		appsGv.setOnItemLongClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
-			showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), p2);
-			return true;
-		});
-
 		registerReceiver(new BroadcastReceiver() {
 
 			@Override
@@ -150,7 +144,7 @@ public class LauncherActivity extends AppCompatActivity {
 
 	public void loadDesktopApps() {
 		appsGv.setAdapter(
-				new AppAdapterDesktop(this, AppUtils.getPinnedApps(this, getPackageManager(), AppUtils.DESKTOP_LIST)));
+				new AppAdapter(this, AppUtils.getPinnedApps(this, getPackageManager(), AppUtils.DESKTOP_LIST), this, true));
 	}
 
 	@Override
@@ -247,9 +241,9 @@ public class LauncherActivity extends AppCompatActivity {
 
 		int[] location = new int[2];
 		anchor.getLocationOnScreen(location);
-		
+
 		lp.x = location[0];
-		lp.y = location[1] + Utils.dpToPx(this, anchor.getMeasuredHeight()/2);
+		lp.y = location[1] + Utils.dpToPx(this, anchor.getMeasuredHeight() / 2);
 
 		view.setOnTouchListener((View p1, MotionEvent p2) -> {
 			if (p2.getAction() == MotionEvent.ACTION_OUTSIDE) {
@@ -337,60 +331,15 @@ public class LauncherActivity extends AppCompatActivity {
 		wm.addView(view, lp);
 	}
 
-	public class AppAdapterDesktop extends ArrayAdapter<App> {
-		private Context context;
-		private int iconBackground, iconPadding;
-		private boolean iconTheming;
-
-		public AppAdapterDesktop(Context context, ArrayList<App> apps) {
-			super(context, R.layout.app_entry_desktop, apps);
-			this.context = context;
-			iconTheming = !sp.getString("icon_pack", "").equals("");
-			iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")) + 2);
-			switch (sp.getString("icon_shape", "circle")) {
-			case "circle":
-				iconBackground = R.drawable.circle;
-				break;
-			case "round_rect":
-				iconBackground = R.drawable.round_square;
-				break;
-			case "default":
-				iconBackground = -1;
-				break;
-			}
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			if (convertView == null)
-				convertView = LayoutInflater.from(context).inflate(R.layout.app_entry_desktop, null);
-			ImageView iconIv = convertView.findViewById(R.id.app_icon_iv);
-			TextView nameTv = convertView.findViewById(R.id.app_name_tv);
-			final App app = getItem(position);
-			nameTv.setText(app.getName());
-
-			IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
-
-			if (iconTheming)
-				iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
-			else
-				iconIv.setImageDrawable(app.getIcon());
-
-			if (iconBackground != -1) {
-				iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-				iconIv.setBackgroundResource(iconBackground);
-				ColorUtils.applyColor(iconIv, ColorUtils.getDrawableDominantColor(iconIv.getDrawable()));
-			}
-
-			convertView.setOnTouchListener((View p1, MotionEvent p2) -> {
-				if (p2.getButtonState() == MotionEvent.BUTTON_SECONDARY) {
-					showAppContextMenu(app.getPackageName(), p1);
-					return true;
-				}
-				return false;
-			});
-
-			return convertView;
-		}
+	@Override
+	public void onAppClicked(App app, View item) {
+		launchApp(null, app.getPackageName());
 	}
+
+	@Override
+	public void onAppLongClicked(App app, View item) {
+		showAppContextMenu(app.getPackageName(), item);
+
+	}
+
 }

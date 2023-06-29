@@ -1,59 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:id="@+id/ll_background"
-	android:layout_height="fill_parent"
-	android:orientation="horizontal"
-	android:gravity="center">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="horizontal" >
 
-	<LinearLayout
-		android:layout_height="match_parent"
-		android:layout_width="match_parent"
-		android:orientation="vertical"
-		android:layout_weight="1.0"
-		android:padding="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:orientation="vertical"
+        android:padding="10dp" >
 
-		<GridView
-			android:orientation="vertical"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:stretchMode="none"
-			android:gravity="center"
-			android:numColumns="2"
-			android:verticalSpacing="20dp"
-			android:columnWidth="100dp"
-			android:id="@+id/desktop_apps_gv"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/desktop_apps_gv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
 
-	</LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/service_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lets_start" />
 
-	<com.google.android.material.button.MaterialButton
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="@string/lets_start"
-		android:id="@+id/service_btn"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:padding="16dp" >
 
-	<LinearLayout
-		android:layout_height="match_parent"
-		android:layout_width="match_parent"
-		android:orientation="vertical"
-		android:layout_weight="1.0"
-		android:gravity="right"
-		android:padding="16dp">
-
-		<EditText
-			android:inputType="textMultiLine"
-			android:layout_width="230dp"
-			android:ems="10"
-			android:layout_height="260dp"
-			android:gravity="start"
-			android:textColor="#FF121212"
-			android:padding="10dp"
-			android:id="@+id/notes_et"
-			android:background="@drawable/notes_background"
-			android:textSize="17sp"/>
-
-	</LinearLayout>
+        <EditText
+            android:id="@+id/notes_et"
+            android:layout_width="230dp"
+            android:layout_height="260dp"
+            android:background="@drawable/notes_background"
+            android:ems="10"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textColor="#FF121212"
+            android:textSize="17sp" />
+    </LinearLayout>
 
 </LinearLayout>
-

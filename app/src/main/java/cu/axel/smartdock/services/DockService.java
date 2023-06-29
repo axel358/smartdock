@@ -1728,7 +1728,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void loadFavoriteApps() {
 		ArrayList<App> apps = AppUtils.getPinnedApps(context, pm, AppUtils.PINNED_LIST);
 		toggleFavorites(apps.size() > 0);
-		favoritesGv.setAdapter(new AppAdapter(context, apps, this));
+		boolean menuFullscreen = sp.getBoolean("app_menu_fullscreen", false);
+		boolean phoneLayout = sp.getInt("dock_layout", -1) == 0;
+
+		favoritesGv.setAdapter(new AppAdapter(context, apps, this, menuFullscreen && !phoneLayout));
 	}
 
 	public void takeScreenshot() {
@@ -1772,7 +1775,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			super.onPostExecute(result);
 
 			//TODO: Implement efficent adapter
-			appsGv.setAdapter(new AppAdapter(context, result, DockService.this));
+			boolean menuFullscreen = sp.getBoolean("app_menu_fullscreen", false);
+			boolean phoneLayout = sp.getInt("dock_layout", -1) == 0;
+
+			appsGv.setAdapter(new AppAdapter(context, result, DockService.this, menuFullscreen && !phoneLayout));
 
 		}
 

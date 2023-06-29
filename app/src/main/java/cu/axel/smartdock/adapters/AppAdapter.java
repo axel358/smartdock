@@ -29,9 +29,10 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 	private final Context context;
 	private int iconBackground;
 	private final int iconPadding;
-	private boolean iconTheming, menuFullscreen, phoneLayout;
+	private boolean iconTheming;
 	private IconParserUtilities iconParserUtilities;
 	private String query;
+	private boolean large;
 
 	public interface OnAppClickListener {
 		void onAppClicked(App app, View item);
@@ -39,15 +40,14 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 		void onAppLongClicked(App app, View item);
 	}
 
-	public AppAdapter(Context context, ArrayList<App> apps, OnAppClickListener listener) {
+	public AppAdapter(Context context, ArrayList<App> apps, OnAppClickListener listener, boolean large) {
 		this.context = context;
 		this.listener = listener;
 		this.apps = apps;
+		this.large = large;
 		this.allApps = new ArrayList<App>(apps);
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		iconParserUtilities = new IconParserUtilities(context);
-		menuFullscreen = sp.getBoolean("app_menu_fullscreen", false);
-		phoneLayout = sp.getInt("dock_layout", -1) == 0;
 		iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
 		iconTheming = !sp.getString("icon_pack", "").equals("");
 
@@ -68,7 +68,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int arg1) {
 		View itemLayoutView = LayoutInflater.from(context)
-				.inflate(menuFullscreen && !phoneLayout ? R.layout.app_entry_desktop : R.layout.app_entry, null);
+				.inflate(large ? R.layout.app_entry_desktop : R.layout.app_entry, null);
 
 		ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 		return viewHolder;

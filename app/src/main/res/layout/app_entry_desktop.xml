@@ -1,32 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:clickable="true"
-	android:focusable="true"
-	android:paddingBottom="6dp"
-	android:paddingTop="6dp"
-	android:background="?android:attr/selectableItemBackground"
-	android:gravity="center">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="6dp"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp"
+    android:paddingTop="6dp" >
 
-	<ImageView
-		android:layout_height="50dp"
-		android:layout_width="50dp"
-		android:src="@android:drawable/ic_delete"
-		android:id="@+id/app_icon_iv"
-		android:layout_margin="5dp"/>
+    <ImageView
+        android:id="@+id/app_icon_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:src="@android:drawable/ic_delete" />
 
-	<TextView
-		android:singleLine="true"
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:text="Text"
-		android:id="@+id/app_name_tv"
-		android:textColor="#FFFFFF"
-		android:textSize="15sp"
-		android:gravity="center"/>
+    <TextView
+        android:id="@+id/app_name_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="Text"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
 
 </LinearLayout>
-
