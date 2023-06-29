@@ -1,45 +1,49 @@
 package cu.axel.smartdock.adapters;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
 import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.style.StyleSpan;
+import android.graphics.Typeface;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Filter;
 import android.widget.ImageView;
+import androidx.preference.PreferenceManager;
 import android.widget.TextView;
-import android.graphics.Typeface;
+import androidx.recyclerview.widget.RecyclerView;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.icons.IconParserUtilities;
 import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.utils.Utils;
-import java.util.ArrayList;
-import android.content.SharedPreferences;
+import cu.axel.smartdock.utils.AppUtils;
 import cu.axel.smartdock.utils.ColorUtils;
+import java.util.ArrayList;
 
-public class AppAdapter extends ArrayAdapter<App> {
+public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
+
+	private ArrayList<App> apps, allApps;
+	private OnAppClickListener listener;
 	private final Context context;
 	private int iconBackground;
 	private final int iconPadding;
-	private ArrayList<App> apps, originalList;
-	private AppFilter filter;
 	private boolean iconTheming, menuFullscreen, phoneLayout;
 	private IconParserUtilities iconParserUtilities;
-	private AppRightClickListener rightClickListener;
 	private String query;
 
-	public AppAdapter(Context context, AppRightClickListener listener, ArrayList<App> apps) {
-		super(context, R.layout.app_entry, apps);
+	public interface OnAppClickListener {
+		void onAppClicked(App app, View item);
+
+		void onAppLongClicked(App app, View item);
+	}
+
+	public AppAdapter(Context context, ArrayList<App> apps, OnAppClickListener listener) {
 		this.context = context;
-		rightClickListener = listener;
+		this.listener = listener;
 		this.apps = apps;
-		this.originalList = new ArrayList<App>(apps);
+		this.allApps = new ArrayList<App>(apps);
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		iconParserUtilities = new IconParserUtilities(context);
 		menuFullscreen = sp.getBoolean("app_menu_fullscreen", false);
@@ -62,20 +66,19 @@ public class AppAdapter extends ArrayAdapter<App> {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public ViewHolder onCreateViewHolder(ViewGroup parent, int arg1) {
+		View itemLayoutView = LayoutInflater.from(context)
+				.inflate(menuFullscreen && !phoneLayout ? R.layout.app_entry_desktop : R.layout.app_entry, null);
 
-		ViewHolder holder;
-		if (convertView == null) {
-			convertView = LayoutInflater.from(context)
-					.inflate(menuFullscreen && !phoneLayout ? R.layout.app_entry_desktop : R.layout.app_entry, null);
-			holder = new ViewHolder();
-			holder.iconIv = convertView.findViewById(R.id.app_icon_iv);
-			holder.nameTv = convertView.findViewById(R.id.app_name_tv);
-			convertView.setTag(holder);
-		} else
-			holder = (ViewHolder) convertView.getTag();
+		ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+		return viewHolder;
+	}
 
-		final App app = apps.get(position);
+	@Override
+	public void onBindViewHolder(ViewHolder viewHolder, int position) {
+		App app = apps.get(position);
+		//viewHolder.nameTv.setText(app.getName());
+
 		String name = app.getName();
 
 		if (query != null) {
@@ -84,92 +87,84 @@ public class AppAdapter extends ArrayAdapter<App> {
 			if (spanStart != -1) {
 				SpannableString spannable = new SpannableString(name);
 				spannable.setSpan(new StyleSpan(Typeface.BOLD), spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-				holder.nameTv.setText(spannable);
+				viewHolder.nameTv.setText(spannable);
 			} else {
-				holder.nameTv.setText(name);
+				viewHolder.nameTv.setText(name);
 			}
 		} else {
-			holder.nameTv.setText(name);
+			viewHolder.nameTv.setText(name);
 		}
 
 		if (iconTheming)
-			holder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
+			viewHolder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));
 		else
-			holder.iconIv.setImageDrawable(app.getIcon());
+			viewHolder.iconIv.setImageDrawable(app.getIcon());
 
 		if (iconBackground != -1) {
-			holder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-			holder.iconIv.setBackgroundResource(iconBackground);
-			ColorUtils.applyColor(holder.iconIv, ColorUtils.getDrawableDominantColor(holder.iconIv.getDrawable()));
-
+			viewHolder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
+			viewHolder.iconIv.setBackgroundResource(iconBackground);
+			ColorUtils.applyColor(viewHolder.iconIv,
+					ColorUtils.getDrawableDominantColor(viewHolder.iconIv.getDrawable()));
 		}
 
-		convertView.setOnTouchListener((View p1, MotionEvent p2) -> {
-			if (p2.getButtonState() == MotionEvent.BUTTON_SECONDARY) {
-				rightClickListener.onAppRightClick(app.getPackageName(), p1);
-				return true;
-			}
-			return false;
-		});
-
-		return convertView;
-	}
-
-	private class ViewHolder {
-		ImageView iconIv;
-		TextView nameTv;
+		viewHolder.bind(app, listener);
 	}
 
 	@Override
-	public Filter getFilter() {
-		if (filter == null)
-			filter = new AppFilter();
-		return filter;
+	public int getItemCount() {
+		return apps.size();
 	}
 
-	private class AppFilter extends Filter {
-		@Override
-		protected Filter.FilterResults performFiltering(CharSequence p1) {
-			FilterResults results = new FilterResults();
-			String query = p1.toString().trim().toLowerCase();
-			AppAdapter.this.query = query;
-			if (query.length() > 1) {
-				ArrayList<App> filteredResults = new ArrayList<App>();
+	public void filter(String query) {
+		ArrayList<App> results = new ArrayList<>();
 
-				if (query.matches("^[0-9]+(\\.[0-9]+)?[-+/*][0-9]+(\\.[0-9]+)?")) {
-					filteredResults.add(new App(Utils.solve(query) + "", context.getPackageName() + ".calc",
-							context.getResources().getDrawable(R.drawable.ic_calculator, context.getTheme())));
-				}
-				for (App app : originalList) {
-					if (app.getName().toLowerCase().trim().contains(query)) {
-						filteredResults.add(app);
-					}
-				}
-				results.count = filteredResults.size();
-				results.values = filteredResults;
+		if (query.length() > 2) {
+			if (query.matches("^[0-9]+(\\.[0-9]+)?[-+/*][0-9]+(\\.[0-9]+)?")) {
+				results.add(new App(Utils.solve(query) + "", context.getPackageName() + ".calc",
+						context.getResources().getDrawable(R.drawable.ic_calculator, context.getTheme())));
 			} else {
-				synchronized (this) {
-					results.values = originalList;
-					results.count = originalList.size();
+				for (App app : allApps) {
+					if (app.getName().toLowerCase().contains(query.toLowerCase()))
+						results.add(app);
 				}
 			}
-			return results;
+			apps = results;
+			this.query = query;
+		} else {
+			apps = allApps;
 		}
-
-		@Override
-		protected void publishResults(CharSequence p1, Filter.FilterResults p2) {
-			apps = (ArrayList<App>) p2.values;
-			notifyDataSetChanged();
-			clear();
-			for (App app : apps) {
-				add(app);
-			}
-			notifyDataSetInvalidated();
-		}
+		notifyDataSetChanged();
 	}
 
-	public interface AppRightClickListener {
-		public abstract void onAppRightClick(String app, View view);
-	}
+	public static class ViewHolder extends RecyclerView.ViewHolder {
 
+		ImageView iconIv;
+		TextView nameTv;
+
+		public ViewHolder(View itemView) {
+			super(itemView);
+			iconIv = itemView.findViewById(R.id.app_icon_iv);
+			nameTv = itemView.findViewById(R.id.app_name_tv);
+		}
+
+		public void bind(App app, OnAppClickListener listener) {
+			itemView.setOnClickListener((View v) -> {
+				listener.onAppClicked(app, v);
+			});
+
+			itemView.setOnLongClickListener((View v) -> {
+				listener.onAppLongClicked(app, v);
+				return true;
+			});
+
+			itemView.setOnTouchListener((View v, MotionEvent p2) -> {
+				if (p2.getButtonState() == MotionEvent.BUTTON_SECONDARY) {
+					listener.onAppLongClicked(app, v);
+					return true;
+				}
+				return false;
+			});
+		}
+
+	}
 }

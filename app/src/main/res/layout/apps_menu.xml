@@ -73,9 +73,7 @@
 
 	</LinearLayout>
 
-	<GridView
-		android:stretchMode="columnWidth"
-		android:numColumns="5"
+	<androidx.recyclerview.widget.RecyclerView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:id="@+id/fav_applist_lv"
@@ -90,9 +88,7 @@
 		android:layout_marginRight="10dp"
 		android:layout_marginBottom="10dp"/>
 
-	<GridView
-		android:stretchMode="columnWidth"
-		android:numColumns="5"
+	<androidx.recyclerview.widget.RecyclerView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:id="@+id/menu_applist_lv"

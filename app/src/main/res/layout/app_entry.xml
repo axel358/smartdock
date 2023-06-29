@@ -7,6 +7,7 @@
 	android:gravity="center">
 
 	<ImageView
+		android:src="@mipmap/ic_launcher"
 		android:layout_height="40dp"
 		android:layout_width="40dp"
 		android:id="@+id/app_icon_iv"

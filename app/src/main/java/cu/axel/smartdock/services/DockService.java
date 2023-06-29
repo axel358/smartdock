@@ -64,13 +64,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.activities.MainActivity;
 import cu.axel.smartdock.adapters.AppAdapter;
 import cu.axel.smartdock.adapters.DockAppAdapter;
-import cu.axel.smartdock.adapters.DockAppAdapter2;
 import cu.axel.smartdock.db.DBHelper;
 import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.models.AppTask;
@@ -108,7 +108,7 @@ import android.view.animation.AnimationUtils;
 import android.animation.AnimatorListenerAdapter;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener,
-		View.OnTouchListener, AppAdapter.AppRightClickListener, DockAppAdapter.OnDockAppClickListener {
+		View.OnTouchListener, AppAdapter.OnAppClickListener, DockAppAdapter.OnDockAppClickListener {
 	private PackageManager pm;
 	private SharedPreferences sp;
 	private ActivityManager am;
@@ -124,8 +124,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			preferLastDisplay;
 	private WindowManager.LayoutParams dockLayoutParams;
 	private EditText searchEt;
-	private GridView appsGv, favoritesGv;
-	private RecyclerView tasksGv;
+	private RecyclerView tasksGv, favoritesGv, appsGv;
 	private WifiManager wifiManager;
 	private BatteryStatsReceiver batteryReceiver;
 	private SoundEventsReceiver soundEventsReceiver;
@@ -370,8 +369,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		searchEntry = appMenu.findViewById(R.id.search_entry);
 		searchEt = appMenu.findViewById(R.id.menu_et);
 		powerBtn = appMenu.findViewById(R.id.power_btn);
-		appsGv = appMenu.findViewById(R.id.menu_applist_lv);
+        appsGv = appMenu.findViewById(R.id.menu_applist_lv);
+		appsGv.setLayoutManager(new GridLayoutManager(context, 5));
 		favoritesGv = appMenu.findViewById(R.id.fav_applist_lv);
+		favoritesGv.setLayoutManager(new GridLayoutManager(context, 5));
 		searchLayout = appMenu.findViewById(R.id.search_layout);
 		searchTv = appMenu.findViewById(R.id.search_tv);
 		appsSeparator = appMenu.findViewById(R.id.apps_separator);
@@ -387,35 +388,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_POWER_DIALOG);
 
 			hideAppMenu();
-		});
-
-		appsGv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
-			App app = (App) p1.getItemAtPosition(p3);
-			if (app.getPackageName().equals(getPackageName() + ".calc")) {
-				ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-				cm.setPrimaryClip(ClipData.newPlainText("results", app.getName()));
-				Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
-			} else
-				launchApp(null, app.getPackageName());
-		});
-
-		appsGv.setOnItemLongClickListener((AdapterView<?> p1, View anchor, int p3, long p4) -> {
-			final String app = ((App) p1.getItemAtPosition(p3)).getPackageName();
-
-			if (!app.equals(getPackageName() + ".calc")) {
-				showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), anchor);
-			}
-			return true;
-		});
-
-		favoritesGv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
-			App app = (App) p1.getItemAtPosition(p3);
-			launchApp(null, app.getPackageName());
-		});
-
-		favoritesGv.setOnItemLongClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
-			showAppContextMenu(((App) p1.getItemAtPosition(p3)).getPackageName(), p2);
-			return true;
 		});
 
 		searchTv.setOnClickListener((View p1) -> {
@@ -439,7 +411,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				AppAdapter appAdapter = (AppAdapter) appsGv.getAdapter();
 
 				if (appAdapter != null)
-					appAdapter.getFilter().filter(p1.toString());
+					appAdapter.filter(p1.toString());
 
 				if (p1.length() > 1) {
 					searchLayout.setVisibility(View.VISIBLE);
@@ -633,6 +605,23 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	@Override
+	public void onAppClicked(App app, View anchor) {
+		if (app.getPackageName().equals(getPackageName() + ".calc")) {
+			ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+			cm.setPrimaryClip(ClipData.newPlainText("results", app.getName()));
+			Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
+		} else
+			launchApp(null, app.getPackageName());
+	}
+
+	@Override
+	public void onAppLongClicked(App app, View view) {
+		if (!app.getPackageName().equals(getPackageName() + ".calc")) {
+			showAppContextMenu(app.getPackageName(), view);
+		}
+	}
+
+	@Override
 	public void onAccessibilityEvent(AccessibilityEvent event) {
 		if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
 			//getSource() might throw an exception
@@ -784,11 +773,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			else
 				kc.setShowMode(AccessibilityService.SHOW_MODE_HIDDEN);
 		}
-	}
-
-	@Override
-	public void onAppRightClick(String app, View view) {
-		showAppContextMenu(app, view);
 	}
 
 	public void togglePin() {
@@ -1012,17 +996,18 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			lp.y = margins + dockHeight;
 
 			if (sp.getInt("dock_layout", -1) != 0) {
-				favoritesGv.setNumColumns(10);
-				appsGv.setVerticalSpacing(Utils.dpToPx(context, 45));
-				favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 45));
+				//appsGv.setVerticalSpacing(Utils.dpToPx(context, 45));
+				//favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 45));
 				int padding = Utils.dpToPx(context, 24);
 				appMenu.setPadding(padding, padding, padding, padding);
 				searchEntry.setGravity(Gravity.CENTER);
 				searchLayout.setGravity(Gravity.CENTER);
-				appsGv.setNumColumns(10);
+				appsGv.setLayoutManager(new GridLayoutManager(context, 10));
+				favoritesGv.setLayoutManager(new GridLayoutManager(context, 10));
+
 			} else {
-				appsGv.setNumColumns(5);
-				favoritesGv.setNumColumns(5);
+				appsGv.setLayoutManager(new GridLayoutManager(context, 5));
+				favoritesGv.setLayoutManager(new GridLayoutManager(context, 5));
 			}
 			//appMenu.setBackgroundResource(R.drawable.rect);
 			//ColorUtils.applyMainColor(context, sp, appMenu);
@@ -1034,10 +1019,10 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					context, preferLastDisplay);
 			lp.x = margins;
 			lp.y = margins + dockHeight;
-			favoritesGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
-			appsGv.setNumColumns(Integer.parseInt(sp.getString("num_columns", "5")));
-			appsGv.setVerticalSpacing(Utils.dpToPx(context, 5));
-			favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 5));
+			appsGv.setLayoutManager(new GridLayoutManager(context, Integer.parseInt(sp.getString("num_columns", "5"))));
+			favoritesGv.setLayoutManager(new GridLayoutManager(context, Integer.parseInt(sp.getString("num_columns", "5"))));
+			//appsGv.setVerticalSpacing(Utils.dpToPx(context, 5));
+			//favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 5));
 			int padding = Utils.dpToPx(context, 10);
 			appMenu.setPadding(padding, padding, padding, padding);
 			searchEntry.setGravity(Gravity.START);
@@ -1740,8 +1725,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void loadFavoriteApps() {
 		ArrayList<App> apps = AppUtils.getPinnedApps(context, pm, AppUtils.PINNED_LIST);
 		toggleFavorites(apps.size() > 0);
-		favoritesGv.setAdapter(new AppAdapter(context, this, apps));
-
+		favoritesGv.setAdapter(new AppAdapter(context, apps, this));
 	}
 
 	public void takeScreenshot() {
@@ -1785,7 +1769,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			super.onPostExecute(result);
 
 			//TODO: Implement efficent adapter
-			appsGv.setAdapter(new AppAdapter(DockService.this, DockService.this, result));
+			appsGv.setAdapter(new AppAdapter(context, result, DockService.this));
 
 		}
 
