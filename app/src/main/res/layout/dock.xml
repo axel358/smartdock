@@ -33,15 +33,14 @@
             android:paddingRight="10dp"
             android:visibility="gone" >
 
-            <GridView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/apps_lv"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
-                android:columnWidth="56dp"
-                android:numColumns="auto_fit"
-                android:stretchMode="none" />
+                android:fadingEdgeLength="6dp"
+                android:requiresFadingEdge="horizontal" />
 
             <LinearLayout
                 android:id="@+id/system_tray"
