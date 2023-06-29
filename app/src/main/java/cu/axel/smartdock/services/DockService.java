@@ -369,7 +369,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		searchEntry = appMenu.findViewById(R.id.search_entry);
 		searchEt = appMenu.findViewById(R.id.menu_et);
 		powerBtn = appMenu.findViewById(R.id.power_btn);
-        appsGv = appMenu.findViewById(R.id.menu_applist_lv);
+		appsGv = appMenu.findViewById(R.id.menu_applist_lv);
 		appsGv.setLayoutManager(new GridLayoutManager(context, 5));
 		favoritesGv = appMenu.findViewById(R.id.fav_applist_lv);
 		favoritesGv.setLayoutManager(new GridLayoutManager(context, 5));
@@ -418,6 +418,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					searchTv.setText(
 							getString(R.string.search_for) + " \"" + p1 + "\" " + getString(R.string.on_google));
 					toggleFavorites(false);
+
 				} else {
 					searchLayout.setVisibility(View.GONE);
 					toggleFavorites(AppUtils.getPinnedApps(context, pm, AppUtils.PINNED_LIST).size() > 0);
@@ -433,7 +434,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 											+ URLEncoder.encode(searchEt.getText().toString())))
 													.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 					return true;
-				}
+				} else if (p2 == KeyEvent.KEYCODE_DPAD_DOWN)
+					appsGv.requestFocus();
 			}
 			return false;
 		});
@@ -1020,7 +1022,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			lp.x = margins;
 			lp.y = margins + dockHeight;
 			appsGv.setLayoutManager(new GridLayoutManager(context, Integer.parseInt(sp.getString("num_columns", "5"))));
-			favoritesGv.setLayoutManager(new GridLayoutManager(context, Integer.parseInt(sp.getString("num_columns", "5"))));
+			favoritesGv.setLayoutManager(
+					new GridLayoutManager(context, Integer.parseInt(sp.getString("num_columns", "5"))));
 			//appsGv.setVerticalSpacing(Utils.dpToPx(context, 5));
 			//favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 5));
 			int padding = Utils.dpToPx(context, 10);
