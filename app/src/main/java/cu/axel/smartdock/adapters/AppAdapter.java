@@ -118,7 +118,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 	public void filter(String query) {
 		ArrayList<App> results = new ArrayList<>();
 
-		if (query.length() > 2) {
+		if (query.length() > 1) {
 			if (query.matches("^[0-9]+(\\.[0-9]+)?[-+/*][0-9]+(\\.[0-9]+)?")) {
 				results.add(new App(Utils.solve(query) + "", context.getPackageName() + ".calc",
 						context.getResources().getDrawable(R.drawable.ic_calculator, context.getTheme())));
