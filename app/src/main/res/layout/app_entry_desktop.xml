@@ -6,10 +6,10 @@
     android:focusable="true"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="6dp"
+    android:paddingBottom="8dp"
     android:paddingEnd="8dp"
     android:paddingStart="8dp"
-    android:paddingTop="6dp" >
+    android:paddingTop="8dp" >
 
     <ImageView
         android:id="@+id/app_icon_iv"
