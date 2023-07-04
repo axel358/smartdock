@@ -36,10 +36,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import cu.axel.smartdock.R;
+import cu.axel.smartdock.adapters.NotificationAdapter;
 import cu.axel.smartdock.services.NotificationService;
 import cu.axel.smartdock.utils.ColorUtils;
 import cu.axel.smartdock.utils.DeviceUtils;
@@ -55,7 +58,8 @@ import android.widget.ImageButton;
 import cu.axel.smartdock.utils.AppUtils;
 import android.view.KeyEvent;
 
-public class NotificationService extends NotificationListenerService {
+public class NotificationService extends NotificationListenerService
+		implements NotificationAdapter.OnNotificationClickListener {
 	private WindowManager wm;
 	private HoverInterceptorLayout notificationLayout;
 	private TextView notifTitle, notifText;
@@ -64,7 +68,7 @@ public class NotificationService extends NotificationListenerService {
 	private SharedPreferences sp;
 	private DockServiceReceiver dockReceiver;
 	private View notificationPanel;
-	private ListView notificationsLv;
+	private RecyclerView notificationsLv;
 	private NotificationManager nm;
 	private ImageButton cancelAllBtn;
 	private LinearLayout notifActionsLayout;
@@ -345,6 +349,7 @@ public class NotificationService extends NotificationListenerService {
 		notificationPanel = LayoutInflater.from(context).inflate(R.layout.notification_panel, null);
 		cancelAllBtn = notificationPanel.findViewById(R.id.cancel_all_n_btn);
 		notificationsLv = notificationPanel.findViewById(R.id.notification_lv);
+		notificationsLv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 		notificationArea = notificationPanel.findViewById(R.id.notification_area);
 		LinearLayout qsArea = notificationPanel.findViewById(R.id.qs_area);
 		ImageView dontDisturbBtn = notificationPanel.findViewById(R.id.dont_disturb_btn);
@@ -409,22 +414,6 @@ public class NotificationService extends NotificationListenerService {
 			launchApp("standard", getPackageName());
 		});
 
-		notificationsLv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
-			final StatusBarNotification sbn = (StatusBarNotification) p1.getItemAtPosition(p3);
-			final Notification notification = sbn.getNotification();
-
-			if (notification.contentIntent != null) {
-				hideNotificationPanel();
-				try {
-					notification.contentIntent.send();
-
-					if (sbn.isClearable())
-						cancelNotification(sbn.getKey());
-				} catch (PendingIntent.CanceledException e) {
-				}
-			}
-		});
-
 		cancelAllBtn.setOnClickListener((View p1) -> cancelAllNotifications());
 
 		dontDisturbBtn.setImageResource(sp.getBoolean("do_not_disturb", false) ? R.drawable.ic_do_not_disturb
@@ -439,7 +428,8 @@ public class NotificationService extends NotificationListenerService {
 		ColorUtils.applyMainColor(NotificationService.this, sp, notificationArea);
 		ColorUtils.applyMainColor(NotificationService.this, sp, qsArea);
 		wm.addView(notificationPanel, lp);
-		ColorUtils.applyColor(notificationsLv.getDivider(), ColorUtils.getMainColors(sp, this)[4]);
+		//ColorUtils.applyColor(notificationsLv.getDivider(), ColorUtils.getMainColors(sp, this)[4]);
+		notificationsLv.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
 
 		updateNotificationPanel();
 
@@ -469,16 +459,17 @@ public class NotificationService extends NotificationListenerService {
 	}
 
 	public void updateNotificationPanel() {
-		NotificationAdapter adapter = new NotificationAdapter(this, getActiveNotifications());
+		NotificationAdapter adapter = new NotificationAdapter(context, getActiveNotifications(), this);
 		notificationsLv.setAdapter(adapter);
 		ViewGroup.LayoutParams lp = notificationsLv.getLayoutParams();
 
-		int count = adapter.getCount();
+		int count = adapter.getItemCount();
 
 		if (count > 3) {
-			View item = adapter.getView(0, null, notificationsLv);
-			item.measure(0, 0);
-			lp.height = 3 * item.getMeasuredHeight();
+			//View item = notificationsLv.findViewHolderForAdapterPosition(0);
+			//item.measure(0, 0);
+			//lp.height = 3 * item.getMeasuredHeight();
+			lp.height = Utils.dpToPx(context, 350);
 		} else
 			lp.height = -2;
 
@@ -500,118 +491,28 @@ public class NotificationService extends NotificationListenerService {
 
 	}
 
-	class NotificationAdapter extends ArrayAdapter<StatusBarNotification> {
-		private Context context;
+	@Override
+	public void onNotificationClicked(StatusBarNotification sbn, View item) {
+		final Notification notification = sbn.getNotification();
 
-		public NotificationAdapter(Context context, StatusBarNotification[] notifications) {
-			super(context, R.layout.notification, notifications);
-			this.context = context;
-		}
+		if (notification.contentIntent != null) {
+			hideNotificationPanel();
+			try {
+				notification.contentIntent.send();
 
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-
-			final StatusBarNotification sbn = getItem(position);
-			final Notification notification = sbn.getNotification();
-
-			ViewHolder holder;
-
-			if (convertView == null) {
-				convertView = LayoutInflater.from(context).inflate(R.layout.notification_white, null);
-				holder = new ViewHolder();
-				holder.notifTitle = convertView.findViewById(R.id.notif_w_title_tv);
-				holder.notifText = convertView.findViewById(R.id.notif_w_text_tv);
-				holder.notifIcon = convertView.findViewById(R.id.notif_w_icon_iv);
-				holder.notifCancelBtn = convertView.findViewById(R.id.notif_w_close_btn);
-				holder.notifActionsLayout = convertView.findViewById(R.id.notif_actions_container);
-				convertView.setTag(holder);
-
-			} else
-				holder = (ViewHolder) convertView.getTag();
-
-			Notification.Action[] actions = notification.actions;
-			Bundle extras = notification.extras;
-
-			holder.notifActionsLayout.removeAllViews();
-
-			if (actions != null) {
-				LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);
-				lp.weight = 1f;
-
-				if (extras.get(Notification.EXTRA_MEDIA_SESSION) != null) {
-					for (final Notification.Action action : actions) {
-						ImageView actionTv = new ImageView(NotificationService.this);
-						try {
-							Resources res = getPackageManager().getResourcesForApplication(sbn.getPackageName());
-
-							Drawable drawable = res
-									.getDrawable(res.getIdentifier(action.icon + "", "drawable", sbn.getPackageName()));
-							drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-							actionTv.setImageDrawable(drawable);
-							actionTv.setOnClickListener((View p1) -> {
-								try {
-									action.actionIntent.send();
-								} catch (PendingIntent.CanceledException e) {
-								}
-							});
-
-							holder.notifActionsLayout.addView(actionTv, lp);
-
-						} catch (PackageManager.NameNotFoundException e) {
-
-						}
-					}
-				} else {
-					for (final Notification.Action action : actions) {
-						TextView actionTv = new TextView(NotificationService.this);
-						actionTv.setTextColor(Color.WHITE);
-						actionTv.setSingleLine(true);
-						actionTv.setText(action.title);
-						actionTv.setOnClickListener((View p1) -> {
-							try {
-								action.actionIntent.send();
-							} catch (PendingIntent.CanceledException e) {
-							}
-						});
-						holder.notifActionsLayout.addView(actionTv, lp);
-					}
-				}
+				if (sbn.isClearable())
+					cancelNotification(sbn.getKey());
+			} catch (PendingIntent.CanceledException e) {
 			}
-
-			String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
-			if (notificationTitle == null)
-				notificationTitle = AppUtils.getPackageLabel(context, sbn.getPackageName());
-			CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
-			int progress = extras.getInt(Notification.EXTRA_PROGRESS);
-
-			String p = progress != 0 ? " " + progress + "%" : "";
-
-			holder.notifTitle.setText(notificationTitle + p);
-			holder.notifText.setText(notificationText);
-
-			Drawable notificationIcon = AppUtils.getAppIcon(context, sbn.getPackageName());
-			holder.notifIcon.setImageDrawable(notificationIcon);
-			ColorUtils.applyColor(holder.notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
-
-			if (sbn.isClearable()) {
-
-				holder.notifCancelBtn.setAlpha(1f);
-				holder.notifCancelBtn.setOnClickListener((View p1) -> {
-
-					if (sbn.isClearable())
-						cancelNotification(sbn.getKey());
-				});
-			} else
-				holder.notifCancelBtn.setAlpha(0f);
-
-			return convertView;
 		}
+	}
 
-		private class ViewHolder {
-			ImageView notifIcon, notifCancelBtn;
-			TextView notifTitle, notifText;
-			LinearLayout notifActionsLayout;
-		}
+	@Override
+	public void onNotificationLongClicked(StatusBarNotification notification, View item) {
+	}
 
+	@Override
+	public void onNotificationCancelClicked(StatusBarNotification notification, View item) {
+		cancelNotification(notification.getKey());
 	}
 }
