@@ -77,7 +77,6 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 	@Override
 	public void onBindViewHolder(ViewHolder viewHolder, int position) {
 		App app = apps.get(position);
-		//viewHolder.nameTv.setText(app.getName());
 
 		String name = app.getName();
 

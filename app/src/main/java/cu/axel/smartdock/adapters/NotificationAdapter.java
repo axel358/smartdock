@@ -40,6 +40,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 	private int iconBackground;
 	private final int iconPadding;
 	private boolean iconTheming;
+	private IconParserUtilities iconParserUtilities;
 
 	public interface OnNotificationClickListener {
 		void onNotificationClicked(StatusBarNotification notification, View item);
@@ -57,6 +58,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		iconTheming = !sp.getString("icon_pack", "").equals("");
 		iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
+		iconParserUtilities = new IconParserUtilities(context);
+
 		switch (sp.getString("icon_shape", "circle")) {
 		case "circle":
 			iconBackground = R.drawable.circle;
@@ -143,10 +146,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 		viewHolder.notifTitle.setText(notificationTitle + p);
 		viewHolder.notifText.setText(notificationText);
 
-		Drawable notificationIcon = AppUtils.getAppIcon(context, sbn.getPackageName());
-		viewHolder.notifIcon.setImageDrawable(notificationIcon);
-		ColorUtils.applyColor(viewHolder.notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
-
 		if (sbn.isClearable()) {
 
 			viewHolder.notifCancelBtn.setAlpha(1f);
@@ -158,6 +157,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 			});
 		} else
 			viewHolder.notifCancelBtn.setAlpha(0f);
+
+		Drawable notificationIcon = AppUtils.getAppIcon(context, sbn.getPackageName());
+		
+		if (iconTheming)
+			viewHolder.notifIcon.setImageDrawable(iconParserUtilities.getPackageThemedIcon(sbn.getPackageName()));
+		else
+			viewHolder.notifIcon.setImageDrawable(notificationIcon);
+
+		if (iconBackground != -1) {
+			viewHolder.notifIcon.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
+			viewHolder.notifIcon.setBackgroundResource(iconBackground);
+			ColorUtils.applyColor(viewHolder.notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
+		}
 
 		viewHolder.bind(sbn, listener);
 	}

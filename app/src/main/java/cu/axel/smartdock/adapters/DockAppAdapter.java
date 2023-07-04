@@ -30,6 +30,7 @@ public class DockAppAdapter extends RecyclerView.Adapter<DockAppAdapter.ViewHold
 	private int iconBackground;
 	private final int iconPadding;
 	private boolean iconTheming, tintIndicators;
+	private IconParserUtilities iconParserUtilities;
 
 	public interface OnDockAppClickListener {
 		void onDockAppClicked(DockApp app, View item);
@@ -44,6 +45,7 @@ public class DockAppAdapter extends RecyclerView.Adapter<DockAppAdapter.ViewHold
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		iconTheming = !sp.getString("icon_pack", "").equals("");
 		iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
+		
 		tintIndicators = sp.getBoolean("tint_indicators", false);
 		switch (sp.getString("icon_shape", "circle")) {
 		case "circle":
@@ -88,8 +90,6 @@ public class DockAppAdapter extends RecyclerView.Adapter<DockAppAdapter.ViewHold
 				viewHolder.taskCounter.setAlpha(1f);
 			}
 		}
-
-		IconParserUtilities iconParserUtilities = new IconParserUtilities(context);
 
 		if (iconTheming || size > 1)
 			viewHolder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.getPackageName()));

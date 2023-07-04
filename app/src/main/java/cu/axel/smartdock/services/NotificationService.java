@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.adapters.NotificationAdapter;
+import cu.axel.smartdock.icons.IconParserUtilities;
 import cu.axel.smartdock.services.NotificationService;
 import cu.axel.smartdock.utils.ColorUtils;
 import cu.axel.smartdock.utils.DeviceUtils;
@@ -75,6 +76,7 @@ public class NotificationService extends NotificationListenerService
 	private Context context;
 	private LinearLayout notificationArea;
 	private boolean preferLastDisplay;
+	private IconParserUtilities iconParserUtilities;
 
 	@Override
 	public void onCreate() {
@@ -85,6 +87,7 @@ public class NotificationService extends NotificationListenerService
 		context = DeviceUtils.getDisplayContext(this, preferLastDisplay);
 		wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		iconParserUtilities = new IconParserUtilities(context);
 
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
 				preferLastDisplay);
@@ -167,13 +170,39 @@ public class NotificationService extends NotificationListenerService
 
 					CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
 
-					ColorUtils.applySecondaryColor(NotificationService.this, sp, notifIcon);
 					ColorUtils.applyMainColor(NotificationService.this, sp, notificationLayout);
 					ColorUtils.applySecondaryColor(NotificationService.this, sp, notifCancelBtn);
 
 					Drawable notificationIcon = AppUtils.getAppIcon(context, sbn.getPackageName());
 					notifIcon.setImageDrawable(notificationIcon);
-					ColorUtils.applyColor(notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
+
+
+					boolean iconTheming = !sp.getString("icon_pack", "").equals("");
+					int iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
+					int iconBackground = -1;
+					
+					switch (sp.getString("icon_shape", "circle")) {
+					case "circle":
+						iconBackground = R.drawable.circle;
+						break;
+					case "round_rect":
+						iconBackground = R.drawable.round_square;
+						break;
+					case "default":
+						iconBackground = -1;
+						break;
+					}
+
+					if (iconTheming)
+						notifIcon.setImageDrawable(iconParserUtilities.getPackageThemedIcon(sbn.getPackageName()));
+					else
+						notifIcon.setImageDrawable(notificationIcon);
+
+					if (iconBackground != -1) {
+						notifIcon.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
+						notifIcon.setBackgroundResource(iconBackground);
+						ColorUtils.applyColor(notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon));
+					}
 
 					int progress = extras.getInt(Notification.EXTRA_PROGRESS);
 
@@ -293,6 +322,7 @@ public class NotificationService extends NotificationListenerService
 
 					hideNotification();
 				}
+				
 			}
 		}
 	}
