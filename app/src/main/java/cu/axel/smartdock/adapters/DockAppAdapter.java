@@ -38,14 +38,16 @@ public class DockAppAdapter extends RecyclerView.Adapter<DockAppAdapter.ViewHold
 		void onDockAppLongClicked(DockApp app, View item);
 	}
 
-	public DockAppAdapter(Context context, ArrayList<DockApp> apps, OnDockAppClickListener listener) {
+	public DockAppAdapter(Context context, IconParserUtilities iconParserUtilities, ArrayList<DockApp> apps,
+			OnDockAppClickListener listener) {
 		this.apps = apps;
 		this.listener = listener;
 		this.context = context;
+		this.iconParserUtilities = iconParserUtilities;
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		iconTheming = !sp.getString("icon_pack", "").equals("");
 		iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
-		
+
 		tintIndicators = sp.getBoolean("tint_indicators", false);
 		switch (sp.getString("icon_shape", "circle")) {
 		case "circle":

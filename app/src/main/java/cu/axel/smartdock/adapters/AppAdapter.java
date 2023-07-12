@@ -40,14 +40,15 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 		void onAppLongClicked(App app, View item);
 	}
 
-	public AppAdapter(Context context, ArrayList<App> apps, OnAppClickListener listener, boolean large) {
+	public AppAdapter(Context context, IconParserUtilities iconParserUtilities, ArrayList<App> apps,
+			OnAppClickListener listener, boolean large) {
 		this.context = context;
 		this.listener = listener;
 		this.apps = apps;
 		this.large = large;
 		this.allApps = new ArrayList<App>(apps);
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-		iconParserUtilities = new IconParserUtilities(context);
+		this.iconParserUtilities = iconParserUtilities;
 		iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
 		iconTheming = !sp.getString("icon_pack", "").equals("");
 

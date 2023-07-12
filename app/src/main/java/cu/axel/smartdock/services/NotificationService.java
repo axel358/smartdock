@@ -176,11 +176,10 @@ public class NotificationService extends NotificationListenerService
 					Drawable notificationIcon = AppUtils.getAppIcon(context, sbn.getPackageName());
 					notifIcon.setImageDrawable(notificationIcon);
 
-
 					boolean iconTheming = !sp.getString("icon_pack", "").equals("");
 					int iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
 					int iconBackground = -1;
-					
+
 					switch (sp.getString("icon_shape", "circle")) {
 					case "circle":
 						iconBackground = R.drawable.circle;
@@ -322,7 +321,7 @@ public class NotificationService extends NotificationListenerService
 
 					hideNotification();
 				}
-				
+
 			}
 		}
 	}
@@ -459,7 +458,14 @@ public class NotificationService extends NotificationListenerService
 		ColorUtils.applyMainColor(NotificationService.this, sp, qsArea);
 		wm.addView(notificationPanel, lp);
 		//ColorUtils.applyColor(notificationsLv.getDivider(), ColorUtils.getMainColors(sp, this)[4]);
-		notificationsLv.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
+		DividerItemDecoration separator = new DividerItemDecoration(context, LinearLayoutManager.VERTICAL);
+		Drawable separatorBackground = context.getDrawable(R.drawable.running_indicator);
+		separatorBackground.setColorFilter(ColorUtils.getMainColors(sp, this)[4], PorterDuff.Mode.SRC_ATOP);
+
+		//MaterialDividerItemDecoration separator = new MaterialDividerItemDecoration(context, LinearLayoutManager.VERTICAL);
+		//separator.setDividerColor(ColorUtils.getMainColors(sp, this)[4]);
+		//separator.setLastItemDecorated(false);
+		notificationsLv.addItemDecoration(separator);
 
 		updateNotificationPanel();
 

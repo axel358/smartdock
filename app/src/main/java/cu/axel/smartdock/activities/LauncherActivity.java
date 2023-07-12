@@ -65,6 +65,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 	private EditText notesEt;
 	private SharedPreferences sp;
 	private float x, y;
+	private IconParserUtilities iconParserUtilities;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,8 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		appsGv.setLayoutManager(new GridLayoutManager(this, 2));
 		notesEt = findViewById(R.id.notes_et);
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
+		iconParserUtilities = new IconParserUtilities(this);
+		
 
 		serviceBtn.setOnClickListener((View p1) -> {
 			startActivity(new Intent(LauncherActivity.this, MainActivity.class));
@@ -144,7 +147,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 
 	public void loadDesktopApps() {
 		appsGv.setAdapter(
-				new AppAdapter(this, AppUtils.getPinnedApps(this, getPackageManager(), AppUtils.DESKTOP_LIST), this, true));
+				new AppAdapter(this, iconParserUtilities, AppUtils.getPinnedApps(this, getPackageManager(), AppUtils.DESKTOP_LIST), this, true));
 	}
 
 	@Override

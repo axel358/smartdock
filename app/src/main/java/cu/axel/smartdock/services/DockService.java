@@ -72,6 +72,7 @@ import cu.axel.smartdock.activities.MainActivity;
 import cu.axel.smartdock.adapters.AppAdapter;
 import cu.axel.smartdock.adapters.DockAppAdapter;
 import cu.axel.smartdock.db.DBHelper;
+import cu.axel.smartdock.icons.IconParserUtilities;
 import cu.axel.smartdock.models.App;
 import cu.axel.smartdock.models.AppTask;
 import cu.axel.smartdock.receivers.BatteryStatsReceiver;
@@ -139,6 +140,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private long lastUpdate;
 	private int maxApps;
 	private Context context;
+	private IconParserUtilities iconParserUtilities;
 
 	@Override
 	public void onCreate() {
@@ -155,6 +157,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 		bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
 		dockHandler = new Handler(Looper.getMainLooper());
+		iconParserUtilities = new IconParserUtilities(context);
+		
 	}
 
 	@Override
@@ -1393,7 +1397,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				apps.add(new DockApp(task));
 		}
 		tasksGv.getLayoutParams().width = gridSize * apps.size();
-		tasksGv.setAdapter(new DockAppAdapter(context, apps, this));
+		tasksGv.setAdapter(new DockAppAdapter(context, iconParserUtilities, apps, this));
 
 		//TODO: Move context outta here
 		wifiBtn.setImageResource(wifiManager.isWifiEnabled() ? R.drawable.ic_wifi_on : R.drawable.ic_wifi_off);
@@ -1731,7 +1735,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		boolean menuFullscreen = sp.getBoolean("app_menu_fullscreen", false);
 		boolean phoneLayout = sp.getInt("dock_layout", -1) == 0;
 
-		favoritesGv.setAdapter(new AppAdapter(context, apps, this, menuFullscreen && !phoneLayout));
+		favoritesGv.setAdapter(new AppAdapter(context, iconParserUtilities, apps, this, menuFullscreen && !phoneLayout));
 	}
 
 	public void takeScreenshot() {
@@ -1778,7 +1782,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			boolean menuFullscreen = sp.getBoolean("app_menu_fullscreen", false);
 			boolean phoneLayout = sp.getInt("dock_layout", -1) == 0;
 
-			appsGv.setAdapter(new AppAdapter(context, result, DockService.this, menuFullscreen && !phoneLayout));
+			appsGv.setAdapter(new AppAdapter(context, iconParserUtilities, result, DockService.this, menuFullscreen && !phoneLayout));
 
 		}
 
