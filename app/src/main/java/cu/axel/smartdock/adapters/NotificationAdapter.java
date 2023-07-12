@@ -50,15 +50,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 		void onNotificationCancelClicked(StatusBarNotification notification, View item);
 	}
 
-	public NotificationAdapter(Context context, StatusBarNotification[] notifications,
-			OnNotificationClickListener listener) {
+	public NotificationAdapter(Context context, IconParserUtilities iconParserUtilities,
+			StatusBarNotification[] notifications, OnNotificationClickListener listener) {
 		this.notifications = notifications;
 		this.listener = listener;
 		this.context = context;
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		iconTheming = !sp.getString("icon_pack", "").equals("");
 		iconPadding = Utils.dpToPx(context, Integer.parseInt(sp.getString("icon_padding", "5")));
-		iconParserUtilities = new IconParserUtilities(context);
+		this.iconParserUtilities = iconParserUtilities;
 
 		switch (sp.getString("icon_shape", "circle")) {
 		case "circle":
@@ -159,7 +159,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 			viewHolder.notifCancelBtn.setAlpha(0f);
 
 		Drawable notificationIcon = AppUtils.getAppIcon(context, sbn.getPackageName());
-		
+
 		if (iconTheming)
 			viewHolder.notifIcon.setImageDrawable(iconParserUtilities.getPackageThemedIcon(sbn.getPackageName()));
 		else

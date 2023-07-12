@@ -495,7 +495,7 @@ public class NotificationService extends NotificationListenerService
 	}
 
 	public void updateNotificationPanel() {
-		NotificationAdapter adapter = new NotificationAdapter(context, getActiveNotifications(), this);
+		NotificationAdapter adapter = new NotificationAdapter(context, iconParserUtilities, getActiveNotifications(), this);
 		notificationsLv.setAdapter(adapter);
 		ViewGroup.LayoutParams lp = notificationsLv.getLayoutParams();
 
