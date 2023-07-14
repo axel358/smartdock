@@ -3,10 +3,16 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
+	android:clickable="true"
+	android:focusable="true"
+	android:paddingBottom="3dp"
+	android:paddingTop="3dp"
+	android:background="?android:attr/selectableItemBackground"
 	android:orientation="vertical"
 	android:gravity="center">
 
 	<ImageView
+		android:src="@mipmap/ic_launcher"
 		android:layout_height="40dp"
 		android:layout_width="40dp"
 		android:id="@+id/app_icon_iv"
