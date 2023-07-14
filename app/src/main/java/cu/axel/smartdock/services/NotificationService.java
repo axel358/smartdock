@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.preference.PreferenceManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
@@ -41,6 +42,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.divider.MaterialDividerItemDecoration;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.adapters.NotificationAdapter;
 import cu.axel.smartdock.icons.IconParserUtilities;
@@ -457,14 +459,11 @@ public class NotificationService extends NotificationListenerService
 		ColorUtils.applyMainColor(NotificationService.this, sp, notificationArea);
 		ColorUtils.applyMainColor(NotificationService.this, sp, qsArea);
 		wm.addView(notificationPanel, lp);
-		//ColorUtils.applyColor(notificationsLv.getDivider(), ColorUtils.getMainColors(sp, this)[4]);
-		DividerItemDecoration separator = new DividerItemDecoration(context, LinearLayoutManager.VERTICAL);
-		Drawable separatorBackground = context.getDrawable(R.drawable.running_indicator);
-		separatorBackground.setColorFilter(ColorUtils.getMainColors(sp, this)[4], PorterDuff.Mode.SRC_ATOP);
-
-		//MaterialDividerItemDecoration separator = new MaterialDividerItemDecoration(context, LinearLayoutManager.VERTICAL);
-		//separator.setDividerColor(ColorUtils.getMainColors(sp, this)[4]);
-		//separator.setLastItemDecorated(false);
+		
+		MaterialDividerItemDecoration separator = new MaterialDividerItemDecoration(
+				new ContextThemeWrapper(context, R.style.AppTheme_Dock), LinearLayoutManager.VERTICAL);
+		separator.setDividerColor(ColorUtils.getMainColors(sp, context)[4]);
+		separator.setLastItemDecorated(false);
 		notificationsLv.addItemDecoration(separator);
 
 		updateNotificationPanel();
@@ -495,7 +494,8 @@ public class NotificationService extends NotificationListenerService
 	}
 
 	public void updateNotificationPanel() {
-		NotificationAdapter adapter = new NotificationAdapter(context, iconParserUtilities, getActiveNotifications(), this);
+		NotificationAdapter adapter = new NotificationAdapter(context, iconParserUtilities, getActiveNotifications(),
+				this);
 		notificationsLv.setAdapter(adapter);
 		ViewGroup.LayoutParams lp = notificationsLv.getLayoutParams();
 
