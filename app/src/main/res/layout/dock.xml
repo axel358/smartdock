@@ -128,14 +128,14 @@
                     android:id="@+id/apps_btn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_margin="9dp"
+                    android:layout_margin="6dp"
                     android:src="@drawable/ic_apps" />
 
                 <ImageView
                     android:id="@+id/back_btn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_margin="9dp"
+                    android:layout_margin="6dp"
                     android:background="@drawable/circle"
                     android:padding="10dp"
                     android:src="@drawable/ic_back"
@@ -147,13 +147,14 @@
                     android:layout_height="40dp"
                     android:background="@drawable/circle"
                     android:padding="10dp"
+					android:layout_margin="6dp"
                     android:src="@drawable/ic_home" />
 
                 <ImageView
                     android:id="@+id/recents_btn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_margin="9dp"
+                    android:layout_margin="6dp"
                     android:background="@drawable/circle"
                     android:padding="10dp"
                     android:src="@drawable/ic_recents" />
@@ -162,7 +163,7 @@
                     android:id="@+id/assist_btn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_margin="5dp"
+                    android:layout_margin="6dp"
                     android:background="@drawable/circle"
                     android:padding="8dp"
                     android:src="@drawable/ic_assistant" />
