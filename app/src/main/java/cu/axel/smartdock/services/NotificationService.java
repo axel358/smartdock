@@ -102,7 +102,7 @@ public class NotificationService extends NotificationListenerService
 			lp.y = 5;
 		}
 
-		notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification, null);
+		notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification_popup, null);
 		notificationLayout.setVisibility(View.GONE);
 
 		notifTitle = notificationLayout.findViewById(R.id.notif_title_tv);
