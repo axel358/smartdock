@@ -69,7 +69,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int arg1) {
 		View itemLayoutView = LayoutInflater.from(context)
-				.inflate(large ? R.layout.app_entry_desktop : R.layout.app_entry, null);
+				.inflate(large ? R.layout.app_entry_large : R.layout.app_entry, null);
 
 		ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 		return viewHolder;
