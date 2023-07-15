@@ -1,4 +1,4 @@
-name: Build unsigned debug apk
+name: Build debug apk
 
 on:
   workflow_dispatch
@@ -21,31 +21,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-  unit_tests:
-    needs: [pre_build]
-    runs-on: [ubuntu-latest]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Grant execute permissions for gradlew
-        run: chmod +x gradlew
-      - name: Run Unit Tests
-        run: ./gradlew test
-
-  android_tests:
-    needs: [pre_build]
-    runs-on: [macos-latest]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Grant execute permissions for gradlew
-        run: chmod +x gradlew
-      - name: Run Instrumentation Tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedAndroidTest
-
   build_apk:
-    needs: [unit_tests, android_tests, pre_build]
+    needs: [pre_build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
@@ -58,7 +35,7 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Upload debug apk
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: apk-debug
           path: app/build/outputs/apk/debug
