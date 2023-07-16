@@ -6,7 +6,7 @@
 		android:title="@string/appearance" 
 		app:fragment="cu.axel.smartdock.fragments.AppearancePreferences" />
     <Preference
-		android:icon="@drawable/ic_app_menu" 
+		android:icon="@drawable/ic_apps_menu" 
 		app:fragment="cu.axel.smartdock.fragments.AppMenuPreferences" 
 		android:title="@string/app_menu"  />
 	<Preference 
@@ -42,7 +42,7 @@
         android:fragment="cu.axel.smartdock.fragments.AdvancedPreferences"
         android:title="@string/advanced" />
     <Preference
-        android:icon="@drawable/ic_about"
+        android:icon="@drawable/ic_info"
         android:fragment="cu.axel.smartdock.fragments.HelpAboutPreferences"
         android:title="@string/help_and_about" />
 
