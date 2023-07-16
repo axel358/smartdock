@@ -8,7 +8,7 @@
 	   android:id="@+id/action_switch_layout"/>  
 	
 	<item
-        android:icon="@drawable/ic_manage_service"
+        android:icon="@drawable/ic_settings"
 		app:showAsAction="always"
         android:id="@+id/action_grant_permissions"
         android:title="Manage permissions"/>

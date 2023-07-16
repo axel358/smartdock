@@ -1712,7 +1712,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void updateMenuIcon() {
 		String iconUri = sp.getString("menu_icon_uri", "default");
 		if (iconUri.equals("default"))
-			appsBtn.setImageResource(R.drawable.ic_apps);
+			appsBtn.setImageResource(R.drawable.ic_apps_menu);
 		else {
 			try {
 				Uri icon = Uri.parse(iconUri);

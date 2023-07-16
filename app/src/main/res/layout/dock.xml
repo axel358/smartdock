@@ -129,7 +129,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="6dp"
-                    android:src="@drawable/ic_apps" />
+                    android:src="@drawable/ic_apps_menu" />
 
                 <ImageView
                     android:id="@+id/back_btn"
