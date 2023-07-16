@@ -40,8 +40,8 @@
             android:id="@+id/notification_lv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@drawable/running_indicator"
-            android:dividerHeight="2dp" />
+            android:fadingEdgeLength="6dp"
+            android:requiresFadingEdge="vertical" />
     </LinearLayout>
 
     <LinearLayout
