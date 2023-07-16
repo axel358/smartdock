@@ -102,7 +102,8 @@ public class NotificationService extends NotificationListenerService
 			lp.y = 5;
 		}
 
-		notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification_popup, null);
+		notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification_popup,
+				null);
 		notificationLayout.setVisibility(View.GONE);
 
 		notifTitle = notificationLayout.findViewById(R.id.notif_title_tv);
@@ -373,7 +374,7 @@ public class NotificationService extends NotificationListenerService
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 400), -2, context,
 				preferLastDisplay);
 		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
-		lp.y = Utils.dpToPx(context, 60);
+		lp.y = Utils.dpToPx(context, 58);
 		lp.x = Utils.dpToPx(context, 2);
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
@@ -459,7 +460,7 @@ public class NotificationService extends NotificationListenerService
 		ColorUtils.applyMainColor(NotificationService.this, sp, notificationArea);
 		ColorUtils.applyMainColor(NotificationService.this, sp, qsArea);
 		wm.addView(notificationPanel, lp);
-		
+
 		MaterialDividerItemDecoration separator = new MaterialDividerItemDecoration(
 				new ContextThemeWrapper(context, R.style.AppTheme_Dock), LinearLayoutManager.VERTICAL);
 		separator.setDividerColor(ColorUtils.getMainColors(sp, context)[4]);
@@ -502,10 +503,7 @@ public class NotificationService extends NotificationListenerService
 		int count = adapter.getItemCount();
 
 		if (count > 3) {
-			//View item = notificationsLv.findViewHolderForAdapterPosition(0);
-			//item.measure(0, 0);
-			//lp.height = 3 * item.getMeasuredHeight();
-			lp.height = Utils.dpToPx(context, 350);
+			lp.height = Utils.dpToPx(context, 232);
 		} else
 			lp.height = -2;
 
