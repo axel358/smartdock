@@ -64,7 +64,7 @@
                 android:id="@+id/dont_disturb_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/circle_gray"
+                android:background="@drawable/circle"
                 android:padding="9dp"
                 android:src="@drawable/ic_do_not_disturb" />
         </LinearLayout>
@@ -81,7 +81,7 @@
                 android:id="@+id/btn_orientation"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/circle_gray"
+                android:background="@drawable/circle"
                 android:padding="9dp"
                 android:src="@drawable/ic_screen_rotation_off" />
         </LinearLayout>
@@ -98,7 +98,7 @@
                 android:id="@+id/btn_touch_mode"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/circle_gray"
+                android:background="@drawable/circle"
                 android:padding="9dp"
                 android:src="@drawable/ic_touch_mode" />
         </LinearLayout>
@@ -115,7 +115,7 @@
                 android:id="@+id/btn_screenshot"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/circle_gray"
+                android:background="@drawable/circle"
                 android:padding="9dp"
                 android:src="@drawable/ic_screenshot" />
         </LinearLayout>
@@ -132,7 +132,7 @@
                 android:id="@+id/btn_screencast"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/circle_gray"
+                android:background="@drawable/circle"
                 android:padding="9dp"
                 android:src="@drawable/ic_screencap" />
         </LinearLayout>
@@ -149,7 +149,7 @@
                 android:id="@+id/btn_settings"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/circle_gray"
+                android:background="@drawable/circle"
                 android:padding="9dp"
                 android:src="@drawable/ic_settings" />
         </LinearLayout>
