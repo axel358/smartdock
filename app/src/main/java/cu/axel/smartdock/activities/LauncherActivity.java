@@ -1,5 +1,6 @@
 package cu.axel.smartdock.activities;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,7 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.media.audiofx.Visualizer;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.preference.PreferenceManager;
@@ -47,6 +50,7 @@ import cu.axel.smartdock.utils.AppUtils;
 import cu.axel.smartdock.utils.ColorUtils;
 import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
+import cu.axel.smartdock.widgets.VisualizerView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -58,7 +62,7 @@ import cu.axel.smartdock.utils.DeepShortcutManager;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
 import android.widget.Adapter;
 
-public class LauncherActivity extends AppCompatActivity implements AppAdapter.OnAppClickListener {
+public class LauncherActivity extends AppCompatActivity implements AppAdapter.OnAppClickListener, Visualizer.OnDataCaptureListener {
 	private LinearLayout backgroundLayout;
 	private MaterialButton serviceBtn;
 	private RecyclerView appsGv;
@@ -66,6 +70,9 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 	private SharedPreferences sp;
 	private float x, y;
 	private IconParserUtilities iconParserUtilities;
+	private VisualizerView visualizerView;
+	private Visualizer visualizer;
+	private final int AUDIO_REQUEST_CODE = 57;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +85,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		notesEt = findViewById(R.id.notes_et);
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		iconParserUtilities = new IconParserUtilities(this);
-		
+		visualizerView = findViewById(R.id.visualizer_view);
 
 		serviceBtn.setOnClickListener((View p1) -> {
 			startActivity(new Intent(LauncherActivity.this, MainActivity.class));
@@ -146,8 +153,8 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 	}
 
 	public void loadDesktopApps() {
-		appsGv.setAdapter(
-				new AppAdapter(this, iconParserUtilities, AppUtils.getPinnedApps(this, getPackageManager(), AppUtils.DESKTOP_LIST), this, true));
+		appsGv.setAdapter(new AppAdapter(this, iconParserUtilities,
+				AppUtils.getPinnedApps(this, getPackageManager(), AppUtils.DESKTOP_LIST), this, true));
 	}
 
 	@Override
@@ -169,6 +176,12 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		} else {
 			notesEt.setVisibility(View.GONE);
 		}
+
+		if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
+			requestPermissions(new String[] { Manifest.permission.RECORD_AUDIO }, AUDIO_REQUEST_CODE);
+		else
+			startVisualiser();
+
 		appsGv.requestFocus();
 	}
 
@@ -177,6 +190,31 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		super.onPause();
 		if (sp.getBoolean("show_notes", false))
 			saveNotes();
+
+		if (visualizer != null) {
+			visualizer.setEnabled(false);
+			visualizer.release();
+			visualizer.setDataCaptureListener(null, 0, false, false);
+		}
+	}
+	
+	@Override
+    public void onWaveFormDataCapture(Visualizer thisVisualiser, byte[] waveform, int samplingRate) {
+        if (visualizerView != null) {
+            visualizerView.setAudioData(waveform);
+        }
+    }
+
+    @Override
+    public void onFftDataCapture(Visualizer thisVisualiser, byte[] fft, int samplingRate) {
+    }
+
+	private void startVisualiser() {
+		visualizer = new Visualizer(0);
+		visualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+		visualizer.setDataCaptureListener(this, Visualizer.getMaxCaptureRate() - Visualizer.getMaxCaptureRate() / 4,
+				true, false);
+		visualizer.setEnabled(true);
 	}
 
 	@Override

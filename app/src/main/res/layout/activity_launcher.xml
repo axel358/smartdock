@@ -1,49 +1,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_background"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
     <LinearLayout
+		android:layout_weight="1.0"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.0"
-        android:orientation="vertical"
-        android:padding="10dp" >
+        android:layout_height="wrap_content" >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/desktop_apps_gv"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/desktop_apps_gv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/service_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:text="@string/lets_start" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:gravity="right"
+            android:orientation="vertical"
+            android:padding="16dp" >
+
+            <EditText
+                android:id="@+id/notes_et"
+                android:layout_width="230dp"
+                android:layout_height="260dp"
+                android:background="@drawable/notes_background"
+                android:ems="10"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:textColor="#FF121212"
+                android:textSize="17sp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/service_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lets_start" />
-
-    <LinearLayout
+    <cu.axel.smartdock.widgets.VisualizerView
+		android:layout_marginBottom="55dp"
+        android:id="@+id/visualizer_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.0"
-        android:gravity="right"
-        android:orientation="vertical"
-        android:padding="16dp" >
-
-        <EditText
-            android:id="@+id/notes_et"
-            android:layout_width="230dp"
-            android:layout_height="260dp"
-            android:background="@drawable/notes_background"
-            android:ems="10"
-            android:gravity="start"
-            android:inputType="textMultiLine"
-            android:padding="10dp"
-            android:textColor="#FF121212"
-            android:textSize="17sp" />
-    </LinearLayout>
+        android:layout_height="100dp" />
 
 </LinearLayout>
