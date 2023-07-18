@@ -4,4 +4,9 @@
         android:key="show_notes"
         android:title="@string/show_notes_title"
 		android:defaultValue="false" />
+		
+	<CheckBoxPreference
+        android:key="show_visualizer"
+        android:title="Show adio visualizer widget"
+		android:defaultValue="false" />
 </PreferenceScreen>

@@ -62,7 +62,8 @@ import cu.axel.smartdock.utils.DeepShortcutManager;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
 import android.widget.Adapter;
 
-public class LauncherActivity extends AppCompatActivity implements AppAdapter.OnAppClickListener, Visualizer.OnDataCaptureListener {
+public class LauncherActivity extends AppCompatActivity
+		implements AppAdapter.OnAppClickListener, Visualizer.OnDataCaptureListener {
 	private LinearLayout backgroundLayout;
 	private MaterialButton serviceBtn;
 	private RecyclerView appsGv;
@@ -178,10 +179,12 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 			notesEt.setVisibility(View.GONE);
 		}
 
-		if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
-			requestPermissions(new String[] { Manifest.permission.RECORD_AUDIO }, AUDIO_REQUEST_CODE);
-		else
-			startVisualiser();
+		if (sp.getBoolean("show_visualizer", false)) {
+			if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
+				requestPermissions(new String[] { Manifest.permission.RECORD_AUDIO }, AUDIO_REQUEST_CODE);
+			else
+				startVisualiser();
+		}
 
 		appsGv.requestFocus();
 	}
@@ -192,23 +195,19 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		if (sp.getBoolean("show_notes", false))
 			saveNotes();
 
-		if (visualizer != null) {
-			visualizer.setEnabled(false);
-			visualizer.release();
-			visualizer.setDataCaptureListener(null, 0, false, false);
+		stopVisualizer();
+	}
+
+	@Override
+	public void onWaveFormDataCapture(Visualizer thisVisualiser, byte[] waveform, int samplingRate) {
+		if (visualizerView != null) {
+			visualizerView.setAudioData(waveform);
 		}
 	}
-	
-	@Override
-    public void onWaveFormDataCapture(Visualizer thisVisualiser, byte[] waveform, int samplingRate) {
-        if (visualizerView != null) {
-            visualizerView.setAudioData(waveform);
-        }
-    }
 
-    @Override
-    public void onFftDataCapture(Visualizer thisVisualiser, byte[] fft, int samplingRate) {
-    }
+	@Override
+	public void onFftDataCapture(Visualizer thisVisualiser, byte[] fft, int samplingRate) {
+	}
 
 	private void startVisualiser() {
 		visualizer = new Visualizer(0);
@@ -216,6 +215,17 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		visualizer.setDataCaptureListener(this, Visualizer.getMaxCaptureRate() - Visualizer.getMaxCaptureRate() / 4,
 				true, false);
 		visualizer.setEnabled(true);
+		visualizerView.setVisibility(View.VISIBLE);
+	}
+
+	private void stopVisualizer() {
+		if (visualizer != null) {
+			visualizer.setEnabled(false);
+			visualizer.release();
+			visualizer.setDataCaptureListener(null, 0, false, false);
+			visualizerView.setAudioData(new byte[0]);
+			visualizerView.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	@Override
