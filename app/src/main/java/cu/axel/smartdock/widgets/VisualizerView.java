@@ -17,7 +17,7 @@ public class VisualizerView extends View {
 	//TODO: This is a hack
 	private float barHeightScalingFactor;
 	private int barNumber = 120;
-	private float smoothingFactor = 0.4f;
+	private float smoothingFactor = 0.5f;
 	private int[] smoothedAmplitudes;
 	private int[] targetAmplitudes;
 	private ValueAnimator[] animators;
