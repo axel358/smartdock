@@ -86,6 +86,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		iconParserUtilities = new IconParserUtilities(this);
 		visualizerView = findViewById(R.id.visualizer_view);
+		visualizerView.setBarAlpha(130);
 
 		serviceBtn.setOnClickListener((View p1) -> {
 			startActivity(new Intent(LauncherActivity.this, MainActivity.class));
