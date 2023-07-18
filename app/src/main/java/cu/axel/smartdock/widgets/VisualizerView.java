@@ -13,7 +13,6 @@ public class VisualizerView extends View {
 
 	private byte[] audioData;
 	private Paint barPaint;
-	private float barSpacing;
 	//TODO: This is a hack
 	private float barHeightScalingFactor;
 	private int barNumber = 124;
@@ -35,7 +34,6 @@ public class VisualizerView extends View {
 	private void init() {
 		barPaint = new Paint();
 		barPaint.setColor(Color.WHITE);
-		barSpacing = 3f;
 		barHeightScalingFactor = 1.01f;
 
 		smoothedAmplitudes = new int[barNumber];
@@ -93,13 +91,13 @@ public class VisualizerView extends View {
 		int width = getWidth();
 		int height = getHeight();
 		int totalBarWidth = width / barNumber;
-		//barSpacing = totalBarWidth * 0.3f;
+		float barSpacing = totalBarWidth * 0.3f;
 		float barWidth = totalBarWidth - barSpacing;
 
 		for (int i = 0; i < barNumber; i++) {
-			float barHeight = height - (smoothedAmplitudes[i] * height * barHeightScalingFactor / 128f);
+			float barHeight =  (smoothedAmplitudes[i] * height * barHeightScalingFactor / 128f);
 			float left = i * totalBarWidth + barSpacing;
-			float top = height - barHeight;
+			float top = barHeight;
 			float right = left + barWidth;
 			float bottom = height;
 
