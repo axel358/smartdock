@@ -2,10 +2,10 @@
     android:id="@+id/ll_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical" >
 
     <LinearLayout
+		android:gravity="center"
 		android:layout_weight="1.0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -53,7 +53,7 @@
     </LinearLayout>
 
     <cu.axel.smartdock.widgets.VisualizerView
-		android:layout_marginBottom="55dp"
+		android:layout_marginBottom="54dp"
         android:id="@+id/visualizer_view"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
