@@ -25,7 +25,7 @@ Without this functionallity will be limited.
 
 ## Usage
 
-### Grante restricted permissions: 
+### Grant restricted permissions: 
 On some devices Accessibility and Notification permissions might not be available. To solve this go to:  System Settings > Apps > Smartdock > 3 Dot menu (Top right corner) > Allow restricted permissions
 
 ### Hide Android navigation buttons: 
