@@ -30,8 +30,8 @@
     <string name="storage_desc">Used to change the menu icon and event sounds</string>
     <string name="location">Location</string>
     <string name="location_desc">Used to retrieve WiFi info on Android 8+</string>
-    <string name="root_access">Root access</string>
-    <string name="root_access_desc">Used to perform some keyboard shortcuts and other features</string>
+    <string name="write_secure">Write secure settings</string>
+    <string name="write_secure_desc">Needed for advanced setings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="manage">Manage...</string>
     <string name="grant">Grant</string>
     <string name="granted">Granted</string>

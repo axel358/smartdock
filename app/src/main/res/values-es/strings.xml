@@ -31,8 +31,8 @@
   <string name="storage_desc">Se utiliza para cambiar el icono del menú y los sonidos de los eventos.</string>
   <string name="location">Ubicación</string>
   <string name="location_desc">Se utiliza para recuperar información WiFi en Android 8</string>
-  <string name="root_access">Acceso root</string>
-  <string name="root_access_desc">Se utiliza para realizar algunos atajos de teclado y otras funciones</string>
+  <string name="write_secure">Escribir ajustes protegidos</string>
+  <string name="write_secure_desc">Se necesita para usar ajustes avanzados. Este es un permiso especial que debe condederse con root o adb ejecutando: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="manage">Administrar...</string>
   <string name="grant">Conceder</string>
   <string name="granted">Concedido</string>
@@ -208,7 +208,7 @@
   <string name="prefer_last_display_summary">Preferir la última pantalla adjunta para mostrar aplicaciones y el Dock</string>
   <string name="restart_accessibility">Cambiar este ajuste requiere reiniciar el servicio de accessibilidad</string>
   <string name="open_accessibility">Abrir Accesibilidad</string>
-  <string name="secure_settings">Ajustes restringidos</string>
+  <string name="secure_settings">Ajustes protegidos</string>
   <string name="root_required">Root necesario</string>
   <string name="enable_power_menu_title">Usar el menú de energía incorporado</string>
   <string name="enable_power_menu_summary">Usar un menú de encendido personalizado en lugar del sistema</string>

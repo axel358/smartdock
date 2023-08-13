@@ -33,8 +33,8 @@
   <string name="storage_desc">ਮੀਨੂ ਆਈਕਨ ਅਤੇ ਇਵੈਂਟ ਆਵਾਜ਼ਾਂ ਨੂੰ ਬਦਲਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
   <string name="location">ਲੋਕੇਸਨ</string>
   <string name="location_desc">ਐਂਡਰਾਇਡ 8 \'ਤੇ WiFi ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
-  <string name="root_access">ਰੂਟ ਐਕਸੈਸ</string>
-  <string name="root_access_desc">ਕੁਝ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਅਤੇ ਹੋਰ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+  <string name="write_secure">Write secure settings</string>
+  <string name="write_secure_desc">Needed for advanced setings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="manage">ਮੈਨਜ ਕਰਨਾ </string>
   <string name="grant">ਗ੍ਰਾਂਟ</string>
   <string name="granted">ਦਿੱਤੀ ਗਈ</string>

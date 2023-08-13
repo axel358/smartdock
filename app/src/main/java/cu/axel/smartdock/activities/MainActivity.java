@@ -190,10 +190,10 @@ public class MainActivity extends AppCompatActivity {
 		view.findViewById(R.id.location_info_btn)
 				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.location, R.string.location_desc));
 
-		view.findViewById(R.id.root_info_btn).setOnClickListener(
-				(View v) -> showPermissionInfoDialog(R.string.root_access, R.string.root_access_desc));
+		view.findViewById(R.id.secure_info_btn).setOnClickListener(
+				(View v) -> showPermissionInfoDialog(R.string.write_secure, R.string.write_secure_desc));
 
-		view.findViewById(R.id.btn_manage_root).setOnClickListener((View v) -> DeviceUtils.runAsRoot("ls"));
+		view.findViewById(R.id.btn_manage_secure).setOnClickListener((View v) -> DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS));
 
 		dialog.show();
 	}

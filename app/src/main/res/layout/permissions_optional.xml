@@ -119,25 +119,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            app:icon="@drawable/ic_root" />
+            app:icon="@drawable/ic_secure_settings" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1.0"
-            android:text="@string/root_access"
+            android:text="@string/write_secure"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
-            android:id="@+id/btn_manage_root"
+            android:id="@+id/btn_manage_secure"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manage" />
 
         <Button
-            android:id="@+id/root_info_btn"
+            android:id="@+id/secure_info_btn"
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
