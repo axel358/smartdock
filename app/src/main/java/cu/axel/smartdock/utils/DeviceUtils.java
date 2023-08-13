@@ -35,6 +35,10 @@ public class DeviceUtils {
 	public static final String ICON_BLACKLIST = "icon_blacklist";
 	public static final String POLICY_CONTROL = "policy_control";
 	public static final String IMMERSIVE_APPS = "immersive.status=apps";
+	public static final String NOTIFICATION_SERVICE_NAME = "cu.axel.smartdock/cu.axel.smartdock.services.NotificationService";
+	public static final String SERVICE_NAME = "cu.axel.smartdock/cu.axel.smartdock.services.DockService";
+	public static final String ENABLED_ACCESSIBILITY_SERVICES = "enabled_accessibility_services";
+	public static final String ENABLED_NOTIFICATION_SERVICES = "enabled_notification_listeners";
 
 	public static boolean lockScreen(Context context) {
 
@@ -237,12 +241,12 @@ public class DeviceUtils {
 			}
 		}
 	}
-	
+
 	public static boolean hasWriteSettingsPermission(Context context) {
 		return ContextCompat.checkSelfPermission(context,
 				Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED;
 	}
-	
+
 	public static boolean grantPermission(String permission) {
 		String result = runAsRoot("pm grant cu.axel.smartdock " + permission);
 		return result.isEmpty();
@@ -264,5 +268,43 @@ public class DeviceUtils {
 
 	public static Context getDisplayContext(Context context, boolean secondary) {
 		return secondary ? context.createDisplayContext(getSecondaryDisplay(context)) : context;
+	}
+
+	public static void enableService(Context context) {
+		String services = getSecureSettingString(context, ENABLED_ACCESSIBILITY_SERVICES);
+		if (services.contains(SERVICE_NAME))
+			return;
+
+		String new_services;
+
+		if (services.isEmpty())
+			new_services = SERVICE_NAME;
+		else
+			new_services = services + ":" + SERVICE_NAME;
+
+		putSecureSetting(context, ENABLED_ACCESSIBILITY_SERVICES, new_services);
+	}
+
+	public static void disableService(Context context) {
+		String services = getSecureSettingString(context, ENABLED_ACCESSIBILITY_SERVICES);
+
+		if (!services.contains(SERVICE_NAME))
+			return;
+
+		String new_services = "";
+
+		if (services.contains(SERVICE_NAME + ":"))
+			new_services = services.replace(SERVICE_NAME + ":", "");
+		else if (services.contains(":" + SERVICE_NAME))
+			new_services = services.replace(":" + SERVICE_NAME, "");
+		else if (services.contains(SERVICE_NAME))
+			new_services = services.replace(SERVICE_NAME, "");
+
+		putSecureSetting(context, ENABLED_ACCESSIBILITY_SERVICES, new_services);
+	}
+
+	public static void restartService(Context context) {
+		disableService(context);
+		enableService(context);
 	}
 }
