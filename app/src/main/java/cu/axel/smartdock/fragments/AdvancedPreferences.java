@@ -33,6 +33,14 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 
 		findPreference("prefer_last_display").setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q);
 
+		findPreference("prefer_last_display").setOnPreferenceClickListener((Preference p1) -> {
+			if (DeviceUtils.hasWriteSettingsPermission(getActivity()))
+				DeviceUtils.restartService(getActivity());
+			else
+				showAccessibilityDialog(getActivity());
+			return true;
+		});
+
 		findPreference("edit_autostart").setOnPreferenceClickListener((Preference p1) -> {
 			showEditAutostartDialog(getActivity());
 			return false;
@@ -116,10 +124,6 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 			return false;
 		});
 
-		findPreference("prefer_last_display").setOnPreferenceClickListener((Preference p1) -> {
-			showAccessibilityDialog(getActivity());
-			return true;
-		});
 	}
 
 	public void showEditAutostartDialog(final Context context) {
