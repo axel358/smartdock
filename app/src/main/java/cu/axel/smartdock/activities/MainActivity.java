@@ -171,8 +171,7 @@ public class MainActivity extends AppCompatActivity {
 						R.string.display_over_other_apps_desc));
 
 		view.findViewById(R.id.accessibility_info_btn)
-				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.accessibility_service,
-						R.string.accessibility_service_desc));
+				.setOnClickListener((View v) -> showAccessibilityDialog());
 
 		view.findViewById(R.id.stats_info_btn).setOnClickListener(
 				(View v) -> showPermissionInfoDialog(R.string.usage_stats, R.string.usage_stats_desc));
@@ -193,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
 		view.findViewById(R.id.secure_info_btn).setOnClickListener(
 				(View v) -> showPermissionInfoDialog(R.string.write_secure, R.string.write_secure_desc));
 
-		view.findViewById(R.id.btn_manage_secure).setOnClickListener((View v) -> DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS));
+		view.findViewById(R.id.btn_manage_secure)
+				.setOnClickListener((View v) -> DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS));
 
 		dialog.show();
 	}
@@ -229,6 +229,21 @@ public class MainActivity extends AppCompatActivity {
 		dialogBuilder.setTitle(permission);
 		dialogBuilder.setMessage(description);
 		dialogBuilder.setPositiveButton(R.string.ok, null);
+		dialogBuilder.show();
+	}
+
+	private void showAccessibilityDialog() {
+		MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+		dialogBuilder.setTitle(R.string.accessibility_service);
+		dialogBuilder.setMessage(R.string.accessibility_service_desc);
+
+		if (DeviceUtils.hasWriteSettingsPermission(this)) {
+			dialogBuilder.setPositiveButton("Enable service", (i, p) -> DeviceUtils.enableService(this));
+			dialogBuilder.setNegativeButton("Disable service", (i, p) -> DeviceUtils.disableService(this));
+		} else
+			dialogBuilder.setPositiveButton(getString(R.string.open_accessibility),
+					(i, p) -> startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)));
+
 		dialogBuilder.show();
 	}
 
