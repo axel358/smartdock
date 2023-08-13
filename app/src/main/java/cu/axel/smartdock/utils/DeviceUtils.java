@@ -237,6 +237,16 @@ public class DeviceUtils {
 			}
 		}
 	}
+	
+	public static boolean hasWriteSettingsPermission(Context context) {
+		return ContextCompat.checkSelfPermission(context,
+				Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED;
+	}
+	
+	public static boolean grantPermission(String permission) {
+		String result = runAsRoot("pm grant cu.axel.smartdock " + permission);
+		return result.isEmpty();
+	}
 
 	public static Display getSecondaryDisplay(Context context) {
 		DisplayManager dm = (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);

@@ -70,8 +70,10 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 
 		findPreference("root_category").setEnabled(!result.equals("error"));
 
-		findPreference("secure_category").setEnabled(ContextCompat.checkSelfPermission(getActivity(),
-				Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED);
+		if (!result.equals("error"))
+			DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS);
+
+		findPreference("secure_category").setEnabled(DeviceUtils.hasWriteSettingsPermission(getActivity()));
 
 		hideNav.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
 			if ((boolean) p2) {
