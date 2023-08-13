@@ -208,6 +208,9 @@
   <string name="these_settings_are_intended_fo">ਇਹ ਸੈਟਿੰਗਾਂ ਉੱਨਤ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਕੇਵਲ ਤਾਂ ਹੀ ਬਦਲੋ ਜੇਕਰ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਕੀ ਕਰ ਰਹੇ ਹੋ</string>
   <string name="prefer_last_display">ਆਖਰੀ ਅਟੈਚਡ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ (Android 10)</string>
   <string name="prefer_last_display_summary">ਐਪਸ ਅਤੇ ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਆਖਰੀ ਨੱਥੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
+  <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
+  <string name="open_accessibility">Open Accessibility</string>
+  <string name="secure_settings">Secure settings</string>
   <string name="root_required">ਰੂਟ ਦੀ ਲੋੜ ਹੈ</string>
   <string name="enable_power_menu_title">ਬਿਲਟ ਇਨ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
   <string name="enable_power_menu_summary">ਸਿਸਟਮ ਦੀ ਬਜਾਏ ਇੱਕ ਕਸਟਮ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>

@@ -206,6 +206,9 @@
   <string name="these_settings_are_intended_fo">Estos ajustes están destinados a usuarios avanzados. Solo cámbialas si sabes lo que estás haciendo.</string>
   <string name="prefer_last_display">Preferir última pantalla adjunta (Android 10)</string>
   <string name="prefer_last_display_summary">Preferir la última pantalla adjunta para mostrar aplicaciones y el Dock</string>
+  <string name="restart_accessibility">Cambiar este ajuste requiere reiniciar el servicio de accessibilidad</string>
+  <string name="open_accessibility">Abrir Accesibilidad</string>
+  <string name="secure_settings">Ajustes restringidos</string>
   <string name="root_required">Root necesario</string>
   <string name="enable_power_menu_title">Usar el menú de energía incorporado</string>
   <string name="enable_power_menu_summary">Usar un menú de encendido personalizado en lugar del sistema</string>

@@ -11,7 +11,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.UserHandle;
 import android.os.UserManager;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
+import android.provider.Settings;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
@@ -30,6 +31,10 @@ import android.hardware.display.DisplayManager;
 import android.util.DisplayMetrics;
 
 public class DeviceUtils {
+	public static final String DISPLAY_SIZE = "display_density_forced";
+	public static final String ICON_BLACKLIST = "icon_blacklist";
+	public static final String POLICY_CONTROL = "policy_control";
+	public static final String IMMERSIVE_APPS = "immersive.status=apps";
 
 	public static boolean lockScreen(Context context) {
 
@@ -92,11 +97,57 @@ public class DeviceUtils {
 			runAsRoot("am start -a com.android.internal.intent.action.REQUEST_SHUTDOWN");
 	}
 
-	public static void setDisplaySize(int size) {
-		if (size > 0)
-			runAsRoot("settings put secure display_density_forced " + size);
-		else
-			runAsRoot("settings delete secure display_density_forced");
+	public static boolean putSecureSetting(Context context, String setting, int value) {
+		try {
+			Settings.Secure.putInt(context.getContentResolver(), setting, value);
+			return true;
+		} catch (SecurityException e) {
+			return false;
+		}
+	}
+
+	public static int getSecureSettingInt(Context context, String setting) {
+		try {
+			return Settings.Secure.getInt(context.getContentResolver(), setting);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public static String getSecureSettingString(Context context, String setting) {
+		try {
+			String value = Settings.Secure.getString(context.getContentResolver(), setting);
+			return value == null ? "" : value;
+		} catch (Exception e) {
+			return "";
+		}
+	}
+
+	public static boolean putSecureSetting(Context context, String setting, String value) {
+		try {
+			Settings.Secure.putString(context.getContentResolver(), setting, value);
+			return true;
+		} catch (SecurityException e) {
+			return false;
+		}
+	}
+
+	public static boolean putGlobalSetting(Context context, String setting, String value) {
+		try {
+			Settings.Global.putString(context.getContentResolver(), setting, value);
+			return true;
+		} catch (SecurityException e) {
+			return false;
+		}
+	}
+
+	public static String getGlobalSettingString(Context context, String setting) {
+		try {
+			String value = Settings.Global.getString(context.getContentResolver(), setting);
+			return value == null ? "" : value;
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	public static void toggleVolume(Context context) {

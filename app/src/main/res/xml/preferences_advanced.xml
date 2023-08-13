@@ -21,6 +21,33 @@
         android:key="custom_toasts"
         android:summary="Use built-in custom Toasts for apps when the Dock is pinned"
         android:defaultValue="false" />
+		
+	<EditTextPreference
+		android:title="@string/override_sb_height"
+		android:key="status_bar_height"
+		android:inputType="number"
+		android:summary="Use a custom status bar height when calculating maximized window size"/>
+   
+   <PreferenceCategory
+   	android:key="secure_category"
+   	android:title="@string/secure_settings">
+	  
+	   <Preference
+	   	android:summary="@string/custom_display_size_summary"
+	  	 android:key="custom_display_size"
+	   	android:title="@string/custom_display_size_title"/>
+	   
+	   <CheckBoxPreference
+	   	android:title="@string/hide_status_bar_title"
+	   	android:key="hide_status_bar"
+	   	android:summary="@string/hide_status_bar_summary"
+	   	android:defaultValue="false" />
+		   
+	   <Preference
+		   android:key="status_icon_blacklist"
+		   android:summary="@string/icon_blacklist_summary"
+		   android:title="@string/icon_blacklist"/>
+   </PreferenceCategory>
    
 	<PreferenceCategory
 		android:key="root_category"
@@ -38,13 +65,6 @@
     <Preference
         android:key="edit_autostart"
         android:title="@string/edit_autostart_title"/>
-    <EditTextPreference
-        android:summary="@string/custom_display_size_summary"
-        android:inputType="number"
-        android:key="custom_display_size"
-        android:hint="@string/custom_display_size_hint"
-        android:defaultValue=""
-        android:title="@string/custom_display_size_title"/>
     <CheckBoxPreference
         android:key="allow_app_freeze"
         android:title="@string/allow_app_freeze_title"
@@ -60,20 +80,6 @@
         android:key="hide_nav_buttons"
         android:title="@string/hide_nav_buttons_title"
         android:defaultValue="false" />
-    <CheckBoxPreference
-        android:title="@string/hide_status_bar_title"
-        android:key="hide_status_bar"
-        android:summary="@string/hide_status_bar_summary"
-        android:defaultValue="false" />
-    <EditTextPreference
-        android:title="@string/override_sb_height"
-        android:key="status_bar_height"
-        android:inputType="number"
-        android:summary="Use a custom status bar height when calculating maximized window size"/>
-    <Preference
-        android:key="status_icon_blacklist"
-        android:summary="@string/icon_blacklist_summary"
-        android:title="@string/icon_blacklist"/>    
     <CheckBoxPreference
         android:summary="@string/enable_soft_reboot_summary"
         android:key="enable_soft_reboot"
