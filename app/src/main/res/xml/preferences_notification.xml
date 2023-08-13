@@ -36,7 +36,7 @@
         android:summary="@string/blocked_notifications_summary"
 		android:title="@string/blocked_notifications_title"/>
     <Preference
-        android:icon="@drawable/ic_about"
+        android:icon="@drawable/ic_info"
         android:title="@string/long_press_a_notification_to_a"/>
 		
 	<CheckBoxPreference

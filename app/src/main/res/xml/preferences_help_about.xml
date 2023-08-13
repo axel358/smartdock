@@ -27,6 +27,6 @@
         android:summary="@string/gnu_general_public_licence_v3"
         android:title="@string/license" />
     <Preference
-        android:icon="@drawable/ic_about"
+        android:icon="@drawable/ic_info"
         android:title="@string/options_marked_with__are_expe"/>
 </PreferenceScreen>

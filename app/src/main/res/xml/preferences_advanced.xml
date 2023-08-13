@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
-        android:icon="@drawable/ic_about"
+        android:icon="@drawable/ic_info"
         android:title="@string/these_settings_are_intended_fo"/>
 	<CheckBoxPreference
         android:title="@string/prefer_last_display"

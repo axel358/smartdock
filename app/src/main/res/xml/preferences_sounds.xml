@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
-        android:icon="@drawable/ic_about"
+        android:icon="@drawable/ic_info"
         android:title="@string/please_note_that_you_must_prov"/>
     <CheckBoxPreference
         android:key="enable_startup_sound"
