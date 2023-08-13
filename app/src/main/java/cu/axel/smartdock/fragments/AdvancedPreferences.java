@@ -1,5 +1,6 @@
 package cu.axel.smartdock.fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
 import android.os.Bundle;
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +68,10 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 
 		hideNav.setChecked(result.contains("qemu.hw.mainkeys=1"));
 
-		//findPreference("root_category").setEnabled(!result.equals("error"));
+		findPreference("root_category").setEnabled(!result.equals("error"));
+
+		findPreference("secure_category").setEnabled(ContextCompat.checkSelfPermission(getActivity(),
+				Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED);
 
 		hideNav.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
 			if ((boolean) p2) {
