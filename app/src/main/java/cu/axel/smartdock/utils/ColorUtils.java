@@ -68,26 +68,21 @@ public class ColorUtils {
 		return wallpaperColors;
 	}
 
-   //noinspection ResourceType
-	public static int[] getDynamicColors(Context context) {
-	   int[] colors = new int[3];
-		if (DynamicColors.isDynamicColorAvailable()) {
-			
-			// Force dark color variants
-			Context styledContext = DynamicColors.wrapContextIfAvailable(context,
-					R.style.ThemeOverlay_Material3_DynamicColors_Dark);
-			
-			int[] attrsToResolve = { R.attr.colorPrimary,
-					R.attr.colorSurface,
-					R.attr.colorSurfaceVariant
-			};
-			
-			TypedArray attrs = styledContext.obtainStyledAttributes(attrsToResolve);
-			colors[0] = attrs.getColor(0, 0);
-			colors[1] = attrs.getColor(1, 0);
-			colors[2] = attrs.getColor(2, 0);
-			attrs.recycle();
-		}
+	//noinspection ResourceType
+	public static int[] getThemeColors(Context context, boolean forceDark) {
+		int[] colors = new int[3];
+
+		int variant = forceDark ? R.style.ThemeOverlay_Material3_DynamicColors_Dark
+				: R.style.ThemeOverlay_Material3_DynamicColors_DayNight;
+		Context styledContext = DynamicColors.wrapContextIfAvailable(context, variant);
+
+		int[] attrsToResolve = { R.attr.colorPrimary, R.attr.colorSurface, R.attr.colorError };
+
+		TypedArray attrs = styledContext.obtainStyledAttributes(attrsToResolve);
+		colors[0] = attrs.getColor(0, 0);
+		colors[1] = attrs.getColor(1, 0);
+		colors[2] = attrs.getColor(2, 0);
+		attrs.recycle();
 
 		return colors;
 	}
@@ -165,7 +160,7 @@ public class ColorUtils {
 			break;
 		case "material_u":
 			if (DynamicColors.isDynamicColorAvailable()) {
-				int surfaceColor = getDynamicColors(context)[1];
+				int surfaceColor = getThemeColors(context, true)[1];
 				color = ColorUtils.manipulateColor(surfaceColor, 0.9f);
 				color2 = ColorUtils.manipulateColor(surfaceColor, 1.2f);
 			} else {
