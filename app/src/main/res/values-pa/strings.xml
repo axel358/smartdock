@@ -33,11 +33,12 @@
   <string name="storage_desc">ਮੀਨੂ ਆਈਕਨ ਅਤੇ ਇਵੈਂਟ ਆਵਾਜ਼ਾਂ ਨੂੰ ਬਦਲਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
   <string name="location">ਲੋਕੇਸਨ</string>
   <string name="location_desc">ਐਂਡਰਾਇਡ 8 \'ਤੇ WiFi ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
-  <string name="root_access">ਰੂਟ ਐਕਸੈਸ</string>
-  <string name="root_access_desc">ਕੁਝ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਅਤੇ ਹੋਰ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+  <string name="write_secure">Write secure settings</string>
+  <string name="write_secure_desc">Needed for advanced setings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
   <string name="manage">ਮੈਨਜ ਕਰਨਾ </string>
   <string name="grant">ਗ੍ਰਾਂਟ</string>
-  <string name="granted">ਦਿੱਤੀ ਗਈ</string>
+  <string name="enable">Enable</string>
+  <string name="disable">Disable</string>
 
   <!--Appearance page-->  
   <string name="appearance">ਦਿੱਖਣਾ</string>
@@ -208,6 +209,9 @@
   <string name="these_settings_are_intended_fo">ਇਹ ਸੈਟਿੰਗਾਂ ਉੱਨਤ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਕੇਵਲ ਤਾਂ ਹੀ ਬਦਲੋ ਜੇਕਰ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਕੀ ਕਰ ਰਹੇ ਹੋ</string>
   <string name="prefer_last_display">ਆਖਰੀ ਅਟੈਚਡ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ (Android 10)</string>
   <string name="prefer_last_display_summary">ਐਪਸ ਅਤੇ ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਆਖਰੀ ਨੱਥੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
+  <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
+  <string name="open_accessibility">Open Accessibility</string>
+  <string name="secure_settings">Secure settings</string>
   <string name="root_required">ਰੂਟ ਦੀ ਲੋੜ ਹੈ</string>
   <string name="enable_power_menu_title">ਬਿਲਟ ਇਨ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
   <string name="enable_power_menu_summary">ਸਿਸਟਮ ਦੀ ਬਜਾਏ ਇੱਕ ਕਸਟਮ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>

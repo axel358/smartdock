@@ -1,10 +1,14 @@
 package cu.axel.smartdock.fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
+import android.provider.Settings;
 import android.os.Bundle;
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +26,7 @@ import androidx.preference.CheckBoxPreference;
 import cu.axel.smartdock.utils.AppUtils;
 
 public class AdvancedPreferences extends PreferenceFragmentCompat {
+	private boolean rootAvailable;
 
 	@Override
 	public void onCreatePreferences(Bundle arg0, String arg1) {
@@ -29,24 +34,25 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 
 		findPreference("prefer_last_display").setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q);
 
-		Preference editAutostart = findPreference("edit_autostart");
-		editAutostart.setOnPreferenceClickListener((Preference p1) -> {
+		findPreference("prefer_last_display").setOnPreferenceClickListener((Preference p1) -> {
+			if (DeviceUtils.hasWriteSettingsPermission(getActivity()))
+				DeviceUtils.restartService(getActivity());
+			else
+				showAccessibilityDialog(getActivity());
+			return true;
+		});
+
+		findPreference("edit_autostart").setOnPreferenceClickListener((Preference p1) -> {
 			showEditAutostartDialog(getActivity());
 			return false;
 		});
-		Preference displayS = findPreference("custom_display_size");
-		displayS.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
-			String n = p2.toString();
-			if (n.isEmpty())
-				DeviceUtils.setDisplaySize(0);
-			else
-				DeviceUtils.setDisplaySize(Integer.parseInt(n));
 
-			showRebootDialog(getActivity(), true);
+		findPreference("custom_display_size").setOnPreferenceClickListener(p -> {
+			showDisplaySizeDialog(getActivity());
 			return true;
 		});
-		Preference softReboot = findPreference("soft_reboot");
-		softReboot.setOnPreferenceClickListener((Preference p1) -> {
+
+		findPreference("soft_reboot").setOnPreferenceClickListener((Preference p1) -> {
 			DeviceUtils.sotfReboot();
 			return false;
 		});
@@ -71,7 +77,13 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 
 		hideNav.setChecked(result.contains("qemu.hw.mainkeys=1"));
 
-		findPreference("root_category").setEnabled(!result.equals("error"));
+		rootAvailable = !result.equals("error");
+		findPreference("root_category").setEnabled(rootAvailable);
+
+		if (rootAvailable)
+			DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS);
+
+		findPreference("secure_category").setEnabled(DeviceUtils.hasWriteSettingsPermission(getActivity()));
 
 		hideNav.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
 			if ((boolean) p2) {
@@ -90,28 +102,32 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 			return false;
 		});
 		CheckBoxPreference hideStatus = (CheckBoxPreference) findPreference("hide_status_bar");
-		hideStatus.setChecked(
-				DeviceUtils.runAsRoot("settings get global policy_control").contains("immersive.status=apps"));
+		hideStatus.setChecked(DeviceUtils.getGlobalSettingString(getActivity(), DeviceUtils.POLICY_CONTROL)
+				.equals(DeviceUtils.IMMERSIVE_APPS));
+
 		hideStatus.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
 			if ((boolean) p2) {
-				String status = DeviceUtils.runAsRoot("settings put global policy_control immersive.status=apps");
-				if (!status.equals("error")) {
-					showRebootDialog(getActivity(), true);
+				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL,
+						DeviceUtils.IMMERSIVE_APPS)) {
+					if (rootAvailable)
+						showRebootDialog(getActivity(), true);
 					return true;
 				}
 			} else {
-				String status = DeviceUtils.runAsRoot("settings delete global policy_control");
-				if (!status.equals("error")) {
-					showRebootDialog(getActivity(), true);
+				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL, null)) {
+					if (rootAvailable)
+						showRebootDialog(getActivity(), true);
 					return true;
 				}
 			}
 			return false;
 		});
+
 		findPreference("status_icon_blacklist").setOnPreferenceClickListener((Preference p1) -> {
 			showIBDialog(getActivity());
 			return false;
 		});
+
 	}
 
 	public void showEditAutostartDialog(final Context context) {
@@ -131,14 +147,32 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 		dialog.show();
 	}
 
+	public void showDisplaySizeDialog(final Context context) {
+		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context);
+		dialog.setTitle(R.string.custom_display_size_title);
+		View view = LayoutInflater.from(context).inflate(R.layout.dialog_display_size, null);
+		final EditText contentEt = view.findViewById(R.id.display_size_et);
+		contentEt.setText(DeviceUtils.getSecureSettingString(context, DeviceUtils.DISPLAY_SIZE) + "");
+		dialog.setPositiveButton(getString(R.string.save), (DialogInterface p1, int p2) -> {
+			String value = contentEt.getText().toString();
+			int size = value.isEmpty() ? 0 : Integer.parseInt(value);
+
+			if (DeviceUtils.putSecureSetting(getActivity(), DeviceUtils.DISPLAY_SIZE, size) && rootAvailable)
+				showRebootDialog(getActivity(), true);
+		});
+		dialog.setNegativeButton(getString(R.string.cancel), null);
+		dialog.setView(view);
+		dialog.show();
+	}
+
 	public void showIBDialog(final Context context) {
 		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context);
-		dialog.setTitle("Blacklisted icons");
+		dialog.setTitle(R.string.icon_blacklist);
 		View view = LayoutInflater.from(context).inflate(R.layout.dialog_icon_blacklist, null);
 		final EditText contentEt = view.findViewById(R.id.icon_blacklist_et);
-		contentEt.setText(DeviceUtils.runAsRoot("settings get secure icon_blacklist").replace("\n", ""));
+		contentEt.setText(DeviceUtils.getSecureSettingString(context, DeviceUtils.ICON_BLACKLIST));
 		dialog.setPositiveButton(getString(R.string.save), (DialogInterface p1, int p2) -> {
-			DeviceUtils.runAsRoot("settings put secure icon_blacklist " + contentEt.getText());
+			DeviceUtils.putSecureSetting(context, DeviceUtils.ICON_BLACKLIST, contentEt.getText().toString());
 		});
 		dialog.setNegativeButton(getString(R.string.cancel), null);
 		dialog.setView(view);
@@ -156,6 +190,17 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 				DeviceUtils.reboot();
 		});
 		dialog.setNegativeButton(getString(R.string.cancel), null);
+		dialog.show();
+	}
+
+	public void showAccessibilityDialog(final Context context) {
+		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context);
+		dialog.setTitle(R.string.restart);
+		dialog.setMessage(R.string.restart_accessibility);
+		dialog.setNegativeButton(getString(R.string.cancel), null);
+		dialog.setPositiveButton(getString(R.string.open_accessibility), (DialogInterface p1, int p2) -> {
+			startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+		});
 		dialog.show();
 	}
 }
