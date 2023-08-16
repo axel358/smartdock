@@ -19,11 +19,11 @@
     <string name="display_over_other_apps">Display over other apps</string>
     <string name="display_over_other_apps_desc">Required to display the Dock, you cannot start the service without this</string>
     <string name="accessibility_service">Accessibility service</string>
-    <string name="accessibility_service_desc">Use this to start and stop the Dock. Requires the above permission</string>
-    <string name="usage_stats">Usage stats</string>
+    <string name="accessibility_service_desc">Use this to start and stop the Dock. Requires the above permission. If you get an error about <b>Restricted setting</b> click the Help button below</string>
+	<string name="usage_stats">Usage stats</string>
     <string name="usage_stats_desc">Allows to show recent apps on devices where Smart Dock can\'t be installed as a system app</string>
     <string name="notification_access">Notification access</string>
-    <string name="notification_access_desc">Used to display notifications</string>
+    <string name="notification_access_desc">Used to display notifications. If you get an error about <b>Restricted setting</b> click the Help button below</string>
     <string name="device_administrator">Device administrator</string>
     <string name="device_administrator_desc">Used to lock the screen. Disable before uninstalling</string>
     <string name="storage">Storage</string>
@@ -34,7 +34,8 @@
     <string name="write_secure_desc">Needed for advanced setings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="manage">Manage...</string>
     <string name="grant">Grant</string>
-    <string name="granted">Granted</string>
+    <string name="enable">Enable</string>
+	<string name="disable">Disable</string>
 
     <!-- Appearance page -->
     <string name="appearance">Appearance</string>

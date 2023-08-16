@@ -25,18 +25,12 @@
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
+			app:iconTint="?attr/colorError"
             android:id="@+id/btn_grant_admin"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/grant" />
-
-        <Button
-            android:id="@+id/admin_info_btn"
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_info" />
+            app:icon="@drawable/ic_alert" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,18 +54,12 @@
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
+			app:iconTint="?attr/colorError"
             android:id="@+id/btn_grant_storage"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/grant" />
-
-        <Button
-            android:id="@+id/storage_info_btn"
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_info" />
+            app:icon="@drawable/ic_alert" />
     </LinearLayout>
 
     <LinearLayout
@@ -95,18 +83,12 @@
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
+			app:iconTint="?attr/colorError"
             android:id="@+id/btn_grant_location"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/grant" />
-
-        <Button
-            android:id="@+id/location_info_btn"
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_info" />
+            app:icon="@drawable/ic_alert" />
     </LinearLayout>
 
     <LinearLayout
@@ -130,18 +112,12 @@
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
+			app:iconTint="?attr/colorError"
             android:id="@+id/btn_manage_secure"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/manage" />
-
-        <Button
-            android:id="@+id/secure_info_btn"
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_info" />
+            app:icon="@drawable/ic_alert" />
     </LinearLayout>
 
 </LinearLayout>

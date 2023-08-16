@@ -1,43 +1,37 @@
 package cu.axel.smartdock.activities;
 
-import android.Manifest;
-import android.accessibilityservice.AccessibilityServiceInfo;
-import android.app.admin.DeviceAdminReceiver;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ServiceInfo;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.Settings;
-import android.view.Menu;
+import android.content.res.ColorStateList;
+import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
-import android.view.accessibility.AccessibilityManager;
-import android.widget.ViewSwitcher;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.divider.MaterialDividerItemDecoration;
-import cu.axel.smartdock.fragments.PreferencesFragment;
-import java.util.List;
-import android.os.Build;
-import cu.axel.smartdock.services.DockService;
-import cu.axel.smartdock.R;
-import cu.axel.smartdock.utils.DeviceUtils;
-import android.view.View;
+import android.view.Menu;
 import android.widget.Button;
-import android.view.View.OnClickListener;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
+import android.view.View;
+import cu.axel.smartdock.services.NotificationService;
 import android.widget.Toast;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import cu.axel.smartdock.R;
+import cu.axel.smartdock.utils.ColorUtils;
+import cu.axel.smartdock.utils.DeviceUtils;
+import androidx.preference.PreferenceManager;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.button.MaterialButton;
+import androidx.appcompat.app.AlertDialog;
+import android.content.SharedPreferences;
+import cu.axel.smartdock.fragments.PreferencesFragment;
 
 public class MainActivity extends AppCompatActivity {
 	private SharedPreferences sp;
+	private AlertDialog permissionsDialog;
+	private MaterialButton overlayBtn, storageBtn, adminBtn, notificationsBtn, accessibilityBtn, locationBtn, usageBtn,
+			secureBtn;
+	private boolean canDrawOverOtherApps, hasStoragePermission, isdeviceAdminEnabled, hasLocationPermission,
+			hasWriteSettingsPermission;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,24 +42,23 @@ public class MainActivity extends AppCompatActivity {
 				.commit();
 
 		if (!DeviceUtils.hasStoragePermission(this)) {
-			requestStoragePermission(0);
+			DeviceUtils.requestStoragePermissions(this);
 		}
 
-		if (!canDrawOverOtherApps() || !DeviceUtils.isAccessibilityServiceEnabled(this))
+		if (!DeviceUtils.canDrawOverOtherApps(this) || !DeviceUtils.isAccessibilityServiceEnabled(this))
 			showPermissionsDialog();
 
 		if (sp.getInt("dock_layout", -1) == -1)
 			showDockLayoutsDialog();
 	}
 
-	public void requestStoragePermission(int code) {
-		ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.READ_EXTERNAL_STORAGE }, code);
-	}
-
 	@Override
 	protected void onResume() {
 		super.onResume();
-		invalidateOptionsMenu();
+
+		if (permissionsDialog != null && permissionsDialog.isShowing()) {
+			updatePermissionsStatus();
+		}
 	}
 
 	@Override
@@ -95,107 +88,65 @@ public class MainActivity extends AppCompatActivity {
 		final Button requiredBtn = view.findViewById(R.id.show_required_button);
 		final Button optionalBtn = view.findViewById(R.id.show_optional_button);
 
-		final Button grantOverlayBtn = view.findViewById(R.id.btn_grant_overlay);
-		final Button grantStorageBtn = view.findViewById(R.id.btn_grant_storage);
-		final Button grantAdminBtn = view.findViewById(R.id.btn_grant_admin);
-		final Button grantNotificationsBtn = view.findViewById(R.id.btn_grant_notifications);
-		final Button manageServiceBtn = view.findViewById(R.id.btn_manage_service);
-		final Button locationBtn = view.findViewById(R.id.btn_grant_location);
-		final Button usageBtn = view.findViewById(R.id.btn_manage_usage);
-
-		manageServiceBtn.setEnabled(canDrawOverOtherApps());
-
-		if (canDrawOverOtherApps()) {
-			grantOverlayBtn.setEnabled(false);
-			grantOverlayBtn.setText(R.string.granted);
-		}
-		if (isdeviceAdminEnabled()) {
-			grantAdminBtn.setEnabled(false);
-			grantAdminBtn.setText(R.string.granted);
-		}
-
-		if (DeviceUtils.hasStoragePermission(this)) {
-			grantStorageBtn.setEnabled(false);
-			grantStorageBtn.setText(R.string.granted);
-		}
-
-		if (DeviceUtils.hasLocationPermission(this)) {
-			locationBtn.setEnabled(false);
-			locationBtn.setText(R.string.granted);
-		}
+		overlayBtn = view.findViewById(R.id.btn_grant_overlay);
+		storageBtn = view.findViewById(R.id.btn_grant_storage);
+		adminBtn = view.findViewById(R.id.btn_grant_admin);
+		notificationsBtn = view.findViewById(R.id.btn_grant_notifications);
+		accessibilityBtn = view.findViewById(R.id.btn_manage_service);
+		locationBtn = view.findViewById(R.id.btn_grant_location);
+		usageBtn = view.findViewById(R.id.btn_manage_usage);
+		secureBtn = view.findViewById(R.id.btn_manage_secure);
 
 		builder.setView(view);
-		final AlertDialog dialog = builder.create();
+		permissionsDialog = builder.create();
 
-		grantOverlayBtn.setOnClickListener((View p1) -> {
-			grantOverlayPermissions();
-			dialog.dismiss();
-		});
-		grantStorageBtn.setOnClickListener((View p1) -> {
-			requestStoragePermission(8);
-			dialog.dismiss();
-		});
-		grantAdminBtn.setOnClickListener((View p1) -> {
-			enableDeviceAdmin();
-			dialog.dismiss();
-		});
-		grantNotificationsBtn.setOnClickListener((View p1) -> {
-			startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+		overlayBtn.setOnClickListener(v -> {
+			showPermissionInfoDialog(R.string.display_over_other_apps, R.string.display_over_other_apps_desc,
+					() -> DeviceUtils.grantOverlayPermissions(this), canDrawOverOtherApps);
 		});
 
-		manageServiceBtn.setOnClickListener((View p1) -> {
-			startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-			Toast.makeText(this, R.string.enable_access_help, Toast.LENGTH_LONG).show();
+		storageBtn.setOnClickListener(v -> {
+			showPermissionInfoDialog(R.string.storage, R.string.storage_desc,
+					() -> DeviceUtils.requestStoragePermissions(this), hasStoragePermission);
 		});
 
-		locationBtn.setOnClickListener((View p1) -> {
-			ActivityCompat.requestPermissions(MainActivity.this,
-					new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 8);
-			dialog.dismiss();
+		adminBtn.setOnClickListener(v -> {
+			showPermissionInfoDialog(R.string.device_administrator, R.string.device_administrator_desc,
+					() -> DeviceUtils.requestDeviceAdminPermissions(this), isdeviceAdminEnabled);
 		});
 
-		usageBtn.setOnClickListener((View p1) -> {
-			startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+		notificationsBtn.setOnClickListener(v -> {
+			showNotificationsDialog();
 		});
 
-		requiredBtn.setOnClickListener((View p1) -> {
+		accessibilityBtn.setOnClickListener(v -> {
+			showAccessibilityDialog();
+		});
+
+		locationBtn.setOnClickListener(v -> {
+			showPermissionInfoDialog(R.string.location, R.string.location_desc,
+					() -> DeviceUtils.requestLocationPermissions(this), hasLocationPermission);
+		});
+
+		usageBtn.setOnClickListener(v -> {
+			showPermissionInfoDialog(R.string.usage_stats, R.string.usage_stats_desc,
+					() -> startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)),
+					DeviceUtils.hasUsageStatsPermission(this));
+		});
+
+		secureBtn.setOnClickListener(
+				v -> showPermissionInfoDialog(R.string.write_secure, R.string.write_secure_desc, null, true));
+
+		requiredBtn.setOnClickListener(v -> {
 			viewSwitcher.showPrevious();
 		});
 
-		optionalBtn.setOnClickListener((View p1) -> {
+		optionalBtn.setOnClickListener(v -> {
 			viewSwitcher.showNext();
 		});
 
-		view.findViewById(R.id.overlay_info_btn)
-				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.display_over_other_apps,
-						R.string.display_over_other_apps_desc));
-
-		view.findViewById(R.id.accessibility_info_btn)
-				.setOnClickListener((View v) -> showAccessibilityDialog());
-
-		view.findViewById(R.id.stats_info_btn).setOnClickListener(
-				(View v) -> showPermissionInfoDialog(R.string.usage_stats, R.string.usage_stats_desc));
-
-		view.findViewById(R.id.notification_info_btn).setOnClickListener(
-				(View v) -> showPermissionInfoDialog(R.string.notification_access, R.string.notification_access_desc));
-
-		view.findViewById(R.id.admin_info_btn)
-				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.device_administrator,
-						R.string.device_administrator_desc));
-
-		view.findViewById(R.id.storage_info_btn)
-				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.storage, R.string.storage_desc));
-
-		view.findViewById(R.id.location_info_btn)
-				.setOnClickListener((View v) -> showPermissionInfoDialog(R.string.location, R.string.location_desc));
-
-		view.findViewById(R.id.secure_info_btn).setOnClickListener(
-				(View v) -> showPermissionInfoDialog(R.string.write_secure, R.string.write_secure_desc));
-
-		view.findViewById(R.id.btn_manage_secure)
-				.setOnClickListener((View v) -> DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS));
-
-		dialog.show();
+		updatePermissionsStatus();
+		permissionsDialog.show();
 	}
 
 	public void showDockLayoutsDialog() {
@@ -203,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
 		dialog.setTitle(R.string.choose_dock_layout);
 		int layout = sp.getInt("dock_layout", -1);
-		dialog.setSingleChoiceItems(R.array.layouts, layout, (DialogInterface arg0, int wich) -> {
+		dialog.setSingleChoiceItems(R.array.layouts, layout, (i, wich) -> {
 			editor.putBoolean("enable_nav_back", wich != 0);
 			editor.putBoolean("enable_nav_home", wich != 0);
 			editor.putBoolean("enable_nav_recents", wich != 0);
@@ -224,11 +175,63 @@ public class MainActivity extends AppCompatActivity {
 		dialog.show();
 	}
 
-	private void showPermissionInfoDialog(int permission, int description) {
+	private void updatePermissionsStatus() {
+		canDrawOverOtherApps = DeviceUtils.canDrawOverOtherApps(this);
+		accessibilityBtn.setEnabled(canDrawOverOtherApps);
+
+		if (canDrawOverOtherApps) {
+			overlayBtn.setIconResource(R.drawable.ic_granted);
+			overlayBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
+		}
+
+		if (DeviceUtils.isAccessibilityServiceEnabled(this)) {
+			accessibilityBtn.setIconResource(R.drawable.ic_settings);
+			accessibilityBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
+		}
+
+		if (DeviceUtils.hasUsageStatsPermission(this)) {
+			usageBtn.setIconResource(R.drawable.ic_granted);
+			usageBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
+		}
+
+		if (DeviceUtils.isServiceRunning(this, NotificationService.class)) {
+			notificationsBtn.setIconResource(R.drawable.ic_settings);
+			notificationsBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
+		}
+
+		isdeviceAdminEnabled = DeviceUtils.isdeviceAdminEnabled(this);
+		if (isdeviceAdminEnabled) {
+			adminBtn.setIconResource(R.drawable.ic_granted);
+			adminBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
+		}
+
+		hasStoragePermission = DeviceUtils.hasStoragePermission(this);
+		if (hasStoragePermission) {
+			storageBtn.setIconResource(R.drawable.ic_granted);
+			storageBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
+		}
+
+		hasLocationPermission = DeviceUtils.hasLocationPermission(this);
+		if (hasLocationPermission) {
+			locationBtn.setIconResource(R.drawable.ic_granted);
+			locationBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
+		}
+
+		hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(this);
+		if (hasWriteSettingsPermission) {
+			secureBtn.setIconResource(R.drawable.ic_granted);
+			secureBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
+		}
+	}
+
+	private void showPermissionInfoDialog(int permission, int description, Method grantMethod, boolean granted) {
 		MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
 		dialogBuilder.setTitle(permission);
 		dialogBuilder.setMessage(description);
-		dialogBuilder.setPositiveButton(R.string.ok, null);
+		if (!granted)
+			dialogBuilder.setPositiveButton(R.string.grant, (i, p) -> grantMethod.run());
+		else
+			dialogBuilder.setPositiveButton(R.string.ok, null);
 		dialogBuilder.show();
 	}
 
@@ -238,50 +241,43 @@ public class MainActivity extends AppCompatActivity {
 		dialogBuilder.setMessage(R.string.accessibility_service_desc);
 
 		if (DeviceUtils.hasWriteSettingsPermission(this)) {
-			dialogBuilder.setPositiveButton("Enable service", (i, p) -> DeviceUtils.enableService(this));
-			dialogBuilder.setNegativeButton("Disable service", (i, p) -> DeviceUtils.disableService(this));
-		} else
-			dialogBuilder.setPositiveButton(getString(R.string.open_accessibility),
-					(i, p) -> startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)));
+			dialogBuilder.setPositiveButton(R.string.enable, (i, p) -> DeviceUtils.enableService(this));
+			dialogBuilder.setNegativeButton(R.string.disable, (i, p) -> DeviceUtils.disableService(this));
+		} else {
+			dialogBuilder.setPositiveButton(R.string.manage, (i, p) -> {
+				startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+				Toast.makeText(this, R.string.enable_access_help, Toast.LENGTH_LONG).show();
+			});
+		}
+
+		dialogBuilder.setNeutralButton(R.string.help, (i, p) -> startActivity(new Intent(Intent.ACTION_VIEW,
+				Uri.parse("https://github.com/axel358/smartdock#grant-restricted-permissions"))));
 
 		dialogBuilder.show();
 	}
 
-	public boolean canDrawOverOtherApps() {
-		return Build.VERSION.SDK_INT < 23 || Settings.canDrawOverlays(this);
-	}
+	private void showNotificationsDialog() {
+		MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+		dialogBuilder.setTitle(R.string.notification_access);
+		dialogBuilder.setMessage(R.string.notification_access_desc);
 
-	public void grantOverlayPermissions() {
-		startActivityForResult(
-				new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 8);
-	}
-
-	public void enableDeviceAdmin() {
-		Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-		intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, new ComponentName(this, DeviceAdminReceiver.class));
-		startActivityForResult(intent, 8);
-	}
-
-	public boolean isdeviceAdminEnabled() {
-		DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-
-		List<ComponentName> deviceAdmins = dpm.getActiveAdmins();
-
-		if (deviceAdmins != null) {
-			for (ComponentName deviceAdmin : deviceAdmins) {
-				if (deviceAdmin.getPackageName().equals(getPackageName())) {
-					return true;
-				}
-			}
+		if (DeviceUtils.hasWriteSettingsPermission(this)) {
+			dialogBuilder.setPositiveButton(R.string.enable, (i, p) -> DeviceUtils.enableNotificationService(this));
+			dialogBuilder.setNegativeButton(R.string.disable, (i, p) -> DeviceUtils.disableNotificationService(this));
+		} else {
+			dialogBuilder.setPositiveButton(R.string.manage, (i, p) -> {
+				startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+				Toast.makeText(this, R.string.enable_access_help, Toast.LENGTH_LONG).show();
+			});
 		}
-		return false;
+
+		dialogBuilder.setNeutralButton(R.string.help, (i, p) -> startActivity(new Intent(Intent.ACTION_VIEW,
+				Uri.parse("https://github.com/axel358/smartdock#grant-restricted-permissions"))));
+
+		dialogBuilder.show();
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == 8) {
-			showPermissionsDialog();
-		}
+	interface Method {
+		void run();
 	}
 }
