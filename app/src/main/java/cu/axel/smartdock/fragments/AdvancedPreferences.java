@@ -26,6 +26,7 @@ import androidx.preference.CheckBoxPreference;
 import cu.axel.smartdock.utils.AppUtils;
 
 public class AdvancedPreferences extends PreferenceFragmentCompat {
+	private boolean rootAvailable;
 
 	@Override
 	public void onCreatePreferences(Bundle arg0, String arg1) {
@@ -76,9 +77,10 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 
 		hideNav.setChecked(result.contains("qemu.hw.mainkeys=1"));
 
-		findPreference("root_category").setEnabled(!result.equals("error"));
+		rootAvailable = !result.equals("error");
+		findPreference("root_category").setEnabled(rootAvailable);
 
-		if (!result.equals("error"))
+		if (rootAvailable)
 			DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS);
 
 		findPreference("secure_category").setEnabled(DeviceUtils.hasWriteSettingsPermission(getActivity()));
@@ -107,12 +109,14 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 			if ((boolean) p2) {
 				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL,
 						DeviceUtils.IMMERSIVE_APPS)) {
-					showRebootDialog(getActivity(), true);
+					if (rootAvailable)
+						showRebootDialog(getActivity(), true);
 					return true;
 				}
 			} else {
 				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL, null)) {
-					showRebootDialog(getActivity(), true);
+					if (rootAvailable)
+						showRebootDialog(getActivity(), true);
 					return true;
 				}
 			}
@@ -153,7 +157,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 			String value = contentEt.getText().toString();
 			int size = value.isEmpty() ? 0 : Integer.parseInt(value);
 
-			if (DeviceUtils.putSecureSetting(getActivity(), DeviceUtils.DISPLAY_SIZE, size))
+			if (DeviceUtils.putSecureSetting(getActivity(), DeviceUtils.DISPLAY_SIZE, size) && rootAvailable)
 				showRebootDialog(getActivity(), true);
 		});
 		dialog.setNegativeButton(getString(R.string.cancel), null);
