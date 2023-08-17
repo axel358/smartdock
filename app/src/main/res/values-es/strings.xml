@@ -73,7 +73,6 @@
   <string name="menu">Menú</string>
   <string name="menu_icon_uri_title">Seleccionar icono de menú</string>
   <string name="restore_menu_icon_title">Restaurar icono de menú predeterminado</string>
-  <string name="enable_app_menu_title">Activar el menú de aplicaciones con la tecla modificadora</string>
   <string name="menu_key_title">Tecla modificadora de menú</string>
   <string name="app_menu_fullscreen_title">Abrir el menú de aplicaciones en pantalla completa</string>
   <string name="app_menu_height_title">Altura del menú de aplicaciones</string>
@@ -279,6 +278,7 @@
   <string name="copied_to_clipboard">Copiado al portapapeles</string>
   <string name="search_for">Buscar</string>
   <string name="on_google">en Google</string>
+  <string name="disabled">Deshabilitado</string>
 
   <!--User context menu-->
   <string name="users">Usuarios</string>

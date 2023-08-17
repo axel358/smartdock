@@ -158,7 +158,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
 		dockHandler = new Handler(Looper.getMainLooper());
 		iconParserUtilities = new IconParserUtilities(context);
-		
+
 	}
 
 	@Override
@@ -731,7 +731,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				AppUtils.removeTask(am, AppUtils.getRunningTasks(am, pm, maxApps).get(0).getID());
 		} else if (event.getAction() == KeyEvent.ACTION_UP) {
 			int menuKey = Integer.parseInt(sp.getString("menu_key", "3"));
-			int menuAltKey = menuKey == 3 ? KeyEvent.KEYCODE_META_LEFT : menuKey;
 
 			if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT && sp.getBoolean("enable_ctrl_back", true)) {
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
@@ -739,15 +738,12 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_MENU && sp.getBoolean("enable_menu_recents", false)) {
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
 				return true;
-			} else if ((event.getKeyCode() == menuKey || event.getKeyCode() == menuAltKey)
-					&& sp.getBoolean("enable_app_menu", true)) {
+			} else if (event.getKeyCode() == menuKey) {
 				toggleAppMenu();
 				return true;
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_F10 && sp.getBoolean("enable_f10", true)) {
-				if (true) {
-					performGlobalAction(AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN);
-					return true;
-				}
+				performGlobalAction(AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN);
+				return true;
 			}
 			//Still working on context
 			/*else if (event.getKeyCode() == KeyEvent.KEYCODE_F9 && sp.getBoolean("enable_f9",false))
@@ -1730,7 +1726,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		boolean menuFullscreen = sp.getBoolean("app_menu_fullscreen", false);
 		boolean phoneLayout = sp.getInt("dock_layout", -1) == 0;
 
-		favoritesGv.setAdapter(new AppAdapter(context, iconParserUtilities, apps, this, menuFullscreen && !phoneLayout));
+		favoritesGv
+				.setAdapter(new AppAdapter(context, iconParserUtilities, apps, this, menuFullscreen && !phoneLayout));
 	}
 
 	public void takeScreenshot() {
@@ -1777,7 +1774,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			boolean menuFullscreen = sp.getBoolean("app_menu_fullscreen", false);
 			boolean phoneLayout = sp.getInt("dock_layout", -1) == 0;
 
-			appsGv.setAdapter(new AppAdapter(context, iconParserUtilities, result, DockService.this, menuFullscreen && !phoneLayout));
+			appsGv.setAdapter(new AppAdapter(context, iconParserUtilities, result, DockService.this,
+					menuFullscreen && !phoneLayout));
 
 		}
 

@@ -75,7 +75,6 @@
   <string name="menu">ਮੀਨੂ</string>
   <string name="menu_icon_uri_title">ਮੀਨੂ ਆਈਕਨ ਚੁਣੋ</string>
   <string name="restore_menu_icon_title">ਡਿਫੌਲਟ ਮੀਨੂ ਆਈਕਨ ਰੀਸਟੋਰ ਕਰੋ</string>
-  <string name="enable_app_menu_title">ਮੋਡੀਫਾਇਰ ਕੀ ਨਾਲ ਐਪ ਮੀਨੂ ਨੂੰ ਟੌਗਲ ਕਰੋ</string>
   <string name="menu_key_title">ਮੀਨੂ ਮੋਡੀਫਾਇਰ ਕੀ</string>
   <string name="app_menu_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਐਪ ਮੀਨੂ ਖੋਲ੍ਹੋ</string>
   <string name="app_menu_height_title">ਐਪ ਮੀਨੂ ਦੀ ਉਚਾਈ</string>
@@ -279,6 +278,7 @@
   <string name="copied_to_clipboard">ਕਲਿੱਪਬੋਰਡ \'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
   <string name="search_for">ਖੋਜ ਲਈ</string>
   <string name="on_google">Google \'ਤੇ</string>
+  <string name="disabled">Disabled</string>
 
   <!--User context menu--> 
   <string name="users">ਉਪਭੋਗਤਾ</string>

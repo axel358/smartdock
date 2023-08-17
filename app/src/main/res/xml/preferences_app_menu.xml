@@ -8,10 +8,6 @@
         <Preference
             android:key="restore_menu_icon"
             android:title="@string/restore_menu_icon_title"/>
-        <CheckBoxPreference
-            android:key="enable_app_menu"
-            android:title="@string/enable_app_menu_title"
-            android:defaultValue="true" />
         <ListPreference
             android:entries="@array/shortcut_keys" 
             android:title="@string/menu_key_title" 
