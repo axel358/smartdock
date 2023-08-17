@@ -7,27 +7,13 @@
         android:key="prefer_last_display"
         android:summary="@string/prefer_last_display_summary"
         android:defaultValue="false" />
-		
-	<EditTextPreference
-        android:summary="@string/scale_factor_summary"
-        android:inputType="numberDecimal"
-        android:key="scale_factor"
-        android:hint="1.0"
-        android:defaultValue="1.0"
-        android:title="@string/scale_factor_title"/>
-		
+				
 	<CheckBoxPreference
         android:title="Custom Toasts"
         android:key="custom_toasts"
         android:summary="Use built-in custom Toasts for apps when the Dock is pinned"
         android:defaultValue="false" />
-		
-	<EditTextPreference
-		android:title="@string/override_sb_height"
-		android:key="status_bar_height"
-		android:inputType="number"
-		android:summary="Use a custom status bar height when calculating maximized window size"/>
-   
+		  
    <PreferenceCategory
    	android:key="secure_category"
    	android:title="@string/secure_settings">
@@ -94,5 +80,32 @@
         android:key="soft_reboot"
         android:summary="@string/soft_reboot_summary"
         android:title="@string/soft_reboot_title"/>
+</PreferenceCategory>
+<PreferenceCategory
+	android:key="development_category"
+    android:title="@string/development_tools">
+	
+	<EditTextPreference
+		android:title="@string/override_sb_height"
+		android:key="status_bar_height"
+		android:inputType="number"
+		android:summary="Use a custom status bar height when calculating maximized window size"/>
+ 
+    <EditTextPreference
+        android:summary="@string/scale_factor_summary"
+        android:inputType="numberDecimal"
+        android:key="scale_factor"
+        android:hint="1.0"
+        android:defaultValue="1.0"
+        android:title="@string/scale_factor_title"/>
+		
+	<EditTextPreference
+        android:summary="@string/icon_padding_summary"
+        android:inputType="number"
+        android:key="icon_padding"
+        android:hint="5"
+        android:defaultValue="5"
+        android:title="@string/icon_padding_title"/>
+
 </PreferenceCategory>
 </PreferenceScreen>
