@@ -1,260 +1,253 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources
-  xmlns:tools="http://schemas.android.com/tools"
-  tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-  <!--General-->
-  <string name="app_name">ਸਮਾਰਟ ਡੌਕ</string>
-  <string name="none">ਕੋਈ ਨਹੀਂ</string>
-  <string name="move">ਮੂਵ ਕਰੋ</string>
-  <string name="ok">ਠੀਕ ਹੈ</string>
-  <string name="cancel">ਰੱਦ ਕਰੋ</string>
+    <!-- General -->
+    <string name="app_name">ਸਮਾਰਟ ਡੌਕ</string>
+    <string name="none">ਕੋਈ ਨਹੀਂ</string>
+    <string name="move">ਮੂਵ ਕਰੋ</string>
+    <string name="ok">ਠੀਕ ਹੈ</string>
+    <string name="cancel">ਰੱਦ ਕਰੋ</string>
 
-  <!--Layouts dialog-->
-  <string name="choose_dock_layout">ਡੌਕ ਲੇਆਉਟ ਚੁਣੋ</string>
-  <string name="phone">ਫ਼ੋਨ</string>
-  <string name="tablet">ਟੈਬਲੇਟ</string>
+    <!-- Layouts dialog -->
+    <string name="choose_dock_layout">ਡੌਕ ਲੇਆਉਟ ਚੁਣੋ</string>
+    <string name="phone">ਫ਼ੋਨ</string>
+    <string name="tablet">ਟੈਬਲੇਟ</string>
 
-  <!--Permissions dialog-->  
-  <string name="manage_permissions">ਪ੍ਰਮਿਸਨਸ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ</string>
-  <string name="required">ਲੋੜੀਂਦਾ ਹੈ</string>
-  <string name="optional">ਵਿਕਲਪਿਕ</string>
-  <string name="display_over_other_apps">ਹੋਰ ਐਪਸ ਉੱਤੇ ਡਿਸਪਲੇ ਕਰੋ</string>
-  <string name="display_over_other_apps_desc">ਡੌਕ ਨੂੰ ਡਿਸਪਲੇ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਹੈ, ਤੁਸੀਂ ਇਸ ਤੋਂ ਬਿਨਾਂ ਸੇਵਾ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰ ਸਕਦੇ ਹੋ</string>
-  <string name="accessibility_service">ਅਸੈਂਸੀਬਿਲਟੀ ਸੇਵਾ</string>
-  <string name="accessibility_service_desc">ਡੌਕ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਬੰਦ ਕਰਨ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ। ਉਪਰੋਕਤ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ</string>
-  <string name="usage_stats">ਵਰਤੋਂ ਦੇ ਅੰਕੜੇ</string>
-  <string name="usage_stats_desc">ਉਹਨਾਂ ਡੀਵਾਈਸਾਂ \'ਤੇ ਹਾਲੀਆ ਐਪਾਂ ਦਿਖਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ ਜਿੱਥੇ ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
-  <string name="notification_access">ਨੋਟੀਫੀਕੇਸਨ ਐਕਸੈਸ</string>
-  <string name="notification_access_desc">ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
-  <string name="device_administrator">ਡਿਵਾਈਸ ਐਡਮਿਨਸਟਰੇਟਰ</string>
-  <string name="device_administrator_desc">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ। ਅਣਇੰਸਟੌਲ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਡਿਸਏਬਲ ਕਰੋ</string>
-  <string name="storage">ਸਟੋਰੇਜ</string>
-  <string name="storage_desc">ਮੀਨੂ ਆਈਕਨ ਅਤੇ ਇਵੈਂਟ ਆਵਾਜ਼ਾਂ ਨੂੰ ਬਦਲਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
-  <string name="location">ਲੋਕੇਸਨ</string>
-  <string name="location_desc">ਐਂਡਰਾਇਡ 8 \'ਤੇ WiFi ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
-  <string name="write_secure">Write secure settings</string>
-  <string name="write_secure_desc">Needed for advanced setings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
-  <string name="manage">ਮੈਨਜ ਕਰਨਾ </string>
-  <string name="grant">ਗ੍ਰਾਂਟ</string>
-  <string name="enable">Enable</string>
-  <string name="disable">Disable</string>
+    <!-- Permissions dialog -->
+    <string name="manage_permissions">ਪ੍ਰਮਿਸਨਸ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ</string>
+    <string name="required">ਲੋੜੀਂਦਾ ਹੈ</string>
+    <string name="optional">ਵਿਕਲਪਿਕ</string>
+    <string name="display_over_other_apps">ਹੋਰ ਐਪਸ ਉੱਤੇ ਡਿਸਪਲੇ ਕਰੋ</string>
+    <string name="display_over_other_apps_desc">ਡੌਕ ਨੂੰ ਡਿਸਪਲੇ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਹੈ, ਤੁਸੀਂ ਇਸ ਤੋਂ ਬਿਨਾਂ ਸੇਵਾ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰ ਸਕਦੇ ਹੋ</string>
+    <string name="accessibility_service">ਅਸੈਂਸੀਬਿਲਟੀ ਸੇਵਾ</string>
+    <string name="accessibility_service_desc">ਡੌਕ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਬੰਦ ਕਰਨ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ। ਉਪਰੋਕਤ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="usage_stats">ਵਰਤੋਂ ਦੇ ਅੰਕੜੇ</string>
+    <string name="usage_stats_desc">ਉਹਨਾਂ ਡੀਵਾਈਸਾਂ \'ਤੇ ਹਾਲੀਆ ਐਪਾਂ ਦਿਖਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ ਜਿੱਥੇ ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
+    <string name="notification_access">ਨੋਟੀਫੀਕੇਸਨ ਐਕਸੈਸ</string>
+    <string name="notification_access_desc">ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="device_administrator">ਡਿਵਾਈਸ ਐਡਮਿਨਸਟਰੇਟਰ</string>
+    <string name="device_administrator_desc">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ। ਅਣਇੰਸਟੌਲ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਡਿਸਏਬਲ ਕਰੋ</string>
+    <string name="storage">ਸਟੋਰੇਜ</string>
+    <string name="storage_desc">ਮੀਨੂ ਆਈਕਨ ਅਤੇ ਇਵੈਂਟ ਆਵਾਜ਼ਾਂ ਨੂੰ ਬਦਲਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="location">ਲੋਕੇਸਨ</string>
+    <string name="location_desc">ਐਂਡਰਾਇਡ 8 \'ਤੇ WiFi ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="write_secure">Write secure settings</string>
+    <string name="write_secure_desc">Needed for advanced setings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="manage">ਮੈਨਜ ਕਰਨਾ </string>
+    <string name="grant">ਗ੍ਰਾਂਟ</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
 
-  <!--Appearance page-->  
-  <string name="appearance">ਦਿੱਖਣਾ</string>
-  <string name="look_and_feel">ਦਿੱਖਣਾ ਅਤੇ ਫੀਲ</string>
-  <string name="theme_title">ਡੌਕ ਥੀਮ</string>
-  <string name="dark">ਹਨੇਰ</string>
-  <string name="black">ਕਾਲਾ</string>
-  <string name="transparent">ਪਾਰਦਰਸ਼ੀ</string>
-  <string name="material_u">ਮਟੀਰੀਅਲ ਯੂ</string>
-  <string name="custom">ਕਸਟਮ</string>
-  <string name="theme_main_color_title">ਥੀਮ ਦਾ ਮੁੱਖ ਰੰਗ</string>
-  <string name="theme_main_color_summary">ਆਈਟਮ ਬੈਕਗਰਾਊਂਡ ਲਈ ਮੁੱਖ ਰੰਗ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
-  <string name="choose_color">ਰੰਗ ਚੁਣੋ</string>
-  <string name="transparency">ਪਾਰਦਰਸ਼ਤਾ</string>
-  <string name="invalid_color">ਅਵੈਧ ਰੰਗ</string>
-  <string name="wallpaper">ਵਾਲਪੇਪਰ</string>
-  <string name="presets">ਪ੍ਰੀਸੈਟਸ</string>
-  <string name="icon_pack">ਆਈਕਨ ਪੈਕ</string>
-  <string name="icon_shape_title">ਆਈਕਨ ਆਕਾਰ</string>
-  <string name="circle">ਚੱਕਰ</string>
-  <string name="squircle">ਸਕਰਕਲ</string>
-  <string name="system">ਸਿਸਟਮ</string>
-  <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>
-  <string name="icon_padding_summary">ਆਈਕਨ ਅਤੇ ਇਸ ਦੇ ਬਾਰਡਰ ਦੇ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
-  <string name="dock_square_title">ਡੌਕ ਲਈ ਗੋਲ ਕੋਨਿਆਂ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
-  <string name="tint_indicators_title">ਟਿੰਟ ਚੱਲ ਰਹੇ ਸੂਚਕ</string>
-  <string name="custom_animation_title">ਐਪ ਲਾਂਚ ਐਨੀਮੇਸ਼ਨ</string>
-  <string name="fade">ਫੇਡ</string>
-  <string name="slide_up">ਉੱਪਰ ਸਲਾਈਡ ਕਰੋ</string>
-  <string name="slide_left">ਖੱਬੇ ਪਾਸੇ ਸਲਾਈਡ ਕਰੋ</string>
+    <!-- Appearance page -->
+    <string name="appearance">ਦਿੱਖਣਾ</string>
+    <string name="look_and_feel">ਦਿੱਖਣਾ ਅਤੇ ਫੀਲ</string>
+    <string name="theme_title">ਡੌਕ ਥੀਮ</string>
+    <string name="dark">ਹਨੇਰ</string>
+    <string name="black">ਕਾਲਾ</string>
+    <string name="transparent">ਪਾਰਦਰਸ਼ੀ</string>
+    <string name="material_u">ਮਟੀਰੀਅਲ ਯੂ</string>
+    <string name="custom">ਕਸਟਮ</string>
+    <string name="theme_main_color_title">ਥੀਮ ਦਾ ਮੁੱਖ ਰੰਗ</string>
+    <string name="theme_main_color_summary">ਆਈਟਮ ਬੈਕਗਰਾਊਂਡ ਲਈ ਮੁੱਖ ਰੰਗ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
+    <string name="choose_color">ਰੰਗ ਚੁਣੋ</string>
+    <string name="transparency">ਪਾਰਦਰਸ਼ਤਾ</string>
+    <string name="invalid_color">ਅਵੈਧ ਰੰਗ</string>
+    <string name="wallpaper">ਵਾਲਪੇਪਰ</string>
+    <string name="presets">ਪ੍ਰੀਸੈਟਸ</string>
+    <string name="icon_pack">ਆਈਕਨ ਪੈਕ</string>
+    <string name="icon_shape_title">ਆਈਕਨ ਆਕਾਰ</string>
+    <string name="circle">ਚੱਕਰ</string>
+    <string name="squircle">ਸਕਰਕਲ</string>
+    <string name="system">ਸਿਸਟਮ</string>
+    <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>
+    <string name="icon_padding_summary">ਆਈਕਨ ਅਤੇ ਇਸ ਦੇ ਬਾਰਡਰ ਦੇ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
+    <string name="dock_square_title">ਡੌਕ ਲਈ ਗੋਲ ਕੋਨਿਆਂ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="tint_indicators_title">ਟਿੰਟ ਚੱਲ ਰਹੇ ਸੂਚਕ</string>
+    <string name="custom_animation_title">ਐਪ ਲਾਂਚ ਐਨੀਮੇਸ਼ਨ</string>
+    <string name="fade">ਫੇਡ</string>
+    <string name="slide_up">ਉੱਪਰ ਸਲਾਈਡ ਕਰੋ</string>
+    <string name="slide_left">ਖੱਬੇ ਪਾਸੇ ਸਲਾਈਡ ਕਰੋ</string>
 
-  <!--App menu page-->
-  <string name="app_menu">ਐਪ ਮੀਨੂ</string>
-  <string name="menu">ਮੀਨੂ</string>
-  <string name="menu_icon_uri_title">ਮੀਨੂ ਆਈਕਨ ਚੁਣੋ</string>
-  <string name="restore_menu_icon_title">ਡਿਫੌਲਟ ਮੀਨੂ ਆਈਕਨ ਰੀਸਟੋਰ ਕਰੋ</string>
-  <string name="menu_key_title">ਮੀਨੂ ਮੋਡੀਫਾਇਰ ਕੀ</string>
-  <string name="app_menu_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਐਪ ਮੀਨੂ ਖੋਲ੍ਹੋ</string>
-  <string name="app_menu_height_title">ਐਪ ਮੀਨੂ ਦੀ ਉਚਾਈ</string>
-  <string name="app_menu_width_title">ਐਪ ਮੀਨੂ ਦੀ ਚੌੜਾਈ</string>
-  <string name="num_columns_title">ਕਾਲਮਾਂ ਦੀ ਸੰਖਿਆ</string>
-  <string name="center_app_menu">ਸੈਂਟਰ ਐਪ ਮੀਨੂ</string>
-  <string name="app_launch">ਐਪ ਲਾਂਚ</string>
-  <string name="launch_mode_title">ਐਪ ਲਾਂਚ ਮੋਡ</string>
-  <string name="standard">ਮਿਆਰੀ</string>
-  <string name="maximized">ਵੱਧ ਤੋਂ ਵੱਧ</string>
-  <string name="portrait">ਪੋਰਟਰੇਟ</string>
-  <string name="fullscreen">ਪੂਰਾ ਸਕਰੀਨ</string>
-  <string name="remember_launch_mode_title">ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
-  <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
-  <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
-  <string name="launch_games_fullscreen_summary">ਡੀਫੋਲਟ ਤੌਰ \'ਤੇ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਐਪਾਂ ਨੂੰ ਲਾਂਚ ਕਰੋ</string>
+    <!-- App menu page -->
+    <string name="app_menu">ਐਪ ਮੀਨੂ</string>
+    <string name="menu">ਮੀਨੂ</string>
+    <string name="menu_icon_uri_title">ਮੀਨੂ ਆਈਕਨ ਚੁਣੋ</string>
+    <string name="restore_menu_icon_title">ਡਿਫੌਲਟ ਮੀਨੂ ਆਈਕਨ ਰੀਸਟੋਰ ਕਰੋ</string>
+    <string name="menu_key_title">ਮੀਨੂ ਮੋਡੀਫਾਇਰ ਕੀ</string>
+    <string name="app_menu_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਐਪ ਮੀਨੂ ਖੋਲ੍ਹੋ</string>
+    <string name="app_menu_height_title">ਐਪ ਮੀਨੂ ਦੀ ਉਚਾਈ</string>
+    <string name="app_menu_width_title">ਐਪ ਮੀਨੂ ਦੀ ਚੌੜਾਈ</string>
+    <string name="num_columns_title">ਕਾਲਮਾਂ ਦੀ ਸੰਖਿਆ</string>
+    <string name="center_app_menu">ਸੈਂਟਰ ਐਪ ਮੀਨੂ</string>
+    <string name="app_launch">ਐਪ ਲਾਂਚ</string>
+    <string name="launch_mode_title">ਐਪ ਲਾਂਚ ਮੋਡ</string>
+    <string name="standard">ਮਿਆਰੀ</string>
+    <string name="maximized">ਵੱਧ ਤੋਂ ਵੱਧ</string>
+    <string name="portrait">ਪੋਰਟਰੇਟ</string>
+    <string name="fullscreen">ਪੂਰਾ ਸਕਰੀਨ</string>
+    <string name="remember_launch_mode_title">ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
+    <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
+    <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
+    <string name="launch_games_fullscreen_summary">ਡੀਫੋਲਟ ਤੌਰ \'ਤੇ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਐਪਾਂ ਨੂੰ ਲਾਂਚ ਕਰੋ</string>
 
-  <!--Dock page--> 
-  <string name="dock">ਡੌਕ</string>
-  <string name="navigation">ਨੇਵੀਗੇਸ਼ਨ</string>
-  <string name="enable_apps_btn">ਐਪਸ ਮੀਨੂ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_nav_back_title">ਵਾਪਸ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_nav_home_title">ਹੋਮ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_nav_recents_title">ਹਾਲੀਆ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_nav_assist_title">ਸਹਾਇਕ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="quick_settings">ਕਵਿਕ ਸੈਟਿੰਗਾਂ</string>
-  <string name="enable_notif_btn">ਸੂਚਨਾਵਾਂ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_qs_bluetooth_title">ਬਲੂਟੁੱਥ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_qs_battery_title">ਬੈਟਰੀ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_qs_wifi_title">Wi-Fi ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_qs_vol_title">ਵਾਲੀਅਮ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_qs_date_title">ਕਲੋਕ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_qs_pin_title">ਪਿੰਨ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_qs_pin_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ ਨੂੰ ਲੰਬੇ ਸਮੇਂ ਤੱਕ ਦਬਾ ਕੇ ਜਾਂ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰ ਸਕਦੇ ਹੋ</string>
-  <string name="enable_wifi_panel_title">WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_wifi_panel_summary">Built In WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰਦਾ ਹੈ। ਇਸ ਲਈ ਲੋਕੇਸਨ ਦੀ ਲੋੜ ਹੈ</string>
-  <string name="behaviour">ਵਿਵਹਾਰ</string>
-  <string name="enable_apps_btn_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ \'ਤੇ ਉੱਪਰ/ਹੇਠਾਂ ਸਵਾਈਪ ਕਰਕੇ ਐਪ ਮੀਨੂ ਨੂੰ ਖੋਲ੍ਹ/ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ</string>
-  <string name="activation_method">ਐਕਟੀਵੇਸ਼ਨ ਵਿਧੀ</string>
-  <string name="activation_method_summary">ਓਹਲੇ ਹੋਣ \'ਤੇ ਡੌਕ ਨੂੰ ਲਿਆਉਣ ਲਈ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਤਰੀਕਾ</string>
-  <string name="swipe">ਸਵਾਈਪ/ਹੂਵਰ</string>
-  <string name="handle">ਹੈਂਡਲ</string>
-  <string name="auto_pin_title">ਆਟੋ ਪਿੰਨ</string>
-  <string name="auto_pin_summary">ਆਟੋ ਪਿੰਨ ਕੌਂਫਿਗਰ ਕਰੋ</string>
-  <string name="pin_startup">ਸਟਾਰਟਅੱਪ \'ਤੇ ਪਿੰਨ ਕਰੋ</string>
-  <string name="pin_windowed">ਵਿੰਡੋਡ ਐਪਸ \'ਤੇ ਪਿੰਨ ਕਰੋ</string>
-  <string name="unpin_fullscreen">ਪੂਰੀ ਸਕ੍ਰੀਨ ਐਪਾਂ \'ਤੇ ਅਨਪਿੰਨ ਕਰੋ</string>
-  <string name="running_apps_number_title">ਚੱਲ ਰਹੀਆਂ/ਹਾਲੀਆ ਐਪਾਂ ਦੀ ਦਿਖਾਉਣ ਲਈ ਸੰਖਿਆ</string>
-  <string name="running_apps_number_summary">ਇਹ ਸੈਟਿੰਗ ਛੋਟੀਆਂ ਸਕ੍ਰੀਨਾਂ ਵਾਲੇ ਡਿਵਾਈਸਾਂ ਨੂੰ ਡੌਕ \'ਤੇ ਐਪ ਓਵਰਫਲੋ ਤੋਂ ਬਚਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ</string>
-  <string name="dock_hide_delay_title">ਡੌਕ ਲੁਕਾਓ ਲਈ ms ਵਿੱਚ ਦੇਰੀ</string>
-  <string name="center_running_apps_title">ਸੈਂਟਰ ਚੱਲ ਰਹੀਆਂ ਐਪਾਂ</string>
-  <string name="dock_activation_area_title">ਡੌਕ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ (ਅਧਿਕਤਮ 50)</string>
-  <string name="dock_activation_area_summary">ਸਕ੍ਰੀਨ ਦੇ ਹੇਠਾਂ ਇਨਵਿਜੀਵਲ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ ਦੀ ਉਚਾਈ</string>
+    <!-- Dock page -->
+    <string name="dock">ਡੌਕ</string>
+    <string name="navigation">ਨੇਵੀਗੇਸ਼ਨ</string>
+    <string name="enable_apps_btn">ਐਪਸ ਮੀਨੂ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_nav_back_title">ਵਾਪਸ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_nav_home_title">ਹੋਮ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_nav_recents_title">ਹਾਲੀਆ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_nav_assist_title">ਸਹਾਇਕ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="quick_settings">ਕਵਿਕ ਸੈਟਿੰਗਾਂ</string>
+    <string name="enable_notif_btn">ਸੂਚਨਾਵਾਂ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_qs_bluetooth_title">ਬਲੂਟੁੱਥ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_qs_battery_title">ਬੈਟਰੀ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_qs_wifi_title">Wi-Fi ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_qs_vol_title">ਵਾਲੀਅਮ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_qs_date_title">ਕਲੋਕ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_qs_pin_title">ਪਿੰਨ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_qs_pin_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ ਨੂੰ ਲੰਬੇ ਸਮੇਂ ਤੱਕ ਦਬਾ ਕੇ ਜਾਂ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰ ਸਕਦੇ ਹੋ</string>
+    <string name="enable_wifi_panel_title">WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_wifi_panel_summary">Built In WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰਦਾ ਹੈ। ਇਸ ਲਈ ਲੋਕੇਸਨ ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="behaviour">ਵਿਵਹਾਰ</string>
+    <string name="enable_apps_btn_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ \'ਤੇ ਉੱਪਰ/ਹੇਠਾਂ ਸਵਾਈਪ ਕਰਕੇ ਐਪ ਮੀਨੂ ਨੂੰ ਖੋਲ੍ਹ/ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ</string>
+    <string name="activation_method">ਐਕਟੀਵੇਸ਼ਨ ਵਿਧੀ</string>
+    <string name="activation_method_summary">ਓਹਲੇ ਹੋਣ \'ਤੇ ਡੌਕ ਨੂੰ ਲਿਆਉਣ ਲਈ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਤਰੀਕਾ</string>
+    <string name="swipe">ਸਵਾਈਪ/ਹੂਵਰ</string>
+    <string name="handle">ਹੈਂਡਲ</string>
+    <string name="auto_pin_title">ਆਟੋ ਪਿੰਨ</string>
+    <string name="auto_pin_summary">ਆਟੋ ਪਿੰਨ ਕੌਂਫਿਗਰ ਕਰੋ</string>
+    <string name="pin_startup">ਸਟਾਰਟਅੱਪ \'ਤੇ ਪਿੰਨ ਕਰੋ</string>
+    <string name="pin_windowed">ਵਿੰਡੋਡ ਐਪਸ \'ਤੇ ਪਿੰਨ ਕਰੋ</string>
+    <string name="unpin_fullscreen">ਪੂਰੀ ਸਕ੍ਰੀਨ ਐਪਾਂ \'ਤੇ ਅਨਪਿੰਨ ਕਰੋ</string>
+    <string name="running_apps_number_title">ਚੱਲ ਰਹੀਆਂ/ਹਾਲੀਆ ਐਪਾਂ ਦੀ ਦਿਖਾਉਣ ਲਈ ਸੰਖਿਆ</string>
+    <string name="running_apps_number_summary">ਇਹ ਸੈਟਿੰਗ ਛੋਟੀਆਂ ਸਕ੍ਰੀਨਾਂ ਵਾਲੇ ਡਿਵਾਈਸਾਂ ਨੂੰ ਡੌਕ \'ਤੇ ਐਪ ਓਵਰਫਲੋ ਤੋਂ ਬਚਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ</string>
+    <string name="dock_hide_delay_title">ਡੌਕ ਲੁਕਾਓ ਲਈ ms ਵਿੱਚ ਦੇਰੀ</string>
+    <string name="center_running_apps_title">ਸੈਂਟਰ ਚੱਲ ਰਹੀਆਂ ਐਪਾਂ</string>
+    <string name="dock_activation_area_title">ਡੌਕ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ (ਅਧਿਕਤਮ 50)</string>
+    <string name="dock_activation_area_summary">ਸਕ੍ਰੀਨ ਦੇ ਹੇਠਾਂ ਇਨਵਿਜੀਵਲ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ ਦੀ ਉਚਾਈ</string>
 
-  <!--Desktop-->  
-  <string name="desktop">ਡੈਸਕਟਾਪ</string>
-  <string name="show_notes_title">ਨੋਟਸ ਵਿਜੇਟ ਦਿਖਾਓ</string>
+    <!-- Desktop -->
+    <string name="desktop">ਡੈਸਕਟਾਪ</string>
+    <string name="show_notes_title">ਨੋਟਸ ਵਿਜੇਟ ਦਿਖਾਓ</string>
 
-  <!--Default apps page-->  
-  <string name="default_apps">ਡੀਫੋਲਟ ਐਪਾਂ</string>
-  <string name="app_browser_title">ਵੈੱਬ ਬਰਾਊਜ਼ਰ</string>
-  <string name="app_files_title">ਫਾਈਲਾਂ</string>
-  <string name="app_music_title">ਸੰਗੀਤ</string>
-  <string name="app_movies_title">ਫਿਲਮਾਂ</string>
-  <string name="app_assistant_title">ਸਹਾਇਕ</string>
-  <string name="app_clock_title">ਕਲੋਕ</string>
-  <string name="app_terminal_title">ਰੋਕਨਾ</string>
-  <string name="app_rec_title">ਸਕਰੀਨ ਰਿਕਾਰਡਰ</string>
-  <string name="choose_app">ਇੱਕ ਐਪ ਚੁਣੋ</string>
-  <string name="tap_to_set">ਸੈੱਟ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ</string>
+    <!-- Default apps page -->
+    <string name="default_apps">ਡੀਫੋਲਟ ਐਪਾਂ</string>
+    <string name="app_browser_title">ਵੈੱਬ ਬਰਾਊਜ਼ਰ</string>
+    <string name="app_files_title">ਫਾਈਲਾਂ</string>
+    <string name="app_music_title">ਸੰਗੀਤ</string>
+    <string name="app_movies_title">ਫਿਲਮਾਂ</string>
+    <string name="app_assistant_title">ਸਹਾਇਕ</string>
+    <string name="app_clock_title">ਕਲੋਕ</string>
+    <string name="app_terminal_title">ਰੋਕਨਾ</string>
+    <string name="app_rec_title">ਸਕਰੀਨ ਰਿਕਾਰਡਰ</string>
+    <string name="choose_app">ਇੱਕ ਐਪ ਚੁਣੋ</string>
+    <string name="tap_to_set">ਸੈੱਟ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ</string>
 
-  <!--Keyboard page-->  
-  <string name="keyboard">ਕੀਬੋਰਡ</string>
-  <string name="apps">ਐਪਸ</string>
-  <string name="general">ਜਨਰਲ</string>
-  <string name="shortcut_key_dialogTitle">ਸ਼ਾਰਟਕੱਟ ਮੋਡੀਫਾਇਰ ਕੀ</string>
-  <string name="shortcut_key_title">ਸ਼ਾਰਟਕੱਟ ਮੋਡੀਫਾਇਰ ਕੀ</string>
-  <string name="enable_lock_desktop_title">ਡੈਸਕਟਾਪ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + L ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ (ਡਿਵਾਈਸ ਐਡਮਿਨਸਟਰੇਟਰ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ)</string>
-  <string name="enable_open_settings_title">ਸੈਟਿੰਗਾਂ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + P ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_open_music_title">ਤੁਹਾਡੀ ਡੀਫੋਲਟ ਸੰਗੀਤ ਐਪ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + M ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_open_browser_title">ਆਪਣਾ ਡੀਫੋਲਟ ਬ੍ਰਾਊਜ਼ਰ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + B ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_open_terminal_title">ਟਰਮੀਨਲ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + T ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_open_assist_title">ਆਪਣੀ ਡੀਫੋਲਟ ਸਹਾਇਕ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + A ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_open_rec_title">ਆਪਣੀ ਡੀਫੋਲਟ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਰ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + R ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_expand_notifications_title">ਨੋਟੀਫੀਕੇਸਨ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + N ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_ctrl_back_title">ਬੈਕ ਬਟਨ ਵਜੋਂ ਕੰਮ ਕਰਨ ਲਈ ਸੱਜਾ Ctrl ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_f10_title">F10 ਦਬਾ ਕੇ ਸਪਲਿਟ ਸਕ੍ਰੀਨ ਨੂੰ ਟੌਗਲ ਕਰੋ</string>
-  <string name="enable_toggle_pin_title">ਡੌਕ ਨੂੰ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + W ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
-  <string name="enable_menu_recents_title">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮੀਨੂ ਕੀ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <!-- Keyboard page -->
+    <string name="keyboard">ਕੀਬੋਰਡ</string>
+    <string name="apps">ਐਪਸ</string>
+    <string name="general">ਜਨਰਲ</string>
+    <string name="shortcut_key_dialogTitle">ਸ਼ਾਰਟਕੱਟ ਮੋਡੀਫਾਇਰ ਕੀ</string>
+    <string name="shortcut_key_title">ਸ਼ਾਰਟਕੱਟ ਮੋਡੀਫਾਇਰ ਕੀ</string>
+    <string name="enable_lock_desktop_title">ਡੈਸਕਟਾਪ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + L ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ (ਡਿਵਾਈਸ ਐਡਮਿਨਸਟਰੇਟਰ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ)</string>
+    <string name="enable_open_settings_title">ਸੈਟਿੰਗਾਂ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + P ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_open_music_title">ਤੁਹਾਡੀ ਡੀਫੋਲਟ ਸੰਗੀਤ ਐਪ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + M ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_open_browser_title">ਆਪਣਾ ਡੀਫੋਲਟ ਬ੍ਰਾਊਜ਼ਰ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + B ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_open_terminal_title">ਟਰਮੀਨਲ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + T ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_open_assist_title">ਆਪਣੀ ਡੀਫੋਲਟ ਸਹਾਇਕ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + A ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_open_rec_title">ਆਪਣੀ ਡੀਫੋਲਟ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਰ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + R ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_expand_notifications_title">ਨੋਟੀਫੀਕੇਸਨ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + N ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_ctrl_back_title">ਬੈਕ ਬਟਨ ਵਜੋਂ ਕੰਮ ਕਰਨ ਲਈ ਸੱਜਾ Ctrl ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_f10_title">F10 ਦਬਾ ਕੇ ਸਪਲਿਟ ਸਕ੍ਰੀਨ ਨੂੰ ਟੌਗਲ ਕਰੋ</string>
+    <string name="enable_toggle_pin_title">ਡੌਕ ਨੂੰ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + W ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_menu_recents_title">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮੀਨੂ ਕੀ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
 
-  <!--Sounds page-->  
-  <string name="sounds">ਆਵਾਜ਼ਾਂ</string>
-  <string name="please_note_that_you_must_prov">ਕਿਰਪਾ ਕਰਕੇ ਨੋਟ ਕਰੋ ਕਿ ਤੁਹਾਨੂੰ ਆਪਣੀਆਂ ਖੁਦ ਦੀਆਂ ਆਵਾਜ਼ਾਂ ਪ੍ਰਦਾਨ ਕਰਨੀਆਂ ਹੋਣਗੀਆ</string>
-  <string name="enable_startup_sound_title">ਡੌਕ ਸਟਾਰਟਅੱਪ \'ਤੇ ਇੱਕ ਕਸਟਮ ਧੁਨੀ ਚਲਾਓ*</string>
-  <string name="startup_sound_title">ਸ਼ੁਰੂਆਤੀ ਆਵਾਜ਼ ਚੁਣੋ</string>
-  <string name="enable_usb_sound_title">USB ਡਿਵਾਈਸਾਂ ਨੂੰ ਕਨੈਕਟ ਕਰਦੇ ਸਮੇਂ ਇੱਕ ਕਸਟਮ ਧੁਨੀ ਚਲਾਓ</string>
-  <string name="usb_sound_title">USB ਧੁਨੀ ਚੁਣੋ</string>
-  <string name="enable_notification_sound_title">ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਉਣ ਵੇਲੇ ਇੱਕ ਕਸਟਮ ਧੁਨੀ ਚਲਾਓ</string>
-  <string name="notification_sound_title">ਨੋਟੀਫੀਕੇਸਨ ਧੁਨੀ ਚੁਣੋ</string>
-  <string name="enable_charge_sound_title">ਪਾਵਰ ਸਰੋਤ ਵਿੱਚ ਪਲੱਗ ਕਰਨ ਵੇਲੇ ਇੱਕ ਕਸਟਮ ਧੁਨੀ ਚਲਾਓ</string>
-  <string name="charge_sound_title">ਚਾਰਜ ਧੁਨੀ ਚੁਣੋ</string>
-  <string name="enable_charge_complete_sound_title">ਜਦੋਂ ਡਿਵਾਈਸ ਚਾਰਜਿੰਗ ਪੂਰੀ ਕਰ ਲਵੇ ਤਾਂ ਇੱਕ ਕਸਟਮ ਧੁਨੀ ਚਲਾਓ*</string>
-  <string name="charge_complete_sound_title">ਚਾਰਜ ਪੂਰੀ ਆਵਾਜ਼ ਚੁਣੋ</string>
+    <!-- Sounds page -->
+    <string name="sounds">ਆਵਾਜ਼ਾਂ</string>
+    <string name="please_note_that_you_must_prov">ਕਿਰਪਾ ਕਰਕੇ ਨੋਟ ਕਰੋ ਕਿ ਤੁਹਾਨੂੰ ਆਪਣੀਆਂ ਖੁਦ ਦੀਆਂ ਆਵਾਜ਼ਾਂ ਪ੍ਰਦਾਨ ਕਰਨੀਆਂ ਹੋਣਗੀਆ</string>
+    <string name="startup_sound_title">ਸ਼ੁਰੂਆਤੀ ਆਵਾਜ਼ ਚੁਣੋ</string>
+    <string name="usb_sound_title">USB ਧੁਨੀ ਚੁਣੋ</string>
+    <string name="notification_sound_title">ਨੋਟੀਫੀਕੇਸਨ ਧੁਨੀ ਚੁਣੋ</string>
+    <string name="charge_sound_title">ਚਾਰਜ ਧੁਨੀ ਚੁਣੋ</string>
+    <string name="charge_complete_sound_title">ਚਾਰਜ ਪੂਰੀ ਆਵਾਜ਼ ਚੁਣੋ</string>
 
-  <!--Notifications page-->
-  <string name="notifications">ਨੋਟੀਫੀਕੇਸਨ</string>
-  <string name="manage_service">ਮੈਨਜ  ਸਰਵੀਸ</string>
-  <string name="notification_timeout_title">ms ਵਿੱਚ ਨੋਟੀਫੀਕੇਸਨ ਡਿਸਪਲੇ ਸਮਾਂ</string>
-  <string name="show_ongoing_title">ਚੱਲ ਰਹੀਆਂ ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਓ (ਬੱਗੀ)</string>
-  <string name="show_current_title">ਮੌਜੂਦਾ ਐਪ ਲਈ ਨੋਟੀਫੀਕੇਸਨ ਲੁਕਾਓ</string>
-  <string name="blocked_notifications_hint">android</string>
-  <string name="notification_bottom_title">ਹੇਠਾਂ ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਓ (ਸੇਵਾ ਏਟੀਐਮ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੈ)</string>
-  <string name="blocked_notifications_summary">ਨੋਟੀਫੀਕੇਸਨ ਨੂੰ ਰੌਕਣ ਲਈ ਪੈਕੇਜਾ ਨੂੰ ਸਪੇਸ ਨਾਲ ਵੱਖ ਕਰਕੇ ਨਾਵਾਂ ਦੀ ਸੂਚੀ</string>
-  <string name="blocked_notifications_title">ਰੌਕੇ ਹੋਏ ਨੋਟੀਫੀਕੇਸਨ</string>
-  <string name="long_press_a_notification_to_a">ਰੌਕੇ ਸੂਚੀ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰਨ ਲਈ ਇੱਕ ਨੋਟੀਫੀਕੇਸਨ ਨੂੰ ਦੇਰ ਤੱਕ ਦਬਾਓ</string>
-  <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਸਾਈਲੈਨਸਡ ਨੋਟੀਫੀਕੇਸਨ</string>
-  <string name="enable_notif_panel_title">ਸੂਚਨਾ ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="do_not_disturb">ਡੀ ਐਨ ਡੀ</string>
-  <string name="do_not_disturb_summary">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪ-ਅਪਸ ਨੂੰ ਬੰਦ ਕਰੋ</string>
+    <!-- Notifications page -->
+    <string name="notifications">ਨੋਟੀਫੀਕੇਸਨ</string>
+    <string name="manage_service">ਮੈਨਜ  ਸਰਵੀਸ</string>
+    <string name="notification_timeout_title">ms ਵਿੱਚ ਨੋਟੀਫੀਕੇਸਨ ਡਿਸਪਲੇ ਸਮਾਂ</string>
+    <string name="show_ongoing_title">ਚੱਲ ਰਹੀਆਂ ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਓ (ਬੱਗੀ)</string>
+    <string name="show_current_title">ਮੌਜੂਦਾ ਐਪ ਲਈ ਨੋਟੀਫੀਕੇਸਨ ਲੁਕਾਓ</string>
+    <string name="blocked_notifications_hint">android</string>
+    <string name="notification_bottom_title">ਹੇਠਾਂ ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਓ (ਸੇਵਾ ਏਟੀਐਮ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੈ)</string>
+    <string name="blocked_notifications_summary">ਨੋਟੀਫੀਕੇਸਨ ਨੂੰ ਰੌਕਣ ਲਈ ਪੈਕੇਜਾ ਨੂੰ ਸਪੇਸ ਨਾਲ ਵੱਖ ਕਰਕੇ ਨਾਵਾਂ ਦੀ ਸੂਚੀ</string>
+    <string name="blocked_notifications_title">ਰੌਕੇ ਹੋਏ ਨੋਟੀਫੀਕੇਸਨ</string>
+    <string name="long_press_a_notification_to_a">ਰੌਕੇ ਸੂਚੀ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰਨ ਲਈ ਇੱਕ ਨੋਟੀਫੀਕੇਸਨ ਨੂੰ ਦੇਰ ਤੱਕ ਦਬਾਓ</string>
+    <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਸਾਈਲੈਨਸਡ ਨੋਟੀਫੀਕੇਸਨ</string>
+    <string name="enable_notif_panel_title">ਸੂਚਨਾ ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="do_not_disturb">ਡੀ ਐਨ ਡੀ</string>
+    <string name="do_not_disturb_summary">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪ-ਅਪਸ ਨੂੰ ਬੰਦ ਕਰੋ</string>
 
-  <!--Hot corners page-->  
-  <string name="hot_corners">ਗਰਮ ਕੋਨੇ</string>
-  <string name="enable_corner_top_right_title">ਉੱਪਰੀ ਸੱਜੇ ਕੋਨੇ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
-  <string name="enable_corner_top_right_summary">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮਾਊਸ ਨੂੰ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਰੱਖੋ</string>
-  <string name="enable_corner_bottom_right_title">ਹੇਠਾਂ ਸੱਜੇ ਕੋਨੇ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-  <string name="enable_corner_bottom_right_summary">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰਲੇ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਮਾਊਸ ਨੂੰ ਰੱਖੋ</string>
-  <string name="hot_corners_delay_title">ms ਵਿੱਚ ਗਰਮ ਕਾਰਨਰ ਐਕਟੀਵੇਸ਼ਨ ਦੇਰੀ</string>
+    <!-- Hot corners page -->
+    <string name="hot_corners">ਗਰਮ ਕੋਨੇ</string>
+    <string name="enable_corner_top_right_title">ਉੱਪਰੀ ਸੱਜੇ ਕੋਨੇ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_corner_top_right_summary">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮਾਊਸ ਨੂੰ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਰੱਖੋ</string>
+    <string name="enable_corner_bottom_right_title">ਹੇਠਾਂ ਸੱਜੇ ਕੋਨੇ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_corner_bottom_right_summary">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰਲੇ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਮਾਊਸ ਨੂੰ ਰੱਖੋ</string>
+    <string name="hot_corners_delay_title">ms ਵਿੱਚ ਗਰਮ ਕਾਰਨਰ ਐਕਟੀਵੇਸ਼ਨ ਦੇਰੀ</string>
 
-  <!--Advanced-->  
-  <string name="advanced">ਉੱਨਤ</string>
-  <string name="these_settings_are_intended_fo">ਇਹ ਸੈਟਿੰਗਾਂ ਉੱਨਤ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਕੇਵਲ ਤਾਂ ਹੀ ਬਦਲੋ ਜੇਕਰ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਕੀ ਕਰ ਰਹੇ ਹੋ</string>
-  <string name="prefer_last_display">ਆਖਰੀ ਅਟੈਚਡ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ (Android 10)</string>
-  <string name="prefer_last_display_summary">ਐਪਸ ਅਤੇ ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਆਖਰੀ ਨੱਥੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
-  <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
-  <string name="open_accessibility">Open Accessibility</string>
-  <string name="secure_settings">Secure settings</string>
-  <string name="root_required">ਰੂਟ ਦੀ ਲੋੜ ਹੈ</string>
-  <string name="enable_power_menu_title">ਬਿਲਟ ਇਨ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
-  <string name="enable_power_menu_summary">ਸਿਸਟਮ ਦੀ ਬਜਾਏ ਇੱਕ ਕਸਟਮ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
-  <string name="power_off">ਬਿਜਲੀ ਦੀ ਬੰਦ</string>
-  <string name="restart">ਰੀਸਟਾਰਟ ਕਰੋ</string>
-  <string name="soft_restart">ਸਾਫਟ ਰੀਸਟਾਰਟ</string>
-  <string name="lock">ਲੋਕ</string>
-  <string name="run_autostart_title">ਆਟੋਸਟਾਰਟ ਸਕ੍ਰਿਪਟ ਚਲਾਓ</string>
-  <string name="edit_autostart_title">ਆਟੋਸਟਾਰਟ ਸਕ੍ਰਿਪਟ ਐਡੀਟ ਕਰੋ</string>
-  <string name="edit_autostart">ਆਟੋਸਟਾਰਟ ਐਡੀਟ ਕਰੋ</string>
-  <string name="save">ਸੇਵ ਕਰੋ</string>
-  <string name="custom_display_size_title">ਡਿਸਪਲੇ ਦਾ ਆਕਾਰ</string>
-  <string name="custom_display_size_summary">ਤੁਹਾਨੂੰ ਸਕ੍ਰੀਨ ਐਲੀਮੈਂਟਸ ਦੇ ਡਿਸਪਲੇ ਆਕਾਰ ਨੂੰ ਵਧੀਆ ਟਿਊਨ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
-  <string name="custom_display_size_hint">ਡਿਫੌਲਟ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
-  <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
-  <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
-  <string name="allow_app_freeze_title">ਐਪ ਸੰਦਰਭ ਮੀਨੂ ਤੋਂ ਐਪਸ ਨੂੰ ਡੀਸਏਬਲ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕਲਪ ਦਿਖਾਓ</string>
-  <string name="allow_app_freeze_summary">ਐਪਾਂ ਨੂੰ ਮੁੜ-ਸਮਰੱਥ ਬਣਾਉਣ ਲਈ ਤੁਹਾਨੂੰ ਇੱਕ ਬਾਹਰੀ ਟੂਲ ਦੀ ਲੋੜ ਹੋਵੇਗੀ ਜਿਵੇਂ ਕਿ ਆਈਸ ਬਾਕਸ (ਜਾਂ ਚੱਲ ਰਹੇ pm ਯੋਗ [pkgname])</string>
-  <string name="allow_sysapp_uninstall_title">ਸਿਸਟਮ ਐਪਸ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਦਿਓ</string>
-  <string name="allow_sysapp_uninstall_summary">ਕਿਰਪਾ ਕਰਕੇ ਸਾਵਧਾਨ ਰਹੋ, ਇਹ ਅਸਲ ਵਿੱਚ ਖਤਰਨਾਕ ਹੋ ਸਕਦਾ ਹੈ</string>
-  <string name="hide_nav_buttons_title">ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਓ</string>
-  <string name="hide_nav_buttons_summary">ਐਂਡਰਾਇਡ ਸਾਫਟਵੇਅਰ ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਉਂਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
-  <string name="hide_status_bar_title">ਸਥਿਤੀ ਪੱਟੀ ਨੂੰ ਲੁਕਾਓ</string>
-  <string name="hide_status_bar_summary">ਐਂਡਰਾਇਡ ਸਥਿਤੀ ਬਾਰ ਨੂੰ ਲੁਕਾਉਂਦਾ ਹੈ। ਨਰਮ ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
-  <string name="override_sb_height">ਸਥਿਤੀ ਪੱਟੀ ਦੀ ਉਚਾਈ ਨੂੰ ਓਵਰਰਾਈਡ ਕਰੋ</string>
-  <string name="icon_blacklist">ਆਈਕਨ ਬਲੈਕਲਿਸਟ</string>
-  <string name="icon_blacklist_summary">ਸਥਿਤੀ ਪੱਟੀ ਤੋਂ ਲੁਕਾਉਣ ਲਈ ਆਈਕਾਨ</string>
-  <string name="enable_soft_reboot_title">ਐਂਡਰਾਇਡ ਨੂੰ ਸਾਫਟ ਰੀਬੂਟ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + F12 ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
-  <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
-  <string name="soft_reboot_title">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ</string>
-  <string name="soft_reboot_summary">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ। ਤੁਸੀਂ ਸਾਰੇ ਅਣਰੱਖਿਅਤ ਕੰਮ ਗੁਆ ਦੇਵੋਗੇ</string>
-  <string name="move_to_system_title">ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਮੂਵ ਕਰੋ</string>
-  <string name="move_to_system_summary">ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਮੂਵ ਕਰੋ। Android ਰੀਸਟਾਰਟ ਹੋਵੇਗਾ</string>
-  <string name="reboot_required_title">ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
-  <string name="reboot_required_text">ਤਬਦੀਲੀਆਂ ਨੂੰ ਲਾਗੂ ਕਰਨ ਲਈ ਇੱਕ ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ। ਕੀ ਤੁਸੀਂ ਹੁਣੇ ਰੀਬੂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+    <!-- Advanced -->
+    <string name="advanced">ਉੱਨਤ</string>
+    <string name="these_settings_are_intended_fo">ਇਹ ਸੈਟਿੰਗਾਂ ਉੱਨਤ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਕੇਵਲ ਤਾਂ ਹੀ ਬਦਲੋ ਜੇਕਰ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਕੀ ਕਰ ਰਹੇ ਹੋ</string>
+    <string name="prefer_last_display">ਆਖਰੀ ਅਟੈਚਡ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ (Android 10)</string>
+    <string name="prefer_last_display_summary">ਐਪਸ ਅਤੇ ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਆਖਰੀ ਨੱਥੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
+    <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
+    <string name="open_accessibility">Open Accessibility</string>
+    <string name="secure_settings">Secure settings</string>
+    <string name="root_required">ਰੂਟ ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="enable_power_menu_title">ਬਿਲਟ ਇਨ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
+    <string name="enable_power_menu_summary">ਸਿਸਟਮ ਦੀ ਬਜਾਏ ਇੱਕ ਕਸਟਮ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
+    <string name="power_off">ਬਿਜਲੀ ਦੀ ਬੰਦ</string>
+    <string name="restart">ਰੀਸਟਾਰਟ ਕਰੋ</string>
+    <string name="soft_restart">ਸਾਫਟ ਰੀਸਟਾਰਟ</string>
+    <string name="lock">ਲੋਕ</string>
+    <string name="run_autostart_title">ਆਟੋਸਟਾਰਟ ਸਕ੍ਰਿਪਟ ਚਲਾਓ</string>
+    <string name="edit_autostart_title">ਆਟੋਸਟਾਰਟ ਸਕ੍ਰਿਪਟ ਐਡੀਟ ਕਰੋ</string>
+    <string name="edit_autostart">ਆਟੋਸਟਾਰਟ ਐਡੀਟ ਕਰੋ</string>
+    <string name="save">ਸੇਵ ਕਰੋ</string>
+    <string name="custom_display_size_title">ਡਿਸਪਲੇ ਦਾ ਆਕਾਰ</string>
+    <string name="custom_display_size_summary">ਤੁਹਾਨੂੰ ਸਕ੍ਰੀਨ ਐਲੀਮੈਂਟਸ ਦੇ ਡਿਸਪਲੇ ਆਕਾਰ ਨੂੰ ਵਧੀਆ ਟਿਊਨ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="custom_display_size_hint">ਡਿਫੌਲਟ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
+    <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
+    <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
+    <string name="allow_app_freeze_title">ਐਪ ਸੰਦਰਭ ਮੀਨੂ ਤੋਂ ਐਪਸ ਨੂੰ ਡੀਸਏਬਲ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕਲਪ ਦਿਖਾਓ</string>
+    <string name="allow_app_freeze_summary">ਐਪਾਂ ਨੂੰ ਮੁੜ-ਸਮਰੱਥ ਬਣਾਉਣ ਲਈ ਤੁਹਾਨੂੰ ਇੱਕ ਬਾਹਰੀ ਟੂਲ ਦੀ ਲੋੜ ਹੋਵੇਗੀ ਜਿਵੇਂ ਕਿ ਆਈਸ ਬਾਕਸ (ਜਾਂ ਚੱਲ ਰਹੇ pm ਯੋਗ [pkgname])</string>
+    <string name="allow_sysapp_uninstall_title">ਸਿਸਟਮ ਐਪਸ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਦਿਓ</string>
+    <string name="allow_sysapp_uninstall_summary">ਕਿਰਪਾ ਕਰਕੇ ਸਾਵਧਾਨ ਰਹੋ, ਇਹ ਅਸਲ ਵਿੱਚ ਖਤਰਨਾਕ ਹੋ ਸਕਦਾ ਹੈ</string>
+    <string name="hide_nav_buttons_title">ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਓ</string>
+    <string name="hide_nav_buttons_summary">ਐਂਡਰਾਇਡ ਸਾਫਟਵੇਅਰ ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਉਂਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="hide_status_bar_title">ਸਥਿਤੀ ਪੱਟੀ ਨੂੰ ਲੁਕਾਓ</string>
+    <string name="hide_status_bar_summary">ਐਂਡਰਾਇਡ ਸਥਿਤੀ ਬਾਰ ਨੂੰ ਲੁਕਾਉਂਦਾ ਹੈ। ਨਰਮ ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="override_sb_height">ਸਥਿਤੀ ਪੱਟੀ ਦੀ ਉਚਾਈ ਨੂੰ ਓਵਰਰਾਈਡ ਕਰੋ</string>
+    <string name="icon_blacklist">ਆਈਕਨ ਬਲੈਕਲਿਸਟ</string>
+    <string name="icon_blacklist_summary">ਸਥਿਤੀ ਪੱਟੀ ਤੋਂ ਲੁਕਾਉਣ ਲਈ ਆਈਕਾਨ</string>
+    <string name="enable_soft_reboot_title">ਐਂਡਰਾਇਡ ਨੂੰ ਸਾਫਟ ਰੀਬੂਟ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + F12 ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
+    <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
+    <string name="soft_reboot_title">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ</string>
+    <string name="soft_reboot_summary">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ। ਤੁਸੀਂ ਸਾਰੇ ਅਣਰੱਖਿਅਤ ਕੰਮ ਗੁਆ ਦੇਵੋਗੇ</string>
+    <string name="move_to_system_title">ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਮੂਵ ਕਰੋ</string>
+    <string name="move_to_system_summary">ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਮੂਵ ਕਰੋ। Android ਰੀਸਟਾਰਟ ਹੋਵੇਗਾ</string>
+    <string name="reboot_required_title">ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="reboot_required_text">ਤਬਦੀਲੀਆਂ ਨੂੰ ਲਾਗੂ ਕਰਨ ਲਈ ਇੱਕ ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ। ਕੀ ਤੁਸੀਂ ਹੁਣੇ ਰੀਬੂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+    <string name="development_tools">Development tools</string>
 
-  <!--Help and about page-->  
-  <string name="help_and_about">ਮਦਦ ਅਤੇ ਇਸ ਬਾਰੇ</string>
-  <string name="a_launcher_for_android_x86_by_">Axel358 ਦੁਆਰਾ Android x86 ਲਈ ਇੱਕ ਲਾਂਚਰ</string>
-  <string name="help">ਮਦਦ</string>
-  <string name="smart_dock_its_free_and_open_">ਸਮਾਰਟ ਡੌਕ ਇਹ ਮੁਫਤ ਅਤੇ ਓਪਨ ਸੋਰਸ ਹੈ। GitHub \'ਤੇ ਯੋਗਦਾਨ ਪਾਓ</string>
-  <string name="github">GitHub</string>
-  <string name="show_help_summary">ਮਦਦ ਲਈ ਟੈਪ ਕਰੋ</string>
-  <string name="app_help">ਸਹੀ ਅਨੁਮਤੀਆਂ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਐਪਲੀਕੇਸ਼ਨ ਨੂੰ ਸਿਸਟਮ ਐਪ ਦੇ ਤੌਰ \'ਤੇ ਸਥਾਪਿਤ ਕੀਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ।
+    <!-- Help and about page -->
+    <string name="help_and_about">ਮਦਦ ਅਤੇ ਇਸ ਬਾਰੇ</string>
+    <string name="a_launcher_for_android_x86_by_">Axel358 ਦੁਆਰਾ Android x86 ਲਈ ਇੱਕ ਲਾਂਚਰ</string>
+    <string name="help">ਮਦਦ</string>
+    <string name="smart_dock_its_free_and_open_">ਸਮਾਰਟ ਡੌਕ ਇਹ ਮੁਫਤ ਅਤੇ ਓਪਨ ਸੋਰਸ ਹੈ। GitHub \'ਤੇ ਯੋਗਦਾਨ ਪਾਓ</string>
+    <string name="github">GitHub</string>
+    <string name="show_help_summary">ਮਦਦ ਲਈ ਟੈਪ ਕਰੋ</string>
+    <string name="app_help">ਸਹੀ ਅਨੁਮਤੀਆਂ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਐਪਲੀਕੇਸ਼ਨ ਨੂੰ ਸਿਸਟਮ ਐਪ ਦੇ ਤੌਰ \'ਤੇ ਸਥਾਪਿਤ ਕੀਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ।
     ਇਸ ਤੋਂ ਬਿਨਾਂ ਕਾਰਜਕੁਸ਼ਲਤਾ ਸੀਮਤ ਹੋ ਜਾਵੇਗੀ।
     \n
     \nਤੁਹਾਨੂੰ Android ਨੈਵੀਗੇਸ਼ਨ ਬਟਨਾਂ ਨੂੰ ਵੀ ਲੁਕਾਉਣਾ ਚਾਹੀਦਾ ਹੈ। ਇਹ ਕਿਵੇਂ ਕਰਨਾ ਹੈ ਇਸ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ GitHub \'ਤੇ ਜਾਓ
@@ -262,62 +255,62 @@
     \nਐਪ ਕੀਬੋਰਡ ਇਨਪੁਟ ਕੈਪਚਰ ਕਰਨ ਲਈ ਅਸੈਂਸੀਬਿਲਟੀ ਸੇਵਾ ਦੀ ਵਰਤੋਂ ਕਰਦਾ ਹੈ, ਜੇਕਰ ਉਹ ਸੇਵਾ ਕ੍ਰੈਸ਼ ਹੋ ਜਾਂਦੀ ਹੈ ਤਾਂ ਤੁਹਾਨੂੰ ਇਸਨੂੰ ਮੁੜ-ਯੋਗ ਕਰਨ ਅਤੇ/ਜਾਂ ਸਿਸਟਮ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੋ ਸਕਦੀ ਹੈ।
     \n
     \nਐਪ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਸਿਸਟਮ ਸੈਟਿੰਗਾਂ \'ਤੇ ਇਸਦੀ ਡਿਵਾਈਸ ਐਡਮਿਨ ਅਨੁਮਤੀ ਨੂੰ ਹਟਾਉਣਾ ਪਵੇਗਾ</string>
-  <string name="more_help">ਹੋਰ ਮਦਦ</string>
-  <string name="contributors">ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ</string>
-  <string name="tap_to_see_the_list_of_great_p">ਸਮਾਰਟ ਡੌਕ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ ਮਹਾਨ ਲੋਕਾਂ ਦੀ ਸੂਚੀ ਦੇਖਣ ਲਈ ਟੈਪ ਕਰੋ</string>
-  <string name="accessibility_service_description">ਬੈਕ ਵਰਗੀਆਂ ਕਾਰਵਾਈਆਂ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ</string>
-  <string name="join_telegram_title">ਟੈਲੀਗ੍ਰਾਮ ਸਮੂਹ</string>
-  <string name="join_telegram_summary">ਕੋਈ ਸਵਾਲ ਹਨ? ਟੈਲੀਗ੍ਰਾਮ ਸਹਾਇਤਾ ਸਮੂਹ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ</string>
-  <string name="gnu_general_public_licence_v3">GNU ਜਨਰਲ ਪਬਲਿਕ ਲਾਇਸੈਂਸ v3.0</string>
-  <string name="license">ਲਾਇਸੰਸ</string>
-  <string name="options_marked_with__are_expe">* ਨਾਲ ਚਿੰਨ੍ਹਿਤ ਵਿਕਲਪ ਪ੍ਰਯੋਗਾਤਮਕ ਹਨ ਅਤੇ ਸਮੱਸਿਆ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ। ਜੇ ਤੁਸੀਂ ਕਰੈਸ਼ਾਂ ਦਾ ਅਨੁਭਵ ਕਰਦੇ ਹੋ ਤਾਂ ਉਹਨਾਂ ਨੂੰ ਅਯੋਗ ਕਰੋ</string>
+    <string name="more_help">ਹੋਰ ਮਦਦ</string>
+    <string name="contributors">ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ</string>
+    <string name="tap_to_see_the_list_of_great_p">ਸਮਾਰਟ ਡੌਕ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ ਮਹਾਨ ਲੋਕਾਂ ਦੀ ਸੂਚੀ ਦੇਖਣ ਲਈ ਟੈਪ ਕਰੋ</string>
+    <string name="accessibility_service_description">ਬੈਕ ਵਰਗੀਆਂ ਕਾਰਵਾਈਆਂ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ</string>
+    <string name="join_telegram_title">ਟੈਲੀਗ੍ਰਾਮ ਸਮੂਹ</string>
+    <string name="join_telegram_summary">ਕੋਈ ਸਵਾਲ ਹਨ? ਟੈਲੀਗ੍ਰਾਮ ਸਹਾਇਤਾ ਸਮੂਹ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ</string>
+    <string name="gnu_general_public_licence_v3">GNU ਜਨਰਲ ਪਬਲਿਕ ਲਾਇਸੈਂਸ v3.0</string>
+    <string name="license">ਲਾਇਸੰਸ</string>
+    <string name="options_marked_with__are_expe">* ਨਾਲ ਚਿੰਨ੍ਹਿਤ ਵਿਕਲਪ ਪ੍ਰਯੋਗਾਤਮਕ ਹਨ ਅਤੇ ਸਮੱਸਿਆ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ। ਜੇ ਤੁਸੀਂ ਕਰੈਸ਼ਾਂ ਦਾ ਅਨੁਭਵ ਕਰਦੇ ਹੋ ਤਾਂ ਉਹਨਾਂ ਨੂੰ ਅਯੋਗ ਕਰੋ</string>
 
-  <!--App menu-->  
-  <string name="user">ਉਪਭੋਗਤਾ</string>
-  <string name="search">ਖੋਜ</string>
-  <string name="copied_to_clipboard">ਕਲਿੱਪਬੋਰਡ \'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
-  <string name="search_for">ਖੋਜ ਲਈ</string>
-  <string name="on_google">Google \'ਤੇ</string>
-  <string name="disabled">Disabled</string>
+    <!-- App menu -->
+    <string name="user">ਉਪਭੋਗਤਾ</string>
+    <string name="search">ਖੋਜ</string>
+    <string name="copied_to_clipboard">ਕਲਿੱਪਬੋਰਡ \'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
+    <string name="search_for">ਖੋਜ ਲਈ</string>
+    <string name="on_google">Google \'ਤੇ</string>
+    <string name="disabled">Disabled</string>
 
-  <!--User context menu--> 
-  <string name="users">ਉਪਭੋਗਤਾ</string>
-  <string name="files">ਫਾਈਲਾਂ</string>
-  <string name="settings">ਸੈਟਿੰਗਾਂ</string>
-  <string name="dock_settings">ਡੌਕ ਸੈਟਿੰਗਾਂ</string>
+    <!-- User context menu -->
+    <string name="users">ਉਪਭੋਗਤਾ</string>
+    <string name="files">ਫਾਈਲਾਂ</string>
+    <string name="settings">ਸੈਟਿੰਗਾਂ</string>
+    <string name="dock_settings">ਡੌਕ ਸੈਟਿੰਗਾਂ</string>
 
-  <!--App context menu-->  
-  <string name="shortcuts">ਸ਼ਾਰਟਕੱਟਸ</string>
-  <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
-  <string name="uninstall">ਅਣਇੰਸਟੌਲ ਕਰੋ</string>
-  <string name="open_in">ਇਸ ਵਿੱਚ ਖੋਲ੍ਹੋ</string>
-  <string name="freeze">ਫ੍ਰੀਜ਼</string>
-  <string name="pin">ਪਿੰਨ</string>
-  <string name="unpin">ਅਨਪਿੰਨ</string>
-  <string name="to_favorites">ਮਨਪਸੰਦ ਨੂੰ</string>
-  <string name="to_desktop">ਡੈਸਕਟਾਪ ਨੂੰ</string>
-  <string name="app_frozen">ਐਪ ਫ੍ਰੀਜ਼ ਕੀਤੀ ਗਈ</string>
-  <string name="remove">ਹਟਾਓ</string>
+    <!-- App context menu -->
+    <string name="shortcuts">ਸ਼ਾਰਟਕੱਟਸ</string>
+    <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
+    <string name="uninstall">ਅਣਇੰਸਟੌਲ ਕਰੋ</string>
+    <string name="open_in">ਇਸ ਵਿੱਚ ਖੋਲ੍ਹੋ</string>
+    <string name="freeze">ਫ੍ਰੀਜ਼</string>
+    <string name="pin">ਪਿੰਨ</string>
+    <string name="unpin">ਅਨਪਿੰਨ</string>
+    <string name="to_favorites">ਮਨਪਸੰਦ ਨੂੰ</string>
+    <string name="to_desktop">ਡੈਸਕਟਾਪ ਨੂੰ</string>
+    <string name="app_frozen">ਐਪ ਫ੍ਰੀਜ਼ ਕੀਤੀ ਗਈ</string>
+    <string name="remove">ਹਟਾਓ</string>
 
-  <!--Desktop-->  
-  <string name="lets_start">ਚਲੋ ਸ਼ੁਰੂ ਕਰੀਏ</string>
-  <string name="change_wallpaper">ਵਾਲਪੇਪਰ ਬਦਲੋ</string>
-  <string name="display_settings">ਡਿਸਪਲੇ ਸੈਟਿੰਗਜ਼</string>
+    <!-- Desktop -->
+    <string name="lets_start">ਚਲੋ ਸ਼ੁਰੂ ਕਰੀਏ</string>
+    <string name="change_wallpaper">ਵਾਲਪੇਪਰ ਬਦਲੋ</string>
+    <string name="display_settings">ਡਿਸਪਲੇ ਸੈਟਿੰਗਜ਼</string>
 
-  <!--Toasts-->  
-  <string name="tablet_mode_on">ਟੈਬਲੈੱਟ ਮੋਡ ਚਾਲੂ ਹੈ</string>
-  <string name="tablet_mode_off">ਟੈਬਲੈੱਟ ਮੋਡ ਬੰਦ</string>
-  <string name="start_message">ਸਮਾਰਟ ਡੌਕ ਸ਼ੁਰੂ ਹੋਇਆ</string>
-  <string name="enable_access_help">ਸਮਾਰਟ ਡੌਕ ਸੇਵਾ ਲੱਭੋ ਅਤੇ ਚਾਲੂ ਕਰੋ</string>
+    <!-- Toasts -->
+    <string name="tablet_mode_on">ਟੈਬਲੈੱਟ ਮੋਡ ਚਾਲੂ ਹੈ</string>
+    <string name="tablet_mode_off">ਟੈਬਲੈੱਟ ਮੋਡ ਬੰਦ</string>
+    <string name="start_message">ਸਮਾਰਟ ਡੌਕ ਸ਼ੁਰੂ ਹੋਇਆ</string>
+    <string name="enable_access_help">ਸਮਾਰਟ ਡੌਕ ਸੇਵਾ ਲੱਭੋ ਅਤੇ ਚਾਲੂ ਕਰੋ</string>
 
-  <!--Crash dialog-->  
-  <string name="something_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>
-  <string name="save_log">ਲੌਗ ਸੇਵ ਕਰੋ</string>
-  <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
+    <!-- Crash dialog -->
+    <string name="something_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>
+    <string name="save_log">ਲੌਗ ਸੇਵ ਕਰੋ</string>
+    <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
 
-  <!--Wi-Fi menu-->  
-  <string name="wifi">WiFi</string>
-  <string name="not_connected">ਕਨੈਕਟ ਨਹੀਂ ਹੈ</string>
-  <string name="select_network">ਨੈੱਟਵਰਕ ਚੁਣੋ</string>
+    <!-- Wi-Fi menu -->
+    <string name="wifi">WiFi</string>
+    <string name="not_connected">ਕਨੈਕਟ ਨਹੀਂ ਹੈ</string>
+    <string name="select_network">ਨੈੱਟਵਰਕ ਚੁਣੋ</string>
 
 </resources>

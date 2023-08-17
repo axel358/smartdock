@@ -20,7 +20,7 @@
     <string name="display_over_other_apps_desc">Required to display the Dock, you cannot start the service without this</string>
     <string name="accessibility_service">Accessibility service</string>
     <string name="accessibility_service_desc">Use this to start and stop the Dock. Requires the above permission. If you get an error about <b>Restricted setting</b> click the Help button below</string>
-	<string name="usage_stats">Usage stats</string>
+    <string name="usage_stats">Usage stats</string>
     <string name="usage_stats_desc">Allows to show recent apps on devices where Smart Dock can\'t be installed as a system app</string>
     <string name="notification_access">Notification access</string>
     <string name="notification_access_desc">Used to display notifications. If you get an error about <b>Restricted setting</b> click the Help button below</string>
@@ -35,7 +35,7 @@
     <string name="manage">Manage...</string>
     <string name="grant">Grant</string>
     <string name="enable">Enable</string>
-	<string name="disable">Disable</string>
+    <string name="disable">Disable</string>
 
     <!-- Appearance page -->
     <string name="appearance">Appearance</string>
@@ -165,15 +165,10 @@
     <!-- Sounds page -->
     <string name="sounds">Sounds</string>
     <string name="please_note_that_you_must_prov">Please note that you must provide your own sounds</string>
-    <string name="enable_startup_sound_title">Play a custom sound at Dock startup*</string>
     <string name="startup_sound_title">Choose startup sound</string>
-    <string name="enable_usb_sound_title">Play a custom sound when connecting usb devices</string>
     <string name="usb_sound_title">Choose usb sound</string>
-    <string name="enable_notification_sound_title">Play a custom sound when showing notifications</string>
     <string name="notification_sound_title">Choose notification sound</string>
-    <string name="enable_charge_sound_title">Play a custom sound when pluging into a power source</string>
     <string name="charge_sound_title">Choose charge sound</string>
-    <string name="enable_charge_complete_sound_title">Play a custom sound when the device has completed charging*</string>
     <string name="charge_complete_sound_title">Choose charge complete sound</string>
 
     <!-- Notifications page -->
@@ -207,7 +202,7 @@
     <string name="prefer_last_display_summary">Prefer the last attached display for displaying apps and the dock</string>
     <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
     <string name="open_accessibility">Open Accessibility</string>
-	<string name="secure_settings">Secure settings</string>
+    <string name="secure_settings">Secure settings</string>
     <string name="root_required">Root required</string>
     <string name="enable_power_menu_title">Use built in power menu</string>
     <string name="enable_power_menu_summary">Use a custom power menu instead of the system one</string>
@@ -243,6 +238,7 @@
     <string name="move_to_system_summary">Move Smart Dock as a system app. Android will restart</string>
     <string name="reboot_required_title">Reboot required</string>
     <string name="reboot_required_text">A reboot is required for changes to take effect. Do you want to reboot now?</string>
+    <string name="development_tools">Development tools</string>
 
     <!-- Help and about page -->
     <string name="help_and_about">Help and about</string>
@@ -275,7 +271,7 @@
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="search_for">Search for</string>
     <string name="on_google">on Google</string>
-	<string name="disabled">Disabled</string>
+    <string name="disabled">Disabled</string>
 
     <!-- User context menu -->
     <string name="users">Users</string>

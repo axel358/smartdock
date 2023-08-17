@@ -8,10 +8,12 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import cu.axel.smartdock.R;
 import androidx.preference.PreferenceManager;
+import cu.axel.smartdock.preferences.FileChooserPreference;
 
 public class SoundsPreferences extends PreferenceFragmentCompat {
 
-	private Preference startSoundPref, usbSoundPref, notifSoundPref, chargeSoundPref, chargeCompleteSoundPref;
+	private FileChooserPreference startSoundPref, usbSoundPref, notifSoundPref, chargeSoundPref,
+			chargeCompleteSoundPref;
 
 	@Override
 	public void onCreatePreferences(Bundle arg0, String arg1) {
@@ -19,28 +21,28 @@ public class SoundsPreferences extends PreferenceFragmentCompat {
 
 		startSoundPref = findPreference("startup_sound");
 		startSoundPref.setOnPreferenceClickListener((Preference p1) -> {
-				openSound(0);
-				return false;
+			openSound(0);
+			return false;
 		});
 		usbSoundPref = findPreference("usb_sound");
 		usbSoundPref.setOnPreferenceClickListener((Preference p1) -> {
-				openSound(1);
-				return false;
+			openSound(1);
+			return false;
 		});
 		notifSoundPref = findPreference("notification_sound");
 		notifSoundPref.setOnPreferenceClickListener((Preference p1) -> {
-				openSound(2);
-				return false;
+			openSound(2);
+			return false;
 		});
 		chargeSoundPref = findPreference("charge_sound");
 		chargeSoundPref.setOnPreferenceClickListener((Preference p1) -> {
-				openSound(3);
-				return false;
+			openSound(3);
+			return false;
 		});
 		chargeCompleteSoundPref = findPreference("charge_complete_sound");
 		chargeCompleteSoundPref.setOnPreferenceClickListener((Preference p1) -> {
-				openSound(4);
-				return false;
+			openSound(4);
+			return false;
 		});
 	}
 
@@ -50,17 +52,17 @@ public class SoundsPreferences extends PreferenceFragmentCompat {
 			Uri openUri = data.getData();
 			getActivity().getContentResolver().takePersistableUriPermission(openUri,
 					Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
+			String file = openUri.toString();
 			if (requestCode == 0) {
-				saveSound(startSoundPref.getKey(), openUri.toString());
+				startSoundPref.setFile(file);
 			} else if (requestCode == 1) {
-				saveSound(usbSoundPref.getKey(), openUri.toString());
+				usbSoundPref.setFile(file);
 			} else if (requestCode == 2) {
-				saveSound(notifSoundPref.getKey(), openUri.toString());
+				notifSoundPref.setFile(file);
 			} else if (requestCode == 3) {
-				saveSound(chargeSoundPref.getKey(), openUri.toString());
+				chargeSoundPref.setFile(file);
 			} else if (requestCode == 4) {
-				saveSound(chargeCompleteSoundPref.getKey(), openUri.toString());
+				chargeCompleteSoundPref.setFile(file);
 			}
 		}
 
@@ -69,9 +71,5 @@ public class SoundsPreferences extends PreferenceFragmentCompat {
 	public void openSound(int code) {
 		startActivityForResult(
 				new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("audio/*"), code);
-	}
-
-	public void saveSound(String key, String uri) {
-		PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString(key, uri).commit();
 	}
 }

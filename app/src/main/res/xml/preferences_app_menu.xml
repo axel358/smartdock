@@ -1,13 +1,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="@string/menu">
-        <Preference
+        <cu.axel.smartdock.preferences.FileChooserPreference
             android:key="menu_icon_uri"
             android:defaultValue="default"
             android:title="@string/menu_icon_uri_title"/>
-        <Preference
-            android:key="restore_menu_icon"
-            android:title="@string/restore_menu_icon_title"/>
         <ListPreference
             android:entries="@array/shortcut_keys" 
             android:title="@string/menu_key_title" 

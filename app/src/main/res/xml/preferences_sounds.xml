@@ -2,39 +2,19 @@
     <Preference
         android:icon="@drawable/ic_info"
         android:title="@string/please_note_that_you_must_prov"/>
-    <CheckBoxPreference
-        android:key="enable_startup_sound"
-        android:title="@string/enable_startup_sound_title"
-        android:defaultValue="false" />
-    <Preference
+    <cu.axel.smartdock.preferences.FileChooserPreference
         android:key="startup_sound"
         android:title="@string/startup_sound_title"/>
-    <CheckBoxPreference
-        android:key="enable_usb_sound"
-        android:title="@string/enable_usb_sound_title"
-        android:defaultValue="false" />
-    <Preference
+    <cu.axel.smartdock.preferences.FileChooserPreference
         android:key="usb_sound"
         android:title="@string/usb_sound_title"/>
-    <CheckBoxPreference
-        android:key="enable_notification_sound"
-        android:title="@string/enable_notification_sound_title"
-        android:defaultValue="false" />
-    <Preference
+    <cu.axel.smartdock.preferences.FileChooserPreference
         android:key="notification_sound"
         android:title="@string/notification_sound_title"/>
-    <CheckBoxPreference
-        android:key="enable_charge_sound"
-        android:title="@string/enable_charge_sound_title"
-        android:defaultValue="false" />
-    <Preference
+    <cu.axel.smartdock.preferences.FileChooserPreference
         android:key="charge_sound"
         android:title="@string/charge_sound_title"/>
-    <CheckBoxPreference
-        android:key="enable_charge_complete_sound"
-        android:title="@string/enable_charge_complete_sound_title"
-        android:defaultValue="false" />
-    <Preference
+    <cu.axel.smartdock.preferences.FileChooserPreference
         android:key="charge_complete_sound"
         android:title="@string/charge_complete_sound_title"/>
     
