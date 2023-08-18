@@ -373,15 +373,15 @@ public class DeviceUtils {
 
 	public static void enableNotificationService(Context context) {
 		String services = getSecureSettingString(context, ENABLED_NOTIFICATION_SERVICES);
-		if (services.contains(SERVICE_NAME))
+		if (services.contains(NOTIFICATION_SERVICE_NAME))
 			return;
 
 		String new_services;
 
 		if (services.isEmpty())
-			new_services = SERVICE_NAME;
+			new_services = NOTIFICATION_SERVICE_NAME;
 		else
-			new_services = services + ":" + SERVICE_NAME;
+			new_services = services + ":" + NOTIFICATION_SERVICE_NAME;
 
 		putSecureSetting(context, ENABLED_NOTIFICATION_SERVICES, new_services);
 	}
@@ -389,17 +389,17 @@ public class DeviceUtils {
 	public static void disableNotificationService(Context context) {
 		String services = getSecureSettingString(context, ENABLED_NOTIFICATION_SERVICES);
 
-		if (!services.contains(SERVICE_NAME))
+		if (!services.contains(NOTIFICATION_SERVICE_NAME))
 			return;
 
 		String new_services = "";
 
-		if (services.contains(SERVICE_NAME + ":"))
-			new_services = services.replace(SERVICE_NAME + ":", "");
-		else if (services.contains(":" + SERVICE_NAME))
-			new_services = services.replace(":" + SERVICE_NAME, "");
-		else if (services.contains(SERVICE_NAME))
-			new_services = services.replace(SERVICE_NAME, "");
+		if (services.contains(NOTIFICATION_SERVICE_NAME + ":"))
+			new_services = services.replace(NOTIFICATION_SERVICE_NAME + ":", "");
+		else if (services.contains(":" + NOTIFICATION_SERVICE_NAME))
+			new_services = services.replace(":" + NOTIFICATION_SERVICE_NAME, "");
+		else if (services.contains(NOTIFICATION_SERVICE_NAME))
+			new_services = services.replace(NOTIFICATION_SERVICE_NAME, "");
 
 		putSecureSetting(context, ENABLED_NOTIFICATION_SERVICES, new_services);
 	}
