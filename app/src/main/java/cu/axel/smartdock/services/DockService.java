@@ -510,13 +510,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			}
 		}, new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED));
 
-		//Run startup script
-		if (sp.getBoolean("run_autostart", false))
-			Utils.doAutostart(context);
-
 		//Play startup sound
-		if (sp.getBoolean("enable_startup_sound", false))
-			DeviceUtils.playEventSound(context, "startup_sound");
+		DeviceUtils.playEventSound(context, "startup_sound");
 
 		updateNavigationBar();
 		updateQuickSettings();

@@ -210,10 +210,6 @@
     <string name="restart">Restart</string>
     <string name="soft_restart">Soft restart</string>
     <string name="lock">Lock</string>
-    <string name="run_autostart_title">Run autostart script</string>
-    <string name="edit_autostart_title">Edit autostart script</string>
-    <string name="edit_autostart">Edit autostart</string>
-    <string name="save">Save</string>
     <string name="custom_display_size_title">Display size</string>
     <string name="custom_display_size_summary">Allows you to fine tune the display size of screen elements. Needs reboot</string>
     <string name="custom_display_size_hint">leave blank for default</string>

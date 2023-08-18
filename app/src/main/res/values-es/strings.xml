@@ -210,10 +210,6 @@
     <string name="restart">Reanudar</string>
     <string name="soft_restart">Reinicio suave</string>
     <string name="lock">Cerrar</string>
-    <string name="run_autostart_title">Ejecutar secuencia de comandos de inicio automático</string>
-    <string name="edit_autostart_title">Editar secuencia de comandos de inicio automático</string>
-    <string name="edit_autostart">Editar inicio automático</string>
-    <string name="save">Guardar</string>
     <string name="custom_display_size_title">Tamaño de la pantalla</string>
     <string name="custom_display_size_summary">Le permite ajustar el tamaño de visualización de los elementos de la pantalla. Necesita reiniciar</string>
     <string name="custom_display_size_hint">dejar en blanco por defecto</string>

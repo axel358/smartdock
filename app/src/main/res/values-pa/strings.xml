@@ -210,10 +210,6 @@
     <string name="restart">ਰੀਸਟਾਰਟ ਕਰੋ</string>
     <string name="soft_restart">ਸਾਫਟ ਰੀਸਟਾਰਟ</string>
     <string name="lock">ਲੋਕ</string>
-    <string name="run_autostart_title">ਆਟੋਸਟਾਰਟ ਸਕ੍ਰਿਪਟ ਚਲਾਓ</string>
-    <string name="edit_autostart_title">ਆਟੋਸਟਾਰਟ ਸਕ੍ਰਿਪਟ ਐਡੀਟ ਕਰੋ</string>
-    <string name="edit_autostart">ਆਟੋਸਟਾਰਟ ਐਡੀਟ ਕਰੋ</string>
-    <string name="save">ਸੇਵ ਕਰੋ</string>
     <string name="custom_display_size_title">ਡਿਸਪਲੇ ਦਾ ਆਕਾਰ</string>
     <string name="custom_display_size_summary">ਤੁਹਾਨੂੰ ਸਕ੍ਰੀਨ ਐਲੀਮੈਂਟਸ ਦੇ ਡਿਸਪਲੇ ਆਕਾਰ ਨੂੰ ਵਧੀਆ ਟਿਊਨ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="custom_display_size_hint">ਡਿਫੌਲਟ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
