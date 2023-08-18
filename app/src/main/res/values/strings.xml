@@ -178,7 +178,6 @@
     <string name="show_ongoing_title">Show ongoing notifications (buggy)</string>
     <string name="show_current_title">Hide notifications for the current app</string>
     <string name="blocked_notifications_hint">android</string>
-    <string name="notification_bottom_title">Show notifications at the bottom(needs re enabling the service atm)</string>
     <string name="blocked_notifications_summary">List of space separated package names to ignore notifications from</string>
     <string name="blocked_notifications_title">Ignored notifications</string>
     <string name="long_press_a_notification_to_a">Long press a notification to add it to the ignored list</string>

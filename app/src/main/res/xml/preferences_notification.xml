@@ -20,11 +20,6 @@
         android:defaultValue="true" />
     
     <CheckBoxPreference
-        android:key="notification_bottom"
-        android:title="@string/notification_bottom_title"
-		android:defaultValue="true" />
-    
-    <CheckBoxPreference
         android:title="@string/enable_notif_panel_title"
         android:key="enable_notif_panel"
         android:defaultValue="true" />

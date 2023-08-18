@@ -178,7 +178,6 @@
     <string name="show_ongoing_title">Mostrar notificaciones en curso (beta)</string>
     <string name="show_current_title">Ocultar notificaciones de la aplicación actual</string>
     <string name="blocked_notifications_hint">android</string>
-    <string name="notification_bottom_title">Mostrar notificaciones en la parte inferior (necesita volver a habilitar el servicio de cajero automático)</string>
     <string name="blocked_notifications_summary">Lista de nombres de paquetes separados por espacios para ignorar las notificaciones</string>
     <string name="blocked_notifications_title">Notificaciones ignoradas</string>
     <string name="long_press_a_notification_to_a">Mantenga presionada una notificación para agregarla a la lista ignorada</string>
