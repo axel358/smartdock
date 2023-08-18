@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical" >
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/fs_preference_reset_btn"
         style="?attr/materialIconButtonStyle"
         android:layout_width="wrap_content"
