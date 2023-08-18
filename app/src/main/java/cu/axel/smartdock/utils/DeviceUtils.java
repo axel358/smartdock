@@ -116,8 +116,7 @@ public class DeviceUtils {
 
 	public static void playEventSound(Context context, String event) {
 		String soundUri = PreferenceManager.getDefaultSharedPreferences(context).getString(event, "default");
-		if (soundUri.equals("default")) {
-		} else {
+		if (!soundUri.equals("default")) {
 			try {
 				Uri sound = Uri.parse(soundUri);
 				if (sound != null) {

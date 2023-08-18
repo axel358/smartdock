@@ -20,12 +20,14 @@
         <item>Alt</item>
         <item>Ctrl</item>
         <item>Meta</item>
+		<item>@string/disabled</item>
     </string-array>
 
     <string-array name="shortcut_keys_values">
         <item>57</item>
         <item>113</item>
         <item>3</item>
+		<item>-1</item>
     </string-array>
     
     <string-array name="icon_shapes">
@@ -85,18 +87,31 @@
 	</string-array>
  
     <string-array name="default_color_values" translatable="false">
-        <item>#0089B6</item>
-        <item>#9933cc</item>
-        <item>#669900</item>
-        <item>#ff8800</item>
-        <item>#BB0D95</item>
-        
-        <item>#0B229F</item>
-        <item>#680F95</item>
-        <item>#078011</item>
-        <item>#A95C04</item>
-        <item>#BB0D0D</item>
-        
+        <item>#EF5350</item>
+        <item>#B71C1C</item>
+        <item>#880E4F</item>
+        <item>#4A148C</item>
+        <item>#311B92</item>
+        <item>#1A237E</item>
+		
+        <item>#0D47A1</item>
+		<item>#01579B</item>
+		<item>#006064</item>
+		<item>#004D40</item>
+		<item>#1B5E20</item>
+		
+		<item>#33691E</item>
+		<item>#827717</item>
+		<item>#F57F17</item>
+		<item>#FF6F00</item>
+		<item>#E65100</item>
+		
+		<item>#BF360C</item>
+		<item>#3E2723</item>
+		<item>#212121</item>
+		<item>#263238</item>
+		
+		
         <item>#959595</item>
         <item>#727272</item>
         <item>#565656</item>

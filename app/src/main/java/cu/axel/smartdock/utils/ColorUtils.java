@@ -1,5 +1,6 @@
 package cu.axel.smartdock.utils;
 
+import android.os.Build;
 import cu.axel.smartdock.R;
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -30,7 +31,7 @@ public class ColorUtils {
 		
 		 */
 
-		if (DeviceUtils.hasStoragePermission(context)) {
+		if (DeviceUtils.hasStoragePermission(context) && Build.VERSION.SDK_INT < 33) {
 
 			WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
 			//noinspection all         

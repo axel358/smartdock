@@ -8,9 +8,10 @@ import android.os.Bundle;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import cu.axel.smartdock.R;
+import cu.axel.smartdock.preferences.FileChooserPreference;
 
 public class AppMenuPreferences extends PreferenceFragmentCompat {
-	private Preference menuIconPref;
+	private FileChooserPreference menuIconPref;
 	private final int OPEN_REQUEST_CODE = 4;
 
 	@Override
@@ -23,10 +24,6 @@ public class AppMenuPreferences extends PreferenceFragmentCompat {
 					new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/*"),
 					OPEN_REQUEST_CODE);
 
-			return false;
-		});
-		findPreference("restore_menu_icon").setOnPreferenceClickListener((Preference p1) -> {
-			menuIconPref.getSharedPreferences().edit().putString(menuIconPref.getKey(), "default").commit();
 			return false;
 		});
 
@@ -55,8 +52,7 @@ public class AppMenuPreferences extends PreferenceFragmentCompat {
 				Uri openUri = data.getData();
 				getActivity().getContentResolver().takePersistableUriPermission(openUri,
 						Intent.FLAG_GRANT_READ_URI_PERMISSION);
-				menuIconPref.getSharedPreferences().edit().putString(menuIconPref.getKey(), openUri.toString())
-						.commit();
+				menuIconPref.setFile(openUri.toString());
 			}
 		}
 

@@ -93,14 +93,9 @@ public class NotificationService extends NotificationListenerService
 
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
 				preferLastDisplay);
-		lp.x = 5;
-		if (sp.getBoolean("notification_bottom", true)) {
-			lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
-			lp.y = Utils.dpToPx(this, 60);
-		} else {
-			lp.gravity = Gravity.TOP | Gravity.RIGHT;
-			lp.y = 5;
-		}
+		lp.x = Utils.dpToPx(this, 2);
+		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+		lp.y = Utils.dpToPx(this, 58);
 
 		notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification_popup,
 				null);

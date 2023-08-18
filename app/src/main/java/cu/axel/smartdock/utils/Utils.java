@@ -14,10 +14,9 @@ import android.view.WindowManager;
 import android.widget.PopupMenu;
 import cu.axel.smartdock.R;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import android.view.MotionEvent;
@@ -55,43 +54,6 @@ public class Utils {
 
 	public static int dpToPx(Context context, int dp) {
 		return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
-	}
-
-	public static void doAutostart(Context context) {
-		File script = new File(context.getFilesDir(), AUTOSTART_SCRIPT);
-		if (script.exists()) {
-			try {
-				if (!script.canExecute())
-					script.setExecutable(true);
-				Runtime.getRuntime().exec(script.getAbsolutePath());
-			} catch (IOException e) {
-			}
-		}
-	}
-
-	public static String readAutostart(Context context) {
-		String content = "";
-		File script = new File(context.getFilesDir(), AUTOSTART_SCRIPT);
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(script));
-			String line = "";
-			while ((line = br.readLine()) != null) {
-				content += line + "\n";
-			}
-			br.close();
-		} catch (IOException e) {
-		}
-		return content;
-	}
-
-	public static void saveAutoStart(Context context, String content) {
-		File script = new File(context.getFilesDir(), AUTOSTART_SCRIPT);
-		try {
-			FileWriter fw = new FileWriter(script, false);
-			fw.write(content);
-			fw.close();
-		} catch (IOException e) {
-		}
 	}
 
 	public static Bitmap getCircularBitmap(Bitmap bitmap) {

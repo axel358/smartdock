@@ -1,8 +1,14 @@
 package cu.axel.smartdock.fragments;
 
 import android.os.Bundle;
+import android.widget.Toast;
+import android.widget.ViewSwitcher;
 import androidx.preference.PreferenceFragmentCompat;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.slider.Slider;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import cu.axel.smartdock.R;
 import androidx.preference.Preference;
 import android.content.Intent;
@@ -12,15 +18,14 @@ import android.view.View;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.text.TextWatcher;
 import android.text.Editable;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.content.DialogInterface;
+import cu.axel.smartdock.utils.AppUtils;
 import cu.axel.smartdock.utils.Utils;
 import android.widget.TextView;
-import android.widget.TabHost;
 import android.content.res.ColorStateList;
 import android.widget.GridView;
 import android.widget.ArrayAdapter;
@@ -40,40 +45,31 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
 		setPreferencesFromResource(R.xml.preferences_appearance, arg1);
 		mainColorPref = findPreference("theme_main_color");
 		mainColorPref.setOnPreferenceClickListener((Preference p1) -> {
-				showColorPickerDialog(getActivity(), "main");
-				return false;
+			showColorPickerDialog(getActivity());
+			return false;
 		});
 
 		findPreference("theme").setOnPreferenceChangeListener((Preference p1, Object p2) -> {
-				mainColorPref.setEnabled(p2.toString().equals("custom"));
-				return true;
+			mainColorPref.setVisible(p2.toString().equals("custom"));
+			return true;
 		});
 
-		mainColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("theme", "dark").equals("custom"));
+		mainColorPref.setVisible(mainColorPref.getSharedPreferences().getString("theme", "dark").equals("custom"));
+		findPreference("tint_indicators")
+				.setVisible(AppUtils.isSystemApp(getActivity(), getActivity().getPackageName()));
 	}
 
-	public void showColorPickerDialog(Context context, final String type) {
+	public void showColorPickerDialog(Context context) {
 		MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(getActivity());
 		View view = LayoutInflater.from(context).inflate(R.layout.dialog_color_picker, null);
 		final View colorPreview = view.findViewById(R.id.color_preview);
-		final EditText colorHexEt = view.findViewById(R.id.color_hex_et);
-		final SeekBar alphaSb = view.findViewById(R.id.color_alpha_sb);
-		final SeekBar redSb = view.findViewById(R.id.color_red_sb);
-		final SeekBar greenSb = view.findViewById(R.id.color_green_sb);
-		final SeekBar blueSb = view.findViewById(R.id.color_blue_sb);
-		final TextView alphaTv = view.findViewById(R.id.color_alpha_tv);
-		redSb.setProgressTintList(ColorStateList.valueOf(Color.RED));
-		greenSb.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-		blueSb.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
-
-		final TabHost th = view.findViewById(R.id.dialog_color_th);
-		th.setup();
-		th.addTab(th.newTabSpec("custom").setIndicator(getString(R.string.custom))
-				.setContent(R.id.custom_color_container));
-		th.addTab(th.newTabSpec("presets").setIndicator(getString(R.string.presets))
-				.setContent(R.id.presets_color_container));
-		th.addTab(th.newTabSpec("wallpaper").setIndicator(getString(R.string.wallpaper))
-				.setContent(R.id.wallpaper_color_container));
+		final TextInputEditText colorHexEt = view.findViewById(R.id.color_hex_et);
+		final Slider alphaSb = view.findViewById(R.id.color_alpha_sb);
+		final Slider redSb = view.findViewById(R.id.color_red_sb);
+		final Slider greenSb = view.findViewById(R.id.color_green_sb);
+		final Slider blueSb = view.findViewById(R.id.color_blue_sb);
+		final ViewSwitcher viewSwitcher = view.findViewById(R.id.colors_view_switcher);
+		final MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.colors_btn_toggle);
 
 		colorHexEt.addTextChangedListener(new TextWatcher() {
 
@@ -92,88 +88,45 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
 
 				if (hexColor.length() == 7 && (color = ColorUtils.toColor(hexColor)) != -1) {
 					colorPreview.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-					redSb.setProgress(Color.red(color));
-					greenSb.setProgress(Color.green(color));
-					blueSb.setProgress(Color.blue(color));
+					redSb.setValue(Color.red(color));
+					greenSb.setValue(Color.green(color));
+					blueSb.setValue(Color.blue(color));
 				} else
 					colorHexEt.setError(getString(R.string.invalid_color));
 			}
 		});
-		alphaSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
+		alphaSb.addOnChangeListener(new Slider.OnChangeListener() {
 			@Override
-			public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-				alphaTv.setText(p2 + "/255");
-				colorPreview.getBackground().setAlpha(p2);
+			public void onValueChange(Slider arg0, float arg1, boolean arg2) {
+				colorPreview.getBackground().setAlpha((int) arg1);
 			}
 
-			@Override
-			public void onStartTrackingTouch(SeekBar p1) {
-			}
-
-			@Override
-			public void onStopTrackingTouch(SeekBar p1) {
-			}
 		});
-		redSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
+		Slider.OnChangeListener onChangeListener = new Slider.OnChangeListener() {
 			@Override
-			public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-				colorHexEt.setText(ColorUtils
-						.toHexColor(Color.rgb(redSb.getProgress(), greenSb.getProgress(), blueSb.getProgress())));
+			public void onValueChange(Slider slider, float value, boolean fromUser) {
+				if (fromUser)
+					colorHexEt.setText(ColorUtils.toHexColor(
+							Color.rgb((int) redSb.getValue(), (int) greenSb.getValue(), (int) blueSb.getValue())));
 			}
 
-			@Override
-			public void onStartTrackingTouch(SeekBar p1) {
-			}
-
-			@Override
-			public void onStopTrackingTouch(SeekBar p1) {
-			}
-		});
-		greenSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-			@Override
-			public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-				colorHexEt.setText(ColorUtils
-						.toHexColor(Color.rgb(redSb.getProgress(), greenSb.getProgress(), blueSb.getProgress())));
-			}
-
-			@Override
-			public void onStartTrackingTouch(SeekBar p1) {
-			}
-
-			@Override
-			public void onStopTrackingTouch(SeekBar p1) {
-			}
-		});
-		blueSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-			@Override
-			public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-				colorHexEt.setText(ColorUtils
-						.toHexColor(Color.rgb(redSb.getProgress(), greenSb.getProgress(), blueSb.getProgress())));
-			}
-
-			@Override
-			public void onStartTrackingTouch(SeekBar p1) {
-			}
-
-			@Override
-			public void onStopTrackingTouch(SeekBar p1) {
-			}
-		});
+		};
+		redSb.addOnChangeListener(onChangeListener);
+		greenSb.addOnChangeListener(onChangeListener);
+		blueSb.addOnChangeListener(onChangeListener);
 		dialog.setNegativeButton(R.string.cancel, null);
 		dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int p2) -> {
-				String color = colorHexEt.getText().toString();
-				if (ColorUtils.toColor(color) != -1) {
-					mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).commit();
-					mainColorPref.getSharedPreferences().edit().putInt("theme_main_alpha", alphaSb.getProgress())
-							.commit();
-				}
+			String color = colorHexEt.getText().toString();
+			if (ColorUtils.toColor(color) != -1) {
+				mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).commit();
+				mainColorPref.getSharedPreferences().edit().putInt("theme_main_alpha", (int) alphaSb.getValue())
+						.commit();
+			}
 		});
-		dialog.setView(view);
-		alphaSb.setProgress(mainColorPref.getSharedPreferences().getInt("theme_main_alpha", 255));
+
+		alphaSb.setValue(mainColorPref.getSharedPreferences().getInt("theme_main_alpha", 255));
 		String hexColor = mainColorPref.getSharedPreferences().getString(mainColorPref.getKey(), "#212121");
 		colorHexEt.setText(hexColor);
 
@@ -182,18 +135,15 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
 				new HexColorAdapter(context, context.getResources().getStringArray(R.array.default_color_values)));
 
 		presetsGv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
-				colorHexEt.setText(p1.getItemAtPosition(p3).toString());
-				th.setCurrentTab(0);
+			colorHexEt.setText(p1.getItemAtPosition(p3).toString());
+			toggleGroup.check(R.id.custom_button);
+			viewSwitcher.showNext();
 		});
 
-		GridView wallColorsGv = view.findViewById(R.id.wallpaper_colors_gv);
-		wallColorsGv.setAdapter(new HexColorAdapter(context, ColorUtils.getWallpaperColors(context)));
+		view.findViewById(R.id.custom_button).setOnClickListener(v -> viewSwitcher.showPrevious());
+		view.findViewById(R.id.presets_button).setOnClickListener(v -> viewSwitcher.showNext());
 
-		wallColorsGv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
-				colorHexEt.setText(p1.getItemAtPosition(p3).toString());
-				th.setCurrentTab(0);
-		});
-
+		dialog.setView(view);
 		dialog.show();
 
 	}
