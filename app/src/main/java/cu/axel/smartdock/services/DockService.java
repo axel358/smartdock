@@ -215,18 +215,20 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 						pinDock();
 					else if (!appMenuVisible)
 						showAppMenu();
-				} else if (direction == Direction.down && appMenuVisible)
-					hideAppMenu();
+				} else if (direction == Direction.down) {
+					if (appMenuVisible)
+						hideAppMenu();
+					else
+						unpinDock();
+				} else if (direction == Direction.left) {
+					performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+				}
+
 				return true;
 			}
 		});
 
 		dock.setOnTouchListener(this);
-
-		dockLayout.setOnLongClickListener((View p1) -> {
-			togglePin();
-			return true;
-		});
 
 		dockLayout.setOnTouchListener(this);
 
