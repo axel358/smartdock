@@ -23,9 +23,9 @@ import android.text.Editable;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.content.DialogInterface;
+import cu.axel.smartdock.utils.AppUtils;
 import cu.axel.smartdock.utils.Utils;
 import android.widget.TextView;
-import android.widget.TabHost;
 import android.content.res.ColorStateList;
 import android.widget.GridView;
 import android.widget.ArrayAdapter;
@@ -45,20 +45,18 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
 		setPreferencesFromResource(R.xml.preferences_appearance, arg1);
 		mainColorPref = findPreference("theme_main_color");
 		mainColorPref.setOnPreferenceClickListener((Preference p1) -> {
-			try {
-				showColorPickerDialog(getActivity());
-			} catch (Exception e) {
-				Toast.makeText(getActivity(), e.toString(), 5000).show();
-			}
+			showColorPickerDialog(getActivity());
 			return false;
 		});
 
 		findPreference("theme").setOnPreferenceChangeListener((Preference p1, Object p2) -> {
-			mainColorPref.setEnabled(p2.toString().equals("custom"));
+			mainColorPref.setVisible(p2.toString().equals("custom"));
 			return true;
 		});
 
-		mainColorPref.setEnabled(mainColorPref.getSharedPreferences().getString("theme", "dark").equals("custom"));
+		mainColorPref.setVisible(mainColorPref.getSharedPreferences().getString("theme", "dark").equals("custom"));
+		findPreference("tint_indicators")
+				.setVisible(AppUtils.isSystemApp(getActivity(), getActivity().getPackageName()));
 	}
 
 	public void showColorPickerDialog(Context context) {

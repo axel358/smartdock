@@ -32,9 +32,10 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 	public void onCreatePreferences(Bundle arg0, String arg1) {
 		setPreferencesFromResource(R.xml.preferences_advanced, arg1);
 
-		findPreference("prefer_last_display").setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q);
+		Preference preferLastDisplay = findPreference("prefer_last_display");
+		preferLastDisplay.setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q);
 
-		findPreference("prefer_last_display").setOnPreferenceClickListener((Preference p1) -> {
+		preferLastDisplay.setOnPreferenceClickListener((Preference p1) -> {
 			if (DeviceUtils.hasWriteSettingsPermission(getActivity()))
 				DeviceUtils.restartService(getActivity());
 			else
@@ -58,7 +59,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 		});
 
 		Preference moveToSystem = findPreference("move_to_system");
-		moveToSystem.setEnabled(!AppUtils.isSystemApp(getActivity(), getActivity().getPackageName()));
+		moveToSystem.setVisible(!AppUtils.isSystemApp(getActivity(), getActivity().getPackageName()));
 		moveToSystem.setOnPreferenceClickListener((Preference p1) -> {
 			try {
 				ApplicationInfo appInfo = getActivity().getPackageManager()
@@ -122,6 +123,8 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 			}
 			return false;
 		});
+
+		hideStatus.setVisible(Build.VERSION.SDK_INT < 31);
 
 		findPreference("status_icon_blacklist").setOnPreferenceClickListener((Preference p1) -> {
 			showIBDialog(getActivity());
