@@ -71,7 +71,14 @@
             android:entryValues="@array/activation_method_values" 
             android:key="activation_method"
             android:defaultValue="swipe" />
-			
+		
+		<EditTextPreference
+		    android:inputType="number"
+			android:key="handle_opacity"
+			android:hint="50"
+			android:defaultValue="50"
+			android:title="@string/handle_opacity"/>
+								
 		<Preference
 			android:key="auto_pin"
 			android:summary="@string/auto_pin_summary"

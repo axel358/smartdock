@@ -114,6 +114,7 @@
     <string name="activation_method_summary">El método utilizado para abrir el Dock cuando está oculto.</string>
     <string name="swipe">Deslizar/Mouse</string>
     <string name="handle">Manejar</string>
+	<string name="handle_opacity">Handle opacity</string>
     <string name="auto_pin_title">Anclado automático</string>
     <string name="auto_pin_summary">Configurar anclado automático</string>
     <string name="pin_startup">Anclar en inicio</string>

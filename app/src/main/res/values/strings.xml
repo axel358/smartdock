@@ -114,7 +114,8 @@
     <string name="activation_method_summary">The method used to bring up the dock when hidden</string>
     <string name="swipe">Swipe/Hoover</string>
     <string name="handle">Handle</string>
-    <string name="auto_pin_title">Auto pin</string>
+    <string name="handle_opacity">Handle opacity</string>
+	<string name="auto_pin_title">Auto pin</string>
     <string name="auto_pin_summary">Configure auto pin</string>
     <string name="pin_startup">Pin on startup</string>
     <string name="pin_windowed">Pin on windowed apps</string>

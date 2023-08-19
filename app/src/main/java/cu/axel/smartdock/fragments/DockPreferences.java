@@ -19,6 +19,17 @@ public class DockPreferences extends PreferenceFragmentCompat {
 			showAutopinDialog();
 			return false;
 		});
+
+		Preference handleOpacity = findPreference("handle_opacity");
+		handleOpacity.setVisible(
+				handleOpacity.getSharedPreferences().getString("activation_method", "swipe").equals("handle"));
+
+		Preference activationMethod = findPreference("activation_method");
+		activationMethod.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
+			handleOpacity.setVisible(p2.toString().equals("handle"));
+			return true;
+		});
+
 	}
 
 	public void showAutopinDialog() {

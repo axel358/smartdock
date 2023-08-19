@@ -114,6 +114,7 @@
     <string name="activation_method_summary">ਓਹਲੇ ਹੋਣ \'ਤੇ ਡੌਕ ਨੂੰ ਲਿਆਉਣ ਲਈ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਤਰੀਕਾ</string>
     <string name="swipe">ਸਵਾਈਪ/ਹੂਵਰ</string>
     <string name="handle">ਹੈਂਡਲ</string>
+	<string name="handle_opacity">Handle opacity</string>
     <string name="auto_pin_title">ਆਟੋ ਪਿੰਨ</string>
     <string name="auto_pin_summary">ਆਟੋ ਪਿੰਨ ਕੌਂਫਿਗਰ ਕਰੋ</string>
     <string name="pin_startup">ਸਟਾਰਟਅੱਪ \'ਤੇ ਪਿੰਨ ਕਰੋ</string>

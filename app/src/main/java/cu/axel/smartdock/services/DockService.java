@@ -232,6 +232,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		dockLayout.setOnTouchListener(this);
 
+		dockHandle.setAlpha(0.01f * Integer.parseInt(sp.getString("handle_opacity", "50")));
 		dockHandle.setOnClickListener((View v) -> {
 			pinDock();
 		});
@@ -1328,7 +1329,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					dockHandle.setVisibility(View.VISIBLE);
 				}
 			}
-		}
+		} else if (p2.equals("handle_opacity"))
+			dockHandle.setAlpha(0.01f * Integer.parseInt(sp.getString("handle_opacity", "50")));
+
 	}
 
 	private void updateDockTrigger() {
