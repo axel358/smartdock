@@ -91,12 +91,6 @@
 			android:key="auto_pin"
 			android:summary="@string/auto_pin_summary"
 			android:title="@string/auto_pin_title"/>
-        <EditTextPreference
-            android:inputType="number"
-            android:key="dock_hide_delay"
-            android:hint="500"
-            android:defaultValue="500"
-            android:title="@string/dock_hide_delay_title"/>
         
         <EditTextPreference
             android:inputType="number"
