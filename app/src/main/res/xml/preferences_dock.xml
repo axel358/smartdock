@@ -78,6 +78,14 @@
 			android:hint="50"
 			android:defaultValue="50"
 			android:title="@string/handle_opacity"/>
+			
+		<EditTextPreference
+			android:inputType="number"
+			android:key="dock_activation_area"
+			android:hint="10"
+			android:defaultValue="10"
+			android:summary="@string/dock_activation_area_summary"
+			android:title="@string/dock_activation_area_title"/>
 								
 		<Preference
 			android:key="auto_pin"
@@ -102,12 +110,5 @@
             android:key="center_running_apps"
             android:title="@string/center_running_apps_title"
             android:defaultValue="true" />
-        <EditTextPreference
-            android:inputType="number"
-            android:key="dock_activation_area"
-            android:hint="10"
-            android:defaultValue="10"
-			android:summary="@string/dock_activation_area_summary"
-            android:title="@string/dock_activation_area_title"/>
-    </PreferenceCategory>
+           </PreferenceCategory>
 </PreferenceScreen>
