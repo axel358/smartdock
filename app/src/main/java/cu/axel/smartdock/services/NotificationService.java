@@ -245,6 +245,7 @@ public class NotificationService extends NotificationListenerService
 											}
 										}
 									});
+									notifText.setSingleLine(true);
 
 									notifActionsLayout.addView(actionTv, lp);
 

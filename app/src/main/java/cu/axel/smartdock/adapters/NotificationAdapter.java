@@ -75,7 +75,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int arg1) {
-		View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_entry, parent, false);
+		View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_entry, parent,
+				false);
 
 		ViewHolder viewHolder = new ViewHolder(itemLayoutView);
 		return viewHolder;
@@ -111,7 +112,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 							} catch (PendingIntent.CanceledException e) {
 							}
 						});
-
+						viewHolder.notifText.setSingleLine(true);
 						viewHolder.notifActionsLayout.addView(actionTv, lp);
 
 					} catch (PackageManager.NameNotFoundException e) {
