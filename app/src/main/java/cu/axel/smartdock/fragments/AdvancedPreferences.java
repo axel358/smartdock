@@ -85,12 +85,14 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 			if ((boolean) p2) {
 				String status = DeviceUtils.runAsRoot("echo qemu.hw.mainkeys=1 >> /system/build.prop");
 				if (!status.equals("error")) {
+					hideNav.getSharedPreferences().edit().putBoolean("navbar_fix", false).commit();
 					showRebootDialog(getActivity(), false);
 					return true;
 				}
 			} else {
 				String status = DeviceUtils.runAsRoot("sed -i /qemu.hw.mainkeys=1/d /system/build.prop");
 				if (!status.equals("error")) {
+					hideNav.getSharedPreferences().edit().putBoolean("navbar_fix", true).commit();
 					showRebootDialog(getActivity(), false);
 					return true;
 				}
@@ -126,6 +128,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 			return false;
 		});
 
+		findPreference("navbar_fix").setVisible(Build.VERSION.SDK_INT > 31);
 	}
 
 	public void showDisplaySizeDialog(final Context context) {

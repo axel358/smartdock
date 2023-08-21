@@ -79,6 +79,7 @@ public class NotificationService extends NotificationListenerService
 	private LinearLayout notificationArea;
 	private boolean preferLastDisplay;
 	private IconParserUtilities iconParserUtilities;
+	private int y, x;
 
 	@Override
 	public void onCreate() {
@@ -90,12 +91,17 @@ public class NotificationService extends NotificationListenerService
 		wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		iconParserUtilities = new IconParserUtilities(context);
-
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
 				preferLastDisplay);
-		lp.x = Utils.dpToPx(this, 2);
+		x = Utils.dpToPx(context, 2);
+		int dockHeight = Utils.dpToPx(context, 56);
+		y = Build.VERSION.SDK_INT > 31 && sp.getBoolean("navbar_fix", true)
+				? dockHeight - DeviceUtils.getNavBarHeight(context)
+				: dockHeight;
+
+		lp.x = x;
 		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
-		lp.y = Utils.dpToPx(this, 58);
+		lp.y = y;
 
 		notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification_popup,
 				null);
@@ -369,8 +375,8 @@ public class NotificationService extends NotificationListenerService
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 400), -2, context,
 				preferLastDisplay);
 		lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
-		lp.y = Utils.dpToPx(context, 58);
-		lp.x = Utils.dpToPx(context, 2);
+		lp.y = y;
+		lp.x = x;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
 		notificationPanel = LayoutInflater.from(context).inflate(R.layout.notification_panel, null);

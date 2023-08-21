@@ -198,6 +198,15 @@ public class DeviceUtils {
 		}
 		return result;
 	}
+	
+	public static int getNavBarHeight(Context context) {
+		int result = 0;
+		int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+			result = context.getResources().getDimensionPixelSize(resourceId);
+		}
+		return result;
+	}
 
 	public static String getUserName(Context context) {
 		UserManager um = (UserManager) context.getSystemService(Context.USER_SERVICE);

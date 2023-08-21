@@ -27,6 +27,7 @@ public class Utils {
 	public static boolean notificationPanelVisible, shouldPlayChargeComplete;
 	public static String AUTOSTART_SCRIPT = "autostart.sh";
 	public static long startupTime;
+	//public static int dockHeight;
 
 	public static void toggleBuiltinNavigation(SharedPreferences.Editor editor, boolean value) {
 		editor.putBoolean("enable_nav_back", value);

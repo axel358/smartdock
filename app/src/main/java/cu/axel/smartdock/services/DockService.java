@@ -927,8 +927,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				} else if (mode.equals("maximized")) {
 					width = deviceWidth;
 					int statusHeight = sp.getBoolean("hide_status_bar", false) ? 0
-							: (sp.getString("status_bar_height", "").isEmpty() ? DeviceUtils.getStatusBarHeight(context)
-									: Integer.parseInt(sp.getString("status_bar_height", "")));
+							: DeviceUtils.getStatusBarHeight(context);
 					height = deviceHeight - (statusHeight + dockLayout.getMeasuredHeight());
 				} else if (mode.equals("portrait")) {
 					x = deviceWidth / 3;
@@ -983,7 +982,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		int deviceHeight = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).heightPixels;
 		int dockHeight = dockLayout.getMeasuredHeight();
 		int margins = Utils.dpToPx(context, 2);
-		int usableHeight = deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins;
+		int usableHeight = Build.VERSION.SDK_INT > 31 && sp.getBoolean("navbar_fix", true)
+				? deviceHeight - margins - DeviceUtils.getStatusBarHeight(context)
+				: deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins;
 
 		if (sp.getBoolean("app_menu_fullscreen", false)) {
 			lp = Utils.makeWindowParams(-1, usableHeight, context, preferLastDisplay);
@@ -991,8 +992,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			lp.y = margins + dockHeight;
 
 			if (sp.getInt("dock_layout", -1) != 0) {
-				//appsGv.setVerticalSpacing(Utils.dpToPx(context, 45));
-				//favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 45));
 				int padding = Utils.dpToPx(context, 24);
 				appMenu.setPadding(padding, padding, padding, padding);
 				searchEntry.setGravity(Gravity.CENTER);
@@ -1004,8 +1003,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				appsGv.setLayoutManager(new GridLayoutManager(context, 5));
 				favoritesGv.setLayoutManager(new GridLayoutManager(context, 5));
 			}
-			//appMenu.setBackgroundResource(R.drawable.rect);
-			//ColorUtils.applyMainColor(context, sp, appMenu);
 
 		} else {
 			int width = Utils.dpToPx(context, Integer.parseInt(sp.getString("app_menu_width", "650")));
@@ -1017,8 +1014,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			appsGv.setLayoutManager(new GridLayoutManager(context, Integer.parseInt(sp.getString("num_columns", "5"))));
 			favoritesGv.setLayoutManager(
 					new GridLayoutManager(context, Integer.parseInt(sp.getString("num_columns", "5"))));
-			//appsGv.setVerticalSpacing(Utils.dpToPx(context, 5));
-			//favoritesGv.setVerticalSpacing(Utils.dpToPx(context, 5));
 			int padding = Utils.dpToPx(context, 10);
 			appMenu.setPadding(padding, padding, padding, padding);
 			searchEntry.setGravity(Gravity.START);

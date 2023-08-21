@@ -78,12 +78,11 @@
 	android:key="development_category"
     android:title="@string/development_tools">
 	
-	<EditTextPreference
-		android:title="@string/override_sb_height"
-		android:key="status_bar_height"
-		android:inputType="number"
-		android:summary="Use a custom status bar height when calculating maximized window size"/>
- 
+	<CheckBoxPreference
+		android:title="Don't reserve space for navigation bar"
+		android:key="navbar_fix"
+		android:defaultValue="true"/>
+	
     <EditTextPreference
         android:summary="@string/scale_factor_summary"
         android:inputType="numberDecimal"
