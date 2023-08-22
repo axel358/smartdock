@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            app:icon="@drawable/ic_notifications_dark" />
+            app:icon="@drawable/ic_notifications" />
 
         <TextView
             android:layout_width="wrap_content"
