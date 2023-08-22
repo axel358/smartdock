@@ -61,12 +61,12 @@
             android:orientation="horizontal" >
 
             <ImageView
-                android:id="@+id/dont_disturb_btn"
+                android:id="@+id/notifications_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/circle"
                 android:padding="9dp"
-                android:src="@drawable/ic_do_not_disturb" />
+                android:src="@drawable/ic_notifications" />
         </LinearLayout>
 
         <LinearLayout

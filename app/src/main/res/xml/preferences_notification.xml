@@ -1,43 +1,48 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<Preference
-		android:title="@string/manage_service">
-        <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"/>
-    </Preference>
-    <EditTextPreference
+    <CheckBoxPreference
+		android:key="show_notifications"
+		android:title="@string/show_notifications"
+		android:defaultValue="true" />
+	
+	<EditTextPreference
+		android:dependency="show_notifications"
         android:inputType="number"
         android:key="notification_timeout"
         android:hint="5000"
         android:defaultValue="5000"
 		android:title="@string/notification_timeout_title"/>
 	<CheckBoxPreference
+		android:dependency="show_notifications"
 		android:key="show_ongoing"
 		android:title="@string/show_ongoing_title"
 		android:defaultValue="false" />
     
     <CheckBoxPreference
+		android:dependency="show_notifications"
         android:title="@string/show_current_title"
         android:key="show_current"
         android:defaultValue="true" />
     
+	<EditTextPreference
+		android:dependency="show_notifications"
+		android:key="blocked_notifications"
+		android:hint="@string/blocked_notifications_hint"
+		android:defaultValue="android"
+		android:summary="@string/blocked_notifications_summary"
+		android:title="@string/blocked_notifications_title"/>
+	
     <CheckBoxPreference
         android:title="@string/enable_notif_panel_title"
         android:key="enable_notif_panel"
         android:defaultValue="true" />
-    
-    <EditTextPreference
-        android:key="blocked_notifications"
-        android:hint="@string/blocked_notifications_hint"
-        android:defaultValue="android"
-        android:summary="@string/blocked_notifications_summary"
-		android:title="@string/blocked_notifications_title"/>
-    <Preference
+        
+	<Preference
+		android:title="@string/manage_service">
+		<intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"/>
+	</Preference>
+	
+	<Preference
         android:icon="@drawable/ic_info"
         android:title="@string/long_press_a_notification_to_a"/>
 		
-	<CheckBoxPreference
-        android:key="do_not_disturb"
-        android:title="@string/do_not_disturb"
-		android:summary="@string/do_not_disturb_summary"
-		android:defaultValue="true" />
-    
 </PreferenceScreen>

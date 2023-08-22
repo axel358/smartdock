@@ -59,4 +59,17 @@
             android:summary="@string/launch_games_fullscreen_summary"
             android:defaultValue="true" />
     </PreferenceCategory>
+	
+	<PreferenceCategory
+		android:key="user_info_category"
+		android:title="User info">
+	<EditTextPreference
+		android:key="user_name"
+		android:defaultValue=""
+		android:title="User name"/>
+	<cu.axel.smartdock.preferences.FileChooserPreference
+		android:key="user_icon_uri"
+		android:defaultValue="default"
+		android:title="User avatar"/>
+	</PreferenceCategory>
 </PreferenceScreen>

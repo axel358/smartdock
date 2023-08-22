@@ -159,7 +159,7 @@ public class NotificationService extends NotificationListenerService
 		if (Utils.notificationPanelVisible) {
 			updateNotificationPanel();
 		} else {
-			if (!sp.getBoolean("do_not_disturb", false)) {
+			if (sp.getBoolean("show_notifications", true)) {
 				final Notification notification = sbn.getNotification();
 
 				if (sbn.isOngoing()
@@ -386,14 +386,14 @@ public class NotificationService extends NotificationListenerService
 		notificationsLv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 		notificationArea = notificationPanel.findViewById(R.id.notification_area);
 		LinearLayout qsArea = notificationPanel.findViewById(R.id.qs_area);
-		ImageView dontDisturbBtn = notificationPanel.findViewById(R.id.dont_disturb_btn);
+		ImageView notificationsBtn = notificationPanel.findViewById(R.id.notifications_btn);
 		final ImageView orientationBtn = notificationPanel.findViewById(R.id.btn_orientation);
 		ImageView touchModeBtn = notificationPanel.findViewById(R.id.btn_touch_mode);
 		ImageView screenshotBtn = notificationPanel.findViewById(R.id.btn_screenshot);
 		ImageView screencapBtn = notificationPanel.findViewById(R.id.btn_screencast);
 		ImageView settingsBtn = notificationPanel.findViewById(R.id.btn_settings);
 
-		ColorUtils.applySecondaryColor(context, sp, dontDisturbBtn);
+		ColorUtils.applySecondaryColor(context, sp, notificationsBtn);
 		ColorUtils.applySecondaryColor(context, sp, orientationBtn);
 		ColorUtils.applySecondaryColor(context, sp, touchModeBtn);
 		ColorUtils.applySecondaryColor(context, sp, screencapBtn);
@@ -450,13 +450,13 @@ public class NotificationService extends NotificationListenerService
 
 		cancelAllBtn.setOnClickListener((View p1) -> cancelAllNotifications());
 
-		dontDisturbBtn.setImageResource(sp.getBoolean("do_not_disturb", false) ? R.drawable.ic_do_not_disturb
-				: R.drawable.ic_do_not_disturb_off);
-		dontDisturbBtn.setOnClickListener((View p1) -> {
-			boolean dontDisturb = sp.getBoolean("do_not_disturb", false);
-			sp.edit().putBoolean("do_not_disturb", !dontDisturb).commit();
-			dontDisturbBtn
-					.setImageResource(!dontDisturb ? R.drawable.ic_do_not_disturb : R.drawable.ic_do_not_disturb_off);
+		notificationsBtn.setImageResource(sp.getBoolean("show_notifications", true) ? R.drawable.ic_notifications
+				: R.drawable.ic_notifications_off);
+		notificationsBtn.setOnClickListener((View p1) -> {
+			boolean showNotifications = sp.getBoolean("show_notifications", true);
+			sp.edit().putBoolean("show_notifications", !showNotifications).commit();
+			notificationsBtn.setImageResource(
+					!showNotifications ? R.drawable.ic_notifications : R.drawable.ic_notifications_off);
 		});
 
 		ColorUtils.applyMainColor(NotificationService.this, sp, notificationArea);

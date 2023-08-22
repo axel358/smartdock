@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
 			editor.putString("dock_activation_area", wich == 2 ? "5" : "25");
 			editor.putInt("dock_layout", wich);
 			editor.putString("activation_method", wich != 2 ? "handle" : "swipe");
+			editor.putBoolean("show_notifications", wich != 0);
 			editor.commit();
 		});
 
