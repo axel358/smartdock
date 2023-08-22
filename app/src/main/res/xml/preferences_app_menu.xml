@@ -62,14 +62,14 @@
 	
 	<PreferenceCategory
 		android:key="user_info_category"
-		android:title="User info">
+		android:title="@string/user_info">
 	<EditTextPreference
 		android:key="user_name"
 		android:defaultValue=""
-		android:title="User name"/>
+		android:title="@string/user_name"/>
 	<cu.axel.smartdock.preferences.FileChooserPreference
 		android:key="user_icon_uri"
 		android:defaultValue="default"
-		android:title="User avatar"/>
+		android:title="@string/user_avatar"/>
 	</PreferenceCategory>
 </PreferenceScreen>

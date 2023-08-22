@@ -88,6 +88,9 @@
     <string name="remember_launch_mode_summary">Recuerde el último modo de inicio utilizado para cada aplicación</string>
     <string name="launch_games_fullscreen_title">Iniciar juegos en pantalla completa</string>
     <string name="launch_games_fullscreen_summary">Iniciar aplicaciones detectadas como juegos en pantalla completa de forma predeterminada</string>
+	<string name="user_info">Información de usuario</string>
+	<string name="user_name">Nombre</string>
+	<string name="user_avatar">Avatar</string>
 
     <!-- Dock page -->
     <string name="dock">Dock</string>

@@ -9,10 +9,12 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.preferences.FileChooserPreference;
+import cu.axel.smartdock.utils.AppUtils;
 
 public class AppMenuPreferences extends PreferenceFragmentCompat {
-	private FileChooserPreference menuIconPref;
-	private final int OPEN_REQUEST_CODE = 4;
+	private FileChooserPreference menuIconPref, userIconPref;
+	private final int MENU_REQUEST_CODE = 4;
+	private final int USER_REQUEST_CODE = 5;
 
 	@Override
 	public void onCreatePreferences(Bundle arg0, String arg1) {
@@ -22,10 +24,22 @@ public class AppMenuPreferences extends PreferenceFragmentCompat {
 		menuIconPref.setOnPreferenceClickListener((Preference p1) -> {
 			startActivityForResult(
 					new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/*"),
-					OPEN_REQUEST_CODE);
+					MENU_REQUEST_CODE);
 
 			return false;
 		});
+
+		userIconPref = findPreference("user_icon_uri");
+		userIconPref.setOnPreferenceClickListener((Preference p1) -> {
+			startActivityForResult(
+					new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/*"),
+					USER_REQUEST_CODE);
+
+			return false;
+		});
+
+		userIconPref.setVisible(!AppUtils.isSystemApp(getActivity(), getActivity().getPackageName()));
+		findPreference("user_name").setVisible(userIconPref.isVisible());
 
 		final Preference heightPreference = findPreference("app_menu_height");
 		final Preference widthPreference = findPreference("app_menu_width");
@@ -48,11 +62,14 @@ public class AppMenuPreferences extends PreferenceFragmentCompat {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == Activity.RESULT_OK) {
-			if (requestCode == OPEN_REQUEST_CODE) {
-				Uri openUri = data.getData();
-				getActivity().getContentResolver().takePersistableUriPermission(openUri,
-						Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			Uri openUri = data.getData();
+			getActivity().getContentResolver().takePersistableUriPermission(openUri,
+					Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+			if (requestCode == MENU_REQUEST_CODE) {
 				menuIconPref.setFile(openUri.toString());
+			} else if (requestCode == USER_REQUEST_CODE) {
+				userIconPref.setFile(openUri.toString());
 			}
 		}
 

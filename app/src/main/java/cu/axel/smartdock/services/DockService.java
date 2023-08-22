@@ -19,6 +19,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -1037,16 +1038,32 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		loadFavoriteApps();
 
 		//Load user info
+		ImageView avatarIv = appMenu.findViewById(R.id.avatar_iv);
+		TextView userNameTv = appMenu.findViewById(R.id.user_name_tv);
+		avatarIv.setOnClickListener(v -> showUserContextMenu(v));
+
 		if (AppUtils.isSystemApp(context, getPackageName())) {
-			ImageView avatarIv = appMenu.findViewById(R.id.avatar_iv);
-			TextView userNameTv = appMenu.findViewById(R.id.user_name_tv);
-			avatarIv.setOnClickListener(v -> showUserContextMenu(v));
 			String name = DeviceUtils.getUserName(context);
 			if (name != null)
 				userNameTv.setText(name);
 			Bitmap icon = DeviceUtils.getUserIcon(context);
 			if (icon != null)
 				avatarIv.setImageBitmap(icon);
+		} else {
+			String name = sp.getString("user_name", "");
+			if (!name.isEmpty())
+				userNameTv.setText(name);
+
+			String iconUri = sp.getString("user_icon_uri", "default");
+			if (!iconUri.equals("default")) {
+				Bitmap bitmap = Utils.getBitmapFromUri(context, Uri.parse(iconUri));
+				Bitmap icon = Utils.getCircularBitmap(bitmap);
+
+				if (icon != null)
+					avatarIv.setImageBitmap(icon);
+			} else
+				avatarIv.setImageResource(R.drawable.ic_user);
+
 		}
 
 		appMenu.setAlpha(0);

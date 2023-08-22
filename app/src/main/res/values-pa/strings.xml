@@ -88,6 +88,9 @@
     <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
     <string name="launch_games_fullscreen_summary">ਡੀਫੋਲਟ ਤੌਰ \'ਤੇ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਐਪਾਂ ਨੂੰ ਲਾਂਚ ਕਰੋ</string>
+	<string name="user_info">User info</string>
+	<string name="user_name">Name</string>
+	<string name="user_avatar">Avatar</string>
 
     <!-- Dock page -->
     <string name="dock">ਡੌਕ</string>

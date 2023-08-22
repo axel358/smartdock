@@ -88,6 +88,9 @@
     <string name="remember_launch_mode_summary">Remember last launch mode used for every app</string>
     <string name="launch_games_fullscreen_title">Launch games in full screen</string>
     <string name="launch_games_fullscreen_summary">Launch apps detected as games in full screen by default</string>
+	<string name="user_info">User info</string>
+	<string name="user_name">Name</string>
+	<string name="user_avatar">Avatar</string>
 
     <!-- Dock page -->
     <string name="dock">Dock</string>

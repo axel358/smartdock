@@ -1,15 +1,20 @@
 package cu.axel.smartdock.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.PorterDuff.Mode;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
+import android.util.Config;
 import android.view.WindowManager;
 import android.widget.PopupMenu;
 import cu.axel.smartdock.R;
@@ -58,21 +63,43 @@ public class Utils {
 	}
 
 	public static Bitmap getCircularBitmap(Bitmap bitmap) {
-		Bitmap result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+		if (bitmap == null)
+			return bitmap;
+
+		//Copy the bitmap to avoid software rendering issues
+		Bitmap bitmapCopy = bitmap.copy(Bitmap.Config.ARGB_8888, false);
+		bitmap.recycle();
+
+		Bitmap result = Bitmap.createBitmap(bitmapCopy.getWidth(), bitmapCopy.getHeight(), Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(result);
 
 		final int color = 0xff424242;
 		final Paint paint = new Paint();
-		final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+		final Rect rect = new Rect(0, 0, bitmapCopy.getWidth(), bitmapCopy.getHeight());
 
 		paint.setAntiAlias(true);
 		canvas.drawARGB(0, 0, 0, 0);
 		paint.setColor(color);
-		canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+		canvas.drawCircle(bitmapCopy.getWidth() / 2, bitmapCopy.getHeight() / 2, bitmap.getWidth() / 2, paint);
 		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-		canvas.drawBitmap(bitmap, rect, rect, paint);
-
+		canvas.drawBitmap(bitmapCopy, rect, rect, paint);
+		bitmapCopy.recycle();
 		return result;
+	}
+
+	public static Bitmap getBitmapFromUri(Context context, Uri uri) {
+		Bitmap bitmap = null;
+		ContentResolver contentResolver = context.getContentResolver();
+		try {
+			if (Build.VERSION.SDK_INT < 28) {
+				bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
+			} else {
+				ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, uri);
+				bitmap = ImageDecoder.decodeBitmap(source);
+			}
+		} catch (Exception e) {
+		}
+		return bitmap;
 	}
 
 	public static int getBatteryDrawable(int level, boolean plugged) {
