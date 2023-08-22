@@ -242,8 +242,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		});
 
 		appsBtn.setOnLongClickListener((View p1) -> {
-			launchApp("standard",
-					(new Intent(Settings.ACTION_APPLICATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			launchApp(null, new Intent(Settings.ACTION_APPLICATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			return true;
 		});
 
@@ -289,35 +288,34 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 
 		bluetoothBtn.setOnClickListener((View p1) -> toggleBluetooth());
 		bluetoothBtn.setOnLongClickListener((View p1) -> {
-			launchApp("standard",
-					(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			launchApp(null, (new Intent(Settings.ACTION_BLUETOOTH_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
 			return true;
 		});
 
 		wifiBtn.setOnClickListener((View p1) -> toggleWifi());
 		wifiBtn.setOnLongClickListener((View p1) -> {
-			launchApp("standard", (new Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			launchApp(null, (new Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
 			return true;
 		});
 
 		volBtn.setOnClickListener((View p1) -> toggleVolume());
 		volBtn.setOnLongClickListener((View p1) -> {
-			launchApp("standard", (new Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			launchApp(null, new Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			return true;
 		});
 
 		if (Build.VERSION.SDK_INT > 21) {
 			batteryBtn.setOnClickListener((View p1) -> {
-				launchApp("standard",
-						(new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+				launchApp(null,
+						new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			});
 		}
 
 		dateTv.setOnClickListener((View p1) -> {
-			launchApp("standard", pm.getLaunchIntentForPackage(sp.getString("app_clock", "com.android.deskclock")));
+			launchApp(null, sp.getString("app_clock", "com.android.deskclock"));
 		});
 		dateTv.setOnLongClickListener((View p1) -> {
-			launchApp("standard", (new Intent(Settings.ACTION_DATE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			launchApp(null, new Intent(Settings.ACTION_DATE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			return true;
 		});
 
@@ -398,7 +396,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		});
 
 		searchTv.setOnClickListener((View p1) -> {
-			launchApp("standard", new Intent(Intent.ACTION_VIEW,
+			launchApp(null, new Intent(Intent.ACTION_VIEW,
 					Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(searchEt.getText().toString())))
 							.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 		});
@@ -435,7 +433,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		searchEt.setOnKeyListener((View p1, int p2, KeyEvent p3) -> {
 			if (p3.getAction() == KeyEvent.ACTION_DOWN) {
 				if (p2 == KeyEvent.KEYCODE_ENTER && searchEt.getText().toString().length() > 1) {
-					launchApp("standard",
+					launchApp(null,
 							new Intent(Intent.ACTION_VIEW,
 									Uri.parse("https://www.google.com/search?q="
 											+ URLEncoder.encode(searchEt.getText().toString())))
@@ -699,9 +697,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			if (event.getKeyCode() == KeyEvent.KEYCODE_L && sp.getBoolean("enable_lock_desktop", true))
 				lockScreen();
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_P && sp.getBoolean("enable_open_settings", true))
-				launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+				launchApp(null, new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_T && sp.getBoolean("enable_open_terminal", false))
-				launchApp("standard", sp.getString("app_terminal", "com.termux"));
+				launchApp(null, sp.getString("app_terminal", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_N && sp.getBoolean("enable_expand_notifications", true))
 				performGlobalAction(AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS);
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_K)
@@ -711,13 +709,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_F11)
 				DeviceUtils.restartService(context);
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_M && sp.getBoolean("enable_open_music", true))
-				launchApp("standard", sp.getString("app_music", "com.termux"));
+				launchApp(null, sp.getString("app_music", "com.termux"));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_B && sp.getBoolean("enable_open_browser", true))
-				launchApp("standard", sp.getString("app_browser", ""));
+				launchApp(null, sp.getString("app_browser", ""));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_A && sp.getBoolean("enable_open_assist", true))
-				launchApp("standard", sp.getString("app_assistant", ""));
+				launchApp(null, sp.getString("app_assistant", ""));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_R && sp.getBoolean("enable_open_rec", true))
-				launchApp("standard", sp.getString("app_rec", ""));
+				launchApp(null, sp.getString("app_rec", ""));
 			else if (event.getKeyCode() == KeyEvent.KEYCODE_D)
 				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
 						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -865,6 +863,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	private void launchApp(String mode, Intent intent) {
+		if (mode == null)
+			mode = sp.getString("launch_mode", "standard");
+
 		ActivityOptions options = null;
 		String animation = sp.getString("custom_animation", "system");
 
@@ -1111,7 +1112,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 					actions.add(new Action(R.drawable.ic_fullscreen, getString(R.string.fullscreen)));
 					actionsLv.setAdapter(new AppActionsAdapter(context, actions));
 				} else if (action.getText().equals(getString(R.string.app_info))) {
-					launchApp("standard", new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+					launchApp(null, new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
 							.setData(Uri.parse("package:" + app)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 					wm.removeView(view);
 				} else if (action.getText().equals(getString(R.string.uninstall))) {
@@ -1267,14 +1268,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		actionsLv.setOnItemClickListener((AdapterView<?> p1, View p2, int p3, long p4) -> {
 			Action action = (Action) p1.getItemAtPosition(p3);
 			if (action.getText().equals(getString(R.string.users)))
-				launchApp("standard",
-						new Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+				launchApp(null, new Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			else if (action.getText().equals(getString(R.string.files)))
-				launchApp("standard", sp.getString("app_files", "com.android.documentsui"));
+				launchApp(null, sp.getString("app_files", "com.android.documentsui"));
 			else if (action.getText().equals(getString(R.string.settings)))
-				launchApp("standard", new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+				launchApp(null, new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			else if (action.getText().equals(getString(R.string.dock_settings)))
-				launchApp("standard", new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+				launchApp(null, new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
 			wm.removeView(view);
@@ -1418,7 +1418,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	public void launchAssistant() {
 		String assistant = sp.getString("app_assistant", "");
 		if (!assistant.isEmpty())
-			launchApp("standard", assistant);
+			launchApp(null, assistant);
 		else {
 			try {
 				startActivity(new Intent(Intent.ACTION_ASSIST).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -1565,7 +1565,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		final LinearLayout infoLayout = wifiPanel.findViewById(R.id.wp_info);
 
 		selectBtn.setOnClickListener((View p1) -> {
-			launchApp("standard", (new Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+			launchApp(null, new Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			hideWiFiPanel();
 		});
 
