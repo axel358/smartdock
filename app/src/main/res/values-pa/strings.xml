@@ -215,6 +215,8 @@
     <string name="custom_display_size_title">ਡਿਸਪਲੇ ਦਾ ਆਕਾਰ</string>
     <string name="custom_display_size_summary">ਤੁਹਾਨੂੰ ਸਕ੍ਰੀਨ ਐਲੀਮੈਂਟਸ ਦੇ ਡਿਸਪਲੇ ਆਕਾਰ ਨੂੰ ਵਧੀਆ ਟਿਊਨ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="custom_display_size_hint">ਡਿਫੌਲਟ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
+	<string name="disable_heads_up">Disable notification heads-up</string>
+	<string name="disable_heads_up_summary">Disables Android\'s notification pop-ups</string>
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="allow_app_freeze_title">ਐਪ ਸੰਦਰਭ ਮੀਨੂ ਤੋਂ ਐਪਸ ਨੂੰ ਡੀਸਏਬਲ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕਲਪ ਦਿਖਾਓ</string>

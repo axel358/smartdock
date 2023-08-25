@@ -200,7 +200,7 @@
     <!-- Advanced page -->
     <string name="advanced">Avanzado</string>
     <string name="these_settings_are_intended_fo">Estos ajustes están destinados a usuarios avanzados. Solo cámbialas si sabes lo que estás haciendo.</string>
-    <string name="prefer_last_display">Preferir última pantalla adjunta (Android 10)</string>
+    <string name="prefer_last_display">Preferir última pantalla adjunta</string>
     <string name="prefer_last_display_summary">Preferir la última pantalla adjunta para mostrar aplicaciones y el Dock</string>
     <string name="restart_accessibility">Cambiar este ajuste requiere reiniciar el servicio de accessibilidad</string>
     <string name="open_accessibility">Abrir Accesibilidad</string>
@@ -215,6 +215,8 @@
     <string name="custom_display_size_title">Tamaño de la pantalla</string>
     <string name="custom_display_size_summary">Le permite ajustar el tamaño de visualización de los elementos de la pantalla. Necesita reiniciar</string>
     <string name="custom_display_size_hint">dejar en blanco por defecto</string>
+	<string name="disable_heads_up">Deshabilitar heads-up</string>
+	<string name="disable_heads_up_summary">Deshabilitar notificaciones emergentes de Android</string>
     <string name="scale_factor_title">Factor de escala de ventana estándar</string>
     <string name="scale_factor_summary">Define qué tan grandes son las ventanas estándar</string>
     <string name="allow_app_freeze_title">Mostrar una opción para deshabilitar aplicaciones desde el menú contextual de la aplicación</string>

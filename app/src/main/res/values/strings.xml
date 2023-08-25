@@ -200,7 +200,7 @@
     <!-- Advanced page -->
     <string name="advanced">Advanced</string>
     <string name="these_settings_are_intended_fo">These settings are intended for advanced users. Only change them if you know what you are doing</string>
-    <string name="prefer_last_display">Prefer last attached display (Android 10+)</string>
+    <string name="prefer_last_display">Prefer last attached display</string>
     <string name="prefer_last_display_summary">Prefer the last attached display for displaying apps and the dock</string>
     <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
     <string name="open_accessibility">Open Accessibility</string>
@@ -215,6 +215,8 @@
     <string name="custom_display_size_title">Display size</string>
     <string name="custom_display_size_summary">Allows you to fine tune the display size of screen elements. Needs reboot</string>
     <string name="custom_display_size_hint">leave blank for default</string>
+	<string name="disable_heads_up">Disable notification heads-up</string>
+	<string name="disable_heads_up_summary">Disables Android\'s notification pop-ups</string>
     <string name="scale_factor_title">Standard window scale factor</string>
     <string name="scale_factor_summary">Defines how big standard windows are</string>
     <string name="allow_app_freeze_title">Show an option to disable apps from the app context menu</string>

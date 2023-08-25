@@ -33,6 +33,12 @@
 		   android:key="status_icon_blacklist"
 		   android:summary="@string/icon_blacklist_summary"
 		   android:title="@string/icon_blacklist"/>
+		   
+	   <CheckBoxPreference
+	   	android:title="@string/disable_heads_up"
+	   	android:key="disable_heads_up"
+	   	android:summary="@string/disable_heads_up_summary"
+	   	android:defaultValue="false" />
    </PreferenceCategory>
    
 	<PreferenceCategory

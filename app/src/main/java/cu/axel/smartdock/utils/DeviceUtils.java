@@ -41,6 +41,7 @@ public class DeviceUtils {
 	public static final String ICON_BLACKLIST = "icon_blacklist";
 	public static final String POLICY_CONTROL = "policy_control";
 	public static final String IMMERSIVE_APPS = "immersive.status=apps";
+	public static final String HEADS_UP_ENABLED = "heads_up_notifications_enabled";
 	public static final String NOTIFICATION_SERVICE_NAME = "cu.axel.smartdock/cu.axel.smartdock.services.NotificationService";
 	public static final String SERVICE_NAME = "cu.axel.smartdock/cu.axel.smartdock.services.DockService";
 	public static final String ENABLED_ACCESSIBILITY_SERVICES = "enabled_accessibility_services";
@@ -145,20 +146,20 @@ public class DeviceUtils {
 		}
 	}
 
-	public static int getSecureSettingInt(Context context, String setting) {
+	public static int getSecureSetting(Context context, String setting, int defaultValue) {
 		try {
 			return Settings.Secure.getInt(context.getContentResolver(), setting);
 		} catch (Exception e) {
-			return 0;
+			return defaultValue;
 		}
 	}
 
-	public static String getSecureSettingString(Context context, String setting) {
+	public static String getSecureSetting(Context context, String setting, String defaultValue) {
 		try {
 			String value = Settings.Secure.getString(context.getContentResolver(), setting);
-			return value == null ? "" : value;
+			return value == null ? defaultValue : value;
 		} catch (Exception e) {
-			return "";
+			return defaultValue;
 		}
 	}
 
@@ -180,12 +181,30 @@ public class DeviceUtils {
 		}
 	}
 
-	public static String getGlobalSettingString(Context context, String setting) {
+	public static String getGlobalSetting(Context context, String setting, String defaultValue) {
 		try {
 			String value = Settings.Global.getString(context.getContentResolver(), setting);
-			return value == null ? "" : value;
+			return value == null ? defaultValue : value;
 		} catch (Exception e) {
-			return "";
+			return defaultValue;
+		}
+	}
+
+	public static boolean putGlobalSetting(Context context, String setting, int value) {
+		try {
+			Settings.Global.putInt(context.getContentResolver(), setting, value);
+			return true;
+		} catch (SecurityException e) {
+			return false;
+		}
+	}
+
+	public static int getGlobalSetting(Context context, String setting, int defaultValue) {
+		try {
+			return Settings.Global.getInt(context.getContentResolver(), setting);
+
+		} catch (Exception e) {
+			return defaultValue;
 		}
 	}
 
@@ -198,7 +217,7 @@ public class DeviceUtils {
 		}
 		return result;
 	}
-	
+
 	public static int getNavBarHeight(Context context) {
 		int result = 0;
 		int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
@@ -343,7 +362,7 @@ public class DeviceUtils {
 
 	//Service control
 	public static void enableService(Context context) {
-		String services = getSecureSettingString(context, ENABLED_ACCESSIBILITY_SERVICES);
+		String services = getSecureSetting(context, ENABLED_ACCESSIBILITY_SERVICES, "");
 		if (services.contains(SERVICE_NAME))
 			return;
 
@@ -358,7 +377,7 @@ public class DeviceUtils {
 	}
 
 	public static void disableService(Context context) {
-		String services = getSecureSettingString(context, ENABLED_ACCESSIBILITY_SERVICES);
+		String services = getSecureSetting(context, ENABLED_ACCESSIBILITY_SERVICES, "");
 
 		if (!services.contains(SERVICE_NAME))
 			return;
@@ -381,7 +400,7 @@ public class DeviceUtils {
 	}
 
 	public static void enableNotificationService(Context context) {
-		String services = getSecureSettingString(context, ENABLED_NOTIFICATION_SERVICES);
+		String services = getSecureSetting(context, ENABLED_NOTIFICATION_SERVICES, "");
 		if (services.contains(NOTIFICATION_SERVICE_NAME))
 			return;
 
@@ -396,7 +415,7 @@ public class DeviceUtils {
 	}
 
 	public static void disableNotificationService(Context context) {
-		String services = getSecureSettingString(context, ENABLED_NOTIFICATION_SERVICES);
+		String services = getSecureSetting(context, ENABLED_NOTIFICATION_SERVICES, "");
 
 		if (!services.contains(NOTIFICATION_SERVICE_NAME))
 			return;

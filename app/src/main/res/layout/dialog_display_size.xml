@@ -11,6 +11,6 @@
         android:layout_marginStart="16dp"
         android:ems="10"
 		android:inputType="number"
-        android:hint="0 = default" />
+        android:hint="@string/custom_display_size_hint" />
 
 </LinearLayout>

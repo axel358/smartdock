@@ -100,7 +100,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 			return false;
 		});
 		CheckBoxPreference hideStatus = (CheckBoxPreference) findPreference("hide_status_bar");
-		hideStatus.setChecked(DeviceUtils.getGlobalSettingString(getActivity(), DeviceUtils.POLICY_CONTROL)
+		hideStatus.setChecked(DeviceUtils.getGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL, "")
 				.equals(DeviceUtils.IMMERSIVE_APPS));
 
 		hideStatus.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
@@ -128,6 +128,21 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 			return false;
 		});
 
+		CheckBoxPreference disableHeadsUp = findPreference("disable_heads_up");
+		disableHeadsUp.setChecked(DeviceUtils.getGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 1) == 0);
+		disableHeadsUp.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
+			if ((boolean) p2) {
+				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 0)) {
+					return true;
+				}
+			} else {
+				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 1)) {
+					return true;
+				}
+			}
+			return false;
+		});
+
 		findPreference("navbar_fix").setVisible(Build.VERSION.SDK_INT > 31);
 	}
 
@@ -136,10 +151,10 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 		dialog.setTitle(R.string.custom_display_size_title);
 		View view = LayoutInflater.from(context).inflate(R.layout.dialog_display_size, null);
 		final EditText contentEt = view.findViewById(R.id.display_size_et);
-		contentEt.setText(DeviceUtils.getSecureSettingString(context, DeviceUtils.DISPLAY_SIZE) + "");
+		contentEt.setText(DeviceUtils.getSecureSetting(context, DeviceUtils.DISPLAY_SIZE, "") + "");
 		dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int p2) -> {
 			String value = contentEt.getText().toString();
-			int size = value.isEmpty() ? 0 : Integer.parseInt(value);
+			String size = value.equals("0") ? "" : value;
 
 			if (DeviceUtils.putSecureSetting(getActivity(), DeviceUtils.DISPLAY_SIZE, size) && rootAvailable)
 				showRebootDialog(getActivity(), true);
@@ -154,7 +169,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 		dialog.setTitle(R.string.icon_blacklist);
 		View view = LayoutInflater.from(context).inflate(R.layout.dialog_icon_blacklist, null);
 		final EditText contentEt = view.findViewById(R.id.icon_blacklist_et);
-		contentEt.setText(DeviceUtils.getSecureSettingString(context, DeviceUtils.ICON_BLACKLIST));
+		contentEt.setText(DeviceUtils.getSecureSetting(context, DeviceUtils.ICON_BLACKLIST, ""));
 		dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int p2) -> {
 			DeviceUtils.putSecureSetting(context, DeviceUtils.ICON_BLACKLIST, contentEt.getText().toString());
 		});
