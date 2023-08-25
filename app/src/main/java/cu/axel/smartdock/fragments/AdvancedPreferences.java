@@ -26,7 +26,7 @@ import androidx.preference.CheckBoxPreference;
 import cu.axel.smartdock.utils.AppUtils;
 
 public class AdvancedPreferences extends PreferenceFragmentCompat {
-	private boolean rootAvailable;
+	private boolean rootAvailable, hasWriteSettingsPermission;
 
 	@Override
 	public void onCreatePreferences(Bundle arg0, String arg1) {
@@ -35,16 +35,13 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 		Preference preferLastDisplay = findPreference("prefer_last_display");
 		preferLastDisplay.setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q);
 
+		hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(getActivity());
+
 		preferLastDisplay.setOnPreferenceClickListener((Preference p1) -> {
-			if (DeviceUtils.hasWriteSettingsPermission(getActivity()))
+			if (hasWriteSettingsPermission)
 				DeviceUtils.restartService(getActivity());
 			else
 				showAccessibilityDialog(getActivity());
-			return true;
-		});
-
-		findPreference("custom_display_size").setOnPreferenceClickListener(p -> {
-			showDisplaySizeDialog(getActivity());
 			return true;
 		});
 
@@ -76,10 +73,64 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 		rootAvailable = !result.equals("error");
 		findPreference("root_category").setEnabled(rootAvailable);
 
-		if (rootAvailable)
+		if (rootAvailable && !hasWriteSettingsPermission) {
 			DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS);
+			hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(getActivity());
+		}
 
-		findPreference("secure_category").setEnabled(DeviceUtils.hasWriteSettingsPermission(getActivity()));
+		CheckBoxPreference hideStatus = (CheckBoxPreference) findPreference("hide_status_bar");
+		hideStatus.setVisible(Build.VERSION.SDK_INT < 31);
+
+		if (hasWriteSettingsPermission) {
+			findPreference("secure_category").setEnabled(true);
+
+			findPreference("custom_display_size").setOnPreferenceClickListener(p -> {
+				showDisplaySizeDialog(getActivity());
+				return true;
+			});
+
+			hideStatus.setChecked(DeviceUtils.getGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL, "")
+					.equals(DeviceUtils.IMMERSIVE_APPS));
+
+			hideStatus.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
+				if ((boolean) p2) {
+					if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL,
+							DeviceUtils.IMMERSIVE_APPS)) {
+						if (rootAvailable)
+							showRebootDialog(getActivity(), true);
+						return true;
+					}
+				} else {
+					if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL, null)) {
+						if (rootAvailable)
+							showRebootDialog(getActivity(), true);
+						return true;
+					}
+				}
+				return false;
+			});
+
+			findPreference("status_icon_blacklist").setOnPreferenceClickListener((Preference p1) -> {
+				showIBDialog(getActivity());
+				return false;
+			});
+
+			CheckBoxPreference disableHeadsUp = findPreference("disable_heads_up");
+			disableHeadsUp
+					.setChecked(DeviceUtils.getGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 1) == 0);
+			disableHeadsUp.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
+				if ((boolean) p2) {
+					if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 0)) {
+						return true;
+					}
+				} else {
+					if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 1)) {
+						return true;
+					}
+				}
+				return false;
+			});
+		}
 
 		hideNav.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
 			if ((boolean) p2) {
@@ -94,49 +145,6 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 				if (!status.equals("error")) {
 					hideNav.getSharedPreferences().edit().putBoolean("navbar_fix", true).commit();
 					showRebootDialog(getActivity(), false);
-					return true;
-				}
-			}
-			return false;
-		});
-		CheckBoxPreference hideStatus = (CheckBoxPreference) findPreference("hide_status_bar");
-		hideStatus.setChecked(DeviceUtils.getGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL, "")
-				.equals(DeviceUtils.IMMERSIVE_APPS));
-
-		hideStatus.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
-			if ((boolean) p2) {
-				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL,
-						DeviceUtils.IMMERSIVE_APPS)) {
-					if (rootAvailable)
-						showRebootDialog(getActivity(), true);
-					return true;
-				}
-			} else {
-				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.POLICY_CONTROL, null)) {
-					if (rootAvailable)
-						showRebootDialog(getActivity(), true);
-					return true;
-				}
-			}
-			return false;
-		});
-
-		hideStatus.setVisible(Build.VERSION.SDK_INT < 31);
-
-		findPreference("status_icon_blacklist").setOnPreferenceClickListener((Preference p1) -> {
-			showIBDialog(getActivity());
-			return false;
-		});
-
-		CheckBoxPreference disableHeadsUp = findPreference("disable_heads_up");
-		disableHeadsUp.setChecked(DeviceUtils.getGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 1) == 0);
-		disableHeadsUp.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
-			if ((boolean) p2) {
-				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 0)) {
-					return true;
-				}
-			} else {
-				if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 1)) {
 					return true;
 				}
 			}

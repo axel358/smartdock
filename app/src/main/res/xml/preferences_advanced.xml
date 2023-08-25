@@ -15,6 +15,7 @@
         android:defaultValue="false" />
 		  
    <PreferenceCategory
+	   android:enabled="false"
    	android:key="secure_category"
    	android:title="@string/secure_settings">
 	  
