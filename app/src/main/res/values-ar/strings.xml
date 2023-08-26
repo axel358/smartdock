@@ -250,7 +250,7 @@
     <string name="app_help">    يجب تثبيت التطبيق كتطبيق نظام للحصول على الأذونات الصحيحة.يجب تثبيت التطبيق كتطبيق نظام للحصول على الأذونات الصحيحة.
     بدون هذه الوظيفة سوف تكون محدودة.
     \ن
-    \nيجب عليك أيضًا إخفاء التنقل في Android     
+    \nيجب عليك أيضًا إخفاء التنقل في Android</string>
     <string name="more_help">مزيد من المساعدة</string>
     <string name="contributors">المساهمين</string>
     <string name="tap_to_see_the_list_of_great_p">انقر لرؤية قائمة الأشخاص الرائعين الذين ساهموا في Smart Dock</string>
