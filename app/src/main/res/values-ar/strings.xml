@@ -60,257 +60,253 @@
     <string name="system">نظام</string>
     <string name="icon_padding_title">ملء الأيقونه</string>
     <string name="icon_padding_summary">يحدد مقدار المسافة البيضاء بين الأيقونة وحدودها</string>
-    <string name="dock_square_title">تعطيل الزوايا الدائرية للرصيف</string>
-    <string name="tint_indicators_title">Tint running indicators</string>
-    <string name="custom_animation_title">App launch animation</string>
-    <string name="fade">Fade</string>
-    <string name="slide_up">Slide up</string>
-    <string name="slide_left">Slide left</string>
+    <string name="dock_square_title">تعطيل الزوايا الدائرية للDock</string>
+    <string name="tint_indicators_title">مؤشرات تشغيل الصبغة</string>
+    <string name="custom_animation_title">الرسوم المتحركة لإطلاق التطبيق</string>
+    <string name="fade">يختفي</string>
+    <string name="slide_up">ينزلق للأعلى</string>
+    <string name="slide_left">مرر لليسار</string>
 
     <!-- App menu page -->
-    <string name="app_menu">App Menu</string>
-    <string name="menu">Menu</string>
-    <string name="menu_icon_uri_title">Select menu icon</string>
-    <string name="restore_menu_icon_title">Restore default menu icon</string>
-    <string name="menu_key_title">Menu modifier key</string>
-    <string name="app_menu_fullscreen_title">Open App Menu in full screen</string>
-    <string name="app_menu_height_title">App menu height</string>
-    <string name="app_menu_width_title">App menu width</string>
-    <string name="num_columns_title">Number of columns</string>
-    <string name="center_app_menu">Centered app menu</string>
-    <string name="app_launch">App launch</string>
-    <string name="launch_mode_title">Default app launch mode</string>
-    <string name="standard">Standard</string>
-    <string name="maximized">Maximized</string>
-    <string name="portrait">Portrait</string>
-    <string name="fullscreen">Fullscreen</string>
-    <string name="remember_launch_mode_title">Remember launch mode</string>
-    <string name="remember_launch_mode_summary">Remember last launch mode used for every app</string>
-    <string name="launch_games_fullscreen_title">Launch games in full screen</string>
-    <string name="launch_games_fullscreen_summary">Launch apps detected as games in full screen by default</string>
-	<string name="user_info">User info</string>
-	<string name="user_name">Name</string>
-	<string name="user_avatar">Avatar</string>
+    <string name="app_menu">قائمة التطبيق</string>
+    <string name="menu">القائمه</string>
+    <string name="menu_icon_uri_title">اختر أيقونة القائمة</string>
+    <string name="restore_menu_icon_title">استعادة أيقونة القائمة الافتراضية</string>
+    <string name="menu_key_title">مفتاح تعديل القائمة</string>
+    <string name="app_menu_fullscreen_title">افتح قائمة التطبيقات في وضع ملء الشاشة</string>
+    <string name="app_menu_height_title">ارتفاع قائمة التطبيق</string>
+    <string name="app_menu_width_title">عرض قائمة التطبيق</string>
+    <string name="num_columns_title">عدد الأعمدة</string>
+    <string name="center_app_menu">قائمة التطبيقات المركزية</string>
+    <string name="app_launch">تشغيل التطبيق</string>
+    <string name="launch_mode_title">وضع تشغيل التطبيق الافتراضي</string>
+    <string name="standard">مستوي</string>
+    <string name="maximized">زاد إلي الحد الأعلي</string>
+    <string name="portrait">لَوحَة</string>
+    <string name="fullscreen">ملء الشاشه</string>
+    <string name="remember_launch_mode_title">تذكر وضع التشغيل</string>
+    <string name="remember_launch_mode_summary">تذكر وضع التشغيل الأخير المستخدم لكل تطبيق</string>
+    <string name="launch_games_fullscreen_title">تشغيل الألعاب في وضع ملء الشاشه</string>
+    <string name="launch_games_fullscreen_summary">قم بتشغيل التطبيقات التي تم اكتشافها كألعاب في وضع ملء الشاشة بشكل افتراضي</string>
+	<string name="user_info">معلومات المستخدم</string>
+	<string name="user_name">اسم</string>
+	<string name="user_avatar">الصورة الرمزية</string>
 
     <!-- Dock page -->
     <string name="dock">Dock</string>
-    <string name="navigation">Navigation</string>
-    <string name="enable_apps_btn">Enable apps menu button</string>
-    <string name="enable_nav_back_title">Enable back button</string>
-    <string name="enable_nav_home_title">Enable home button</string>
-    <string name="enable_nav_recents_title">Enable recents button</string>
-    <string name="enable_nav_assist_title">Enable assistant button</string>
-    <string name="quick_settings">Quick settings</string>
-    <string name="enable_notif_btn">Enable notifications button</string>
-    <string name="enable_qs_bluetooth_title">Enable bluetooth button</string>
-    <string name="enable_qs_battery_title">Enable battery button</string>
-    <string name="enable_qs_wifi_title">Enable Wi-Fi button</string>
-    <string name="enable_qs_vol_title">Enable volume button</string>
-    <string name="enable_qs_date_title">Enable clock</string>
-    <string name="enable_qs_pin_title">Enable pin button</string>
-    <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by long pressing it or using the keyboard shortcut</string>
-    <string name="enable_wifi_panel_title">Enable WiFi panel</string>
-    <string name="enable_wifi_panel_summary">Enables built in WiFi panel. This requires location access</string>
-    <string name="behaviour">Behaviour</string>
-    <string name="enable_apps_btn_summary">You can still open/close the app menu by swiping up/down on the dock</string>
-    <string name="activation_method">Activation method</string>
-    <string name="activation_method_summary">The method used to bring up the dock when hidden</string>
+    <string name="navigation">أزرار التحكم</string>
+    <string name="enable_apps_btn">تمكين زر قائمة التطبيقات</string>
+    <string name="enable_nav_back_title">تمكين زر العودة</string>
+    <string name="enable_nav_home_title">تمكين زر الصفحة الرئيسية</string>
+    <string name="enable_nav_recents_title">تمكين زر التطبيقات الأخيره</string>
+    <string name="enable_nav_assist_title">تمكين زر المساعد</string>
+    <string name="quick_settings">إعدادات سريعة</string>
+    <string name="enable_notif_btn">تفعيل زر الإشعارات</string>
+    <string name="enable_qs_bluetooth_title">تمكين زر البلوتوث</string>
+    <string name="enable_qs_battery_title">تمكين زر البطارية</string>
+    <string name="enable_qs_wifi_title"> تمكين زر الواي فاي</string>
+    <string name="enable_qs_vol_title">تمكين زر الصوت</string>
+    <string name="enable_qs_date_title">تمكين الساعة</string>
+    <string name="enable_qs_pin_title">تمكين زر التثبيت</string>
+    <string name="enable_qs_pin_summary">لا يزال بإمكانك تثبيت/إلغاء تثبيت Dock بالضغط عليه لفترة طويلة أو باستخدام اختصار لوحة المفاتيح</string>
+    <string name="enable_wifi_panel_title">تمكين لوحة WiFi</string>
+    <string name="enable_wifi_panel_summary">تمكين المدمج في لوحة WiFi. وهذا يتطلب الوصول إلى الموقع</string>
+    <string name="behaviour">سلوك</string>
+    <string name="enable_apps_btn_summary">لا يزال بإمكانك فتح/إغلاق قائمة التطبيقات عن طريق التمرير لأعلى/لأسفل على شريط الإرساء</string>
+    <string name="activation_method">طريقة التنشيط</string>
+    <string name="activation_method_summary">الطريقة المستخدمة لإظهار الرصيف عند إخفائه</string>
     <string name="swipe">Swipe/Hoover</string>
-    <string name="handle">Handle</string>
-    <string name="handle_opacity">Handle opacity</string>
-	<string name="auto_pin_title">Auto pin</string>
-    <string name="auto_pin_summary">Configure auto pin</string>
-    <string name="pin_startup">Pin on startup</string>
-    <string name="pin_windowed">Pin on windowed apps</string>
-    <string name="unpin_fullscreen">Unpin on full screen apps</string>
-    <string name="running_apps_number_title">Number of running/recent apps to show</string>
-    <string name="running_apps_number_summary">This setting can help devices with smaller screens avoid app overflow on the Dock</string>
-    <string name="dock_hide_delay_title">Dock hide delay in ms</string>
-    <string name="center_running_apps_title">Center running apps</string>
-    <string name="dock_activation_area_title">Dock activation area (max 50)</string>
-    <string name="dock_activation_area_summary">The height of the invisible activation area at the bottom of the screen</string>
+    <string name="handle">تعامل</string>
+    <string name="handle_opacity">التعامل مع التعتيم</string>
+	<string name="auto_pin_title">التثبيت التلقائي</string>
+    <string name="auto_pin_summary">تكوين التثبيت التلقائي</string>
+    <string name="pin_startup">تثبيت عند بدء التشغيل</string>
+    <string name="pin_windowed">تثبيت على التطبيقات ذات النوافذ</string>
+    <string name="unpin_fullscreen">قم بإلغاء التثبيت على تطبيقات ملء الشاشة</string>
+    <string name="running_apps_number_title">عدد التطبيقات قيد التشغيل/الحديثة التي سيتم عرضها</string>
+    <string name="running_apps_number_summary">يمكن أن يساعد هذا الإعداد الأجهزة ذات الشاشات الصغيرة في تجنب تجاوز سعة التطبيق على Dock</string>
+    <string name="dock_hide_delay_title">تأخير إخفاء Dock في مللي ثانية</string>
+    <string name="center_running_apps_title">مركز تشغيل التطبيقات</string>
+    <string name="dock_activation_area_title">منطقة تفعيل Dock (50 كحد أقصى)</string>
+    <string name="dock_activation_area_summary">ارتفاع منطقة التنشيط غير المرئية أسفل الشاشة</string>
 
     <!-- Desktop -->
-    <string name="desktop">Desktop</string>
-    <string name="show_notes_title">Show notes widget</string>
+    <string name="desktop">سطح المكتب</string>
+    <string name="show_notes_title">إظهار عنوان الملاحظات</string>
 
     <!-- Default apps page -->
-    <string name="default_apps">Default apps</string>
-    <string name="app_browser_title">Web browser</string>
-    <string name="app_files_title">Files</string>
-    <string name="app_music_title">Music</string>
-    <string name="app_movies_title">Movies</string>
-    <string name="app_assistant_title">Assistant</string>
-    <string name="app_clock_title">Clock</string>
-    <string name="app_terminal_title">Terminal</string>
-    <string name="app_rec_title">Screen recorder</string>
-    <string name="choose_app">Choose an app</string>
-    <string name="tap_to_set">Tap to set</string>
+    <string name="default_apps">التطبيقات الافتراضية</string>
+    <string name="app_browser_title">متصفح الإنترنت</string>
+    <string name="app_files_title">ملفات</string>
+    <string name="app_music_title">موسيقى</string>
+    <string name="app_movies_title">أفلام</string>
+    <string name="app_assistant_title">مساعد</string>
+    <string name="app_clock_title">ساعة</string>
+    <string name="app_terminal_title">موجه الأوامر (Terminal)</string>
+    <string name="app_rec_title">مسجل الشاشة</string>
+    <string name="choose_app">اختر تطبيقًا</string>
+    <string name="tap_to_set">انقر للضبط</string>
 
     <!-- Keyboard page -->
-    <string name="keyboard">Keyboard</string>
-    <string name="apps">Apps</string>
-    <string name="general">General</string>
-    <string name="shortcut_key_dialogTitle">Shortcut modifier key</string>
-    <string name="shortcut_key_title">Shortcut modifier key</string>
-    <string name="enable_lock_desktop_title">Enable Modifier+L to lock the desktop(requires Device Admin permission)</string>
-    <string name="enable_open_settings_title">Enable Modifier+P to open settings</string>
-    <string name="enable_open_music_title">Enable Modifier+M to open you default music app</string>
-    <string name="enable_open_browser_title">Enable Modifier+B to open your default browser</string>
-    <string name="enable_open_terminal_title">Enable Modifier+T to open terminal</string>
-    <string name="enable_open_assist_title">Enable Modifier+A to launch your default assistant app</string>
-    <string name="enable_open_rec_title">Enable Modifier+R to launch your default screen recorder app</string>
-    <string name="enable_expand_notifications_title">Enable Modifier+N to open notifications</string>
-    <string name="enable_ctrl_back_title">Enable right Ctrl to act as back button</string>
-    <string name="enable_f10_title">Toggle split screen by pressing F10</string>
-    <string name="enable_toggle_pin_title">Enable Modifier+W to pin/unpin the dock</string>
-    <string name="enable_menu_recents_title">Enable Menu key to show recents</string>
+    <string name="keyboard">لوحة المفاتيح</string>
+    <string name="apps">تطبيقات</string>
+    <string name="general">عام</string>
+    <string name="shortcut_key_dialogTitle">مفتاح تعديل الاختصار</string>
+    <string name="shortcut_key_title">مفتاح تعديل الاختصار</string>
+    <string name="enable_lock_desktop_title">تمكين Modifier+L لقفل سطح المكتب (يتطلب إذن مسؤول الجهاز)</string>
+    <string name="enable_open_settings_title">قم بتمكين Modifier+P لفتح الإعدادات</string>
+    <string name="enable_open_music_title">قم بتمكين Modifier+M لفتح تطبيق الموسيقى الافتراضي لديك</string>
+    <string name="enable_open_browser_title">قم بتمكين Modifier+B لفتح متصفحك الافتراضي</string>
+    <string name="enable_open_terminal_title">قم بتمكين Modifier+T لفتح موجه الأوامر</string>
+    <string name="enable_open_assist_title">قم بتمكين Modifier+A لتشغيل تطبيق المساعد الافتراضي الخاص بك</string>
+    <string name="enable_open_rec_title">قم بتمكين Modifier+R لتشغيل تطبيق مسجل الشاشة الافتراضي</string>
+    <string name="enable_expand_notifications_title">تمكين Modifier+N لفتح الإشعارات</string>
+    <string name="enable_ctrl_back_title">قم بتمكين Ctrl الأيمن ليكون بمثابة زر الرجوع</string>
+    <string name="enable_f10_title">تبديل تقسيم الشاشة بالضغط على F10</string>
+    <string name="enable_toggle_pin_title">قم بتمكين Modifier+W لتثبيت/إلغاء تثبيت Dock</string>
+    <string name="enable_menu_recents_title">تمكين مفتاح القائمة لإظهار الأحداث الأخيرة</string>
 
     <!-- Sounds page -->
-    <string name="sounds">Sounds</string>
-    <string name="please_note_that_you_must_prov">Please note that you must provide your own sounds</string>
-    <string name="startup_sound_title">Choose startup sound</string>
-    <string name="usb_sound_title">Choose usb sound</string>
-    <string name="notification_sound_title">Choose notification sound</string>
-    <string name="charge_sound_title">Choose charge sound</string>
-    <string name="charge_complete_sound_title">Choose charge complete sound</string>
+    <string name="sounds">اصوات</string>
+    <string name="please_note_that_you_must_prov">يرجى ملاحظة أنه يجب عليك تقديم الأصوات الخاصة بك</string>
+    <string name="startup_sound_title">اختر صوت بدء التشغيل</string>
+    <string name="usb_sound_title">اختر صوت USB</string>
+    <string name="notification_sound_title">اختر صوت الإشعارات</string>
+    <string name="charge_sound_title">اختر صوت الشحن</string>
+    <string name="charge_complete_sound_title">اختر صوت إكتمال الشحن</string>
 
     <!-- Notifications page -->
-    <string name="notifications">Notifications</string>
-    <string name="manage_service">Manage service</string>
-    <string name="notification_timeout_title">Notification display time in ms</string>
-    <string name="show_ongoing_title">Show ongoing notifications (buggy)</string>
-    <string name="show_current_title">Hide notifications for the current app</string>
-    <string name="blocked_notifications_hint">android</string>
-    <string name="blocked_notifications_summary">List of space separated package names to ignore notifications from</string>
-    <string name="blocked_notifications_title">Ignored notifications</string>
-    <string name="long_press_a_notification_to_a">Long press a notification to add it to the ignored list</string>
-    <string name="silenced_notifications">Silenced notifications for this app</string>
-    <string name="enable_notif_panel_title">Enable notification panel</string>
-    <string name="show_notifications">Show notification pop-ups</string>
+    <string name="notifications">إشعارات</string>
+    <string name="manage_service">إدارة الخدمة</string>
+    <string name="notification_timeout_title">وقت عرض الإشعارات بالمللي ثانية</string>
+    <string name="show_ongoing_title">إظهار الإشعارات المستمرة (buggy)</string>
+    <string name="show_current_title">إخفاء الإشعارات للتطبيق الحالي</string>
+    <string name="blocked_notifications_hint">أندرويد،</string>
+    <string name="blocked_notifications_summary">قائمة بأسماء الحزم المفصولة بمسافات لتجاهل الإشعارات منها</string>
+    <string name="blocked_notifications_title">تجاهل الإشعارات</string>
+    <string name="long_press_a_notification_to_a">اضغط لفترة طويلة على الإشعار لإضافته إلى القائمة المتجاهلة</string>
+    <string name="silenced_notifications">الإخطارات الصامتة لهذا التطبيق</string>
+    <string name="enable_notif_panel_title">تفعيل لوحة الإشعارات</string>
+    <string name="show_notifications">إظهار النوافذ المنبثقة للإشعارات</string>
    
     <!-- Hot corners page -->
-    <string name="hot_corners">Hot Corners</string>
-    <string name="enable_corner_top_right_title">Enable top right corner</string>
-    <string name="enable_corner_top_right_summary">Place the mouse on the top right corner of the screen to show recents</string>
-    <string name="enable_corner_bottom_right_title">Enable bottom right corner</string>
-    <string name="enable_corner_bottom_right_summary">Place the mouse on the top right corner of the screen to lock the screen</string>
-    <string name="hot_corners_delay_title">Hot corners activation delay in ms</string>
+    <string name="hot_corners">الزوايا السريعه</string>
+    <string name="enable_corner_top_right_title">تمكين الزاوية اليمنى العليا</string>
+    <string name="enable_corner_top_right_summary">ضع الماوس في الزاوية اليمنى العليا من الشاشة لإظهار الأحداث الأخيرة</string>
+    <string name="enable_corner_bottom_right_title">تمكين الزاوية اليمنى السفلى</string>
+    <string name="enable_corner_bottom_right_summary">ضع الماوس في الزاوية اليمنى العليا من الشاشة لقفل الشاشة</string>
+    <string name="hot_corners_delay_title">تأخير تفعيل الزوايا السريعه في مللي ثانية</string>
 
     <!-- Advanced page -->
-    <string name="advanced">Advanced</string>
-    <string name="these_settings_are_intended_fo">These settings are intended for advanced users. Only change them if you know what you are doing</string>
-    <string name="prefer_last_display">Prefer last attached display</string>
-    <string name="prefer_last_display_summary">Prefer the last attached display for displaying apps and the dock</string>
-    <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
-    <string name="open_accessibility">Open Accessibility</string>
-    <string name="secure_settings">Secure settings</string>
-    <string name="root_required">Root required</string>
-    <string name="enable_power_menu_title">Use built in power menu</string>
-    <string name="enable_power_menu_summary">Use a custom power menu instead of the system one</string>
-    <string name="power_off">Power off</string>
-    <string name="restart">Restart</string>
-    <string name="soft_restart">Soft restart</string>
-    <string name="lock">Lock</string>
-    <string name="custom_display_size_title">Display size</string>
-    <string name="custom_display_size_summary">Allows you to fine tune the display size of screen elements. Needs reboot</string>
-    <string name="custom_display_size_hint">leave blank for default</string>
-	<string name="disable_heads_up">Disable notification heads-up</string>
-	<string name="disable_heads_up_summary">Disables Android\'s notification pop-ups</string>
-    <string name="scale_factor_title">Standard window scale factor</string>
-    <string name="scale_factor_summary">Defines how big standard windows are</string>
-    <string name="allow_app_freeze_title">Show an option to disable apps from the app context menu</string>
-    <string name="allow_app_freeze_summary">You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps</string>
-    <string name="allow_sysapp_uninstall_title">Allow uninstalling system apps</string>
-    <string name="allow_sysapp_uninstall_summary">Please be careful, this can be really dangerous</string>
-    <string name="hide_nav_buttons_title">Hide navigation buttons</string>
-    <string name="hide_nav_buttons_summary">Hides Android software navigation buttons. Needs reboot</string>
-    <string name="hide_status_bar_title">Hide status bar</string>
-    <string name="hide_status_bar_summary">Hides Android status bar. Needs soft reboot</string>
-    <string name="override_sb_height">Override status bar height</string>
-    <string name="icon_blacklist">Icon blacklist</string>
-    <string name="icon_blacklist_summary">Icons to hide from the status bar</string>
-    <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot Android</string>
-    <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
-    <string name="soft_reboot_title">Soft reboot now</string>
-    <string name="soft_reboot_summary">Soft reboot now. You will lose all unsaved work</string>
-    <string name="move_to_system_title">Move as system app</string>
-    <string name="move_to_system_summary">Move Smart Dock as a system app. Android will restart</string>
-    <string name="reboot_required_title">Reboot required</string>
-    <string name="reboot_required_text">A reboot is required for changes to take effect. Do you want to reboot now?</string>
-    <string name="development_tools">Development tools</string>
+    <string name="advanced">متقدم</string>
+    <string name="these_settings_are_intended_fo">هذه الإعدادات مخصصة للمستخدمين المتقدمين. قم بتغييرها فقط إذا كنت تعرف ما تفعله</string>
+    <string name="prefer_last_display">تفضيل العرض الأخير</string>
+    <string name="prefer_last_display_summary">تفضل آخر شاشة عرض مرفقة لعرض التطبيقات و Dock</string>
+    <string name="restart_accessibility">يتطلب تغيير هذا الإعداد إعادة تشغيل خدمة إمكانية الوصول</string>
+    <string name="open_accessibility">فتح إمكانية الوصول</string>
+    <string name="secure_settings">إعدادات الأمان</string>
+    <string name="root_required">الجذر(روت) مطلوبه</string>
+    <string name="enable_power_menu_title">استخدم قائمة الطاقة المضمنة</string>
+    <string name="enable_power_menu_summary">استخدم قائمة الطاقة المخصصة بدلاً من قائمة النظام</string>
+    <string name="power_off">إيقاف التشغيل</string>
+    <string name="restart">إعادة التشغيل</string>
+    <string name="soft_restart">إعادة تشغيل سريعه</string>
+    <string name="lock">قفل</string>
+    <string name="custom_display_size_title">عرض الحجم</string>
+    <string name="custom_display_size_summary">يسمح لك بضبط حجم عرض عناصر الشاشة. يحتاج إلى إعادة التشغيل</string>
+    <string name="custom_display_size_hint">اتركه فارغًا للافتراضي</string>
+	<string name="disable_heads_up">تعطيل تنبيهات الإشعارات</string>
+	<string name="disable_heads_up_summary">تعطيل النوافذ المنبثقة لإشعارات Android</string>
+    <string name="scale_factor_title">عامل مقياس النافذة القياسي</string>
+    <string name="scale_factor_summary">يحدد حجم النوافذ القياسية</string>
+    <string name="allow_app_freeze_title">إظهار خيار لتعطيل التطبيقات من قائمة سياق التطبيق</string>
+    <string name="allow_app_freeze_summary">ستحتاج إلى أداة خارجية مثل Ice Box (أو تشغيل PM تمكين [pkgname]) لإعادة تمكين التطبيقات</string>
+    <string name="allow_sysapp_uninstall_title">السماح بإلغاء تثبيت تطبيقات النظام</string>
+    <string name="allow_sysapp_uninstall_summary">يرجى توخي الحذر، وهذا يمكن أن يكون خطيرا حقا</string>
+    <string name="hide_nav_buttons_title">إخفاء أزرار التنقل</string>
+    <string name="hide_nav_buttons_summary">يخفي أزرار التنقل في برامج الأندرويد. يحتاج إلى إعادة التشغيل</string>
+    <string name="hide_status_bar_title">اخفي شريط الحالة</string>
+    <string name="hide_status_bar_summary">إخفاء شريط حالة Android. يحتاج إلى إعادة تشغيل ناعمة</string>
+    <string name="override_sb_height">تجاوز ارتفاع شريط الحالة</string>
+    <string name="icon_blacklist">أيقونة القائمة السوداء</string>
+    <string name="icon_blacklist_summary">أيقونات للإخفاء من شريط الحالة</string>
+    <string name="enable_soft_reboot_title">استخدم Modifier+F12 لإعادة تشغيل نظام Android</string>
+    <string name="enable_soft_reboot_summary">قد لا يستجيب النظام لفترة قصيرة</string>
+    <string name="soft_reboot_title">إعادة التشغيل السريعه الآن</string>
+    <string name="soft_reboot_summary">إعادة التشغيل السريعه الآن. سوف تفقد كافة الأعمال غير المحفوظة</string>
+    <string name="move_to_system_title">النقل كتطبيق النظام</string>
+    <string name="move_to_system_summary">انقل Smart Dock كتطبيق نظام. سيتم إعادة تشغيل Android</string>
+    <string name="reboot_required_title">إعادة تشغيل المطلوبة</string>
+    <string name="reboot_required_text">يلزم إعادة التشغيل حتى تدخل التغييرات حيز التنفيذ. هل تريد إعادة التشغيل الآن؟</string>
+    <string name="development_tools">ادوات التطوير</string>
 
     <!-- Help and about page -->
-    <string name="help_and_about">Help and about</string>
-    <string name="a_launcher_for_android_x86_by_">A launcher for Android x86 by Axel358</string>
-    <string name="help">Help</string>
-    <string name="smart_dock_its_free_and_open_">Smart Dock it\'s free and open source. Contribute on GitHub</string>
+    <string name="help_and_about">مساعدة وحول</string>
+    <string name="a_launcher_for_android_x86_by_">لانشر لنظام Android x86 بواسطة Axel358/و تم تعريبه بواسطة MRX7014</string>
+    <string name="help">مساعده</string>
+    <string name="smart_dock_its_free_and_open_">Smart Dock هو تطبيق مجاني ومفتوح المصدر. المساهمة على جيثب</string>
     <string name="github">GitHub</string>
-    <string name="show_help_summary">Tap for help</string>
-    <string name="app_help">    The application should be installed as a system app in order to obtain the right permissions.
-    Without this functionallity will be limited.
-    \n
-    \nYou should also hide the Android navigation buttons. For more info on how to do this check the full help on GitHub
-    \n
-    \nThe app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
-    \n
-    \nTo uninstall the app you must remove it\'s device admin permission on system settings</string>
-    <string name="more_help">More help</string>
-    <string name="contributors">Contributors</string>
-    <string name="tap_to_see_the_list_of_great_p">Tap to see the list of great people that has contributed to Smart Dock</string>
-    <string name="accessibility_service_description">Allows to perform actions such as Back</string>
-    <string name="join_telegram_title">Telegram group</string>
-    <string name="join_telegram_summary">Got any questions? Join the Telegram support group</string>
+    <string name="show_help_summary">انقر للحصول على المساعدة</string>
+    <string name="app_help">    يجب تثبيت التطبيق كتطبيق نظام للحصول على الأذونات الصحيحة.يجب تثبيت التطبيق كتطبيق نظام للحصول على الأذونات الصحيحة.
+    بدون هذه الوظيفة سوف تكون محدودة.
+    \ن
+    \nيجب عليك أيضًا إخفاء التنقل في Android     
+    <string name="more_help">مزيد من المساعدة</string>
+    <string name="contributors">المساهمين</string>
+    <string name="tap_to_see_the_list_of_great_p">انقر لرؤية قائمة الأشخاص الرائعين الذين ساهموا في Smart Dock</string>
+    <string name="accessibility_service_description">يسمح بتنفيذ إجراءات مثل العودة</string>
+    <string name="join_telegram_title">مجموعة التليجرام</string>
+    <string name="join_telegram_summary">هل لديك أية أسئلة؟ انضم إلى مجموعة دعم تيليجرام</string>
     <string name="gnu_general_public_licence_v3">GNU General Public Licence v3.0</string>
     <string name="license">License</string>
-    <string name="options_marked_with__are_expe">Options marked with * are experimental and may cause trouble. If you experience crashes disable them</string>
+    <string name="options_marked_with__are_expe">الخيارات التي تحمل علامة * هي خيارات تجريبية وقد تسبب مشاكل. إذا واجهت أعطال قم بتعطيلها</string>
 
     <!-- App menu -->
-    <string name="user">User</string>
-    <string name="search">Search...</string>
-    <string name="copied_to_clipboard">Copied to clipboard</string>
-    <string name="search_for">Search for</string>
-    <string name="on_google">on Google</string>
-    <string name="disabled">Disabled</string>
+    <string name="user">مستخدم</string>
+    <string name="search">بحث...</string>
+    <string name="copied_to_clipboard">نسخ إلى الحافظة</string>
+    <string name="search_for">بحث عن</string>
+    <string name="on_google">على جوجل</string>
+    <string name="disabled">معطل</string>
 
     <!-- User context menu -->
-    <string name="users">Users</string>
-    <string name="files">Files</string>
-    <string name="settings">Settings</string>
-    <string name="dock_settings">Dock Settings</string>
+    <string name="users">المستخدمين</string>
+    <string name="files">ملفات</string>
+    <string name="settings">إعدادات</string>
+    <string name="dock_settings">إعدادات Dock</string>
 
     <!-- App context menu -->
-    <string name="shortcuts">Shortcuts...</string>
-    <string name="app_info">App Info</string>
-    <string name="uninstall">Uninstall</string>
-    <string name="open_in">Open in...</string>
-    <string name="freeze">Freeze</string>
-    <string name="pin">Pin</string>
-    <string name="unpin">Unpin</string>
-    <string name="to_favorites">To favorites</string>
-    <string name="to_desktop">To desktop</string>
-    <string name="app_frozen">App frozen</string>
-    <string name="remove">Remove</string>
+    <string name="shortcuts">الاختصارات...</string>
+    <string name="app_info">معلومات التطبيق</string>
+    <string name="uninstall">الغاء التثبيت</string>
+    <string name="open_in">فتح في...</string>
+    <string name="freeze">تجميد</string>
+    <string name="pin">تثبيت</string>
+    <string name="unpin">إلغاء التثبيت</string>
+    <string name="to_favorites">إلى المفضلة</string>
+    <string name="to_desktop">إلى سطح المكتب</string>
+    <string name="app_frozen">تم تجميد التطبيق</string>
+    <string name="remove">مسح</string>
 
     <!-- Desktop -->
-    <string name="lets_start">Let\'s start</string>
-    <string name="change_wallpaper">Change wallpaper</string>
-    <string name="display_settings">Display settings</string>
+    <string name="lets_start">لنبدأ</string>
+    <string name="change_wallpaper">تغيير الخلفيه</string>
+    <string name="display_settings">اعدادات العرض</string>
 
     <!-- Toasts -->
-    <string name="tablet_mode_on">Tablet mode on</string>
-    <string name="tablet_mode_off">Tablet mode off</string>
-    <string name="start_message">Smart Dock started</string>
-    <string name="enable_access_help">Find and enable Smart Dock service</string>
+    <string name="tablet_mode_on">وضع الكمبيوتر اللوحي قيد التشغيل</string>
+    <string name="tablet_mode_off">وضع الكمبيوتر اللوحي معطل</string>
+    <string name="start_message">بدأ Smart Dock</string>
+    <string name="enable_access_help">ابحث عن خدمة Smart Dock وقم بتمكينها</string>
 
     <!-- Crash dialog -->
-    <string name="something_wrong">Something went wrong</string>
-    <string name="save_log">Save log</string>
-    <string name="open_again">Open app again</string>
+    <string name="something_wrong">هناك خطأ ما</string>
+    <string name="save_log">احفظ logs</string>
+    <string name="open_again">افتح التطبيق مرة أخرى</string>
 
     <!-- Wi-Fi menu -->
-    <string name="wifi">WiFi</string>
-    <string name="not_connected">Not connected</string>
-    <string name="select_network">Select network</string>
+    <string name="wifi">واي فاي-WIFI</string>
+    <string name="not_connected">غير متصل</string>
+    <string name="select_network">اختر شبكة</string>
 
 </resources>
