@@ -29,6 +29,7 @@
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
 		<item name="alertDialogTheme">@style/DialogTheme</item>
 		<item name="android:statusBarColor">?attr/colorSurface</item>
+		<item name="toolbarStyle">?attr/toolbarSurfaceStyle</item>
     </style>
 
 </resources>
