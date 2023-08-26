@@ -457,6 +457,8 @@ public class NotificationService extends NotificationListenerService
 			sp.edit().putBoolean("show_notifications", !showNotifications).commit();
 			notificationsBtn.setImageResource(
 					!showNotifications ? R.drawable.ic_notifications : R.drawable.ic_notifications_off);
+			if (showNotifications)
+				Toast.makeText(context, R.string.popups_disabled, Toast.LENGTH_LONG).show();
 		});
 
 		ColorUtils.applyMainColor(NotificationService.this, sp, notificationArea);
