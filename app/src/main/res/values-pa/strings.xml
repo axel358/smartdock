@@ -204,9 +204,9 @@
     <string name="these_settings_are_intended_fo">ਇਹ ਸੈਟਿੰਗਾਂ ਉੱਨਤ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਕੇਵਲ ਤਾਂ ਹੀ ਬਦਲੋ ਜੇਕਰ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਕੀ ਕਰ ਰਹੇ ਹੋ</string>
     <string name="prefer_last_display">ਆਖਰੀ ਅਟੈਚਡ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ (Android 10)</string>
     <string name="prefer_last_display_summary">ਐਪਸ ਅਤੇ ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਆਖਰੀ ਨੱਥੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
-    <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
+    <string name="restart_accessibility">ਇਸ ਸੈਟਿੰਗ ਨੂੰ ਬਦਲਣ ਲਈ accessibility ਸੇਵਾ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="open_accessibility">Accessibility ਖੋਲੋ</string>
-    <string name="secure_settings">Secure settings</string>
+    <string name="secure_settings">Secure ਸੈਟਿੰਗਾਂ</string>
     <string name="root_required">ਰੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="enable_power_menu_title">ਬਿਲਟ ਇਨ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="enable_power_menu_summary">ਸਿਸਟਮ ਦੀ ਬਜਾਏ ਇੱਕ ਕਸਟਮ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
@@ -217,8 +217,8 @@
     <string name="custom_display_size_title">ਡਿਸਪਲੇ ਦਾ ਆਕਾਰ</string>
     <string name="custom_display_size_summary">ਤੁਹਾਨੂੰ ਸਕ੍ਰੀਨ ਐਲੀਮੈਂਟਸ ਦੇ ਡਿਸਪਲੇ ਆਕਾਰ ਨੂੰ ਵਧੀਆ ਟਿਊਨ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="custom_display_size_hint">ਡਿਫੌਲਟ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
-	<string name="disable_heads_up">Disable notification heads-up</string>
-	<string name="disable_heads_up_summary">Disables Android\'s notification pop-ups</string>
+	<string name="disable_heads_up">ਨੋਟੀਫਿਕੇਸ਼ਨ heads-up ਬੰਦ ਕਰੋ</string>
+	<string name="disable_heads_up_summary">Android ਦੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਨੂੰ ਬੰਦ ਕਰਦਾ ਹੈ</string>
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="allow_app_freeze_title">ਐਪ ਸੰਦਰਭ ਮੀਨੂ ਤੋਂ ਐਪਸ ਨੂੰ ਡੀਸਏਬਲ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕਲਪ ਦਿਖਾਓ</string>
