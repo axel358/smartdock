@@ -31,11 +31,11 @@
     <string name="location">ਲੋਕੇਸਨ</string>
     <string name="location_desc">ਐਂਡਰਾਇਡ 8 \'ਤੇ WiFi ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="write_secure">Write secure settings</string>
-    <string name="write_secure_desc">Needed for advanced setings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="write_secure_desc">advanced ਸੈਟਿੰਗਾਂ ਲਈ ਲੋੜੀਂਦਾ ਹੈ। ਇਹ ਇੱਕ ਵਿਸ਼ੇਸ਼ ਅਨੁਮਤੀ ਹੈ ਜੋ ਰੂਟ ਜਾਂ adb ਨਾਲ ਚਲਾ ਕੇ ਦਿੱਤੀ ਜਾਣੀ ਚਾਹੀਦੀ ਹੈ: \npm cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="manage">ਮੈਨਜ ਕਰਨਾ </string>
     <string name="grant">ਗ੍ਰਾਂਟ</string>
-    <string name="enable">Enable</string>
-    <string name="disable">Disable</string>
+    <string name="enable">ਚਾਲੂ ਕਰੋ</string>
+    <string name="disable">ਬੰਦ ਕਰੋ</string>
 
     <!-- Appearance page -->
     <string name="appearance">ਦਿੱਖਣਾ</string>
@@ -88,9 +88,9 @@
     <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
     <string name="launch_games_fullscreen_summary">ਡੀਫੋਲਟ ਤੌਰ \'ਤੇ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਐਪਾਂ ਨੂੰ ਲਾਂਚ ਕਰੋ</string>
-	<string name="user_info">User info</string>
-	<string name="user_name">Name</string>
-	<string name="user_avatar">Avatar</string>
+	<string name="user_info">ਉਪਭੋਗਤਾ ਬਾਰੇ ਜਾਣਕਾਰੀ</string>
+	<string name="user_name">ਨਾਮ</string>
+	<string name="user_avatar">ਅਵਤਾਰ</string>
 
     <!-- Dock page -->
     <string name="dock">ਡੌਕ</string>
@@ -117,7 +117,7 @@
     <string name="activation_method_summary">ਓਹਲੇ ਹੋਣ \'ਤੇ ਡੌਕ ਨੂੰ ਲਿਆਉਣ ਲਈ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਤਰੀਕਾ</string>
     <string name="swipe">ਸਵਾਈਪ/ਹੂਵਰ</string>
     <string name="handle">ਹੈਂਡਲ</string>
-	<string name="handle_opacity">Handle opacity</string>
+    <string name="handle_opacity">Handle ਦੀ opacity</string>
     <string name="auto_pin_title">ਆਟੋ ਪਿੰਨ</string>
     <string name="auto_pin_summary">ਆਟੋ ਪਿੰਨ ਕੌਂਫਿਗਰ ਕਰੋ</string>
     <string name="pin_startup">ਸਟਾਰਟਅੱਪ \'ਤੇ ਪਿੰਨ ਕਰੋ</string>
@@ -187,8 +187,8 @@
     <string name="long_press_a_notification_to_a">ਰੌਕੇ ਸੂਚੀ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰਨ ਲਈ ਇੱਕ ਨੋਟੀਫੀਕੇਸਨ ਨੂੰ ਦੇਰ ਤੱਕ ਦਬਾਓ</string>
     <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਸਾਈਲੈਨਸਡ ਨੋਟੀਫੀਕੇਸਨ</string>
     <string name="enable_notif_panel_title">ਸੂਚਨਾ ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="show_notifications">Show notification pop-ups</string>
-	<string name="popups_disabled">Notification pop-ups disabled</string>
+    <string name="show_notifications">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਦਿਖਾਓ</string>
+	<string name="popups_disabled">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਬੰਦ ਕਰੋ</string>
 	
     
 	<!-- Hot corners page -->
@@ -205,7 +205,7 @@
     <string name="prefer_last_display">ਆਖਰੀ ਅਟੈਚਡ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ (Android 10)</string>
     <string name="prefer_last_display_summary">ਐਪਸ ਅਤੇ ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਆਖਰੀ ਨੱਥੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
     <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
-    <string name="open_accessibility">Open Accessibility</string>
+    <string name="open_accessibility">Accessibility ਖੋਲੋ</string>
     <string name="secure_settings">Secure settings</string>
     <string name="root_required">ਰੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="enable_power_menu_title">ਬਿਲਟ ਇਨ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
@@ -240,7 +240,7 @@
     <string name="move_to_system_summary">ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਮੂਵ ਕਰੋ। Android ਰੀਸਟਾਰਟ ਹੋਵੇਗਾ</string>
     <string name="reboot_required_title">ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="reboot_required_text">ਤਬਦੀਲੀਆਂ ਨੂੰ ਲਾਗੂ ਕਰਨ ਲਈ ਇੱਕ ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ। ਕੀ ਤੁਸੀਂ ਹੁਣੇ ਰੀਬੂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
-    <string name="development_tools">Development tools</string>
+    <string name="development_tools">ਡਿਵੈਲਪਮੈਂਟ ਟੂਲਸ</string>
 
     <!-- Help and about page -->
     <string name="help_and_about">ਮਦਦ ਅਤੇ ਇਸ ਬਾਰੇ</string>
@@ -273,7 +273,7 @@
     <string name="copied_to_clipboard">ਕਲਿੱਪਬੋਰਡ \'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
     <string name="search_for">ਖੋਜ ਲਈ</string>
     <string name="on_google">Google \'ਤੇ</string>
-    <string name="disabled">Disabled</string>
+    <string name="disabled">ਬੰਦ</string>
 
     <!-- User context menu -->
     <string name="users">ਉਪਭੋਗਤਾ</string>
