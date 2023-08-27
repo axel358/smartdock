@@ -88,9 +88,9 @@
     <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
     <string name="launch_games_fullscreen_summary">ਡੀਫੋਲਟ ਤੌਰ \'ਤੇ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਐਪਾਂ ਨੂੰ ਲਾਂਚ ਕਰੋ</string>
-	<string name="user_info">ਉਪਭੋਗਤਾ ਬਾਰੇ ਜਾਣਕਾਰੀ</string>
-	<string name="user_name">ਨਾਮ</string>
-	<string name="user_avatar">ਅਵਤਾਰ</string>
+    <string name="user_info">ਉਪਭੋਗਤਾ ਬਾਰੇ ਜਾਣਕਾਰੀ</string>
+    <string name="user_name">ਨਾਮ</string>
+    <string name="user_avatar">ਅਵਤਾਰ</string>
 
     <!-- Dock page -->
     <string name="dock">ਡੌਕ</string>
@@ -188,10 +188,10 @@
     <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਸਾਈਲੈਨਸਡ ਨੋਟੀਫੀਕੇਸਨ</string>
     <string name="enable_notif_panel_title">ਸੂਚਨਾ ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="show_notifications">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਦਿਖਾਓ</string>
-	<string name="popups_disabled">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਬੰਦ ਕਰੋ</string>
+    <string name="popups_disabled">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਬੰਦ ਕਰੋ</string>
 	
     
-	<!-- Hot corners page -->
+    <!-- Hot corners page -->
     <string name="hot_corners">ਗਰਮ ਕੋਨੇ</string>
     <string name="enable_corner_top_right_title">ਉੱਪਰੀ ਸੱਜੇ ਕੋਨੇ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="enable_corner_top_right_summary">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮਾਊਸ ਨੂੰ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਰੱਖੋ</string>
@@ -217,8 +217,8 @@
     <string name="custom_display_size_title">ਡਿਸਪਲੇ ਦਾ ਆਕਾਰ</string>
     <string name="custom_display_size_summary">ਤੁਹਾਨੂੰ ਸਕ੍ਰੀਨ ਐਲੀਮੈਂਟਸ ਦੇ ਡਿਸਪਲੇ ਆਕਾਰ ਨੂੰ ਵਧੀਆ ਟਿਊਨ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="custom_display_size_hint">ਡਿਫੌਲਟ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
-	<string name="disable_heads_up">ਨੋਟੀਫਿਕੇਸ਼ਨ heads-up ਬੰਦ ਕਰੋ</string>
-	<string name="disable_heads_up_summary">Android ਦੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਨੂੰ ਬੰਦ ਕਰਦਾ ਹੈ</string>
+    <string name="disable_heads_up">ਨੋਟੀਫਿਕੇਸ਼ਨ heads-up ਬੰਦ ਕਰੋ</string>
+    <string name="disable_heads_up_summary">Android ਦੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਨੂੰ ਬੰਦ ਕਰਦਾ ਹੈ</string>
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="allow_app_freeze_title">ਐਪ ਸੰਦਰਭ ਮੀਨੂ ਤੋਂ ਐਪਸ ਨੂੰ ਡੀਸਏਬਲ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕਲਪ ਦਿਖਾਓ</string>
