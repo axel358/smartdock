@@ -30,7 +30,7 @@
     <string name="storage_desc">ਮੀਨੂ ਆਈਕਨ ਅਤੇ ਇਵੈਂਟ ਆਵਾਜ਼ਾਂ ਨੂੰ ਬਦਲਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="location">ਲੋਕੇਸਨ</string>
     <string name="location_desc">ਐਂਡਰਾਇਡ 8 \'ਤੇ WiFi ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
-    <string name="write_secure">Write secure settings</string>
+    <string name="write_secure">Write secure ਸੈਟਿੰਗ</string>
     <string name="write_secure_desc">advanced ਸੈਟਿੰਗਾਂ ਲਈ ਲੋੜੀਂਦਾ ਹੈ। ਇਹ ਇੱਕ ਵਿਸ਼ੇਸ਼ ਅਨੁਮਤੀ ਹੈ ਜੋ ਰੂਟ ਜਾਂ adb ਨਾਲ ਚਲਾ ਕੇ ਦਿੱਤੀ ਜਾਣੀ ਚਾਹੀਦੀ ਹੈ: \npm cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="manage">ਮੈਨਜ ਕਰਨਾ </string>
     <string name="grant">ਗ੍ਰਾਂਟ</string>
