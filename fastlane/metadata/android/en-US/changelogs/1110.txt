@@ -1,0 +1,8 @@
+- Support for enabling some advanced features through ADB
+- Redesigned and simplified settings
+- Simplified permissions dialog
+- New color picker dialog with more color presets
+- Setting for adjusting the handle's transparency
+- Improved performance on the app grid
+- New gestures: Swipe down to unpin and left for back
+- Settings for custom user name and avatar
