@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
 import android.os.UserHandle;
 import androidx.core.content.ContextCompat;
+import cu.axel.smartdock.services.NotificationService;
 import java.lang.reflect.Method;
 import android.graphics.Bitmap;
 import android.os.UserManager;
@@ -42,10 +43,8 @@ public class DeviceUtils {
 	public static final String POLICY_CONTROL = "policy_control";
 	public static final String IMMERSIVE_APPS = "immersive.status=apps";
 	public static final String HEADS_UP_ENABLED = "heads_up_notifications_enabled";
-	public static final String NOTIFICATION_SERVICE_NAME = "cu.axel.smartdock/cu.axel.smartdock.services.NotificationService";
 	public static final String SERVICE_NAME = "cu.axel.smartdock/cu.axel.smartdock.services.DockService";
 	public static final String ENABLED_ACCESSIBILITY_SERVICES = "enabled_accessibility_services";
-	public static final String ENABLED_NOTIFICATION_SERVICES = "enabled_notification_listeners";
 
 	//Root access
 	public static Process getRootAccess() throws IOException {
@@ -112,7 +111,6 @@ public class DeviceUtils {
 	public static void toggleVolume(Context context) {
 		AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 		audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
-
 	}
 
 	public static void playEventSound(Context context, String event) {
@@ -202,7 +200,6 @@ public class DeviceUtils {
 	public static int getGlobalSetting(Context context, String setting, int defaultValue) {
 		try {
 			return Settings.Global.getInt(context.getContentResolver(), setting);
-
 		} catch (Exception e) {
 			return defaultValue;
 		}
@@ -397,39 +394,6 @@ public class DeviceUtils {
 	public static void restartService(Context context) {
 		disableService(context);
 		enableService(context);
-	}
-
-	public static void enableNotificationService(Context context) {
-		String services = getSecureSetting(context, ENABLED_NOTIFICATION_SERVICES, "");
-		if (services.contains(NOTIFICATION_SERVICE_NAME))
-			return;
-
-		String new_services;
-
-		if (services.isEmpty())
-			new_services = NOTIFICATION_SERVICE_NAME;
-		else
-			new_services = services + ":" + NOTIFICATION_SERVICE_NAME;
-
-		putSecureSetting(context, ENABLED_NOTIFICATION_SERVICES, new_services);
-	}
-
-	public static void disableNotificationService(Context context) {
-		String services = getSecureSetting(context, ENABLED_NOTIFICATION_SERVICES, "");
-
-		if (!services.contains(NOTIFICATION_SERVICE_NAME))
-			return;
-
-		String new_services = "";
-
-		if (services.contains(NOTIFICATION_SERVICE_NAME + ":"))
-			new_services = services.replace(NOTIFICATION_SERVICE_NAME + ":", "");
-		else if (services.contains(":" + NOTIFICATION_SERVICE_NAME))
-			new_services = services.replace(":" + NOTIFICATION_SERVICE_NAME, "");
-		else if (services.contains(NOTIFICATION_SERVICE_NAME))
-			new_services = services.replace(NOTIFICATION_SERVICE_NAME, "");
-
-		putSecureSetting(context, ENABLED_NOTIFICATION_SERVICES, new_services);
 	}
 
 	public static boolean canDrawOverOtherApps(Context context) {
