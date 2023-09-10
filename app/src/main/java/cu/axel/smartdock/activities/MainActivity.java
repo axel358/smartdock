@@ -2,6 +2,7 @@ package cu.axel.smartdock.activities;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.Settings;
 import android.content.res.ColorStateList;
 import android.text.method.LinkMovementMethod;
@@ -188,6 +189,9 @@ public class MainActivity extends AppCompatActivity {
 		if (DeviceUtils.isAccessibilityServiceEnabled(this)) {
 			accessibilityBtn.setIconResource(R.drawable.ic_settings);
 			accessibilityBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
+		} else {
+			accessibilityBtn.setIconResource(R.drawable.ic_alert);
+			accessibilityBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[2]));
 		}
 
 		if (DeviceUtils.hasUsageStatsPermission(this)) {
@@ -242,8 +246,19 @@ public class MainActivity extends AppCompatActivity {
 		dialogBuilder.setMessage(R.string.accessibility_service_desc);
 
 		if (DeviceUtils.hasWriteSettingsPermission(this)) {
-			dialogBuilder.setPositiveButton(R.string.enable, (i, p) -> DeviceUtils.enableService(this));
-			dialogBuilder.setNegativeButton(R.string.disable, (i, p) -> DeviceUtils.disableService(this));
+			dialogBuilder.setPositiveButton(R.string.enable, (i, p) -> {
+				DeviceUtils.enableService(this);
+				new Handler(getMainLooper()).postDelayed(() -> {
+					updatePermissionsStatus();
+				}, 500);
+
+			});
+			dialogBuilder.setNegativeButton(R.string.disable, (i, p) -> {
+				DeviceUtils.disableService(this);
+				new Handler(getMainLooper()).postDelayed(() -> {
+					updatePermissionsStatus();
+				}, 500);
+			});
 		} else {
 			dialogBuilder.setPositiveButton(R.string.manage, (i, p) -> {
 				startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
@@ -262,15 +277,10 @@ public class MainActivity extends AppCompatActivity {
 		dialogBuilder.setTitle(R.string.notification_access);
 		dialogBuilder.setMessage(R.string.notification_access_desc);
 
-		if (DeviceUtils.hasWriteSettingsPermission(this)) {
-			dialogBuilder.setPositiveButton(R.string.enable, (i, p) -> DeviceUtils.enableNotificationService(this));
-			dialogBuilder.setNegativeButton(R.string.disable, (i, p) -> DeviceUtils.disableNotificationService(this));
-		} else {
-			dialogBuilder.setPositiveButton(R.string.manage, (i, p) -> {
-				startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
-				Toast.makeText(this, R.string.enable_access_help, Toast.LENGTH_LONG).show();
-			});
-		}
+		dialogBuilder.setPositiveButton(R.string.manage, (i, p) -> {
+			startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+			Toast.makeText(this, R.string.enable_access_help, Toast.LENGTH_LONG).show();
+		});
 
 		dialogBuilder.setNeutralButton(R.string.help, (i, p) -> startActivity(new Intent(Intent.ACTION_VIEW,
 				Uri.parse("https://github.com/axel358/smartdock#grant-restricted-permissions"))));

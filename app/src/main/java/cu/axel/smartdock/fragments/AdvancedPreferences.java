@@ -38,10 +38,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
 		hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(getActivity());
 
 		preferLastDisplay.setOnPreferenceClickListener((Preference p1) -> {
-			if (hasWriteSettingsPermission)
-				DeviceUtils.restartService(getActivity());
-			else
-				showAccessibilityDialog(getActivity());
+			showAccessibilityDialog(getActivity());
 			return true;
 		});
 
