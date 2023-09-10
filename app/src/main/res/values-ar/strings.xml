@@ -188,7 +188,8 @@
     <string name="silenced_notifications">الإخطارات الصامتة لهذا التطبيق</string>
     <string name="enable_notif_panel_title">تفعيل لوحة الإشعارات</string>
     <string name="show_notifications">إظهار النوافذ المنبثقة للإشعارات</string>
-   
+    <string name="popups_disabled">تعطيل النوافذ المنبثقة للإشعارات</string>
+	
     <!-- Hot corners page -->
     <string name="hot_corners">الزوايا السريعه</string>
     <string name="enable_corner_top_right_title">تمكين الزاوية اليمنى العليا</string>
