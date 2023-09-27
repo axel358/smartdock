@@ -1,30 +1,31 @@
 package cu.axel.smartdock.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.content.res.ColorStateList;
-import android.text.method.LinkMovementMethod;
-import android.view.MenuItem;
 import android.view.Menu;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.ViewSwitcher;
+import android.view.MenuItem;
 import android.view.View;
-import cu.axel.smartdock.services.NotificationService;
+import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import cu.axel.smartdock.R;
+import cu.axel.smartdock.fragments.PreferencesFragment;
+import cu.axel.smartdock.services.NotificationService;
 import cu.axel.smartdock.utils.ColorUtils;
 import cu.axel.smartdock.utils.DeviceUtils;
-import androidx.preference.PreferenceManager;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.button.MaterialButton;
-import androidx.appcompat.app.AlertDialog;
-import android.content.SharedPreferences;
-import cu.axel.smartdock.fragments.PreferencesFragment;
 
 public class MainActivity extends AppCompatActivity {
 	private SharedPreferences sp;

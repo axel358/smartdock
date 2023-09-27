@@ -1,5 +1,7 @@
 package cu.axel.smartdock.models;
+
 import java.util.ArrayList;
+
 import android.graphics.drawable.Drawable;
 
 public class DockApp extends App {
@@ -29,7 +31,7 @@ public class DockApp extends App {
     public Drawable getIcon() {
         if (tasks.size() > 0 && tasks.size() < 2)
             return tasks.get(0).getIcon();
-        
+
         return super.getIcon();
     }
 }

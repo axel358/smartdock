@@ -1,62 +1,51 @@
 package cu.axel.smartdock.activities;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Rect;
+import android.content.pm.ShortcutInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.button.MaterialButton;
-import cu.axel.smartdock.R;
-import cu.axel.smartdock.adapters.AppActionsAdapter;
-import cu.axel.smartdock.adapters.AppAdapter;
-import cu.axel.smartdock.icons.IconParserUtilities;
-import cu.axel.smartdock.models.Action;
-import cu.axel.smartdock.models.App;
-import cu.axel.smartdock.services.DockService;
-import cu.axel.smartdock.utils.AppUtils;
-import cu.axel.smartdock.utils.ColorUtils;
-import cu.axel.smartdock.utils.DeviceUtils;
-import cu.axel.smartdock.utils.Utils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import android.content.pm.ShortcutInfo;
-import cu.axel.smartdock.utils.DeepShortcutManager;
+
+import cu.axel.smartdock.R;
+import cu.axel.smartdock.adapters.AppActionsAdapter;
+import cu.axel.smartdock.adapters.AppAdapter;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
-import android.widget.Adapter;
+import cu.axel.smartdock.icons.IconParserUtilities;
+import cu.axel.smartdock.models.Action;
+import cu.axel.smartdock.models.App;
+import cu.axel.smartdock.utils.AppUtils;
+import cu.axel.smartdock.utils.ColorUtils;
+import cu.axel.smartdock.utils.DeepShortcutManager;
+import cu.axel.smartdock.utils.DeviceUtils;
+import cu.axel.smartdock.utils.Utils;
 
 public class LauncherActivity extends AppCompatActivity implements AppAdapter.OnAppClickListener {
 	private LinearLayout backgroundLayout;

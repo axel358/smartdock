@@ -2,25 +2,27 @@ package cu.axel.smartdock.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.Spannable;
-import android.text.style.StyleSpan;
 import android.graphics.Typeface;
+import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import androidx.preference.PreferenceManager;
 import android.widget.TextView;
+
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.icons.IconParserUtilities;
 import cu.axel.smartdock.models.App;
-import cu.axel.smartdock.utils.Utils;
-import cu.axel.smartdock.utils.AppUtils;
 import cu.axel.smartdock.utils.ColorUtils;
-import java.util.ArrayList;
+import cu.axel.smartdock.utils.Utils;
 
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 
