@@ -45,7 +45,7 @@
     <string name="black">Negro</string>
     <string name="transparent">Transparente</string>
     <string name="material_u">Material U</string>
-    <string name="custom">Perzonalizado</string>
+    <string name="custom">Personalizado</string>
     <string name="theme_main_color_title">Color principal</string>
     <string name="theme_main_color_summary">Define el color principal para los fondos de los elementos.</string>
     <string name="choose_color">Elegir color</string>
