@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 import cu.axel.smartdock.utils.ColorUtils;
 
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 
 import cu.axel.smartdock.models.Action;
 
 public class AppActionsAdapter extends ArrayAdapter<Action> {
-    private Context context;
+    private final Context context;
 
     public AppActionsAdapter(Context context, ArrayList<Action> actions) {
         super(context, R.layout.pin_entry, actions);

@@ -3,8 +3,9 @@ package cu.axel.smartdock.models;
 import android.graphics.drawable.Drawable;
 
 public class App {
-    private String name, packageName;
-    private Drawable icon;
+    private final String name;
+    private final String packageName;
+    private final Drawable icon;
 
     public App(String name, String packageName, Drawable icon) {
         this.name = name;

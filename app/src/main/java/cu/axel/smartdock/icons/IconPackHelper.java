@@ -1,7 +1,6 @@
 package cu.axel.smartdock.icons;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +10,7 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceManager;
 
 import android.text.TextUtils;
@@ -46,7 +46,6 @@ public class IconPackHelper {
     float mIconScale;
     private String mCurrentIconPack = "";
     private boolean mLoading;
-    private AlertDialog mDialog;
 
     @SuppressLint("StaticFieldLeak")
     private static IconPackHelper sInstance;
@@ -63,9 +62,9 @@ public class IconPackHelper {
     }
 
     public IconPackHelper() {
-        mIconPackResources = new HashMap<String, String>();
-        mIconBackList = new ArrayList<Drawable>();
-        mIconBackStrings = new ArrayList<String>();
+        mIconPackResources = new HashMap<>();
+        mIconBackList = new ArrayList<>();
+        mIconBackStrings = new ArrayList<>();
     }
 
     private void setContext(Context context) {
@@ -97,7 +96,6 @@ public class IconPackHelper {
 
     private void loadResourcesFromXmlParser(XmlPullParser parser, Map<String, String> iconPackResources)
             throws XmlPullParserException, IOException {
-        int eventType = parser.getEventType();
 
         while (parser.next() != XmlPullParser.END_DOCUMENT) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -179,7 +177,7 @@ public class IconPackHelper {
         }
         mLoading = true;
         mIconPackResources = getIconPackResourcesNew(mContext, packageName);
-        Resources res = null;
+        Resources res;
         try {
             res = mContext.getPackageManager().getResourcesForApplication(packageName);
         } catch (PackageManager.NameNotFoundException e) {
@@ -214,7 +212,7 @@ public class IconPackHelper {
             return null;
         }
 
-        Resources res = null;
+        Resources res;
         try {
             res = context.getPackageManager().getResourcesForApplication(packageName);
         } catch (PackageManager.NameNotFoundException e) {
@@ -224,7 +222,7 @@ public class IconPackHelper {
 
         XmlPullParser parser = null;
         InputStream inputStream = null;
-        Map<String, String> iconPackResources = new HashMap<String, String>();
+        Map<String, String> iconPackResources = new HashMap<>();
 
         try {
             inputStream = res.getAssets().open("appfilter.xml");
@@ -303,7 +301,7 @@ public class IconPackHelper {
     }
 
     private void loadApplicationResources(Context context, Map<String, String> iconPackResources, String packageName) {
-        Field[] drawableItems = null;
+        Field[] drawableItems;
         try {
             Context appContext = context.createPackageContext(packageName,
                     Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
@@ -348,7 +346,7 @@ public class IconPackHelper {
     }
 
     public Drawable getIconPackResources(int id, Context mContext) {
-        return mLoadedIconPackResource.getDrawable(id, mContext.getTheme());
+        return ResourcesCompat.getDrawable(mLoadedIconPackResource, id, mContext.getTheme());
     }
 
     public int getResourceIdForActivityIcon(ActivityInfo info) {
@@ -397,69 +395,4 @@ public class IconPackHelper {
         }
     }
 
-    //for loading all the icons in a package
-    public static ArrayList<IconData> getCustomIconPackResources(Context context, String packageName) {
-        Resources res;
-        try {
-            res = context.getPackageManager().getResourcesForApplication(packageName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        XmlResourceParser parser = null;
-        ArrayList<IconData> iconPackResources = new ArrayList<>();
-
-        try {
-            parser = res.getAssets().openXmlResourceParser("drawable.xml");
-        } catch (IOException e) {
-            int resId = res.getIdentifier("drawable", "xml", packageName);
-            if (resId != 0) {
-                parser = res.getXml(resId);
-            }
-        }
-
-        if (parser != null) {
-            try {
-                loadCustomResourcesFromXmlParser(parser, iconPackResources);
-            } catch (XmlPullParserException | IOException e) {
-                e.printStackTrace();
-            } finally {
-                parser.close();
-            }
-        }
-        return iconPackResources;
-    }
-
-    private static void loadCustomResourcesFromXmlParser(XmlPullParser parser, ArrayList<IconData> iconPackResources)
-            throws XmlPullParserException, IOException {
-
-        int eventType = parser.getEventType();
-        do {
-            if (eventType != XmlPullParser.START_TAG) {
-                continue;
-            }
-
-            if (parser.getName().equalsIgnoreCase("item")) {
-                String drawable = parser.getAttributeValue(null, "drawable");
-                if (TextUtils.isEmpty(drawable) || drawable.length() == 0) {
-                    continue;
-                }
-                IconData item = new IconData();
-                item.isIcon = true;
-                item.title = drawable;
-                iconPackResources.add(item);
-            } else if (parser.getName().equalsIgnoreCase("category")) {
-                String title = parser.getAttributeValue(null, "title");
-                if (TextUtils.isEmpty(title) || title.length() == 0) {
-                    continue;
-                }
-                IconData item = new IconData();
-                item.isHeader = true;
-                item.title = title;
-                iconPackResources.add(item);
-            }
-        } while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT);
-
-    }
 }

@@ -17,7 +17,7 @@ import android.widget.TextView;
 import cu.axel.smartdock.utils.ColorUtils;
 
 public class AppTaskAdaper extends ArrayAdapter<AppTask> {
-    private Context context;
+    private final Context context;
 
     public AppTaskAdaper(Context context, ArrayList<AppTask> tasks) {
         super(context, R.layout.pin_entry, tasks);

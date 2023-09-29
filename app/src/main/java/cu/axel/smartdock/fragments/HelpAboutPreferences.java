@@ -32,9 +32,7 @@ public class HelpAboutPreferences extends PreferenceFragmentCompat {
             dialog.setTitle(R.string.help);
             dialog.setView(R.layout.dialog_help);
             dialog.setPositiveButton(R.string.ok, null);
-            dialog.setNegativeButton(R.string.more_help, (DialogInterface d1, int p2) -> {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/axel358/smartdock")));
-            });
+            dialog.setNegativeButton(R.string.more_help, (DialogInterface d1, int p2) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/axel358/smartdock"))));
             dialog.show();
             return false;
         });

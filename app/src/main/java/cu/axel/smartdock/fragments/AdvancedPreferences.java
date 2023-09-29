@@ -24,7 +24,7 @@ import cu.axel.smartdock.utils.AppUtils;
 import cu.axel.smartdock.utils.DeviceUtils;
 
 public class AdvancedPreferences extends PreferenceFragmentCompat {
-    private boolean rootAvailable, hasWriteSettingsPermission;
+    private boolean rootAvailable;
 
     @Override
     public void onCreatePreferences(Bundle arg0, String arg1) {
@@ -33,7 +33,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
         Preference preferLastDisplay = findPreference("prefer_last_display");
         preferLastDisplay.setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q);
 
-        hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(getActivity());
+        boolean hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(getActivity());
 
         preferLastDisplay.setOnPreferenceClickListener((Preference p1) -> {
             showAccessibilityDialog(getActivity());
@@ -59,7 +59,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
             return false;
         });
 
-        CheckBoxPreference hideNav = (CheckBoxPreference) findPreference("hide_nav_buttons");
+        CheckBoxPreference hideNav = findPreference("hide_nav_buttons");
 
         String result = DeviceUtils.runAsRoot("cat /system/build.prop");
 
@@ -73,7 +73,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
             hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(getActivity());
         }
 
-        CheckBoxPreference hideStatus = (CheckBoxPreference) findPreference("hide_status_bar");
+        CheckBoxPreference hideStatus = findPreference("hide_status_bar");
         hideStatus.setVisible(Build.VERSION.SDK_INT < 31);
 
         if (hasWriteSettingsPermission) {
@@ -115,15 +115,10 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
                     .setChecked(DeviceUtils.getGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 1) == 0);
             disableHeadsUp.setOnPreferenceChangeListener((Preference p1, Object p2) -> {
                 if ((boolean) p2) {
-                    if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 0)) {
-                        return true;
-                    }
+                    return DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 0);
                 } else {
-                    if (DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 1)) {
-                        return true;
-                    }
+                    return DeviceUtils.putGlobalSetting(getActivity(), DeviceUtils.HEADS_UP_ENABLED, 1);
                 }
-                return false;
             });
         }
 
@@ -131,14 +126,14 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
             if ((boolean) p2) {
                 String status = DeviceUtils.runAsRoot("echo qemu.hw.mainkeys=1 >> /system/build.prop");
                 if (!status.equals("error")) {
-                    hideNav.getSharedPreferences().edit().putBoolean("navbar_fix", false).commit();
+                    hideNav.getSharedPreferences().edit().putBoolean("navbar_fix", false).apply();
                     showRebootDialog(getActivity(), false);
                     return true;
                 }
             } else {
                 String status = DeviceUtils.runAsRoot("sed -i /qemu.hw.mainkeys=1/d /system/build.prop");
                 if (!status.equals("error")) {
-                    hideNav.getSharedPreferences().edit().putBoolean("navbar_fix", true).commit();
+                    hideNav.getSharedPreferences().edit().putBoolean("navbar_fix", true).apply();
                     showRebootDialog(getActivity(), false);
                     return true;
                 }
@@ -173,9 +168,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_icon_blacklist, null);
         final EditText contentEt = view.findViewById(R.id.icon_blacklist_et);
         contentEt.setText(DeviceUtils.getSecureSetting(context, DeviceUtils.ICON_BLACKLIST, ""));
-        dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int p2) -> {
-            DeviceUtils.putSecureSetting(context, DeviceUtils.ICON_BLACKLIST, contentEt.getText().toString());
-        });
+        dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int p2) -> DeviceUtils.putSecureSetting(context, DeviceUtils.ICON_BLACKLIST, contentEt.getText().toString()));
         dialog.setNegativeButton(getString(R.string.cancel), null);
         dialog.setView(view);
         dialog.show();
@@ -200,9 +193,7 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
         dialog.setTitle(R.string.restart);
         dialog.setMessage(R.string.restart_accessibility);
         dialog.setNegativeButton(getString(R.string.cancel), null);
-        dialog.setPositiveButton(getString(R.string.open_accessibility), (DialogInterface p1, int p2) -> {
-            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-        });
+        dialog.setPositiveButton(getString(R.string.open_accessibility), (DialogInterface p1, int p2) -> startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)));
         dialog.show();
     }
 }

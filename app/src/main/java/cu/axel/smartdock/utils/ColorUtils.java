@@ -23,7 +23,7 @@ public class ColorUtils {
 
     public static ArrayList<String> getWallpaperColors(Context context) {
 
-        ArrayList<String> wallpaperColors = new ArrayList<String>();
+        ArrayList<String> wallpaperColors = new ArrayList<>();
 		/*
 		 Generate Wallpaper colors based on light and dark variation
 		 Accomplished by inspecting pixels in Wallpaper Bitmap without AndroidX palette library
@@ -133,10 +133,6 @@ public class ColorUtils {
 
     public static void applyColor(View view, int color) {
         view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-    }
-
-    public static void applyColor(Drawable drawable, int color) {
-        drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
     }
 
     public static int[] getMainColors(SharedPreferences sp, Context context) {

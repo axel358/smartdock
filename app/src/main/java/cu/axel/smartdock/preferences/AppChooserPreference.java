@@ -27,18 +27,8 @@ public class AppChooserPreference extends Preference {
     private Context context;
     private SharedPreferences sp;
 
-    public AppChooserPreference(Context context) {
-        super(context);
-        setupPreference(context);
-    }
-
     public AppChooserPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setupPreference(context);
-    }
-
-    public AppChooserPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
         setupPreference(context);
     }
 
@@ -57,14 +47,14 @@ public class AppChooserPreference extends Preference {
         final ArrayList<App> apps = AppUtils.getInstalledApps(context.getPackageManager());
         dialog.setAdapter(new AppAdapter(context, apps), (DialogInterface p1, int p2) -> {
             App app = apps.get(p2);
-            sp.edit().putString(getKey(), app.getPackageName()).commit();
+            sp.edit().putString(getKey(), app.getPackageName()).apply();
             setSummary(app.getName());
         });
         dialog.show();
     }
 
-    class AppAdapter extends ArrayAdapter<App> {
-        private Context context;
+    static class AppAdapter extends ArrayAdapter<App> {
+        private final Context context;
 
         public AppAdapter(Context context, ArrayList<App> apps) {
             super(context, R.layout.pin_entry, apps);

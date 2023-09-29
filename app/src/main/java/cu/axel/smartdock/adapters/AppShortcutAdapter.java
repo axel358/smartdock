@@ -15,7 +15,7 @@ import cu.axel.smartdock.utils.DeepShortcutManager;
 import java.util.List;
 
 public class AppShortcutAdapter extends ArrayAdapter<ShortcutInfo> {
-    private Context context;
+    private final Context context;
 
     public AppShortcutAdapter(Context context, List<ShortcutInfo> shortcuts) {
         super(context, R.layout.pin_entry, shortcuts);

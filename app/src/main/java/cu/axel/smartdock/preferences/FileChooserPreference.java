@@ -11,7 +11,7 @@ import com.google.android.material.button.MaterialButton;
 import cu.axel.smartdock.R;
 
 public class FileChooserPreference extends Preference {
-    private Context context;
+    private final Context context;
 
     public FileChooserPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

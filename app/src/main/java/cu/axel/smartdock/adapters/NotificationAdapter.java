@@ -29,13 +29,13 @@ import cu.axel.smartdock.utils.Utils;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
-    private StatusBarNotification[] notifications;
-    private OnNotificationClickListener listener;
+    private final StatusBarNotification[] notifications;
+    private final OnNotificationClickListener listener;
     private final Context context;
     private int iconBackground;
     private final int iconPadding;
-    private boolean iconTheming;
-    private IconParserUtilities iconParserUtilities;
+    private final boolean iconTheming;
+    private final IconParserUtilities iconParserUtilities;
 
     public interface OnNotificationClickListener {
         void onNotificationClicked(StatusBarNotification notification, View item);
@@ -73,8 +73,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_entry, parent,
                 false);
 
-        ViewHolder viewHolder = new ViewHolder(itemLayoutView);
-        return viewHolder;
+        return new ViewHolder(itemLayoutView);
     }
 
     @Override
@@ -192,9 +191,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         public void bind(StatusBarNotification notification, OnNotificationClickListener listener) {
-            itemView.setOnClickListener((View v) -> {
-                listener.onNotificationClicked(notification, v);
-            });
+            itemView.setOnClickListener((View v) -> listener.onNotificationClicked(notification, v));
 
             itemView.setOnLongClickListener((View v) -> {
                 listener.onNotificationLongClicked(notification, v);

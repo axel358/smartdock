@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 import androidx.preference.Preference;
@@ -23,8 +22,6 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.ArrayList;
 
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.utils.AppUtils;
@@ -89,22 +86,12 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
             }
         });
 
-        alphaSb.addOnChangeListener(new Slider.OnChangeListener() {
-            @Override
-            public void onValueChange(Slider arg0, float arg1, boolean arg2) {
-                colorPreview.getBackground().setAlpha((int) arg1);
-            }
+        alphaSb.addOnChangeListener((slider, value, fromUser) -> colorPreview.getBackground().setAlpha((int) value));
 
-        });
-
-        Slider.OnChangeListener onChangeListener = new Slider.OnChangeListener() {
-            @Override
-            public void onValueChange(Slider slider, float value, boolean fromUser) {
-                if (fromUser)
-                    colorHexEt.setText(ColorUtils.toHexColor(
-                            Color.rgb((int) redSb.getValue(), (int) greenSb.getValue(), (int) blueSb.getValue())));
-            }
-
+        Slider.OnChangeListener onChangeListener = (slider, value, fromUser) -> {
+            if (fromUser)
+                colorHexEt.setText(ColorUtils.toHexColor(
+                        Color.rgb((int) redSb.getValue(), (int) greenSb.getValue(), (int) blueSb.getValue())));
         };
         redSb.addOnChangeListener(onChangeListener);
         greenSb.addOnChangeListener(onChangeListener);
@@ -113,9 +100,9 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
         dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int p2) -> {
             String color = colorHexEt.getText().toString();
             if (ColorUtils.toColor(color) != -1) {
-                mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).commit();
+                mainColorPref.getSharedPreferences().edit().putString(mainColorPref.getKey(), color).apply();
                 mainColorPref.getSharedPreferences().edit().putInt("theme_main_alpha", (int) alphaSb.getValue())
-                        .commit();
+                        .apply();
             }
         });
 
@@ -141,15 +128,10 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
 
     }
 
-    class HexColorAdapter extends ArrayAdapter<String> {
-        private Context context;
+    static class HexColorAdapter extends ArrayAdapter<String> {
+        private final Context context;
 
         public HexColorAdapter(Context context, String[] colors) {
-            super(context, R.layout.color_entry, colors);
-            this.context = context;
-        }
-
-        public HexColorAdapter(Context context, ArrayList<String> colors) {
             super(context, R.layout.color_entry, colors);
             this.context = context;
         }
@@ -159,7 +141,7 @@ public class AppearancePreferences extends PreferenceFragmentCompat {
             if (convertView == null)
                 convertView = LayoutInflater.from(context).inflate(R.layout.color_entry, null);
 
-            ((ImageView) convertView.findViewById(R.id.color_entry_iv)).getBackground()
+            convertView.findViewById(R.id.color_entry_iv).getBackground()
                     .setColorFilter(Color.parseColor(getItem(position)), PorterDuff.Mode.SRC_ATOP);
 
             return convertView;

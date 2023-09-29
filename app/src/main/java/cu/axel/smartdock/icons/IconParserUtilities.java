@@ -14,20 +14,9 @@ public class IconParserUtilities {
      */
 
     private final Context context;
-    private final Object sInstanceLock = new Object();
 
     public IconParserUtilities(Context context) {
         this.context = context;
-    }
-
-    public IconParserUtilities getInstance(Context context) {
-        IconParserUtilities sInstance = null;
-        synchronized (sInstanceLock) {
-            if (sInstance == null) {
-                sInstance = new IconParserUtilities(context);
-            }
-            return sInstance;
-        }
     }
 
     public Drawable getPackageIcon(String packageName) {

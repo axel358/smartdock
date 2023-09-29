@@ -3,7 +3,6 @@ package cu.axel.smartdock.services;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -26,7 +25,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -60,10 +58,8 @@ public class NotificationService extends NotificationListenerService
     private ImageView notifIcon, notifCancelBtn;
     private Handler handler;
     private SharedPreferences sp;
-    private DockServiceReceiver dockReceiver;
     private View notificationPanel;
     private RecyclerView notificationsLv;
-    private NotificationManager nm;
     private ImageButton cancelAllBtn;
     private LinearLayout notifActionsLayout;
     private Context context;
@@ -80,7 +76,6 @@ public class NotificationService extends NotificationListenerService
         preferLastDisplay = sp.getBoolean("prefer_last_display", false);
         context = DeviceUtils.getDisplayContext(this, preferLastDisplay);
         wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
-        nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         iconParserUtilities = new IconParserUtilities(context);
         WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
                 preferLastDisplay);
@@ -91,7 +86,7 @@ public class NotificationService extends NotificationListenerService
                 : dockHeight;
 
         lp.x = x;
-        lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+        lp.gravity = Gravity.BOTTOM | Gravity.END;
         lp.y = y;
 
         notificationLayout = (HoverInterceptorLayout) LayoutInflater.from(this).inflate(R.layout.notification_popup,
@@ -115,15 +110,13 @@ public class NotificationService extends NotificationListenerService
                 notifCancelBtn.setVisibility(View.VISIBLE);
                 handler.removeCallbacksAndMessages(null);
             } else if (p2.getAction() == MotionEvent.ACTION_HOVER_EXIT) {
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    notifCancelBtn.setVisibility(View.INVISIBLE);
-                }, 200);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> notifCancelBtn.setVisibility(View.INVISIBLE), 200);
                 hideNotification();
             }
             return false;
         });
 
-        dockReceiver = new DockServiceReceiver();
+        DockServiceReceiver dockReceiver = new DockServiceReceiver();
         registerReceiver(dockReceiver, new IntentFilter(getPackageName() + ".DOCK"));
     }
 
@@ -182,9 +175,6 @@ public class NotificationService extends NotificationListenerService
                         case "round_rect":
                             iconBackground = R.drawable.round_square;
                             break;
-                        case "default":
-                            iconBackground = -1;
-                            break;
                     }
 
                     if (iconTheming)
@@ -226,14 +216,10 @@ public class NotificationService extends NotificationListenerService
                                     drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
                                     actionTv.setImageDrawable(drawable);
                                     //actionTv.setImageIcon(action.getIcon());
-                                    actionTv.setOnClickListener(new OnClickListener() {
-
-                                        @Override
-                                        public void onClick(View p1) {
-                                            try {
-                                                action.actionIntent.send();
-                                            } catch (PendingIntent.CanceledException e) {
-                                            }
+                                    actionTv.setOnClickListener(p1 -> {
+                                        try {
+                                            action.actionIntent.send();
+                                        } catch (PendingIntent.CanceledException e) {
                                         }
                                     });
                                     notifText.setSingleLine(true);
@@ -290,7 +276,7 @@ public class NotificationService extends NotificationListenerService
                         sp.edit()
                                 .putString("blocked_notifications",
                                         sp.getString("blocked_notifications", "").trim() + " " + sbn.getPackageName())
-                                .commit();
+                                .apply();
                         notificationLayout.setVisibility(View.GONE);
                         notificationLayout.setAlpha(0);
                         Toast.makeText(NotificationService.this, R.string.silenced_notifications, Toast.LENGTH_LONG)
@@ -324,15 +310,13 @@ public class NotificationService extends NotificationListenerService
 
     public void hideNotification() {
         handler.removeCallbacksAndMessages(null);
-        handler.postDelayed(() -> {
-            notificationLayout.animate().alpha(0).setDuration(300)
-                    .setInterpolator(new AccelerateDecelerateInterpolator()).setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            notificationLayout.setVisibility(View.GONE);
-                        }
-                    });
-        }, Integer.parseInt(sp.getString("notification_timeout", "5000")));
+        handler.postDelayed(() -> notificationLayout.animate().alpha(0).setDuration(300)
+                .setInterpolator(new AccelerateDecelerateInterpolator()).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        notificationLayout.setVisibility(View.GONE);
+                    }
+                }), Integer.parseInt(sp.getString("notification_timeout", "5000")));
 
     }
 
@@ -366,7 +350,7 @@ public class NotificationService extends NotificationListenerService
     public void showNotificationPanel() {
         WindowManager.LayoutParams lp = Utils.makeWindowParams(Utils.dpToPx(context, 400), -2, context,
                 preferLastDisplay);
-        lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+        lp.gravity = Gravity.BOTTOM | Gravity.END;
         lp.y = y;
         lp.x = x;
         lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
@@ -395,13 +379,13 @@ public class NotificationService extends NotificationListenerService
             hideNotificationPanel();
             if (sp.getBoolean("tablet_mode", false)) {
                 Utils.toggleBuiltinNavigation(sp.edit(), false);
-                sp.edit().putBoolean("app_menu_fullscreen", false).commit();
-                sp.edit().putBoolean("tablet_mode", false).commit();
+                sp.edit().putBoolean("app_menu_fullscreen", false).apply();
+                sp.edit().putBoolean("tablet_mode", false).apply();
                 Toast.makeText(context, R.string.tablet_mode_off, Toast.LENGTH_SHORT).show();
             } else {
                 Utils.toggleBuiltinNavigation(sp.edit(), true);
-                sp.edit().putBoolean("app_menu_fullscreen", true).commit();
-                sp.edit().putBoolean("tablet_mode", true).commit();
+                sp.edit().putBoolean("app_menu_fullscreen", true).apply();
+                sp.edit().putBoolean("tablet_mode", true).apply();
                 Toast.makeText(context, R.string.tablet_mode_on, Toast.LENGTH_SHORT).show();
             }
         });
@@ -409,15 +393,11 @@ public class NotificationService extends NotificationListenerService
         orientationBtn.setImageResource(sp.getBoolean("lock_landscape", true) ? R.drawable.ic_screen_rotation_off
                 : R.drawable.ic_screen_rotation_on);
 
-        orientationBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View p1) {
-                sp.edit().putBoolean("lock_landscape", !sp.getBoolean("lock_landscape", true)).commit();
-                orientationBtn
-                        .setImageResource(sp.getBoolean("lock_landscape", true) ? R.drawable.ic_screen_rotation_off
-                                : R.drawable.ic_screen_rotation_on);
-            }
+        orientationBtn.setOnClickListener(p1 -> {
+            sp.edit().putBoolean("lock_landscape", !sp.getBoolean("lock_landscape", true)).apply();
+            orientationBtn
+                    .setImageResource(sp.getBoolean("lock_landscape", true) ? R.drawable.ic_screen_rotation_off
+                            : R.drawable.ic_screen_rotation_on);
         });
 
         screenshotBtn.setOnClickListener((View p1) -> {
@@ -445,7 +425,7 @@ public class NotificationService extends NotificationListenerService
                 : R.drawable.ic_notifications_off);
         notificationsBtn.setOnClickListener((View p1) -> {
             boolean showNotifications = sp.getBoolean("show_notifications", true);
-            sp.edit().putBoolean("show_notifications", !showNotifications).commit();
+            sp.edit().putBoolean("show_notifications", !showNotifications).apply();
             notificationsBtn.setImageResource(
                     !showNotifications ? R.drawable.ic_notifications : R.drawable.ic_notifications_off);
             if (showNotifications)

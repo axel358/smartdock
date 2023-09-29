@@ -3,17 +3,14 @@ package cu.axel.smartdock.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.hardware.usb.UsbManager;
 
 import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
 
 public class SoundEventsReceiver extends BroadcastReceiver {
-    private SharedPreferences sp;
 
-    public SoundEventsReceiver(SharedPreferences sp) {
-        this.sp = sp;
+    public SoundEventsReceiver() {
     }
 
     @Override

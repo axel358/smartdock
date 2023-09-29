@@ -20,9 +20,7 @@ public class DebugActivity extends AppCompatActivity {
         dialog.setTitle(R.string.something_wrong);
         final String report = getIntent().getStringExtra("report");
         dialog.setMessage(report);
-        dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int which) -> {
-            finish();
-        });
+        dialog.setPositiveButton(R.string.ok, (DialogInterface p1, int which) -> finish());
 
         dialog.setNeutralButton(R.string.save_log, (DialogInterface p1, int p2) -> {
             Utils.saveLog(DebugActivity.this, "crash_log", report);

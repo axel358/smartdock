@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import android.graphics.drawable.Drawable;
 
 public class DockApp extends App {
-    private ArrayList<AppTask> tasks;
+    private final ArrayList<AppTask> tasks;
 
     public DockApp(String name, String packageName, Drawable icon) {
         super(name, packageName, icon);
 
-        tasks = new ArrayList<AppTask>();
+        tasks = new ArrayList<>();
     }
 
     public DockApp(AppTask task) {
         super(task.getName(), task.getPackageName(), task.getIcon());
-        tasks = new ArrayList<AppTask>();
+        tasks = new ArrayList<>();
         tasks.add(task);
     }
 
@@ -29,9 +29,6 @@ public class DockApp extends App {
 
     @Override
     public Drawable getIcon() {
-        if (tasks.size() > 0 && tasks.size() < 2)
-            return tasks.get(0).getIcon();
-
-        return super.getIcon();
+        return tasks.size() == 1 ? tasks.get(0).getIcon() : super.getIcon();
     }
 }

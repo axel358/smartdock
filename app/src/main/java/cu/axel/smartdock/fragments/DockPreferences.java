@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -52,17 +51,11 @@ public class DockPreferences extends PreferenceFragmentCompat {
         windowedChkbx.setChecked(sp.getBoolean("auto_pin", true));
         fullscreenChkbx.setChecked(sp.getBoolean("auto_unpin", true));
 
-        startupChkbx.setOnCheckedChangeListener((CompoundButton arg0, boolean checked) -> {
-            editor.putBoolean("pin_dock", checked).commit();
-        });
+        startupChkbx.setOnCheckedChangeListener((compoundButton, checked) -> editor.putBoolean("pin_dock", checked).commit());
 
-        windowedChkbx.setOnCheckedChangeListener((CompoundButton arg0, boolean checked) -> {
-            editor.putBoolean("auto_pin", checked).commit();
-        });
+        windowedChkbx.setOnCheckedChangeListener((compoundButton, checked) -> editor.putBoolean("auto_pin", checked).commit());
 
-        fullscreenChkbx.setOnCheckedChangeListener((CompoundButton arg0, boolean checked) -> {
-            editor.putBoolean("auto_unpin", checked).commit();
-        });
+        fullscreenChkbx.setOnCheckedChangeListener((compoundButton, checked) -> editor.putBoolean("auto_unpin", checked).commit());
 
         dialogBuilder.setView(view);
         dialogBuilder.setPositiveButton(R.string.ok, null);

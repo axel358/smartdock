@@ -23,13 +23,14 @@ import cu.axel.smartdock.utils.Utils;
 
 public class DockAppAdapter extends RecyclerView.Adapter<DockAppAdapter.ViewHolder> {
 
-    private ArrayList<DockApp> apps;
-    private OnDockAppClickListener listener;
+    private final ArrayList<DockApp> apps;
+    private final OnDockAppClickListener listener;
     private final Context context;
     private int iconBackground;
     private final int iconPadding;
-    private boolean iconTheming, tintIndicators;
-    private IconParserUtilities iconParserUtilities;
+    private final boolean iconTheming;
+    private final boolean tintIndicators;
+    private final IconParserUtilities iconParserUtilities;
 
     public interface OnDockAppClickListener {
         void onDockAppClicked(DockApp app, View item);
@@ -64,9 +65,7 @@ public class DockAppAdapter extends RecyclerView.Adapter<DockAppAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int arg1) {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.app_task_entry, null);
-
-        ViewHolder viewHolder = new ViewHolder(itemLayoutView);
-        return viewHolder;
+        return new ViewHolder(itemLayoutView);
     }
 
     @Override
@@ -126,9 +125,7 @@ public class DockAppAdapter extends RecyclerView.Adapter<DockAppAdapter.ViewHold
         }
 
         public void bind(DockApp app, OnDockAppClickListener listener) {
-            itemView.setOnClickListener((View v) -> {
-                listener.onDockAppClicked(app, v);
-            });
+            itemView.setOnClickListener((View v) -> listener.onDockAppClicked(app, v));
 
             itemView.setOnLongClickListener((View v) -> {
                 listener.onDockAppLongClicked(app, v);

@@ -60,7 +60,7 @@ public class DeviceUtils {
     }
 
     public static String runAsRoot(String command) {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         try {
             java.lang.Process proccess = getRootAccess();
             DataOutputStream os = new DataOutputStream(proccess.getOutputStream());
@@ -70,25 +70,22 @@ public class DeviceUtils {
             BufferedReader br = new BufferedReader(new InputStreamReader(proccess.getInputStream()));
             String line;
             while ((line = br.readLine()) != null) {
-                output += line + "\n";
+                output.append(line).append("\n");
             }
             br.close();
         } catch (IOException e) {
             return "error";
         }
-        return output;
+        return output.toString();
     }
 
     //Device control
-    public static boolean lockScreen(Context context) {
-
+    public static void lockScreen(Context context) {
         DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
         try {
             dpm.lockNow();
         } catch (SecurityException e) {
-            return false;
         }
-        return true;
     }
 
     public static void sendKeyEvent(int keycode) {
@@ -123,13 +120,7 @@ public class DeviceUtils {
                 if (sound != null) {
                     final MediaPlayer mp = MediaPlayer.create(context, sound);
                     mp.start();
-                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-                        @Override
-                        public void onCompletion(MediaPlayer p1) {
-                            mp.release();
-                        }
-                    });
+                    mp.setOnCompletionListener(p1 -> mp.release());
                 }
             } catch (Exception e) {
             }

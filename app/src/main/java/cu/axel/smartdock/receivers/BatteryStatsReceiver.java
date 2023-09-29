@@ -3,19 +3,16 @@ package cu.axel.smartdock.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.widget.ImageView;
 
 import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.Utils;
 
 public class BatteryStatsReceiver extends BroadcastReceiver {
-    private ImageView batteryBtn;
-    private SharedPreferences sp;
+    private final ImageView batteryBtn;
 
-    public BatteryStatsReceiver(ImageView batteryBtn, SharedPreferences sp) {
+    public BatteryStatsReceiver(ImageView batteryBtn) {
         this.batteryBtn = batteryBtn;
-        this.sp = sp;
     }
 
     @Override

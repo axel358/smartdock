@@ -23,7 +23,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import cu.axel.smartdock.models.App;
@@ -36,7 +35,7 @@ public class AppUtils {
     public static String currentApp = "";
 
     public static ArrayList<App> getInstalledApps(PackageManager pm) {
-        ArrayList<App> apps = new ArrayList<App>();
+        ArrayList<App> apps = new ArrayList<>();
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> appsInfo = pm.queryIntentActivities(intent, 0);
@@ -50,23 +49,17 @@ public class AppUtils {
             apps.add(new App(label, packageName, icon));
         }
 
-        Collections.sort(apps, new Comparator<App>() {
-
-            @Override
-            public int compare(App p1, App p2) {
-                return p1.getName().compareToIgnoreCase(p2.getName());
-            }
-        });
+        Collections.sort(apps, (p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()));
 
         return apps;
     }
 
     public static ArrayList<App> getPinnedApps(Context context, PackageManager pm, String type) {
-        ArrayList<App> apps = new ArrayList<App>();
+        ArrayList<App> apps = new ArrayList<>();
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(new File(context.getFilesDir(), type)));
-            String applist = "";
+            String applist;
             try {
                 if ((applist = br.readLine()) != null) {
                     String[] applist2 = applist.split(" ");
@@ -106,7 +99,7 @@ public class AppUtils {
         try {
             File file = new File(context.getFilesDir(), type);
             BufferedReader br = new BufferedReader(new FileReader(file));
-            String applist = "";
+            String applist;
 
             if ((applist = br.readLine()) != null) {
                 applist = applist.replace(app + " ", "");
@@ -123,10 +116,10 @@ public class AppUtils {
         try {
             File file = new File(context.getFilesDir(), type);
             BufferedReader br = new BufferedReader(new FileReader(file));
-            String applist = "", what = "", with = "";
+            String applist , what = "", with = "";
 
             if ((applist = br.readLine()) != null) {
-                String apps[] = applist.split(" ");
+                String[] apps = applist.split(" ");
                 int pos = findInArray(app, apps);
                 if (direction == 0 && pos > 0) {
                     what = apps[pos - 1] + " " + app;
@@ -156,7 +149,7 @@ public class AppUtils {
     public static boolean isPinned(Context context, String app, String type) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(new File(context.getFilesDir(), type)));
-            String applist = "";
+            String applist;
 
             if ((applist = br.readLine()) != null) {
                 return applist.contains(app);
@@ -199,7 +192,7 @@ public class AppUtils {
         List<ActivityManager.RunningTaskInfo> tasksInfo = am.getRunningTasks(max);
         currentApp = tasksInfo.get(0).baseActivity.getPackageName();
 
-        ArrayList<AppTask> appTasks = new ArrayList<AppTask>();
+        ArrayList<AppTask> appTasks = new ArrayList<>();
         for (ActivityManager.RunningTaskInfo taskInfo : tasksInfo) {
             try {
                 //Exclude systemui, launcher and other system apps from the tasklist
@@ -240,13 +233,7 @@ public class AppUtils {
                 System.currentTimeMillis());
         ArrayList<AppTask> appTasks = new ArrayList<>();
 
-        Collections.sort(usageStats, new Comparator<UsageStats>() {
-
-            @Override
-            public int compare(UsageStats p1, UsageStats p2) {
-                return Long.compare(p2.getLastTimeUsed(), p1.getLastTimeUsed());
-            }
-        });
+        Collections.sort(usageStats, (p1, p2) -> Long.compare(p2.getLastTimeUsed(), p1.getLastTimeUsed()));
 
         for (UsageStats stat : usageStats) {
             String app = stat.getPackageName();
@@ -276,7 +263,7 @@ public class AppUtils {
     private static boolean isLaunchable(Context context, String app) {
         List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(
                 new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER).setPackage(app), 0);
-        return resolveInfo != null && resolveInfo.size() > 0;
+        return resolveInfo.size() > 0;
     }
 
     public static void removeTask(ActivityManager am, int id) {
@@ -284,7 +271,7 @@ public class AppUtils {
             Method removeTask = am.getClass().getMethod("removeTask", int.class);
             removeTask.invoke(am, id);
         } catch (Exception e) {
-            Log.e("Dock", e.toString() + e.getCause().toString());
+            Log.e("Dock", e + e.getCause().toString());
         }
     }
 

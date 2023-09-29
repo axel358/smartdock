@@ -15,18 +15,15 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.view.WindowManager;
-import android.widget.PopupMenu;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Field;
 
 import cu.axel.smartdock.R;
 
 public class Utils {
     public static boolean notificationPanelVisible, shouldPlayChargeComplete;
-    public static String AUTOSTART_SCRIPT = "autostart.sh";
     public static long startupTime;
     //public static int dockHeight;
 
@@ -37,30 +34,13 @@ public class Utils {
         editor.commit();
     }
 
-    public static void setForceShowIcon(PopupMenu popupMenu) {
-        try {
-            Field[] declaredFields = popupMenu.getClass().getDeclaredFields();
-            for (Field field : declaredFields) {
-                if ("mPopup".equals(field.getName())) {
-                    field.setAccessible(true);
-                    Object obj = field.get(popupMenu);
-                    Class.forName(obj.getClass().getName()).getMethod("setForceShowIcon", Boolean.TYPE).invoke(obj,
-                            new Boolean(true));
-                    return;
-                }
-            }
-        } catch (Throwable th) {
-            th.printStackTrace();
-        }
-    }
-
     public static int dpToPx(Context context, int dp) {
         return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
     }
 
     public static Bitmap getCircularBitmap(Bitmap bitmap) {
         if (bitmap == null)
-            return bitmap;
+            return null;
 
         //Copy the bitmap to avoid software rendering issues
         Bitmap bitmapCopy = bitmap.copy(Bitmap.Config.ARGB_8888, false);

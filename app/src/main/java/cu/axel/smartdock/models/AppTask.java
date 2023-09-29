@@ -3,7 +3,7 @@ package cu.axel.smartdock.models;
 import android.graphics.drawable.Drawable;
 
 public class AppTask extends App {
-    private int id;
+    private final int id;
 
     public AppTask(int id, String label, String packageName, Drawable icon) {
         super(label, packageName, icon);

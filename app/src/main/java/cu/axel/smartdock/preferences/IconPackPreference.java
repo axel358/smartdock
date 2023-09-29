@@ -20,13 +20,11 @@ import java.util.Set;
 
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.icons.IconPackHelper;
-import cu.axel.smartdock.icons.IconParserUtilities;
 import cu.axel.smartdock.utils.AppUtils;
 
 public class IconPackPreference extends Preference {
 
     private Context mContext;
-    private IconParserUtilities iconParserUtilities;
     private SharedPreferences sp;
     private IconPackHelper iconPackHelper;
 
@@ -41,24 +39,13 @@ public class IconPackPreference extends Preference {
             "org.adw.launcher.THEMES", "org.adw.launcher.icons.ACTION_PICK_ICON",
             "net.oneplus.launcher.icons.ACTION_PICK_ICON"};
 
-    public IconPackPreference(Context context) {
-        super(context);
-        setupPreference(context);
-    }
-
     public IconPackPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupPreference(context);
     }
 
-    public IconPackPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        setupPreference(context);
-    }
-
     private void setupPreference(Context context) {
         mContext = context;
-        iconParserUtilities = new IconParserUtilities(mContext);
         iconPackHelper = new IconPackHelper();
 
         sp = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -79,8 +66,8 @@ public class IconPackPreference extends Preference {
 		/*
 		We manually add Smart Dock context as a default item so Smart Dock has a default item to rely on
 		 */
-        ArrayList<String> iconPackageList = new ArrayList<String>();
-        ArrayList<String> iconNameList = new ArrayList<String>();
+        ArrayList<String> iconPackageList = new ArrayList<>();
+        ArrayList<String> iconNameList = new ArrayList<>();
         iconPackageList.add(mContext.getPackageName());
         iconNameList.add(mContext.getString(R.string.system));
 
@@ -104,10 +91,10 @@ public class IconPackPreference extends Preference {
         dialog.setTitle(R.string.icon_pack);
         dialog.setItems(newNameList, (DialogInterface d1, int item) -> {
             if (iconPackageList.get(item).equals(mContext.getPackageName())) {
-                sp.edit().putString("icon_pack", "").commit();
+                sp.edit().putString("icon_pack", "").apply();
                 setSummary(R.string.system);
             } else {
-                sp.edit().putString("icon_pack", iconPackageList.get(item)).commit();
+                sp.edit().putString("icon_pack", iconPackageList.get(item)).apply();
                 setSummary(AppUtils.getPackageLabel(mContext, iconPackHelper.getIconPack(sp)));
             }
         });
