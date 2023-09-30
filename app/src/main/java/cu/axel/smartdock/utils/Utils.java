@@ -27,13 +27,14 @@ import java.io.InputStreamReader;
 import cu.axel.smartdock.R;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class Utils {
     public static boolean notificationPanelVisible, shouldPlayChargeComplete;
     public static long startupTime;
-	public static String BACKUP_FILE_NAME = "cu.axel.smartdock_preferences_backup.sdp";
-    //public static int dockHeight;
+	  //public static int dockHeight;
 
     public static void toggleBuiltinNavigation(SharedPreferences.Editor editor, boolean value) {
         editor.putBoolean("enable_nav_back", value);
@@ -130,7 +131,7 @@ public class Utils {
     public static void saveLog(Context context, String name, String log) {
         try {
             FileWriter fw = new FileWriter(
-                    new File(context.getExternalFilesDir(null), name + "_" + System.currentTimeMillis() + ".log"));
+                    new File(context.getExternalFilesDir(null), name + "_" + getCurrentDateString() + ".log"));
             fw.write(log);
             fw.close();
         } catch (IOException e) {
@@ -241,6 +242,10 @@ public class Utils {
 			}
 		}
 		
+	}
+	
+	public static String getCurrentDateString(){
+		return new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
 	}
 
 }
