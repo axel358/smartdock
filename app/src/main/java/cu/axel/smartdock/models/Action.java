@@ -1,8 +1,8 @@
 package cu.axel.smartdock.models;
 
 public class Action {
-private int icon;
-private String text;
+    private final int icon;
+    private final String text;
 
     public Action(int icon, String text) {
         this.icon = icon;

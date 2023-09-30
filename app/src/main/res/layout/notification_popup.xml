@@ -16,7 +16,7 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="vertical"
-		android:layout_marginLeft="10dp"
+		android:layout_marginStart="10dp"
 		android:layout_marginTop="3dp">
 
 		<LinearLayout
@@ -26,7 +26,7 @@
 			android:gravity="center">
 
 			<TextView
-				android:layout_width="wrap_content"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:text="Small Text"
@@ -51,7 +51,6 @@
 			android:maxLines="2"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:text="Text"
 			android:textColor="#DDDDDD"
 			android:id="@+id/notif_text_tv"/>
         

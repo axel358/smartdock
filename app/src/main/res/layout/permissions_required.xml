@@ -17,9 +17,9 @@
             app:icon="@drawable/ic_overlay" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1.0"
             android:text="@string/display_over_other_apps"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
@@ -46,9 +46,9 @@
             app:icon="@drawable/ic_accessibility" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1.0"
             android:text="@string/accessibility_service"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
@@ -75,9 +75,9 @@
             app:icon="@drawable/ic_usage_stats" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1.0"
             android:text="@string/usage_stats"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
@@ -104,9 +104,9 @@
             app:icon="@drawable/ic_notifications" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1.0"
             android:text="@string/notification_access"
             android:textAppearance="?attr/textAppearanceTitleMedium" />

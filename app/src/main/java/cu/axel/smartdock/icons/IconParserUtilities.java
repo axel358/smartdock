@@ -2,11 +2,9 @@ package cu.axel.smartdock.icons;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
 
 public class IconParserUtilities {
 
@@ -16,21 +14,11 @@ public class IconParserUtilities {
      */
 
     private final Context context;
-    private final Object sInstanceLock = new Object();
 
     public IconParserUtilities(Context context) {
         this.context = context;
     }
 
-    public IconParserUtilities getInstance(Context context) {
-        IconParserUtilities sInstance = null;
-        synchronized (sInstanceLock) {
-            if (sInstance == null) {
-                sInstance = new IconParserUtilities(context);
-            }
-            return sInstance;
-        }
-    }
     public Drawable getPackageIcon(String packageName) {
         /*
          Try to load an apps icon from package manager
@@ -62,7 +50,8 @@ public class IconParserUtilities {
              if an icon pack has been set in the shared preferences
              load the respective icon based on its ID from the icon pack set
              */
-            int iconId = iconPackHelper.getResourceIdForActivityIcon(activityInfo);{
+            int iconId = iconPackHelper.getResourceIdForActivityIcon(activityInfo);
+            {
                 if (iconId != 0) {
                     return iconPackHelper.getIconPackResources(iconId, context);
                 }

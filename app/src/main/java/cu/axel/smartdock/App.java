@@ -5,51 +5,49 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+
 import com.google.android.material.color.DynamicColors;
+
 import cu.axel.smartdock.activities.DebugActivity;
-import cu.axel.smartdock.utils.Utils;
 
 public class App extends Application {
-	private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
-	@Override
-	public void onCreate() {
-		DynamicColors.applyToActivitiesIfAvailable(this);
-		uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
-		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-                @Override
-                public void uncaughtException(Thread thread, Throwable exception) {
+    private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
 
-                    String report = "Exception: " + exception + "\n";
-                    
-                    for (StackTraceElement element : exception.getStackTrace())
-                        report += element.toString() + "\n";
+    @Override
+    public void onCreate() {
+        DynamicColors.applyToActivitiesIfAvailable(this);
+        uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler((thread, exception) -> {
 
-                    Throwable cause = exception.getCause();
+            StringBuilder report = new StringBuilder("Exception: " + exception + "\n");
 
-                    if (cause != null) {
-                        report += "Cause: " + cause + "\n";
-                        for (StackTraceElement element:cause.getStackTrace())
-                            report += element.toString() + "\n";
-                        
-                    }
+            for (StackTraceElement element : exception.getStackTrace())
+                report.append(element.toString()).append("\n");
 
-                    String message=exception.getMessage();
-                    if (message != null) 
-                        report += "Message: " + message;
-                        
-                    Intent intent = new Intent(getApplicationContext(), DebugActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.putExtra("report", report);
-                    //startActivity(intent);
-                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 11111, intent, PendingIntent.FLAG_ONE_SHOT);
-                    AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                    am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000, pendingIntent);
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                    System.exit(2);
-                    uncaughtExceptionHandler.uncaughtException(thread, exception);
-                }
-            });
-		super.onCreate();
-	}
+            Throwable cause = exception.getCause();
+
+            if (cause != null) {
+                report.append("Cause: ").append(cause).append("\n");
+                for (StackTraceElement element : cause.getStackTrace())
+                    report.append(element.toString()).append("\n");
+            }
+
+            String message = exception.getMessage();
+            if (message != null)
+                report.append("Message: ").append(message);
+
+            Intent intent = new Intent(getApplicationContext(), DebugActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("report", report.toString());
+            //startActivity(intent);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 11111, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+            AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000, pendingIntent);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(2);
+            uncaughtExceptionHandler.uncaughtException(thread, exception);
+        });
+        super.onCreate();
+    }
 
 }

@@ -1,65 +1,53 @@
 package cu.axel.smartdock.activities;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Rect;
+import android.content.pm.ShortcutInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.button.MaterialButton;
-import cu.axel.smartdock.R;
-import cu.axel.smartdock.adapters.AppActionsAdapter;
-import cu.axel.smartdock.adapters.AppAdapter;
-import cu.axel.smartdock.icons.IconParserUtilities;
-import cu.axel.smartdock.models.Action;
-import cu.axel.smartdock.models.App;
-import cu.axel.smartdock.services.DockService;
-import cu.axel.smartdock.utils.AppUtils;
-import cu.axel.smartdock.utils.ColorUtils;
-import cu.axel.smartdock.utils.DeviceUtils;
-import cu.axel.smartdock.utils.Utils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import android.content.pm.ShortcutInfo;
-import cu.axel.smartdock.utils.DeepShortcutManager;
+
+import cu.axel.smartdock.R;
+import cu.axel.smartdock.adapters.AppActionsAdapter;
+import cu.axel.smartdock.adapters.AppAdapter;
 import cu.axel.smartdock.adapters.AppShortcutAdapter;
-import android.widget.Adapter;
+import cu.axel.smartdock.icons.IconParserUtilities;
+import cu.axel.smartdock.models.Action;
+import cu.axel.smartdock.models.App;
+import cu.axel.smartdock.utils.AppUtils;
+import cu.axel.smartdock.utils.ColorUtils;
+import cu.axel.smartdock.utils.DeepShortcutManager;
+import cu.axel.smartdock.utils.DeviceUtils;
+import cu.axel.smartdock.utils.Utils;
 
 public class LauncherActivity extends AppCompatActivity implements AppAdapter.OnAppClickListener {
-	private LinearLayout backgroundLayout;
 	private MaterialButton serviceBtn;
 	private RecyclerView appsGv;
 	private EditText notesEt;
@@ -71,7 +59,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launcher);
-		backgroundLayout = findViewById(R.id.ll_background);
+		LinearLayout backgroundLayout = findViewById(R.id.ll_background);
 		serviceBtn = findViewById(R.id.service_btn);
 		appsGv = findViewById(R.id.desktop_apps_gv);
 		appsGv.setLayoutManager(new GridLayoutManager(this, 2));
@@ -80,15 +68,13 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		iconParserUtilities = new IconParserUtilities(this);
 		
 
-		serviceBtn.setOnClickListener((View p1) -> {
-			startActivity(new Intent(LauncherActivity.this, MainActivity.class));
-		});
+		serviceBtn.setOnClickListener((View p1) -> startActivity(new Intent(LauncherActivity.this, MainActivity.class)));
 
 		backgroundLayout.setOnLongClickListener((View v0) -> {
 			final View view = LayoutInflater.from(LauncherActivity.this).inflate(R.layout.task_list, null);
 			WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, LauncherActivity.this, false);
 			ColorUtils.applyMainColor(LauncherActivity.this, sp, view);
-			lp.gravity = Gravity.TOP | Gravity.LEFT;
+			lp.gravity = Gravity.TOP | Gravity.START;
 			lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 					| WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 			lp.x = (int) x;
@@ -103,7 +89,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 				return false;
 			});
 			final ListView actionsLv = view.findViewById(R.id.tasks_lv);
-			ArrayList<Action> actions = new ArrayList<Action>();
+			ArrayList<Action> actions = new ArrayList<>();
 			actions.add(new Action(R.drawable.ic_wallpaper, getString(R.string.change_wallpaper)));
 			actions.add(new Action(R.drawable.ic_fullscreen, getString(R.string.display_settings)));
 
@@ -187,13 +173,13 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		File notes = new File(getExternalFilesDir(null), "notes.txt");
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(notes));
-			String line = "";
-			String noteContent = "";
+			String line;
+			StringBuilder noteContent = new StringBuilder();
 			while ((line = br.readLine()) != null) {
-				noteContent += line + "\n";
+				noteContent.append(line).append("\n");
 			}
 			br.close();
-			notesEt.setText(noteContent);
+			notesEt.setText(noteContent.toString());
 		} catch (IOException e) {
 		}
 
@@ -222,7 +208,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 	}
 
 	public ArrayList<Action> getAppActions(String app) {
-		ArrayList<Action> actions = new ArrayList<Action>();
+		ArrayList<Action> actions = new ArrayList<>();
 		if (DeepShortcutManager.hasHostPermission(this)) {
 			if (DeepShortcutManager.getShortcuts(app, this).size() > 0)
 				actions.add(new Action(R.drawable.ic_shortcuts, getString(R.string.shortcuts)));
@@ -239,7 +225,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		final View view = LayoutInflater.from(this).inflate(R.layout.task_list, null);
 		WindowManager.LayoutParams lp = Utils.makeWindowParams(-2, -2, this, false);
 		ColorUtils.applyMainColor(LauncherActivity.this, sp, view);
-		lp.gravity = Gravity.TOP | Gravity.LEFT;
+		lp.gravity = Gravity.TOP | Gravity.START;
 		lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
 
 		int[] location = new int[2];
@@ -262,7 +248,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 			if (p1.getItemAtPosition(p3) instanceof Action) {
 				Action action = (Action) p1.getItemAtPosition(p3);
 				if (action.getText().equals(getString(R.string.manage))) {
-					ArrayList<Action> actions = new ArrayList<Action>();
+					ArrayList<Action> actions = new ArrayList<>();
 					actions.add(new Action(R.drawable.ic_arrow_back, ""));
 					actions.add(new Action(R.drawable.ic_info, getString(R.string.app_info)));
 					if (!AppUtils.isSystemApp(LauncherActivity.this, app)
@@ -278,7 +264,7 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 				} else if (action.getText().equals("")) {
 					actionsLv.setAdapter(new AppActionsAdapter(LauncherActivity.this, getAppActions(app)));
 				} else if (action.getText().equals(getString(R.string.open_in))) {
-					ArrayList<Action> actions = new ArrayList<Action>();
+					ArrayList<Action> actions = new ArrayList<>();
 					actions.add(new Action(R.drawable.ic_arrow_back, ""));
 					actions.add(new Action(R.drawable.ic_standard, getString(R.string.standard)));
 					actions.add(new Action(R.drawable.ic_maximized, getString(R.string.maximized)));

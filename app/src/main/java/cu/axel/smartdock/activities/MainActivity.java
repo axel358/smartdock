@@ -1,38 +1,41 @@
 package cu.axel.smartdock.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.content.res.ColorStateList;
-import android.text.method.LinkMovementMethod;
-import android.view.MenuItem;
 import android.view.Menu;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.ViewSwitcher;
+import android.view.MenuItem;
 import android.view.View;
-import cu.axel.smartdock.services.NotificationService;
+import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import cu.axel.smartdock.R;
+import cu.axel.smartdock.fragments.PreferencesFragment;
+import cu.axel.smartdock.services.NotificationService;
 import cu.axel.smartdock.utils.ColorUtils;
 import cu.axel.smartdock.utils.DeviceUtils;
-import androidx.preference.PreferenceManager;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.button.MaterialButton;
-import androidx.appcompat.app.AlertDialog;
-import android.content.SharedPreferences;
-import cu.axel.smartdock.fragments.PreferencesFragment;
 
 public class MainActivity extends AppCompatActivity {
 	private SharedPreferences sp;
 	private AlertDialog permissionsDialog;
 	private MaterialButton overlayBtn, storageBtn, adminBtn, notificationsBtn, accessibilityBtn, locationBtn, usageBtn,
 			secureBtn;
-	private boolean canDrawOverOtherApps, hasStoragePermission, isdeviceAdminEnabled, hasLocationPermission,
-			hasWriteSettingsPermission;
+	private boolean canDrawOverOtherApps;
+	private boolean hasStoragePermission;
+	private boolean isdeviceAdminEnabled;
+	private boolean hasLocationPermission;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,50 +104,32 @@ public class MainActivity extends AppCompatActivity {
 		builder.setView(view);
 		permissionsDialog = builder.create();
 
-		overlayBtn.setOnClickListener(v -> {
-			showPermissionInfoDialog(R.string.display_over_other_apps, R.string.display_over_other_apps_desc,
-					() -> DeviceUtils.grantOverlayPermissions(this), canDrawOverOtherApps);
-		});
+		overlayBtn.setOnClickListener(v -> showPermissionInfoDialog(R.string.display_over_other_apps, R.string.display_over_other_apps_desc,
+				() -> DeviceUtils.grantOverlayPermissions(this), canDrawOverOtherApps));
 
-		storageBtn.setOnClickListener(v -> {
-			showPermissionInfoDialog(R.string.storage, R.string.storage_desc,
-					() -> DeviceUtils.requestStoragePermissions(this), hasStoragePermission);
-		});
+		storageBtn.setOnClickListener(v -> showPermissionInfoDialog(R.string.storage, R.string.storage_desc,
+				() -> DeviceUtils.requestStoragePermissions(this), hasStoragePermission));
 
-		adminBtn.setOnClickListener(v -> {
-			showPermissionInfoDialog(R.string.device_administrator, R.string.device_administrator_desc,
-					() -> DeviceUtils.requestDeviceAdminPermissions(this), isdeviceAdminEnabled);
-		});
+		adminBtn.setOnClickListener(v -> showPermissionInfoDialog(R.string.device_administrator, R.string.device_administrator_desc,
+				() -> DeviceUtils.requestDeviceAdminPermissions(this), isdeviceAdminEnabled));
 
-		notificationsBtn.setOnClickListener(v -> {
-			showNotificationsDialog();
-		});
+		notificationsBtn.setOnClickListener(v -> showNotificationsDialog());
 
-		accessibilityBtn.setOnClickListener(v -> {
-			showAccessibilityDialog();
-		});
+		accessibilityBtn.setOnClickListener(v -> showAccessibilityDialog());
 
-		locationBtn.setOnClickListener(v -> {
-			showPermissionInfoDialog(R.string.location, R.string.location_desc,
-					() -> DeviceUtils.requestLocationPermissions(this), hasLocationPermission);
-		});
+		locationBtn.setOnClickListener(v -> showPermissionInfoDialog(R.string.location, R.string.location_desc,
+				() -> DeviceUtils.requestLocationPermissions(this), hasLocationPermission));
 
-		usageBtn.setOnClickListener(v -> {
-			showPermissionInfoDialog(R.string.usage_stats, R.string.usage_stats_desc,
-					() -> startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)),
-					DeviceUtils.hasUsageStatsPermission(this));
-		});
+		usageBtn.setOnClickListener(v -> showPermissionInfoDialog(R.string.usage_stats, R.string.usage_stats_desc,
+				() -> startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)),
+				DeviceUtils.hasUsageStatsPermission(this)));
 
 		secureBtn.setOnClickListener(
 				v -> showPermissionInfoDialog(R.string.write_secure, R.string.write_secure_desc, null, true));
 
-		requiredBtn.setOnClickListener(v -> {
-			viewSwitcher.showPrevious();
-		});
+		requiredBtn.setOnClickListener(v -> viewSwitcher.showPrevious());
 
-		optionalBtn.setOnClickListener(v -> {
-			viewSwitcher.showNext();
-		});
+		optionalBtn.setOnClickListener(v -> viewSwitcher.showNext());
 
 		updatePermissionsStatus();
 		permissionsDialog.show();
@@ -170,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 			editor.putInt("dock_layout", wich);
 			editor.putString("activation_method", wich != 2 ? "handle" : "swipe");
 			editor.putBoolean("show_notifications", wich != 0);
-			editor.commit();
+			editor.apply();
 		});
 
 		dialog.setPositiveButton(R.string.ok, null);
@@ -222,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 			locationBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
 		}
 
-		hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(this);
+		boolean hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(this);
 		if (hasWriteSettingsPermission) {
 			secureBtn.setIconResource(R.drawable.ic_granted);
 			secureBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]));
@@ -248,16 +233,12 @@ public class MainActivity extends AppCompatActivity {
 		if (DeviceUtils.hasWriteSettingsPermission(this)) {
 			dialogBuilder.setPositiveButton(R.string.enable, (i, p) -> {
 				DeviceUtils.enableService(this);
-				new Handler(getMainLooper()).postDelayed(() -> {
-					updatePermissionsStatus();
-				}, 500);
+				new Handler(getMainLooper()).postDelayed(this::updatePermissionsStatus, 500);
 
 			});
 			dialogBuilder.setNegativeButton(R.string.disable, (i, p) -> {
 				DeviceUtils.disableService(this);
-				new Handler(getMainLooper()).postDelayed(() -> {
-					updatePermissionsStatus();
-				}, 500);
+				new Handler(getMainLooper()).postDelayed(this::updatePermissionsStatus, 500);
 			});
 		} else {
 			dialogBuilder.setPositiveButton(R.string.manage, (i, p) -> {
