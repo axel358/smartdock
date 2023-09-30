@@ -16,15 +16,23 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.view.WindowManager;
 
+import android.widget.Toast;
+import androidx.preference.PreferenceManager;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.io.InputStreamReader;
 import cu.axel.smartdock.R;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Map;
 
 public class Utils {
     public static boolean notificationPanelVisible, shouldPlayChargeComplete;
     public static long startupTime;
+	public static String BACKUP_FILE_NAME = "cu.axel.smartdock_preferences_backup.sdp";
     //public static int dockHeight;
 
     public static void toggleBuiltinNavigation(SharedPreferences.Editor editor, boolean value) {
@@ -155,5 +163,84 @@ public class Utils {
             return Double.parseDouble(expression.split("\\*")[0]) * Double.parseDouble(expression.split("\\*")[1]);
         return 0;
     }
+	
+	public static void backupPreferences(Context context, Uri backupUri) {
+		Map<String, ?> allPrefs = PreferenceManager.getDefaultSharedPreferences(context).getAll();
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		for (Map.Entry<String, ?> entry : allPrefs.entrySet()) {
+			String type = "string";
+			if (entry.getValue() instanceof Boolean) {
+				type = "boolean";
+				} else if (entry.getValue() instanceof Integer) {
+				type = "integer";
+			}
+			
+			stringBuilder.append(type).append(" ").append(entry.getKey()).append(" ")
+			.append(entry.getValue().toString()).append("\n");
+		}
+		String content = stringBuilder.toString().trim();
+		
+		OutputStream os = null;
+		try {
+			os = context.getContentResolver().openOutputStream(backupUri);
+			os.write(content.getBytes());
+			os.flush();
+			Toast.makeText(context, R.string.preferences_saved, Toast.LENGTH_SHORT).show();
+			
+			} catch (IOException e) {
+			e.printStackTrace();
+			} finally {
+			if (os != null) {
+				try {
+					os.close();
+					} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static void restorePreferences(Context context, Uri restoreUri) {
+		InputStream is = null;
+		
+		try {
+			is = context.getContentResolver().openInputStream(restoreUri);
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			String line;
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+			
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+			while ((line = br.readLine()) != null) {
+				String[] contents = line.split(" ");
+				if (contents.length > 2) {
+					String type = contents[0];
+					String key = contents[1];
+					String value = contents[2];
+					
+					if (type.equals("boolean"))
+					editor.putBoolean(key, Boolean.parseBoolean(value));
+					else if (type.equals("integer"))
+					editor.putInt(key, Integer.parseInt(value));
+					else
+					editor.putString(key, value);
+				}
+			}
+			br.close();
+			editor.commit();
+			Toast.makeText(context, R.string.preferences_restored, Toast.LENGTH_SHORT).show();
+			} catch (IOException e) {
+			e.printStackTrace();
+			} finally {
+			if (is != null) {
+				try {
+					is.close();
+					} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
 
 }

@@ -241,6 +241,11 @@
     <string name="reboot_required_title">ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="reboot_required_text">ਤਬਦੀਲੀਆਂ ਨੂੰ ਲਾਗੂ ਕਰਨ ਲਈ ਇੱਕ ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ। ਕੀ ਤੁਸੀਂ ਹੁਣੇ ਰੀਬੂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
     <string name="development_tools">ਡਿਵੈਲਪਮੈਂਟ ਟੂਲਸ</string>
+	<string name="backup_restore">Backup and restore</string>
+	<string name="backup_preferences">Backup preferences</string>
+	<string name="restore_preferences">Restore preferences</string>
+	<string name="preferences_saved">Preferences saved</string>
+	<string name="preferences_restored">Preferences restored</string>
 
     <!-- Help and about page -->
     <string name="help_and_about">ਮਦਦ ਅਤੇ ਇਸ ਬਾਰੇ</string>

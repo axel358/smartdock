@@ -1,6 +1,7 @@
 package cu.axel.smartdock.fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,9 +23,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import cu.axel.smartdock.R;
 import cu.axel.smartdock.utils.AppUtils;
 import cu.axel.smartdock.utils.DeviceUtils;
+import cu.axel.smartdock.utils.Utils;
 
 public class AdvancedPreferences extends PreferenceFragmentCompat {
     private boolean rootAvailable;
+	private final int SAVE_REQUEST_CODE = 236;
+	private final int OPEN_REQUEST_CODE = 632;
 
     @Override
     public void onCreatePreferences(Bundle arg0, String arg1) {
@@ -142,6 +146,23 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
         });
 
         findPreference("navbar_fix").setVisible(Build.VERSION.SDK_INT > 31);
+		
+		findPreference("backup_preferences").setOnPreferenceClickListener((Preference p1) -> {
+			
+			startActivityForResult(new Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
+			.setType("*/*").putExtra(Intent.EXTRA_TITLE, Utils.BACKUP_FILE_NAME), SAVE_REQUEST_CODE);
+			
+			return false;
+		});
+		
+		findPreference("restore_preferences").setOnPreferenceClickListener((Preference p1) -> {
+			
+			startActivityForResult(
+			new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*"),
+			OPEN_REQUEST_CODE);
+			
+			return false;
+		});
     }
 
     public void showDisplaySizeDialog(final Context context) {
@@ -196,4 +217,15 @@ public class AdvancedPreferences extends PreferenceFragmentCompat {
         dialog.setPositiveButton(getString(R.string.open_accessibility), (DialogInterface p1, int p2) -> startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)));
         dialog.show();
     }
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		if (resultCode == Activity.RESULT_OK) {
+			if (requestCode == SAVE_REQUEST_CODE) {
+				Utils.backupPreferences(getActivity(), intent.getData());
+			} else if (requestCode == OPEN_REQUEST_CODE) {
+				Utils.restorePreferences(getActivity(), intent.getData());
+			}
+		}
+	}
 }

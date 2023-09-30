@@ -82,6 +82,17 @@
         android:title="@string/soft_reboot_title"/>
 </PreferenceCategory>
 <PreferenceCategory
+	android:key="backup_category"
+	android:title="@string/backup_restore">
+
+	<Preference
+		android:key="backup_preferences"
+		android:title="@string/backup_preferences"/>
+	<Preference
+		android:key="restore_preferences"
+		android:title="@string/restore_preferences"/>
+</PreferenceCategory>
+<PreferenceCategory
 	android:key="development_category"
     android:title="@string/development_tools">
 	
