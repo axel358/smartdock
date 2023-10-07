@@ -240,6 +240,11 @@
     <string name="reboot_required_title">Reboot required</string>
     <string name="reboot_required_text">A reboot is required for changes to take effect. Do you want to reboot now?</string>
     <string name="development_tools">Development tools</string>
+	<string name="backup_restore">Backup and restore</string>
+	<string name="backup_preferences">Backup preferences</string>
+	<string name="restore_preferences">Restore preferences</string>
+	<string name="preferences_saved">Preferences saved</string>
+	<string name="preferences_restored">Preferences restored</string>
 
     <!-- Help and about page -->
     <string name="help_and_about">Help and about</string>

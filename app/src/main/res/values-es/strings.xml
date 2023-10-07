@@ -241,6 +241,11 @@
     <string name="reboot_required_title">Reinicio requerido</string>
     <string name="reboot_required_text">Es necesario reiniciar para que los cambios surtan efecto. ¿Quieres reiniciar ahora?</string>
     <string name="development_tools">Herramientas de desarrollo</string>
+	<string name="backup_restore">Guardar y restaurar</string>
+	<string name="backup_preferences">Guardar preferencias</string>
+	<string name="restore_preferences">Restaurar preferencias</string>
+	<string name="preferences_saved">Preferencias guardadas</string>
+	<string name="preferences_restored">Preferencias restauradas</string>
 
     <!-- Help and about page -->
     <string name="help_and_about">Ayuda y acerca de</string>
