@@ -31,7 +31,7 @@ public class ColorUtils {
 		
 		 */
 
-        if (DeviceUtils.hasStoragePermission(context) && Build.VERSION.SDK_INT < 33) {
+        if (DeviceUtils.hasStoragePermission(context)) {
 
             WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
             //noinspection all
@@ -40,29 +40,11 @@ public class ColorUtils {
             wallpaperDrawable.invalidateSelf();
             Bitmap wallpaperBitmap = drawableToBitmap(wallpaperDrawable);
 
-            int color1 = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth() / 4, wallpaperBitmap.getHeight() / 4);
-            int color2 = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth() - wallpaperBitmap.getWidth() / 4,
-                    wallpaperBitmap.getHeight() / 4);
-            int color3 = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth() / 2,
-                    wallpaperBitmap.getHeight() - wallpaperBitmap.getHeight() / 4);
+            int color = wallpaperBitmap.getPixel(wallpaperBitmap.getWidth() / 4, wallpaperBitmap.getHeight() / 4);
 
-            wallpaperColors.add(toHexColor(manipulateColor(color1, 1.5f)));
-            wallpaperColors.add(toHexColor(manipulateColor(color1, 1.2f)));
-            wallpaperColors.add(toHexColor(color1));
-            wallpaperColors.add(toHexColor(manipulateColor(color1, .8f)));
-            wallpaperColors.add(toHexColor(manipulateColor(color1, .5f)));
-
-            wallpaperColors.add(toHexColor(manipulateColor(color2, 1.5f)));
-            wallpaperColors.add(toHexColor(manipulateColor(color2, 1.2f)));
-            wallpaperColors.add(toHexColor(color2));
-            wallpaperColors.add(toHexColor(manipulateColor(color2, .8f)));
-            wallpaperColors.add(toHexColor(manipulateColor(color2, .5f)));
-
-            wallpaperColors.add(toHexColor(manipulateColor(color3, 1.5f)));
-            wallpaperColors.add(toHexColor(manipulateColor(color3, 1.2f)));
-            wallpaperColors.add(toHexColor(color3));
-            wallpaperColors.add(toHexColor(manipulateColor(color3, .8f)));
-            wallpaperColors.add(toHexColor(manipulateColor(color3, .5f)));
+            wallpaperColors.add(toHexColor(color));
+            wallpaperColors.add(toHexColor(manipulateColor(color, .8f)));
+            wallpaperColors.add(toHexColor(manipulateColor(color, .5f)));
 
         }
 
@@ -137,45 +119,43 @@ public class ColorUtils {
 
     public static int[] getMainColors(SharedPreferences sp, Context context) {
         String theme = sp.getString("theme", "dark");
-        int color = 0;
+        int mainColor = 0;
+        int secondaryColor = 0;
         int alpha = 255;
-        int color2 = 0;
+
         int[] colors = new int[5];
         switch (theme) {
             case "dark":
-                color = Color.parseColor("#212121");
-                color2 = ColorUtils.manipulateColor(color, 1.35f);
+                mainColor = Color.parseColor("#212121");
+                secondaryColor = ColorUtils.manipulateColor(mainColor, 1.35f);
                 break;
             case "black":
-                color = Color.parseColor("#060606");
-                color2 = ColorUtils.manipulateColor(color, 2.2f);
+                mainColor = Color.parseColor("#060606");
+                secondaryColor = ColorUtils.manipulateColor(mainColor, 2.2f);
                 break;
             case "transparent":
-                color = Color.parseColor("#050505");
-                color2 = ColorUtils.manipulateColor(color, 2f);
+                mainColor = Color.parseColor("#050505");
+                secondaryColor = ColorUtils.manipulateColor(mainColor, 2f);
                 alpha = 225;
                 break;
             case "material_u":
                 if (DynamicColors.isDynamicColorAvailable()) {
                     int surfaceColor = getThemeColors(context, true)[1];
-                    color = ColorUtils.manipulateColor(surfaceColor, 0.9f);
-                    color2 = ColorUtils.manipulateColor(surfaceColor, 1.2f);
+                    mainColor = ColorUtils.manipulateColor(surfaceColor, 0.9f);
+                    secondaryColor = ColorUtils.manipulateColor(surfaceColor, 1.2f);
                 } else {
-                    color = Color.parseColor(getWallpaperColors(context).get(4));
-                    color2 = Color.parseColor(getWallpaperColors(context).get(3));
+                    mainColor = Color.parseColor(getWallpaperColors(context).get(2));
+                    secondaryColor = Color.parseColor(getWallpaperColors(context).get(1));
                 }
                 break;
             case "custom":
-                color = Color.parseColor(sp.getString("theme_main_color", "#212121"));
-                color2 = ColorUtils.manipulateColor(color, 1.2f);
+                mainColor = Color.parseColor(sp.getString("theme_main_color", "#212121"));
+                secondaryColor = ColorUtils.manipulateColor(mainColor, 1.2f);
                 alpha = sp.getInt("theme_main_alpha", 255);
         }
-        //main color
-        colors[0] = color;
-        //main color alpha
+        colors[0] = mainColor;
         colors[1] = alpha;
-        //secondary color
-        colors[2] = color2;
+        colors[2] = secondaryColor;
         if (alpha < 255)
             alpha -= alpha * 0.60;
         //secondary color alpha
