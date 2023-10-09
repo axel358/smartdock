@@ -115,7 +115,7 @@
     <string name="enable_apps_btn_summary">You can still open/close the app menu by swiping up/down on the dock</string>
     <string name="activation_method">Activation method</string>
     <string name="activation_method_summary">The method used to bring up the dock when hidden</string>
-    <string name="swipe">Swipe/Hoover</string>
+    <string name="swipe">Swipe/Hover</string>
     <string name="handle">Handle</string>
     <string name="handle_opacity">Handle opacity</string>
 	<string name="auto_pin_title">Auto pin</string>
