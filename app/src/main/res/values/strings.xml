@@ -269,8 +269,9 @@
     <string name="join_telegram_summary">Got any questions? Join the Telegram support group</string>
     <string name="gnu_general_public_licence_v3">GNU General Public Licence v3.0</string>
     <string name="license">License</string>
-    <string name="options_marked_with__are_expe">Options marked with * are experimental and may cause trouble. If you experience crashes disable them</string>
-
+    <string name="donate">Donate</string>
+	<string name="support_the_project">Support the project</string>
+   
     <!-- App menu -->
     <string name="user">User</string>
     <string name="search">Search...</string>

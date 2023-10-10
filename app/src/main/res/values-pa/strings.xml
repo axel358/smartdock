@@ -270,9 +270,10 @@
     <string name="join_telegram_summary">ਕੋਈ ਸਵਾਲ ਹਨ? ਟੈਲੀਗ੍ਰਾਮ ਸਹਾਇਤਾ ਸਮੂਹ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ</string>
     <string name="gnu_general_public_licence_v3">GNU ਜਨਰਲ ਪਬਲਿਕ ਲਾਇਸੈਂਸ v3.0</string>
     <string name="license">ਲਾਇਸੰਸ</string>
-    <string name="options_marked_with__are_expe">* ਨਾਲ ਚਿੰਨ੍ਹਿਤ ਵਿਕਲਪ ਪ੍ਰਯੋਗਾਤਮਕ ਹਨ ਅਤੇ ਸਮੱਸਿਆ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ। ਜੇ ਤੁਸੀਂ ਕਰੈਸ਼ਾਂ ਦਾ ਅਨੁਭਵ ਕਰਦੇ ਹੋ ਤਾਂ ਉਹਨਾਂ ਨੂੰ ਅਯੋਗ ਕਰੋ</string>
-
-    <!-- App menu -->
+    <string name="donate">Donate</string>
+    <string name="support_the_project">Support the project</string>
+    
+	<!-- App menu -->
     <string name="user">ਉਪਭੋਗਤਾ</string>
     <string name="search">ਖੋਜ</string>
     <string name="copied_to_clipboard">ਕਲਿੱਪਬੋਰਡ \'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>

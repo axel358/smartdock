@@ -270,8 +270,8 @@
     <string name="join_telegram_summary">¿Tienes alguna pregunta? Únete al grupo de soporte de Telegram</string>
     <string name="gnu_general_public_licence_v3">Licencia Pública General GNU v3.0</string>
     <string name="license">Licencia</string>
-    <string name="options_marked_with__are_expe">Las opciones marcadas con * son experimentales y pueden causar problemas. Si experimenta bloqueos, desactívelos</string>
-
+    <string name="donate">Donar</string>
+	<string name="support_the_project">Apoyar el proyecto</string>
     <!-- App menu -->
     <string name="user">Usuario</string>
     <string name="search">Buscar...</string>
