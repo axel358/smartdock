@@ -130,11 +130,11 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private View dockTrigger;
 	private ArrayList<App> pinnedApps;
 	private TextClock dateTv;
-	private long lastUpdate;
 	private int maxApps;
 	private Context context;
 	private IconParserUtilities iconParserUtilities;
 	private ArrayList<AppTask> tasks;
+	private String previousActivity;
 
 	@Override
 	public void onCreate() {
@@ -284,10 +284,8 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			return true;
 		});
 
-		if (Build.VERSION.SDK_INT > 21) {
-			batteryBtn.setOnClickListener((View p1) -> launchApp(null,
-					new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
-		}
+		batteryBtn.setOnClickListener((View p1) -> launchApp(null,
+				new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
 
 		dateTv.setOnClickListener((View p1) -> launchApp(null, sp.getString("app_clock", "com.android.deskclock")));
 		dateTv.setOnLongClickListener((View p1) -> {
@@ -584,7 +582,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			if (!isPinned && sp.getBoolean("auto_pin", true)) {
 				pinDock();
 			}
+
 		}
+
 	}
 
 	@Override
@@ -612,16 +612,15 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	@Override
 	public void onAccessibilityEvent(AccessibilityEvent event) {
 		if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-			//getSource() might throw an exception
-			try {
-				if (event.getSource() != null) {
-					//Refresh the app list when the window state changes only it has been at least a second since last update
-					//TODO: Filter events that also trigger window state change other than app switching
-					if (System.currentTimeMillis() - lastUpdate > 700)
-						//Log.e("beaut", System.currentTimeMillis() -  lastUpdate + "");
-						updateRunningTasks();
-				}
-			} catch (Exception e) {
+			String currentApp = String.valueOf(event.getPackageName());
+			String currentActivity = String.valueOf(event.getClassName());
+
+			if (currentActivity.contains(currentApp) && !currentActivity.equals(previousActivity)) {
+				// Activity changed
+				//TODO: Filter current input method
+				previousActivity = currentActivity;
+				if (isPinned)
+					updateRunningTasks();
 			}
 		} else if (isPinned && sp.getBoolean("custom_toasts", false)
 				&& event.getEventType() == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED
@@ -803,9 +802,9 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	public void togglePin() {
-		if (isPinned) {
+		if (isPinned)
 			unpinDock();
-		} else
+		else
 			pinDock();
 	}
 
@@ -1364,7 +1363,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	private void updateRunningTasks() {
-		lastUpdate = System.currentTimeMillis();
+		Toast.makeText(context, "Updating running apps...", Toast.LENGTH_LONG).show();
 		ArrayList<DockApp> apps = new ArrayList<>();
 
 		for (App pinnedApp : pinnedApps) {
@@ -1374,6 +1373,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		int gridSize = Utils.dpToPx(context, 52);
 
 		//TODO: We can eliminate another for
+		//TODO: Dont do anything if tasks has not changed
 		tasks = systemApp ? AppUtils.getRunningTasks(am, pm, maxApps) : AppUtils.getRecentTasks(context, maxApps);
 
 		for (int j = 1; j <= tasks.size(); j++) {
