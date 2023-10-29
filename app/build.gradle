@@ -8,7 +8,7 @@ android {
 	
     defaultConfig {
         applicationId "cu.axel.smartdock"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 1110
         versionName "1.11.0"
@@ -27,6 +27,7 @@ android {
 }
 
 dependencies {
+	implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.preference:preference:1.2.0'

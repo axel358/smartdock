@@ -66,9 +66,9 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 		notesEt = findViewById(R.id.notes_et);
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		iconParserUtilities = new IconParserUtilities(this);
-		
 
-		serviceBtn.setOnClickListener((View p1) -> startActivity(new Intent(LauncherActivity.this, MainActivity.class)));
+		serviceBtn
+				.setOnClickListener((View p1) -> startActivity(new Intent(LauncherActivity.this, MainActivity.class)));
 
 		backgroundLayout.setOnLongClickListener((View v0) -> {
 			final View view = LayoutInflater.from(LauncherActivity.this).inflate(R.layout.task_list, null);
@@ -132,8 +132,8 @@ public class LauncherActivity extends AppCompatActivity implements AppAdapter.On
 	}
 
 	public void loadDesktopApps() {
-		appsGv.setAdapter(
-				new AppAdapter(this, iconParserUtilities, AppUtils.getPinnedApps(this, getPackageManager(), AppUtils.DESKTOP_LIST), this, true));
+		appsGv.setAdapter(new AppAdapter(this, iconParserUtilities,
+				AppUtils.getPinnedApps(this, getPackageManager(), AppUtils.DESKTOP_LIST), this, true));
 	}
 
 	@Override
