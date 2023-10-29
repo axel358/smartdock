@@ -43,6 +43,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityWindowInfo;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -95,6 +96,7 @@ import cu.axel.smartdock.utils.DeviceUtils;
 import cu.axel.smartdock.utils.OnSwipeListener;
 import cu.axel.smartdock.utils.Utils;
 import cu.axel.smartdock.widgets.HoverInterceptorLayout;
+import java.util.List;
 
 public class DockService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener,
 		View.OnTouchListener, AppAdapter.OnAppClickListener, DockAppAdapter.OnDockAppClickListener {
@@ -134,6 +136,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	private Context context;
 	private IconParserUtilities iconParserUtilities;
 	private ArrayList<AppTask> tasks;
+	private long lastUpdate;
 	private String previousActivity;
 
 	@Override
@@ -151,6 +154,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 		bm = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
 		dockHandler = new Handler(Looper.getMainLooper());
+
 		iconParserUtilities = new IconParserUtilities(context);
 
 	}
@@ -503,6 +507,7 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 		updateDockShape();
 		applyTheme();
 		updateMenuIcon();
+		loadPinnedApps();
 		placeRunningApps();
 		updateDockTrigger();
 
@@ -612,17 +617,20 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	@Override
 	public void onAccessibilityEvent(AccessibilityEvent event) {
 		if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-			String currentApp = String.valueOf(event.getPackageName());
 			String currentActivity = String.valueOf(event.getClassName());
-
-			if (currentActivity.contains(currentApp) && !currentActivity.equals(previousActivity)) {
+			if (currentActivity.equals("null") || currentActivity.contains("android.app.")
+					|| currentActivity.contains("android.widget."))
+				return;
+			if (!currentActivity.equals(previousActivity)) {
 				// Activity changed
 				//TODO: Filter current input method
 				previousActivity = currentActivity;
 				if (isPinned)
 					updateRunningTasks();
 			}
-		} else if (isPinned && sp.getBoolean("custom_toasts", false)
+		}
+
+		else if (isPinned && sp.getBoolean("custom_toasts", false)
 				&& event.getEventType() == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED
 				&& !(event.getParcelableData() instanceof Notification)) {
 
@@ -708,38 +716,16 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 				DeviceUtils.sotfReboot();
 
 			//Window management
-			else if (event.getKeyCode() == KeyEvent.KEYCODE_F1) {
-				if (tasks.size() > 0) {
-					AppTask task = tasks.get(0);
-					AppUtils.resizeTask(context, "standard", task.getID(), dockLayout.getMeasuredHeight(),
-							preferLastDisplay);
-				}
-			} else if (event.getKeyCode() == KeyEvent.KEYCODE_F2) {
-				if (tasks.size() > 0) {
-					AppTask task = tasks.get(0);
-					AppUtils.resizeTask(context, "maximized", task.getID(), dockLayout.getMeasuredHeight(),
-							preferLastDisplay);
-				}
-			} else if (event.getKeyCode() == KeyEvent.KEYCODE_F3) {
+			else if (event.getKeyCode() == KeyEvent.KEYCODE_F3) {
 				if (tasks.size() > 0) {
 					AppTask task = tasks.get(0);
 					AppUtils.resizeTask(context, "portrait", task.getID(), dockLayout.getMeasuredHeight(),
 							preferLastDisplay);
 				}
-			} else if (event.getKeyCode() == KeyEvent.KEYCODE_F4) {
-				if (tasks.size() > 0) {
-					AppTask task = tasks.get(0);
-					String stackId = AppUtils.findStackId(context, task.getID());
-					//AppUtils.removeTask(am, AppUtils.getRunningTasks(am, pm, maxApps).get(0).getID());
-
-					if (stackId != null)
-						AppUtils.removeStack(stackId);
-				}
-
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
 				if (tasks.size() > 0) {
 					AppTask task = tasks.get(0);
-					AppUtils.resizeTask(context, "tiled-top", task.getID(), dockLayout.getMeasuredHeight(),
+					AppUtils.resizeTask(context, "maximized", task.getID(), dockLayout.getMeasuredHeight(),
 							preferLastDisplay);
 				}
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
@@ -757,14 +743,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			} else if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
 				if (tasks.size() > 0) {
 					AppTask task = tasks.get(0);
-					AppUtils.resizeTask(context, "tiled-bottom", task.getID(), dockLayout.getMeasuredHeight(),
+					AppUtils.resizeTask(context, "standard", task.getID(), dockLayout.getMeasuredHeight(),
 							preferLastDisplay);
 				}
 			}
 		} else if (event.getAction() == KeyEvent.ACTION_UP)
 
 		{
-
 			int menuKey = Integer.parseInt(sp.getString("menu_key", "3"));
 
 			if (event.getKeyCode() == KeyEvent.KEYCODE_CTRL_RIGHT && sp.getBoolean("enable_ctrl_back", true)) {
@@ -815,7 +800,6 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 			wm.updateViewLayout(dock, dockLayoutParams);
 		}
 		dockHandler.removeCallbacksAndMessages(null);
-		loadPinnedApps();
 		updateRunningTasks();
 		Animation anim = AnimationUtils.loadAnimation(context, R.anim.slide_up);
 		dockLayout.setVisibility(View.VISIBLE);
@@ -1363,7 +1347,13 @@ public class DockService extends AccessibilityService implements SharedPreferenc
 	}
 
 	private void updateRunningTasks() {
-		Toast.makeText(context, "Updating running apps...", Toast.LENGTH_LONG).show();
+		long now = System.currentTimeMillis();
+		if (now - lastUpdate < 500)
+			return;
+
+		lastUpdate = now;
+
+		//Toast.makeText(context, "Updating running apps...", Toast.LENGTH_LONG).show();
 		ArrayList<DockApp> apps = new ArrayList<>();
 
 		for (App pinnedApp : pinnedApps) {
