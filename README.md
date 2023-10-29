@@ -10,7 +10,7 @@
 - Multi window support
 - Keyboard shortcuts
 - Support for both desktop and tablet layouts
-- Compatible with all Android versions since Lollipop, no root required
+- Compatible with all Android versions since Nougat, no root required
 
 ## Install
 
@@ -28,21 +28,8 @@ Without this functionallity will be limited.
 ### Grant restricted permissions: 
 On some devices Accessibility and Notification permissions might not be available. To solve this go to:  System Settings > Apps > Smartdock > 3 Dot menu (Top right corner) > Allow restricted permissions
 
-### Hide Android navigation buttons: 
-You should also hide the Android navigation buttons. There are several ways to do this
-
-**With root:**
-- From Smart Dock advanced settings
-- Edit /system/build.prop and add qemu.hw.mainkeys=1
-- Run "echo qemu.hw.mainkeys=1 >> /system/build.prop"
-
-**Without root**
-- Mount the system partition on Linux, edit /system/build.prop and add qemu.hw.mainkeys=1  
-- For waydroid users, from Linux run waydroid prop set qemu.hw.mainkeys 1
-
-**With LSPosed (might help on Android 11+):**
-
-[See LSPosed](LSPosed.md)
+You might also want to hide the Android navigation bar.
+[See hiding navigation bar](HideNav.md)
 
 The app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
 

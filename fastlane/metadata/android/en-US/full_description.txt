@@ -4,4 +4,4 @@ Main features:
 * Multi window support
 * Keyboard shortcuts
 * Support for both desktop and tablet layouts
-* Compatible with all Android versions since Lollipop, no root required
+* Compatible with all Android versions since Nougat, no root required
