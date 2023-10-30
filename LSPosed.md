@@ -13,4 +13,4 @@ and choose "Hide navigation bar"
 5. Now you can toggle expanded desktop mode from power menu.
 (use Ctrl+Alt+Del for power menu)
 
-*. Alternatively you can toggle Navigation bar tweaks from GravityBox and you can change height and width of navbar to 0%.
+**Alternatively you can toggle Navigation bar tweaks from GravityBox and you can change height and width of navbar to 0%.**
