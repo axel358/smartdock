@@ -1,11 +1,11 @@
 <div align="center">
   <h1>Smart Dock</h1>
-  A user-friendly desktop mode launcher that offers a modern and customizable user interface
+  A user-friendly desktop mode launcher that offers a modern and customizable user interface.
 </div>
 
 ![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/1.png)
 
-## Main features
+## Main Features
 - Very customizable, icons, colors, shapes, sounds
 - Multi window support
 - Keyboard shortcuts
@@ -18,14 +18,14 @@
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/cu.axel.smartdock)
 
-You can grab the latest release from F-Droid
+You can grab the latest release from F-Droid.
 
 Note: The application should be installed as a system app in order to obtain the right permissions.
 Without this functionality will be limited.
 
 ## Usage
 
-### Grant restricted permissions: 
+### Grant Restricted Permissions: 
 On some devices Accessibility and Notification permissions might not be available. To solve this go to:  System Settings > Apps > Smartdock > 3 Dot menu (Top right corner) > Allow restricted permissions
 
 You might also want to hide the Android navigation bar.
@@ -33,11 +33,11 @@ You might also want to hide the Android navigation bar.
 
 The app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
 
-## Get help and ask questions 
+## Get Help and ask Questions 
 
 Telegram support group: https://t.me/smartdock358
 
-## Support the project
+## Support the Project
 
 If you find this project useful or it has helped you in any way, consider showing your appreciation and supporting its ongoing development. 
 
