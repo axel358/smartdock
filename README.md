@@ -21,12 +21,12 @@
 You can grab the latest release from F-Droid
 
 Note: The application should be installed as a system app in order to obtain the right permissions.
-Without this functionality will be limited.
+Without this, the functionality will be limited.
 
 ## Usage
 
 ### Grant restricted permissions: 
-On some devices Accessibility and Notification permissions might not be available. To solve this go to:  System Settings > Apps > Smartdock > 3 Dot menu (Top right corner) > Allow restricted permissions
+On some devices Accessibility and Notification permissions might not be available. To resolve this, go to:  System Settings > Apps > Smartdock > 3 Dot menu (Top right corner) > Allow restricted permissions
 
 You might also want to hide the Android navigation bar.
 [See hiding navigation bar](HideNav.md)
