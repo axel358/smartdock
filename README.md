@@ -6,11 +6,11 @@
 ![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/1.png)
 
 ## Main features
-- Very customizable, icons, colors, shapes, sounds
-- Multi window support
-- Keyboard shortcuts
-- Support for both desktop and tablet layouts
-- Compatible with all Android versions since Nougat, no root required
+- Highly customizable with options for icons, colors, shapes, and sounds.
+- Multi-tasking support, including split-screen functionality.
+- Keyboard shortcuts for improved productivity.
+- User-friendly interface with support for both desktop and tablet layouts.
+- Compatibility with Android versions since Nougat, with no root access required
 
 ## Install
 
