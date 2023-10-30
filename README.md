@@ -16,7 +16,7 @@
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/packages/cu.axel.smartdock)
+    height="80">](https://f-droid.org/packages/cu.axel.smartdock){:target="_blank"}
 
 You can grab the latest release from F-Droid
 
