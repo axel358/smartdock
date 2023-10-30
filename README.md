@@ -21,7 +21,7 @@
 You can grab the latest release from F-Droid
 
 Note: The application should be installed as a system app in order to obtain the right permissions.
-Without this functionallity will be limited.
+Without this functionality will be limited.
 
 ## Usage
 
