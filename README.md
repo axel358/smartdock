@@ -20,8 +20,7 @@
 
 You can grab the latest release from F-Droid
 
-Note: The application should be installed as a system app in order to obtain the right permissions.
-Without this functionality will be limited.
+The application should be installed as a system app in order to obtain the right permissions. Without this functionality, its capabilities will be limited.
 
 ## Usage
 
