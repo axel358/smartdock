@@ -5,12 +5,12 @@
 
 ![Screenshot](fastlane/metadata/android/en-US/images/phoneScreenshots/1.png)
 
-## Main Features
-- Very customizable, icons, colors, shapes, sounds
-- Multi window support
-- Keyboard shortcuts
-- Support for both desktop and tablet layouts
-- Compatible with all Android versions since Nougat, no root required
+# Main Features
+- Very customizable, icons, colors, shapes, sounds.
+- Multi window support.
+- Keyboard shortcuts.
+- Support for both desktop and tablet layouts.
+- Compatible with all Android versions since Nougat, no root required.
 
 ## Install
 
@@ -26,7 +26,7 @@ Without this functionality will be limited.
 ## Usage
 
 ### Grant Restricted Permissions: 
-On some devices Accessibility and Notification permissions might not be available. To solve this go to:  System Settings > Apps > Smartdock > 3 Dot menu (Top right corner) > Allow restricted permissions
+On some devices Accessibility and Notification permissions might not be available. To solve this go to:  System Settings > Apps > Smartdock > 3 Dot menu (Top right corner) > Allow restricted permissions.
 
 You might also want to hide the Android navigation bar.
 [See hiding navigation bar](HideNav.md)
@@ -53,6 +53,6 @@ TMkshYYHaYKZuZftWYpPmn3VsF8uZUepiz
 
 Thank you for your support!
 
-## Contributors
+# Contributors
 
 [See contributors](Contributors.md)
