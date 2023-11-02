@@ -1,4 +1,4 @@
-# Contributing to SmartDock
+# Contributing to Smart Dock
 
 Thank you for your interest in contributing to the SmartDock project. Your contributions can help us enhance this innovative docking software. We have outlined the following guidelines to ensure a smooth and collaborative experience:
 
