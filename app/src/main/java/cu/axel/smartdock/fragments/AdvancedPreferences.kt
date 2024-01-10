@@ -97,8 +97,8 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                 }
             }
         }
-        hideNav.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, p2: Any ->
-            if (p2 as Boolean) {
+        hideNav.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue as Boolean) {
                 val status = DeviceUtils.runAsRoot("echo qemu.hw.mainkeys=1 >> /system/build.prop")
                 if (status != "error") {
                     hideNav.sharedPreferences!!.edit().putBoolean("navbar_fix", false).apply()
@@ -164,7 +164,9 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
         val dialog = MaterialAlertDialogBuilder(context)
         dialog.setTitle(getString(R.string.reboot_required_title))
         dialog.setMessage(getString(R.string.reboot_required_text))
-        dialog.setPositiveButton(getString(R.string.ok)) { _, _ -> if (softReboot) DeviceUtils.softReboot() else DeviceUtils.reboot() }
+        dialog.setPositiveButton(getString(R.string.ok)) { _, _ ->
+            if (softReboot) DeviceUtils.softReboot() else DeviceUtils.reboot()
+        }
         dialog.setNegativeButton(getString(R.string.cancel), null)
         dialog.show()
     }

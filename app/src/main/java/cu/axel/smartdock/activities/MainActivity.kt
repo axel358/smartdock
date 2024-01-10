@@ -1,6 +1,5 @@
 package cu.axel.smartdock.activities
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
@@ -127,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         val dialog = MaterialAlertDialogBuilder(this)
         dialog.setTitle(R.string.choose_dock_layout)
         val layout = sharedPreferences.getInt("dock_layout", -1)
-        dialog.setSingleChoiceItems(R.array.layouts, layout) { _: DialogInterface?, which: Int ->
+        dialog.setSingleChoiceItems(R.array.layouts, layout) { _, which ->
             editor.putBoolean("enable_nav_back", which != 0)
             editor.putBoolean("enable_nav_home", which != 0)
             editor.putBoolean("enable_nav_recents", which != 0)

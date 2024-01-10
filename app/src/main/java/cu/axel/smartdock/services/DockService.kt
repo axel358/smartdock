@@ -189,10 +189,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         volBtn = dock.findViewById(R.id.volume_btn)
         batteryBtn = dock.findViewById(R.id.battery_btn)
         dateTv = dock.findViewById(R.id.date_btn)
-        dock.setOnHoverListener { _: View?, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_HOVER_ENTER) {
+        dock.setOnHoverListener { _, event ->
+            if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
                 if (dockLayout.visibility == View.GONE) showDock()
-            } else if (p2.action == MotionEvent.ACTION_HOVER_EXIT) if (dockLayout.visibility == View.VISIBLE) {
+            } else if (event.action == MotionEvent.ACTION_HOVER_EXIT) if (dockLayout.visibility == View.VISIBLE) {
                 hideDock(sharedPreferences.getString("dock_hide_delay", "500")!!.toInt())
             }
             false
@@ -273,15 +273,15 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         topRightCorner.setBackgroundResource(R.drawable.corner_background)
         bottomRightCorner = Button(context)
         bottomRightCorner.setBackgroundResource(R.drawable.corner_background)
-        topRightCorner.setOnHoverListener { _: View?, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_HOVER_ENTER) {
+        topRightCorner.setOnHoverListener { _, event ->
+            if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
                 val handler = Handler(mainLooper)
                 handler.postDelayed({ if (topRightCorner.isHovered) performGlobalAction(GLOBAL_ACTION_RECENTS) }, sharedPreferences.getString("hot_corners_delay", "300")!!.toInt().toLong())
             }
             false
         }
-        bottomRightCorner.setOnHoverListener { _: View?, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_HOVER_ENTER) {
+        bottomRightCorner.setOnHoverListener { _, event ->
+            if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
                 val handler = Handler(mainLooper)
                 handler.postDelayed({ if (bottomRightCorner.isHovered) DeviceUtils.lockScreen(context) }, sharedPreferences.getString("hot_corners_delay", "300")!!.toInt().toLong())
             }
@@ -341,9 +341,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             }
         }
 
-        searchEt.setOnKeyListener { _: View?, p2: Int, event: KeyEvent ->
+        searchEt.setOnKeyListener { _, code, event ->
             if (event.action == KeyEvent.ACTION_DOWN) {
-                if (p2 == KeyEvent.KEYCODE_ENTER && searchEt.text.toString().length > 1) {
+                if (code == KeyEvent.KEYCODE_ENTER && searchEt.text.toString().length > 1) {
                     try {
                         launchApp(null,
                                 Intent(Intent.ACTION_VIEW,
@@ -354,16 +354,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         throw RuntimeException(e)
                     }
                     true
-                } else if (p2 == KeyEvent.KEYCODE_DPAD_DOWN) appsGv.requestFocus()
+                } else if (code == KeyEvent.KEYCODE_DPAD_DOWN) appsGv.requestFocus()
             }
             false
         }
         UpdateAppMenuTask().execute()
 
         //TODO: Filter app button menu click only
-        appMenu.setOnTouchListener { _, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_OUTSIDE
-                    && (p2.y < appMenu.measuredHeight || p2.x > appMenu.measuredWidth)) {
+        appMenu.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_OUTSIDE
+                    && (event.y < appMenu.measuredHeight || event.x > appMenu.measuredWidth)) {
                 hideAppMenu()
             }
             false
@@ -457,16 +457,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             val location = IntArray(2)
             anchor.getLocationOnScreen(location)
             lp.x = location[0]
-            view.setOnTouchListener { _, p2: MotionEvent ->
-                if (p2.action == MotionEvent.ACTION_OUTSIDE) {
+            view.setOnTouchListener { _, event ->
+                if (event.action == MotionEvent.ACTION_OUTSIDE) {
                     windowManager.removeView(view)
                 }
                 false
             }
             val tasksLv = view.findViewById<ListView>(R.id.tasks_lv)
             tasksLv.adapter = AppTaskAdapter(context, tasks)
-            tasksLv.onItemClickListener = OnItemClickListener { adapter: AdapterView<*>, _, position: Int, _ ->
-                am.moveTaskToFront((adapter.getItemAtPosition(position) as AppTask).id, 0)
+            tasksLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
+                am.moveTaskToFront((adapterView.getItemAtPosition(position) as AppTask).id, 0)
                 windowManager.removeView(view)
             }
             windowManager.addView(view, lp)
@@ -831,7 +831,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         //Load user info
         val avatarIv = appMenu.findViewById<ImageView>(R.id.avatar_iv)
         val userNameTv = appMenu.findViewById<TextView>(R.id.user_name_tv)
-        avatarIv.setOnClickListener { anchor: View -> showUserContextMenu(anchor) }
+        avatarIv.setOnClickListener { anchor -> showUserContextMenu(anchor) }
         if (AppUtils.isSystemApp(context, packageName)) {
             val name = DeviceUtils.getUserName(context)
             if (name != null) userNameTv.text = name
@@ -870,17 +870,17 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         anchor.getLocationOnScreen(location)
         lp.x = location[0]
         lp.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
-        view.setOnTouchListener { _, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_OUTSIDE) {
+        view.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_OUTSIDE) {
                 windowManager.removeView(view)
             }
             false
         }
         val actionsLv = view.findViewById<ListView>(R.id.tasks_lv)
         actionsLv.adapter = AppActionsAdapter(context, getAppActions(app))
-        actionsLv.onItemClickListener = OnItemClickListener { p1: AdapterView<*>, _, p3: Int, _ ->
-            if (p1.getItemAtPosition(p3) is Action) {
-                val action = p1.getItemAtPosition(p3) as Action
+        actionsLv.setOnItemClickListener { adapterView, _, position, _ ->
+            if (adapterView.getItemAtPosition(position) is Action) {
+                val action = adapterView.getItemAtPosition(position) as Action
                 if (action.text == getString(R.string.manage)) {
                     val actions = ArrayList<Action>()
                     actions.add(Action(R.drawable.ic_arrow_back, ""))
@@ -939,8 +939,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     windowManager.removeView(view)
                     launchApp("fullscreen", app)
                 }
-            } else if (Build.VERSION.SDK_INT > 24 && p1.getItemAtPosition(p3) is ShortcutInfo) {
-                val shortcut = p1.getItemAtPosition(p3) as ShortcutInfo
+            } else if (Build.VERSION.SDK_INT > 24 && adapterView.getItemAtPosition(position) is ShortcutInfo) {
+                val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
                 windowManager.removeView(view)
                 DeepShortcutManager.startShortcut(shortcut, context)
             }
@@ -960,8 +960,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
         lp.x = location[0]
-        view.setOnTouchListener { _, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_OUTSIDE) {
+        view.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_OUTSIDE) {
                 windowManager.removeView(view)
             }
             false
@@ -1008,8 +1008,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         anchor.getLocationOnScreen(location)
         lp.x = location[0]
         lp.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
-        view.setOnTouchListener { _, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_OUTSIDE) {
+        view.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_OUTSIDE) {
                 windowManager.removeView(view)
             }
             false
@@ -1021,8 +1021,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         actions.add(Action(R.drawable.ic_user_settings, getString(R.string.settings)))
         actions.add(Action(R.drawable.ic_settings, getString(R.string.dock_settings)))
         actionsLv.adapter = AppActionsAdapter(context, actions)
-        actionsLv.onItemClickListener = OnItemClickListener { p1: AdapterView<*>, _, position: Int, _ ->
-            val action = p1.getItemAtPosition(position) as Action
+        actionsLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
+            val action = adapterView.getItemAtPosition(position) as Action
             when (action.text) {
                 getString(R.string.users) -> launchApp(null, Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 getString(R.string.files) -> launchApp(null,
@@ -1210,9 +1210,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         lp.gravity = Gravity.BOTTOM or Gravity.END
         audioPanel = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
                 .inflate(R.layout.audio_panel, null) as LinearLayout
-        audioPanel!!.setOnTouchListener { _, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_OUTSIDE
-                    && (p2.y < audioPanel!!.measuredHeight || p2.x < audioPanel!!.x)) {
+        audioPanel!!.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_OUTSIDE
+                    && (event.y < audioPanel!!.measuredHeight || event.x < audioPanel!!.x)) {
                 hideAudioPanel()
             }
             false
@@ -1252,9 +1252,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         lp.gravity = Gravity.BOTTOM or Gravity.END
         wifiPanel = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
                 .inflate(R.layout.wifi_panel, null) as LinearLayout
-        wifiPanel!!.setOnTouchListener { _, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_OUTSIDE
-                    && (p2.y < wifiPanel!!.measuredHeight || p2.x < wifiPanel!!.x)) {
+        wifiPanel!!.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_OUTSIDE
+                    && (event.y < wifiPanel!!.measuredHeight || event.x < wifiPanel!!.x)) {
                 hideWiFiPanel()
             }
             false

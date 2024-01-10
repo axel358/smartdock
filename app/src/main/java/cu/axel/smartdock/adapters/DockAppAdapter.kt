@@ -85,14 +85,14 @@ class DockAppAdapter(private val context: Context, private val apps: ArrayList<D
         }
 
         fun bind(app: DockApp, listener: OnDockAppClickListener) {
-            itemView.setOnClickListener { v -> listener.onDockAppClicked(app, v) }
-            itemView.setOnLongClickListener { v ->
-                listener.onDockAppLongClicked(app, v)
+            itemView.setOnClickListener { view -> listener.onDockAppClicked(app, view) }
+            itemView.setOnLongClickListener { view ->
+                listener.onDockAppLongClicked(app, view)
                 true
             }
-            itemView.setOnTouchListener { v, event ->
+            itemView.setOnTouchListener { view, event ->
                 if (event.buttonState == MotionEvent.BUTTON_SECONDARY) {
-                    listener.onDockAppLongClicked(app, v)
+                    listener.onDockAppLongClicked(app, view)
                     return@setOnTouchListener true
                 }
                 false

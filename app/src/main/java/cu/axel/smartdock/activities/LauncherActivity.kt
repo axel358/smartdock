@@ -15,7 +15,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -65,17 +64,17 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                 .setOnClickListener { startActivity(Intent(this@LauncherActivity, MainActivity::class.java)) }
         backgroundLayout.setOnLongClickListener {
             val view = LayoutInflater.from(this@LauncherActivity).inflate(R.layout.task_list, null)
-            val lp = Utils.makeWindowParams(-2, -2, this@LauncherActivity, false)
+            val layoutParams = Utils.makeWindowParams(-2, -2, this@LauncherActivity, false)
             ColorUtils.applyMainColor(this@LauncherActivity, sharedPreferences, view)
-            lp.gravity = Gravity.TOP or Gravity.START
-            lp.flags = (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+            layoutParams.gravity = Gravity.TOP or Gravity.START
+            layoutParams.flags = (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH)
-            lp.x = x.toInt()
-            lp.y = y.toInt()
-            val wm = getSystemService(WINDOW_SERVICE) as WindowManager
+            layoutParams.x = x.toInt()
+            layoutParams.y = y.toInt()
+            val windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
             view.setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_OUTSIDE) {
-                    wm.removeView(view)
+                    windowManager.removeView(view)
                 }
                 false
             }
@@ -88,9 +87,9 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                 val action = adapterView.getItemAtPosition(position) as Action
                 if (action.text == getString(R.string.change_wallpaper)) startActivityForResult(Intent.createChooser(Intent(Intent.ACTION_SET_WALLPAPER),
                         getString(R.string.change_wallpaper)), 18) else if (action.text == getString(R.string.display_settings)) startActivity(Intent(Settings.ACTION_DISPLAY_SETTINGS))
-                wm.removeView(view)
+                windowManager.removeView(view)
             }
-            wm.addView(view, lp)
+            windowManager.addView(view, layoutParams)
             true
         }
         backgroundLayout.setOnTouchListener { _, event ->
@@ -185,19 +184,19 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
 
     @SuppressLint("NewApi")
     private fun showAppContextMenu(app: String, anchor: View) {
-        val wm = getSystemService(WINDOW_SERVICE) as WindowManager
+        val windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         val view = LayoutInflater.from(this).inflate(R.layout.task_list, null)
-        val lp = Utils.makeWindowParams(-2, -2, this, false)
+        val layoutParams = Utils.makeWindowParams(-2, -2, this, false)
         ColorUtils.applyMainColor(this@LauncherActivity, sharedPreferences, view)
-        lp.gravity = Gravity.TOP or Gravity.START
-        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+        layoutParams.gravity = Gravity.TOP or Gravity.START
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
-        lp.x = location[0]
-        lp.y = location[1] + Utils.dpToPx(this, anchor.measuredHeight / 2)
+        layoutParams.x = location[0]
+        layoutParams.y = location[1] + Utils.dpToPx(this, anchor.measuredHeight / 2)
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_OUTSIDE) {
-                wm.removeView(view)
+                windowManager.removeView(view)
             }
             false
         }
@@ -239,56 +238,56 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                     getString(R.string.app_info) -> {
                         startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                                 .setData(Uri.parse("package:$app")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                        wm.removeView(view)
+                        windowManager.removeView(view)
                     }
 
                     getString(R.string.uninstall) -> {
                         @Suppress("DEPRECATION")
                         if (AppUtils.isSystemApp(this@LauncherActivity, app)) DeviceUtils.runAsRoot("pm uninstall --user 0 $app") else startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                        wm.removeView(view)
+                        windowManager.removeView(view)
                     }
 
                     getString(R.string.freeze) -> {
                         val status = DeviceUtils.runAsRoot("pm disable $app")
                         if (status != "error") Toast.makeText(this@LauncherActivity, R.string.app_frozen, Toast.LENGTH_SHORT).show() else Toast.makeText(this@LauncherActivity, R.string.something_wrong, Toast.LENGTH_SHORT).show()
-                        wm.removeView(view)
+                        windowManager.removeView(view)
                         loadDesktopApps()
                     }
 
                     getString(R.string.remove) -> {
                         AppUtils.unpinApp(this@LauncherActivity, app, AppUtils.DESKTOP_LIST)
-                        wm.removeView(view)
+                        windowManager.removeView(view)
                         loadDesktopApps()
                     }
 
                     getString(R.string.standard) -> {
-                        wm.removeView(view)
+                        windowManager.removeView(view)
                         launchApp("standard", app)
                     }
 
                     getString(R.string.maximized) -> {
-                        wm.removeView(view)
+                        windowManager.removeView(view)
                         launchApp("maximized", app)
                     }
 
                     getString(R.string.portrait) -> {
-                        wm.removeView(view)
+                        windowManager.removeView(view)
                         launchApp("portrait", app)
                     }
 
                     getString(R.string.fullscreen) -> {
-                        wm.removeView(view)
+                        windowManager.removeView(view)
                         launchApp("fullscreen", app)
                     }
                 }
             } else if (adapterView.getItemAtPosition(position) is ShortcutInfo) {
                 val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
-                wm.removeView(view)
+                windowManager.removeView(view)
                 DeepShortcutManager.startShortcut(shortcut, this@LauncherActivity)
             }
         }
-        wm.addView(view, lp)
+        windowManager.addView(view, layoutParams)
     }
 
     override fun onAppClicked(app: App, item: View) {

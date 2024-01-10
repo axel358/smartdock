@@ -89,11 +89,11 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         windowManager.addView(notificationLayout, layoutParams)
         handler = Handler(Looper.getMainLooper())
         notificationLayout.alpha = 0f
-        notificationLayout.setOnHoverListener { _, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_HOVER_ENTER) {
+        notificationLayout.setOnHoverListener { _, event ->
+            if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
                 notifCancelBtn.visibility = View.VISIBLE
                 handler.removeCallbacksAndMessages(null)
-            } else if (p2.action == MotionEvent.ACTION_HOVER_EXIT) {
+            } else if (event.action == MotionEvent.ACTION_HOVER_EXIT) {
                 Handler(Looper.getMainLooper()).postDelayed({ notifCancelBtn.visibility = View.INVISIBLE }, 200)
                 hideNotification()
             }
@@ -349,9 +349,9 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         separator.isLastItemDecorated = false
         notificationsLv!!.addItemDecoration(separator)
         updateNotificationPanel()
-        notificationPanel!!.setOnTouchListener { _, p2: MotionEvent ->
-            if (p2.action == MotionEvent.ACTION_OUTSIDE
-                    && (p2.y < notificationPanel!!.measuredHeight || p2.x < notificationPanel!!.x)) {
+        notificationPanel!!.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_OUTSIDE
+                    && (event.y < notificationPanel!!.measuredHeight || event.x < notificationPanel!!.x)) {
                 hideNotificationPanel()
             }
             false

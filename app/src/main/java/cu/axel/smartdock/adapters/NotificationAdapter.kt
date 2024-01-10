@@ -103,7 +103,9 @@ class NotificationAdapter(private val context: Context,
         viewHolder.notifText.text = notificationText
         if (sbn.isClearable) {
             viewHolder.notifCancelBtn.alpha = 1f
-            viewHolder.notifCancelBtn.setOnClickListener { view -> if (sbn.isClearable) listener.onNotificationCancelClicked(sbn, view) }
+            viewHolder.notifCancelBtn.setOnClickListener { view ->
+                if (sbn.isClearable) listener.onNotificationCancelClicked(sbn, view)
+            }
         } else viewHolder.notifCancelBtn.alpha = 0f
         val notificationIcon = AppUtils.getAppIcon(context, sbn.packageName)
         viewHolder.notifIcon.setImageDrawable(notificationIcon)
@@ -135,7 +137,9 @@ class NotificationAdapter(private val context: Context,
         }
 
         fun bind(notification: StatusBarNotification, listener: OnNotificationClickListener) {
-            itemView.setOnClickListener { view -> listener.onNotificationClicked(notification, view) }
+            itemView.setOnClickListener { view ->
+                listener.onNotificationClicked(notification, view)
+            }
             itemView.setOnLongClickListener { view ->
                 listener.onNotificationLongClicked(notification, view)
                 true
