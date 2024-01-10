@@ -16,12 +16,11 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.R
-import cu.axel.smartdock.icons.IconParserUtilities
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.Utils
 import java.util.Locale
 
-class AppAdapter(private val context: Context, private val iconParserUtilities: IconParserUtilities, private var apps: ArrayList<App>,
+class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
                  private val listener: OnAppClickListener, private val large: Boolean) : RecyclerView.Adapter<AppAdapter.ViewHolder>() {
     private val allApps: ArrayList<App> = ArrayList(apps)
     private var iconBackground = 0
@@ -35,10 +34,10 @@ class AppAdapter(private val context: Context, private val iconParserUtilities: 
     }
 
     init {
-        val sp = PreferenceManager.getDefaultSharedPreferences(context)
-        iconPadding = Utils.dpToPx(context, sp.getString("icon_padding", "5")!!.toInt())
-        iconTheming = sp.getString("icon_pack", "") != ""
-        when (sp.getString("icon_shape", "circle")) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
+        iconTheming = sharedPreferences.getString("icon_pack", "") != ""
+        when (sharedPreferences.getString("icon_shape", "circle")) {
             "circle" -> iconBackground = R.drawable.circle
             "round_rect" -> iconBackground = R.drawable.round_square
             "default" -> iconBackground = -1
@@ -67,7 +66,7 @@ class AppAdapter(private val context: Context, private val iconParserUtilities: 
         } else {
             viewHolder.nameTv.text = name
         }
-        if (iconTheming) viewHolder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.packageName)) else viewHolder.iconIv.setImageDrawable(app.icon)
+        viewHolder.iconIv.setImageDrawable(app.icon)
         if (iconBackground != -1) {
             viewHolder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding)
             viewHolder.iconIv.setBackgroundResource(iconBackground)
@@ -110,14 +109,14 @@ class AppAdapter(private val context: Context, private val iconParserUtilities: 
         }
 
         fun bind(app: App, listener: OnAppClickListener) {
-            itemView.setOnClickListener { v: View -> listener.onAppClicked(app, v) }
-            itemView.setOnLongClickListener { v: View ->
-                listener.onAppLongClicked(app, v)
+            itemView.setOnClickListener { view -> listener.onAppClicked(app, view) }
+            itemView.setOnLongClickListener { view ->
+                listener.onAppLongClicked(app, view)
                 true
             }
-            itemView.setOnTouchListener { v: View, p2: MotionEvent ->
-                if (p2.buttonState == MotionEvent.BUTTON_SECONDARY) {
-                    listener.onAppLongClicked(app, v)
+            itemView.setOnTouchListener { view, event ->
+                if (event.buttonState == MotionEvent.BUTTON_SECONDARY) {
+                    listener.onAppLongClicked(app, view)
                     return@setOnTouchListener true
                 }
                 false

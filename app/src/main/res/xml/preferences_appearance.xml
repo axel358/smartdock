@@ -11,9 +11,6 @@
             android:summary="@string/theme_main_color_summary"
             android:key="theme_main_color"
             android:title="@string/theme_main_color_title"/>
-        <cu.axel.smartdock.preferences.IconPackPreference
-            android:key="icon_pack"
-            android:defaultValue=""/>
         <ListPreference
             android:entries="@array/icon_shapes"  
             android:entryValues="@array/icon_shapes_values" 

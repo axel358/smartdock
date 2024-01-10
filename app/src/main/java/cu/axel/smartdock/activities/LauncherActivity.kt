@@ -31,7 +31,6 @@ import cu.axel.smartdock.adapters.AppActionsAdapter
 import cu.axel.smartdock.adapters.AppAdapter
 import cu.axel.smartdock.adapters.AppAdapter.OnAppClickListener
 import cu.axel.smartdock.adapters.AppShortcutAdapter
-import cu.axel.smartdock.icons.IconParserUtilities
 import cu.axel.smartdock.models.Action
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.utils.AppUtils
@@ -50,10 +49,9 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
     private lateinit var serviceBtn: MaterialButton
     private lateinit var appsGv: RecyclerView
     private lateinit var notesEt: EditText
-    private lateinit var sp: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private var x = 0f
     private var y = 0f
-    private lateinit var iconParserUtilities: IconParserUtilities
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launcher)
@@ -62,14 +60,13 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         appsGv = findViewById(R.id.desktop_apps_gv)
         appsGv.layoutManager = GridLayoutManager(this, 2)
         notesEt = findViewById(R.id.notes_et)
-        sp = PreferenceManager.getDefaultSharedPreferences(this)
-        iconParserUtilities = IconParserUtilities(this)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         serviceBtn
                 .setOnClickListener { startActivity(Intent(this@LauncherActivity, MainActivity::class.java)) }
         backgroundLayout.setOnLongClickListener {
             val view = LayoutInflater.from(this@LauncherActivity).inflate(R.layout.task_list, null)
             val lp = Utils.makeWindowParams(-2, -2, this@LauncherActivity, false)
-            ColorUtils.applyMainColor(this@LauncherActivity, sp, view)
+            ColorUtils.applyMainColor(this@LauncherActivity, sharedPreferences, view)
             lp.gravity = Gravity.TOP or Gravity.START
             lp.flags = (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH)
@@ -87,8 +84,8 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
             actions.add(Action(R.drawable.ic_wallpaper, getString(R.string.change_wallpaper)))
             actions.add(Action(R.drawable.ic_fullscreen, getString(R.string.display_settings)))
             actionsLv.adapter = AppActionsAdapter(this, actions)
-            actionsLv.onItemClickListener = OnItemClickListener { a1: AdapterView<*>, _: View?, p3: Int, _: Long ->
-                val action = a1.getItemAtPosition(p3) as Action
+            actionsLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
+                val action = adapterView.getItemAtPosition(position) as Action
                 if (action.text == getString(R.string.change_wallpaper)) startActivityForResult(Intent.createChooser(Intent(Intent.ACTION_SET_WALLPAPER),
                         getString(R.string.change_wallpaper)), 18) else if (action.text == getString(R.string.display_settings)) startActivity(Intent(Settings.ACTION_DISPLAY_SETTINGS))
                 wm.removeView(view)
@@ -114,7 +111,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
     }
 
     fun loadDesktopApps() {
-        appsGv.adapter = AppAdapter(this, iconParserUtilities,
+        appsGv.adapter = AppAdapter(this,
                 AppUtils.getPinnedApps(this, packageManager, AppUtils.DESKTOP_LIST), this, true)
     }
 
@@ -123,7 +120,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         sendBroadcastToService("resume")
         if (DeviceUtils.isAccessibilityServiceEnabled(this)) serviceBtn.visibility = View.GONE else serviceBtn.visibility = View.VISIBLE
         loadDesktopApps()
-        if (sp.getBoolean("show_notes", false)) {
+        if (sharedPreferences.getBoolean("show_notes", false)) {
             notesEt.visibility = View.VISIBLE
             loadNotes()
         } else {
@@ -134,7 +131,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
 
     override fun onPause() {
         super.onPause()
-        if (sp.getBoolean("show_notes", false)) saveNotes()
+        if (sharedPreferences.getBoolean("show_notes", false)) saveNotes()
     }
 
     override fun onBackPressed() {}
@@ -191,7 +188,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         val wm = getSystemService(WINDOW_SERVICE) as WindowManager
         val view = LayoutInflater.from(this).inflate(R.layout.task_list, null)
         val lp = Utils.makeWindowParams(-2, -2, this, false)
-        ColorUtils.applyMainColor(this@LauncherActivity, sp, view)
+        ColorUtils.applyMainColor(this@LauncherActivity, sharedPreferences, view)
         lp.gravity = Gravity.TOP or Gravity.START
         lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         val location = IntArray(2)
@@ -206,17 +203,17 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         }
         val actionsLv = view.findViewById<ListView>(R.id.tasks_lv)
         actionsLv.adapter = AppActionsAdapter(this, getAppActions(app))
-        actionsLv.onItemClickListener = OnItemClickListener { p1: AdapterView<*>, _: View?, p3: Int, _: Long ->
-            if (p1.getItemAtPosition(p3) is Action) {
-                val action = p1.getItemAtPosition(p3) as Action
+        actionsLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
+            if (adapterView.getItemAtPosition(position) is Action) {
+                val action = adapterView.getItemAtPosition(position) as Action
                 when (action.text) {
                     getString(R.string.manage) -> {
                         val actions = ArrayList<Action>()
                         actions.add(Action(R.drawable.ic_arrow_back, ""))
                         actions.add(Action(R.drawable.ic_info, getString(R.string.app_info)))
                         if (!AppUtils.isSystemApp(this@LauncherActivity, app)
-                                || sp.getBoolean("allow_sysapp_uninstall", false)) actions.add(Action(R.drawable.ic_uninstall, getString(R.string.uninstall)))
-                        if (sp.getBoolean("allow_app_freeze", false)) actions.add(Action(R.drawable.ic_freeze, getString(R.string.freeze)))
+                                || sharedPreferences.getBoolean("allow_sysapp_uninstall", false)) actions.add(Action(R.drawable.ic_uninstall, getString(R.string.uninstall)))
+                        if (sharedPreferences.getBoolean("allow_app_freeze", false)) actions.add(Action(R.drawable.ic_freeze, getString(R.string.freeze)))
                         actionsLv.adapter = AppActionsAdapter(this@LauncherActivity, actions)
                     }
 
@@ -285,8 +282,8 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                         launchApp("fullscreen", app)
                     }
                 }
-            } else if (p1.getItemAtPosition(p3) is ShortcutInfo) {
-                val shortcut = p1.getItemAtPosition(p3) as ShortcutInfo
+            } else if (adapterView.getItemAtPosition(position) is ShortcutInfo) {
+                val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
                 wm.removeView(view)
                 DeepShortcutManager.startShortcut(shortcut, this@LauncherActivity)
             }

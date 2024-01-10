@@ -16,12 +16,11 @@ import android.widget.TextView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import cu.axel.smartdock.R
-import cu.axel.smartdock.icons.IconParserUtilities
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.Utils
 
-class NotificationAdapter(private val context: Context, private val iconParserUtilities: IconParserUtilities,
+class NotificationAdapter(private val context: Context,
                           private val notifications: Array<StatusBarNotification>, private val listener: OnNotificationClickListener) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
     private var iconBackground = 0
     private val iconPadding: Int
@@ -34,10 +33,10 @@ class NotificationAdapter(private val context: Context, private val iconParserUt
     }
 
     init {
-        val sp = PreferenceManager.getDefaultSharedPreferences(context)
-        iconTheming = sp.getString("icon_pack", "") != ""
-        iconPadding = Utils.dpToPx(context, sp.getString("icon_padding", "5")!!.toInt())
-        when (sp.getString("icon_shape", "circle")) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        iconTheming = sharedPreferences.getString("icon_pack", "") != ""
+        iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
+        when (sharedPreferences.getString("icon_shape", "circle")) {
             "circle" -> iconBackground = R.drawable.circle
             "round_rect" -> iconBackground = R.drawable.round_square
             "default" -> iconBackground = -1
@@ -107,7 +106,7 @@ class NotificationAdapter(private val context: Context, private val iconParserUt
             viewHolder.notifCancelBtn.setOnClickListener { view -> if (sbn.isClearable) listener.onNotificationCancelClicked(sbn, view) }
         } else viewHolder.notifCancelBtn.alpha = 0f
         val notificationIcon = AppUtils.getAppIcon(context, sbn.packageName)
-        if (iconTheming) viewHolder.notifIcon.setImageDrawable(iconParserUtilities.getPackageThemedIcon(sbn.packageName)) else viewHolder.notifIcon.setImageDrawable(notificationIcon)
+        viewHolder.notifIcon.setImageDrawable(notificationIcon)
         if (iconBackground != -1) {
             viewHolder.notifIcon.setPadding(iconPadding, iconPadding, iconPadding, iconPadding)
             viewHolder.notifIcon.setBackgroundResource(iconBackground)

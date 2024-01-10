@@ -37,7 +37,6 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import cu.axel.smartdock.R
 import cu.axel.smartdock.adapters.NotificationAdapter
 import cu.axel.smartdock.adapters.NotificationAdapter.OnNotificationClickListener
-import cu.axel.smartdock.icons.IconParserUtilities
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeviceUtils
@@ -60,7 +59,6 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private lateinit var context: Context
     private var notificationArea: LinearLayout? = null
     private var preferLastDisplay = false
-    private lateinit var iconParserUtilities: IconParserUtilities
     private var y = 0
     private var x = 0
     override fun onCreate() {
@@ -69,7 +67,6 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         preferLastDisplay = sharedPreferences.getBoolean("prefer_last_display", false)
         context = DeviceUtils.getDisplayContext(this, preferLastDisplay)
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
-        iconParserUtilities = IconParserUtilities(context)
         val layoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
                 preferLastDisplay)
         x = Utils.dpToPx(context, 2)
@@ -144,7 +141,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                         "circle" -> iconBackground = R.drawable.circle
                         "round_rect" -> iconBackground = R.drawable.round_square
                     }
-                    if (iconTheming) notifIcon.setImageDrawable(iconParserUtilities.getPackageThemedIcon(sbn.packageName)) else notifIcon.setImageDrawable(notificationIcon)
+                    notifIcon.setImageDrawable(notificationIcon)
                     if (iconBackground != -1) {
                         notifIcon.setPadding(iconPadding, iconPadding, iconPadding, iconPadding)
                         notifIcon.setBackgroundResource(iconBackground)
@@ -377,8 +374,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     }
 
     private fun updateNotificationPanel() {
-        val adapter = NotificationAdapter(context, iconParserUtilities, activeNotifications,
-                this)
+        val adapter = NotificationAdapter(context, activeNotifications, this)
         notificationsLv!!.adapter = adapter
         val lp = notificationsLv!!.layoutParams
         val count = adapter.itemCount

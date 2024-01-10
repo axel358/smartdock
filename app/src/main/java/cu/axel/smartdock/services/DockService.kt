@@ -75,7 +75,6 @@ import cu.axel.smartdock.adapters.AppTaskAdapter
 import cu.axel.smartdock.adapters.DockAppAdapter
 import cu.axel.smartdock.adapters.DockAppAdapter.OnDockAppClickListener
 import cu.axel.smartdock.db.DBHelper
-import cu.axel.smartdock.icons.IconParserUtilities
 import cu.axel.smartdock.models.Action
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
@@ -146,7 +145,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var dateTv: TextClock
     private var maxApps = 0
     private lateinit var context: Context
-    private lateinit var iconParserUtilities: IconParserUtilities
     private lateinit var tasks: ArrayList<AppTask>
     private var lastUpdate: Long = 0
     private var previousActivity: String? = null
@@ -163,7 +161,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         wifiManager = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
         bm = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         dockHandler = Handler(Looper.getMainLooper())
-        iconParserUtilities = IconParserUtilities(context)
     }
 
     override fun onServiceConnected() {
@@ -1110,7 +1107,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (i != -1) apps[i].addTask(task) else apps.add(DockApp(task))
         }
         tasksGv.layoutParams.width = gridSize * apps.size
-        tasksGv.adapter = DockAppAdapter(context, iconParserUtilities, apps, this)
+        tasksGv.adapter = DockAppAdapter(context, apps, this)
 
         //TODO: Move context outta here
         wifiBtn.setImageResource(if (wifiManager.isWifiEnabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off)
@@ -1392,7 +1389,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         toggleFavorites(apps.size > 0)
         val menuFullscreen = sharedPreferences.getBoolean("app_menu_fullscreen", false)
         val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0
-        favoritesGv.adapter = AppAdapter(context, iconParserUtilities, apps, this, menuFullscreen && !phoneLayout)
+        favoritesGv.adapter = AppAdapter(context, apps, this, menuFullscreen && !phoneLayout)
     }
 
     fun takeScreenshot() {
@@ -1431,7 +1428,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             //TODO: Implement efficient adapter
             val menuFullscreen = sharedPreferences.getBoolean("app_menu_fullscreen", false)
             val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0
-            appsGv.adapter = AppAdapter(context, iconParserUtilities, result, this@DockService,
+            appsGv.adapter = AppAdapter(context, result, this@DockService,
                     menuFullscreen && !phoneLayout)
         }
     }

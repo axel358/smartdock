@@ -10,13 +10,12 @@ import android.widget.TextView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import cu.axel.smartdock.R
-import cu.axel.smartdock.icons.IconParserUtilities
 import cu.axel.smartdock.models.DockApp
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.Utils
 
-class DockAppAdapter(private val context: Context, private val iconParserUtilities: IconParserUtilities, private val apps: ArrayList<DockApp>,
+class DockAppAdapter(private val context: Context, private val apps: ArrayList<DockApp>,
                      private val listener: OnDockAppClickListener) : RecyclerView.Adapter<DockAppAdapter.ViewHolder>() {
     private var iconBackground = 0
     private val iconPadding: Int
@@ -29,11 +28,11 @@ class DockAppAdapter(private val context: Context, private val iconParserUtiliti
     }
 
     init {
-        val sp = PreferenceManager.getDefaultSharedPreferences(context)
-        iconTheming = sp.getString("icon_pack", "") != ""
-        iconPadding = Utils.dpToPx(context, sp.getString("icon_padding", "5")!!.toInt())
-        tintIndicators = sp.getBoolean("tint_indicators", false)
-        when (sp.getString("icon_shape", "circle")) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        iconTheming = sharedPreferences.getString("icon_pack", "") != ""
+        iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
+        tintIndicators = sharedPreferences.getBoolean("tint_indicators", false)
+        when (sharedPreferences.getString("icon_shape", "circle")) {
             "circle" -> iconBackground = R.drawable.circle
             "round_rect" -> iconBackground = R.drawable.round_square
             "default" -> iconBackground = -1
@@ -60,7 +59,7 @@ class DockAppAdapter(private val context: Context, private val iconParserUtiliti
                 viewHolder.taskCounter.alpha = 1f
             }
         }
-        if (iconTheming || size > 1) viewHolder.iconIv.setImageDrawable(iconParserUtilities.getPackageThemedIcon(app.packageName)) else viewHolder.iconIv.setImageDrawable(app.icon)
+        viewHolder.iconIv.setImageDrawable(app.icon)
         if (iconBackground != -1) {
             viewHolder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding)
             viewHolder.iconIv.setBackgroundResource(iconBackground)
@@ -86,13 +85,13 @@ class DockAppAdapter(private val context: Context, private val iconParserUtiliti
         }
 
         fun bind(app: DockApp, listener: OnDockAppClickListener) {
-            itemView.setOnClickListener { v: View -> listener.onDockAppClicked(app, v) }
-            itemView.setOnLongClickListener { v: View ->
+            itemView.setOnClickListener { v -> listener.onDockAppClicked(app, v) }
+            itemView.setOnLongClickListener { v ->
                 listener.onDockAppLongClicked(app, v)
                 true
             }
-            itemView.setOnTouchListener { v: View, p2: MotionEvent ->
-                if (p2.buttonState == MotionEvent.BUTTON_SECONDARY) {
+            itemView.setOnTouchListener { v, event ->
+                if (event.buttonState == MotionEvent.BUTTON_SECONDARY) {
                     listener.onDockAppLongClicked(app, v)
                     return@setOnTouchListener true
                 }
