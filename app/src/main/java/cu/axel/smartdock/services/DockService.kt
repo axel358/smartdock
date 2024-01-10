@@ -422,7 +422,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         loadPinnedApps()
         placeRunningApps()
         updateDockTrigger()
-        if (sharedPreferences.getBoolean("pin_dock", true)) pinDock() else Toast.makeText(context, R.string.start_message, Toast.LENGTH_LONG).show()
+        if (sharedPreferences.getBoolean("pin_dock", true))
+            pinDock()
+        else
+            Toast.makeText(context, R.string.start_message, Toast.LENGTH_LONG).show()
     }
 
     private fun getAppActions(app: String): ArrayList<Action> {
@@ -508,7 +511,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 previousActivity = currentActivity
                 if (isPinned) updateRunningTasks()
             }
-        } else if (isPinned && sharedPreferences.getBoolean("custom_toasts", false) && event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED && event.parcelableData !is Notification) {
+        } else if (isPinned && sharedPreferences.getBoolean("custom_toasts", false) && event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED && event.parcelableData !is Notification && event.text.size > 0) {
             val text = event.text[0].toString()
             val app = event.packageName.toString()
             showToast(app, text)
@@ -1024,6 +1027,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 getString(R.string.users) -> launchApp(null, Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 getString(R.string.files) -> launchApp(null,
                         sharedPreferences.getString("app_files", "com.android.documentsui")!!)
+
                 getString(R.string.settings) -> launchApp(null, Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 getString(R.string.dock_settings) -> launchApp(null, Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
