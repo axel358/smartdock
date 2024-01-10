@@ -1,7 +1,6 @@
 package cu.axel.smartdock.preferences
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.preference.Preference
-import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cu.axel.smartdock.R
 import cu.axel.smartdock.models.App
@@ -19,13 +17,13 @@ import cu.axel.smartdock.utils.ColorUtils
 
 
 class AppChooserPreference(private val context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
-    init {
-        setupPreference()
-    }
 
-    private fun setupPreference() {
+    override fun onAttached() {
         val packageName = sharedPreferences!!.getString(key, "")!!
-        summary = if (packageName.isEmpty()) context.getString(R.string.tap_to_set) else AppUtils.getPackageLabel(context, packageName)
+        summary = if (packageName.isEmpty())
+            context.getString(R.string.tap_to_set)
+        else
+            AppUtils.getPackageLabel(context, packageName)
     }
 
     override fun onClick() {
