@@ -262,7 +262,7 @@ object AppUtils {
     }
 
     fun makeLaunchBounds(context: Context, mode: String, dockHeight: Int, secondary: Boolean): Rect {
-        val sp = PreferenceManager.getDefaultSharedPreferences(context)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         var left = 0
         var top = 0
         var right = 0
@@ -270,8 +270,13 @@ object AppUtils {
         val deviceWidth = DeviceUtils.getDisplayMetrics(context, secondary).widthPixels
         val deviceHeight = DeviceUtils.getDisplayMetrics(context, secondary).heightPixels
         val statusHeight = DeviceUtils.getStatusBarHeight(context)
-        val usableHeight = deviceHeight - dockHeight - statusHeight
-        val scaleFactor = sp.getString("scale_factor", "1.0")!!.toFloat()
+        val navHeight = DeviceUtils.getNavBarHeight(context)
+        val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
+        val usableHeight = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+            deviceHeight - diff - DeviceUtils.getStatusBarHeight(context)
+        else
+            deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context)
+        val scaleFactor = sharedPreferences.getString("scale_factor", "1.0")!!.toFloat()
         when (mode) {
             "standard" -> {
                 left = (deviceWidth / (5 * scaleFactor)).toInt()

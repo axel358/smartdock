@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (permissionsDialog.isShowing) {
+        if (::permissionsDialog.isInitialized && permissionsDialog.isShowing) {
             updatePermissionsStatus()
         }
     }
@@ -157,38 +157,38 @@ class MainActivity : AppCompatActivity() {
         }
         if (DeviceUtils.isAccessibilityServiceEnabled(this)) {
             accessibilityBtn.setIconResource(R.drawable.ic_settings)
-            accessibilityBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]))
+            accessibilityBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         } else {
             accessibilityBtn.setIconResource(R.drawable.ic_alert)
-            accessibilityBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[2]))
+            accessibilityBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[2])
         }
         if (DeviceUtils.hasUsageStatsPermission(this)) {
             usageBtn.setIconResource(R.drawable.ic_granted)
-            usageBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]))
+            usageBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         if (DeviceUtils.isServiceRunning(this, NotificationService::class.java)) {
             notificationsBtn.setIconResource(R.drawable.ic_settings)
-            notificationsBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]))
+            notificationsBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         isDeviceAdminEnabled = DeviceUtils.isDeviceAdminEnabled(this)
         if (isDeviceAdminEnabled) {
             adminBtn.setIconResource(R.drawable.ic_granted)
-            adminBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]))
+            adminBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         hasStoragePermission = DeviceUtils.hasStoragePermission(this)
         if (hasStoragePermission) {
             storageBtn.setIconResource(R.drawable.ic_granted)
-            storageBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]))
+            storageBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         hasLocationPermission = DeviceUtils.hasLocationPermission(this)
         if (hasLocationPermission) {
             locationBtn.setIconResource(R.drawable.ic_granted)
-            locationBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]))
+            locationBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         val hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(this)
         if (hasWriteSettingsPermission) {
             secureBtn.setIconResource(R.drawable.ic_granted)
-            secureBtn.setIconTint(ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0]))
+            secureBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
     }
 

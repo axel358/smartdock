@@ -54,12 +54,16 @@ class AppAdapter(private val context: Context, private val iconParserUtilities: 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val app = apps[position]
         val name = app.name
-        val spanStart = name.lowercase(Locale.getDefault()).indexOf(query.lowercase(Locale.getDefault()))
-        val spanEnd = spanStart + query.length
-        if (spanStart != -1) {
-            val spannable = SpannableString(name)
-            spannable.setSpan(StyleSpan(Typeface.BOLD), spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            viewHolder.nameTv.text = spannable
+        if (::query.isInitialized) {
+            val spanStart = name.lowercase(Locale.getDefault()).indexOf(query.lowercase(Locale.getDefault()))
+            val spanEnd = spanStart + query.length
+            if (spanStart != -1) {
+                val spannable = SpannableString(name)
+                spannable.setSpan(StyleSpan(Typeface.BOLD), spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                viewHolder.nameTv.text = spannable
+            } else {
+                viewHolder.nameTv.text = name
+            }
         } else {
             viewHolder.nameTv.text = name
         }

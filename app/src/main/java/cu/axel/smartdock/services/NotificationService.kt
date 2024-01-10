@@ -74,7 +74,10 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                 preferLastDisplay)
         x = Utils.dpToPx(context, 2)
         val dockHeight = Utils.dpToPx(context, 56)
-        y = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true)) dockHeight - DeviceUtils.getNavBarHeight(context) else dockHeight
+        y = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+            dockHeight - DeviceUtils.getNavBarHeight(context)
+        else
+            dockHeight
         layoutParams.x = x
         layoutParams.gravity = Gravity.BOTTOM or Gravity.END
         layoutParams.y = y
