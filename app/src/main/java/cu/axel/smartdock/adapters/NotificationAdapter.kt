@@ -56,8 +56,8 @@ class NotificationAdapter(private val context: Context,
         val extras = notification.extras
         viewHolder.notifActionsLayout.removeAllViews()
         if (actions != null) {
-            val lp = LinearLayout.LayoutParams(-2, -2)
-            lp.weight = 1f
+            val layoutParams = LinearLayout.LayoutParams(-2, -2)
+            layoutParams.weight = 1f
             if (extras[Notification.EXTRA_MEDIA_SESSION] != null) {
                 for (action in actions) {
                     val actionTv = ImageView(context)
@@ -74,7 +74,7 @@ class NotificationAdapter(private val context: Context,
                             }
                         }
                         viewHolder.notifText.isSingleLine = true
-                        viewHolder.notifActionsLayout.addView(actionTv, lp)
+                        viewHolder.notifActionsLayout.addView(actionTv, layoutParams)
                     } catch (_: PackageManager.NameNotFoundException) {
                     }
                 }
@@ -90,7 +90,7 @@ class NotificationAdapter(private val context: Context,
                         } catch (_: CanceledException) {
                         }
                     }
-                    viewHolder.notifActionsLayout.addView(actionTv, lp)
+                    viewHolder.notifActionsLayout.addView(actionTv, layoutParams)
                 }
             }
         }

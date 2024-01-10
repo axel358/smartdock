@@ -44,7 +44,6 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
 import android.widget.EditText
@@ -92,9 +91,9 @@ import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 
 class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, OnTouchListener, OnAppClickListener, OnDockAppClickListener {
-    private lateinit var pm: PackageManager
+    private lateinit var packageManager: PackageManager
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var am: ActivityManager
+    private lateinit var activityManager: ActivityManager
     private lateinit var appsBtn: ImageView
     private lateinit var backBtn: ImageView
     private lateinit var homeBtn: ImageView
@@ -151,8 +150,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     override fun onCreate() {
         super.onCreate()
         db = DBHelper(this)
-        pm = packageManager
-        am = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        packageManager = packageManager
+        activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         preferLastDisplay = sharedPreferences.getBoolean("prefer_last_display", false)
@@ -336,7 +335,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     toggleFavorites(false)
                 } else {
                     searchLayout.visibility = View.GONE
-                    toggleFavorites(AppUtils.getPinnedApps(context, pm, AppUtils.PINNED_LIST).size > 0)
+                    toggleFavorites(AppUtils.getPinnedApps(context, packageManager, AppUtils.PINNED_LIST).size > 0)
                 }
             }
         }
@@ -445,18 +444,21 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val tasks = app.tasks
         if (tasks.size == 1) {
             val taskId = tasks[0].id
-            if (taskId == -1) launchApp(getDefaultLaunchMode(app.packageName), app.packageName) else am.moveTaskToFront(taskId, 0)
+            if (taskId == -1)
+                launchApp(getDefaultLaunchMode(app.packageName), app.packageName)
+            else
+                activityManager.moveTaskToFront(taskId, 0)
         } else if (tasks.size > 1) {
             val view = LayoutInflater.from(context).inflate(R.layout.task_list, null)
-            val lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
+            val layoutParams = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
             ColorUtils.applyMainColor(context, sharedPreferences, view)
-            lp.gravity = Gravity.BOTTOM or Gravity.START
-            lp.flags = (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+            layoutParams.gravity = Gravity.BOTTOM or Gravity.START
+            layoutParams.flags = (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH)
-            lp.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
+            layoutParams.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
             val location = IntArray(2)
             anchor.getLocationOnScreen(location)
-            lp.x = location[0]
+            layoutParams.x = location[0]
             view.setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_OUTSIDE) {
                     windowManager.removeView(view)
@@ -466,10 +468,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             val tasksLv = view.findViewById<ListView>(R.id.tasks_lv)
             tasksLv.adapter = AppTaskAdapter(context, tasks)
             tasksLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
-                am.moveTaskToFront((adapterView.getItemAtPosition(position) as AppTask).id, 0)
+                activityManager.moveTaskToFront((adapterView.getItemAtPosition(position) as AppTask).id, 0)
                 windowManager.removeView(view)
             }
-            windowManager.addView(view, lp)
+            windowManager.addView(view, layoutParams)
         } else launchApp(getDefaultLaunchMode(app.packageName), app.packageName)
         if (getDefaultLaunchMode(app.packageName) == "fullscreen") {
             if (isPinned && sharedPreferences.getBoolean("auto_unpin", true)) {
@@ -519,9 +521,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun showToast(app: String, text: String) {
-        val lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
-        lp.gravity = Gravity.BOTTOM or Gravity.CENTER
-        lp.y = dock.measuredHeight + Utils.dpToPx(context, 4)
+        val layoutParams = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
+        layoutParams.gravity = Gravity.BOTTOM or Gravity.CENTER
+        layoutParams.y = dock.measuredHeight + Utils.dpToPx(context, 4)
         val toast = LayoutInflater.from(context).inflate(R.layout.toast, null)
         ColorUtils.applyMainColor(context, sharedPreferences, toast)
         val textTv = toast.findViewById<TextView>(R.id.toast_tv)
@@ -540,7 +542,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         }
                     })
         }, 5000)
-        windowManager.addView(toast, lp)
+        windowManager.addView(toast, layoutParams)
     }
 
     override fun onInterrupt() {}
@@ -706,14 +708,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (sharedPreferences.getBoolean("remember_launch_mode", true))
                 db.saveLaunchMode(app, mode)
         }
-        launchApp(mode, pm.getLaunchIntentForPackage(app))
+        launchApp(mode, packageManager.getLaunchIntentForPackage(app))
     }
 
     private fun getDefaultLaunchMode(app: String): String {
         val mode: String? = db.getLaunchMode(app)
         return if (sharedPreferences.getBoolean("remember_launch_mode", true) && mode != null)
             mode
-        else if (AppUtils.isGame(pm, app) && sharedPreferences.getBoolean("launch_games_fullscreen", true))
+        else if (AppUtils.isGame(packageManager, app) && sharedPreferences.getBoolean("launch_games_fullscreen", true))
             "fullscreen"
         else
             sharedPreferences.getString("launch_mode", "standard")!!
@@ -788,7 +790,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins
         if (sharedPreferences.getBoolean("app_menu_fullscreen", false)) {
             layoutParams = Utils.makeWindowParams(-1, usableHeight, context, preferLastDisplay)
-            //lp.x = Utils.dpToPx(context, 2);
             layoutParams.y = margins + dockHeight
             if (sharedPreferences.getInt("dock_layout", -1) != 0) {
                 val padding = Utils.dpToPx(context, 24)
@@ -862,14 +863,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     @SuppressLint("ClickableViewAccessibility")
     private fun showAppContextMenu(app: String, anchor: View) {
         val view = LayoutInflater.from(context).inflate(R.layout.task_list, null)
-        val lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
+        val layoutParams = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
         ColorUtils.applyMainColor(context, sharedPreferences, view)
-        lp.gravity = Gravity.START or Gravity.TOP
-        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+        layoutParams.gravity = Gravity.START or Gravity.TOP
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
-        lp.x = location[0]
-        lp.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
+        layoutParams.x = location[0]
+        layoutParams.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_OUTSIDE) {
                 windowManager.removeView(view)
@@ -945,21 +946,21 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 DeepShortcutManager.startShortcut(shortcut, context)
             }
         }
-        windowManager.addView(view, lp)
+        windowManager.addView(view, layoutParams)
     }
 
     private fun showDockAppContextMenu(app: String, anchor: View) {
         val view = LayoutInflater.from(context).inflate(R.layout.pin_entry, null)
         val pinLayout = view.findViewById<LinearLayout>(R.id.pin_entry_pin)
-        val lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
+        val layoutParams = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
         view.setBackgroundResource(R.drawable.round_rect)
         ColorUtils.applyMainColor(context, sharedPreferences, view)
-        lp.gravity = Gravity.BOTTOM or Gravity.START
-        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-        lp.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
+        layoutParams.gravity = Gravity.BOTTOM or Gravity.START
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+        layoutParams.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
-        lp.x = location[0]
+        layoutParams.x = location[0]
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_OUTSIDE) {
                 windowManager.removeView(view)
@@ -995,19 +996,19 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             updateRunningTasks()
             windowManager.removeView(view)
         }
-        windowManager.addView(view, lp)
+        windowManager.addView(view, layoutParams)
     }
 
     private fun showUserContextMenu(anchor: View) {
         val view = LayoutInflater.from(context).inflate(R.layout.task_list, null)
-        val lp = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
+        val layoutParams = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
         ColorUtils.applyMainColor(context, sharedPreferences, view)
-        lp.gravity = Gravity.TOP or Gravity.START
-        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+        layoutParams.gravity = Gravity.TOP or Gravity.START
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
-        lp.x = location[0]
-        lp.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
+        layoutParams.x = location[0]
+        layoutParams.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_OUTSIDE) {
                 windowManager.removeView(view)
@@ -1034,7 +1035,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             }
             windowManager.removeView(view)
         }
-        windowManager.addView(view, lp)
+        windowManager.addView(view, layoutParams)
     }
 
     override fun onSharedPreferenceChanged(p1: SharedPreferences, p2: String) {
@@ -1075,19 +1076,19 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun placeRunningApps() {
-        val lp = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+        val layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT)
         if (sharedPreferences.getBoolean("center_running_apps", true)) {
-            lp.addRule(RelativeLayout.CENTER_IN_PARENT)
+            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT)
         } else {
-            lp.addRule(RelativeLayout.END_OF, R.id.nav_panel)
-            lp.addRule(RelativeLayout.START_OF, R.id.system_tray)
+            layoutParams.addRule(RelativeLayout.END_OF, R.id.nav_panel)
+            layoutParams.addRule(RelativeLayout.START_OF, R.id.system_tray)
         }
-        tasksGv.layoutParams = lp
+        tasksGv.layoutParams = layoutParams
     }
 
     private fun loadPinnedApps() {
-        pinnedApps = AppUtils.getPinnedApps(context, pm, AppUtils.DOCK_PINNED_LIST)
+        pinnedApps = AppUtils.getPinnedApps(context, packageManager, AppUtils.DOCK_PINNED_LIST)
     }
 
     private fun updateRunningTasks() {
@@ -1104,7 +1105,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         //TODO: We can eliminate another for
         //TODO: Dont do anything if tasks has not changed
-        tasks = if (systemApp) AppUtils.getRunningTasks(am, pm, maxApps) else AppUtils.getRecentTasks(context, maxApps)
+        tasks = if (systemApp) AppUtils.getRunningTasks(activityManager, packageManager, maxApps) else AppUtils.getRecentTasks(context, maxApps)
         for (j in 1..tasks.size) {
             val task = tasks[tasks.size - j]
             val i = AppUtils.containsTask(apps, task)
@@ -1202,12 +1203,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         if (Utils.notificationPanelVisible) sendBroadcast(Intent("$packageName.NOTIFICATION_PANEL").putExtra("action", "hide"))
         if (wifiPanelVisible) hideWiFiPanel()
         val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
-        val lp = Utils.makeWindowParams(Utils.dpToPx(context, 270), -2, context,
+        val layoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 270), -2, context,
                 preferLastDisplay)
-        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-        lp.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
-        lp.x = Utils.dpToPx(context, 2)
-        lp.gravity = Gravity.BOTTOM or Gravity.END
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+        layoutParams.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
+        layoutParams.x = Utils.dpToPx(context, 2)
+        layoutParams.gravity = Gravity.BOTTOM or Gravity.END
         audioPanel = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
                 .inflate(R.layout.audio_panel, null) as LinearLayout
         audioPanel!!.setOnTouchListener { _, event ->
@@ -1231,7 +1232,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         })
         ColorUtils.applySecondaryColor(context, sharedPreferences, musicIcon)
         ColorUtils.applyMainColor(context, sharedPreferences, audioPanel!!)
-        windowManager.addView(audioPanel, lp)
+        windowManager.addView(audioPanel, layoutParams)
         audioPanelVisible = true
     }
 
@@ -1244,12 +1245,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private fun showWiFiPanel() {
         if (Utils.notificationPanelVisible) sendBroadcast(Intent("$packageName.NOTIFICATION_PANEL").putExtra("action", "hide"))
         if (audioPanelVisible) hideAudioPanel()
-        val lp = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
+        val layoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
                 preferLastDisplay)
-        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-        lp.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
-        lp.x = Utils.dpToPx(context, 2)
-        lp.gravity = Gravity.BOTTOM or Gravity.END
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+        layoutParams.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
+        layoutParams.x = Utils.dpToPx(context, 2)
+        layoutParams.gravity = Gravity.BOTTOM or Gravity.END
         wifiPanel = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
                 .inflate(R.layout.wifi_panel, null) as LinearLayout
         wifiPanel!!.setOnTouchListener { _, event ->
@@ -1297,7 +1298,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             }
         }, IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION))
         ColorUtils.applyMainColor(context, sharedPreferences, wifiPanel!!)
-        windowManager.addView(wifiPanel, lp)
+        windowManager.addView(wifiPanel, layoutParams)
         wifiPanelVisible = true
     }
 
@@ -1389,7 +1390,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun loadFavoriteApps() {
-        val apps = AppUtils.getPinnedApps(context, pm, AppUtils.PINNED_LIST)
+        val apps = AppUtils.getPinnedApps(context, packageManager, AppUtils.PINNED_LIST)
         toggleFavorites(apps.size > 0)
         val menuFullscreen = sharedPreferences.getBoolean("app_menu_fullscreen", false)
         val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0
@@ -1423,7 +1424,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     internal inner class UpdateAppMenuTask : AsyncTask<Void?, Void?, ArrayList<App>>() {
         override fun doInBackground(p1: Array<Void?>): ArrayList<App> {
-            return AppUtils.getInstalledApps(pm)
+            return AppUtils.getInstalledApps(packageManager)
         }
 
         override fun onPostExecute(result: ArrayList<App>) {

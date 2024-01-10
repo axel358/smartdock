@@ -77,9 +77,9 @@ object DeviceUtils {
 
     //Device control
     fun lockScreen(context: Context) {
-        val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val devicePolicyManager = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         try {
-            dpm.lockNow()
+            devicePolicyManager.lockNow()
         } catch (_: SecurityException) {
         }
     }
@@ -306,8 +306,8 @@ object DeviceUtils {
     }
 
     fun isDeviceAdminEnabled(context: Context): Boolean {
-        val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-        val deviceAdmins = dpm.activeAdmins
+        val devicePolicyManager = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val deviceAdmins = devicePolicyManager.activeAdmins
         if (deviceAdmins != null) {
             for (deviceAdmin in deviceAdmins) {
                 if (deviceAdmin.packageName == context.packageName) {
@@ -359,9 +359,10 @@ object DeviceUtils {
         return Settings.canDrawOverlays(context)
     }
 
+    @Suppress("DEPRECATION")
     fun isServiceRunning(context: Context, serviceName: Class<*>): Boolean {
-        val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        for (service in am.getRunningServices(Int.MAX_VALUE)) {
+        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (service in activityManager.getRunningServices(Int.MAX_VALUE)) {
             if (serviceName.name == service.service.className) {
                 return true
             }

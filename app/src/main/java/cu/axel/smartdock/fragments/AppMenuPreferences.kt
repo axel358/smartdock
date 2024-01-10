@@ -37,10 +37,10 @@ class AppMenuPreferences : PreferenceFragmentCompat() {
         val widthPreference = findPreference<Preference>("app_menu_width")
         val centerPreference = findPreference<Preference>("center_app_menu")
         val fullscreenPreference = findPreference<Preference>("app_menu_fullscreen")
-        val sp = fullscreenPreference!!.sharedPreferences
-        heightPreference!!.isEnabled = !sp!!.getBoolean(fullscreenPreference.key, false)
-        widthPreference!!.isEnabled = !sp.getBoolean(fullscreenPreference.key, false)
-        centerPreference!!.isEnabled = !sp.getBoolean(fullscreenPreference.key, false)
+        val sharedPreferences = fullscreenPreference!!.sharedPreferences
+        heightPreference!!.isEnabled = !sharedPreferences!!.getBoolean(fullscreenPreference.key, false)
+        widthPreference!!.isEnabled = !sharedPreferences.getBoolean(fullscreenPreference.key, false)
+        centerPreference!!.isEnabled = !sharedPreferences.getBoolean(fullscreenPreference.key, false)
         fullscreenPreference.setOnPreferenceChangeListener { _, newValue ->
             val checked = newValue as Boolean
             heightPreference.isEnabled = !checked

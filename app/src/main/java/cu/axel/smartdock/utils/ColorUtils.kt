@@ -94,8 +94,8 @@ object ColorUtils {
         view.background.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 
-    fun getMainColors(sp: SharedPreferences, context: Context): IntArray {
-        val theme = sp.getString("theme", "dark")
+    fun getMainColors(sharedPreferences: SharedPreferences, context: Context): IntArray {
+        val theme = sharedPreferences.getString("theme", "dark")
         var mainColor = 0
         var secondaryColor = 0
         var alpha = 255
@@ -127,9 +127,9 @@ object ColorUtils {
             }
 
             "custom" -> {
-                mainColor = Color.parseColor(sp.getString("theme_main_color", "#212121"))
+                mainColor = Color.parseColor(sharedPreferences.getString("theme_main_color", "#212121"))
                 secondaryColor = manipulateColor(mainColor, 1.2f)
-                alpha = sp.getInt("theme_main_alpha", 255)
+                alpha = sharedPreferences.getInt("theme_main_alpha", 255)
             }
         }
         colors[0] = mainColor

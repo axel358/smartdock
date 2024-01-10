@@ -11,7 +11,6 @@ import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.SystemClock
-import android.util.Log
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.preference.PreferenceManager
 import cu.axel.smartdock.models.App
@@ -23,23 +22,22 @@ import java.io.FileNotFoundException
 import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
-import java.util.regex.Pattern
 
 object AppUtils {
     const val PINNED_LIST = "pinned.lst"
     const val DOCK_PINNED_LIST = "dock_pinned.lst"
     const val DESKTOP_LIST = "desktop.lst"
     var currentApp = ""
-    fun getInstalledApps(pm: PackageManager): ArrayList<App> {
+    fun getInstalledApps(packageManager: PackageManager): ArrayList<App> {
         val apps = ArrayList<App>()
         val intent = Intent(Intent.ACTION_MAIN)
         intent.addCategory(Intent.CATEGORY_LAUNCHER)
-        val appsInfo = pm.queryIntentActivities(intent, 0)
+        val appsInfo = packageManager.queryIntentActivities(intent, 0)
 
         //TODO: Filter Google App
         for (appInfo in appsInfo) {
-            val label = appInfo.activityInfo.loadLabel(pm).toString()
-            val icon = appInfo.activityInfo.loadIcon(pm)
+            val label = appInfo.activityInfo.loadLabel(packageManager).toString()
+            val icon = appInfo.activityInfo.loadIcon(packageManager)
             val packageName = appInfo.activityInfo.packageName
             apps.add(App(label, packageName, icon))
         }
@@ -47,7 +45,7 @@ object AppUtils {
         return apps
     }
 
-    fun getPinnedApps(context: Context, pm: PackageManager, type: String): ArrayList<App> {
+    fun getPinnedApps(context: Context, packageManager: PackageManager, type: String): ArrayList<App> {
         val apps = ArrayList<App>()
         try {
             val br = BufferedReader(FileReader(File(context.filesDir, type)))
@@ -57,9 +55,9 @@ object AppUtils {
                     val applist2 = applist.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                     for (app in applist2) {
                         try {
-                            val appInfo = pm.getApplicationInfo(app, 0)
-                            apps.add(App(pm.getApplicationLabel(appInfo).toString(), app,
-                                    pm.getApplicationIcon(app)))
+                            val appInfo = packageManager.getApplicationInfo(app, 0)
+                            apps.add(App(packageManager.getApplicationLabel(appInfo).toString(), app,
+                                    packageManager.getApplicationIcon(app)))
                         } catch (e: PackageManager.NameNotFoundException) {
                             //app is no longer available, lets unpin it
                             unpinApp(context, app, type)
@@ -143,9 +141,9 @@ object AppUtils {
         return false
     }
 
-    fun isGame(pm: PackageManager, packageName: String): Boolean {
+    fun isGame(packageManager: PackageManager, packageName: String): Boolean {
         return try {
-            val info = pm.getApplicationInfo(packageName, 0)
+            val info = packageManager.getApplicationInfo(packageName, 0)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 info.category == ApplicationInfo.CATEGORY_GAME
             } else {
@@ -156,23 +154,23 @@ object AppUtils {
         }
     }
 
-    private fun getCurrentLauncher(pm: PackageManager): String {
+    private fun getCurrentLauncher(packageManager: PackageManager): String {
         val intent = Intent(Intent.ACTION_MAIN)
         intent.addCategory(Intent.CATEGORY_HOME)
-        val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        val resolveInfo = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
         return resolveInfo!!.activityInfo.packageName
     }
 
-    fun setWindowMode(am: ActivityManager, taskId: Int, mode: Int) {
+    fun setWindowMode(activityManager: ActivityManager, taskId: Int, mode: Int) {
         try {
-            val setWindowMode = am.javaClass.getMethod("setTaskWindowingMode", Int::class.javaPrimitiveType, Int::class.javaPrimitiveType, Boolean::class.javaPrimitiveType)
-            setWindowMode.invoke(am, taskId, mode, false)
+            val setWindowMode = activityManager.javaClass.getMethod("setTaskWindowingMode", Int::class.javaPrimitiveType, Int::class.javaPrimitiveType, Boolean::class.javaPrimitiveType)
+            setWindowMode.invoke(activityManager, taskId, mode, false)
         } catch (_: Exception) {
         }
     }
 
-    fun getRunningTasks(am: ActivityManager, pm: PackageManager, max: Int): ArrayList<AppTask> {
-        val tasksInfo = am.getRunningTasks(max)
+    fun getRunningTasks(activityManager: ActivityManager, packageManager: PackageManager, max: Int): ArrayList<AppTask> {
+        val tasksInfo = activityManager.getRunningTasks(max)
         currentApp = tasksInfo[0].baseActivity!!.packageName
         val appTasks = ArrayList<AppTask>()
         for (taskInfo in tasksInfo) {
@@ -182,7 +180,7 @@ object AppUtils {
                         || taskInfo.baseActivity!!.packageName.contains("com.google.android.packageinstaller")) continue
 
                 //Hack to save Dock settings activity ftom being excluded
-                if (!(taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.MainActivity" || taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.DebugActivity") && taskInfo.topActivity!!.packageName == getCurrentLauncher(pm)) continue
+                if (!(taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.MainActivity" || taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.DebugActivity") && taskInfo.topActivity!!.packageName == getCurrentLauncher(packageManager)) continue
                 if (Build.VERSION.SDK_INT > 29) {
                     try {
                         val isRunning = taskInfo.javaClass.getField("isRunning")
@@ -192,8 +190,8 @@ object AppUtils {
                     }
                 }
                 appTasks.add(
-                        AppTask(taskInfo.id, pm.getActivityInfo(taskInfo.topActivity!!, 0).loadLabel(pm).toString(),
-                                taskInfo.topActivity!!.packageName, pm.getActivityIcon(taskInfo.topActivity!!)))
+                        AppTask(taskInfo.id, packageManager.getActivityInfo(taskInfo.topActivity!!, 0).loadLabel(packageManager).toString(),
+                                taskInfo.topActivity!!.packageName, packageManager.getActivityIcon(taskInfo.topActivity!!)))
             } catch (_: PackageManager.NameNotFoundException) {
             }
         }
@@ -234,20 +232,11 @@ object AppUtils {
         return resolveInfo.size > 0
     }
 
-    fun removeTask(am: ActivityManager, id: Int) {
-        try {
-            val removeTask = am.javaClass.getMethod("removeTask", Int::class.javaPrimitiveType)
-            removeTask.invoke(am, id)
-        } catch (e: Exception) {
-            Log.e("Dock", e.toString() + e.cause.toString())
-        }
-    }
-
     fun getPackageLabel(context: Context, packageName: String): String {
         try {
-            val pm = context.packageManager
-            val appInfo = pm.getApplicationInfo(packageName, 0)
-            return pm.getApplicationLabel(appInfo).toString()
+            val packageManager = context.packageManager
+            val appInfo = packageManager.getApplicationInfo(packageName, 0)
+            return packageManager.getApplicationLabel(appInfo).toString()
         } catch (_: PackageManager.NameNotFoundException) {
         }
         return ""
@@ -336,26 +325,4 @@ object AppUtils {
         return -1
     }
 
-    fun findStackId(taskId: Int): String? {
-        val stackInfo = DeviceUtils.runAsRoot("am stack list")
-        val regexPattern = "(?s)Stack id=(\\d+).*?taskId=$taskId"
-        val pattern = Pattern.compile(regexPattern)
-        val matcher = pattern.matcher(stackInfo)
-        return if (matcher.find()) matcher.group(1) else null
-    }
-
-    fun removeStack(stackId: String) {
-        DeviceUtils.runAsRoot("am stack remove $stackId")
-    }
-
-    enum class WindowMode {
-        STANDARD,
-        PORTRAIT,
-        MAXIMIZED,
-        FULLSCREEN,
-        TILED_TOP,
-        TILED_LEFT,
-        TILED_RIGHT,
-        TILED_BOTTOM
-    }
 }

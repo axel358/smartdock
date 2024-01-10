@@ -29,17 +29,17 @@ class DockPreferences : PreferenceFragmentCompat() {
     }
 
     private fun showAutopinDialog(context: Context) {
-        val sp = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = sp.edit()
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = sharedPreferences.edit()
         val dialogBuilder = MaterialAlertDialogBuilder(context)
         dialogBuilder.setTitle(R.string.auto_pin_summary)
         val view = layoutInflater.inflate(R.layout.dialog_auto_pin, null)
         val startupChkbx = view.findViewById<CheckBox>(R.id.pin_startup_chkbx)
         val windowedChkbx = view.findViewById<CheckBox>(R.id.pin_window_chkbx)
         val fullscreenChkbx = view.findViewById<CheckBox>(R.id.unpin_fullscreen_chkbx)
-        startupChkbx.isChecked = sp.getBoolean("pin_dock", true)
-        windowedChkbx.isChecked = sp.getBoolean("auto_pin", true)
-        fullscreenChkbx.isChecked = sp.getBoolean("auto_unpin", true)
+        startupChkbx.isChecked = sharedPreferences.getBoolean("pin_dock", true)
+        windowedChkbx.isChecked = sharedPreferences.getBoolean("auto_pin", true)
+        fullscreenChkbx.isChecked = sharedPreferences.getBoolean("auto_unpin", true)
         startupChkbx.setOnCheckedChangeListener { _, checked -> editor.putBoolean("pin_dock", checked).apply() }
         windowedChkbx.setOnCheckedChangeListener { _, checked -> editor.putBoolean("auto_pin", checked).commit() }
         fullscreenChkbx.setOnCheckedChangeListener { _, checked -> editor.putBoolean("auto_unpin", checked).commit() }

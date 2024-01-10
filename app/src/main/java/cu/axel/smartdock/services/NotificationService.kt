@@ -154,10 +154,9 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                     val actions = notification.actions
                     notifActionsLayout!!.removeAllViews()
                     if (actions != null) {
-                        val lp = LinearLayout.LayoutParams(-2, -2)
-                        lp.weight = 1f
+                        val layoutParams = LinearLayout.LayoutParams(-2, -2)
+                        layoutParams.weight = 1f
                         if (extras[Notification.EXTRA_MEDIA_SESSION] != null) {
-                            //lp.height = Utils.dpToPx(NotificationService.this, 30);
                             for (action in actions) {
                                 val actionTv = ImageView(this@NotificationService)
                                 try {
@@ -175,7 +174,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                                         }
                                     }
                                     notifText.isSingleLine = true
-                                    notifActionsLayout!!.addView(actionTv, lp)
+                                    notifActionsLayout!!.addView(actionTv, layoutParams)
                                 } catch (_: PackageManager.NameNotFoundException) {
                                 }
                             }
@@ -193,7 +192,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                                     } catch (_: CanceledException) {
                                     }
                                 }
-                                notifActionsLayout!!.addView(actionTv, lp)
+                                notifActionsLayout!!.addView(actionTv, layoutParams)
                             }
                         }
                     }
@@ -376,13 +375,13 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private fun updateNotificationPanel() {
         val adapter = NotificationAdapter(context, activeNotifications, this)
         notificationsLv!!.adapter = adapter
-        val lp = notificationsLv!!.layoutParams
+        val layoutParams = notificationsLv!!.layoutParams
         val count = adapter.itemCount
         if (count > 3) {
-            lp.height = Utils.dpToPx(context, 232)
-        } else lp.height = -2
+            layoutParams.height = Utils.dpToPx(context, 232)
+        } else layoutParams.height = -2
         notificationArea!!.visibility = if (count == 0) View.GONE else View.VISIBLE
-        notificationsLv!!.layoutParams = lp
+        notificationsLv!!.layoutParams = layoutParams
     }
 
     internal inner class DockServiceReceiver : BroadcastReceiver() {
