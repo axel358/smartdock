@@ -91,7 +91,6 @@ import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 
 class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, OnTouchListener, OnAppClickListener, OnDockAppClickListener {
-    private lateinit var packageManager: PackageManager
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var activityManager: ActivityManager
     private lateinit var appsBtn: ImageView
@@ -150,7 +149,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     override fun onCreate() {
         super.onCreate()
         db = DBHelper(this)
-        packageManager = packageManager
         activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
