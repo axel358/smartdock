@@ -204,7 +204,7 @@ object AppUtils {
         val usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, start,
                 System.currentTimeMillis())
         val appTasks = ArrayList<AppTask>()
-        usageStats.sortWith { usageStats1: UsageStats, usageStats2: UsageStats -> usageStats1.lastTimeUsed.compareTo(usageStats2.lastTimeUsed) }
+        usageStats.sortWith { usageStats1: UsageStats, usageStats2: UsageStats -> usageStats2.lastTimeUsed.compareTo(usageStats1.lastTimeUsed) }
         for (stat in usageStats) {
             val app = stat.packageName
             try {
