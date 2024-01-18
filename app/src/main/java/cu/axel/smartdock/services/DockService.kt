@@ -843,7 +843,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (iconUri != "default") {
                 val bitmap = Utils.getBitmapFromUri(context, Uri.parse(iconUri))
                 val icon = Utils.getCircularBitmap(bitmap)
-                if (icon != null) avatarIv.setImageBitmap(icon)
+                if (icon != null)
+                    avatarIv.setImageBitmap(icon)
             } else avatarIv.setImageResource(R.drawable.ic_user)
         }
         appMenu.alpha = 0f

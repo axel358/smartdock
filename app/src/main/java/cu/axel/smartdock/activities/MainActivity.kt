@@ -22,6 +22,7 @@ import cu.axel.smartdock.fragments.PreferencesFragment
 import cu.axel.smartdock.services.NotificationService
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeviceUtils
+import kotlin.reflect.KFunction0
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,12 +44,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        supportFragmentManager.beginTransaction().replace(R.id.settings_container, PreferencesFragment())
-                .commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.settings_container, PreferencesFragment())
+            .commit()
         if (!DeviceUtils.hasStoragePermission(this)) {
             DeviceUtils.requestStoragePermissions(this)
         }
-        if (!DeviceUtils.canDrawOverOtherApps(this) || !DeviceUtils.isAccessibilityServiceEnabled(this))
+        if (!DeviceUtils.canDrawOverOtherApps(this) || !DeviceUtils.isAccessibilityServiceEnabled(
+                this
+            )
+        )
             showPermissionsDialog()
         if (sharedPreferences.getInt("dock_layout", -1) == -1)
             showDockLayoutsDialog()
@@ -92,33 +97,70 @@ class MainActivity : AppCompatActivity() {
         builder.setView(view)
         permissionsDialog = builder.create()
         overlayBtn.setOnClickListener {
-            showPermissionInfoDialog(R.string.display_over_other_apps, R.string.display_over_other_apps_desc,
-                    (DeviceUtils::grantOverlayPermissions)(this), canDrawOverOtherApps)
+            showPermissionInfoDialog(
+                R.string.display_over_other_apps, R.string.display_over_other_apps_desc,
+                ::grantOverlayPermissions, canDrawOverOtherApps
+            )
         }
         storageBtn.setOnClickListener {
-            showPermissionInfoDialog(R.string.storage, R.string.storage_desc,
-                    DeviceUtils.requestStoragePermissions(this), hasStoragePermission)
+            showPermissionInfoDialog(
+                R.string.storage, R.string.storage_desc,
+                ::requestStoragePermissions, hasStoragePermission
+            )
         }
         adminBtn.setOnClickListener {
-            showPermissionInfoDialog(R.string.device_administrator, R.string.device_administrator_desc,
-                    DeviceUtils.requestDeviceAdminPermissions(this), isDeviceAdminEnabled)
+            showPermissionInfoDialog(
+                R.string.device_administrator, R.string.device_administrator_desc,
+                ::requestDeviceAdminPermissions, isDeviceAdminEnabled
+            )
         }
         notificationsBtn.setOnClickListener { showNotificationsDialog() }
         accessibilityBtn.setOnClickListener { showAccessibilityDialog() }
         locationBtn.setOnClickListener {
-            showPermissionInfoDialog(R.string.location, R.string.location_desc,
-                    DeviceUtils.requestLocationPermissions(this), hasLocationPermission)
+            showPermissionInfoDialog(
+                R.string.location, R.string.location_desc,
+                ::requestLocationPermissions, hasLocationPermission
+            )
         }
         usageBtn.setOnClickListener {
-            showPermissionInfoDialog(R.string.usage_stats, R.string.usage_stats_desc,
-                    startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)),
-                    DeviceUtils.hasUsageStatsPermission(this))
+            showPermissionInfoDialog(
+                R.string.usage_stats, R.string.usage_stats_desc,
+                ::requestUsageStatsPermissions,
+                DeviceUtils.hasUsageStatsPermission(this)
+            )
         }
-        secureBtn.setOnClickListener { showPermissionInfoDialog(R.string.write_secure, R.string.write_secure_desc, null, true) }
+        secureBtn.setOnClickListener {
+            showPermissionInfoDialog(
+                R.string.write_secure,
+                R.string.write_secure_desc,
+                null,
+                true
+            )
+        }
         requiredBtn.setOnClickListener { viewSwitcher.showPrevious() }
         optionalBtn.setOnClickListener { viewSwitcher.showNext() }
         updatePermissionsStatus()
         permissionsDialog.show()
+    }
+
+    private fun grantOverlayPermissions() {
+        DeviceUtils.grantOverlayPermissions(this)
+    }
+
+    private fun requestStoragePermissions() {
+        DeviceUtils.requestStoragePermissions(this)
+    }
+
+    private fun requestLocationPermissions() {
+        DeviceUtils.requestLocationPermissions(this)
+    }
+
+    private fun requestDeviceAdminPermissions() {
+        DeviceUtils.requestDeviceAdminPermissions(this)
+    }
+
+    private fun requestUsageStatsPermissions() {
+        startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
     }
 
     private fun showDockLayoutsDialog() {
@@ -156,10 +198,12 @@ class MainActivity : AppCompatActivity() {
         }
         if (DeviceUtils.isAccessibilityServiceEnabled(this)) {
             accessibilityBtn.setIconResource(R.drawable.ic_settings)
-            accessibilityBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
+            accessibilityBtn.iconTint =
+                ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         } else {
             accessibilityBtn.setIconResource(R.drawable.ic_alert)
-            accessibilityBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[2])
+            accessibilityBtn.iconTint =
+                ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[2])
         }
         if (DeviceUtils.hasUsageStatsPermission(this)) {
             usageBtn.setIconResource(R.drawable.ic_granted)
@@ -167,7 +211,8 @@ class MainActivity : AppCompatActivity() {
         }
         if (DeviceUtils.isServiceRunning(this, NotificationService::class.java)) {
             notificationsBtn.setIconResource(R.drawable.ic_settings)
-            notificationsBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
+            notificationsBtn.iconTint =
+                ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         isDeviceAdminEnabled = DeviceUtils.isDeviceAdminEnabled(this)
         if (isDeviceAdminEnabled) {
@@ -191,12 +236,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showPermissionInfoDialog(permission: Int, description: Int, grantMethod: Unit?, granted: Boolean) {
+    private fun showPermissionInfoDialog(
+        permission: Int,
+        description: Int,
+        grantMethod: KFunction0<Unit>?,
+        granted: Boolean
+    ) {
         val dialogBuilder = MaterialAlertDialogBuilder(this)
         dialogBuilder.setTitle(permission)
         dialogBuilder.setMessage(description)
         if (!granted)
-            dialogBuilder.setPositiveButton(R.string.grant) { _, _ -> grantMethod!!.run {} }
+            dialogBuilder.setPositiveButton(R.string.grant) { _, _ -> grantMethod!!.invoke() }
         else dialogBuilder.setPositiveButton(R.string.ok, null)
         dialogBuilder.show()
     }
@@ -221,8 +271,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
         dialogBuilder.setNeutralButton(R.string.help) { _, _ ->
-            startActivity(Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://github.com/axel358/smartdock#grant-restricted-permissions")))
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://github.com/axel358/smartdock#grant-restricted-permissions")
+                )
+            )
         }
         dialogBuilder.show()
     }
@@ -236,8 +290,12 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.enable_access_help, Toast.LENGTH_LONG).show()
         }
         dialogBuilder.setNeutralButton(R.string.help) { _, _ ->
-            startActivity(Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://github.com/axel358/smartdock#grant-restricted-permissions")))
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://github.com/axel358/smartdock#grant-restricted-permissions")
+                )
+            )
         }
         dialogBuilder.show()
     }
