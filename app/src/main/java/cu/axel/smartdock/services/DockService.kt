@@ -351,7 +351,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         throw RuntimeException(e)
                     }
                     true
-                } else if (code == KeyEvent.KEYCODE_DPAD_DOWN) appsGv.requestFocus()
+                } else if (code == KeyEvent.KEYCODE_DPAD_DOWN)
+                    appsGv.requestFocus()
             }
             false
         }
@@ -368,10 +369,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         //Listen for launcher messages
         registerReceiver(object : BroadcastReceiver() {
-            override fun onReceive(p1: Context, p2: Intent) {
-                when (p2.getStringExtra("action")) {
+            override fun onReceive(context: Context, intent: Intent) {
+                when (intent.getStringExtra("action")) {
                     "resume" -> pinDock()
-                    "launch" -> launchApp(p2.getStringExtra("mode"), p2.getStringExtra("app")!!)
+                    "launch" -> launchApp(intent.getStringExtra("mode"), intent.getStringExtra("app")!!)
                 }
             }
         }, object : IntentFilter("$packageName.HOME") {})
@@ -740,13 +741,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         try {
             val methodName = if (Build.VERSION.SDK_INT >= 28) "setLaunchWindowingMode" else "setLaunchStackId"
             val windowMode: Int
-            if (mode == "fullscreen") windowMode = 1 else {
+            if (mode == "fullscreen")
+                windowMode = 1
+            else {
                 windowMode = if (Build.VERSION.SDK_INT >= 28) 5 else 2
                 options.setLaunchBounds(
                         AppUtils.makeLaunchBounds(context, mode!!, dockLayout.measuredHeight, preferLastDisplay))
-                if (Build.VERSION.SDK_INT > 28 && preferLastDisplay)
-                    options.setLaunchDisplayId(DeviceUtils.getSecondaryDisplay(this).displayId)
             }
+            if (Build.VERSION.SDK_INT > 28 && preferLastDisplay)
+                options.setLaunchDisplayId(DeviceUtils.getSecondaryDisplay(this).displayId)
+
             val method = ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
             method.invoke(options, windowMode)
             context.startActivity(intent, options.toBundle())
