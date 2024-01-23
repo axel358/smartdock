@@ -29,7 +29,7 @@ class AppChooserPreference(private val context: Context, attrs: AttributeSet?) :
     override fun onClick() {
         val dialog = MaterialAlertDialogBuilder(context)
         dialog.setTitle(R.string.choose_app)
-        val apps = AppUtils.getInstalledApps(context.packageManager)
+        val apps = AppUtils.getInstalledApps(context)
         dialog.setAdapter(AppAdapter(context, apps)) { _, position ->
             val app = apps[position]
             sharedPreferences!!.edit().putString(key, app.packageName).apply()
