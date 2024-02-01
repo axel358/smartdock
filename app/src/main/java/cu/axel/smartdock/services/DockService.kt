@@ -554,6 +554,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             "113" -> isModifierPressed = event.isCtrlPressed
             "3" -> isModifierPressed = event.isMetaPressed
         }
+
         if (event.action == KeyEvent.ACTION_UP && isModifierPressed) {
             if (event.keyCode == KeyEvent.KEYCODE_L && sharedPreferences.getBoolean("enable_lock_desktop", true))
                 lockScreen()
@@ -1427,7 +1428,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     internal inner class UpdateAppMenuTask : AsyncTask<Void?, Void?, ArrayList<App>>() {
         override fun doInBackground(p1: Array<Void?>): ArrayList<App> {
-            return AppUtils.getInstalledApps(packageManager)
+            return AppUtils.getInstalledApps(context)
         }
 
         override fun onPostExecute(result: ArrayList<App>) {

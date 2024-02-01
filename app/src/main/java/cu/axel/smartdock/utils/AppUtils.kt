@@ -6,6 +6,8 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.pm.LauncherActivityInfo
+import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
@@ -22,26 +24,28 @@ import java.io.FileNotFoundException
 import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
+import android.os.Process
 
 object AppUtils {
     const val PINNED_LIST = "pinned.lst"
     const val DOCK_PINNED_LIST = "dock_pinned.lst"
     const val DESKTOP_LIST = "desktop.lst"
     var currentApp = ""
-    fun getInstalledApps(packageManager: PackageManager): ArrayList<App> {
+    fun getInstalledApps(context: Context): ArrayList<App> {
         val apps = ArrayList<App>()
-        val intent = Intent(Intent.ACTION_MAIN)
-        intent.addCategory(Intent.CATEGORY_LAUNCHER)
-        val appsInfo = packageManager.queryIntentActivities(intent, 0)
+        val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
+        val appsInfo: List<LauncherActivityInfo> =
+                launcherApps.getActivityList(null, Process.myUserHandle())
+                        .sortedWith(compareBy { it.label.toString() })
 
         //TODO: Filter Google App
         for (appInfo in appsInfo) {
-            val label = appInfo.activityInfo.loadLabel(packageManager).toString()
-            val icon = appInfo.activityInfo.loadIcon(packageManager)
-            val packageName = appInfo.activityInfo.packageName
+            val label = appInfo.label.toString()
+            val icon = appInfo.getIcon(0)
+            val packageName = appInfo.componentName.packageName
             apps.add(App(label, packageName, icon))
         }
-        apps.sortWith { app: App, app2: App -> app.name.compareTo(app2.name, ignoreCase = true) }
+
         return apps
     }
 
@@ -312,7 +316,8 @@ object AppUtils {
     }
 
     fun resizeTask(context: Context, mode: String, taskId: Int, dockHeight: Int, secondary: Boolean) {
-        if (taskId < 0) return
+        if (taskId < 0)
+            return
         val bounds = makeLaunchBounds(context, mode, dockHeight, secondary)
         DeviceUtils.runAsRoot("am task resize " + taskId + " " + bounds.left + " " + bounds.top + " " + bounds.right
                 + " " + bounds.bottom)
