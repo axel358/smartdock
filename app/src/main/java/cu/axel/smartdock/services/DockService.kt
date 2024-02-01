@@ -346,6 +346,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         searchEt = appMenu.findViewById(R.id.menu_et)
         powerBtn = appMenu.findViewById(R.id.power_btn)
         appsGv = appMenu.findViewById(R.id.menu_applist_lv)
+        appsGv.setHasFixedSize(true)
         appsGv.layoutManager = GridLayoutManager(context, 5)
         favoritesGv = appMenu.findViewById(R.id.fav_applist_lv)
         favoritesGv.layoutManager = GridLayoutManager(context, 5)
