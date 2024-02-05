@@ -43,7 +43,7 @@ import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
 import cu.axel.smartdock.widgets.HoverInterceptorLayout
 
-class NotificationService : NotificationListenerService(), OnNotificationClickListener {
+class NotificationService : NotificationListenerService(), OnNotificationClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var windowManager: WindowManager
     private lateinit var notificationLayout: HoverInterceptorLayout
     private lateinit var notifTitle: TextView
@@ -61,23 +61,26 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private var preferLastDisplay = false
     private var y = 0
     private var x = 0
+    private var dockHeight: Int = 0
+    private lateinit var notificationLayoutParams: WindowManager.LayoutParams
     override fun onCreate() {
         super.onCreate()
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         preferLastDisplay = sharedPreferences.getBoolean("prefer_last_display", false)
         context = DeviceUtils.getDisplayContext(this, preferLastDisplay)
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
-        val layoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
+        notificationLayoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
                 preferLastDisplay)
         x = Utils.dpToPx(context, 2)
-        val dockHeight = Utils.dpToPx(context, 56)
+        dockHeight = Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
         y = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
             dockHeight - DeviceUtils.getNavBarHeight(context)
         else
             dockHeight
-        layoutParams.x = x
-        layoutParams.gravity = Gravity.BOTTOM or Gravity.END
-        layoutParams.y = y
+        notificationLayoutParams.x = x
+        notificationLayoutParams.gravity = Gravity.BOTTOM or Gravity.END
+        notificationLayoutParams.y = y
         notificationLayout = LayoutInflater.from(this).inflate(R.layout.notification_popup,
                 null) as HoverInterceptorLayout
         notificationLayout.visibility = View.GONE
@@ -86,7 +89,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         notifIcon = notificationLayout.findViewById(R.id.notif_icon_iv)
         notifCancelBtn = notificationLayout.findViewById(R.id.notif_close_btn)
         notifActionsLayout = notificationLayout.findViewById(R.id.notif_actions_container2)
-        windowManager.addView(notificationLayout, layoutParams)
+        windowManager.addView(notificationLayout, notificationLayoutParams)
         handler = Handler(Looper.getMainLooper())
         notificationLayout.alpha = 0f
         notificationLayout.setOnHoverListener { _, event ->
@@ -134,8 +137,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                     ColorUtils.applySecondaryColor(this@NotificationService, sharedPreferences, notifCancelBtn)
                     val notificationIcon = AppUtils.getAppIcon(context, sbn.packageName)
                     notifIcon.setImageDrawable(notificationIcon)
-                    val iconTheming = sharedPreferences.getString("icon_pack", "") != ""
-                    val iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
+                     val iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
                     var iconBackground = -1
                     when (sharedPreferences.getString("icon_shape", "circle")) {
                         "circle" -> iconBackground = R.drawable.circle
@@ -406,5 +408,21 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     override fun onNotificationLongClicked(notification: StatusBarNotification, item: View) {}
     override fun onNotificationCancelClicked(notification: StatusBarNotification, item: View) {
         cancelNotification(notification.key)
+    }
+
+    override fun onSharedPreferenceChanged(p0: SharedPreferences?, preference: String?) {
+        if (preference == "dock_height")
+            updateLayoutParams()
+    }
+
+    private fun updateLayoutParams(){
+        dockHeight = Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
+        y = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+            dockHeight - DeviceUtils.getNavBarHeight(context)
+        else
+            dockHeight
+
+        notificationLayoutParams.y = y
+        windowManager.updateViewLayout(notificationLayout, notificationLayoutParams)
     }
 }
