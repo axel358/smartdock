@@ -36,7 +36,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.FIND_VIEWS_WITH_TEXT
 import android.view.View.OnTouchListener
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
@@ -151,6 +150,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private var lastUpdate: Long = 0
     private var previousActivity: String? = null
     private var dockHeight: Int = 0
+    private lateinit var handleLayoutParams: WindowManager.LayoutParams
     override fun onCreate() {
         super.onCreate()
         db = DBHelper(this)
@@ -440,11 +440,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
 
         //Dock handle
-        val handleLayoutParams = Utils.makeWindowParams(
+        handleLayoutParams = Utils.makeWindowParams(
             Utils.dpToPx(context, 22), -2, context,
             preferLastDisplay
         )
-        handleLayoutParams.gravity = Gravity.START or Gravity.BOTTOM
+        updateHandlePositionValues()
 
         //Listen for launcher messages
         registerReceiver(object : BroadcastReceiver() {
@@ -827,7 +827,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         dock.visibility = View.VISIBLE
         dockHandle.visibility = View.GONE
 
-        if (dockLayoutParams.height != dockHeight){
+        if (dockLayoutParams.height != dockHeight) {
             dockLayoutParams.height = dockHeight
             windowManager.updateViewLayout(dock, dockLayoutParams)
         }
@@ -863,7 +863,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     override fun onAnimationEnd(p1: Animation) {
                         dockLayout.visibility = View.GONE
                         if (sharedPreferences.getString("activation_method", "swipe") == "swipe") {
-                            val height = sharedPreferences.getString("dock_activation_area", "10")!!.toInt()
+                            val height =
+                                sharedPreferences.getString("dock_activation_area", "10")!!.toInt()
                             dockLayoutParams.height = Utils.dpToPx(context, height)
                             windowManager.updateViewLayout(dock, dockLayoutParams)
                         } else {
@@ -1364,10 +1365,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             dockHandle.alpha = 0.01f * sharedPreferences.getString("handle_opacity", "50")!!.toInt()
         else if (preference == "dock_height")
             updateDockHeight()
+        else if (preference == "handle_position")
+            updateHandlePosition()
     }
 
     private fun updateDockTrigger() {
-        if (!isPinned){
+        if (!isPinned) {
             val height = sharedPreferences.getString("dock_activation_area", "10")!!.toInt()
             dockLayoutParams.height = Utils.dpToPx(context, height)
             windowManager.updateViewLayout(dock, dockLayoutParams)
@@ -1803,6 +1806,35 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         if (Build.VERSION.SDK_INT >= 28) {
             performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN)
         } else DeviceUtils.lockScreen(context)
+    }
+
+    private fun updateHandlePositionValues() {
+        val position = sharedPreferences.getString("handle_position", "start")
+        handleLayoutParams.gravity =
+            Gravity.BOTTOM or if (position == "start") Gravity.START else Gravity.END
+        if (position == "end") {
+            dockHandle.setBackgroundResource(R.drawable.dock_handle_bg_end)
+            dockHandle.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_expand_left,
+                0,
+                0,
+                0
+            )
+        }
+        else {
+            dockHandle.setBackgroundResource(R.drawable.dock_handle_bg_start)
+            dockHandle.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_expand_right,
+                0,
+                0,
+                0
+            )
+        }
+    }
+
+    private fun updateHandlePosition(){
+        updateHandlePositionValues()
+        windowManager.updateViewLayout(dockHandle, handleLayoutParams)
     }
 
     override fun onTouch(p1: View, p2: MotionEvent): Boolean {

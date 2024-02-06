@@ -319,5 +319,6 @@
     <string name="wifi">WiFi</string>
     <string name="not_connected">Not connected</string>
     <string name="select_network">Select network</string>
+    <string name="handle_position">Handle position</string>
 
 </resources>

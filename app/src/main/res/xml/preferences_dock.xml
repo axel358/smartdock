@@ -78,6 +78,13 @@
 			android:hint="50"
 			android:defaultValue="50"
 			android:title="@string/handle_opacity"/>
+
+		<ListPreference
+			android:entries="@array/handle_positions"
+			android:entryValues="@array/handle_positions_values"
+			android:key="handle_position"
+			android:defaultValue="start"
+			android:title="@string/handle_position"/>
 			
 		<EditTextPreference
 			android:inputType="number"
