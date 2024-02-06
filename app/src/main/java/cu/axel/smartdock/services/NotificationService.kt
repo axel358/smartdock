@@ -60,7 +60,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private var notificationArea: LinearLayout? = null
     private var preferLastDisplay = false
     private var y = 0
-    private var x = 0
+    private var margins = 0
     private var dockHeight: Int = 0
     private lateinit var notificationLayoutParams: WindowManager.LayoutParams
     override fun onCreate() {
@@ -72,13 +72,13 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
         notificationLayoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
                 preferLastDisplay)
-        x = Utils.dpToPx(context, 2)
+        margins = Utils.dpToPx(context, 2)
         dockHeight = Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
-        y = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+        y = (if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
             dockHeight - DeviceUtils.getNavBarHeight(context)
         else
-            dockHeight
-        notificationLayoutParams.x = x
+            dockHeight) + margins
+        notificationLayoutParams.x = margins
         notificationLayoutParams.gravity = Gravity.BOTTOM or Gravity.END
         notificationLayoutParams.y = y
         notificationLayout = LayoutInflater.from(this).inflate(R.layout.notification_popup,
@@ -137,7 +137,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                     ColorUtils.applySecondaryColor(this@NotificationService, sharedPreferences, notifCancelBtn)
                     val notificationIcon = AppUtils.getAppIcon(context, sbn.packageName)
                     notifIcon.setImageDrawable(notificationIcon)
-                     val iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
+                    val iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
                     var iconBackground = -1
                     when (sharedPreferences.getString("icon_shape", "circle")) {
                         "circle" -> iconBackground = R.drawable.circle
@@ -277,7 +277,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                 preferLastDisplay)
         layoutParams.gravity = Gravity.BOTTOM or Gravity.END
         layoutParams.y = y
-        layoutParams.x = x
+        layoutParams.x = margins
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         notificationPanel = LayoutInflater.from(context).inflate(R.layout.notification_panel, null)
         cancelAllBtn = notificationPanel!!.findViewById(R.id.cancel_all_n_btn)
@@ -415,12 +415,12 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             updateLayoutParams()
     }
 
-    private fun updateLayoutParams(){
+    private fun updateLayoutParams() {
         dockHeight = Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
-        y = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+        y = (if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
             dockHeight - DeviceUtils.getNavBarHeight(context)
         else
-            dockHeight
+            dockHeight) + margins
 
         notificationLayoutParams.y = y
         windowManager.updateViewLayout(notificationLayout, notificationLayoutParams)

@@ -135,6 +135,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
         dockHeight.setOnDialogShownListener(object : SliderPreference.OnDialogShownListener {
             override fun onDialogShown() {
                 val slider = dockHeight.slider
+                slider.isTickVisible = false
                 slider.labelBehavior = LabelFormatter.LABEL_GONE
                 slider.stepSize = 1f
                 slider.value = dockHeight.sharedPreferences!!.getString("dock_height", "58")!!.toFloat()

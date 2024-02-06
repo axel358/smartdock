@@ -25,6 +25,7 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
 import android.os.Process
+import android.widget.Toast
 
 object AppUtils {
     const val PINNED_LIST = "pinned.lst"
@@ -265,6 +266,7 @@ object AppUtils {
         val statusHeight = DeviceUtils.getStatusBarHeight(context)
         val navHeight = DeviceUtils.getNavBarHeight(context)
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
+        Toast.makeText(context, dockHeight.toString() + " " + navHeight + " " + diff.toString(), Toast.LENGTH_LONG).show()
         val usableHeight = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
             deviceHeight - diff - DeviceUtils.getStatusBarHeight(context)
         else

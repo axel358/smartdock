@@ -749,7 +749,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             else {
                 windowMode = if (Build.VERSION.SDK_INT >= 28) 5 else 2
                 options.setLaunchBounds(
-                        AppUtils.makeLaunchBounds(context, mode!!, dockLayout.measuredHeight, preferLastDisplay))
+                        AppUtils.makeLaunchBounds(context, mode!!, dockHeight, preferLastDisplay))
             }
             if (Build.VERSION.SDK_INT > 28 && preferLastDisplay)
                 options.setLaunchDisplayId(DeviceUtils.getSecondaryDisplay(this).displayId)
