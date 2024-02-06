@@ -1379,6 +1379,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             val method = sharedPreferences.getString("activation_method", "swipe")
             if (method == "swipe") {
                 dockHandle.visibility = View.GONE
+                updateDockTrigger()
                 dock.visibility = View.VISIBLE
             } else {
                 dock.visibility = View.GONE
