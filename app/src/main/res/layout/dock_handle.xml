@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dock_handle"
+    android:layout_width="22dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/dock_handle_bg"
+    android:drawableStart="@drawable/ic_expand_right"
+    android:visibility="gone" />
