@@ -320,5 +320,6 @@
     <string name="wifi">WiFi</string>
     <string name="not_connected">ਕਨੈਕਟ ਨਹੀਂ ਹੈ</string>
     <string name="select_network">ਨੈੱਟਵਰਕ ਚੁਣੋ</string>
+    <string name="handle_position">Handle position</string>
 
 </resources>

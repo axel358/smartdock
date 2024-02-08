@@ -13,6 +13,11 @@
         android:key="custom_toasts"
         android:summary="Use built-in custom Toasts for apps when the Dock is pinned"
         android:defaultValue="false" />
+
+	<cu.axel.smartdock.preferences.SliderPreference
+		android:defaultValue="58"
+		android:key="dock_height"
+		android:title="Dock height"/>
 		  
    <PreferenceCategory
 	   android:enabled="false"

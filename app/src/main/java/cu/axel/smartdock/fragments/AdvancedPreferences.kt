@@ -14,13 +14,17 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.slider.LabelFormatter
+import com.google.android.material.slider.Slider
 import cu.axel.smartdock.R
+import cu.axel.smartdock.preferences.SliderPreference
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
 
 private const val SAVE_REQUEST_CODE = 236
 private const val OPEN_REQUEST_CODE = 632
+
 class AdvancedPreferences : PreferenceFragmentCompat() {
     private var rootAvailable = false
     override fun onCreatePreferences(arg0: Bundle?, arg1: String?) {
@@ -127,6 +131,23 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                     OPEN_REQUEST_CODE)
             false
         }
+        val dockHeight = findPreference<SliderPreference>("dock_height")!!
+        dockHeight.setOnDialogShownListener(object : SliderPreference.OnDialogShownListener {
+            override fun onDialogShown() {
+                val slider = dockHeight.slider
+                slider.isTickVisible = false
+                slider.labelBehavior = LabelFormatter.LABEL_GONE
+                slider.stepSize = 1f
+                slider.value = dockHeight.sharedPreferences!!.getString("dock_height", "58")!!.toFloat()
+                slider.valueFrom = 50f
+                slider.valueTo = 70f
+                slider.addOnChangeListener { _, value, _
+                    ->
+                    dockHeight.sharedPreferences!!.edit().putString("dock_height", value.toInt().toString()).apply()
+                }
+            }
+
+        })
     }
 
     private fun showDisplaySizeDialog(context: Context) {

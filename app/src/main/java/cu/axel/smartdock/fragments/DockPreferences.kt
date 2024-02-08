@@ -20,10 +20,13 @@ class DockPreferences : PreferenceFragmentCompat() {
         activationArea!!.isVisible = activationArea.sharedPreferences!!.getString("activation_method", "swipe") == "swipe"
         val handleOpacity = findPreference<Preference>("handle_opacity")
         handleOpacity!!.isVisible = handleOpacity.sharedPreferences!!.getString("activation_method", "swipe") == "handle"
+        val handlePosition = findPreference<Preference>("handle_position")
+        handlePosition!!.isVisible = handleOpacity.isVisible
         val activationMethod = findPreference<Preference>("activation_method")
         activationMethod!!.setOnPreferenceChangeListener { _, newValue ->
             handleOpacity.isVisible = newValue.toString() == "handle"
             activationArea.isVisible = newValue.toString() == "swipe"
+            handlePosition.isVisible = handleOpacity.isVisible
             true
         }
     }

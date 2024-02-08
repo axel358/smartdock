@@ -85,6 +85,16 @@
 		<item>swipe</item>
 		<item>handle</item>
 	</string-array>
+
+    <string-array name="handle_positions">
+        <item>@string/left</item>
+        <item>@string/right</item>
+    </string-array>
+
+    <string-array name="handle_positions_values">
+        <item>start</item>
+        <item>end</item>
+    </string-array>
  
     <string-array name="default_color_values" translatable="false">
         <item>#EF5350</item>
@@ -118,7 +128,9 @@
         <item>#3E3E3E</item>
         <item>#101010</item>
     </string-array>
-    
-    
+
+
+    <string name="left">Left</string>
+    <string name="right">Right</string>
 </resources>
 

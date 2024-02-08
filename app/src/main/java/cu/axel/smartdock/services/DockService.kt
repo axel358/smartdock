@@ -142,7 +142,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var dockHandler: Handler
     private lateinit var dock: HoverInterceptorLayout
     private lateinit var bm: BluetoothManager
-    private lateinit var dockTrigger: View
     private lateinit var pinnedApps: ArrayList<App>
     private lateinit var dateTv: TextClock
     private var maxApps = 0
@@ -150,6 +149,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var tasks: ArrayList<AppTask>
     private var lastUpdate: Long = 0
     private var previousActivity: String? = null
+    private var dockHeight: Int = 0
+    private lateinit var handleLayoutParams: WindowManager.LayoutParams
     override fun onCreate() {
         super.onCreate()
         db = DBHelper(this)
@@ -173,8 +174,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         //Create the dock
         dock = LayoutInflater.from(context).inflate(R.layout.dock, null) as HoverInterceptorLayout
         dockLayout = dock.findViewById(R.id.dock_layout)
-        dockTrigger = dock.findViewById(R.id.dock_trigger)
-        dockHandle = dock.findViewById(R.id.dock_handle)
+        dockHandle = LayoutInflater.from(context).inflate(R.layout.dock_handle, null) as Button
         appsBtn = dock.findViewById(R.id.apps_btn)
         tasksGv = dock.findViewById(R.id.apps_lv)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -293,12 +293,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             )
             true
         }
-        dockLayoutParams = Utils.makeWindowParams(-1, -2, context, preferLastDisplay)
+
+        dockHeight =
+            Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
+        dockLayoutParams = Utils.makeWindowParams(-1, dockHeight, context, preferLastDisplay)
         dockLayoutParams.screenOrientation =
             if (sharedPreferences.getBoolean("lock_landscape", false))
                 ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             else
                 ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+
         dockLayoutParams.gravity = Gravity.BOTTOM or Gravity.START
         windowManager.addView(dock, dockLayoutParams)
 
@@ -435,6 +439,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             false
         }
 
+        //Dock handle
+        handleLayoutParams = Utils.makeWindowParams(
+            Utils.dpToPx(context, 22), -2, context,
+            preferLastDisplay
+        )
+        updateHandlePositionValues()
+
         //Listen for launcher messages
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -490,7 +501,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         updateMenuIcon()
         loadPinnedApps()
         placeRunningApps()
-        updateDockTrigger()
+        windowManager.addView(dockHandle, handleLayoutParams)
         if (sharedPreferences.getBoolean("pin_dock", true))
             pinDock()
         else
@@ -540,7 +551,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             layoutParams.gravity = Gravity.BOTTOM or Gravity.START
             layoutParams.flags = (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH)
-            layoutParams.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
+            layoutParams.y = Utils.dpToPx(context, 2) + dockHeight
             val location = IntArray(2)
             anchor.getLocationOnScreen(location)
             layoutParams.x = location[0]
@@ -726,7 +737,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                        context, "portrait", task.id, dockLayout.measuredHeight,
+                        context, "portrait", task.id, dockHeight,
                         preferLastDisplay
                     )
                 }
@@ -734,7 +745,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                        context, "maximized", task.id, dockLayout.measuredHeight,
+                        context, "maximized", task.id, dockHeight,
                         preferLastDisplay
                     )
                 }
@@ -742,7 +753,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                        context, "tiled-left", task.id, dockLayout.measuredHeight,
+                        context, "tiled-left", task.id, dockHeight,
                         preferLastDisplay
                     )
                 }
@@ -750,7 +761,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                        context, "tiled-right", task.id, dockLayout.measuredHeight,
+                        context, "tiled-right", task.id, dockHeight,
                         preferLastDisplay
                     )
                 }
@@ -758,7 +769,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                        context, "standard", task.id, dockLayout.measuredHeight,
+                        context, "standard", task.id, dockHeight,
                         preferLastDisplay
                     )
                 }
@@ -813,29 +824,33 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun showDock() {
+        dock.visibility = View.VISIBLE
         dockHandle.visibility = View.GONE
-        if (dockLayoutParams.width != -1) {
-            dockLayoutParams.width = -1
+
+        if (dockLayoutParams.height != dockHeight) {
+            dockLayoutParams.height = dockHeight
             windowManager.updateViewLayout(dock, dockLayoutParams)
         }
+
         dockHandler.removeCallbacksAndMessages(null)
         updateRunningTasks()
         val anim = AnimationUtils.loadAnimation(context, R.anim.slide_up)
         dockLayout.visibility = View.VISIBLE
         dockLayout.startAnimation(anim)
-        dockTrigger.visibility = View.GONE
     }
 
     fun pinDock() {
         isPinned = true
         pinBtn.setImageResource(R.drawable.ic_pin)
-        if (dockLayout.visibility == View.GONE) showDock()
+        if (dockLayout.visibility == View.GONE)
+            showDock()
     }
 
     private fun unpinDock() {
         pinBtn.setImageResource(R.drawable.ic_unpin)
         isPinned = false
-        if (dockLayout.visibility == View.VISIBLE) hideDock(500)
+        if (dockLayout.visibility == View.VISIBLE)
+            hideDock(500)
     }
 
     private fun hideDock(delay: Int) {
@@ -847,15 +862,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     override fun onAnimationStart(p1: Animation) {}
                     override fun onAnimationEnd(p1: Animation) {
                         dockLayout.visibility = View.GONE
-                        if (sharedPreferences.getString(
-                                "activation_method",
-                                "swipe"
-                            ) == "swipe"
-                        ) dockTrigger.visibility = View.VISIBLE else {
-                            if (dockLayoutParams.width == -1) {
-                                dockLayoutParams.width = Utils.dpToPx(context, 24)
-                                windowManager.updateViewLayout(dock, dockLayoutParams)
-                            }
+                        if (sharedPreferences.getString("activation_method", "swipe") == "swipe") {
+                            val height =
+                                sharedPreferences.getString("dock_activation_area", "10")!!.toInt()
+                            dockLayoutParams.height = Utils.dpToPx(context, height)
+                            windowManager.updateViewLayout(dock, dockLayoutParams)
+                        } else {
+                            dock.visibility = View.GONE
                             dockHandle.visibility = View.VISIBLE
                         }
                     }
@@ -920,7 +933,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     AppUtils.makeLaunchBounds(
                         context,
                         mode!!,
-                        dockLayout.measuredHeight,
+                        dockHeight,
                         preferLastDisplay
                     )
                 )
@@ -952,11 +965,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun setOrientation() {
-        dockLayoutParams.screenOrientation = if (sharedPreferences.getBoolean(
-                "lock_landscape",
-                false
-            )
-        ) ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE else ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        dockLayoutParams.screenOrientation =
+            if (sharedPreferences.getBoolean("lock_landscape", false))
+                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            else ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+
         windowManager.updateViewLayout(dock, dockLayoutParams)
     }
 
@@ -968,7 +981,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val layoutParams: WindowManager.LayoutParams?
         val deviceWidth = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).widthPixels
         val deviceHeight = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).heightPixels
-        val dockHeight = dockLayout.measuredHeight
         val margins = Utils.dpToPx(context, 2)
         val navHeight = DeviceUtils.getNavBarHeight(context)
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
@@ -1217,7 +1229,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         layoutParams.gravity = Gravity.BOTTOM or Gravity.START
         layoutParams.flags =
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-        layoutParams.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
+        layoutParams.y = Utils.dpToPx(context, 2) + dockHeight
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
         layoutParams.x = location[0]
@@ -1319,49 +1331,72 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         windowManager.addView(view, layoutParams)
     }
 
-    override fun onSharedPreferenceChanged(p1: SharedPreferences, p2: String) {
-        if (p2.startsWith("theme")) applyTheme() else if (p2 == "menu_icon_uri") updateMenuIcon() else if (p2.startsWith(
-                "icon_"
-            ) || p2 == "tint_indicators"
-        ) {
+
+    override fun onSharedPreferenceChanged(p1: SharedPreferences, preference: String) {
+        if (preference.startsWith("theme"))
+            applyTheme()
+        else if (preference == "menu_icon_uri")
+            updateMenuIcon()
+        else if (preference.startsWith("icon_") || preference == "tint_indicators") {
             updateRunningTasks()
             loadFavoriteApps()
-        } else if (p2 == "lock_landscape") setOrientation() else if (p2 == "center_running_apps") {
+        } else if (preference == "lock_landscape")
+            setOrientation()
+        else if (preference == "center_running_apps") {
             placeRunningApps()
             updateRunningTasks()
-        } else if (p2 == "dock_activation_area") updateDockTrigger() else if (p2.startsWith("enable_corner_")) updateCorners() else if (p2.startsWith(
-                "enable_nav_"
-            )
-        ) {
+        } else if (preference == "dock_activation_area")
+            updateDockTrigger()
+        else if (preference.startsWith("enable_corner_"))
+            updateCorners()
+        else if (preference.startsWith("enable_nav_")) {
             updateNavigationBar()
-        } else if (p2.startsWith("enable_qs_")) {
+        } else if (preference.startsWith("enable_qs_")) {
             updateQuickSettings()
-        } else if (p2 == "dock_square") updateDockShape() else if (p2 == "max_running_apps") {
+        } else if (preference == "dock_square")
+            updateDockShape()
+        else if (preference == "max_running_apps") {
             maxApps = sharedPreferences.getString("max_running_apps", "10")!!.toInt()
             updateRunningTasks()
-        } else if (p2 == "activation_method") {
-            if (!isPinned) {
-                val method = sharedPreferences.getString(p2, "swipe")
-                if (method == "swipe") {
-                    dockLayoutParams.width = -1
-                    windowManager.updateViewLayout(dock, dockLayoutParams)
-                    dockTrigger.visibility = View.VISIBLE
-                    dockHandle.visibility = View.GONE
-                } else {
-                    dockLayoutParams.width = Utils.dpToPx(context, 24)
-                    windowManager.updateViewLayout(dock, dockLayoutParams)
-                    dockTrigger.visibility = View.GONE
-                    dockHandle.visibility = View.VISIBLE
-                }
-            }
-        } else if (p2 == "handle_opacity") dockHandle.alpha =
-            0.01f * sharedPreferences.getString("handle_opacity", "50")!!.toInt()
+        } else if (preference == "activation_method") {
+            updateActivationMethod()
+        } else if (preference == "handle_opacity")
+            dockHandle.alpha = 0.01f * sharedPreferences.getString("handle_opacity", "50")!!.toInt()
+        else if (preference == "dock_height")
+            updateDockHeight()
+        else if (preference == "handle_position")
+            updateHandlePosition()
     }
 
     private fun updateDockTrigger() {
-        val height = sharedPreferences.getString("dock_activation_area", "10")!!.toInt()
-        dockTrigger.layoutParams.height =
-            Utils.dpToPx(context, 1.coerceAtLeast(height).coerceAtMost(50))
+        if (!isPinned) {
+            val height = sharedPreferences.getString("dock_activation_area", "10")!!.toInt()
+            dockLayoutParams.height = Utils.dpToPx(context, height)
+            windowManager.updateViewLayout(dock, dockLayoutParams)
+        }
+    }
+
+    private fun updateActivationMethod() {
+        if (!isPinned) {
+            val method = sharedPreferences.getString("activation_method", "swipe")
+            if (method == "swipe") {
+                dockHandle.visibility = View.GONE
+                updateDockTrigger()
+                dock.visibility = View.VISIBLE
+            } else {
+                dock.visibility = View.GONE
+                dockHandle.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun updateDockHeight() {
+        dockHeight =
+            Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
+        if (isPinned) {
+            dockLayoutParams.height = dockHeight
+            windowManager.updateViewLayout(dock, dockLayoutParams)
+        }
     }
 
     private fun placeRunningApps() {
@@ -1387,7 +1422,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         if (now - lastUpdate < 500) return
         lastUpdate = now
 
-        //Toast.makeText(context, "Updating running apps...", Toast.LENGTH_LONG).show();
         val apps = ArrayList<DockApp>()
         for (pinnedApp in pinnedApps) {
             apps.add(DockApp(pinnedApp.name, pinnedApp.packageName, pinnedApp.icon))
@@ -1543,7 +1577,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         )
         layoutParams.flags =
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-        layoutParams.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
+        layoutParams.y = Utils.dpToPx(context, 2) + dockHeight
         layoutParams.x = Utils.dpToPx(context, 2)
         layoutParams.gravity = Gravity.BOTTOM or Gravity.END
         audioPanel = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
@@ -1594,7 +1628,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         )
         layoutParams.flags =
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-        layoutParams.y = Utils.dpToPx(context, 2) + dockLayout.measuredHeight
+        layoutParams.y = Utils.dpToPx(context, 2) + dockHeight
         layoutParams.x = Utils.dpToPx(context, 2)
         layoutParams.gravity = Gravity.BOTTOM or Gravity.END
         wifiPanel = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
@@ -1771,6 +1805,35 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         if (Build.VERSION.SDK_INT >= 28) {
             performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN)
         } else DeviceUtils.lockScreen(context)
+    }
+
+    private fun updateHandlePositionValues() {
+        val position = sharedPreferences.getString("handle_position", "start")
+        handleLayoutParams.gravity =
+            Gravity.BOTTOM or if (position == "start") Gravity.START else Gravity.END
+        if (position == "end") {
+            dockHandle.setBackgroundResource(R.drawable.dock_handle_bg_end)
+            dockHandle.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_expand_left,
+                0,
+                0,
+                0
+            )
+        }
+        else {
+            dockHandle.setBackgroundResource(R.drawable.dock_handle_bg_start)
+            dockHandle.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_expand_right,
+                0,
+                0,
+                0
+            )
+        }
+    }
+
+    private fun updateHandlePosition(){
+        updateHandlePositionValues()
+        windowManager.updateViewLayout(dockHandle, handleLayoutParams)
     }
 
     override fun onTouch(p1: View, p2: MotionEvent): Boolean {
