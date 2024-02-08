@@ -30,7 +30,6 @@
             android:title="@string/center_app_menu"
             android:defaultValue="false" />
         <EditTextPreference
-            android:inputType="number"
             android:key="num_columns"
             android:hint="5"
             android:defaultValue="5"

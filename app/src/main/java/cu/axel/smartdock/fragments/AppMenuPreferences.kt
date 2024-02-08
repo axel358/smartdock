@@ -63,6 +63,12 @@ class AppMenuPreferences : PreferenceFragmentCompat() {
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.imeOptions = EditorInfo.IME_ACTION_GO
         }
+
+        val columns: EditTextPreference? = findPreference("num_columns")
+        columns?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER
+            editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
