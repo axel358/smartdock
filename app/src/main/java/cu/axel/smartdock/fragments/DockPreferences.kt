@@ -2,7 +2,10 @@ package cu.axel.smartdock.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
+import android.view.inputmethod.EditorInfo
 import android.widget.CheckBox
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -66,6 +69,12 @@ class DockPreferences : PreferenceFragmentCompat() {
             activationArea.isVisible = newValue.toString() == "swipe"
             handlePosition.isVisible = handleOpacity.isVisible
             true
+        }
+
+        val maxRunningApps: EditTextPreference? = findPreference("max_running_apps")
+        maxRunningApps?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER
+            editText.imeOptions = EditorInfo.IME_ACTION_GO
         }
     }
 

@@ -97,7 +97,6 @@
 			android:title="@string/auto_pin_title"/>
         
         <EditTextPreference
-            android:inputType="number"
             android:key="max_running_apps"
             android:hint="10"
             android:defaultValue="10"
