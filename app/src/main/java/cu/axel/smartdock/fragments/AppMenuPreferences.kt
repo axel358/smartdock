@@ -3,6 +3,9 @@ package cu.axel.smartdock.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
+import android.view.inputmethod.EditorInfo
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import cu.axel.smartdock.R
@@ -47,6 +50,18 @@ class AppMenuPreferences : PreferenceFragmentCompat() {
             widthPreference.isEnabled = !checked
             centerPreference.isEnabled = !checked
             true
+        }
+
+        val menuHeight: EditTextPreference? = findPreference("app_menu_height")
+        menuHeight?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER
+            editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
+
+        val menuWidth: EditTextPreference? = findPreference("app_menu_width")
+        menuWidth?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER
+            editText.imeOptions = EditorInfo.IME_ACTION_GO
         }
     }
 

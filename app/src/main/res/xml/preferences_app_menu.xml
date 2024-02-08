@@ -16,13 +16,11 @@
             android:title="@string/app_menu_fullscreen_title"
             android:defaultValue="false" />
         <EditTextPreference
-            android:inputType="number"
             android:key="app_menu_height"
             android:hint="540"
             android:defaultValue="540"
             android:title="@string/app_menu_height_title"/>
         <EditTextPreference
-            android:inputType="number"
             android:key="app_menu_width"
             android:hint="650"
             android:defaultValue="650"
