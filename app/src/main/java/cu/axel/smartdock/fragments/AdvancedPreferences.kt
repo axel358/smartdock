@@ -182,6 +182,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                 }
             }
         })
+
     }
 
     private fun showDisplaySizeDialog(context: Context) {
