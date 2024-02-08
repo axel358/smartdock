@@ -127,7 +127,7 @@
     <string name="running_apps_number_summary">This setting can help devices with smaller screens avoid app overflow on the Dock</string>
     <string name="dock_hide_delay_title">Dock hide delay in ms</string>
     <string name="center_running_apps_title">Center running apps</string>
-    <string name="dock_activation_area_title">Dock activation area (max 50)</string>
+    <string name="dock_activation_area_title">Dock activation area</string>
     <string name="dock_activation_area_summary">The height of the invisible activation area at the bottom of the screen</string>
 
     <!-- Desktop -->

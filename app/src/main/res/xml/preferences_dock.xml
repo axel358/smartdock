@@ -85,10 +85,8 @@
 			android:defaultValue="start"
 			android:title="@string/handle_position"/>
 			
-		<EditTextPreference
-			android:inputType="number"
+		<cu.axel.smartdock.preferences.SliderPreference
 			android:key="dock_activation_area"
-			android:hint="10"
 			android:defaultValue="10"
 			android:summary="@string/dock_activation_area_summary"
 			android:title="@string/dock_activation_area_title"/>

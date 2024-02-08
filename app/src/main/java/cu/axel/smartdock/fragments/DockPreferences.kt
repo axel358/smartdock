@@ -18,9 +18,26 @@ class DockPreferences : PreferenceFragmentCompat() {
             showAutopinDialog(requireContext())
             false
         }
-        val activationArea = findPreference<Preference>("dock_activation_area")
+        val activationArea = findPreference<SliderPreference>("dock_activation_area")
         activationArea!!.isVisible =
             activationArea.sharedPreferences!!.getString("activation_method", "swipe") == "swipe"
+        activationArea.setOnDialogShownListener(object : SliderPreference.OnDialogShownListener {
+            override fun onDialogShown() {
+                val slider = activationArea.slider
+                slider.isTickVisible = false
+                slider.labelBehavior = LabelFormatter.LABEL_GONE
+                slider.stepSize = 1f
+                slider.value =
+                    activationArea.sharedPreferences!!.getString(activationArea.key, "10")!!
+                        .toFloat()
+                slider.valueFrom = 1f
+                slider.valueTo = 50f
+                slider.addOnChangeListener { _, value, _ ->
+                    activationArea.sharedPreferences!!.edit()
+                        .putString(activationArea.key, value.toInt().toString()).apply()
+                }
+            }
+        })
         val handleOpacity = findPreference<SliderPreference>("handle_opacity")
         handleOpacity!!.isVisible =
             handleOpacity.sharedPreferences!!.getString("activation_method", "swipe") == "handle"
@@ -30,7 +47,9 @@ class DockPreferences : PreferenceFragmentCompat() {
                 slider.isTickVisible = false
                 slider.labelBehavior = LabelFormatter.LABEL_GONE
                 slider.stepSize = 0.1f
-                slider.value = handleOpacity.sharedPreferences!!.getString(handleOpacity.key, "0.5f")!!.toFloat()
+                slider.value =
+                    handleOpacity.sharedPreferences!!.getString(handleOpacity.key, "0.5f")!!
+                        .toFloat()
                 slider.valueFrom = 0.2f
                 slider.valueTo = 1f
                 slider.addOnChangeListener { _, value, _ ->
