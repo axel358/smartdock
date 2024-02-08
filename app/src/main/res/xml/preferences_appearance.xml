@@ -17,12 +17,12 @@
             android:key="icon_shape"
             android:title="@string/icon_shape_title"
             android:defaultValue="circle" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="dock_square"
             android:title="@string/dock_square_title"
             android:defaultValue="false" />
         
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="tint_indicators"
             android:title="@string/tint_indicators_title"
             android:defaultValue="false" />

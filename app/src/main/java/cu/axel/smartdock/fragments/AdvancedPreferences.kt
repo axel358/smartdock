@@ -10,12 +10,11 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.widget.EditText
-import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.LabelFormatter
-import com.google.android.material.slider.Slider
 import cu.axel.smartdock.R
 import cu.axel.smartdock.preferences.SliderPreference
 import cu.axel.smartdock.utils.AppUtils
@@ -53,7 +52,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             }
             false
         }
-        val hideNav = findPreference<CheckBoxPreference>("hide_nav_buttons")
+        val hideNav = findPreference<SwitchPreferenceCompat>("hide_nav_buttons")
         val result = DeviceUtils.runAsRoot("cat /system/build.prop")
         hideNav!!.isChecked = result.contains("qemu.hw.mainkeys=1")
         rootAvailable = result != "error"
@@ -62,7 +61,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS)
             hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(requireActivity())
         }
-        val hideStatus = findPreference<CheckBoxPreference>("hide_status_bar")
+        val hideStatus = findPreference<SwitchPreferenceCompat>("hide_status_bar")
         hideStatus!!.isVisible = Build.VERSION.SDK_INT < 31
         if (hasWriteSettingsPermission) {
             findPreference<Preference>("secure_category")!!.isEnabled = true
@@ -91,7 +90,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                 showIBDialog(requireContext())
                 false
             }
-            val disableHeadsUp = findPreference<CheckBoxPreference>("disable_heads_up")!!
+            val disableHeadsUp = findPreference<SwitchPreferenceCompat>("disable_heads_up")!!
             disableHeadsUp.isChecked = DeviceUtils.getGlobalSetting(requireActivity(), DeviceUtils.HEADS_UP_ENABLED, 1) == 0
             disableHeadsUp.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, p2: Any ->
                 if (p2 as Boolean) {

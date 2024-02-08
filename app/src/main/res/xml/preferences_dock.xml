@@ -1,61 +1,61 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="@string/navigation">
-		<CheckBoxPreference
+		<SwitchPreferenceCompat
             android:key="enable_nav_apps"
             android:title="@string/enable_apps_btn"
 			android:summary="@string/enable_apps_btn_summary"
             android:defaultValue="true" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_nav_back"
             android:title="@string/enable_nav_back_title"
             android:defaultValue="true" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_nav_home"
             android:title="@string/enable_nav_home_title"
             android:defaultValue="true" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_nav_recents"
             android:title="@string/enable_nav_recents_title"
             android:defaultValue="true" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_nav_assist"
             android:title="@string/enable_nav_assist_title"
             android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/quick_settings">
-		<CheckBoxPreference
+		<SwitchPreferenceCompat
 			android:title="@string/enable_notif_btn"
 			android:key="enable_qs_notif"
 			android:defaultValue="false"
 			/>
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_qs_bluetooth"
             android:title="@string/enable_qs_bluetooth_title"
             android:defaultValue="false" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_qs_battery"
             android:title="@string/enable_qs_battery_title"
             android:defaultValue="false" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_qs_wifi"
             android:title="@string/enable_qs_wifi_title"
             android:defaultValue="true" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_qs_vol"
             android:title="@string/enable_qs_vol_title"
             android:defaultValue="true" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_qs_date"
             android:title="@string/enable_qs_date_title"
             android:defaultValue="true" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_qs_pin"
             android:title="@string/enable_qs_pin_title"
             android:summary="@string/enable_qs_pin_summary"
             android:defaultValue="true" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="enable_wifi_panel"
             android:title="@string/enable_wifi_panel_title"
             android:summary="@string/enable_wifi_panel_summary"
@@ -107,7 +107,7 @@
             android:summary="@string/running_apps_number_summary"
             android:title="@string/running_apps_number_title"/>
         
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="center_running_apps"
             android:title="@string/center_running_apps_title"
             android:defaultValue="true" />

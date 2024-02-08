@@ -2,13 +2,13 @@
     <Preference
         android:icon="@drawable/ic_info"
         android:title="@string/these_settings_are_intended_fo"/>
-	<CheckBoxPreference
+	<SwitchPreferenceCompat
         android:title="@string/prefer_last_display"
         android:key="prefer_last_display"
         android:summary="@string/prefer_last_display_summary"
         android:defaultValue="false" />
 				
-	<CheckBoxPreference
+	<SwitchPreferenceCompat
         android:title="Custom Toasts"
         android:key="custom_toasts"
         android:summary="Use built-in custom Toasts for apps when the Dock is pinned"
@@ -29,7 +29,7 @@
 	  	 android:key="custom_display_size"
 	   	android:title="@string/custom_display_size_title"/>
 	   
-	   <CheckBoxPreference
+	   <SwitchPreferenceCompat
 	   	android:title="@string/hide_status_bar_title"
 	   	android:key="hide_status_bar"
 	   	android:summary="@string/hide_status_bar_summary"
@@ -40,7 +40,7 @@
 		   android:summary="@string/icon_blacklist_summary"
 		   android:title="@string/icon_blacklist"/>
 		   
-	   <CheckBoxPreference
+	   <SwitchPreferenceCompat
 	   	android:title="@string/disable_heads_up"
 	   	android:key="disable_heads_up"
 	   	android:summary="@string/disable_heads_up_summary"
@@ -51,27 +51,27 @@
 		android:key="root_category"
         android:title="@string/root_required">
 	 
-	 <CheckBoxPreference
+	 <SwitchPreferenceCompat
          android:key="enable_power_menu"
          android:title="@string/enable_power_menu_title"
          android:summary="@string/enable_power_menu_summary"
          android:defaultValue="false" />
-     <CheckBoxPreference
+     <SwitchPreferenceCompat
         android:key="allow_app_freeze"
         android:title="@string/allow_app_freeze_title"
         android:summary="@string/allow_app_freeze_summary"
         android:defaultValue="false" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         android:key="allow_sysapp_uninstall"
         android:title="@string/allow_sysapp_uninstall_title"
         android:summary="@string/allow_sysapp_uninstall_summary"
         android:defaultValue="false" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         android:summary="@string/hide_nav_buttons_summary"
         android:key="hide_nav_buttons"
         android:title="@string/hide_nav_buttons_title"
         android:defaultValue="false" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         android:summary="@string/enable_soft_reboot_summary"
         android:key="enable_soft_reboot"
         android:title="@string/enable_soft_reboot_title"
@@ -101,7 +101,7 @@
 	android:key="development_category"
     android:title="@string/development_tools">
 	
-	<CheckBoxPreference
+	<SwitchPreferenceCompat
 		android:title="Don't reserve space for navigation bar"
 		android:key="navbar_fix"
 		android:defaultValue="true"/>
