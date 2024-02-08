@@ -125,7 +125,6 @@
     <string name="unpin_fullscreen">ਪੂਰੀ ਸਕ੍ਰੀਨ ਐਪਾਂ \'ਤੇ ਅਨਪਿੰਨ ਕਰੋ</string>
     <string name="running_apps_number_title">ਚੱਲ ਰਹੀਆਂ/ਹਾਲੀਆ ਐਪਾਂ ਦੀ ਦਿਖਾਉਣ ਲਈ ਸੰਖਿਆ</string>
     <string name="running_apps_number_summary">ਇਹ ਸੈਟਿੰਗ ਛੋਟੀਆਂ ਸਕ੍ਰੀਨਾਂ ਵਾਲੇ ਡਿਵਾਈਸਾਂ ਨੂੰ ਡੌਕ \'ਤੇ ਐਪ ਓਵਰਫਲੋ ਤੋਂ ਬਚਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ</string>
-    <string name="dock_hide_delay_title">ਡੌਕ ਲੁਕਾਓ ਲਈ ms ਵਿੱਚ ਦੇਰੀ</string>
     <string name="center_running_apps_title">ਸੈਂਟਰ ਚੱਲ ਰਹੀਆਂ ਐਪਾਂ</string>
     <string name="dock_activation_area_title">ਡੌਕ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ</string>
     <string name="dock_activation_area_summary">ਸਕ੍ਰੀਨ ਦੇ ਹੇਠਾਂ ਇਨਵਿਜੀਵਲ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ ਦੀ ਉਚਾਈ</string>

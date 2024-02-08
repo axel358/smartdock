@@ -194,7 +194,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
                 if (dockLayout.visibility == View.GONE) showDock()
             } else if (event.action == MotionEvent.ACTION_HOVER_EXIT) if (dockLayout.visibility == View.VISIBLE) {
-                hideDock(sharedPreferences.getString("dock_hide_delay", "500")!!.toInt())
+                hideDock(500)
             }
             false
         }
@@ -1819,8 +1819,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 0,
                 0
             )
-        }
-        else {
+        } else {
             dockHandle.setBackgroundResource(R.drawable.dock_handle_bg_start)
             dockHandle.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 R.drawable.ic_expand_right,
@@ -1831,7 +1830,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
     }
 
-    private fun updateHandlePosition(){
+    private fun updateHandlePosition() {
         updateHandlePositionValues()
         windowManager.updateViewLayout(dockHandle, handleLayoutParams)
     }

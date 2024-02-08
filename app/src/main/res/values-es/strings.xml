@@ -125,7 +125,6 @@
     <string name="unpin_fullscreen">Desanclar en aplicaciones de pantalla completa</string>
     <string name="running_apps_number_title">Número de aplicaciones en ejecución/recientes para mostrar</string>
     <string name="running_apps_number_summary">Esta configuración puede ayudar a los dispositivos con pantallas más pequeñas a evitar el desbordamiento de aplicaciones en el Dock</string>
-    <string name="dock_hide_delay_title">Retardo de ocultación del Dock en ms</string>
     <string name="center_running_apps_title">Centrar de aplicaciones en ejecución</string>
     <string name="dock_activation_area_title">Área de activación del Dock</string>
     <string name="dock_activation_area_summary">La altura del área de activación invisible en la parte inferior de la pantalla</string>

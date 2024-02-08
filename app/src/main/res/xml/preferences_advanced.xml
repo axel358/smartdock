@@ -119,11 +119,5 @@
             android:key="icon_padding"
             android:summary="@string/icon_padding_summary"
             android:title="@string/icon_padding_title" />
-        <EditTextPreference
-            android:defaultValue="500"
-            android:hint="500"
-            android:inputType="number"
-            android:key="dock_hide_delay"
-            android:title="@string/dock_hide_delay_title" />
     </PreferenceCategory>
 </PreferenceScreen>
