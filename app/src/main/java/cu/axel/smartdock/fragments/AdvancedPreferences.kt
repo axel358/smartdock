@@ -186,6 +186,12 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             }
         })
 
+        val windowScale: EditTextPreference? = findPreference("scale_factor")
+        windowScale?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+            editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
+
         val iconPadding: EditTextPreference? = findPreference("icon_padding")
         iconPadding?.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
