@@ -72,11 +72,10 @@
             android:key="activation_method"
             android:defaultValue="swipe" />
 		
-		<EditTextPreference
+		<cu.axel.smartdock.preferences.SliderPreference
 		    android:inputType="number"
 			android:key="handle_opacity"
-			android:hint="50"
-			android:defaultValue="50"
+			android:defaultValue="0.5"
 			android:title="@string/handle_opacity"/>
 
 		<ListPreference

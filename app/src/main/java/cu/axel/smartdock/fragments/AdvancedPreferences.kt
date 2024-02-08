@@ -35,16 +35,18 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             showAccessibilityDialog(requireContext())
             true
         }
-        findPreference<Preference>("soft_reboot")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            DeviceUtils.softReboot()
-            false
-        }
+        findPreference<Preference>("soft_reboot")!!.onPreferenceClickListener =
+            Preference.OnPreferenceClickListener {
+                DeviceUtils.softReboot()
+                false
+            }
         val moveToSystem = findPreference<Preference>("move_to_system")
-        moveToSystem!!.isVisible = !AppUtils.isSystemApp(requireContext(), requireContext().packageName)
+        moveToSystem!!.isVisible =
+            !AppUtils.isSystemApp(requireContext(), requireContext().packageName)
         moveToSystem.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             try {
                 val appInfo = requireActivity().packageManager
-                        .getApplicationInfo(requireActivity().packageName, 0)
+                    .getApplicationInfo(requireActivity().packageName, 0)
                 val appDir = appInfo.sourceDir.substring(0, appInfo.sourceDir.lastIndexOf("/"))
                 DeviceUtils.runAsRoot("mv $appDir /system/priv-app/")
                 DeviceUtils.reboot()
@@ -65,21 +67,31 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
         hideStatus!!.isVisible = Build.VERSION.SDK_INT < 31
         if (hasWriteSettingsPermission) {
             findPreference<Preference>("secure_category")!!.isEnabled = true
-            findPreference<Preference>("custom_display_size")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                showDisplaySizeDialog(requireContext())
-                true
-            }
-            hideStatus.isChecked = (DeviceUtils.getGlobalSetting(requireActivity(), DeviceUtils.POLICY_CONTROL, "")
-                    == DeviceUtils.IMMERSIVE_APPS)
+            findPreference<Preference>("custom_display_size")!!.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    showDisplaySizeDialog(requireContext())
+                    true
+                }
+            hideStatus.isChecked =
+                (DeviceUtils.getGlobalSetting(requireActivity(), DeviceUtils.POLICY_CONTROL, "")
+                        == DeviceUtils.IMMERSIVE_APPS)
             hideStatus.setOnPreferenceChangeListener { _, newValue ->
                 if (newValue as Boolean) {
-                    if (DeviceUtils.putGlobalSetting(requireActivity(), DeviceUtils.POLICY_CONTROL,
-                                    DeviceUtils.IMMERSIVE_APPS)) {
+                    if (DeviceUtils.putGlobalSetting(
+                            requireActivity(), DeviceUtils.POLICY_CONTROL,
+                            DeviceUtils.IMMERSIVE_APPS
+                        )
+                    ) {
                         if (rootAvailable)
                             showRebootDialog(requireContext(), true)
                     }
                 } else {
-                    if (DeviceUtils.putGlobalSetting(requireActivity(), DeviceUtils.POLICY_CONTROL, null)) {
+                    if (DeviceUtils.putGlobalSetting(
+                            requireActivity(),
+                            DeviceUtils.POLICY_CONTROL,
+                            null
+                        )
+                    ) {
                         if (rootAvailable)
                             showRebootDialog(requireActivity(), true)
                     }
@@ -91,14 +103,27 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                 false
             }
             val disableHeadsUp = findPreference<SwitchPreferenceCompat>("disable_heads_up")!!
-            disableHeadsUp.isChecked = DeviceUtils.getGlobalSetting(requireActivity(), DeviceUtils.HEADS_UP_ENABLED, 1) == 0
-            disableHeadsUp.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, p2: Any ->
-                if (p2 as Boolean) {
-                    DeviceUtils.putGlobalSetting(requireActivity(), DeviceUtils.HEADS_UP_ENABLED, 0)
-                } else {
-                    DeviceUtils.putGlobalSetting(requireActivity(), DeviceUtils.HEADS_UP_ENABLED, 1)
+            disableHeadsUp.isChecked = DeviceUtils.getGlobalSetting(
+                requireActivity(),
+                DeviceUtils.HEADS_UP_ENABLED,
+                1
+            ) == 0
+            disableHeadsUp.onPreferenceChangeListener =
+                Preference.OnPreferenceChangeListener { _: Preference?, p2: Any ->
+                    if (p2 as Boolean) {
+                        DeviceUtils.putGlobalSetting(
+                            requireActivity(),
+                            DeviceUtils.HEADS_UP_ENABLED,
+                            0
+                        )
+                    } else {
+                        DeviceUtils.putGlobalSetting(
+                            requireActivity(),
+                            DeviceUtils.HEADS_UP_ENABLED,
+                            1
+                        )
+                    }
                 }
-            }
         }
         hideNav.setOnPreferenceChangeListener { _, newValue ->
             if (newValue as Boolean) {
@@ -108,7 +133,8 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                     showRebootDialog(requireContext(), false)
                 }
             } else {
-                val status = DeviceUtils.runAsRoot("sed -i /qemu.hw.mainkeys=1/d /system/build.prop")
+                val status =
+                    DeviceUtils.runAsRoot("sed -i /qemu.hw.mainkeys=1/d /system/build.prop")
                 if (status != "error") {
                     hideNav.sharedPreferences!!.edit().putBoolean("navbar_fix", true).apply()
                     showRebootDialog(requireContext(), false)
@@ -117,19 +143,27 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             false
         }
         findPreference<Preference>("navbar_fix")!!.isVisible = Build.VERSION.SDK_INT > 31
-        findPreference<Preference>("backup_preferences")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType("*/*").putExtra(Intent.EXTRA_TITLE,
-                            requireActivity().packageName + "_backup_" + Utils.currentDateString + ".sdp"),
-                    SAVE_REQUEST_CODE)
-            false
-        }
-        findPreference<Preference>("restore_preferences")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            startActivityForResult(
-                    Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*"),
-                    OPEN_REQUEST_CODE)
-            false
-        }
+        findPreference<Preference>("backup_preferences")!!.onPreferenceClickListener =
+            Preference.OnPreferenceClickListener {
+                startActivityForResult(
+                    Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
+                        .setType("*/*").putExtra(
+                            Intent.EXTRA_TITLE,
+                            requireActivity().packageName + "_backup_" + Utils.currentDateString + ".sdp"
+                        ),
+                    SAVE_REQUEST_CODE
+                )
+                false
+            }
+        findPreference<Preference>("restore_preferences")!!.onPreferenceClickListener =
+            Preference.OnPreferenceClickListener {
+                startActivityForResult(
+                    Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
+                        .setType("*/*"),
+                    OPEN_REQUEST_CODE
+                )
+                false
+            }
         val dockHeight = findPreference<SliderPreference>("dock_height")!!
         dockHeight.setOnDialogShownListener(object : SliderPreference.OnDialogShownListener {
             override fun onDialogShown() {
@@ -137,15 +171,16 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                 slider.isTickVisible = false
                 slider.labelBehavior = LabelFormatter.LABEL_GONE
                 slider.stepSize = 1f
-                slider.value = dockHeight.sharedPreferences!!.getString("dock_height", "58")!!.toFloat()
+                slider.value =
+                    dockHeight.sharedPreferences!!.getString(dockHeight.key, "58")!!.toFloat()
                 slider.valueFrom = 50f
                 slider.valueTo = 70f
                 slider.addOnChangeListener { _, value, _
                     ->
-                    dockHeight.sharedPreferences!!.edit().putString("dock_height", value.toInt().toString()).apply()
+                    dockHeight.sharedPreferences!!.edit()
+                        .putString(dockHeight.key, value.toInt().toString()).apply()
                 }
             }
-
         })
     }
 
@@ -158,7 +193,12 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
         dialog.setPositiveButton(R.string.ok) { _, _ ->
             val value = contentEt.text.toString()
             val size = if (value == "0") "" else value
-            if (DeviceUtils.putSecureSetting(context, DeviceUtils.DISPLAY_SIZE, size) && rootAvailable) showRebootDialog(requireContext(), true)
+            if (DeviceUtils.putSecureSetting(
+                    context,
+                    DeviceUtils.DISPLAY_SIZE,
+                    size
+                ) && rootAvailable
+            ) showRebootDialog(requireContext(), true)
         }
         dialog.setNegativeButton(getString(R.string.cancel), null)
         dialog.setView(view)
@@ -172,8 +212,10 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
         val contentEt = view.findViewById<EditText>(R.id.icon_blacklist_et)
         contentEt.setText(DeviceUtils.getSecureSetting(context, DeviceUtils.ICON_BLACKLIST, ""))
         dialog.setPositiveButton(R.string.ok) { _, _ ->
-            DeviceUtils.putSecureSetting(context,
-                    DeviceUtils.ICON_BLACKLIST, contentEt.text.toString())
+            DeviceUtils.putSecureSetting(
+                context,
+                DeviceUtils.ICON_BLACKLIST, contentEt.text.toString()
+            )
         }
         dialog.setNegativeButton(getString(R.string.cancel), null)
         dialog.setView(view)
@@ -196,7 +238,8 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
         dialog.setTitle(R.string.restart)
         dialog.setMessage(R.string.restart_accessibility)
         dialog.setNegativeButton(getString(R.string.cancel), null)
-        dialog.setPositiveButton(getString(R.string.open_accessibility)
+        dialog.setPositiveButton(
+            getString(R.string.open_accessibility)
         ) { _, _ -> startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)) }
         dialog.show()
     }

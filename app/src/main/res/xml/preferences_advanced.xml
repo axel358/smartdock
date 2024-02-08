@@ -1,131 +1,131 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
         android:icon="@drawable/ic_info"
-        android:title="@string/these_settings_are_intended_fo"/>
-	<SwitchPreferenceCompat
-        android:title="@string/prefer_last_display"
+        android:title="@string/these_settings_are_intended_fo" />
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
         android:key="prefer_last_display"
         android:summary="@string/prefer_last_display_summary"
-        android:defaultValue="false" />
-				
-	<SwitchPreferenceCompat
-        android:title="Custom Toasts"
+        android:title="@string/prefer_last_display" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
         android:key="custom_toasts"
         android:summary="Use built-in custom Toasts for apps when the Dock is pinned"
-        android:defaultValue="false" />
+        android:title="Custom Toasts" />
 
-	<cu.axel.smartdock.preferences.SliderPreference
-		android:defaultValue="58"
-		android:key="dock_height"
-		android:title="Dock height"/>
-		  
-   <PreferenceCategory
-	   android:enabled="false"
-   	android:key="secure_category"
-   	android:title="@string/secure_settings">
-	  
-	   <Preference
-	   	android:summary="@string/custom_display_size_summary"
-	  	 android:key="custom_display_size"
-	   	android:title="@string/custom_display_size_title"/>
-	   
-	   <SwitchPreferenceCompat
-	   	android:title="@string/hide_status_bar_title"
-	   	android:key="hide_status_bar"
-	   	android:summary="@string/hide_status_bar_summary"
-	   	android:defaultValue="false" />
-		   
-	   <Preference
-		   android:key="status_icon_blacklist"
-		   android:summary="@string/icon_blacklist_summary"
-		   android:title="@string/icon_blacklist"/>
-		   
-	   <SwitchPreferenceCompat
-	   	android:title="@string/disable_heads_up"
-	   	android:key="disable_heads_up"
-	   	android:summary="@string/disable_heads_up_summary"
-	   	android:defaultValue="false" />
-   </PreferenceCategory>
-   
-	<PreferenceCategory
-		android:key="root_category"
+    <cu.axel.smartdock.preferences.SliderPreference
+        android:defaultValue="58"
+        android:key="dock_height"
+        android:title="Dock height" />
+
+    <PreferenceCategory
+        android:enabled="false"
+        android:key="secure_category"
+        android:title="@string/secure_settings">
+
+        <Preference
+            android:key="custom_display_size"
+            android:summary="@string/custom_display_size_summary"
+            android:title="@string/custom_display_size_title" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="hide_status_bar"
+            android:summary="@string/hide_status_bar_summary"
+            android:title="@string/hide_status_bar_title" />
+
+        <Preference
+            android:key="status_icon_blacklist"
+            android:summary="@string/icon_blacklist_summary"
+            android:title="@string/icon_blacklist" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="disable_heads_up"
+            android:summary="@string/disable_heads_up_summary"
+            android:title="@string/disable_heads_up" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="root_category"
         android:title="@string/root_required">
-	 
-	 <SwitchPreferenceCompat
-         android:key="enable_power_menu"
-         android:title="@string/enable_power_menu_title"
-         android:summary="@string/enable_power_menu_summary"
-         android:defaultValue="false" />
-     <SwitchPreferenceCompat
-        android:key="allow_app_freeze"
-        android:title="@string/allow_app_freeze_title"
-        android:summary="@string/allow_app_freeze_summary"
-        android:defaultValue="false" />
-    <SwitchPreferenceCompat
-        android:key="allow_sysapp_uninstall"
-        android:title="@string/allow_sysapp_uninstall_title"
-        android:summary="@string/allow_sysapp_uninstall_summary"
-        android:defaultValue="false" />
-    <SwitchPreferenceCompat
-        android:summary="@string/hide_nav_buttons_summary"
-        android:key="hide_nav_buttons"
-        android:title="@string/hide_nav_buttons_title"
-        android:defaultValue="false" />
-    <SwitchPreferenceCompat
-        android:summary="@string/enable_soft_reboot_summary"
-        android:key="enable_soft_reboot"
-        android:title="@string/enable_soft_reboot_title"
-        android:defaultValue="false" />
-    <Preference
-        android:key="move_to_system"
-        android:summary="@string/move_to_system_summary"
-        android:title="@string/move_to_system_title"/>
-    
-    <Preference
-        android:key="soft_reboot"
-        android:summary="@string/soft_reboot_summary"
-        android:title="@string/soft_reboot_title"/>
-</PreferenceCategory>
-<PreferenceCategory
-	android:key="backup_category"
-	android:title="@string/backup_restore">
 
-	<Preference
-		android:key="backup_preferences"
-		android:title="@string/backup_preferences"/>
-	<Preference
-		android:key="restore_preferences"
-		android:title="@string/restore_preferences"/>
-</PreferenceCategory>
-<PreferenceCategory
-	android:key="development_category"
-    android:title="@string/development_tools">
-	
-	<SwitchPreferenceCompat
-		android:title="Don't reserve space for navigation bar"
-		android:key="navbar_fix"
-		android:defaultValue="true"/>
-	
-    <EditTextPreference
-        android:summary="@string/scale_factor_summary"
-        android:inputType="numberDecimal"
-        android:key="scale_factor"
-        android:hint="1.0"
-        android:defaultValue="1.0"
-        android:title="@string/scale_factor_title"/>
-		
-	<EditTextPreference
-        android:summary="@string/icon_padding_summary"
-        android:inputType="number"
-        android:key="icon_padding"
-        android:hint="5"
-        android:defaultValue="5"
-        android:title="@string/icon_padding_title"/>
-	<EditTextPreference
-		android:inputType="number"
-		android:key="dock_hide_delay"
-		android:hint="500"
-		android:defaultValue="500"
-		android:title="@string/dock_hide_delay_title"/>
-</PreferenceCategory>
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="enable_power_menu"
+            android:summary="@string/enable_power_menu_summary"
+            android:title="@string/enable_power_menu_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="allow_app_freeze"
+            android:summary="@string/allow_app_freeze_summary"
+            android:title="@string/allow_app_freeze_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="allow_sysapp_uninstall"
+            android:summary="@string/allow_sysapp_uninstall_summary"
+            android:title="@string/allow_sysapp_uninstall_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="hide_nav_buttons"
+            android:summary="@string/hide_nav_buttons_summary"
+            android:title="@string/hide_nav_buttons_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="enable_soft_reboot"
+            android:summary="@string/enable_soft_reboot_summary"
+            android:title="@string/enable_soft_reboot_title" />
+        <Preference
+            android:key="move_to_system"
+            android:summary="@string/move_to_system_summary"
+            android:title="@string/move_to_system_title" />
+
+        <Preference
+            android:key="soft_reboot"
+            android:summary="@string/soft_reboot_summary"
+            android:title="@string/soft_reboot_title" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="backup_category"
+        android:title="@string/backup_restore">
+
+        <Preference
+            android:key="backup_preferences"
+            android:title="@string/backup_preferences" />
+        <Preference
+            android:key="restore_preferences"
+            android:title="@string/restore_preferences" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="development_category"
+        android:title="@string/development_tools">
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="navbar_fix"
+            android:title="Don't reserve space for navigation bar" />
+
+        <EditTextPreference
+            android:defaultValue="1.0"
+            android:hint="1.0"
+            android:inputType="numberDecimal"
+            android:key="scale_factor"
+            android:summary="@string/scale_factor_summary"
+            android:title="@string/scale_factor_title" />
+
+        <EditTextPreference
+            android:defaultValue="5"
+            android:hint="5"
+            android:inputType="number"
+            android:key="icon_padding"
+            android:summary="@string/icon_padding_summary"
+            android:title="@string/icon_padding_title" />
+        <EditTextPreference
+            android:defaultValue="500"
+            android:hint="500"
+            android:inputType="number"
+            android:key="dock_hide_delay"
+            android:title="@string/dock_hide_delay_title" />
+    </PreferenceCategory>
 </PreferenceScreen>

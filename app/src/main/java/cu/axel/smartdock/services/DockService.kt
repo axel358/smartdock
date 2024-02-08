@@ -212,7 +212,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         })
         dock.setOnTouchListener(this)
         dockLayout.setOnTouchListener(this)
-        dockHandle.alpha = 0.01f * sharedPreferences.getString("handle_opacity", "50")!!.toInt()
+        dockHandle.alpha = sharedPreferences.getString("handle_opacity", "0.5")!!.toFloat()
         dockHandle.setOnClickListener { pinDock() }
         appsBtn.setOnClickListener { toggleAppMenu() }
         appsBtn.setOnLongClickListener {
@@ -1361,7 +1361,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         } else if (preference == "activation_method") {
             updateActivationMethod()
         } else if (preference == "handle_opacity")
-            dockHandle.alpha = 0.01f * sharedPreferences.getString("handle_opacity", "50")!!.toInt()
+            dockHandle.alpha = sharedPreferences.getString("handle_opacity", "0.5")!!.toFloat()
         else if (preference == "dock_height")
             updateDockHeight()
         else if (preference == "handle_position")
