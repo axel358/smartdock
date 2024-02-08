@@ -1,37 +1,39 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:title="@string/look_and_feel">
+    <PreferenceCategory android:title="@string/look_and_feel">
         <ListPreference
+            android:defaultValue="dark"
             android:entries="@array/themes"
-            android:entryValues="@array/theme_values" 
+            android:entryValues="@array/theme_values"
             android:key="theme"
-            android:title="@string/theme_title"
-            android:defaultValue="dark" />
+            android:title="@string/theme_title" />
         <Preference
-            android:summary="@string/theme_main_color_summary"
+            android:key="dock_layout"
+            android:title="@string/dock_layout" />
+        <Preference
             android:key="theme_main_color"
-            android:title="@string/theme_main_color_title"/>
+            android:summary="@string/theme_main_color_summary"
+            android:title="@string/theme_main_color_title" />
         <ListPreference
-            android:entries="@array/icon_shapes"  
-            android:entryValues="@array/icon_shapes_values" 
+            android:defaultValue="circle"
+            android:entries="@array/icon_shapes"
+            android:entryValues="@array/icon_shapes_values"
             android:key="icon_shape"
-            android:title="@string/icon_shape_title"
-            android:defaultValue="circle" />
+            android:title="@string/icon_shape_title" />
         <SwitchPreferenceCompat
+            android:defaultValue="false"
             android:key="round_dock"
-            android:title="@string/round_dock"
-            android:defaultValue="false" />
-        
+            android:title="@string/round_dock" />
+
         <SwitchPreferenceCompat
+            android:defaultValue="false"
             android:key="tint_indicators"
-            android:title="@string/tint_indicators_title"
-            android:defaultValue="false" />
-        
+            android:title="@string/tint_indicators_title" />
+
         <ListPreference
-            android:entries="@array/animations" 
-            android:entryValues="@array/animation_values" 
+            android:defaultValue="system"
+            android:entries="@array/animations"
+            android:entryValues="@array/animation_values"
             android:key="custom_animation"
-            android:title="@string/custom_animation_title"
-            android:defaultValue="system" />
+            android:title="@string/custom_animation_title" />
     </PreferenceCategory>
 </PreferenceScreen>

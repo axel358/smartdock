@@ -18,6 +18,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cu.axel.smartdock.R
+import cu.axel.smartdock.dialogs.DockLayoutDialog
 import cu.axel.smartdock.fragments.PreferencesFragment
 import cu.axel.smartdock.services.NotificationService
 import cu.axel.smartdock.utils.ColorUtils
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         )
             showPermissionsDialog()
         if (sharedPreferences.getInt("dock_layout", -1) == -1)
-            showDockLayoutsDialog()
+            DockLayoutDialog(this)
     }
 
     override fun onResume() {
@@ -74,7 +75,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_grant_permissions -> showPermissionsDialog()
-            R.id.action_switch_layout -> showDockLayoutsDialog()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -161,32 +161,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestUsageStatsPermissions() {
         startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-    }
-
-    private fun showDockLayoutsDialog() {
-        val editor = sharedPreferences.edit()
-        val dialog = MaterialAlertDialogBuilder(this)
-        dialog.setTitle(R.string.choose_dock_layout)
-        val layout = sharedPreferences.getInt("dock_layout", -1)
-        dialog.setSingleChoiceItems(R.array.layouts, layout) { _, which ->
-            editor.putBoolean("enable_nav_back", which != 0)
-            editor.putBoolean("enable_nav_home", which != 0)
-            editor.putBoolean("enable_nav_recents", which != 0)
-            editor.putBoolean("enable_qs_wifi", which != 0)
-            editor.putBoolean("enable_qs_vol", which != 0)
-            editor.putBoolean("enable_qs_date", which != 0)
-            editor.putBoolean("enable_qs_notif", which != 0)
-            editor.putBoolean("app_menu_fullscreen", which != 2)
-            editor.putString("launch_mode", if (which != 2) "fullscreen" else "standard")
-            editor.putString("max_running_apps", if (which == 0) "4" else "10")
-            editor.putString("dock_activation_area", if (which == 2) "5" else "25")
-            editor.putInt("dock_layout", which)
-            editor.putString("activation_method", if (which != 2) "handle" else "swipe")
-            editor.putBoolean("show_notifications", which != 0)
-            editor.apply()
-        }
-        dialog.setPositiveButton(R.string.ok, null)
-        dialog.show()
     }
 
     private fun updatePermissionsStatus() {

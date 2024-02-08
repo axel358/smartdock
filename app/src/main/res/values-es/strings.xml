@@ -319,5 +319,6 @@
     <string name="not_connected">No conectado</string>
     <string name="select_network">Seleccione la red</string>
     <string name="handle_position">Handle position</string>
+    <string name="dock_layout">Dock layout</string>
 
 </resources>
