@@ -69,6 +69,12 @@ class AppMenuPreferences : PreferenceFragmentCompat() {
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.imeOptions = EditorInfo.IME_ACTION_GO
         }
+
+        val userName: EditTextPreference? = findPreference("user_name")
+        userName?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+            editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
