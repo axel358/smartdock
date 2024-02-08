@@ -10,7 +10,6 @@
 		android:summary="@string/enable_corner_bottom_right_summary"
 		android:defaultValue="false" />
     <EditTextPreference
-        android:inputType="number"
         android:key="hot_corners_delay"
         android:hint="300"
         android:defaultValue="300"
