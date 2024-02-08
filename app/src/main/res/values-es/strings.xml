@@ -220,7 +220,7 @@
 	<string name="disable_heads_up_summary">Deshabilitar notificaciones emergentes de Android</string>
     <string name="scale_factor_title">Factor de escala de ventana estándar</string>
     <string name="scale_factor_summary">Define qué tan grandes son las ventanas estándar</string>
-    <string name="allow_app_freeze_title">Mostrar una opción para deshabilitar aplicaciones desde el menú contextual de la aplicación</string>
+    <string name="allow_app_freeze_title">Permitir deshabilitar aplicaciones</string>
     <string name="allow_app_freeze_summary">Necesitará una herramienta externa como Ice Box (o ejecutar pm enable [pkgname]) para volver a habilitar las aplicaciones</string>
     <string name="allow_sysapp_uninstall_title">Permitir desinstalar aplicaciones del sistema</string>
     <string name="allow_sysapp_uninstall_summary">Tenga cuidado, esto puede ser realmente peligroso.</string>
@@ -231,7 +231,7 @@
     <string name="override_sb_height">Anular la altura de la barra de estado</string>
     <string name="icon_blacklist">Lista negra de iconos</string>
     <string name="icon_blacklist_summary">Iconos para ocultar de la barra de estado</string>
-    <string name="enable_soft_reboot_title">Use el Modificador+F12 para reiniciar Android</string>
+    <string name="enable_soft_reboot_title">Use el Modificador+F12 para reiniciar</string>
     <string name="enable_soft_reboot_summary">Es posible que el sistema no responda durante un breve período de tiempo</string>
     <string name="soft_reboot_title">Reinicio suave ahora</string>
     <string name="soft_reboot_summary">Reinicio suave ahora. Perderá todo el trabajo no guardado</string>

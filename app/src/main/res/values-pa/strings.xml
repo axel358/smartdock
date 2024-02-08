@@ -220,7 +220,7 @@
     <string name="disable_heads_up_summary">Android ਦੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਨੂੰ ਬੰਦ ਕਰਦਾ ਹੈ</string>
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
-    <string name="allow_app_freeze_title">ਐਪ ਸੰਦਰਭ ਮੀਨੂ ਤੋਂ ਐਪਸ ਨੂੰ ਡੀਸਏਬਲ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕਲਪ ਦਿਖਾਓ</string>
+    <string name="allow_app_freeze_title">Allow disabling apps</string>
     <string name="allow_app_freeze_summary">ਐਪਾਂ ਨੂੰ ਮੁੜ-ਸਮਰੱਥ ਬਣਾਉਣ ਲਈ ਤੁਹਾਨੂੰ ਇੱਕ ਬਾਹਰੀ ਟੂਲ ਦੀ ਲੋੜ ਹੋਵੇਗੀ ਜਿਵੇਂ ਕਿ ਆਈਸ ਬਾਕਸ (ਜਾਂ ਚੱਲ ਰਹੇ pm ਯੋਗ [pkgname])</string>
     <string name="allow_sysapp_uninstall_title">ਸਿਸਟਮ ਐਪਸ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਦਿਓ</string>
     <string name="allow_sysapp_uninstall_summary">ਕਿਰਪਾ ਕਰਕੇ ਸਾਵਧਾਨ ਰਹੋ, ਇਹ ਅਸਲ ਵਿੱਚ ਖਤਰਨਾਕ ਹੋ ਸਕਦਾ ਹੈ</string>
@@ -231,7 +231,7 @@
     <string name="override_sb_height">ਸਥਿਤੀ ਪੱਟੀ ਦੀ ਉਚਾਈ ਨੂੰ ਓਵਰਰਾਈਡ ਕਰੋ</string>
     <string name="icon_blacklist">ਆਈਕਨ ਬਲੈਕਲਿਸਟ</string>
     <string name="icon_blacklist_summary">ਸਥਿਤੀ ਪੱਟੀ ਤੋਂ ਲੁਕਾਉਣ ਲਈ ਆਈਕਾਨ</string>
-    <string name="enable_soft_reboot_title">ਐਂਡਰਾਇਡ ਨੂੰ ਸਾਫਟ ਰੀਬੂਟ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + F12 ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
+    <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="soft_reboot_title">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ</string>
     <string name="soft_reboot_summary">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ। ਤੁਸੀਂ ਸਾਰੇ ਅਣਰੱਖਿਅਤ ਕੰਮ ਗੁਆ ਦੇਵੋਗੇ</string>

@@ -219,7 +219,7 @@
 	<string name="disable_heads_up_summary">Disables Android\'s notification pop-ups</string>
     <string name="scale_factor_title">Standard window scale factor</string>
     <string name="scale_factor_summary">Defines how big standard windows are</string>
-    <string name="allow_app_freeze_title">Show an option to disable apps from the app context menu</string>
+    <string name="allow_app_freeze_title">Allow disabling apps</string>
     <string name="allow_app_freeze_summary">You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps</string>
     <string name="allow_sysapp_uninstall_title">Allow uninstalling system apps</string>
     <string name="allow_sysapp_uninstall_summary">Please be careful, this can be really dangerous</string>
@@ -230,7 +230,7 @@
     <string name="override_sb_height">Override status bar height</string>
     <string name="icon_blacklist">Icon blacklist</string>
     <string name="icon_blacklist_summary">Icons to hide from the status bar</string>
-    <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot Android</string>
+    <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
     <string name="soft_reboot_title">Soft reboot now</string>
     <string name="soft_reboot_summary">Soft reboot now. You will lose all unsaved work</string>
