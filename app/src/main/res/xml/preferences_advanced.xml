@@ -104,7 +104,7 @@
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="navbar_fix"
-            android:title="Don't reserve space for navigation bar" />
+            android:title="Android navigation bar fix" />
 
         <EditTextPreference
             android:defaultValue="1.0"
