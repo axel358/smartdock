@@ -266,7 +266,7 @@ object AppUtils {
         val statusHeight = DeviceUtils.getStatusBarHeight(context)
         val navHeight = DeviceUtils.getNavBarHeight(context)
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
-        Toast.makeText(context, dockHeight.toString() + " " + navHeight + " " + diff.toString(), Toast.LENGTH_LONG).show()
+
         val usableHeight = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
             deviceHeight - diff - DeviceUtils.getStatusBarHeight(context)
         else
