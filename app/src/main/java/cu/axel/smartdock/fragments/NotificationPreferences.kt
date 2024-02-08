@@ -16,5 +16,11 @@ class NotificationPreferences : PreferenceFragmentCompat() {
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.imeOptions = EditorInfo.IME_ACTION_GO
         }
+
+        val ignoredNotifications: EditTextPreference? = findPreference("blocked_notifications")
+        ignoredNotifications?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_TEXT
+            editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
     }
 }
