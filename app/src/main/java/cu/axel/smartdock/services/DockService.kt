@@ -981,7 +981,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val layoutParams: WindowManager.LayoutParams?
         val deviceWidth = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).widthPixels
         val deviceHeight = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).heightPixels
-        //val dockHeight = dockLayout.measuredHeight
         val margins = Utils.dpToPx(context, 2)
         val navHeight = DeviceUtils.getNavBarHeight(context)
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
