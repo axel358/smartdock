@@ -60,7 +60,7 @@
     <string name="system">ਸਿਸਟਮ</string>
     <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>
     <string name="icon_padding_summary">ਆਈਕਨ ਅਤੇ ਇਸ ਦੇ ਬਾਰਡਰ ਦੇ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
-    <string name="dock_square_title">ਡੌਕ ਲਈ ਗੋਲ ਕੋਨਿਆਂ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="round_dock">Rounded corners for the dock</string>
     <string name="tint_indicators_title">ਟਿੰਟ ਚੱਲ ਰਹੇ ਸੂਚਕ</string>
     <string name="custom_animation_title">ਐਪ ਲਾਂਚ ਐਨੀਮੇਸ਼ਨ</string>
     <string name="fade">ਫੇਡ</string>

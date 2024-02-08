@@ -60,7 +60,7 @@
     <string name="system">System</string>
     <string name="icon_padding_title">Icon padding</string>
     <string name="icon_padding_summary">Defines the amount of whitespace between the icon and it\'s border</string>
-    <string name="dock_square_title">Disable rounded corners for the dock</string>
+    <string name="round_dock">Rounded corners for the dock</string>
     <string name="tint_indicators_title">Tint running indicators</string>
     <string name="custom_animation_title">App launch animation</string>
     <string name="fade">Fade</string>

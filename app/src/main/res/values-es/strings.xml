@@ -60,7 +60,7 @@
     <string name="system">Sistema</string>
     <string name="icon_padding_title">Espacio de iconos</string>
     <string name="icon_padding_summary">Define la cantidad de espacio en blanco entre el icono y su borde</string>
-    <string name="dock_square_title">Deshabilitar esquinas redondeadas para el Dock</string>
+    <string name="round_dock">Esquinas redondeadas para el Dock</string>
     <string name="tint_indicators_title">Tintar indicadores</string>
     <string name="custom_animation_title">Animación de inicio de aplicación</string>
     <string name="fade">Desteñir</string>

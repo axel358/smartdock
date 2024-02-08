@@ -1353,7 +1353,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             updateNavigationBar()
         } else if (preference.startsWith("enable_qs_")) {
             updateQuickSettings()
-        } else if (preference == "dock_square")
+        } else if (preference == "round_dock")
             updateDockShape()
         else if (preference == "max_running_apps") {
             maxApps = sharedPreferences.getString("max_running_apps", "10")!!.toInt()
@@ -1452,10 +1452,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private fun updateDockShape() {
         dockLayout.setBackgroundResource(
             if (sharedPreferences.getBoolean(
-                    "dock_square",
+                    "round_dock",
                     false
                 )
-            ) R.drawable.rect else R.drawable.round_rect
+            ) R.drawable.round_rect else  R.drawable.rect
         )
         ColorUtils.applyMainColor(context, sharedPreferences, dockLayout)
     }

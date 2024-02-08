@@ -18,8 +18,8 @@
             android:title="@string/icon_shape_title"
             android:defaultValue="circle" />
         <SwitchPreferenceCompat
-            android:key="dock_square"
-            android:title="@string/dock_square_title"
+            android:key="round_dock"
+            android:title="@string/round_dock"
             android:defaultValue="false" />
         
         <SwitchPreferenceCompat
