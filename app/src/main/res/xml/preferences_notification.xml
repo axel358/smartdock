@@ -6,7 +6,6 @@
 	
 	<EditTextPreference
 		android:dependency="show_notifications"
-        android:inputType="number"
         android:key="notification_timeout"
         android:hint="5000"
         android:defaultValue="5000"
