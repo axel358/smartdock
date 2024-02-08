@@ -109,7 +109,6 @@
         <EditTextPreference
             android:defaultValue="1.0"
             android:hint="1.0"
-            android:inputType="numberDecimal"
             android:key="scale_factor"
             android:summary="@string/scale_factor_summary"
             android:title="@string/scale_factor_title" />
@@ -117,7 +116,6 @@
         <EditTextPreference
             android:defaultValue="5"
             android:hint="5"
-            android:inputType="number"
             android:key="icon_padding"
             android:summary="@string/icon_padding_summary"
             android:title="@string/icon_padding_title" />

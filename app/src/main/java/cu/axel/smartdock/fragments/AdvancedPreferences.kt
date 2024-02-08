@@ -8,8 +8,11 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.text.InputType
 import android.view.LayoutInflater
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
@@ -183,6 +186,11 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             }
         })
 
+        val iconPadding: EditTextPreference? = findPreference("icon_padding")
+        iconPadding?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER
+            editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
     }
 
     private fun showDisplaySizeDialog(context: Context) {
