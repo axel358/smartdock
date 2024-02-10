@@ -51,7 +51,7 @@ object Utils {
         val bitmapCopy = bitmap.copy(Bitmap.Config.ARGB_8888, false)
         bitmap.recycle()
         val result =
-            Bitmap.createBitmap(bitmapCopy.width, bitmapCopy.height, Bitmap.Config.ARGB_8888)
+                Bitmap.createBitmap(bitmapCopy.width, bitmapCopy.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(result)
         val color = -0xbdbdbe
         val paint = Paint()
@@ -60,10 +60,10 @@ object Utils {
         canvas.drawARGB(0, 0, 0, 0)
         paint.color = color
         canvas.drawCircle(
-            (bitmapCopy.width / 2).toFloat(),
-            (bitmapCopy.height / 2).toFloat(),
-            (bitmap.width / 2).toFloat(),
-            paint
+                (bitmapCopy.width / 2).toFloat(),
+                (bitmapCopy.height / 2).toFloat(),
+                (bitmap.width / 2).toFloat(),
+                paint
         )
         paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
         canvas.drawBitmap(bitmapCopy, rect, rect, paint)
@@ -116,7 +116,7 @@ object Utils {
     fun saveLog(context: Context, name: String, log: String) {
         try {
             val fw = FileWriter(
-                File(context.getExternalFilesDir(null), name + "_" + currentDateString + ".log")
+                    File(context.getExternalFilesDir(null), name + "_" + currentDateString + ".log")
             )
             fw.write(log)
             fw.close()
@@ -125,8 +125,8 @@ object Utils {
     }
 
     fun makeWindowParams(
-        width: Int, height: Int, context: Context,
-        preferLastDisplay: Boolean
+            width: Int, height: Int, context: Context,
+            preferLastDisplay: Boolean, mainService: Boolean = true
     ): WindowManager.LayoutParams {
         val displayWidth = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).widthPixels
         val displayHeight = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).heightPixels
@@ -134,10 +134,10 @@ object Utils {
         layoutParams.format = PixelFormat.TRANSLUCENT
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
         layoutParams.type =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-            else
-                WindowManager.LayoutParams.TYPE_PHONE
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    if (mainService && !preferLastDisplay) WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY else WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                else
+                    WindowManager.LayoutParams.TYPE_PHONE
         layoutParams.width = displayWidth.coerceAtMost(width)
         layoutParams.height = displayHeight.coerceAtMost(height)
         return layoutParams
@@ -145,22 +145,22 @@ object Utils {
 
     fun solve(expression: String): Double {
         if (expression.contains("+")) return expression.split("\\+".toRegex())
-            .dropLastWhile { it.isEmpty() }
-            .toTypedArray()[0].toDouble() + expression.split("\\+".toRegex())
-            .dropLastWhile { it.isEmpty() }
-            .toTypedArray()[1].toDouble() else if (expression.contains("-")) return expression.split(
-            "\\-".toRegex()
+                .dropLastWhile { it.isEmpty() }
+                .toTypedArray()[0].toDouble() + expression.split("\\+".toRegex())
+                .dropLastWhile { it.isEmpty() }
+                .toTypedArray()[1].toDouble() else if (expression.contains("-")) return expression.split(
+                "\\-".toRegex()
         ).dropLastWhile { it.isEmpty() }
-            .toTypedArray()[0].toDouble() - expression.split("\\-".toRegex())
-            .dropLastWhile { it.isEmpty() }.toTypedArray()[1].toDouble()
+                .toTypedArray()[0].toDouble() - expression.split("\\-".toRegex())
+                .dropLastWhile { it.isEmpty() }.toTypedArray()[1].toDouble()
         if (expression.contains("/")) return expression.split("\\/".toRegex())
-            .dropLastWhile { it.isEmpty() }
-            .toTypedArray()[0].toDouble() / expression.split("\\/".toRegex())
-            .dropLastWhile { it.isEmpty() }.toTypedArray()[1].toDouble()
+                .dropLastWhile { it.isEmpty() }
+                .toTypedArray()[0].toDouble() / expression.split("\\/".toRegex())
+                .dropLastWhile { it.isEmpty() }.toTypedArray()[1].toDouble()
         return if (expression.contains("*")) expression.split("\\*".toRegex())
-            .dropLastWhile { it.isEmpty() }
-            .toTypedArray()[0].toDouble() * expression.split("\\*".toRegex())
-            .dropLastWhile { it.isEmpty() }.toTypedArray()[1].toDouble() else 0.0
+                .dropLastWhile { it.isEmpty() }
+                .toTypedArray()[0].toDouble() * expression.split("\\*".toRegex())
+                .dropLastWhile { it.isEmpty() }.toTypedArray()[1].toDouble() else 0.0
     }
 
     fun backupPreferences(context: Context, backupUri: Uri) {
@@ -174,7 +174,7 @@ object Utils {
                 type = "integer"
             }
             stringBuilder.append(type).append(" ").append(key).append(" ")
-                .append(value.toString()).append("\n")
+                    .append(value.toString()).append("\n")
         }
         val content = stringBuilder.toString().trim { it <= ' ' }
         var os: OutputStream? = null
@@ -205,17 +205,17 @@ object Utils {
             val editor = sharedPreferences.edit()
             while (br.readLine().also { line = it } != null) {
                 val contents =
-                    line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 if (contents.size > 2) {
                     val type = contents[0]
                     val key = contents[1]
                     val value = contents[2]
                     if (type == "boolean") editor.putBoolean(
-                        key,
-                        java.lang.Boolean.parseBoolean(value)
+                            key,
+                            java.lang.Boolean.parseBoolean(value)
                     ) else if (type == "integer") editor.putInt(
-                        key,
-                        value.toInt()
+                            key,
+                            value.toInt()
                     ) else editor.putString(key, value)
                 }
             }
