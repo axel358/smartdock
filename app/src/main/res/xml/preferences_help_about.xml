@@ -1,5 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
+		android:icon="@mipmap/ic_launcher_round"
         android:title="@string/app_name"
         android:summary="@string/a_launcher_for_android_x86_by_" />
     <Preference
