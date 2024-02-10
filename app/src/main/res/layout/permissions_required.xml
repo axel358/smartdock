@@ -79,12 +79,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_weight="1.0"
-            android:text="@string/usage_stats"
+            android:text="@string/recent_apps"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
 			app:iconTint="?attr/colorError"
-            android:id="@+id/btn_manage_usage"
+            android:id="@+id/btn_manage_recent_apps"
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

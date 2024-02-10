@@ -20,8 +20,8 @@
     <string name="display_over_other_apps_desc">ਡੌਕ ਨੂੰ ਡਿਸਪਲੇ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਹੈ, ਤੁਸੀਂ ਇਸ ਤੋਂ ਬਿਨਾਂ ਸੇਵਾ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰ ਸਕਦੇ ਹੋ</string>
     <string name="accessibility_service">ਅਸੈਂਸੀਬਿਲਟੀ ਸੇਵਾ</string>
     <string name="accessibility_service_desc">ਡੌਕ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਬੰਦ ਕਰਨ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ। ਉਪਰੋਕਤ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ</string>
-    <string name="usage_stats">ਵਰਤੋਂ ਦੇ ਅੰਕੜੇ</string>
-    <string name="usage_stats_desc">ਉਹਨਾਂ ਡੀਵਾਈਸਾਂ \'ਤੇ ਹਾਲੀਆ ਐਪਾਂ ਦਿਖਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ ਜਿੱਥੇ ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
+    <string name="recent_apps">Recent apps</string>
+    <string name="recent_apps_desc">Allows to display recent apps on the dock</string>
     <string name="notification_access">ਨੋਟੀਫੀਕੇਸਨ ਐਕਸੈਸ</string>
     <string name="notification_access_desc">ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="device_administrator">ਡਿਵਾਈਸ ਐਡਮਿਨਸਟਰੇਟਰ</string>

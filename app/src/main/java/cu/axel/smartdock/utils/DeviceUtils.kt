@@ -34,7 +34,6 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
 import android.os.UserManager
-import kotlin.reflect.KClass
 
 object DeviceUtils {
     const val DISPLAY_SIZE = "display_density_forced"
@@ -333,8 +332,8 @@ object DeviceUtils {
         return false
     }
 
-    fun hasUsageStatsPermission(context: Context): Boolean {
-        return checkAppOpsPermission(context, AppOpsManager.OPSTR_GET_USAGE_STATS)
+    fun hasRecentAppsPermission(context: Context): Boolean {
+        return AppUtils.isSystemApp(context, context.packageName) || checkAppOpsPermission(context, AppOpsManager.OPSTR_GET_USAGE_STATS)
     }
 
     private fun checkAppOpsPermission(context: Context, permission: String): Boolean {

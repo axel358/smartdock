@@ -20,8 +20,8 @@
     <string name="display_over_other_apps_desc">Required to display the Dock, you cannot start the service without this</string>
     <string name="accessibility_service">Accessibility service</string>
     <string name="accessibility_service_desc">Use this to start and stop the Dock. Requires the above permission. If you get an error about <b>Restricted setting</b> click the Help button below</string>
-    <string name="usage_stats">Usage stats</string>
-    <string name="usage_stats_desc">Allows to show recent apps on devices where Smart Dock can\'t be installed as a system app</string>
+    <string name="recent_apps">Recent apps</string>
+    <string name="recent_apps_desc">Allows to display recent apps on the dock</string>
     <string name="notification_access">Notification access</string>
     <string name="notification_access_desc">Used to display notifications. If you get an error about <b>Restricted setting</b> click the Help button below</string>
     <string name="device_administrator">Device administrator</string>

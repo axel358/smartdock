@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notificationsBtn: MaterialButton
     private lateinit var accessibilityBtn: MaterialButton
     private lateinit var locationBtn: MaterialButton
-    private lateinit var usageBtn: MaterialButton
+    private lateinit var recentAppsBtn: MaterialButton
     private lateinit var secureBtn: MaterialButton
     private var canDrawOverOtherApps = false
     private var hasStoragePermission = false
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         notificationsBtn = view.findViewById(R.id.btn_grant_notifications)
         accessibilityBtn = view.findViewById(R.id.btn_manage_service)
         locationBtn = view.findViewById(R.id.btn_grant_location)
-        usageBtn = view.findViewById(R.id.btn_manage_usage)
+        recentAppsBtn = view.findViewById(R.id.btn_manage_recent_apps)
         secureBtn = view.findViewById(R.id.btn_manage_secure)
         builder.setView(view)
         permissionsDialog = builder.create()
@@ -122,11 +122,11 @@ class MainActivity : AppCompatActivity() {
                 ::requestLocationPermissions, hasLocationPermission
             )
         }
-        usageBtn.setOnClickListener {
+        recentAppsBtn.setOnClickListener {
             showPermissionInfoDialog(
-                R.string.usage_stats, R.string.usage_stats_desc,
-                ::requestUsageStatsPermissions,
-                DeviceUtils.hasUsageStatsPermission(this)
+                R.string.recent_apps, R.string.recent_apps_desc,
+                ::requestRecentAppsPermission,
+                DeviceUtils.hasRecentAppsPermission(this)
             )
         }
         secureBtn.setOnClickListener {
@@ -159,7 +159,7 @@ class MainActivity : AppCompatActivity() {
         DeviceUtils.requestDeviceAdminPermissions(this)
     }
 
-    private fun requestUsageStatsPermissions() {
+    private fun requestRecentAppsPermission() {
         startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
     }
 
@@ -179,9 +179,9 @@ class MainActivity : AppCompatActivity() {
             accessibilityBtn.iconTint =
                 ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[2])
         }
-        if (DeviceUtils.hasUsageStatsPermission(this)) {
-            usageBtn.setIconResource(R.drawable.ic_granted)
-            usageBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
+        if (DeviceUtils.hasRecentAppsPermission(this)) {
+            recentAppsBtn.setIconResource(R.drawable.ic_granted)
+            recentAppsBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         if (DeviceUtils.isServiceRunning(this, NotificationService::class.java)) {
             notificationsBtn.setIconResource(R.drawable.ic_settings)
