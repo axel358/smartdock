@@ -108,7 +108,7 @@
     <string name="enable_qs_vol_title">ਵਾਲੀਅਮ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_qs_date_title">ਕਲੋਕ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_qs_pin_title">ਪਿੰਨ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_qs_pin_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ ਨੂੰ ਲੰਬੇ ਸਮੇਂ ਤੱਕ ਦਬਾ ਕੇ ਜਾਂ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰ ਸਕਦੇ ਹੋ</string>
+    <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by swiping down on it or using the keyboard shortcut</string>
     <string name="enable_wifi_panel_title">WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_wifi_panel_summary">Built In WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰਦਾ ਹੈ। ਇਸ ਲਈ ਲੋਕੇਸਨ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="behaviour">ਵਿਵਹਾਰ</string>
