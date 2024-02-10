@@ -25,6 +25,7 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
 import android.os.Process
+import android.os.UserManager
 import android.widget.Toast
 
 object AppUtils {
@@ -34,17 +35,19 @@ object AppUtils {
     var currentApp = ""
     fun getInstalledApps(context: Context): ArrayList<App> {
         val apps = ArrayList<App>()
+        val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
         val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
-        val appsInfo: List<LauncherActivityInfo> =
-                launcherApps.getActivityList(null, Process.myUserHandle())
-                        .sortedWith(compareBy { it.label.toString() })
+        var appsInfo = mutableListOf<LauncherActivityInfo>()
+        for (profile in userManager.userProfiles)
+            appsInfo.addAll(launcherApps.getActivityList(null, profile))
+
+        appsInfo = appsInfo.sortedWith(compareBy { it.label.toString() }).toMutableList()
+
 
         //TODO: Filter Google App
         for (appInfo in appsInfo) {
-            val label = appInfo.label.toString()
-            val icon = appInfo.getIcon(0)
-            val packageName = appInfo.componentName.packageName
-            apps.add(App(label, packageName, icon))
+            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
+                    appInfo.componentName, appInfo.user))
         }
 
         return apps
