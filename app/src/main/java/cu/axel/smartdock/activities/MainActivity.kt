@@ -18,6 +18,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cu.axel.smartdock.R
+import cu.axel.smartdock.dialogs.DockLayoutDialog
 import cu.axel.smartdock.fragments.PreferencesFragment
 import cu.axel.smartdock.services.NotificationService
 import cu.axel.smartdock.utils.ColorUtils
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notificationsBtn: MaterialButton
     private lateinit var accessibilityBtn: MaterialButton
     private lateinit var locationBtn: MaterialButton
-    private lateinit var usageBtn: MaterialButton
+    private lateinit var recentAppsBtn: MaterialButton
     private lateinit var secureBtn: MaterialButton
     private var canDrawOverOtherApps = false
     private var hasStoragePermission = false
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         )
             showPermissionsDialog()
         if (sharedPreferences.getInt("dock_layout", -1) == -1)
-            showDockLayoutsDialog()
+            DockLayoutDialog(this)
     }
 
     override fun onResume() {
@@ -74,7 +75,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_grant_permissions -> showPermissionsDialog()
-            R.id.action_switch_layout -> showDockLayoutsDialog()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         notificationsBtn = view.findViewById(R.id.btn_grant_notifications)
         accessibilityBtn = view.findViewById(R.id.btn_manage_service)
         locationBtn = view.findViewById(R.id.btn_grant_location)
-        usageBtn = view.findViewById(R.id.btn_manage_usage)
+        recentAppsBtn = view.findViewById(R.id.btn_manage_recent_apps)
         secureBtn = view.findViewById(R.id.btn_manage_secure)
         builder.setView(view)
         permissionsDialog = builder.create()
@@ -122,11 +122,11 @@ class MainActivity : AppCompatActivity() {
                 ::requestLocationPermissions, hasLocationPermission
             )
         }
-        usageBtn.setOnClickListener {
+        recentAppsBtn.setOnClickListener {
             showPermissionInfoDialog(
-                R.string.usage_stats, R.string.usage_stats_desc,
-                ::requestUsageStatsPermissions,
-                DeviceUtils.hasUsageStatsPermission(this)
+                R.string.recent_apps, R.string.recent_apps_desc,
+                ::requestRecentAppsPermission,
+                DeviceUtils.hasRecentAppsPermission(this)
             )
         }
         secureBtn.setOnClickListener {
@@ -159,34 +159,8 @@ class MainActivity : AppCompatActivity() {
         DeviceUtils.requestDeviceAdminPermissions(this)
     }
 
-    private fun requestUsageStatsPermissions() {
+    private fun requestRecentAppsPermission() {
         startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-    }
-
-    private fun showDockLayoutsDialog() {
-        val editor = sharedPreferences.edit()
-        val dialog = MaterialAlertDialogBuilder(this)
-        dialog.setTitle(R.string.choose_dock_layout)
-        val layout = sharedPreferences.getInt("dock_layout", -1)
-        dialog.setSingleChoiceItems(R.array.layouts, layout) { _, which ->
-            editor.putBoolean("enable_nav_back", which != 0)
-            editor.putBoolean("enable_nav_home", which != 0)
-            editor.putBoolean("enable_nav_recents", which != 0)
-            editor.putBoolean("enable_qs_wifi", which != 0)
-            editor.putBoolean("enable_qs_vol", which != 0)
-            editor.putBoolean("enable_qs_date", which != 0)
-            editor.putBoolean("enable_qs_notif", which != 0)
-            editor.putBoolean("app_menu_fullscreen", which != 2)
-            editor.putString("launch_mode", if (which != 2) "fullscreen" else "standard")
-            editor.putString("max_running_apps", if (which == 0) "4" else "10")
-            editor.putString("dock_activation_area", if (which == 2) "5" else "25")
-            editor.putInt("dock_layout", which)
-            editor.putString("activation_method", if (which != 2) "handle" else "swipe")
-            editor.putBoolean("show_notifications", which != 0)
-            editor.apply()
-        }
-        dialog.setPositiveButton(R.string.ok, null)
-        dialog.show()
     }
 
     private fun updatePermissionsStatus() {
@@ -205,9 +179,9 @@ class MainActivity : AppCompatActivity() {
             accessibilityBtn.iconTint =
                 ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[2])
         }
-        if (DeviceUtils.hasUsageStatsPermission(this)) {
-            usageBtn.setIconResource(R.drawable.ic_granted)
-            usageBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
+        if (DeviceUtils.hasRecentAppsPermission(this)) {
+            recentAppsBtn.setIconResource(R.drawable.ic_granted)
+            recentAppsBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         if (DeviceUtils.isServiceRunning(this, NotificationService::class.java)) {
             notificationsBtn.setIconResource(R.drawable.ic_settings)

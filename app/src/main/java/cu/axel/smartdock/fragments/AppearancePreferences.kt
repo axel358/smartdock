@@ -19,6 +19,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
 import com.google.android.material.textfield.TextInputEditText
 import cu.axel.smartdock.R
+import cu.axel.smartdock.dialogs.DockLayoutDialog
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 
@@ -37,6 +38,11 @@ class AppearancePreferences : PreferenceFragmentCompat() {
         }
         mainColorPref.isVisible = mainColorPref.sharedPreferences!!.getString("theme", "dark") == "custom"
         findPreference<Preference>("tint_indicators")!!.isVisible = AppUtils.isSystemApp(requireContext(), requireContext().packageName)
+
+        findPreference<Preference>("dock_layout")!!.setOnPreferenceClickListener {
+            DockLayoutDialog(requireContext())
+            false
+        }
     }
 
     private fun showColorPickerDialog(context: Context) {

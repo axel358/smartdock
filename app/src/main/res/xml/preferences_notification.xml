@@ -1,23 +1,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
 		android:key="show_notifications"
 		android:title="@string/show_notifications"
 		android:defaultValue="true" />
 	
 	<EditTextPreference
 		android:dependency="show_notifications"
-        android:inputType="number"
         android:key="notification_timeout"
         android:hint="5000"
         android:defaultValue="5000"
 		android:title="@string/notification_timeout_title"/>
-	<CheckBoxPreference
+	<SwitchPreferenceCompat
 		android:dependency="show_notifications"
 		android:key="show_ongoing"
 		android:title="@string/show_ongoing_title"
 		android:defaultValue="false" />
     
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
 		android:dependency="show_notifications"
         android:title="@string/show_current_title"
         android:key="show_current"
@@ -31,7 +30,7 @@
 		android:summary="@string/blocked_notifications_summary"
 		android:title="@string/blocked_notifications_title"/>
 	
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         android:title="@string/enable_notif_panel_title"
         android:key="enable_notif_panel"
         android:defaultValue="true" />

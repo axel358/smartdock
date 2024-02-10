@@ -31,6 +31,8 @@
         <item name="android:statusBarColor">?attr/colorSurface</item>
 		<item name="toolbarStyle">?attr/toolbarSurfaceStyle</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+
+        <item name="preferenceTheme">@style/ThemeOverlay.App.Preference</item>
     </style>
 
     <style name="AppTheme.Dock" parent="Theme.Material3.DayNight">
@@ -53,6 +55,14 @@
         <item name="cornerFamily">rounded</item>
         <item name="android:colorBackground">?attr/colorSurface</item>
         <item name="android:layout">@layout/m3_alert_dialog</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Preference" parent="PreferenceThemeOverlay">
+        <item name="switchPreferenceCompatStyle">@style/PreferenceMaterialSwitch</item>
+    </style>
+
+    <style name="PreferenceMaterialSwitch" parent="@style/Preference.SwitchPreferenceCompat.Material">
+        <item name="widgetLayout">@layout/preference_switch</item>
     </style>
 
 </resources>

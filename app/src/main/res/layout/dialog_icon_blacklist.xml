@@ -8,7 +8,7 @@
 	<EditText
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:ems="10"
+		android:inputType="text"
 		android:hint="battery,clock,headset,..."
 		android:id="@+id/icon_blacklist_et"
 		android:layout_marginStart="16dp"

@@ -2,6 +2,7 @@ package cu.axel.smartdock.utils
 
 import android.Manifest
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.app.AppOpsManager
@@ -40,6 +41,7 @@ object DeviceUtils {
     const val POLICY_CONTROL = "policy_control"
     const val IMMERSIVE_APPS = "immersive.status=apps"
     const val HEADS_UP_ENABLED = "heads_up_notifications_enabled"
+    const val ENABLE_TASKBAR = "enable_taskbar"
     private const val SERVICE_NAME = "cu.axel.smartdock/cu.axel.smartdock.services.DockService"
     private const val ENABLED_ACCESSIBILITY_SERVICES = "enabled_accessibility_services"
 
@@ -72,7 +74,7 @@ object DeviceUtils {
         } catch (e: IOException) {
             return "error"
         }
-        return output.toString()
+        return output.toString().trimMargin()
     }
 
     //Device control
@@ -251,6 +253,18 @@ object DeviceUtils {
         return if (secondary) context.createDisplayContext(getSecondaryDisplay(context)) else context
     }
 
+    @SuppressLint("PrivateApi")
+    fun getSystemProp(prop: String): String {
+        val systemPropertiesClass = Class.forName("android.os.SystemProperties")
+        val getMethod = systemPropertiesClass.getMethod("get", String::class.java)
+
+        return getMethod.invoke(null, prop) as String
+    }
+
+    fun isBliss(): Boolean {
+        return getSystemProp("ro.bliss.version").isNotEmpty()
+    }
+
     //Permissions
     fun isAccessibilityServiceEnabled(context: Context): Boolean {
         val am = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
@@ -318,8 +332,8 @@ object DeviceUtils {
         return false
     }
 
-    fun hasUsageStatsPermission(context: Context): Boolean {
-        return checkAppOpsPermission(context, AppOpsManager.OPSTR_GET_USAGE_STATS)
+    fun hasRecentAppsPermission(context: Context): Boolean {
+        return AppUtils.isSystemApp(context, context.packageName) || checkAppOpsPermission(context, AppOpsManager.OPSTR_GET_USAGE_STATS)
     }
 
     private fun checkAppOpsPermission(context: Context, permission: String): Boolean {

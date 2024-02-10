@@ -2,12 +2,17 @@ package cu.axel.smartdock.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
+import android.view.inputmethod.EditorInfo
 import android.widget.CheckBox
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.slider.LabelFormatter
 import cu.axel.smartdock.R
+import cu.axel.smartdock.preferences.SliderPreference
 
 class DockPreferences : PreferenceFragmentCompat() {
     override fun onCreatePreferences(arg0: Bundle?, arg1: String?) {
@@ -16,10 +21,46 @@ class DockPreferences : PreferenceFragmentCompat() {
             showAutopinDialog(requireContext())
             false
         }
-        val activationArea = findPreference<Preference>("dock_activation_area")
-        activationArea!!.isVisible = activationArea.sharedPreferences!!.getString("activation_method", "swipe") == "swipe"
-        val handleOpacity = findPreference<Preference>("handle_opacity")
-        handleOpacity!!.isVisible = handleOpacity.sharedPreferences!!.getString("activation_method", "swipe") == "handle"
+        val activationArea = findPreference<SliderPreference>("dock_activation_area")
+        activationArea!!.isVisible =
+            activationArea.sharedPreferences!!.getString("activation_method", "swipe") == "swipe"
+        activationArea.setOnDialogShownListener(object : SliderPreference.OnDialogShownListener {
+            override fun onDialogShown() {
+                val slider = activationArea.slider
+                slider.isTickVisible = false
+                slider.labelBehavior = LabelFormatter.LABEL_GONE
+                slider.stepSize = 1f
+                slider.value =
+                    activationArea.sharedPreferences!!.getString(activationArea.key, "10")!!
+                        .toFloat()
+                slider.valueFrom = 1f
+                slider.valueTo = 50f
+                slider.addOnChangeListener { _, value, _ ->
+                    activationArea.sharedPreferences!!.edit()
+                        .putString(activationArea.key, value.toInt().toString()).apply()
+                }
+            }
+        })
+        val handleOpacity = findPreference<SliderPreference>("handle_opacity")
+        handleOpacity!!.isVisible =
+            handleOpacity.sharedPreferences!!.getString("activation_method", "swipe") == "handle"
+        handleOpacity.setOnDialogShownListener(object : SliderPreference.OnDialogShownListener {
+            override fun onDialogShown() {
+                val slider = handleOpacity.slider
+                slider.isTickVisible = false
+                slider.labelBehavior = LabelFormatter.LABEL_GONE
+                slider.stepSize = 0.1f
+                slider.value =
+                    handleOpacity.sharedPreferences!!.getString(handleOpacity.key, "0.5f")!!
+                        .toFloat()
+                slider.valueFrom = 0.2f
+                slider.valueTo = 1f
+                slider.addOnChangeListener { _, value, _ ->
+                    handleOpacity.sharedPreferences!!.edit()
+                        .putString(handleOpacity.key, value.toString()).apply()
+                }
+            }
+        })
         val handlePosition = findPreference<Preference>("handle_position")
         handlePosition!!.isVisible = handleOpacity.isVisible
         val activationMethod = findPreference<Preference>("activation_method")
@@ -28,6 +69,12 @@ class DockPreferences : PreferenceFragmentCompat() {
             activationArea.isVisible = newValue.toString() == "swipe"
             handlePosition.isVisible = handleOpacity.isVisible
             true
+        }
+
+        val maxRunningApps: EditTextPreference? = findPreference("max_running_apps")
+        maxRunningApps?.setOnBindEditTextListener { editText ->
+            editText.inputType = InputType.TYPE_CLASS_NUMBER
+            editText.imeOptions = EditorInfo.IME_ACTION_GO
         }
     }
 
@@ -43,9 +90,24 @@ class DockPreferences : PreferenceFragmentCompat() {
         startupChkbx.isChecked = sharedPreferences.getBoolean("pin_dock", true)
         windowedChkbx.isChecked = sharedPreferences.getBoolean("auto_pin", true)
         fullscreenChkbx.isChecked = sharedPreferences.getBoolean("auto_unpin", true)
-        startupChkbx.setOnCheckedChangeListener { _, checked -> editor.putBoolean("pin_dock", checked).apply() }
-        windowedChkbx.setOnCheckedChangeListener { _, checked -> editor.putBoolean("auto_pin", checked).commit() }
-        fullscreenChkbx.setOnCheckedChangeListener { _, checked -> editor.putBoolean("auto_unpin", checked).commit() }
+        startupChkbx.setOnCheckedChangeListener { _, checked ->
+            editor.putBoolean(
+                "pin_dock",
+                checked
+            ).apply()
+        }
+        windowedChkbx.setOnCheckedChangeListener { _, checked ->
+            editor.putBoolean(
+                "auto_pin",
+                checked
+            ).commit()
+        }
+        fullscreenChkbx.setOnCheckedChangeListener { _, checked ->
+            editor.putBoolean(
+                "auto_unpin",
+                checked
+            ).commit()
+        }
         dialogBuilder.setView(view)
         dialogBuilder.setPositiveButton(R.string.ok, null)
         dialogBuilder.show()

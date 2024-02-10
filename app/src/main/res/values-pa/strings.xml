@@ -20,8 +20,8 @@
     <string name="display_over_other_apps_desc">ਡੌਕ ਨੂੰ ਡਿਸਪਲੇ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਹੈ, ਤੁਸੀਂ ਇਸ ਤੋਂ ਬਿਨਾਂ ਸੇਵਾ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰ ਸਕਦੇ ਹੋ</string>
     <string name="accessibility_service">ਅਸੈਂਸੀਬਿਲਟੀ ਸੇਵਾ</string>
     <string name="accessibility_service_desc">ਡੌਕ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਬੰਦ ਕਰਨ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ। ਉਪਰੋਕਤ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ</string>
-    <string name="usage_stats">ਵਰਤੋਂ ਦੇ ਅੰਕੜੇ</string>
-    <string name="usage_stats_desc">ਉਹਨਾਂ ਡੀਵਾਈਸਾਂ \'ਤੇ ਹਾਲੀਆ ਐਪਾਂ ਦਿਖਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ ਜਿੱਥੇ ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
+    <string name="recent_apps">Recent apps</string>
+    <string name="recent_apps_desc">Allows to display recent apps on the dock</string>
     <string name="notification_access">ਨੋਟੀਫੀਕੇਸਨ ਐਕਸੈਸ</string>
     <string name="notification_access_desc">ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="device_administrator">ਡਿਵਾਈਸ ਐਡਮਿਨਸਟਰੇਟਰ</string>
@@ -60,7 +60,7 @@
     <string name="system">ਸਿਸਟਮ</string>
     <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>
     <string name="icon_padding_summary">ਆਈਕਨ ਅਤੇ ਇਸ ਦੇ ਬਾਰਡਰ ਦੇ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
-    <string name="dock_square_title">ਡੌਕ ਲਈ ਗੋਲ ਕੋਨਿਆਂ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="round_dock">Rounded corners for the dock</string>
     <string name="tint_indicators_title">ਟਿੰਟ ਚੱਲ ਰਹੇ ਸੂਚਕ</string>
     <string name="custom_animation_title">ਐਪ ਲਾਂਚ ਐਨੀਮੇਸ਼ਨ</string>
     <string name="fade">ਫੇਡ</string>
@@ -108,7 +108,7 @@
     <string name="enable_qs_vol_title">ਵਾਲੀਅਮ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_qs_date_title">ਕਲੋਕ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_qs_pin_title">ਪਿੰਨ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_qs_pin_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ ਨੂੰ ਲੰਬੇ ਸਮੇਂ ਤੱਕ ਦਬਾ ਕੇ ਜਾਂ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰ ਸਕਦੇ ਹੋ</string>
+    <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by swiping down on it or using the keyboard shortcut</string>
     <string name="enable_wifi_panel_title">WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_wifi_panel_summary">Built In WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰਦਾ ਹੈ। ਇਸ ਲਈ ਲੋਕੇਸਨ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="behaviour">ਵਿਵਹਾਰ</string>
@@ -125,9 +125,8 @@
     <string name="unpin_fullscreen">ਪੂਰੀ ਸਕ੍ਰੀਨ ਐਪਾਂ \'ਤੇ ਅਨਪਿੰਨ ਕਰੋ</string>
     <string name="running_apps_number_title">ਚੱਲ ਰਹੀਆਂ/ਹਾਲੀਆ ਐਪਾਂ ਦੀ ਦਿਖਾਉਣ ਲਈ ਸੰਖਿਆ</string>
     <string name="running_apps_number_summary">ਇਹ ਸੈਟਿੰਗ ਛੋਟੀਆਂ ਸਕ੍ਰੀਨਾਂ ਵਾਲੇ ਡਿਵਾਈਸਾਂ ਨੂੰ ਡੌਕ \'ਤੇ ਐਪ ਓਵਰਫਲੋ ਤੋਂ ਬਚਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ</string>
-    <string name="dock_hide_delay_title">ਡੌਕ ਲੁਕਾਓ ਲਈ ms ਵਿੱਚ ਦੇਰੀ</string>
     <string name="center_running_apps_title">ਸੈਂਟਰ ਚੱਲ ਰਹੀਆਂ ਐਪਾਂ</string>
-    <string name="dock_activation_area_title">ਡੌਕ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ (ਅਧਿਕਤਮ 50)</string>
+    <string name="dock_activation_area_title">ਡੌਕ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ</string>
     <string name="dock_activation_area_summary">ਸਕ੍ਰੀਨ ਦੇ ਹੇਠਾਂ ਇਨਵਿਜੀਵਲ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ ਦੀ ਉਚਾਈ</string>
 
     <!-- Desktop -->
@@ -221,7 +220,7 @@
     <string name="disable_heads_up_summary">Android ਦੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਨੂੰ ਬੰਦ ਕਰਦਾ ਹੈ</string>
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
-    <string name="allow_app_freeze_title">ਐਪ ਸੰਦਰਭ ਮੀਨੂ ਤੋਂ ਐਪਸ ਨੂੰ ਡੀਸਏਬਲ ਕਰਨ ਲਈ ਇੱਕ ਵਿਕਲਪ ਦਿਖਾਓ</string>
+    <string name="allow_app_freeze_title">Allow disabling apps</string>
     <string name="allow_app_freeze_summary">ਐਪਾਂ ਨੂੰ ਮੁੜ-ਸਮਰੱਥ ਬਣਾਉਣ ਲਈ ਤੁਹਾਨੂੰ ਇੱਕ ਬਾਹਰੀ ਟੂਲ ਦੀ ਲੋੜ ਹੋਵੇਗੀ ਜਿਵੇਂ ਕਿ ਆਈਸ ਬਾਕਸ (ਜਾਂ ਚੱਲ ਰਹੇ pm ਯੋਗ [pkgname])</string>
     <string name="allow_sysapp_uninstall_title">ਸਿਸਟਮ ਐਪਸ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਦਿਓ</string>
     <string name="allow_sysapp_uninstall_summary">ਕਿਰਪਾ ਕਰਕੇ ਸਾਵਧਾਨ ਰਹੋ, ਇਹ ਅਸਲ ਵਿੱਚ ਖਤਰਨਾਕ ਹੋ ਸਕਦਾ ਹੈ</string>
@@ -232,7 +231,7 @@
     <string name="override_sb_height">ਸਥਿਤੀ ਪੱਟੀ ਦੀ ਉਚਾਈ ਨੂੰ ਓਵਰਰਾਈਡ ਕਰੋ</string>
     <string name="icon_blacklist">ਆਈਕਨ ਬਲੈਕਲਿਸਟ</string>
     <string name="icon_blacklist_summary">ਸਥਿਤੀ ਪੱਟੀ ਤੋਂ ਲੁਕਾਉਣ ਲਈ ਆਈਕਾਨ</string>
-    <string name="enable_soft_reboot_title">ਐਂਡਰਾਇਡ ਨੂੰ ਸਾਫਟ ਰੀਬੂਟ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + F12 ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
+    <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="soft_reboot_title">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ</string>
     <string name="soft_reboot_summary">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ। ਤੁਸੀਂ ਸਾਰੇ ਅਣਰੱਖਿਅਤ ਕੰਮ ਗੁਆ ਦੇਵੋਗੇ</string>
@@ -321,5 +320,8 @@
     <string name="not_connected">ਕਨੈਕਟ ਨਹੀਂ ਹੈ</string>
     <string name="select_network">ਨੈੱਟਵਰਕ ਚੁਣੋ</string>
     <string name="handle_position">Handle position</string>
+    <string name="dock_layout">Dock layout</string>
+    <string name="disable_taskbar_title">Disable taskbar</string>
+    <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
 
 </resources>

@@ -20,8 +20,8 @@
     <string name="display_over_other_apps_desc">Requerido para mostrar el Dock, no puede iniciar el servicio sin esto</string>
     <string name="accessibility_service">Servicio de accesibilidad</string>
     <string name="accessibility_service_desc">Use esto para iniciar y detener el Dock. Requiere el permiso anterior. Si se muestra un error sobre <b>Ajuste restringido</b> haga click en el botón de Ayuda</string>
-    <string name="usage_stats">Estadísticas de uso</string>
-    <string name="usage_stats_desc">Permite mostrar aplicaciones recientes en dispositivos donde Smart Dock no se puede instalar como una aplicación de sistema</string>
+    <string name="recent_apps">Apps recientes</string>
+    <string name="recent_apps_desc">Permite mostrar aplicaciones recientes en el dock</string>
     <string name="notification_access">Acceso a notificaciones</string>
     <string name="notification_access_desc">Se utiliza para mostrar notificaciones. Si se muestra un error sobre <b>Ajuste restringido</b> haga click en el botón de Ayuda</string>
     <string name="device_administrator">Administrador de dispositivo</string>
@@ -60,7 +60,7 @@
     <string name="system">Sistema</string>
     <string name="icon_padding_title">Espacio de iconos</string>
     <string name="icon_padding_summary">Define la cantidad de espacio en blanco entre el icono y su borde</string>
-    <string name="dock_square_title">Deshabilitar esquinas redondeadas para el Dock</string>
+    <string name="round_dock">Esquinas redondeadas para el Dock</string>
     <string name="tint_indicators_title">Tintar indicadores</string>
     <string name="custom_animation_title">Animación de inicio de aplicación</string>
     <string name="fade">Desteñir</string>
@@ -108,7 +108,7 @@
     <string name="enable_qs_vol_title">Habilitar botón de volumen</string>
     <string name="enable_qs_date_title">Habilitar reloj</string>
     <string name="enable_qs_pin_title">Habilitar botón pin</string>
-    <string name="enable_qs_pin_summary">Todavía puede anclar/desanclar el Dock presionándolo prolongadamente o usando el atajo de teclado</string>
+    <string name="enable_qs_pin_summary">Todavía puede anclar/desanclar el Dock deslizandolo hacia abajo o usando el atajo de teclado</string>
     <string name="enable_wifi_panel_title">Habilitar panel WiFi</string>
     <string name="enable_wifi_panel_summary">Habilita el panel WiFi integrado. Esto requiere acceso a la ubicación.</string>
     <string name="behaviour">Comportamiento</string>
@@ -125,9 +125,8 @@
     <string name="unpin_fullscreen">Desanclar en aplicaciones de pantalla completa</string>
     <string name="running_apps_number_title">Número de aplicaciones en ejecución/recientes para mostrar</string>
     <string name="running_apps_number_summary">Esta configuración puede ayudar a los dispositivos con pantallas más pequeñas a evitar el desbordamiento de aplicaciones en el Dock</string>
-    <string name="dock_hide_delay_title">Retardo de ocultación del Dock en ms</string>
     <string name="center_running_apps_title">Centrar de aplicaciones en ejecución</string>
-    <string name="dock_activation_area_title">Área de activación del Dock (máx. 50)</string>
+    <string name="dock_activation_area_title">Área de activación del Dock</string>
     <string name="dock_activation_area_summary">La altura del área de activación invisible en la parte inferior de la pantalla</string>
 
     <!-- Desktop -->
@@ -221,7 +220,7 @@
 	<string name="disable_heads_up_summary">Deshabilitar notificaciones emergentes de Android</string>
     <string name="scale_factor_title">Factor de escala de ventana estándar</string>
     <string name="scale_factor_summary">Define qué tan grandes son las ventanas estándar</string>
-    <string name="allow_app_freeze_title">Mostrar una opción para deshabilitar aplicaciones desde el menú contextual de la aplicación</string>
+    <string name="allow_app_freeze_title">Permitir deshabilitar aplicaciones</string>
     <string name="allow_app_freeze_summary">Necesitará una herramienta externa como Ice Box (o ejecutar pm enable [pkgname]) para volver a habilitar las aplicaciones</string>
     <string name="allow_sysapp_uninstall_title">Permitir desinstalar aplicaciones del sistema</string>
     <string name="allow_sysapp_uninstall_summary">Tenga cuidado, esto puede ser realmente peligroso.</string>
@@ -232,7 +231,7 @@
     <string name="override_sb_height">Anular la altura de la barra de estado</string>
     <string name="icon_blacklist">Lista negra de iconos</string>
     <string name="icon_blacklist_summary">Iconos para ocultar de la barra de estado</string>
-    <string name="enable_soft_reboot_title">Use el Modificador+F12 para reiniciar Android</string>
+    <string name="enable_soft_reboot_title">Use el Modificador+F12 para reiniciar</string>
     <string name="enable_soft_reboot_summary">Es posible que el sistema no responda durante un breve período de tiempo</string>
     <string name="soft_reboot_title">Reinicio suave ahora</string>
     <string name="soft_reboot_summary">Reinicio suave ahora. Perderá todo el trabajo no guardado</string>
@@ -320,5 +319,8 @@
     <string name="not_connected">No conectado</string>
     <string name="select_network">Seleccione la red</string>
     <string name="handle_position">Handle position</string>
+    <string name="dock_layout">Dock layout</string>
+    <string name="disable_taskbar_title">Disable taskbar</string>
+    <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
 
 </resources>

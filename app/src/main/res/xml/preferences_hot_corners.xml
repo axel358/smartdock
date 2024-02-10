@@ -1,16 +1,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<CheckBoxPreference
+	<SwitchPreferenceCompat
 		android:key="enable_corner_top_right"
 		android:title="@string/enable_corner_top_right_title"
 		android:summary="@string/enable_corner_top_right_summary"
 		android:defaultValue="false" />
-	<CheckBoxPreference
+	<SwitchPreferenceCompat
 		android:key="enable_corner_bottom_right"
 		android:title="@string/enable_corner_bottom_right_title"
 		android:summary="@string/enable_corner_bottom_right_summary"
 		android:defaultValue="false" />
     <EditTextPreference
-        android:inputType="number"
         android:key="hot_corners_delay"
         android:hint="300"
         android:defaultValue="300"

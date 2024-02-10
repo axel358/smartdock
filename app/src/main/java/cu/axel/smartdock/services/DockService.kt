@@ -194,7 +194,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
                 if (dockLayout.visibility == View.GONE) showDock()
             } else if (event.action == MotionEvent.ACTION_HOVER_EXIT) if (dockLayout.visibility == View.VISIBLE) {
-                hideDock(sharedPreferences.getString("dock_hide_delay", "500")!!.toInt())
+                hideDock(500)
             }
             false
         }
@@ -212,7 +212,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         })
         dock.setOnTouchListener(this)
         dockLayout.setOnTouchListener(this)
-        dockHandle.alpha = 0.01f * sharedPreferences.getString("handle_opacity", "50")!!.toInt()
+        dockHandle.alpha = sharedPreferences.getString("handle_opacity", "0.5")!!.toFloat()
         dockHandle.setOnClickListener { pinDock() }
         appsBtn.setOnClickListener { toggleAppMenu() }
         appsBtn.setOnLongClickListener {
@@ -1353,7 +1353,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             updateNavigationBar()
         } else if (preference.startsWith("enable_qs_")) {
             updateQuickSettings()
-        } else if (preference == "dock_square")
+        } else if (preference == "round_dock")
             updateDockShape()
         else if (preference == "max_running_apps") {
             maxApps = sharedPreferences.getString("max_running_apps", "10")!!.toInt()
@@ -1361,7 +1361,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         } else if (preference == "activation_method") {
             updateActivationMethod()
         } else if (preference == "handle_opacity")
-            dockHandle.alpha = 0.01f * sharedPreferences.getString("handle_opacity", "50")!!.toInt()
+            dockHandle.alpha = sharedPreferences.getString("handle_opacity", "0.5")!!.toFloat()
         else if (preference == "dock_height")
             updateDockHeight()
         else if (preference == "handle_position")
@@ -1452,10 +1452,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private fun updateDockShape() {
         dockLayout.setBackgroundResource(
             if (sharedPreferences.getBoolean(
-                    "dock_square",
+                    "round_dock",
                     false
                 )
-            ) R.drawable.rect else R.drawable.round_rect
+            ) R.drawable.round_rect else  R.drawable.rect
         )
         ColorUtils.applyMainColor(context, sharedPreferences, dockLayout)
     }
@@ -1819,8 +1819,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 0,
                 0
             )
-        }
-        else {
+        } else {
             dockHandle.setBackgroundResource(R.drawable.dock_handle_bg_start)
             dockHandle.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 R.drawable.ic_expand_right,
@@ -1831,7 +1830,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
     }
 
-    private fun updateHandlePosition(){
+    private fun updateHandlePosition() {
         updateHandlePositionValues()
         windowManager.updateViewLayout(dockHandle, handleLayoutParams)
     }

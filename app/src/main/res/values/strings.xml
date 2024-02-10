@@ -20,8 +20,8 @@
     <string name="display_over_other_apps_desc">Required to display the Dock, you cannot start the service without this</string>
     <string name="accessibility_service">Accessibility service</string>
     <string name="accessibility_service_desc">Use this to start and stop the Dock. Requires the above permission. If you get an error about <b>Restricted setting</b> click the Help button below</string>
-    <string name="usage_stats">Usage stats</string>
-    <string name="usage_stats_desc">Allows to show recent apps on devices where Smart Dock can\'t be installed as a system app</string>
+    <string name="recent_apps">Recent apps</string>
+    <string name="recent_apps_desc">Allows to display recent apps on the dock</string>
     <string name="notification_access">Notification access</string>
     <string name="notification_access_desc">Used to display notifications. If you get an error about <b>Restricted setting</b> click the Help button below</string>
     <string name="device_administrator">Device administrator</string>
@@ -60,7 +60,7 @@
     <string name="system">System</string>
     <string name="icon_padding_title">Icon padding</string>
     <string name="icon_padding_summary">Defines the amount of whitespace between the icon and it\'s border</string>
-    <string name="dock_square_title">Disable rounded corners for the dock</string>
+    <string name="round_dock">Rounded corners for the dock</string>
     <string name="tint_indicators_title">Tint running indicators</string>
     <string name="custom_animation_title">App launch animation</string>
     <string name="fade">Fade</string>
@@ -108,7 +108,7 @@
     <string name="enable_qs_vol_title">Enable volume button</string>
     <string name="enable_qs_date_title">Enable clock</string>
     <string name="enable_qs_pin_title">Enable pin button</string>
-    <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by long pressing it or using the keyboard shortcut</string>
+    <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by swiping down on it or using the keyboard shortcut</string>
     <string name="enable_wifi_panel_title">Enable WiFi panel</string>
     <string name="enable_wifi_panel_summary">Enables built in WiFi panel. This requires location access</string>
     <string name="behaviour">Behaviour</string>
@@ -125,9 +125,8 @@
     <string name="unpin_fullscreen">Unpin on full screen apps</string>
     <string name="running_apps_number_title">Number of running/recent apps to show</string>
     <string name="running_apps_number_summary">This setting can help devices with smaller screens avoid app overflow on the Dock</string>
-    <string name="dock_hide_delay_title">Dock hide delay in ms</string>
     <string name="center_running_apps_title">Center running apps</string>
-    <string name="dock_activation_area_title">Dock activation area (max 50)</string>
+    <string name="dock_activation_area_title">Dock activation area</string>
     <string name="dock_activation_area_summary">The height of the invisible activation area at the bottom of the screen</string>
 
     <!-- Desktop -->
@@ -220,7 +219,7 @@
 	<string name="disable_heads_up_summary">Disables Android\'s notification pop-ups</string>
     <string name="scale_factor_title">Standard window scale factor</string>
     <string name="scale_factor_summary">Defines how big standard windows are</string>
-    <string name="allow_app_freeze_title">Show an option to disable apps from the app context menu</string>
+    <string name="allow_app_freeze_title">Allow disabling apps</string>
     <string name="allow_app_freeze_summary">You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps</string>
     <string name="allow_sysapp_uninstall_title">Allow uninstalling system apps</string>
     <string name="allow_sysapp_uninstall_summary">Please be careful, this can be really dangerous</string>
@@ -231,7 +230,7 @@
     <string name="override_sb_height">Override status bar height</string>
     <string name="icon_blacklist">Icon blacklist</string>
     <string name="icon_blacklist_summary">Icons to hide from the status bar</string>
-    <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot Android</string>
+    <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
     <string name="soft_reboot_title">Soft reboot now</string>
     <string name="soft_reboot_summary">Soft reboot now. You will lose all unsaved work</string>
@@ -320,5 +319,8 @@
     <string name="not_connected">Not connected</string>
     <string name="select_network">Select network</string>
     <string name="handle_position">Handle position</string>
+    <string name="dock_layout">Dock layout</string>
+    <string name="disable_taskbar_title">Disable taskbar</string>
+    <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
 
 </resources>
