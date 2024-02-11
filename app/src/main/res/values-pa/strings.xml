@@ -323,5 +323,6 @@
     <string name="dock_layout">Dock layout</string>
     <string name="disable_taskbar_title">Disable taskbar</string>
     <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
+    <string name="to_dock">To dock</string>
 
 </resources>

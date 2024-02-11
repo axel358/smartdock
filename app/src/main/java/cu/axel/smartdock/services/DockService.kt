@@ -398,7 +398,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     toggleFavorites(
                             AppUtils.getPinnedApps(
                                     context,
-                                    packageManager,
                                     AppUtils.PINNED_LIST
                             ).size > 0
                     )
@@ -511,10 +510,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             Toast.makeText(context, R.string.start_message, Toast.LENGTH_LONG).show()
     }
 
-    private fun getAppActions(app: String): ArrayList<Action> {
+    private fun getAppActions(app: App): ArrayList<Action> {
         val actions = ArrayList<Action>()
         if (DeepShortcutManager.hasHostPermission(context)) {
-            if (DeepShortcutManager.getShortcuts(app, context) != null)
+            if (!DeepShortcutManager.getShortcuts(app.packageName, context).isNullOrEmpty())
                 actions.add(Action(R.drawable.ic_shortcuts, getString(R.string.shortcuts)))
         }
         actions.add(Action(R.drawable.ic_manage, getString(R.string.manage)))
@@ -536,6 +535,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         AppUtils.DESKTOP_LIST
                 )
         ) actions.add(Action(R.drawable.ic_add_to_desktop, getString(R.string.to_desktop)))
+        if (!AppUtils.isPinned(
+                        context,
+                        app,
+                        AppUtils.DOCK_PINNED_LIST
+                )
+        ) actions.add(Action(R.drawable.ic_pin, getString(R.string.to_dock)))
         return actions
     }
 
@@ -587,7 +592,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     override fun onDockAppLongClicked(app: DockApp, view: View) {
-        showDockAppContextMenu(app.packageName, view)
+        showDockAppContextMenu(app, view)
     }
 
     override fun onAppClicked(app: App, item: View) {
@@ -600,7 +605,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     override fun onAppLongClicked(app: App, view: View) {
         if (app.packageName != "$packageName.calc") {
-            showAppContextMenu(app.packageName, view)
+            showAppContextMenu(app, view)
         }
     }
 
@@ -614,7 +619,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 // Activity changed
                 //TODO: Filter current input method
                 previousActivity = currentActivity
-                if (isPinned) updateRunningTasks()
+                if (isPinned)
+                    updateRunningTasks()
             }
         } else if (isPinned && sharedPreferences.getBoolean(
                         "custom_toasts",
@@ -950,7 +956,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val launchIntent: Intent? = if (intent == null && packageName != null)
                     packageManager.getLaunchIntentForPackage(packageName)
                 else
-                    intent
+                    intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 if (animation == "none")
                     intent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 context.startActivity(launchIntent, options.toBundle())
@@ -1115,7 +1121,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun showAppContextMenu(app: String, anchor: View) {
+    private fun showAppContextMenu(app: App, anchor: View) {
         val view = LayoutInflater.from(context).inflate(R.layout.task_list, null)
         val layoutParams = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
         ColorUtils.applyMainColor(context, sharedPreferences, view)
@@ -1143,7 +1149,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     actions.add(Action(R.drawable.ic_info, getString(R.string.app_info)))
                     if (!AppUtils.isSystemApp(
                                     context,
-                                    app
+                                    app.packageName
                             ) || sharedPreferences.getBoolean("allow_sysapp_uninstall", false)
                     ) actions.add(Action(R.drawable.ic_uninstall, getString(R.string.uninstall)))
                     if (sharedPreferences.getBoolean("allow_app_freeze", false)) actions.add(
@@ -1156,7 +1162,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 } else if (action.text == getString(R.string.shortcuts)) {
                     actionsLv.adapter = AppShortcutAdapter(
                             context,
-                            DeepShortcutManager.getShortcuts(app, context)!!
+                            DeepShortcutManager.getShortcuts(app.packageName, context)!!
                     )
                 } else if (action.text == "") {
                     actionsLv.adapter = AppActionsAdapter(context, getAppActions(app))
@@ -1178,7 +1184,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 } else if (action.text == getString(R.string.uninstall)) {
                     if (AppUtils.isSystemApp(
                                     context,
-                                    app
+                                    app.packageName
                             )
                     ) DeviceUtils.runAsRoot("pm uninstall --user 0 $app") else startActivity(
                             Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
@@ -1204,25 +1210,30 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     windowManager.removeView(view)
                     loadFavoriteApps()
                 } else if (action.text == getString(R.string.remove)) {
-                    AppUtils.unpinApp(context, app, AppUtils.PINNED_LIST)
+                    AppUtils.unpinApp(context, app.packageName, AppUtils.PINNED_LIST)
                     windowManager.removeView(view)
                     loadFavoriteApps()
                 } else if (action.text == getString(R.string.to_desktop)) {
                     AppUtils.pinApp(context, app, AppUtils.DESKTOP_LIST)
                     sendBroadcast(Intent("$packageName.SERVICE").putExtra("action", "PINNED"))
                     windowManager.removeView(view)
+                } else if (action.text == getString(R.string.to_dock)) {
+                    AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST)
+                    loadPinnedApps()
+                    updateRunningTasks()
+                    windowManager.removeView(view)
                 } else if (action.text == getString(R.string.standard)) {
                     windowManager.removeView(view)
-                    launchApp("standard", app)
+                    launchApp("standard", app.packageName, null, app)
                 } else if (action.text == getString(R.string.maximized)) {
                     windowManager.removeView(view)
-                    launchApp("maximized", app)
+                    launchApp("maximized", app.packageName, null, app)
                 } else if (action.text == getString(R.string.portrait)) {
                     windowManager.removeView(view)
-                    launchApp("portrait", app)
+                    launchApp("portrait", app.packageName, null, app)
                 } else if (action.text == getString(R.string.fullscreen)) {
                     windowManager.removeView(view)
-                    launchApp("fullscreen", app)
+                    launchApp("fullscreen", app.packageName, null, app)
                 }
             } else if (Build.VERSION.SDK_INT > 24 && adapterView.getItemAtPosition(position) is ShortcutInfo) {
                 val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
@@ -1233,7 +1244,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         windowManager.addView(view, layoutParams)
     }
 
-    private fun showDockAppContextMenu(app: String, anchor: View) {
+    private fun showDockAppContextMenu(app: App, anchor: View) {
         val view = LayoutInflater.from(context).inflate(R.layout.pin_entry, null)
         val pinLayout = view.findViewById<LinearLayout>(R.id.pin_entry_pin)
         val layoutParams = Utils.makeWindowParams(-2, -2, context, preferLastDisplay)
@@ -1265,22 +1276,24 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             ColorUtils.applySecondaryColor(context, sharedPreferences, moveLeft)
             ColorUtils.applySecondaryColor(context, sharedPreferences, moveRight)
             moveLeft.setOnClickListener {
-                AppUtils.moveApp(this@DockService, app, AppUtils.DOCK_PINNED_LIST, 0)
+                AppUtils.moveApp(this, app, AppUtils.DOCK_PINNED_LIST, 0)
                 loadPinnedApps()
                 updateRunningTasks()
             }
             moveRight.setOnClickListener {
-                AppUtils.moveApp(this@DockService, app, AppUtils.DOCK_PINNED_LIST, 1)
+                AppUtils.moveApp(this, app, AppUtils.DOCK_PINNED_LIST, 1)
                 loadPinnedApps()
                 updateRunningTasks()
             }
         }
         pinLayout.setOnClickListener {
-            if (AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST)) AppUtils.unpinApp(
-                    context,
-                    app,
-                    AppUtils.DOCK_PINNED_LIST
-            ) else AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST)
+            if (AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST))
+                AppUtils.unpinApp(
+                        context,
+                        app.packageName,
+                        AppUtils.DOCK_PINNED_LIST
+                ) else
+                AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST)
             loadPinnedApps()
             updateRunningTasks()
             windowManager.removeView(view)
@@ -1427,7 +1440,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun loadPinnedApps() {
-        pinnedApps = AppUtils.getPinnedApps(context, packageManager, AppUtils.DOCK_PINNED_LIST)
+        pinnedApps = AppUtils.getPinnedApps(context, AppUtils.DOCK_PINNED_LIST)
     }
 
     private fun updateRunningTasks() {
@@ -1450,8 +1463,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         ) else AppUtils.getRecentTasks(context, maxApps)
         for (j in 1..tasks.size) {
             val task = tasks[tasks.size - j]
-            val i = AppUtils.containsTask(apps, task)
-            if (i != -1) apps[i].addTask(task) else apps.add(DockApp(task))
+            val index = AppUtils.containsTask(apps, task)
+            if (index != -1) apps[index].addTask(task) else apps.add(DockApp(task))
         }
         tasksGv.layoutParams.width = gridSize * apps.size
         tasksGv.adapter = DockAppAdapter(context, apps, this)
@@ -1801,7 +1814,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun loadFavoriteApps() {
-        val apps = AppUtils.getPinnedApps(context, packageManager, AppUtils.PINNED_LIST)
+        val apps = AppUtils.getPinnedApps(context, AppUtils.PINNED_LIST)
         toggleFavorites(apps.size > 0)
         val menuFullscreen = sharedPreferences.getBoolean("app_menu_fullscreen", false)
         val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0

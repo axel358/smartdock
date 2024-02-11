@@ -74,7 +74,7 @@ object DeviceUtils {
         } catch (e: IOException) {
             return "error"
         }
-        return output.toString().trimMargin()
+        return output.toString().trimEnd('\n')
     }
 
     //Device control

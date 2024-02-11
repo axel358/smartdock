@@ -13,20 +13,13 @@ import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.SystemClock
+import android.os.UserManager
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.preference.PreferenceManager
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
 import cu.axel.smartdock.models.DockApp
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileReader
-import java.io.FileWriter
-import java.io.IOException
-import android.os.Process
-import android.os.UserManager
-import android.widget.Toast
 
 object AppUtils {
     const val PINNED_LIST = "pinned.lst"
@@ -46,105 +39,83 @@ object AppUtils {
 
         //TODO: Filter Google App
         for (appInfo in appsInfo) {
-            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
+            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getBadgedIcon(0),
                     appInfo.componentName, appInfo.user))
         }
 
         return apps
     }
 
-    fun getPinnedApps(context: Context, packageManager: PackageManager, type: String): ArrayList<App> {
+    fun getPinnedApps(context: Context, type: String): ArrayList<App> {
+        val file = File(context.filesDir, type)
         val apps = ArrayList<App>()
-        try {
-            val br = BufferedReader(FileReader(File(context.filesDir, type)))
-            var applist: String
-            try {
-                if (br.readLine().also { applist = it } != null) {
-                    val applist2 = applist.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    for (app in applist2) {
-                        try {
-                            val appInfo = packageManager.getApplicationInfo(app, 0)
-                            apps.add(App(packageManager.getApplicationLabel(appInfo).toString(), app,
-                                    packageManager.getApplicationIcon(app)))
-                        } catch (e: PackageManager.NameNotFoundException) {
-                            //app is no longer available, lets unpin it
-                            unpinApp(context, app, type)
-                        }
-                    }
-                }
-            } catch (_: IOException) {
+        val appsInfo = mutableListOf<LauncherActivityInfo>()
+        val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
+        val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
+        if (file.exists()) {
+            for (line in file.readLines()) {
+                if (line.isBlank())
+                    continue
+                val info = line.split(" ")
+                val packageName = info[0]
+                val userHandle = userManager.getUserForSerialNumber(info[1].toLong())
+                val list = launcherApps.getActivityList(packageName, userHandle)
+                if (list.isNullOrEmpty())
+                    unpinApp(context, packageName, type)
+                appsInfo.addAll(list)
             }
-        } catch (_: FileNotFoundException) {
         }
+
+        for (appInfo in appsInfo) {
+            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getBadgedIcon(0),
+                    appInfo.componentName, appInfo.user))
+        }
+
         return apps
     }
 
-    fun pinApp(context: Context, app: String, type: String) {
-        try {
-            val file = File(context.filesDir, type)
-            val fw = FileWriter(file, true)
-            fw.write("$app ")
-            fw.close()
-        } catch (_: IOException) {
+    fun pinApp(context: Context, app: App, type: String) {
+        val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
+        val file = File(context.filesDir, type)
+        file.appendText("${app.packageName} ${userManager.getSerialNumberForUser(app.userHandle)}\n")
+    }
+
+    fun unpinApp(context: Context, packageName: String, type: String) {
+        val file = File(context.filesDir, type)
+        val updatedList = file.readLines().filter { it.split(" ")[0] != packageName }
+        if (updatedList.isNotEmpty())
+            file.writeText(updatedList.joinToString("\n") + "\n")
+        else {
+            file.writeText("")
         }
     }
 
-    fun unpinApp(context: Context, app: String, type: String) {
-        try {
-            val file = File(context.filesDir, type)
-            val br = BufferedReader(FileReader(file))
-            var applist: String
-            if (br.readLine().also { applist = it } != null) {
-                applist = applist.replace("$app ", "")
-                val fw = FileWriter(file, false)
-                fw.write(applist)
-                fw.close()
+    fun moveApp(context: Context, app: App, type: String, direction: Int) {
+        val file = File(context.filesDir, type)
+        val lines = file.readLines().toMutableList()
+
+        val lineIndex = lines.indexOfFirst { it.split(" ")[0] == app.packageName }
+
+        if (lineIndex != -1) {
+            if (direction == 0 && lineIndex > 0) {
+                val line = lines.removeAt(lineIndex)
+                lines.add(lineIndex - 1, line)
+            } else if (direction == 1 && lineIndex < lines.size - 1) {
+                val line = lines.removeAt(lineIndex)
+                lines.add(lineIndex + 1, line)
             }
-        } catch (_: IOException) {
+
+            file.writeText(lines.joinToString("\n") + "\n")
         }
     }
 
-    fun moveApp(context: Context, app: String, type: String, direction: Int) {
-        try {
-            val file = File(context.filesDir, type)
-            val br = BufferedReader(FileReader(file))
-            var applist: String
-            var what = ""
-            var with = ""
-            if (br.readLine().also { applist = it } != null) {
-                val apps = applist.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                val pos = findInArray(app, apps)
-                if (direction == 0 && pos > 0) {
-                    what = apps[pos - 1] + " " + app
-                    with = app + " " + apps[pos - 1]
-                } else if (direction == 1 && pos < apps.size - 1) {
-                    what = app + " " + apps[pos + 1]
-                    with = apps[pos + 1] + " " + app
-                }
-                applist = applist.replace(what, with)
-                val fw = FileWriter(file, false)
-                fw.write(applist)
-                fw.close()
-            }
-        } catch (_: IOException) {
-        }
-    }
-
-    private fun findInArray(key: String, array: Array<String>): Int {
-        for (i in array.indices) {
-            if (array[i].contains(key)) return i
-        }
-        return -1
-    }
-
-    fun isPinned(context: Context, app: String, type: String): Boolean {
-        try {
-            val br = BufferedReader(FileReader(File(context.filesDir, type)))
-            var applist: String
-            if (br.readLine().also { applist = it } != null) {
-                return applist.contains(app)
-            }
-        } catch (_: IOException) {
+    fun isPinned(context: Context, app: App, type: String): Boolean {
+        val file = File(context.filesDir, type)
+        if (!file.exists())
+            return false
+        file.readLines().forEach { line ->
+            if (line.split(" ")[0] == app.packageName)
+                return true
         }
         return false
     }
