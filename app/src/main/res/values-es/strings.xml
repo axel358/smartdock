@@ -293,8 +293,7 @@
     <string name="freeze">Congelar</string>
     <string name="pin">Alfiler</string>
     <string name="unpin">Desprender</string>
-    <string name="to_favorites">A favoritos</string>
-    <string name="to_desktop">Al escritorio</string>
+    <string name="favorites">Favoritos</string>
     <string name="app_frozen">Aplicación congelada</string>
     <string name="remove">Eliminar</string>
 
@@ -322,6 +321,6 @@
     <string name="dock_layout">Dock layout</string>
     <string name="disable_taskbar_title">Disable taskbar</string>
     <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
-    <string name="to_dock">To dock</string>
+    <string name="add_to">Add to…</string>
 
 </resources>

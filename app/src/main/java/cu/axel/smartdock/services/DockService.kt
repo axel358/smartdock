@@ -518,29 +518,22 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         actions.add(Action(R.drawable.ic_manage, getString(R.string.manage)))
         actions.add(Action(R.drawable.ic_launch_mode, getString(R.string.open_in)))
-        if (AppUtils.isPinned(
-                        context,
-                        app,
-                        AppUtils.PINNED_LIST
-                )
-        ) actions.add(
-                Action(
-                        R.drawable.ic_remove_favorite,
-                        getString(R.string.remove)
-                )
-        ) else actions.add(Action(R.drawable.ic_add_favorite, getString(R.string.to_favorites)))
-        if (!AppUtils.isPinned(
-                        context,
-                        app,
-                        AppUtils.DESKTOP_LIST
-                )
-        ) actions.add(Action(R.drawable.ic_add_to_desktop, getString(R.string.to_desktop)))
-        if (!AppUtils.isPinned(
-                        context,
-                        app,
-                        AppUtils.DOCK_PINNED_LIST
-                )
-        ) actions.add(Action(R.drawable.ic_pin, getString(R.string.to_dock)))
+        if (AppUtils.isPinned(context, app, AppUtils.PINNED_LIST))
+            actions.add(Action(R.drawable.ic_remove_favorite, getString(R.string.remove)))
+        if (getPinActions(app).isNotEmpty())
+            actions.add(Action(R.drawable.ic_pin, getString(R.string.add_to)))
+        return actions
+    }
+
+    private fun getPinActions(app: App): ArrayList<Action> {
+        val actions = ArrayList<Action>()
+        if (!AppUtils.isPinned(context, app, AppUtils.PINNED_LIST))
+            actions.add(Action(R.drawable.ic_add_favorite, getString(R.string.favorites)))
+        if (!AppUtils.isPinned(context, app, AppUtils.DESKTOP_LIST))
+            actions.add(Action(R.drawable.ic_add_to_desktop, getString(R.string.desktop)))
+        if (!AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST))
+            actions.add(Action(R.drawable.ic_pin, getString(R.string.dock)))
+
         return actions
     }
 
@@ -1131,7 +1124,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
         layoutParams.x = location[0]
-        layoutParams.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
+        layoutParams.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2) - dockHeight
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_OUTSIDE) {
                 windowManager.removeView(view)
@@ -1174,6 +1167,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     actions.add(Action(R.drawable.ic_portrait, getString(R.string.portrait)))
                     actions.add(Action(R.drawable.ic_fullscreen, getString(R.string.fullscreen)))
                     actionsLv.adapter = AppActionsAdapter(context, actions)
+                } else if (action.text == getString(R.string.add_to)) {
+                    val actions = ArrayList<Action>()
+                    actions.add(Action(R.drawable.ic_arrow_back, ""))
+                    actions.addAll(getPinActions(app))
+                    actionsLv.adapter = AppActionsAdapter(context, actions)
                 } else if (action.text == getString(R.string.app_info)) {
                     launchApp(
                             null, null, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -1205,7 +1203,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     ).show()
                     windowManager.removeView(view)
                     if (appMenuVisible) hideAppMenu()
-                } else if (action.text == getString(R.string.to_favorites)) {
+                } else if (action.text == getString(R.string.favorites)) {
                     AppUtils.pinApp(context, app, AppUtils.PINNED_LIST)
                     windowManager.removeView(view)
                     loadFavoriteApps()
@@ -1213,11 +1211,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     AppUtils.unpinApp(context, app.packageName, AppUtils.PINNED_LIST)
                     windowManager.removeView(view)
                     loadFavoriteApps()
-                } else if (action.text == getString(R.string.to_desktop)) {
+                } else if (action.text == getString(R.string.desktop)) {
                     AppUtils.pinApp(context, app, AppUtils.DESKTOP_LIST)
                     sendBroadcast(Intent("$packageName.SERVICE").putExtra("action", "PINNED"))
                     windowManager.removeView(view)
-                } else if (action.text == getString(R.string.to_dock)) {
+                } else if (action.text == getString(R.string.dock)) {
                     AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST)
                     loadPinnedApps()
                     updateRunningTasks()
