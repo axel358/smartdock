@@ -1124,7 +1124,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
         layoutParams.x = location[0]
-        layoutParams.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2) - dockHeight
+        layoutParams.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_OUTSIDE) {
                 windowManager.removeView(view)
