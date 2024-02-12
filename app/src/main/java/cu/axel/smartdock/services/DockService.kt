@@ -1175,7 +1175,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 } else if (action.text == getString(R.string.app_info)) {
                     launchApp(
                             null, null, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                            .setData(Uri.parse("package:$app"))
+                            .setData(Uri.parse("package:${app.packageName}"))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                     windowManager.removeView(view)
