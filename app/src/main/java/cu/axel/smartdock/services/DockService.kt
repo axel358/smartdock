@@ -740,47 +740,42 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 toggleSoftKeyboard()
             } else if (event.keyCode == KeyEvent.KEYCODE_F12)
                 DeviceUtils.softReboot()
-            /*else if (event.keyCode == KeyEvent.KEYCODE_F3) {
+            else if (event.keyCode == KeyEvent.KEYCODE_F3) {
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "portrait", task.id, dockHeight,
-                            secondary
+                            context, "portrait", task.id, dockHeight
                     )
                 }
             } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "maximized", task.id, dockHeight,
-                            secondary
+                            context, "maximized", task.id, dockHeight
                     )
                 }
             } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "tiled-left", task.id, dockHeight,
-                            secondary
+                            context, "tiled-left", task.id, dockHeight
                     )
                 }
             } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "tiled-right", task.id, dockHeight,
-                            secondary
+                            context, "tiled-right", task.id, dockHeight
                     )
                 }
             } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "standard", task.id, dockHeight,
-                            secondary
+                            context, "standard", task.id, dockHeight
                     )
                 }
-            }*/
+            }
         } else if (event.action == KeyEvent.ACTION_UP) {
             val menuKey = sharedPreferences.getString("menu_key", "3")!!.toInt()
             if (event.keyCode == KeyEvent.KEYCODE_CTRL_RIGHT && sharedPreferences.getBoolean(
@@ -1245,7 +1240,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
                 windowManager.removeView(view)
                 DeepShortcutManager.startShortcut(shortcut, context)
-            }else if(Build.VERSION.SDK_INT > 27 && adapterView.getItemAtPosition(position) is Display){
+            }else if(Build.VERSION.SDK_INT > 28 && adapterView.getItemAtPosition(position) is Display){
                 val display = adapterView.getItemAtPosition(position) as Display
                 windowManager.removeView(view)
                 launchApp(null, app.packageName, null, app, display.displayId)

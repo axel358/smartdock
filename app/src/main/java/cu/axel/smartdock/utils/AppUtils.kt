@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.SystemClock
 import android.os.UserManager
+import android.view.Display
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.preference.PreferenceManager
 import cu.axel.smartdock.models.App
@@ -229,7 +230,7 @@ object AppUtils {
         }
     }
 
-    fun makeLaunchBounds(context: Context, mode: String, dockHeight: Int, displayId: Int): Rect {
+    fun makeLaunchBounds(context: Context, mode: String, dockHeight: Int, displayId: Int = Display.DEFAULT_DISPLAY): Rect {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         var left = 0
         var top = 0
@@ -291,10 +292,10 @@ object AppUtils {
         return Rect(left, top, right, bottom)
     }
 
-    fun resizeTask(context: Context, mode: String, taskId: Int, dockHeight: Int, displayId: Int) {
+    fun resizeTask(context: Context, mode: String, taskId: Int, dockHeight: Int) {
         if (taskId < 0)
             return
-        val bounds = makeLaunchBounds(context, mode, dockHeight, displayId)
+        val bounds = makeLaunchBounds(context, mode, dockHeight)
         DeviceUtils.runAsRoot("am task resize " + taskId + " " + bounds.left + " " + bounds.top + " " + bounds.right
                 + " " + bounds.bottom)
     }
