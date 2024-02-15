@@ -286,15 +286,14 @@
     <string name="dock_settings">Configuración del Dock</string>
 
     <!-- App context menu -->
-    <string name="shortcuts">Atajos...</string>
+    <string name="shortcuts">Atajos…</string>
     <string name="app_info">Informacion</string>
     <string name="uninstall">Desinstalar</string>
-    <string name="open_in">Abierto en...</string>
+    <string name="open_as">Abrir en…</string>
     <string name="freeze">Congelar</string>
     <string name="pin">Alfiler</string>
     <string name="unpin">Desprender</string>
-    <string name="to_favorites">A favoritos</string>
-    <string name="to_desktop">Al escritorio</string>
+    <string name="favorites">Favoritos</string>
     <string name="app_frozen">Aplicación congelada</string>
     <string name="remove">Eliminar</string>
 
@@ -322,5 +321,7 @@
     <string name="dock_layout">Dock layout</string>
     <string name="disable_taskbar_title">Disable taskbar</string>
     <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
+    <string name="add_to">Add to…</string>
+    <string name="launch_in">Launch in…</string>
 
 </resources>

@@ -13,6 +13,7 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.view.Display
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.preference.PreferenceManager
@@ -126,16 +127,19 @@ object Utils {
 
     fun makeWindowParams(
             width: Int, height: Int, context: Context,
-            preferLastDisplay: Boolean, mainService: Boolean = true
+            secondary: Boolean = false
     ): WindowManager.LayoutParams {
-        val displayWidth = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).widthPixels
-        val displayHeight = DeviceUtils.getDisplayMetrics(context, preferLastDisplay).heightPixels
+
+        val displayId = if (secondary) DeviceUtils.getSecondaryDisplay(context).displayId else Display.DEFAULT_DISPLAY
+
+        val displayWidth = DeviceUtils.getDisplayMetrics(context, displayId).widthPixels
+        val displayHeight = DeviceUtils.getDisplayMetrics(context, displayId).heightPixels
         val layoutParams = WindowManager.LayoutParams()
         layoutParams.format = PixelFormat.TRANSLUCENT
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
         layoutParams.type =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                    if (mainService && !preferLastDisplay) WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY else WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
                 else
                     WindowManager.LayoutParams.TYPE_PHONE
         layoutParams.width = displayWidth.coerceAtMost(width)

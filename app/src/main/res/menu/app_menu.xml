@@ -18,7 +18,7 @@
     <item
         android:id="@+id/action_launch_modes"
         android:icon="@drawable/ic_launch_mode"
-        android:title="@string/open_in">
+        android:title="@string/open_as">
         <menu>
             <item
                 android:icon="@drawable/ic_standard"

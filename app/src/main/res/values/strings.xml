@@ -286,15 +286,14 @@
     <string name="dock_settings">Dock Settings</string>
 
     <!-- App context menu -->
-    <string name="shortcuts">Shortcuts...</string>
+    <string name="shortcuts">Shortcuts…</string>
     <string name="app_info">App Info</string>
     <string name="uninstall">Uninstall</string>
-    <string name="open_in">Open in...</string>
+    <string name="open_as">Open as…</string>
     <string name="freeze">Freeze</string>
     <string name="pin">Pin</string>
     <string name="unpin">Unpin</string>
-    <string name="to_favorites">To favorites</string>
-    <string name="to_desktop">To desktop</string>
+    <string name="favorites">Favorites</string>
     <string name="app_frozen">App frozen</string>
     <string name="remove">Remove</string>
 
@@ -322,5 +321,7 @@
     <string name="dock_layout">Dock layout</string>
     <string name="disable_taskbar_title">Disable taskbar</string>
     <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
+    <string name="add_to">Add to…</string>
+    <string name="launch_in">Launch in…</string>
 
 </resources>

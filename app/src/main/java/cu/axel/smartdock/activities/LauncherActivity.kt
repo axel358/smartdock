@@ -61,11 +61,11 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         notesEt = findViewById(R.id.notes_et)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         serviceBtn
-                .setOnClickListener { startActivity(Intent(this@LauncherActivity, MainActivity::class.java)) }
+                .setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
         backgroundLayout.setOnLongClickListener {
-            val view = LayoutInflater.from(this@LauncherActivity).inflate(R.layout.task_list, null)
-            val layoutParams = Utils.makeWindowParams(-2, -2, this@LauncherActivity, false)
-            ColorUtils.applyMainColor(this@LauncherActivity, sharedPreferences, view)
+            val view = LayoutInflater.from(this).inflate(R.layout.task_list, null)
+            val layoutParams = Utils.makeWindowParams(-2, -2, this)
+            ColorUtils.applyMainColor(this, sharedPreferences, view)
             layoutParams.gravity = Gravity.TOP or Gravity.START
             layoutParams.flags = (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH)
@@ -111,7 +111,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
 
     fun loadDesktopApps() {
         appsGv.adapter = AppAdapter(this,
-                AppUtils.getPinnedApps(this, packageManager, AppUtils.DESKTOP_LIST), this, true)
+                AppUtils.getPinnedApps(this, AppUtils.DESKTOP_LIST), this, true)
     }
 
     override fun onResume() {
@@ -177,17 +177,17 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
             if (DeepShortcutManager.getShortcuts(app, this)!!.isNotEmpty()) actions.add(Action(R.drawable.ic_shortcuts, getString(R.string.shortcuts)))
         }
         actions.add(Action(R.drawable.ic_manage, getString(R.string.manage)))
-        actions.add(Action(R.drawable.ic_launch_mode, getString(R.string.open_in)))
+        actions.add(Action(R.drawable.ic_launch_mode, getString(R.string.open_as)))
         actions.add(Action(R.drawable.ic_remove_from_desktop, getString(R.string.remove)))
         return actions
     }
 
     @SuppressLint("NewApi")
-    private fun showAppContextMenu(app: String, anchor: View) {
+    private fun showAppContextMenu(app: App, anchor: View) {
         val windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         val view = LayoutInflater.from(this).inflate(R.layout.task_list, null)
-        val layoutParams = Utils.makeWindowParams(-2, -2, this, false)
-        ColorUtils.applyMainColor(this@LauncherActivity, sharedPreferences, view)
+        val layoutParams = Utils.makeWindowParams(-2, -2, this)
+        ColorUtils.applyMainColor(this, sharedPreferences, view)
         layoutParams.gravity = Gravity.TOP or Gravity.START
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         val location = IntArray(2)
@@ -201,7 +201,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
             false
         }
         val actionsLv = view.findViewById<ListView>(R.id.tasks_lv)
-        actionsLv.adapter = AppActionsAdapter(this, getAppActions(app))
+        actionsLv.adapter = AppActionsAdapter(this, getAppActions(app.packageName))
         actionsLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
             if (adapterView.getItemAtPosition(position) is Action) {
                 val action = adapterView.getItemAtPosition(position) as Action
@@ -210,29 +210,29 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                         val actions = ArrayList<Action>()
                         actions.add(Action(R.drawable.ic_arrow_back, ""))
                         actions.add(Action(R.drawable.ic_info, getString(R.string.app_info)))
-                        if (!AppUtils.isSystemApp(this@LauncherActivity, app)
+                        if (!AppUtils.isSystemApp(this, app.packageName)
                                 || sharedPreferences.getBoolean("allow_sysapp_uninstall", false)) actions.add(Action(R.drawable.ic_uninstall, getString(R.string.uninstall)))
                         if (sharedPreferences.getBoolean("allow_app_freeze", false)) actions.add(Action(R.drawable.ic_freeze, getString(R.string.freeze)))
-                        actionsLv.adapter = AppActionsAdapter(this@LauncherActivity, actions)
+                        actionsLv.adapter = AppActionsAdapter(this, actions)
                     }
 
                     getString(R.string.shortcuts) -> {
                         actionsLv.adapter = AppShortcutAdapter(this,
-                                DeepShortcutManager.getShortcuts(app, this)!!)
+                                DeepShortcutManager.getShortcuts(app.packageName, this)!!)
                     }
 
                     "" -> {
-                        actionsLv.adapter = AppActionsAdapter(this@LauncherActivity, getAppActions(app))
+                        actionsLv.adapter = AppActionsAdapter(this, getAppActions(app.packageName))
                     }
 
-                    getString(R.string.open_in) -> {
+                    getString(R.string.open_as) -> {
                         val actions = ArrayList<Action>()
                         actions.add(Action(R.drawable.ic_arrow_back, ""))
                         actions.add(Action(R.drawable.ic_standard, getString(R.string.standard)))
                         actions.add(Action(R.drawable.ic_maximized, getString(R.string.maximized)))
                         actions.add(Action(R.drawable.ic_portrait, getString(R.string.portrait)))
                         actions.add(Action(R.drawable.ic_fullscreen, getString(R.string.fullscreen)))
-                        actionsLv.adapter = AppActionsAdapter(this@LauncherActivity, actions)
+                        actionsLv.adapter = AppActionsAdapter(this, actions)
                     }
 
                     getString(R.string.app_info) -> {
@@ -243,48 +243,51 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
 
                     getString(R.string.uninstall) -> {
                         @Suppress("DEPRECATION")
-                        if (AppUtils.isSystemApp(this@LauncherActivity, app)) DeviceUtils.runAsRoot("pm uninstall --user 0 $app") else startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
+                        if (AppUtils.isSystemApp(this, app.packageName)) DeviceUtils.runAsRoot("pm uninstall --user 0 $app") else startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                         windowManager.removeView(view)
                     }
 
                     getString(R.string.freeze) -> {
                         val status = DeviceUtils.runAsRoot("pm disable $app")
-                        if (status != "error") Toast.makeText(this@LauncherActivity, R.string.app_frozen, Toast.LENGTH_SHORT).show() else Toast.makeText(this@LauncherActivity, R.string.something_wrong, Toast.LENGTH_SHORT).show()
+                        if (status != "error")
+                            Toast.makeText(this, R.string.app_frozen, Toast.LENGTH_SHORT).show()
+                        else
+                            Toast.makeText(this, R.string.something_wrong, Toast.LENGTH_SHORT).show()
                         windowManager.removeView(view)
                         loadDesktopApps()
                     }
 
                     getString(R.string.remove) -> {
-                        AppUtils.unpinApp(this@LauncherActivity, app, AppUtils.DESKTOP_LIST)
+                        AppUtils.unpinApp(this, app.packageName, AppUtils.DESKTOP_LIST)
                         windowManager.removeView(view)
                         loadDesktopApps()
                     }
 
                     getString(R.string.standard) -> {
                         windowManager.removeView(view)
-                        launchApp("standard", app)
+                        launchApp("standard", app.packageName)
                     }
 
                     getString(R.string.maximized) -> {
                         windowManager.removeView(view)
-                        launchApp("maximized", app)
+                        launchApp("maximized", app.packageName)
                     }
 
                     getString(R.string.portrait) -> {
                         windowManager.removeView(view)
-                        launchApp("portrait", app)
+                        launchApp("portrait", app.packageName)
                     }
 
                     getString(R.string.fullscreen) -> {
                         windowManager.removeView(view)
-                        launchApp("fullscreen", app)
+                        launchApp("fullscreen", app.packageName)
                     }
                 }
             } else if (adapterView.getItemAtPosition(position) is ShortcutInfo) {
                 val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
                 windowManager.removeView(view)
-                DeepShortcutManager.startShortcut(shortcut, this@LauncherActivity)
+                DeepShortcutManager.startShortcut(shortcut, this)
             }
         }
         windowManager.addView(view, layoutParams)
@@ -295,6 +298,6 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
     }
 
     override fun onAppLongClicked(app: App, item: View) {
-        showAppContextMenu(app.packageName, item)
+        showAppContextMenu(app, item)
     }
 }
