@@ -235,21 +235,25 @@ object DeviceUtils {
         return userIcon
     }
 
-    fun getSecondaryDisplay(context: Context): Display {
+    fun getDisplays(context: Context): Array<Display> {
         val dm = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-        val displays = dm.displays
-        return dm.displays[displays.size - 1]
+        return dm.displays
     }
 
-    fun getDisplayMetrics(context: Context, secondary: Boolean): DisplayMetrics {
+    fun getSecondaryDisplay(context: Context): Display {
+        val displays = getDisplays(context)
+        return displays[displays.size - 1]
+    }
+
+    fun getDisplayMetrics(context: Context, displayId: Int = Display.DEFAULT_DISPLAY): DisplayMetrics {
         val dm = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-        val display = if (secondary) getSecondaryDisplay(context) else dm.getDisplay(Display.DEFAULT_DISPLAY)
+        val display = dm.getDisplay(displayId)
         val metrics = DisplayMetrics()
         display.getMetrics(metrics)
         return metrics
     }
 
-    fun getDisplayContext(context: Context, secondary: Boolean): Context {
+    fun getDisplayContext(context: Context, secondary: Boolean = false): Context {
         return if (secondary) context.createDisplayContext(getSecondaryDisplay(context)) else context
     }
 

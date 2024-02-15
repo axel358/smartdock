@@ -71,7 +71,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         context = DeviceUtils.getDisplayContext(this, preferLastDisplay)
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
         notificationLayoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 300), -2, context,
-                preferLastDisplay, false)
+                preferLastDisplay)
         margins = Utils.dpToPx(context, 2)
         dockHeight = Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
         y = (if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
@@ -274,7 +274,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
 
     fun showNotificationPanel() {
         val layoutParams = Utils.makeWindowParams(Utils.dpToPx(context, 400), -2, context,
-                preferLastDisplay, false)
+                preferLastDisplay)
         layoutParams.gravity = Gravity.BOTTOM or Gravity.END
         layoutParams.y = y
         layoutParams.x = margins

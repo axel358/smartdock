@@ -290,7 +290,7 @@
     <string name="shortcuts">ਸ਼ਾਰਟਕੱਟਸ</string>
     <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
     <string name="uninstall">ਅਣਇੰਸਟੌਲ ਕਰੋ</string>
-    <string name="open_in">ਇਸ ਵਿੱਚ ਖੋਲ੍ਹੋ</string>
+    <string name="open_as">Open as…</string>
     <string name="freeze">ਫ੍ਰੀਜ਼</string>
     <string name="pin">ਪਿੰਨ</string>
     <string name="unpin">ਅਨਪਿੰਨ</string>
@@ -323,5 +323,6 @@
     <string name="disable_taskbar_title">Disable taskbar</string>
     <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
     <string name="add_to">Add to…</string>
+    <string name="launch_in">Launch in…</string>
 
 </resources>

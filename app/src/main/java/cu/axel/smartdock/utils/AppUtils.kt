@@ -229,14 +229,14 @@ object AppUtils {
         }
     }
 
-    fun makeLaunchBounds(context: Context, mode: String, dockHeight: Int, secondary: Boolean): Rect {
+    fun makeLaunchBounds(context: Context, mode: String, dockHeight: Int, displayId: Int): Rect {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         var left = 0
         var top = 0
         var right = 0
         var bottom = 0
-        val deviceWidth = DeviceUtils.getDisplayMetrics(context, secondary).widthPixels
-        val deviceHeight = DeviceUtils.getDisplayMetrics(context, secondary).heightPixels
+        val deviceWidth = DeviceUtils.getDisplayMetrics(context, displayId).widthPixels
+        val deviceHeight = DeviceUtils.getDisplayMetrics(context, displayId).heightPixels
         val statusHeight = DeviceUtils.getStatusBarHeight(context)
         val navHeight = DeviceUtils.getNavBarHeight(context)
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
@@ -291,10 +291,10 @@ object AppUtils {
         return Rect(left, top, right, bottom)
     }
 
-    fun resizeTask(context: Context, mode: String, taskId: Int, dockHeight: Int, secondary: Boolean) {
+    fun resizeTask(context: Context, mode: String, taskId: Int, dockHeight: Int, displayId: Int) {
         if (taskId < 0)
             return
-        val bounds = makeLaunchBounds(context, mode, dockHeight, secondary)
+        val bounds = makeLaunchBounds(context, mode, dockHeight, displayId)
         DeviceUtils.runAsRoot("am task resize " + taskId + " " + bounds.left + " " + bounds.top + " " + bounds.right
                 + " " + bounds.bottom)
     }

@@ -64,7 +64,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                 .setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
         backgroundLayout.setOnLongClickListener {
             val view = LayoutInflater.from(this).inflate(R.layout.task_list, null)
-            val layoutParams = Utils.makeWindowParams(-2, -2, this, false, false)
+            val layoutParams = Utils.makeWindowParams(-2, -2, this)
             ColorUtils.applyMainColor(this, sharedPreferences, view)
             layoutParams.gravity = Gravity.TOP or Gravity.START
             layoutParams.flags = (WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -177,7 +177,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
             if (DeepShortcutManager.getShortcuts(app, this)!!.isNotEmpty()) actions.add(Action(R.drawable.ic_shortcuts, getString(R.string.shortcuts)))
         }
         actions.add(Action(R.drawable.ic_manage, getString(R.string.manage)))
-        actions.add(Action(R.drawable.ic_launch_mode, getString(R.string.open_in)))
+        actions.add(Action(R.drawable.ic_launch_mode, getString(R.string.open_as)))
         actions.add(Action(R.drawable.ic_remove_from_desktop, getString(R.string.remove)))
         return actions
     }
@@ -186,7 +186,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
     private fun showAppContextMenu(app: App, anchor: View) {
         val windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         val view = LayoutInflater.from(this).inflate(R.layout.task_list, null)
-        val layoutParams = Utils.makeWindowParams(-2, -2, this, false, false)
+        val layoutParams = Utils.makeWindowParams(-2, -2, this)
         ColorUtils.applyMainColor(this, sharedPreferences, view)
         layoutParams.gravity = Gravity.TOP or Gravity.START
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
@@ -225,7 +225,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                         actionsLv.adapter = AppActionsAdapter(this, getAppActions(app.packageName))
                     }
 
-                    getString(R.string.open_in) -> {
+                    getString(R.string.open_as) -> {
                         val actions = ArrayList<Action>()
                         actions.add(Action(R.drawable.ic_arrow_back, ""))
                         actions.add(Action(R.drawable.ic_standard, getString(R.string.standard)))
