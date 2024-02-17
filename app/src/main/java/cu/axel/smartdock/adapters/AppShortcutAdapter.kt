@@ -12,14 +12,14 @@ import android.widget.TextView
 import cu.axel.smartdock.R
 import cu.axel.smartdock.utils.DeepShortcutManager
 
-class AppShortcutAdapter(private val context: Context, shortcuts: List<ShortcutInfo>) : ArrayAdapter<ShortcutInfo>(context, R.layout.pin_entry, shortcuts) {
+class AppShortcutAdapter(private val context: Context, shortcuts: List<ShortcutInfo>) : ArrayAdapter<ShortcutInfo>(context, R.layout.context_menu_entry, shortcuts) {
     @SuppressLint("NewApi")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var convertView = convertView
         if (convertView == null)
-            convertView = LayoutInflater.from(context).inflate(R.layout.pin_entry, null)
-        val icon = convertView!!.findViewById<ImageView>(R.id.pin_entry_iv)
-        val text = convertView.findViewById<TextView>(R.id.pin_entry_tv)
+            convertView = LayoutInflater.from(context).inflate(R.layout.context_menu_entry, null)
+        val icon = convertView!!.findViewById<ImageView>(R.id.menu_entry_iv)
+        val text = convertView.findViewById<TextView>(R.id.menu_entry_tv)
         val shortcut = getItem(position)!!
         icon!!.setImageDrawable(DeepShortcutManager.getShortcutIcon(shortcut, context))
         text!!.text = shortcut.shortLabel

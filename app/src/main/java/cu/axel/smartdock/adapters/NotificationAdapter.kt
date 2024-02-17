@@ -98,8 +98,8 @@ class NotificationAdapter(private val context: Context,
         if (notificationTitle == null) notificationTitle = AppUtils.getPackageLabel(context, sbn.packageName)
         val notificationText = extras.getCharSequence(Notification.EXTRA_TEXT)
         val progress = extras.getInt(Notification.EXTRA_PROGRESS)
-        val p = if (progress != 0) " $progress%" else ""
-        viewHolder.notifTitle.text = notificationTitle + p
+        val formattedProgress = if (progress != 0) " $progress%" else ""
+        viewHolder.notifTitle.text = notificationTitle + formattedProgress
         viewHolder.notifText.text = notificationText
         if (sbn.isClearable) {
             viewHolder.notifCancelBtn.alpha = 1f
