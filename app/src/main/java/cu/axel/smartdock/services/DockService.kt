@@ -1363,7 +1363,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
 
-    override fun onSharedPreferenceChanged(p1: SharedPreferences, preference: String) {
+    override fun onSharedPreferenceChanged(p1: SharedPreferences, preference: String?) {
+        if (preference == null)
+            return
         if (preference.startsWith("theme"))
             applyTheme()
         else if (preference == "menu_icon_uri")

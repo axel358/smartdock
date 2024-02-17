@@ -5,14 +5,18 @@ import android.view.MotionEvent
 import kotlin.math.atan2
 
 open class OnSwipeListener : GestureDetector.SimpleOnGestureListener() {
-    override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-        val x1 = e1.x
-        val y1 = e1.y
-        val x2 = e2.x
-        val y2 = e2.y
-        val direction = getDirection(x1, y1, x2, y2)
-        return onSwipe(direction)
+    override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+        if (e1 != null) {
+            val x1 = e1.x
+            val y1 = e1.y
+            val x2 = e2.x
+            val y2 = e2.y
+            val direction = getDirection(x1, y1, x2, y2)
+            return onSwipe(direction)
+        }
+        return false
     }
+
 
     open fun onSwipe(direction: Direction): Boolean {
         return false

@@ -27,13 +27,15 @@ object ColorUtils {
 		 */if (DeviceUtils.hasStoragePermission(context)) {
             val wallpaperManager = WallpaperManager.getInstance(context)
             val wallpaperDrawable = wallpaperManager.drawable
-            wallpaperDrawable.mutate()
-            wallpaperDrawable.invalidateSelf()
-            val wallpaperBitmap = drawableToBitmap(wallpaperDrawable)
-            val color = wallpaperBitmap.getPixel(wallpaperBitmap.width / 4, wallpaperBitmap.height / 4)
-            wallpaperColors.add(toHexColor(color))
-            wallpaperColors.add(toHexColor(manipulateColor(color, .8f)))
-            wallpaperColors.add(toHexColor(manipulateColor(color, .5f)))
+            if (wallpaperDrawable != null) {
+                wallpaperDrawable.mutate()
+                wallpaperDrawable.invalidateSelf()
+                val wallpaperBitmap = drawableToBitmap(wallpaperDrawable)
+                val color = wallpaperBitmap.getPixel(wallpaperBitmap.width / 4, wallpaperBitmap.height / 4)
+                wallpaperColors.add(toHexColor(color))
+                wallpaperColors.add(toHexColor(manipulateColor(color, .8f)))
+                wallpaperColors.add(toHexColor(manipulateColor(color, .5f)))
+            }
         }
         return wallpaperColors
     }

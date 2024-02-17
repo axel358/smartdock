@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
     namespace "cu.axel.smartdock"
 	
     defaultConfig {
         applicationId "cu.axel.smartdock"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1110
         versionName "1.11.0"
         signingConfig signingConfigs.debug
@@ -31,8 +31,6 @@ android {
         includeInApk true
         includeInBundle true
     }
-    buildToolsVersion '33.0.2'
-    ndkVersion '25.2.9519653'
 }
 
 dependencies {
