@@ -13,6 +13,7 @@ android {
         targetSdk 33
         versionCode 1110
         versionName "1.11.0"
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
