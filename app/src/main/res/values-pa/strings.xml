@@ -20,8 +20,8 @@
     <string name="display_over_other_apps_desc">ਡੌਕ ਨੂੰ ਡਿਸਪਲੇ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਹੈ, ਤੁਸੀਂ ਇਸ ਤੋਂ ਬਿਨਾਂ ਸੇਵਾ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰ ਸਕਦੇ ਹੋ</string>
     <string name="accessibility_service">ਅਸੈਂਸੀਬਿਲਟੀ ਸੇਵਾ</string>
     <string name="accessibility_service_desc">ਡੌਕ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਬੰਦ ਕਰਨ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ। ਉਪਰੋਕਤ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ</string>
-    <string name="recent_apps">Recent apps</string>
-    <string name="recent_apps_desc">Allows to display recent apps on the dock</string>
+    <string name="recent_apps">ਰਿਸਟ ਐਪ</string>
+    <string name="recent_apps_desc">ਰਿਸਟ ਐਪਾ ਨੂੰ ਡੋਕ ਵਿੱਚ ਦਿਖਾਉ</string>
     <string name="notification_access">ਨੋਟੀਫੀਕੇਸਨ ਐਕਸੈਸ</string>
     <string name="notification_access_desc">ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="device_administrator">ਡਿਵਾਈਸ ਐਡਮਿਨਸਟਰੇਟਰ</string>
@@ -51,14 +51,14 @@
     <string name="choose_color">ਰੰਗ ਚੁਣੋ</string>
     <string name="transparency">ਪਾਰਦਰਸ਼ਤਾ</string>
     <string name="invalid_color">ਅਵੈਧ ਰੰਗ</string>
-    <string name="dock_layout">Dock layout</string>
+    <string name="dock_layout">ਡੋਕ ਲੇਆਉਟ</string>
     <string name="wallpaper">ਵਾਲਪੇਪਰ</string>
     <string name="presets">ਪ੍ਰੀਸੈਟਸ</string>
     <string name="icon_shape_title">ਆਈਕਨ ਆਕਾਰ</string>
     <string name="circle">ਚੱਕਰ</string>
     <string name="squircle">ਸਕਰਕਲ</string>
     <string name="system">ਸਿਸਟਮ</string>
-    <string name="round_dock">Rounded corners for the dock</string>
+    <string name="round_dock">ਡੋਕ ਲਈ ਗੋਲ ਕੋਨੇ</string>
     <string name="tint_indicators_title">ਟਿੰਟ ਚੱਲ ਰਹੇ ਸੂਚਕ</string>
     <string name="custom_animation_title">ਐਪ ਲਾਂਚ ਐਨੀਮੇਸ਼ਨ</string>
     <string name="fade">ਫੇਡ</string>
@@ -106,7 +106,7 @@
     <string name="enable_qs_vol_title">ਵਾਲੀਅਮ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_qs_date_title">ਕਲੋਕ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_qs_pin_title">ਪਿੰਨ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by swiping down on it or using the keyboard shortcut</string>
+    <string name="enable_qs_pin_summary">ਡੋਕ ਨੂੰ ਪਿਨ ਅਤੇ ਅਨਪਿਨ ਡੋਕ ਤੇ ਸਵਾਇਪ ਕਰਕੇ ਜਾ ਕੀਬੋਰਡ ਸਾਰਟਕਟ ਦੁਆਰਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ</string>
     <string name="enable_wifi_panel_title">WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_wifi_panel_summary">Built In WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰਦਾ ਹੈ। ਇਸ ਲਈ ਲੋਕੇਸਨ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="behaviour">ਵਿਵਹਾਰ</string>
@@ -190,7 +190,7 @@
 
 
     <!-- Hot corners page -->
-    <string name="hot_corners">ਗਰਮ ਕੋਨੇ</string>
+    <string name="hot_corners">ਹੋਟ ਕੋਨੇ</string>
     <string name="enable_corner_top_right_title">ਉੱਪਰੀ ਸੱਜੇ ਕੋਨੇ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="enable_corner_top_right_summary">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮਾਊਸ ਨੂੰ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਰੱਖੋ</string>
     <string name="enable_corner_bottom_right_title">ਹੇਠਾਂ ਸੱਜੇ ਕੋਨੇ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
@@ -204,9 +204,9 @@
     <string name="prefer_last_display_summary">ਐਪਸ ਅਤੇ ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਆਖਰੀ ਨੱਥੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
     <string name="restart_accessibility">ਇਸ ਸੈਟਿੰਗ ਨੂੰ ਬਦਲਣ ਲਈ accessibility ਸੇਵਾ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="open_accessibility">Accessibility ਖੋਲੋ</string>
-    <string name="custom_toasts">Custom Toasts</string>
-    <string name="custom_toasts_summary">Use built-in custom Toasts for apps when the Dock is pinned</string>
-    <string name="dock_height">Dock height</string>
+    <string name="custom_toasts">ਕਸਟਮ ਟੋਸਟਾ</string>
+    <string name="custom_toasts_summary">ਜਦੋ ਡੋਕ ਪਿਨ ਹੋਵੇ ਐਪਾ ਲਈ ਇਨ-ਵਿਲਡ ਟੋਸਟ ਦੀ ਵਰਤੋਂ ਕਰਨੀ</string>
+    <string name="dock_height">ਡੋਕ ਦੀ ਉਚਾਈ</string>
 
     <string name="secure_settings">Secure ਸੈਟਿੰਗਾਂ</string>
     <string name="custom_display_size_title">ਡਿਸਪਲੇ ਦਾ ਆਕਾਰ</string>
@@ -227,13 +227,13 @@
     <string name="restart">ਰੀਸਟਾਰਟ ਕਰੋ</string>
     <string name="soft_restart">ਸਾਫਟ ਰੀਸਟਾਰਟ</string>
     <string name="lock">ਲੋਕ</string>
-    <string name="allow_app_freeze_title">Allow disabling apps</string>
+    <string name="allow_app_freeze_title">ਐਪਸ ਨੂੰ ਡਿਸਏਬਲ ਕਰਨ ਦੀ ਇਜਾਜਤ ਦੇਣੀ</string>
     <string name="allow_app_freeze_summary">ਐਪਾਂ ਨੂੰ ਮੁੜ-ਸਮਰੱਥ ਬਣਾਉਣ ਲਈ ਤੁਹਾਨੂੰ ਇੱਕ ਬਾਹਰੀ ਟੂਲ ਦੀ ਲੋੜ ਹੋਵੇਗੀ ਜਿਵੇਂ ਕਿ ਆਈਸ ਬਾਕਸ (ਜਾਂ ਚੱਲ ਰਹੇ pm ਯੋਗ [pkgname])</string>
     <string name="allow_sysapp_uninstall_title">ਸਿਸਟਮ ਐਪਸ ਨੂੰ ਅਣਇੰਸਟੌਲ ਕਰਨ ਦਿਓ</string>
     <string name="allow_sysapp_uninstall_summary">ਕਿਰਪਾ ਕਰਕੇ ਸਾਵਧਾਨ ਰਹੋ, ਇਹ ਅਸਲ ਵਿੱਚ ਖਤਰਨਾਕ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="hide_nav_buttons_title">ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਓ</string>
     <string name="hide_nav_buttons_summary">ਐਂਡਰਾਇਡ ਸਾਫਟਵੇਅਰ ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਉਂਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
-    <string name="disable_taskbar_title">Disable taskbar</string>
+    <string name="disable_taskbar_title">ਟਾਸਕਬਾਰ ਬੰਦ ਕਰਨਾ</string>
     <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
     <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
@@ -244,14 +244,14 @@
     <string name="reboot_required_title">ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="reboot_required_text">ਤਬਦੀਲੀਆਂ ਨੂੰ ਲਾਗੂ ਕਰਨ ਲਈ ਇੱਕ ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ। ਕੀ ਤੁਸੀਂ ਹੁਣੇ ਰੀਬੂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
 
-    <string name="backup_restore">Backup and restore</string>
-    <string name="backup_preferences">Backup preferences</string>
-    <string name="restore_preferences">Restore preferences</string>
-    <string name="preferences_saved">Preferences saved</string>
-    <string name="preferences_restored">Preferences restored</string>
+    <string name="backup_restore">ਬੇਕਅਪ ਅਤੇ ਵਾਪਸ ਲਿਆਉਣਾ</string>
+    <string name="backup_preferences">ਪਰਏਫਸਸ ਬੇਕਅਪ</string>
+    <string name="restore_preferences">ਪਰਏਫਸਸ ਮੁੜ ਵਾਪਸ ਲਿਆਉ</string>
+    <string name="preferences_saved">ਪਰਏਫਸਸ ਸੇਵ</string>
+    <string name="preferences_restored">ਪਰਏਫਸਸ ਮੁੜ ਲਿਆਉਆਦੀ</string>
 
     <string name="development_tools">ਡਿਵੈਲਪਮੈਂਟ ਟੂਲਸ</string>
-    <string name="navigation_bar_fix">Android navigation bar fix</string>
+    <string name="navigation_bar_fix">Android ਨੇਵੀਗੇਸ਼ਨ ਬਾਰ ਫਿਕਸ</string>
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>
@@ -281,7 +281,7 @@
     <string name="gnu_general_public_licence_v3">GNU ਜਨਰਲ ਪਬਲਿਕ ਲਾਇਸੈਂਸ v3.0</string>
     <string name="license">ਲਾਇਸੰਸ</string>
     <string name="donate">Donate</string>
-    <string name="support_the_project">Support the project</string>
+    <string name="support_the_project">ਪ੍ਰੋਜੇਕਟ ਨੂੰ ਸਹਾਇਤ ਕਰੋ</string>
 
     <!-- App menu -->
     <string name="user">ਉਪਭੋਗਤਾ</string>
@@ -301,13 +301,13 @@
     <string name="shortcuts">ਸ਼ਾਰਟਕੱਟਸ</string>
     <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
     <string name="uninstall">ਅਣਇੰਸਟੌਲ ਕਰੋ</string>
-    <string name="open_as">Open as…</string>
-    <string name="add_to">Add to…</string>
-    <string name="launch_in">Launch in…</string>
+    <string name="open_as">ੳਪਨ ਐਸ…</string>
+    <string name="add_to">ਐਡ ਟੂ...</string>
+    <string name="launch_in">ਲੋਚ ਇਨ...</string>
     <string name="freeze">ਫ੍ਰੀਜ਼</string>
     <string name="pin">ਪਿੰਨ</string>
     <string name="unpin">ਅਨਪਿੰਨ</string>
-    <string name="favorites">Favorites</string>
+    <string name="favorites">ਮਨਪਸੰਦ</string>
     <string name="app_frozen">ਐਪ ਫ੍ਰੀਜ਼ ਕੀਤੀ ਗਈ</string>
     <string name="remove">ਹਟਾਓ</string>
 
