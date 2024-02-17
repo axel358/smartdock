@@ -32,7 +32,7 @@
     <string name="location_desc">Se utiliza para recuperar información WiFi en Android 8</string>
     <string name="write_secure">Escribir ajustes protegidos</string>
     <string name="write_secure_desc">Se necesita para usar ajustes avanzados. Este es un permiso especial que debe condederse con root o adb ejecutando: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
-    <string name="manage">Administrar...</string>
+    <string name="manage">Administrar…</string>
     <string name="grant">Conceder</string>
     <string name="enable">Habilitar</string>
     <string name="disable">Deshabilitar</string>
@@ -51,7 +51,7 @@
     <string name="choose_color">Elegir color</string>
     <string name="transparency">Transparencia</string>
     <string name="invalid_color">Color no válido</string>
-    <string name="dock_layout">Dock layout</string>
+    <string name="dock_layout">Diseño del Dock</string>
     <string name="wallpaper">Fondo de pantalla</string>
     <string name="presets">Predefinidos</string>
     <string name="icon_shape_title">Forma de icono</string>
@@ -116,7 +116,7 @@
     <string name="swipe">Deslizar/Mouse</string>
     <string name="handle">Botón</string>
     <string name="handle_opacity">Opacidad del botón</string>
-    <string name="handle_position">Handle position</string>
+    <string name="handle_position">Posición del botón</string>
     <string name="auto_pin_title">Anclado automático</string>
     <string name="auto_pin_summary">Configurar anclado automático</string>
     <string name="pin_startup">Anclar en inicio</string>
@@ -125,7 +125,7 @@
     <string name="running_apps_number_title">Número de aplicaciones en ejecución/recientes para mostrar</string>
     <string name="running_apps_number_summary">Esta configuración puede ayudar a los dispositivos con pantallas más pequeñas a evitar el desbordamiento de aplicaciones en el Dock</string>
     <string name="center_running_apps_title">Centrar de aplicaciones en ejecución</string>
-    <string name="dock_activation_area_title">Área de activación del Dock</string>
+    <string name="dock_activation_area_title">Área de activación del dock</string>
     <string name="dock_activation_area_summary">La altura del área de activación invisible en la parte inferior de la pantalla</string>
 
     <!-- Desktop -->
@@ -204,9 +204,9 @@
     <string name="prefer_last_display_summary">Preferir la última pantalla adjunta para mostrar aplicaciones y el Dock</string>
     <string name="restart_accessibility">Cambiar este ajuste requiere reiniciar el servicio de accessibilidad</string>
     <string name="open_accessibility">Abrir Accesibilidad</string>
-    <string name="custom_toasts">Custom Toasts</string>
-    <string name="custom_toasts_summary">Use built-in custom Toasts for apps when the Dock is pinned</string>
-    <string name="dock_height">Dock height</string>
+    <string name="custom_toasts">Toasts personalizados</string>
+    <string name="custom_toasts_summary">Mostrar Toasts perzonalizados para apps cuando el dock se muestra</string>
+    <string name="dock_height">Altura del dock</string>
 
     <string name="secure_settings">Ajustes protegidos</string>
     <string name="custom_display_size_title">Tamaño de la pantalla</string>
@@ -232,8 +232,8 @@
     <string name="allow_sysapp_uninstall_summary">Tenga cuidado, esto puede ser realmente peligroso.</string>
     <string name="hide_nav_buttons_title">Ocultar botones de navegación</string>
     <string name="hide_nav_buttons_summary">Oculta los botones de navegación del software de Android. Necesita reiniciar</string>
-    <string name="disable_taskbar_title">Disable taskbar</string>
-    <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
+    <string name="disable_taskbar_title">Deshabilitar barra de tareas</string>
+    <string name="disable_taskbar_summary">Deshabilita la barra de tareas de Android en dispositivos con pantalla grande</string>
     <string name="enable_soft_reboot_title">Use el Modificador+F12 para reiniciar</string>
     <string name="enable_soft_reboot_summary">Es posible que el sistema no responda durante un breve período de tiempo</string>
     <string name="soft_reboot_title">Reinicio suave ahora</string>
@@ -250,7 +250,7 @@
     <string name="preferences_restored">Preferencias restauradas</string>
 
     <string name="development_tools">Herramientas de desarrollo</string>
-    <string name="navigation_bar_fix">Android navigation bar fix</string>
+    <string name="navigation_bar_fix">Arrgelo de barra de navegación de Android</string>
     <string name="scale_factor_title">Factor de escala de ventana estándar</string>
     <string name="scale_factor_summary">Define qué tan grandes son las ventanas estándar</string>
     <string name="icon_padding_title">Espacio de iconos</string>
