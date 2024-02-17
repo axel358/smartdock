@@ -116,7 +116,7 @@
     <string name="swipe">ਸਵਾਈਪ/ਹੂਵਰ</string>
     <string name="handle">ਹੈਂਡਲ</string>
     <string name="handle_opacity">Handle ਦੀ opacity</string>
-    <string name="handle_position">Handle position</string>
+    <string name="handle_position">Handle ਦੀ ਥਾ</string>
     <string name="auto_pin_title">ਆਟੋ ਪਿੰਨ</string>
     <string name="auto_pin_summary">ਆਟੋ ਪਿੰਨ ਕੌਂਫਿਗਰ ਕਰੋ</string>
     <string name="pin_startup">ਸਟਾਰਟਅੱਪ \'ਤੇ ਪਿੰਨ ਕਰੋ</string>
@@ -234,8 +234,8 @@
     <string name="hide_nav_buttons_title">ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਓ</string>
     <string name="hide_nav_buttons_summary">ਐਂਡਰਾਇਡ ਸਾਫਟਵੇਅਰ ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਉਂਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="disable_taskbar_title">ਟਾਸਕਬਾਰ ਬੰਦ ਕਰਨਾ</string>
-    <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
-    <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot</string>
+    <string name="disable_taskbar_summary">ਵੱਡੀ ਸਕਰੀਨਾ ਵਾਲੇ ਡਿਵਾਜਾ ਲਈ Android ਦਾ ਟਾਸਕਬਾਰ ਬੰਦ ਕਰੋ</string>
+    <string name="enable_soft_reboot_title">Modifier+F12 ਦੀ ਵਰਤੋਂ ਨਾਲ soft reboot ਕਰੋ</string>
     <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="soft_reboot_title">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ</string>
     <string name="soft_reboot_summary">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ। ਤੁਸੀਂ ਸਾਰੇ ਅਣਰੱਖਿਅਤ ਕੰਮ ਗੁਆ ਦੇਵੋਗੇ</string>
