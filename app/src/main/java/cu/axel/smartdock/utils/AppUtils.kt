@@ -40,7 +40,7 @@ object AppUtils {
 
         //TODO: Filter Google App
         for (appInfo in appsInfo) {
-            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getBadgedIcon(0),
+            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
                     appInfo.componentName, appInfo.user))
         }
 
@@ -68,7 +68,7 @@ object AppUtils {
         }
 
         for (appInfo in appsInfo) {
-            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getBadgedIcon(0),
+            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
                     appInfo.componentName, appInfo.user))
         }
 
