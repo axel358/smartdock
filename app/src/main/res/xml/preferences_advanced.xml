@@ -13,13 +13,13 @@
     <SwitchPreferenceCompat
         android:defaultValue="false"
         android:key="custom_toasts"
-        android:summary="Use built-in custom Toasts for apps when the Dock is pinned"
-        android:title="Custom Toasts" />
+        android:summary="@string/custom_toasts_summary"
+        android:title="@string/custom_toasts" />
 
     <cu.axel.smartdock.preferences.SliderPreference
         android:defaultValue="58"
         android:key="dock_height"
-        android:title="Dock height" />
+        android:title="@string/dock_height" />
 
     <PreferenceCategory
         android:enabled="false"
@@ -119,7 +119,7 @@
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="navbar_fix"
-            android:title="Android navigation bar fix" />
+            android:title="@string/navigation_bar_fix" />
 
         <EditTextPreference
             android:defaultValue="1.0"

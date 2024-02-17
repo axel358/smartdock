@@ -7,12 +7,12 @@
             android:key="theme"
             android:title="@string/theme_title" />
         <Preference
-            android:key="dock_layout"
-            android:title="@string/dock_layout" />
-        <Preference
             android:key="theme_main_color"
             android:summary="@string/theme_main_color_summary"
             android:title="@string/theme_main_color_title" />
+        <Preference
+            android:key="dock_layout"
+            android:title="@string/dock_layout" />
         <ListPreference
             android:defaultValue="circle"
             android:entries="@array/icon_shapes"

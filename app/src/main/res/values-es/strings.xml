@@ -51,15 +51,13 @@
     <string name="choose_color">Elegir color</string>
     <string name="transparency">Transparencia</string>
     <string name="invalid_color">Color no válido</string>
+    <string name="dock_layout">Dock layout</string>
     <string name="wallpaper">Fondo de pantalla</string>
     <string name="presets">Predefinidos</string>
-    <string name="icon_pack">Paquete de iconos</string>
     <string name="icon_shape_title">Forma de icono</string>
     <string name="circle">Círculo</string>
     <string name="squircle">Squircle</string>
     <string name="system">Sistema</string>
-    <string name="icon_padding_title">Espacio de iconos</string>
-    <string name="icon_padding_summary">Define la cantidad de espacio en blanco entre el icono y su borde</string>
     <string name="round_dock">Esquinas redondeadas para el Dock</string>
     <string name="tint_indicators_title">Tintar indicadores</string>
     <string name="custom_animation_title">Animación de inicio de aplicación</string>
@@ -88,9 +86,9 @@
     <string name="remember_launch_mode_summary">Recuerde el último modo de inicio utilizado para cada aplicación</string>
     <string name="launch_games_fullscreen_title">Iniciar juegos en pantalla completa</string>
     <string name="launch_games_fullscreen_summary">Iniciar aplicaciones detectadas como juegos en pantalla completa de forma predeterminada</string>
-	<string name="user_info">Información de usuario</string>
-	<string name="user_name">Nombre</string>
-	<string name="user_avatar">Avatar</string>
+    <string name="user_info">Información de usuario</string>
+    <string name="user_name">Nombre</string>
+    <string name="user_avatar">Avatar</string>
 
     <!-- Dock page -->
     <string name="dock">Dock</string>
@@ -117,7 +115,8 @@
     <string name="activation_method_summary">El método utilizado para abrir el Dock cuando está oculto.</string>
     <string name="swipe">Deslizar/Mouse</string>
     <string name="handle">Botón</string>
-	<string name="handle_opacity">Opacidad del botón</string>
+    <string name="handle_opacity">Opacidad del botón</string>
+    <string name="handle_position">Handle position</string>
     <string name="auto_pin_title">Anclado automático</string>
     <string name="auto_pin_summary">Configurar anclado automático</string>
     <string name="pin_startup">Anclar en inicio</string>
@@ -187,10 +186,10 @@
     <string name="silenced_notifications">Notificaciones silenciadas para esta aplicación</string>
     <string name="enable_notif_panel_title">Habilitar panel de notificaciones</string>
     <string name="show_notifications">Mostrar notificaciones emergentes</string>
-	<string name="popups_disabled">Notificaciones emergentes deshabilitadas</string>
-	
-    
-	<!-- Hot corners page -->
+    <string name="popups_disabled">Notificaciones emergentes deshabilitadas</string>
+
+
+    <!-- Hot corners page -->
     <string name="hot_corners">Esquinas Calientes</string>
     <string name="enable_corner_top_right_title">Habilitar esquina superior derecha</string>
     <string name="enable_corner_top_right_summary">Coloque el mouse en la esquina superior derecha de la pantalla para mostrar los recientes</string>
@@ -205,32 +204,36 @@
     <string name="prefer_last_display_summary">Preferir la última pantalla adjunta para mostrar aplicaciones y el Dock</string>
     <string name="restart_accessibility">Cambiar este ajuste requiere reiniciar el servicio de accessibilidad</string>
     <string name="open_accessibility">Abrir Accesibilidad</string>
+    <string name="custom_toasts">Custom Toasts</string>
+    <string name="custom_toasts_summary">Use built-in custom Toasts for apps when the Dock is pinned</string>
+    <string name="dock_height">Dock height</string>
+
     <string name="secure_settings">Ajustes protegidos</string>
+    <string name="custom_display_size_title">Tamaño de la pantalla</string>
+    <string name="custom_display_size_summary">Le permite ajustar el tamaño de visualización de los elementos de la pantalla. Necesita reiniciar</string>
+    <string name="custom_display_size_hint">dejar en blanco por defecto</string>
+    <string name="hide_status_bar_title">Ocultar barra de estado</string>
+    <string name="hide_status_bar_summary">Oculta la barra de estado de Android. Necesita un reinicio suave</string>
+    <string name="icon_blacklist">Lista negra de iconos</string>
+    <string name="icon_blacklist_summary">Iconos para ocultar de la barra de estado</string>
+    <string name="disable_heads_up">Deshabilitar heads-up</string>
+    <string name="disable_heads_up_summary">Deshabilitar notificaciones emergentes de Android</string>
+
     <string name="root_required">Root necesario</string>
     <string name="enable_power_menu_title">Usar el menú de energía incorporado</string>
     <string name="enable_power_menu_summary">Usar un menú de encendido personalizado en lugar del sistema</string>
     <string name="power_off">Apagado</string>
     <string name="restart">Reanudar</string>
     <string name="soft_restart">Reinicio suave</string>
-    <string name="lock">Cerrar</string>
-    <string name="custom_display_size_title">Tamaño de la pantalla</string>
-    <string name="custom_display_size_summary">Le permite ajustar el tamaño de visualización de los elementos de la pantalla. Necesita reiniciar</string>
-    <string name="custom_display_size_hint">dejar en blanco por defecto</string>
-	<string name="disable_heads_up">Deshabilitar heads-up</string>
-	<string name="disable_heads_up_summary">Deshabilitar notificaciones emergentes de Android</string>
-    <string name="scale_factor_title">Factor de escala de ventana estándar</string>
-    <string name="scale_factor_summary">Define qué tan grandes son las ventanas estándar</string>
+    <string name="lock">Bloquear</string>
     <string name="allow_app_freeze_title">Permitir deshabilitar aplicaciones</string>
     <string name="allow_app_freeze_summary">Necesitará una herramienta externa como Ice Box (o ejecutar pm enable [pkgname]) para volver a habilitar las aplicaciones</string>
     <string name="allow_sysapp_uninstall_title">Permitir desinstalar aplicaciones del sistema</string>
     <string name="allow_sysapp_uninstall_summary">Tenga cuidado, esto puede ser realmente peligroso.</string>
     <string name="hide_nav_buttons_title">Ocultar botones de navegación</string>
     <string name="hide_nav_buttons_summary">Oculta los botones de navegación del software de Android. Necesita reiniciar</string>
-    <string name="hide_status_bar_title">Ocultar barra de estado</string>
-    <string name="hide_status_bar_summary">Oculta la barra de estado de Android. Necesita un reinicio suave</string>
-    <string name="override_sb_height">Anular la altura de la barra de estado</string>
-    <string name="icon_blacklist">Lista negra de iconos</string>
-    <string name="icon_blacklist_summary">Iconos para ocultar de la barra de estado</string>
+    <string name="disable_taskbar_title">Disable taskbar</string>
+    <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
     <string name="enable_soft_reboot_title">Use el Modificador+F12 para reiniciar</string>
     <string name="enable_soft_reboot_summary">Es posible que el sistema no responda durante un breve período de tiempo</string>
     <string name="soft_reboot_title">Reinicio suave ahora</string>
@@ -239,12 +242,20 @@
     <string name="move_to_system_summary">Mover Smart Dock como una aplicación del sistema. Android se reiniciará</string>
     <string name="reboot_required_title">Reinicio requerido</string>
     <string name="reboot_required_text">Es necesario reiniciar para que los cambios surtan efecto. ¿Quieres reiniciar ahora?</string>
+
+    <string name="backup_restore">Guardar y restaurar</string>
+    <string name="backup_preferences">Guardar preferencias</string>
+    <string name="restore_preferences">Restaurar preferencias</string>
+    <string name="preferences_saved">Preferencias guardadas</string>
+    <string name="preferences_restored">Preferencias restauradas</string>
+
     <string name="development_tools">Herramientas de desarrollo</string>
-	<string name="backup_restore">Guardar y restaurar</string>
-	<string name="backup_preferences">Guardar preferencias</string>
-	<string name="restore_preferences">Restaurar preferencias</string>
-	<string name="preferences_saved">Preferencias guardadas</string>
-	<string name="preferences_restored">Preferencias restauradas</string>
+    <string name="navigation_bar_fix">Android navigation bar fix</string>
+    <string name="scale_factor_title">Factor de escala de ventana estándar</string>
+    <string name="scale_factor_summary">Define qué tan grandes son las ventanas estándar</string>
+    <string name="icon_padding_title">Espacio de iconos</string>
+    <string name="icon_padding_summary">Define la cantidad de espacio en blanco entre el icono y su borde</string>
+
 
     <!-- Help and about page -->
     <string name="help_and_about">Ayuda y acerca de</string>
@@ -270,10 +281,10 @@
     <string name="gnu_general_public_licence_v3">Licencia Pública General GNU v3.0</string>
     <string name="license">Licencia</string>
     <string name="donate">Donar</string>
-	<string name="support_the_project">Apoyar el proyecto</string>
+    <string name="support_the_project">Apoyar el proyecto</string>
     <!-- App menu -->
     <string name="user">Usuario</string>
-    <string name="search">Buscar...</string>
+    <string name="search">Buscar…</string>
     <string name="copied_to_clipboard">Copiado al portapapeles</string>
     <string name="search_for">Buscar</string>
     <string name="on_google">en Google</string>
@@ -290,9 +301,11 @@
     <string name="app_info">Informacion</string>
     <string name="uninstall">Desinstalar</string>
     <string name="open_as">Abrir en…</string>
+    <string name="add_to">Add to…</string>
+    <string name="launch_in">Launch in…</string>
     <string name="freeze">Congelar</string>
-    <string name="pin">Alfiler</string>
-    <string name="unpin">Desprender</string>
+    <string name="pin">Anclar</string>
+    <string name="unpin">Desanclar</string>
     <string name="favorites">Favoritos</string>
     <string name="app_frozen">Aplicación congelada</string>
     <string name="remove">Eliminar</string>
@@ -317,11 +330,5 @@
     <string name="wifi">Wifi</string>
     <string name="not_connected">No conectado</string>
     <string name="select_network">Seleccione la red</string>
-    <string name="handle_position">Handle position</string>
-    <string name="dock_layout">Dock layout</string>
-    <string name="disable_taskbar_title">Disable taskbar</string>
-    <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
-    <string name="add_to">Add to…</string>
-    <string name="launch_in">Launch in…</string>
 
 </resources>
