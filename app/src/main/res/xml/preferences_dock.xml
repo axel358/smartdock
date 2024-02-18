@@ -56,6 +56,7 @@
             android:summary="@string/enable_qs_pin_summary"
             android:defaultValue="true" />
         <SwitchPreferenceCompat
+			android:dependency="enable_qs_wifi"
             android:key="enable_wifi_panel"
             android:title="@string/enable_wifi_panel_title"
             android:summary="@string/enable_wifi_panel_summary"
