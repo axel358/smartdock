@@ -431,7 +431,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             }
             false
         }
-        //updateAppMenu()
+        updateAppMenu()
 
         //TODO: Filter app button menu click only
         appMenu.setOnTouchListener { _, event ->
