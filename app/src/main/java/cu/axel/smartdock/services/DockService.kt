@@ -144,7 +144,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var db: DBHelper
     private lateinit var dockHandler: Handler
     private lateinit var dock: HoverInterceptorLayout
-    private lateinit var bm: BluetoothManager
+    private lateinit var bluetoothManager: BluetoothManager
     private lateinit var pinnedApps: ArrayList<App>
     private lateinit var dateTv: TextClock
     private var maxApps = 0
@@ -165,7 +165,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         context = DeviceUtils.getDisplayContext(this, secondary)
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
         wifiManager = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-        bm = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+        bluetoothManager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         launcherApps = getSystemService(LAUNCHER_APPS_SERVICE) as LauncherApps
         dockHandler = Handler(Looper.getMainLooper())
     }
@@ -1240,7 +1240,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
                 windowManager.removeView(view)
                 DeepShortcutManager.startShortcut(shortcut, context)
-            }else if(Build.VERSION.SDK_INT > 28 && adapterView.getItemAtPosition(position) is Display){
+            } else if (Build.VERSION.SDK_INT > 28 && adapterView.getItemAtPosition(position) is Display) {
                 val display = adapterView.getItemAtPosition(position) as Display
                 windowManager.removeView(view)
                 launchApp(null, app.packageName, null, app, display.displayId)
@@ -1478,8 +1478,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         //TODO: Move context outta here
         wifiBtn.setImageResource(if (wifiManager.isWifiEnabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off)
-        val bAdapter = bm.adapter
-        if (bAdapter != null) bluetoothBtn.setImageResource(if (bAdapter.isEnabled) R.drawable.ic_bluetooth else R.drawable.ic_bluetooth_off)
+        val bluetoothAdapter = bluetoothManager.adapter
+        if (bluetoothAdapter != null) bluetoothBtn.setImageResource(if (bluetoothAdapter.isEnabled) R.drawable.ic_bluetooth else R.drawable.ic_bluetooth_off)
     }
 
     private fun updateDockShape() {
@@ -1547,7 +1547,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun toggleBluetooth() {
         try {
-            if (bm.adapter.isEnabled) {
+            if (bluetoothManager.adapter.isEnabled) {
                 bluetoothBtn.setImageResource(R.drawable.ic_bluetooth_off)
                 if (ActivityCompat.checkSelfPermission(
                                 this,
@@ -1563,23 +1563,27 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     // for ActivityCompat#requestPermissions for more details.
                     return
                 }
-                bm.adapter.disable()
+                bluetoothManager.adapter.disable()
             } else {
                 bluetoothBtn.setImageResource(R.drawable.ic_bluetooth)
-                bm.adapter.enable()
+                bluetoothManager.adapter.enable()
             }
         } catch (_: Exception) {
         }
     }
 
     private fun toggleWifi() {
-        if (sharedPreferences.getBoolean("enable_wifi_panel", false)) {
-            if (wifiPanelVisible) hideWiFiPanel() else showWiFiPanel()
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (sharedPreferences.getBoolean("enable_wifi_panel", false)) {
+                if (wifiPanelVisible) hideWiFiPanel() else showWiFiPanel()
+            } else {
+                val enabled = wifiManager.isWifiEnabled
+                val icon = if (!enabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off
+                wifiBtn.setImageResource(icon)
+                wifiManager.setWifiEnabled(!enabled)
+            }
         } else {
-            val enabled = wifiManager.isWifiEnabled
-            val icon = if (!enabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off
-            wifiBtn.setImageResource(icon)
-            wifiManager.setWifiEnabled(!enabled)
+            startActivity(Intent(Settings.Panel.ACTION_WIFI).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
     }
 
