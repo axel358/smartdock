@@ -60,12 +60,15 @@ import android.widget.TextClock
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cu.axel.smartdock.R
+import cu.axel.smartdock.activities.LAUNCHER_ACTION
+import cu.axel.smartdock.activities.LAUNCHER_RESUMED
 import cu.axel.smartdock.activities.MainActivity
 import cu.axel.smartdock.adapters.AppActionsAdapter
 import cu.axel.smartdock.adapters.AppAdapter
@@ -95,6 +98,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
+
+const val DOCK_SERVICE_CONNECTED = "service_connected"
+const val ACTION_TAKE_SCREENSHOT = "take_screenshot"
+const val ACTION_LAUNCH_APP = "launch_app"
+const val DESKTOP_APP_PINNED = "desktop_app_pinned"
+const val DOCK_SERVICE_ACTION = "dock_service_action"
 
 class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, OnTouchListener,
         OnAppClickListener, OnDockAppClickListener {
@@ -237,21 +246,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         notificationBtn.setOnClickListener {
             if (sharedPreferences.getBoolean("enable_notif_panel", true)) {
-                if (Utils.notificationPanelVisible) sendBroadcast(
-                        Intent("$packageName.DOCK").putExtra(
-                                "action",
-                                "HIDE_NOTIF_PANEL"
-                        )
-                ) else {
-                    if (audioPanelVisible) hideAudioPanel()
-                    if (wifiPanelVisible) hideWiFiPanel()
-                    sendBroadcast(
-                            Intent("$packageName.DOCK").putExtra(
-                                    "action",
-                                    "SHOW_NOTIF_PANEL"
-                            )
-                    )
-                }
+                if (audioPanelVisible)
+                    hideAudioPanel()
+                if (wifiPanelVisible)
+                    hideWiFiPanel()
+                toggleNotificationPanel(!Utils.notificationPanelVisible)
             } else performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
         }
         pinBtn.setOnClickListener { togglePin() }
@@ -451,50 +450,62 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         updateHandlePositionValues()
 
         //Listen for launcher messages
-        registerReceiver(object : BroadcastReceiver() {
+        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 when (intent.getStringExtra("action")) {
-                    "resume" -> pinDock()
-                    "launch" -> launchApp(
+                    LAUNCHER_RESUMED -> pinDock()
+                    ACTION_LAUNCH_APP -> launchApp(
                             intent.getStringExtra("mode"),
                             intent.getStringExtra("app")!!
                     )
                 }
             }
-        }, object : IntentFilter("$packageName.HOME") {})
+        }, IntentFilter(LAUNCHER_ACTION), ContextCompat.RECEIVER_NOT_EXPORTED)
 
         //Tell the launcher the service has connected
-        sendBroadcast(Intent("$packageName.SERVICE").putExtra("action", "CONNECTED"))
+        sendBroadcast(Intent(DOCK_SERVICE_ACTION)
+                .setPackage(packageName)
+                .putExtra("action", DOCK_SERVICE_CONNECTED)
+        )
 
         //Register receivers
-        registerReceiver(object : BroadcastReceiver() {
-            override fun onReceive(p1: Context, p2: Intent) {
-                if (p2.getStringExtra("action") == "COUNT_CHANGED") {
-                    val count = p2.getIntExtra("count", 0)
-                    if (count > 0) {
-                        notificationBtn.setBackgroundResource(R.drawable.circle)
-                        notificationBtn.text = count.toString() + ""
-                    } else {
-                        notificationBtn.setBackgroundResource(R.drawable.ic_expand_up_circle)
-                        notificationBtn.text = ""
+        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
+            override fun onReceive(p1: Context, intent: Intent) {
+                when (intent.getStringExtra("action")) {
+                    NOTIFICATION_COUNT_CHANGED -> {
+                        val count = intent.getIntExtra("count", 0)
+                        if (count > 0) {
+                            notificationBtn.setBackgroundResource(R.drawable.circle)
+                            notificationBtn.text = count.toString()
+                        } else {
+                            notificationBtn.setBackgroundResource(R.drawable.ic_expand_up_circle)
+                            notificationBtn.text = ""
+                        }
                     }
-                } else {
-                    takeScreenshot()
+
+                    ACTION_TAKE_SCREENSHOT -> takeScreenshot()
                 }
             }
-        }, IntentFilter("$packageName.NOTIFICATION_PANEL"))
+        }, IntentFilter(NOTIFICATION_SERVICE_ACTION),
+                ContextCompat.RECEIVER_NOT_EXPORTED)
         batteryReceiver = BatteryStatsReceiver(batteryBtn)
-        registerReceiver(batteryReceiver, IntentFilter("android.intent.action.BATTERY_CHANGED"))
+        ContextCompat.registerReceiver(this, batteryReceiver,
+                IntentFilter("android.intent.action.BATTERY_CHANGED"),
+                ContextCompat.RECEIVER_NOT_EXPORTED)
         soundEventsReceiver = SoundEventsReceiver()
         val soundEventsFilter = IntentFilter()
         soundEventsFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
         soundEventsFilter.addAction(Intent.ACTION_POWER_CONNECTED)
-        registerReceiver(soundEventsReceiver, soundEventsFilter)
-        registerReceiver(object : BroadcastReceiver() {
+        ContextCompat.registerReceiver(this,
+                soundEventsReceiver,
+                soundEventsFilter,
+                ContextCompat.RECEIVER_NOT_EXPORTED)
+        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
             override fun onReceive(p1: Context, p2: Intent) {
                 applyTheme()
             }
-        }, IntentFilter(Intent.ACTION_WALLPAPER_CHANGED))
+        }, IntentFilter(Intent.ACTION_WALLPAPER_CHANGED),
+                ContextCompat.RECEIVER_NOT_EXPORTED)
 
         //Play startup sound
         DeviceUtils.playEventSound(context, "startup_sound")
@@ -1216,7 +1227,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     loadFavoriteApps()
                 } else if (action.text == getString(R.string.desktop)) {
                     AppUtils.pinApp(context, app, AppUtils.DESKTOP_LIST)
-                    sendBroadcast(Intent("$packageName.SERVICE").putExtra("action", "PINNED"))
+                    sendBroadcast(Intent(DOCK_SERVICE_ACTION)
+                            .setPackage(packageName)
+                            .putExtra("action", DESKTOP_APP_PINNED)
+                    )
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.dock)) {
                     AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST)
@@ -1600,13 +1614,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun showAudioPanel() {
-        if (Utils.notificationPanelVisible) sendBroadcast(
-                Intent("$packageName.NOTIFICATION_PANEL").putExtra(
-                        "action",
-                        "hide"
-                )
-        )
-        if (wifiPanelVisible) hideWiFiPanel()
+        if (Utils.notificationPanelVisible)
+            toggleNotificationPanel(false)
+        if (wifiPanelVisible)
+            hideWiFiPanel()
         val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         val layoutParams = Utils.makeWindowParams(
                 Utils.dpToPx(context, 270), -2, context,
@@ -1652,13 +1663,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun showWiFiPanel() {
-        if (Utils.notificationPanelVisible) sendBroadcast(
-                Intent("$packageName.NOTIFICATION_PANEL").putExtra(
-                        "action",
-                        "hide"
-                )
-        )
-        if (audioPanelVisible) hideAudioPanel()
+        if (Utils.notificationPanelVisible)
+            toggleNotificationPanel(false)
+        if (audioPanelVisible)
+            hideAudioPanel()
         val layoutParams = Utils.makeWindowParams(
                 Utils.dpToPx(context, 300), -2, context,
                 secondary
@@ -1707,7 +1715,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 ssidTv.text = wi.ssid
             }
         }
-        registerReceiver(object : BroadcastReceiver() {
+
+        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
             override fun onReceive(p1: Context, p2: Intent) {
                 val wifiInfo = wifiManager.connectionInfo
                 if (wifiManager.isWifiEnabled) {
@@ -1717,7 +1726,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     } else ssidTv.setText(R.string.not_connected)
                 } else infoLayout.visibility = View.GONE
             }
-        }, IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION))
+        }, IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION),
+                ContextCompat.RECEIVER_NOT_EXPORTED)
         ColorUtils.applyMainColor(context, sharedPreferences, wifiPanel!!)
         windowManager.addView(wifiPanel, layoutParams)
         wifiPanelVisible = true
@@ -1870,6 +1880,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private fun updateHandlePosition() {
         updateHandlePositionValues()
         windowManager.updateViewLayout(dockHandle, handleLayoutParams)
+    }
+
+    private fun toggleNotificationPanel(show: Boolean) {
+        sendBroadcast(Intent(DOCK_SERVICE_ACTION)
+                .setPackage(packageName)
+                .putExtra("action", if (show) ACTION_SHOW_NOTIFICATION_PANEL else ACTION_HIDE_NOTIFICATION_PANEL)
+        )
     }
 
     override fun onTouch(p1: View, p2: MotionEvent): Boolean {

@@ -30,11 +30,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import cu.axel.smartdock.R
+import cu.axel.smartdock.activities.LAUNCHER_ACTION
 import cu.axel.smartdock.adapters.NotificationAdapter
 import cu.axel.smartdock.adapters.NotificationAdapter.OnNotificationClickListener
 import cu.axel.smartdock.utils.AppUtils
@@ -42,6 +44,11 @@ import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
 import cu.axel.smartdock.widgets.HoverInterceptorLayout
+
+const val ACTION_HIDE_NOTIFICATION_PANEL = "hide_panel"
+const val ACTION_SHOW_NOTIFICATION_PANEL = "show_panel"
+const val NOTIFICATION_COUNT_CHANGED = "count_changed"
+const val NOTIFICATION_SERVICE_ACTION = "notification_service_action"
 
 class NotificationService : NotificationListenerService(), OnNotificationClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var windowManager: WindowManager
@@ -103,7 +110,10 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             false
         }
         val dockReceiver = DockServiceReceiver()
-        registerReceiver(dockReceiver, IntentFilter("$packageName.DOCK"))
+        ContextCompat.registerReceiver(this,
+                dockReceiver,
+                IntentFilter(DOCK_SERVICE_ACTION),
+                ContextCompat.RECEIVER_NOT_EXPORTED)
     }
 
     override fun onListenerConnected() {
@@ -114,7 +124,8 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     override fun onNotificationRemoved(sbn: StatusBarNotification) {
         super.onNotificationRemoved(sbn)
         updateNotificationCount()
-        if (Utils.notificationPanelVisible) updateNotificationPanel()
+        if (Utils.notificationPanelVisible)
+            updateNotificationPanel()
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
@@ -268,7 +279,9 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             }
             if (Utils.notificationPanelVisible) cancelAllBtn!!.visibility = if (cancelableCount > 0) View.VISIBLE else View.INVISIBLE
         }
-        sendBroadcast(Intent("$packageName.NOTIFICATION_PANEL").putExtra("action", "COUNT_CHANGED")
+        sendBroadcast(Intent(NOTIFICATION_SERVICE_ACTION)
+                .setPackage(packageName)
+                .putExtra("action", NOTIFICATION_COUNT_CHANGED)
                 .putExtra("count", count))
     }
 
@@ -321,7 +334,10 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             hideNotificationPanel()
             if (Build.VERSION.SDK_INT >= 28) {
                 sendBroadcast(
-                        Intent("$packageName.NOTIFICATION_PANEL").putExtra("action", "TAKE_SCREENSHOT"))
+                        Intent(NOTIFICATION_SERVICE_ACTION)
+                                .setPackage(packageName)
+                                .putExtra("action", ACTION_TAKE_SCREENSHOT)
+                )
             } else DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ)
         }
         screencapBtn.setOnClickListener {
@@ -362,7 +378,10 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     }
 
     private fun launchApp(mode: String, app: String) {
-        sendBroadcast(Intent("$packageName.HOME").putExtra("action", "launch").putExtra("mode", mode)
+        sendBroadcast(Intent(LAUNCHER_ACTION)
+                .setPackage(packageName)
+                .putExtra("action", ACTION_LAUNCH_APP)
+                .putExtra("mode", mode)
                 .putExtra("app", app))
     }
 
@@ -387,9 +406,11 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     }
 
     internal inner class DockServiceReceiver : BroadcastReceiver() {
-        override fun onReceive(p1: Context, p2: Intent) {
-            val action = p2.getStringExtra("action")
-            if (action == "SHOW_NOTIF_PANEL") showNotificationPanel() else hideNotificationPanel()
+        override fun onReceive(p1: Context, intent: Intent) {
+            when (intent.getStringExtra("action")) {
+                ACTION_SHOW_NOTIFICATION_PANEL -> showNotificationPanel()
+                ACTION_HIDE_NOTIFICATION_PANEL -> hideNotificationPanel()
+            }
         }
     }
 

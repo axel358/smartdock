@@ -21,6 +21,7 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,10 @@ import cu.axel.smartdock.adapters.AppAdapter.OnAppClickListener
 import cu.axel.smartdock.adapters.AppShortcutAdapter
 import cu.axel.smartdock.models.Action
 import cu.axel.smartdock.models.App
+import cu.axel.smartdock.services.ACTION_LAUNCH_APP
+import cu.axel.smartdock.services.DESKTOP_APP_PINNED
+import cu.axel.smartdock.services.DOCK_SERVICE_ACTION
+import cu.axel.smartdock.services.DOCK_SERVICE_CONNECTED
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeepShortcutManager
@@ -43,6 +48,8 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
 
+const val LAUNCHER_ACTION = "launcher_action"
+const val LAUNCHER_RESUMED = "launcher_resumed"
 
 open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
     private lateinit var serviceBtn: MaterialButton
@@ -97,16 +104,16 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
             y = event.y
             false
         }
-        registerReceiver(object : BroadcastReceiver() {
-            override fun onReceive(p1: Context, p2: Intent) {
-                val action = p2.getStringExtra("action")
-                if (action == "CONNECTED") {
-                    serviceBtn.visibility = View.GONE
-                } else if (action == "PINNED") {
-                    loadDesktopApps()
+        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
+            override fun onReceive(p1: Context, intent: Intent) {
+                when (intent.getStringExtra("action")) {
+                    DOCK_SERVICE_CONNECTED -> serviceBtn.visibility = View.GONE
+                    DESKTOP_APP_PINNED -> loadDesktopApps()
+
                 }
             }
-        }, object : IntentFilter("$packageName.SERVICE") {})
+        }, IntentFilter(DOCK_SERVICE_ACTION),
+                ContextCompat.RECEIVER_NOT_EXPORTED)
     }
 
     fun loadDesktopApps() {
@@ -116,7 +123,10 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
 
     override fun onResume() {
         super.onResume()
-        sendBroadcastToService("resume")
+        sendBroadcast(Intent(LAUNCHER_ACTION)
+                .setPackage(packageName)
+                .putExtra("action", LAUNCHER_RESUMED)
+        )
         if (DeviceUtils.isAccessibilityServiceEnabled(this)) serviceBtn.visibility = View.GONE else serviceBtn.visibility = View.VISIBLE
         loadDesktopApps()
         if (sharedPreferences.getBoolean("show_notes", false)) {
@@ -162,12 +172,11 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         }
     }
 
-    private fun sendBroadcastToService(action: String) {
-        sendBroadcast(Intent("$packageName.HOME").putExtra("action", action))
-    }
-
     private fun launchApp(mode: String?, app: String) {
-        sendBroadcast(Intent("$packageName.HOME").putExtra("action", "launch").putExtra("mode", mode)
+        sendBroadcast(Intent(LAUNCHER_ACTION)
+                .setPackage(packageName)
+                .putExtra("action", ACTION_LAUNCH_APP)
+                .putExtra("mode", mode)
                 .putExtra("app", app))
     }
 
