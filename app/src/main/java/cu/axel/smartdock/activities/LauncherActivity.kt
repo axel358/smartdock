@@ -109,7 +109,6 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                 when (intent.getStringExtra("action")) {
                     DOCK_SERVICE_CONNECTED -> serviceBtn.visibility = View.GONE
                     DESKTOP_APP_PINNED -> loadDesktopApps()
-
                 }
             }
         }, IntentFilter(DOCK_SERVICE_ACTION),
@@ -127,33 +126,37 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                 .setPackage(packageName)
                 .putExtra("action", LAUNCHER_RESUMED)
         )
-        if (DeviceUtils.isAccessibilityServiceEnabled(this)) serviceBtn.visibility = View.GONE else serviceBtn.visibility = View.VISIBLE
+
+        serviceBtn.visibility = if (DeviceUtils.isAccessibilityServiceEnabled(this)) View.GONE else View.VISIBLE
+
         loadDesktopApps()
+
         if (sharedPreferences.getBoolean("show_notes", false)) {
             notesEt.visibility = View.VISIBLE
             loadNotes()
-        } else {
+        } else
             notesEt.visibility = View.GONE
-        }
+
         appsGv.requestFocus()
     }
 
     override fun onPause() {
         super.onPause()
-        if (sharedPreferences.getBoolean("show_notes", false)) saveNotes()
+        if (sharedPreferences.getBoolean("show_notes", false))
+            saveNotes()
     }
 
     override fun onBackPressed() {}
     private fun loadNotes() {
         val notes = File(getExternalFilesDir(null), "notes.txt")
         try {
-            val br = BufferedReader(FileReader(notes))
+            val bufferedReader = BufferedReader(FileReader(notes))
             var line: String?
             val noteContent = StringBuilder()
-            while (br.readLine().also { line = it } != null) {
+            while (bufferedReader.readLine().also { line = it } != null) {
                 noteContent.append(line).append("\n")
             }
-            br.close()
+            bufferedReader.close()
             notesEt.setText(noteContent.toString())
         } catch (_: IOException) {
         }
@@ -164,9 +167,9 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         if (noteContent.isNotEmpty()) {
             val notes = File(getExternalFilesDir(null), "notes.txt")
             try {
-                val fr = FileWriter(notes)
-                fr.write(noteContent)
-                fr.close()
+                val fileWriter = FileWriter(notes)
+                fileWriter.write(noteContent)
+                fileWriter.close()
             } catch (_: IOException) {
             }
         }
