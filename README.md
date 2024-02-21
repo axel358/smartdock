@@ -46,11 +46,6 @@ Bitcoin Address:
 bc1qqdxea9mx536a333zwv067uc3pww6pdxz3yat8l
 ```
 
-USDT Address:
-```
-TMkshYYHaYKZuZftWYpPmn3VsF8uZUepiz
-```
-
 Thank you for your support!
 
 ## Contributors
