@@ -580,11 +580,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             }
             val tasksLv = view.findViewById<ListView>(R.id.tasks_lv)
             tasksLv.adapter = AppTaskAdapter(context, tasks)
-            tasksLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
+            tasksLv.setOnItemClickListener { adapterView, _, position, _ ->
                 activityManager.moveTaskToFront(
-                        (adapterView.getItemAtPosition(position) as AppTask).id,
-                        0
-                )
+                        (adapterView.getItemAtPosition(position) as AppTask).id, 0)
                 windowManager.removeView(view)
             }
             windowManager.addView(view, layoutParams)
@@ -1899,6 +1897,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
         unregisterReceiver(batteryReceiver)
         unregisterReceiver(soundEventsReceiver)
+        try {
+            windowManager.removeView(dock)
+        }catch (_: Exception){}
         super.onDestroy()
     }
 }
