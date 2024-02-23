@@ -117,7 +117,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var bluetoothBtn: ImageView
     private lateinit var wifiBtn: ImageView
     private lateinit var batteryBtn: ImageView
-    private lateinit var volBtn: ImageView
+    private lateinit var volumeBtn: ImageView
     private lateinit var pinBtn: ImageView
     private lateinit var notificationBtn: TextView
     private lateinit var searchTv: TextView
@@ -198,7 +198,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         pinBtn = dock.findViewById(R.id.pin_btn)
         bluetoothBtn = dock.findViewById(R.id.bluetooth_btn)
         wifiBtn = dock.findViewById(R.id.wifi_btn)
-        volBtn = dock.findViewById(R.id.volume_btn)
+        volumeBtn = dock.findViewById(R.id.volume_btn)
         batteryBtn = dock.findViewById(R.id.battery_btn)
         dateTv = dock.findViewById(R.id.date_btn)
         dock.setOnHoverListener { _, event ->
@@ -265,12 +265,17 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             )
             true
         }
-        volBtn.setOnClickListener { toggleVolume() }
-        volBtn.setOnLongClickListener {
-            launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
+        volumeBtn.setOnClickListener { toggleVolume() }
+        volumeBtn.setOnLongClickListener {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                launchApp(
+                        null, null,
+                        Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
+            } else {
+                startActivity(Intent(Settings.Panel.ACTION_VOLUME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            }
+
             true
         }
         batteryBtn.setOnClickListener {
@@ -1536,7 +1541,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 if (sharedPreferences.getBoolean("enable_qs_wifi", true)) View.VISIBLE else View.GONE
         pinBtn.visibility =
                 if (sharedPreferences.getBoolean("enable_qs_pin", true)) View.VISIBLE else View.GONE
-        volBtn.visibility =
+        volumeBtn.visibility =
                 if (sharedPreferences.getBoolean("enable_qs_vol", true)) View.VISIBLE else View.GONE
         dateTv.visibility =
                 if (sharedPreferences.getBoolean("enable_qs_date", true)) View.VISIBLE else View.GONE
@@ -1712,7 +1717,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         ColorUtils.applySecondaryColor(context, sharedPreferences, pinBtn)
         ColorUtils.applySecondaryColor(context, sharedPreferences, bluetoothBtn)
         ColorUtils.applySecondaryColor(context, sharedPreferences, wifiBtn)
-        ColorUtils.applySecondaryColor(context, sharedPreferences, volBtn)
+        ColorUtils.applySecondaryColor(context, sharedPreferences, volumeBtn)
         ColorUtils.applySecondaryColor(context, sharedPreferences, powerBtn)
         ColorUtils.applySecondaryColor(context, sharedPreferences, batteryBtn)
     }
