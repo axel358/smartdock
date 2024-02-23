@@ -25,7 +25,7 @@ class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
     private val allApps: ArrayList<App> = ArrayList(apps)
     private var iconBackground = 0
     private val iconPadding: Int
-    private val iconTheming: Boolean
+    private val singleLine: Boolean
     private lateinit var query: String
 
     interface OnAppClickListener {
@@ -36,7 +36,7 @@ class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
     init {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
-        iconTheming = sharedPreferences.getString("icon_pack", "") != ""
+        singleLine = sharedPreferences.getBoolean("single_line_labels", true)
         when (sharedPreferences.getString("icon_shape", "circle")) {
             "circle" -> iconBackground = R.drawable.circle
             "round_rect" -> iconBackground = R.drawable.round_square
@@ -99,13 +99,14 @@ class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var iconIv: ImageView
         var nameTv: TextView
 
         init {
             iconIv = itemView.findViewById(R.id.app_icon_iv)
             nameTv = itemView.findViewById(R.id.app_name_tv)
+            nameTv.maxLines = if (singleLine) 1 else 2
         }
 
         fun bind(app: App, listener: OnAppClickListener) {

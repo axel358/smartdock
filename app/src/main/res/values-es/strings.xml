@@ -59,6 +59,7 @@
     <string name="squircle">Squircle</string>
     <string name="system">Sistema</string>
     <string name="round_dock">Esquinas redondeadas para el Dock</string>
+    <string name="single_line_labels">Usar una sola línea para nombres de apps</string>
     <string name="tint_indicators_title">Tintar indicadores</string>
     <string name="custom_animation_title">Animación de inicio de aplicación</string>
     <string name="fade">Desteñir</string>

@@ -14,9 +14,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/desktop_apps_gv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_width="220dp"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton

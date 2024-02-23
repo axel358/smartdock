@@ -4,27 +4,26 @@
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingEnd="8dp"
     android:paddingStart="8dp"
-    android:paddingTop="8dp" >
+    android:paddingTop="8dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="8dp">
 
     <ImageView
         android:id="@+id/app_icon_iv"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:src="@android:drawable/ic_delete" />
+        android:layout_margin="5dp" />
 
     <TextView
+        android:gravity="center_horizontal"
         android:id="@+id/app_name_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:singleLine="true"
-        android:textColor="#FFFFFF"
+        android:ellipsize="end"
+        android:textColor="#ffffff"
         android:textSize="15sp" />
 
 </LinearLayout>

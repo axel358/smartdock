@@ -501,7 +501,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 soundEventsFilter,
                 ContextCompat.RECEIVER_NOT_EXPORTED)
         ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
-            override fun onReceive(p1: Context, p2: Intent) {
+            override fun onReceive(p1: Context, intent: Intent) {
                 applyTheme()
             }
         }, IntentFilter(Intent.ACTION_WALLPAPER_CHANGED),
@@ -870,8 +870,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         dockHandler.removeCallbacksAndMessages(null)
         dockHandler.postDelayed({
             if (!isPinned) {
-                val anim = AnimationUtils.loadAnimation(context, R.anim.slide_down)
-                anim.setAnimationListener(object : Animation.AnimationListener {
+                val animation = AnimationUtils.loadAnimation(context, R.anim.slide_down)
+                animation.setAnimationListener(object : Animation.AnimationListener {
                     override fun onAnimationStart(p1: Animation) {}
                     override fun onAnimationEnd(p1: Animation) {
                         dockLayout.visibility = View.GONE
@@ -888,7 +888,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
                     override fun onAnimationRepeat(p1: Animation) {}
                 })
-                dockLayout.startAnimation(anim)
+                dockLayout.startAnimation(animation)
             }
         }, delay.toLong())
     }
@@ -1643,8 +1643,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         musicSb.max = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
         musicSb.progress = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
         musicSb.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onProgressChanged(p1: SeekBar, p2: Int, p3: Boolean) {
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, p2, 0)
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0)
             }
 
             override fun onStartTrackingTouch(p1: SeekBar) {}
@@ -1717,7 +1717,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
 
         ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
-            override fun onReceive(p1: Context, p2: Intent) {
+            override fun onReceive(p1: Context, intent: Intent) {
                 val wifiInfo = wifiManager.connectionInfo
                 if (wifiManager.isWifiEnabled) {
                     infoLayout.visibility = View.VISIBLE
@@ -1889,8 +1889,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         )
     }
 
-    override fun onTouch(p1: View, p2: MotionEvent): Boolean {
-        gestureDetector.onTouchEvent(p2)
+    override fun onTouch(view: View, motionEvent: MotionEvent): Boolean {
+        gestureDetector.onTouchEvent(motionEvent)
         return false
     }
 

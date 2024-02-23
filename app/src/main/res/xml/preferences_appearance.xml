@@ -1,28 +1,38 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/look_and_feel">
+
         <ListPreference
             android:defaultValue="dark"
             android:entries="@array/themes"
             android:entryValues="@array/theme_values"
             android:key="theme"
             android:title="@string/theme_title" />
+
         <Preference
             android:key="theme_main_color"
             android:summary="@string/theme_main_color_summary"
             android:title="@string/theme_main_color_title" />
+
         <Preference
             android:key="dock_layout"
             android:title="@string/dock_layout" />
+
         <ListPreference
             android:defaultValue="circle"
             android:entries="@array/icon_shapes"
             android:entryValues="@array/icon_shapes_values"
             android:key="icon_shape"
             android:title="@string/icon_shape_title" />
+
         <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="round_dock"
             android:title="@string/round_dock" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="single_line_labels"
+            android:title="@string/single_line_labels" />
 
         <SwitchPreferenceCompat
             android:defaultValue="false"

@@ -90,7 +90,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
             actions.add(Action(R.drawable.ic_wallpaper, getString(R.string.change_wallpaper)))
             actions.add(Action(R.drawable.ic_fullscreen, getString(R.string.display_settings)))
             actionsLv.adapter = AppActionsAdapter(this, actions)
-            actionsLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
+            actionsLv.setOnItemClickListener { adapterView, _, position, _ ->
                 val action = adapterView.getItemAtPosition(position) as Action
                 if (action.text == getString(R.string.change_wallpaper)) startActivityForResult(Intent.createChooser(Intent(Intent.ACTION_SET_WALLPAPER),
                         getString(R.string.change_wallpaper)), 18) else if (action.text == getString(R.string.display_settings)) startActivity(Intent(Settings.ACTION_DISPLAY_SETTINGS))
@@ -214,7 +214,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         }
         val actionsLv = view.findViewById<ListView>(R.id.tasks_lv)
         actionsLv.adapter = AppActionsAdapter(this, getAppActions(app.packageName))
-        actionsLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
+        actionsLv.setOnItemClickListener { adapterView, _, position, _ ->
             if (adapterView.getItemAtPosition(position) is Action) {
                 val action = adapterView.getItemAtPosition(position) as Action
                 when (action.text) {
