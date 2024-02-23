@@ -108,8 +108,6 @@
     <string name="enable_qs_date_title">ਕਲੋਕ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_qs_pin_title">ਪਿੰਨ ਬਟਨ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
     <string name="enable_qs_pin_summary">ਡੋਕ ਨੂੰ ਪਿਨ ਅਤੇ ਅਨਪਿਨ ਡੋਕ ਤੇ ਸਵਾਇਪ ਕਰਕੇ ਜਾ ਕੀਬੋਰਡ ਸਾਰਟਕਟ ਦੁਆਰਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ</string>
-    <string name="enable_wifi_panel_title">WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_wifi_panel_summary">Built In WiFi ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰਦਾ ਹੈ। ਇਸ ਲਈ ਲੋਕੇਸਨ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="behaviour">ਵਿਵਹਾਰ</string>
     <string name="enable_apps_btn_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ \'ਤੇ ਉੱਪਰ/ਹੇਠਾਂ ਸਵਾਈਪ ਕਰਕੇ ਐਪ ਮੀਨੂ ਨੂੰ ਖੋਲ੍ਹ/ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ</string>
     <string name="activation_method">ਐਕਟੀਵੇਸ਼ਨ ਵਿਧੀ</string>

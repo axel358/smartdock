@@ -108,8 +108,6 @@
     <string name="enable_qs_date_title">Enable clock</string>
     <string name="enable_qs_pin_title">Enable pin button</string>
     <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by swiping down on it or using the keyboard shortcut</string>
-    <string name="enable_wifi_panel_title">Enable WiFi panel</string>
-    <string name="enable_wifi_panel_summary">Enables built in WiFi panel. This requires location access</string>
     <string name="behaviour">Behaviour</string>
     <string name="enable_apps_btn_summary">You can still open/close the app menu by swiping up/down on the dock</string>
     <string name="activation_method">Activation method</string>

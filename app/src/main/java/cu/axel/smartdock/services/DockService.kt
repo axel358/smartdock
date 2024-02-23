@@ -55,7 +55,6 @@ import android.widget.ListView
 import android.widget.RelativeLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
-import android.widget.Switch
 import android.widget.TextClock
 import android.widget.TextView
 import android.widget.Toast
@@ -129,7 +128,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var searchLayout: LinearLayout
     private var powerMenu: LinearLayout? = null
     private var audioPanel: LinearLayout? = null
-    private var wifiPanel: LinearLayout? = null
     private lateinit var searchEntry: LinearLayout
     private lateinit var dockLayout: RelativeLayout
     private lateinit var windowManager: WindowManager
@@ -138,7 +136,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private var powerMenuVisible = false
     private var isPinned = false
     private var audioPanelVisible = false
-    private var wifiPanelVisible = false
     private var systemApp = false
     private var secondary = false
     private lateinit var dockLayoutParams: WindowManager.LayoutParams
@@ -248,8 +245,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (sharedPreferences.getBoolean("enable_notif_panel", true)) {
                 if (audioPanelVisible)
                     hideAudioPanel()
-                if (wifiPanelVisible)
-                    hideWiFiPanel()
                 toggleNotificationPanel(!Utils.notificationPanelVisible)
             } else performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
         }
@@ -1586,14 +1581,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun toggleWifi() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            if (sharedPreferences.getBoolean("enable_wifi_panel", false)) {
-                if (wifiPanelVisible) hideWiFiPanel() else showWiFiPanel()
-            } else {
-                val enabled = wifiManager.isWifiEnabled
-                val icon = if (!enabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off
-                wifiBtn.setImageResource(icon)
-                wifiManager.setWifiEnabled(!enabled)
-            }
+            val enabled = wifiManager.isWifiEnabled
+            val icon = if (!enabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off
+            wifiBtn.setImageResource(icon)
+            wifiManager.setWifiEnabled(!enabled)
         } else {
             startActivity(Intent(Settings.Panel.ACTION_WIFI).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
@@ -1614,8 +1605,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private fun showAudioPanel() {
         if (Utils.notificationPanelVisible)
             toggleNotificationPanel(false)
-        if (wifiPanelVisible)
-            hideWiFiPanel()
+
         val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         val layoutParams = Utils.makeWindowParams(
                 Utils.dpToPx(context, 270), -2, context,
@@ -1654,82 +1644,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         audioPanelVisible = true
     }
 
-    private fun hideWiFiPanel() {
-        windowManager.removeView(wifiPanel)
-        wifiPanelVisible = false
-        wifiPanel = null
-    }
-
-    private fun showWiFiPanel() {
-        if (Utils.notificationPanelVisible)
-            toggleNotificationPanel(false)
-        if (audioPanelVisible)
-            hideAudioPanel()
-        val layoutParams = Utils.makeWindowParams(
-                Utils.dpToPx(context, 300), -2, context,
-                secondary
-        )
-        layoutParams.flags =
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-        layoutParams.y = Utils.dpToPx(context, 2) + dockHeight
-        layoutParams.x = Utils.dpToPx(context, 2)
-        layoutParams.gravity = Gravity.BOTTOM or Gravity.END
-        wifiPanel = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
-                .inflate(R.layout.wifi_panel, null) as LinearLayout
-        wifiPanel!!.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_OUTSIDE
-                    && (event.y < wifiPanel!!.measuredHeight || event.x < wifiPanel!!.x)
-            ) {
-                hideWiFiPanel()
-            }
-            false
-        }
-        val ssidTv = wifiPanel!!.findViewById<TextView>(R.id.wp_ssid_tv)
-        val wifiSwtch = wifiPanel!!.findViewById<Switch>(R.id.wp_switch)
-        val selectBtn = wifiPanel!!.findViewById<Button>(R.id.wp_select_btn)
-        val infoLayout = wifiPanel!!.findViewById<LinearLayout>(R.id.wp_info)
-        selectBtn.setOnClickListener {
-            launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
-            hideWiFiPanel()
-        }
-        wifiSwtch.isChecked = wifiManager.isWifiEnabled
-        wifiSwtch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                wifiManager.setWifiEnabled(true)
-                wifiBtn.setImageResource(R.drawable.ic_wifi_on)
-            } else {
-                wifiManager.setWifiEnabled(false)
-                ssidTv.setText(R.string.not_connected)
-                wifiBtn.setImageResource(R.drawable.ic_wifi_off)
-            }
-        }
-        val wi = wifiManager.connectionInfo
-        if (wifiManager.isWifiEnabled) {
-            infoLayout.visibility = View.VISIBLE
-            if (wi != null && wi.networkId != -1) {
-                ssidTv.text = wi.ssid
-            }
-        }
-
-        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
-            override fun onReceive(p1: Context, intent: Intent) {
-                val wifiInfo = wifiManager.connectionInfo
-                if (wifiManager.isWifiEnabled) {
-                    infoLayout.visibility = View.VISIBLE
-                    if (wifiInfo != null && wifiInfo.networkId != -1) {
-                        ssidTv.text = wifiInfo.ssid
-                    } else ssidTv.setText(R.string.not_connected)
-                } else infoLayout.visibility = View.GONE
-            }
-        }, IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION),
-                ContextCompat.RECEIVER_NOT_EXPORTED)
-        ColorUtils.applyMainColor(context, sharedPreferences, wifiPanel!!)
-        windowManager.addView(wifiPanel, layoutParams)
-        wifiPanelVisible = true
-    }
 
     private fun showPowerMenu() {
         val layoutParams = Utils.makeWindowParams(
@@ -1899,7 +1813,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         unregisterReceiver(soundEventsReceiver)
         try {
             windowManager.removeView(dock)
-        }catch (_: Exception){}
+        } catch (_: Exception) {
+        }
         super.onDestroy()
     }
 }

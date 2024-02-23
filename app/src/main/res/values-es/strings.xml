@@ -108,8 +108,6 @@
     <string name="enable_qs_date_title">Habilitar reloj</string>
     <string name="enable_qs_pin_title">Habilitar botón pin</string>
     <string name="enable_qs_pin_summary">Todavía puede anclar/desanclar el Dock deslizandolo hacia abajo o usando el atajo de teclado</string>
-    <string name="enable_wifi_panel_title">Habilitar panel WiFi</string>
-    <string name="enable_wifi_panel_summary">Habilita el panel WiFi integrado. Esto requiere acceso a la ubicación.</string>
     <string name="behaviour">Comportamiento</string>
     <string name="enable_apps_btn_summary">Todavía puede abrir/cerrar el menú de la aplicación deslizando hacia arriba/abajo en el Dock</string>
     <string name="activation_method">Método de activación</string>

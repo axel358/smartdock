@@ -8,12 +8,12 @@ import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
 
 class SoundEventsReceiver : BroadcastReceiver() {
-    override fun onReceive(p1: Context, intent: Intent) {
+    override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
-            UsbManager.ACTION_USB_DEVICE_ATTACHED -> DeviceUtils.playEventSound(p1, "usb_sound")
+            UsbManager.ACTION_USB_DEVICE_ATTACHED -> DeviceUtils.playEventSound(context, "usb_sound")
             Intent.ACTION_POWER_CONNECTED -> {
                 Utils.shouldPlayChargeComplete = true
-                DeviceUtils.playEventSound(p1, "charge_sound")
+                DeviceUtils.playEventSound(context, "charge_sound")
             }
         }
     }
