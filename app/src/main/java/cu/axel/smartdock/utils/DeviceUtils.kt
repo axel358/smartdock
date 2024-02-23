@@ -42,6 +42,7 @@ object DeviceUtils {
     const val IMMERSIVE_APPS = "immersive.status=apps"
     const val HEADS_UP_ENABLED = "heads_up_notifications_enabled"
     const val ENABLE_TASKBAR = "enable_taskbar"
+    const val SETTING_OVERLAYS = "secure_overlay_settings"
     private const val SERVICE_NAME = "cu.axel.smartdock/cu.axel.smartdock.services.DockService"
     private const val ENABLED_ACCESSIBILITY_SERVICES = "enabled_accessibility_services"
 
@@ -292,15 +293,6 @@ object DeviceUtils {
         ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 8)
     }
 
-    fun hasLocationPermission(context: Context): Boolean {
-        return ContextCompat.checkSelfPermission(context,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-    }
-
-    fun requestLocationPermissions(context: Activity) {
-        ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 8)
-    }
-
     fun hasWriteSettingsPermission(context: Context): Boolean {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED
@@ -386,5 +378,9 @@ object DeviceUtils {
             }
         }
         return false
+    }
+
+    fun getSettingsOverlaysAllowed(context: Context): Boolean {
+        return getSecureSetting(context, SETTING_OVERLAYS, 0) == 1
     }
 }

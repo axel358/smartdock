@@ -28,8 +28,8 @@
     <string name="device_administrator_desc">Se utiliza para bloquear la pantalla. Deshabilitar antes de desinstalar</string>
     <string name="storage">Almacenamiento</string>
     <string name="storage_desc">Se utiliza para cambiar el icono del menú y los sonidos de los eventos.</string>
-    <string name="location">Ubicación</string>
-    <string name="location_desc">Se utiliza para recuperar información WiFi en Android 8</string>
+    <string name="overlays_in_settings">Permitir superposición en Ajustes</string>
+    <string name="overlays_in_settings_desc">Permite mantener el dock visible mientras la app de Ajustes está abierta. Esto permite a cualquier mostrar contenido <b>a cualquier app</b> sobre la app de Ajustes no solo al Dock. Debe habilitarse desde Ajustes de desarrollador</string>
     <string name="write_secure">Escribir ajustes protegidos</string>
     <string name="write_secure_desc">Se necesita para usar ajustes avanzados. Este es un permiso especial que debe condederse con root o adb ejecutando: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="manage">Administrar…</string>

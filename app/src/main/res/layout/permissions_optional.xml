@@ -72,19 +72,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            app:icon="@drawable/ic_location" />
+            app:icon="@drawable/ic_settings" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_weight="1.0"
-            android:text="@string/location"
+            android:text="@string/overlays_in_settings"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <Button
 			app:iconTint="?attr/colorError"
-            android:id="@+id/btn_grant_location"
+            android:id="@+id/btn_manage_settings_overlays"
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

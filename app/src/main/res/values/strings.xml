@@ -28,10 +28,10 @@
     <string name="device_administrator_desc">Used to lock the screen. Disable before uninstalling</string>
     <string name="storage">Storage</string>
     <string name="storage_desc">Used to change the menu icon and event sounds</string>
-    <string name="location">Location</string>
-    <string name="location_desc">Used to retrieve WiFi info on Android 8+</string>
+    <string name="overlays_in_settings">Allow overlays on Settings</string>
+    <string name="overlays_in_settings_desc">Used to keep the dock visible while the Settings app is open. This allows <b>any app</b> to display content on top of the Settings app not just the Dock. Must be enabled from Developer options</string>
     <string name="write_secure">Write secure settings</string>
-    <string name="write_secure_desc">Needed for advanced setings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="write_secure_desc">Needed for advanced settings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="manage">Manage…</string>
     <string name="grant">Grant</string>
     <string name="enable">Enable</string>

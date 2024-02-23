@@ -34,13 +34,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adminBtn: MaterialButton
     private lateinit var notificationsBtn: MaterialButton
     private lateinit var accessibilityBtn: MaterialButton
-    private lateinit var locationBtn: MaterialButton
+    private lateinit var settingsOverlays: MaterialButton
     private lateinit var recentAppsBtn: MaterialButton
     private lateinit var secureBtn: MaterialButton
     private var canDrawOverOtherApps = false
     private var hasStoragePermission = false
     private var isDeviceAdminEnabled = false
-    private var hasLocationPermission = false
+    private var settingsOverlaysAllowed = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         adminBtn = view.findViewById(R.id.btn_grant_admin)
         notificationsBtn = view.findViewById(R.id.btn_grant_notifications)
         accessibilityBtn = view.findViewById(R.id.btn_manage_service)
-        locationBtn = view.findViewById(R.id.btn_grant_location)
+        settingsOverlays = view.findViewById(R.id.btn_manage_settings_overlays)
         recentAppsBtn = view.findViewById(R.id.btn_manage_recent_apps)
         secureBtn = view.findViewById(R.id.btn_manage_secure)
         builder.setView(view)
@@ -116,10 +116,10 @@ class MainActivity : AppCompatActivity() {
         }
         notificationsBtn.setOnClickListener { showNotificationsDialog() }
         accessibilityBtn.setOnClickListener { showAccessibilityDialog() }
-        locationBtn.setOnClickListener {
+        settingsOverlays.setOnClickListener {
             showPermissionInfoDialog(
-                R.string.location, R.string.location_desc,
-                ::requestLocationPermissions, hasLocationPermission
+                R.string.overlays_in_settings, R.string.overlays_in_settings_desc,
+                null, true
             )
         }
         recentAppsBtn.setOnClickListener {
@@ -149,10 +149,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestStoragePermissions() {
         DeviceUtils.requestStoragePermissions(this)
-    }
-
-    private fun requestLocationPermissions() {
-        DeviceUtils.requestLocationPermissions(this)
     }
 
     private fun requestDeviceAdminPermissions() {
@@ -198,10 +194,10 @@ class MainActivity : AppCompatActivity() {
             storageBtn.setIconResource(R.drawable.ic_granted)
             storageBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
-        hasLocationPermission = DeviceUtils.hasLocationPermission(this)
-        if (hasLocationPermission) {
-            locationBtn.setIconResource(R.drawable.ic_granted)
-            locationBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
+        settingsOverlaysAllowed = DeviceUtils.getSettingsOverlaysAllowed(this)
+        if (settingsOverlaysAllowed) {
+            settingsOverlays.setIconResource(R.drawable.ic_granted)
+            settingsOverlays.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         val hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(this)
         if (hasWriteSettingsPermission) {
