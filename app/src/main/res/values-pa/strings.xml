@@ -28,8 +28,8 @@
     <string name="device_administrator_desc">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ। ਅਣਇੰਸਟੌਲ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਡਿਸਏਬਲ ਕਰੋ</string>
     <string name="storage">ਸਟੋਰੇਜ</string>
     <string name="storage_desc">ਮੀਨੂ ਆਈਕਨ ਅਤੇ ਇਵੈਂਟ ਆਵਾਜ਼ਾਂ ਨੂੰ ਬਦਲਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
-    <string name="overlays_in_settings">Allow overlays on Settings</string>
-    <string name="overlays_in_settings_desc">Used to keep the dock visible while the Settings app is open. This allows <b>any app</b> to display content on top of the Settings app not just the Dock. Must be enabled from Developer options</string>
+    <string name="overlays_in_settings">ਸੈਟਿਗਾ ਤੇ ਉਵਰਲੇ ਸੂਚਿਤ ਕਰੋ</string>
+    <string name="overlays_in_settings_desc">ਜਦੋਂ ਸੈਟਿਗਾ ਐਪ ਖੁਲਿਆ ਹੋਵੇ ਉਸ ਸਮੇ ਡੋਕ ਨੂੰ ਦਿਖਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ| ਇਹ <b>ਕਿਸੇ ਵੀ ਐਪ</b> ਦਾ ਕੰਟੈਂਟ ਸਿਰਫ ਡੋਕ ਤੇ ਹੀ ਨਹੀਂ ਸੈਟਿੰਗ ਐਪ ਤੇ ਵੀ ਦਿਖਾਵੇਗਾ, ਡਿਵੈਲਪਰ ਆਪਸ਼ਨ ਵਿੱਚੋ ਚਾਲੂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ|</string>
     <string name="write_secure">Write secure ਸੈਟਿੰਗ</string>
     <string name="write_secure_desc">advanced ਸੈਟਿੰਗਾਂ ਲਈ ਲੋੜੀਂਦਾ ਹੈ। ਇਹ ਇੱਕ ਵਿਸ਼ੇਸ਼ ਅਨੁਮਤੀ ਹੈ ਜੋ ਰੂਟ ਜਾਂ adb ਨਾਲ ਚਲਾ ਕੇ ਦਿੱਤੀ ਜਾਣੀ ਚਾਹੀਦੀ ਹੈ: \npm cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="manage">ਮੈਨਜ ਕਰਨਾ </string>
