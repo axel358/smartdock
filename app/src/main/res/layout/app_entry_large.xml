@@ -18,6 +18,8 @@
         android:layout_margin="5dp" />
 
     <TextView
+        android:shadowColor="#D8000000"
+        android:shadowRadius="2"
         android:gravity="center_horizontal"
         android:id="@+id/app_name_tv"
         android:layout_width="wrap_content"
