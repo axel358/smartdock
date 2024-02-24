@@ -105,7 +105,7 @@ const val DESKTOP_APP_PINNED = "desktop_app_pinned"
 const val DOCK_SERVICE_ACTION = "dock_service_action"
 
 class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, OnTouchListener,
-        OnAppClickListener, OnDockAppClickListener {
+    OnAppClickListener, OnDockAppClickListener {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var activityManager: ActivityManager
     private lateinit var appsBtn: ImageView
@@ -228,8 +228,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         appsBtn.setOnClickListener { toggleAppMenu() }
         appsBtn.setOnLongClickListener {
             launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_APPLICATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                null, null,
+                Intent(Settings.ACTION_APPLICATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
             true
         }
@@ -252,16 +252,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         bluetoothBtn.setOnClickListener { toggleBluetooth() }
         bluetoothBtn.setOnLongClickListener {
             launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_BLUETOOTH_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                null, null,
+                Intent(Settings.ACTION_BLUETOOTH_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
             true
         }
         wifiBtn.setOnClickListener { toggleWifi() }
         wifiBtn.setOnLongClickListener {
             launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                null, null,
+                Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
             true
         }
@@ -269,43 +269,42 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         volumeBtn.setOnLongClickListener {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 launchApp(
-                        null, null,
-                        Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    null, null,
+                    Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
-            } else {
+            } else
                 startActivity(Intent(Settings.Panel.ACTION_VOLUME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-            }
 
             true
         }
         batteryBtn.setOnClickListener {
             launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                null, null,
+                Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
         }
         dateTv.setOnClickListener {
             launchApp(
-                    null,
-                    sharedPreferences.getString("app_clock", "com.android.deskclock")!!
+                null,
+                sharedPreferences.getString("app_clock", "com.android.deskclock")!!
             )
         }
         dateTv.setOnLongClickListener {
             launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_DATE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                null, null,
+                Intent(Settings.ACTION_DATE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
             true
         }
 
         dockHeight =
-                Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
+            Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
         dockLayoutParams = Utils.makeWindowParams(-1, dockHeight, context, secondary)
         dockLayoutParams.screenOrientation =
-                if (sharedPreferences.getBoolean("lock_landscape", false))
-                    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                else
-                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            if (sharedPreferences.getBoolean("lock_landscape", false))
+                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            else
+                ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         dockLayoutParams.gravity = Gravity.BOTTOM or Gravity.START
         windowManager.addView(dock, dockLayoutParams)
@@ -320,7 +319,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val handler = Handler(mainLooper)
                 handler.postDelayed({
                     if (topRightCorner.isHovered) performGlobalAction(
-                            GLOBAL_ACTION_RECENTS
+                        GLOBAL_ACTION_RECENTS
                     )
                 }, sharedPreferences.getString("hot_corners_delay", "300")!!.toInt().toLong())
             }
@@ -331,7 +330,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val handler = Handler(mainLooper)
                 handler.postDelayed({
                     if (bottomRightCorner.isHovered) DeviceUtils.lockScreen(
-                            context
+                        context
                     )
                 }, sharedPreferences.getString("hot_corners_delay", "300")!!.toInt().toLong())
             }
@@ -339,8 +338,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         updateCorners()
         val cornersLayoutParams = Utils.makeWindowParams(
-                Utils.dpToPx(context, 2), -2, context,
-                secondary
+            Utils.dpToPx(context, 2), -2, context,
+            secondary
         )
         cornersLayoutParams.gravity = Gravity.TOP or Gravity.END
         windowManager.addView(topRightCorner, cornersLayoutParams)
@@ -349,7 +348,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         //App menu
         appMenu = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
-                .inflate(R.layout.apps_menu, null) as LinearLayout
+            .inflate(R.layout.apps_menu, null) as LinearLayout
         searchEntry = appMenu.findViewById(R.id.search_entry)
         searchEt = appMenu.findViewById(R.id.menu_et)
         powerBtn = appMenu.findViewById(R.id.power_btn)
@@ -370,15 +369,15 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         searchTv.setOnClickListener {
             try {
                 launchApp(
-                        null, null,
-                        Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(
-                                        "https://www.google.com/search?q="
-                                                + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
-                                )
+                    null, null,
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(
+                            "https://www.google.com/search?q="
+                                    + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
                         )
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    )
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
             } catch (e: UnsupportedEncodingException) {
                 throw RuntimeException(e)
@@ -392,15 +391,15 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 if (text.length > 1) {
                     searchLayout.visibility = View.VISIBLE
                     searchTv.text =
-                            getString(R.string.search_for) + " \"" + text + "\" " + getString(R.string.on_google)
+                        getString(R.string.search_for) + " \"" + text + "\" " + getString(R.string.on_google)
                     toggleFavorites(false)
                 } else {
                     searchLayout.visibility = View.GONE
                     toggleFavorites(
-                            AppUtils.getPinnedApps(
-                                    context,
-                                    AppUtils.PINNED_LIST
-                            ).size > 0
+                        AppUtils.getPinnedApps(
+                            context,
+                            AppUtils.PINNED_LIST
+                        ).size > 0
                     )
                 }
             }
@@ -411,15 +410,15 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 if (code == KeyEvent.KEYCODE_ENTER && searchEt.text.toString().length > 1) {
                     try {
                         launchApp(
-                                null, null,
-                                Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse(
-                                                "https://www.google.com/search?q="
-                                                        + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
-                                        )
+                            null, null,
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                    "https://www.google.com/search?q="
+                                            + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
                                 )
-                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            )
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         )
                     } catch (e: UnsupportedEncodingException) {
                         throw RuntimeException(e)
@@ -435,7 +434,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         //TODO: Filter app button menu click only
         appMenu.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_OUTSIDE
-                    && (event.y < appMenu.measuredHeight || event.x > appMenu.measuredWidth)
+                && (event.y < appMenu.measuredHeight || event.x > appMenu.measuredWidth)
             ) {
                 hideAppMenu()
             }
@@ -444,8 +443,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         //Dock handle
         handleLayoutParams = Utils.makeWindowParams(
-                Utils.dpToPx(context, 22), -2, context,
-                secondary
+            Utils.dpToPx(context, 22), -2, context,
+            secondary
         )
         updateHandlePositionValues()
 
@@ -455,57 +454,66 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 when (intent.getStringExtra("action")) {
                     LAUNCHER_RESUMED -> pinDock()
                     ACTION_LAUNCH_APP -> launchApp(
-                            intent.getStringExtra("mode"),
-                            intent.getStringExtra("app")!!
+                        intent.getStringExtra("mode"),
+                        intent.getStringExtra("app")!!
                     )
                 }
             }
         }, IntentFilter(LAUNCHER_ACTION), ContextCompat.RECEIVER_NOT_EXPORTED)
 
         //Tell the launcher the service has connected
-        sendBroadcast(Intent(DOCK_SERVICE_ACTION)
+        sendBroadcast(
+            Intent(DOCK_SERVICE_ACTION)
                 .setPackage(packageName)
                 .putExtra("action", DOCK_SERVICE_CONNECTED)
         )
 
         //Register receivers
-        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
-            override fun onReceive(p1: Context, intent: Intent) {
-                when (intent.getStringExtra("action")) {
-                    NOTIFICATION_COUNT_CHANGED -> {
-                        val count = intent.getIntExtra("count", 0)
-                        if (count > 0) {
-                            notificationBtn.setBackgroundResource(R.drawable.circle)
-                            notificationBtn.text = count.toString()
-                        } else {
-                            notificationBtn.setBackgroundResource(R.drawable.ic_expand_up_circle)
-                            notificationBtn.text = ""
+        ContextCompat.registerReceiver(
+            this, object : BroadcastReceiver() {
+                override fun onReceive(p1: Context, intent: Intent) {
+                    when (intent.getStringExtra("action")) {
+                        NOTIFICATION_COUNT_CHANGED -> {
+                            val count = intent.getIntExtra("count", 0)
+                            if (count > 0) {
+                                notificationBtn.setBackgroundResource(R.drawable.circle)
+                                notificationBtn.text = count.toString()
+                            } else {
+                                notificationBtn.setBackgroundResource(R.drawable.ic_expand_up_circle)
+                                notificationBtn.text = ""
+                            }
                         }
-                    }
 
-                    ACTION_TAKE_SCREENSHOT -> takeScreenshot()
+                        ACTION_TAKE_SCREENSHOT -> takeScreenshot()
+                    }
                 }
-            }
-        }, IntentFilter(NOTIFICATION_SERVICE_ACTION),
-                ContextCompat.RECEIVER_NOT_EXPORTED)
+            }, IntentFilter(NOTIFICATION_SERVICE_ACTION),
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
         batteryReceiver = BatteryStatsReceiver(batteryBtn)
-        ContextCompat.registerReceiver(this, batteryReceiver,
-                IntentFilter("android.intent.action.BATTERY_CHANGED"),
-                ContextCompat.RECEIVER_NOT_EXPORTED)
+        ContextCompat.registerReceiver(
+            this, batteryReceiver,
+            IntentFilter("android.intent.action.BATTERY_CHANGED"),
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
         soundEventsReceiver = SoundEventsReceiver()
         val soundEventsFilter = IntentFilter()
         soundEventsFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
         soundEventsFilter.addAction(Intent.ACTION_POWER_CONNECTED)
-        ContextCompat.registerReceiver(this,
-                soundEventsReceiver,
-                soundEventsFilter,
-                ContextCompat.RECEIVER_NOT_EXPORTED)
-        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
-            override fun onReceive(p1: Context, intent: Intent) {
-                applyTheme()
-            }
-        }, IntentFilter(Intent.ACTION_WALLPAPER_CHANGED),
-                ContextCompat.RECEIVER_NOT_EXPORTED)
+        ContextCompat.registerReceiver(
+            this,
+            soundEventsReceiver,
+            soundEventsFilter,
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
+        ContextCompat.registerReceiver(
+            this, object : BroadcastReceiver() {
+                override fun onReceive(p1: Context, intent: Intent) {
+                    applyTheme()
+                }
+            }, IntentFilter(Intent.ACTION_WALLPAPER_CHANGED),
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
 
         //Play startup sound
         DeviceUtils.playEventSound(context, "startup_sound")
@@ -582,7 +590,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             tasksLv.adapter = AppTaskAdapter(context, tasks)
             tasksLv.setOnItemClickListener { adapterView, _, position, _ ->
                 activityManager.moveTaskToFront(
-                        (adapterView.getItemAtPosition(position) as AppTask).id, 0)
+                    (adapterView.getItemAtPosition(position) as AppTask).id, 0
+                )
                 windowManager.removeView(view)
             }
             windowManager.addView(view, layoutParams)
@@ -620,7 +629,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             val currentActivity = event.className.toString()
             if (currentActivity == "null" || currentActivity.contains("android.app.")
-                    || currentActivity.contains("android.widget.")
+                || currentActivity.contains("android.widget.")
             ) return
             if (currentActivity != previousActivity) {
                 // Activity changed
@@ -630,9 +639,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     updateRunningTasks()
             }
         } else if (isPinned && sharedPreferences.getBoolean(
-                        "custom_toasts",
-                        false
-                ) && event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED && event.parcelableData !is Notification && event.text.size > 0
+                "custom_toasts",
+                false
+            ) && event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED && event.parcelableData !is Notification && event.text.size > 0
         ) {
             val text = event.text[0].toString()
             val app = event.packageName.toString()
@@ -654,15 +663,15 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         ColorUtils.applyColor(iconIv, ColorUtils.getDrawableDominantColor(notificationIcon))
         toast.alpha = 0f
         toast.animate().alpha(1f).setDuration(250)
-                .setInterpolator(AccelerateDecelerateInterpolator())
+            .setInterpolator(AccelerateDecelerateInterpolator())
         Handler(Looper.getMainLooper()).postDelayed({
             toast.animate().alpha(0f).setDuration(400)
-                    .setInterpolator(AccelerateDecelerateInterpolator())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            windowManager.removeView(toast)
-                        }
-                    })
+                .setInterpolator(AccelerateDecelerateInterpolator())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        windowManager.removeView(toast)
+                    }
+                })
         }, 5000)
         windowManager.addView(toast, layoutParams)
     }
@@ -680,70 +689,70 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         if (event.action == KeyEvent.ACTION_UP && isModifierPressed) {
             if (event.keyCode == KeyEvent.KEYCODE_L && sharedPreferences.getBoolean(
-                            "enable_lock_desktop",
-                            true
-                    )
+                    "enable_lock_desktop",
+                    true
+                )
             )
                 lockScreen()
             else if (event.keyCode == KeyEvent.KEYCODE_P && sharedPreferences.getBoolean(
-                            "enable_open_settings",
-                            true
-                    )
+                    "enable_open_settings",
+                    true
+                )
             )
                 launchApp(
-                        null, null,
-                        Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    null, null,
+                    Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
             else if (event.keyCode == KeyEvent.KEYCODE_T && sharedPreferences.getBoolean(
-                            "enable_open_terminal",
-                            false
-                    )
+                    "enable_open_terminal",
+                    false
+                )
             )
                 launchApp(null, sharedPreferences.getString("app_terminal", "com.termux")!!)
             else if (event.keyCode == KeyEvent.KEYCODE_N && sharedPreferences.getBoolean(
-                            "enable_expand_notifications",
-                            true
-                    )
+                    "enable_expand_notifications",
+                    true
+                )
             )
                 performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
             else if (event.keyCode == KeyEvent.KEYCODE_K)
                 DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ)
             else if (event.keyCode == KeyEvent.KEYCODE_W && sharedPreferences.getBoolean(
-                            "enable_toggle_pin",
-                            true
-                    )
+                    "enable_toggle_pin",
+                    true
+                )
             )
                 togglePin()
             else if (event.keyCode == KeyEvent.KEYCODE_F11)
                 DeviceUtils.restartService(context)
             else if (event.keyCode == KeyEvent.KEYCODE_M && sharedPreferences.getBoolean(
-                            "enable_open_music",
-                            true
-                    )
+                    "enable_open_music",
+                    true
+                )
             )
                 launchApp(null, sharedPreferences.getString("app_music", "")!!)
             else if (event.keyCode == KeyEvent.KEYCODE_B && sharedPreferences.getBoolean(
-                            "enable_open_browser",
-                            true
-                    )
+                    "enable_open_browser",
+                    true
+                )
             )
                 launchApp(null, sharedPreferences.getString("app_browser", "")!!)
             else if (event.keyCode == KeyEvent.KEYCODE_A && sharedPreferences.getBoolean(
-                            "enable_open_assist",
-                            true
-                    )
+                    "enable_open_assist",
+                    true
+                )
             )
                 launchApp(null, sharedPreferences.getString("app_assistant", "")!!)
             else if (event.keyCode == KeyEvent.KEYCODE_R && sharedPreferences.getBoolean(
-                            "enable_open_rec",
-                            true
-                    )
+                    "enable_open_rec",
+                    true
+                )
             )
                 launchApp(null, sharedPreferences.getString("app_rec", "")!!)
             else if (event.keyCode == KeyEvent.KEYCODE_D)
                 startActivity(
-                        Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
             else if (event.keyCode == KeyEvent.KEYCODE_O) {
                 toggleSoftKeyboard()
@@ -753,51 +762,51 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "portrait", task.id, dockHeight
+                        context, "portrait", task.id, dockHeight
                     )
                 }
             } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "maximized", task.id, dockHeight
+                        context, "maximized", task.id, dockHeight
                     )
                 }
             } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "tiled-left", task.id, dockHeight
+                        context, "tiled-left", task.id, dockHeight
                     )
                 }
             } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "tiled-right", task.id, dockHeight
+                        context, "tiled-right", task.id, dockHeight
                     )
                 }
             } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
                 if (tasks.size > 0) {
                     val task = tasks[0]
                     AppUtils.resizeTask(
-                            context, "standard", task.id, dockHeight
+                        context, "standard", task.id, dockHeight
                     )
                 }
             }
         } else if (event.action == KeyEvent.ACTION_UP) {
             val menuKey = sharedPreferences.getString("menu_key", "3")!!.toInt()
             if (event.keyCode == KeyEvent.KEYCODE_CTRL_RIGHT && sharedPreferences.getBoolean(
-                            "enable_ctrl_back",
-                            true
-                    )
+                    "enable_ctrl_back",
+                    true
+                )
             ) {
                 performGlobalAction(GLOBAL_ACTION_BACK)
                 return true
             } else if (event.keyCode == KeyEvent.KEYCODE_MENU && sharedPreferences.getBoolean(
-                            "enable_menu_recents",
-                            false
-                    )
+                    "enable_menu_recents",
+                    false
+                )
             ) {
                 performGlobalAction(GLOBAL_ACTION_RECENTS)
                 return true
@@ -805,9 +814,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 toggleAppMenu()
                 return true
             } else if (event.keyCode == KeyEvent.KEYCODE_F10 && sharedPreferences.getBoolean(
-                            "enable_f10",
-                            true
-                    )
+                    "enable_f10",
+                    true
+                )
             ) {
                 performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
                 return true
@@ -825,7 +834,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             val kc = softKeyboardController
             val mode = kc.showMode
             if (mode == SHOW_MODE_AUTO || mode == SHOW_MODE_HIDDEN) kc.setShowMode(
-                    SHOW_MODE_IGNORE_HARD_KEYBOARD
+                SHOW_MODE_IGNORE_HARD_KEYBOARD
             ) else kc.setShowMode(SHOW_MODE_HIDDEN)
         }
     }
@@ -875,7 +884,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         dockLayout.visibility = View.GONE
                         if (sharedPreferences.getString("activation_method", "swipe") == "swipe") {
                             val height =
-                                    sharedPreferences.getString("dock_activation_area", "10")!!.toInt()
+                                sharedPreferences.getString("dock_activation_area", "10")!!.toInt()
                             dockLayoutParams.height = Utils.dpToPx(context, height)
                             windowManager.updateViewLayout(dock, dockLayoutParams)
                         } else {
@@ -898,28 +907,38 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         return if (sharedPreferences.getBoolean("remember_launch_mode", true) && mode != null)
             mode
         else if (AppUtils.isGame(
-                        packageManager,
-                        app
-                ) && sharedPreferences.getBoolean("launch_games_fullscreen", true)
+                packageManager,
+                app
+            ) && sharedPreferences.getBoolean("launch_games_fullscreen", true)
         )
             "fullscreen"
         else
             sharedPreferences.getString("launch_mode", "standard")!!
     }
 
-    private fun launchApp(mode: String?, packageName: String?, intent: Intent? = null, app: App? = null, displayId: Int = Display.DEFAULT_DISPLAY) {
-        val display: Int = if (displayId != Display.DEFAULT_DISPLAY) displayId else (if (secondary) DeviceUtils.getSecondaryDisplay(this).displayId else displayId)
+    private fun launchApp(
+        mode: String?,
+        packageName: String?,
+        intent: Intent? = null,
+        app: App? = null,
+        displayId: Int = Display.DEFAULT_DISPLAY
+    ) {
+        val display: Int =
+            if (displayId != Display.DEFAULT_DISPLAY) displayId else (if (secondary) DeviceUtils.getSecondaryDisplay(
+                this
+            ).displayId else displayId)
         var mode = mode
-        if (mode == null) mode = getDefaultLaunchMode(packageName) else {
+        if (mode == null)
+            mode = getDefaultLaunchMode(packageName)
+        else
             if (sharedPreferences.getBoolean("remember_launch_mode", true) && packageName != null)
                 db.saveLaunchMode(packageName, mode)
-        }
 
         val options: ActivityOptions
         val animation = sharedPreferences.getString("custom_animation", "system")
-        if (animation == "none" || animation == "system") {
+        if (animation == "none" || animation == "system")
             options = ActivityOptions.makeBasic()
-        } else {
+        else {
             var animResId = 0
             when (sharedPreferences.getString("custom_animation", "fade")) {
                 "fade" -> animResId = R.anim.fade_in
@@ -930,30 +949,35 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         try {
             val methodName =
-                    if (Build.VERSION.SDK_INT >= 28) "setLaunchWindowingMode" else "setLaunchStackId"
+                if (Build.VERSION.SDK_INT >= 28) "setLaunchWindowingMode" else "setLaunchStackId"
             val windowMode: Int
             if (mode == "fullscreen")
                 windowMode = 1
             else {
                 windowMode = if (Build.VERSION.SDK_INT >= 28) 5 else 2
                 options.setLaunchBounds(
-                        AppUtils.makeLaunchBounds(
-                                context,
-                                mode,
-                                dockHeight,
-                                display
-                        )
+                    AppUtils.makeLaunchBounds(
+                        context,
+                        mode,
+                        dockHeight,
+                        display
+                    )
                 )
             }
             if (Build.VERSION.SDK_INT > 28)
                 options.setLaunchDisplayId(display)
 
             val method =
-                    ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
+                ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
             method.invoke(options, windowMode)
 
             if (app != null)
-                launcherApps.startMainActivity(app.componentName, app.userHandle, null, options.toBundle())
+                launcherApps.startMainActivity(
+                    app.componentName,
+                    app.userHandle,
+                    null,
+                    options.toBundle()
+                )
             else {
                 val launchIntent: Intent? = if (intent == null && packageName != null)
                     packageManager.getLaunchIntentForPackage(packageName)
@@ -968,49 +992,51 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 hideAppMenu()
 
             if (mode == "fullscreen" && sharedPreferences.getBoolean("auto_unpin", true)) {
-                if (isPinned) {
+                if (isPinned)
                     unpinDock()
-                }
             } else {
-                if (!isPinned && sharedPreferences.getBoolean("auto_pin", true)) {
+                if (!isPinned && sharedPreferences.getBoolean("auto_pin", true))
                     pinDock()
-                }
             }
         } catch (e: Exception) {
             Toast.makeText(
-                    context,
-                    R.string.something_wrong.toString() + e.toString(),
-                    Toast.LENGTH_LONG
+                context,
+                R.string.something_wrong.toString() + e.toString(),
+                Toast.LENGTH_LONG
             ).show()
         }
     }
 
     private fun setOrientation() {
         dockLayoutParams.screenOrientation =
-                if (sharedPreferences.getBoolean("lock_landscape", false))
-                    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                else ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            if (sharedPreferences.getBoolean("lock_landscape", false))
+                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            else ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         windowManager.updateViewLayout(dock, dockLayoutParams)
     }
 
     private fun toggleAppMenu() {
-        if (appMenuVisible) hideAppMenu() else showAppMenu()
+        if (appMenuVisible)
+            hideAppMenu()
+        else
+            showAppMenu()
     }
 
     fun showAppMenu() {
         val layoutParams: WindowManager.LayoutParams?
-        val displayId = if (secondary) DeviceUtils.getSecondaryDisplay(context).displayId else Display.DEFAULT_DISPLAY
+        val displayId =
+            if (secondary) DeviceUtils.getSecondaryDisplay(context).displayId else Display.DEFAULT_DISPLAY
         val deviceWidth = DeviceUtils.getDisplayMetrics(context, displayId).widthPixels
         val deviceHeight = DeviceUtils.getDisplayMetrics(context, displayId).heightPixels
         val margins = Utils.dpToPx(context, 2)
         val navHeight = DeviceUtils.getNavBarHeight(context)
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
         val usableHeight =
-                if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
-                    deviceHeight - margins - diff - DeviceUtils.getStatusBarHeight(context)
-                else
-                    deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins
+            if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+                deviceHeight - margins - diff - DeviceUtils.getStatusBarHeight(context)
+            else
+                deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins
         if (sharedPreferences.getBoolean("app_menu_fullscreen", false)) {
             layoutParams = Utils.makeWindowParams(-1, usableHeight, context, secondary)
             layoutParams.y = margins + dockHeight
@@ -1027,26 +1053,26 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             }
         } else {
             val width = Utils.dpToPx(
-                    context,
-                    sharedPreferences.getString("app_menu_width", "650")!!.toInt()
+                context,
+                sharedPreferences.getString("app_menu_width", "650")!!.toInt()
             )
             val height = Utils.dpToPx(
-                    context,
-                    sharedPreferences.getString("app_menu_height", "540")!!.toInt()
+                context,
+                sharedPreferences.getString("app_menu_height", "540")!!.toInt()
             )
             layoutParams = Utils.makeWindowParams(
-                    width.coerceAtMost(deviceWidth - margins * 2), height.coerceAtMost(usableHeight),
-                    context, secondary
+                width.coerceAtMost(deviceWidth - margins * 2), height.coerceAtMost(usableHeight),
+                context, secondary
             )
             layoutParams.x = margins
             layoutParams.y = margins + dockHeight
             appsGv.layoutManager = GridLayoutManager(
-                    context,
-                    sharedPreferences.getString("num_columns", "5")!!.toInt()
+                context,
+                sharedPreferences.getString("num_columns", "5")!!.toInt()
             )
             favoritesGv.layoutManager = GridLayoutManager(
-                    context,
-                    sharedPreferences.getString("num_columns", "5")!!.toInt()
+                context,
+                sharedPreferences.getString("num_columns", "5")!!.toInt()
             )
             val padding = Utils.dpToPx(context, 10)
             appMenu.setPadding(padding, padding, padding, padding)
@@ -1058,9 +1084,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         layoutParams.flags = (WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH)
         val halign = if (sharedPreferences.getBoolean(
-                        "center_app_menu",
-                        false
-                )
+                "center_app_menu",
+                false
+            )
         ) Gravity.CENTER_HORIZONTAL else Gravity.START
         layoutParams.gravity = Gravity.BOTTOM or halign
         ColorUtils.applyColor(appsSeparator, ColorUtils.getMainColors(sharedPreferences, this)[4])
@@ -1092,7 +1118,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         appMenu.alpha = 0f
         appMenu.animate().alpha(1f).setDuration(200)
-                .setInterpolator(AccelerateDecelerateInterpolator())
+            .setInterpolator(AccelerateDecelerateInterpolator())
         searchEt.requestFocus()
         appMenuVisible = true
     }
@@ -1116,8 +1142,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0
                 //TODO: Implement efficient adapter
                 appsGv.adapter = AppAdapter(
-                        context, apps, this@DockService,
-                        menuFullscreen && !phoneLayout
+                    context, apps, this@DockService,
+                    menuFullscreen && !phoneLayout
                 )
             }
         }
@@ -1130,15 +1156,15 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         ColorUtils.applyMainColor(context, sharedPreferences, view)
         layoutParams.gravity = Gravity.START or Gravity.TOP
         layoutParams.flags =
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
         layoutParams.x = location[0]
         layoutParams.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
         view.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_OUTSIDE) {
+            if (event.action == MotionEvent.ACTION_OUTSIDE)
                 windowManager.removeView(view)
-            }
+
             false
         }
         val actionsLv = view.findViewById<ListView>(R.id.tasks_lv)
@@ -1151,21 +1177,21 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     actions.add(Action(R.drawable.ic_arrow_back, ""))
                     actions.add(Action(R.drawable.ic_info, getString(R.string.app_info)))
                     if (!AppUtils.isSystemApp(
-                                    context,
-                                    app.packageName
-                            ) || sharedPreferences.getBoolean("allow_sysapp_uninstall", false)
+                            context,
+                            app.packageName
+                        ) || sharedPreferences.getBoolean("allow_sysapp_uninstall", false)
                     ) actions.add(Action(R.drawable.ic_uninstall, getString(R.string.uninstall)))
                     if (sharedPreferences.getBoolean("allow_app_freeze", false)) actions.add(
-                            Action(
-                                    R.drawable.ic_freeze,
-                                    getString(R.string.freeze)
-                            )
+                        Action(
+                            R.drawable.ic_freeze,
+                            getString(R.string.freeze)
+                        )
                     )
                     actionsLv.adapter = AppActionsAdapter(context, actions)
                 } else if (action.text == getString(R.string.shortcuts)) {
                     actionsLv.adapter = AppShortcutAdapter(
-                            context,
-                            DeepShortcutManager.getShortcuts(app.packageName, context)!!
+                        context,
+                        DeepShortcutManager.getShortcuts(app.packageName, context)!!
                     )
                 } else if (action.text == "") {
                     actionsLv.adapter = AppActionsAdapter(context, getAppActions(app))
@@ -1186,32 +1212,32 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     actionsLv.adapter = DisplaysAdapter(context, DeviceUtils.getDisplays(this))
                 } else if (action.text == getString(R.string.app_info)) {
                     launchApp(
-                            null, null, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        null, null, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                             .setData(Uri.parse("package:${app.packageName}"))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.uninstall)) {
                     if (AppUtils.isSystemApp(
-                                    context,
-                                    app.packageName
-                            )
+                            context,
+                            app.packageName
+                        )
                     ) DeviceUtils.runAsRoot("pm uninstall --user 0 $app") else startActivity(
-                            Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
-                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                     if (appMenuVisible) hideAppMenu()
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.freeze)) {
                     val status = DeviceUtils.runAsRoot("pm disable $app")
                     if (status != "error") Toast.makeText(
-                            context,
-                            R.string.app_frozen,
-                            Toast.LENGTH_SHORT
+                        context,
+                        R.string.app_frozen,
+                        Toast.LENGTH_SHORT
                     ).show() else Toast.makeText(
-                            context,
-                            R.string.something_wrong,
-                            Toast.LENGTH_SHORT
+                        context,
+                        R.string.something_wrong,
+                        Toast.LENGTH_SHORT
                     ).show()
                     windowManager.removeView(view)
                     if (appMenuVisible) hideAppMenu()
@@ -1225,7 +1251,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     loadFavoriteApps()
                 } else if (action.text == getString(R.string.desktop)) {
                     AppUtils.pinApp(context, app, AppUtils.DESKTOP_LIST)
-                    sendBroadcast(Intent(DOCK_SERVICE_ACTION)
+                    sendBroadcast(
+                        Intent(DOCK_SERVICE_ACTION)
                             .setPackage(packageName)
                             .putExtra("action", DESKTOP_APP_PINNED)
                     )
@@ -1261,6 +1288,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         windowManager.addView(view, layoutParams)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun showDockAppContextMenu(app: App, anchor: View) {
         val view = LayoutInflater.from(context).inflate(R.layout.pin_entry, null)
         val pinLayout = view.findViewById<LinearLayout>(R.id.pin_entry_pin)
@@ -1269,15 +1297,15 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         ColorUtils.applyMainColor(context, sharedPreferences, view)
         layoutParams.gravity = Gravity.BOTTOM or Gravity.START
         layoutParams.flags =
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         layoutParams.y = Utils.dpToPx(context, 2) + dockHeight
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
         layoutParams.x = location[0]
         view.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_OUTSIDE) {
+            if (event.action == MotionEvent.ACTION_OUTSIDE)
                 windowManager.removeView(view)
-            }
+
             false
         }
         val icon = view.findViewById<ImageView>(R.id.pin_entry_iv)
@@ -1306,9 +1334,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         pinLayout.setOnClickListener {
             if (AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST))
                 AppUtils.unpinApp(
-                        context,
-                        app.packageName,
-                        AppUtils.DOCK_PINNED_LIST
+                    context,
+                    app.packageName,
+                    AppUtils.DOCK_PINNED_LIST
                 ) else
                 AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST)
             loadPinnedApps()
@@ -1318,21 +1346,22 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         windowManager.addView(view, layoutParams)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun showUserContextMenu(anchor: View) {
         val view = LayoutInflater.from(context).inflate(R.layout.task_list, null)
         val layoutParams = Utils.makeWindowParams(-2, -2, context, secondary)
         ColorUtils.applyMainColor(context, sharedPreferences, view)
         layoutParams.gravity = Gravity.TOP or Gravity.START
         layoutParams.flags =
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
         layoutParams.x = location[0]
         layoutParams.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
         view.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_OUTSIDE) {
+            if (event.action == MotionEvent.ACTION_OUTSIDE)
                 windowManager.removeView(view)
-            }
+
             false
         }
         val actionsLv = view.findViewById<ListView>(R.id.tasks_lv)
@@ -1346,27 +1375,27 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             val action = adapterView.getItemAtPosition(position) as Action
             when (action.text) {
                 getString(R.string.users) -> launchApp(
-                        null, null,
-                        Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    null, null,
+                    Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
 
                 getString(R.string.files) -> launchApp(
-                        null,
-                        sharedPreferences.getString("app_files", "com.android.documentsui")!!
+                    null,
+                    sharedPreferences.getString("app_files", "com.android.documentsui")!!
                 )
 
                 getString(R.string.settings) -> launchApp(
-                        null, null,
-                        Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    null, null,
+                    Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
 
                 getString(R.string.dock_settings) -> launchApp(
-                        null, null,
-                        Intent(
-                                context,
-                                MainActivity::class.java
-                        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    null, null,
+                    Intent(
+                        context,
+                        MainActivity::class.java
+                    ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
             }
             windowManager.removeView(view)
@@ -1437,7 +1466,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun updateDockHeight() {
         dockHeight =
-                Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
+            Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
         if (isPinned) {
             dockLayoutParams.height = dockHeight
             windowManager.updateViewLayout(dock, dockLayoutParams)
@@ -1446,8 +1475,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun placeRunningApps() {
         val layoutParams = RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
+            RelativeLayout.LayoutParams.MATCH_PARENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT
         )
         if (sharedPreferences.getBoolean("center_running_apps", true)) {
             layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT)
@@ -1474,11 +1503,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val gridSize = Utils.dpToPx(context, 52)
 
         //TODO: We can eliminate another for
-        //TODO: Dont do anything if tasks has not changed
+        //TODO: Don't do anything if tasks has not changed
         tasks = if (systemApp) AppUtils.getRunningTasks(
-                activityManager,
-                packageManager,
-                maxApps
+            activityManager,
+            packageManager,
+            maxApps
         ) else AppUtils.getRecentTasks(context, maxApps)
         for (j in 1..tasks.size) {
             val task = tasks[tasks.size - j]
@@ -1496,55 +1525,55 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun updateDockShape() {
         dockLayout.setBackgroundResource(
-                if (sharedPreferences.getBoolean(
-                                "round_dock",
-                                false
-                        )
-                ) R.drawable.round_rect else R.drawable.rect
+            if (sharedPreferences.getBoolean(
+                    "round_dock",
+                    false
+                )
+            ) R.drawable.round_rect else R.drawable.rect
         )
         ColorUtils.applyMainColor(context, sharedPreferences, dockLayout)
     }
 
     private fun updateNavigationBar() {
         appsBtn.visibility =
-                if (sharedPreferences.getBoolean("enable_nav_apps", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean("enable_nav_apps", true)) View.VISIBLE else View.GONE
         backBtn.visibility =
-                if (sharedPreferences.getBoolean("enable_nav_back", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean("enable_nav_back", true)) View.VISIBLE else View.GONE
         homeBtn.visibility =
-                if (sharedPreferences.getBoolean("enable_nav_home", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean("enable_nav_home", true)) View.VISIBLE else View.GONE
         recentBtn.visibility = if (sharedPreferences.getBoolean(
-                        "enable_nav_recents",
-                        true
-                )
+                "enable_nav_recents",
+                true
+            )
         ) View.VISIBLE else View.GONE
         assistBtn.visibility = if (sharedPreferences.getBoolean(
-                        "enable_nav_assist",
-                        false
-                )
+                "enable_nav_assist",
+                false
+            )
         ) View.VISIBLE else View.GONE
     }
 
     private fun updateQuickSettings() {
         notificationBtn.visibility =
-                if (sharedPreferences.getBoolean("enable_qs_notif", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean("enable_qs_notif", true)) View.VISIBLE else View.GONE
         bluetoothBtn.visibility = if (sharedPreferences.getBoolean(
-                        "enable_qs_bluetooth",
-                        false
-                )
+                "enable_qs_bluetooth",
+                false
+            )
         ) View.VISIBLE else View.GONE
         batteryBtn.visibility = if (sharedPreferences.getBoolean(
-                        "enable_qs_battery",
-                        false
-                )
+                "enable_qs_battery",
+                false
+            )
         ) View.VISIBLE else View.GONE
         wifiBtn.visibility =
-                if (sharedPreferences.getBoolean("enable_qs_wifi", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean("enable_qs_wifi", true)) View.VISIBLE else View.GONE
         pinBtn.visibility =
-                if (sharedPreferences.getBoolean("enable_qs_pin", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean("enable_qs_pin", true)) View.VISIBLE else View.GONE
         volumeBtn.visibility =
-                if (sharedPreferences.getBoolean("enable_qs_vol", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean("enable_qs_vol", true)) View.VISIBLE else View.GONE
         dateTv.visibility =
-                if (sharedPreferences.getBoolean("enable_qs_date", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean("enable_qs_date", true)) View.VISIBLE else View.GONE
     }
 
     private fun launchAssistant() {
@@ -1562,17 +1591,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (bluetoothManager.adapter.isEnabled) {
                 bluetoothBtn.setImageResource(R.drawable.ic_bluetooth_off)
                 if (ActivityCompat.checkSelfPermission(
-                                this,
-                                Manifest.permission.BLUETOOTH_CONNECT
-                        ) != PackageManager.PERMISSION_GRANTED
+                        this,
+                        Manifest.permission.BLUETOOTH_CONNECT
+                    ) != PackageManager.PERMISSION_GRANTED
                 ) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
                     return
                 }
                 bluetoothManager.adapter.disable()
@@ -1590,9 +1612,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             val icon = if (!enabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off
             wifiBtn.setImageResource(icon)
             wifiManager.setWifiEnabled(!enabled)
-        } else {
+        } else
             startActivity(Intent(Settings.Panel.ACTION_WIFI).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-        }
     }
 
     private fun toggleVolume() {
@@ -1607,28 +1628,29 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         audioPanel = null
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun showAudioPanel() {
         if (Utils.notificationPanelVisible)
             toggleNotificationPanel(false)
 
         val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         val layoutParams = Utils.makeWindowParams(
-                Utils.dpToPx(context, 270), -2, context,
-                secondary
+            Utils.dpToPx(context, 270), -2, context,
+            secondary
         )
         layoutParams.flags =
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         layoutParams.y = Utils.dpToPx(context, 2) + dockHeight
         layoutParams.x = Utils.dpToPx(context, 2)
         layoutParams.gravity = Gravity.BOTTOM or Gravity.END
         audioPanel = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
-                .inflate(R.layout.audio_panel, null) as LinearLayout
+            .inflate(R.layout.audio_panel, null) as LinearLayout
         audioPanel!!.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_OUTSIDE
-                    && (event.y < audioPanel!!.measuredHeight || event.x < audioPanel!!.x)
-            ) {
+                && (event.y < audioPanel!!.measuredHeight || event.x < audioPanel!!.x)
+            )
                 hideAudioPanel()
-            }
+
             false
         }
         val musicIcon = audioPanel!!.findViewById<ImageView>(R.id.ap_music_icon)
@@ -1650,10 +1672,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun showPowerMenu() {
         val layoutParams = Utils.makeWindowParams(
-                Utils.dpToPx(context, 400),
-                Utils.dpToPx(context, 120), context, secondary
+            Utils.dpToPx(context, 400),
+            Utils.dpToPx(context, 120), context, secondary
         )
         layoutParams.gravity = Gravity.CENTER
         layoutParams.x = Utils.dpToPx(context, 10)
@@ -1661,9 +1684,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH)
         powerMenu = LayoutInflater.from(context).inflate(R.layout.power_menu, null) as LinearLayout
         powerMenu!!.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_OUTSIDE) {
+            if (event.action == MotionEvent.ACTION_OUTSIDE)
                 hidePowerMenu()
-            }
+
             false
         }
         val powerOffBtn = powerMenu!!.findViewById<ImageButton>(R.id.power_off_btn)
@@ -1693,9 +1716,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         ColorUtils.applyMainColor(context, sharedPreferences, powerMenu!!)
         windowManager.addView(powerMenu, layoutParams)
         topRightCorner.visibility = if (sharedPreferences.getBoolean(
-                        "enable_corner_top_right",
-                        false
-                )
+                "enable_corner_top_right",
+                false
+            )
         ) View.VISIBLE else View.GONE
         powerMenuVisible = true
     }
@@ -1724,14 +1747,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun updateCorners() {
         topRightCorner.visibility = if (sharedPreferences.getBoolean(
-                        "enable_corner_top_right",
-                        false
-                )
+                "enable_corner_top_right",
+                false
+            )
         ) View.VISIBLE else View.GONE
         bottomRightCorner.visibility = if (sharedPreferences.getBoolean(
-                        "enable_corner_bottom_right",
-                        false
-                )
+                "enable_corner_bottom_right",
+                false
+            )
         ) View.VISIBLE else View.GONE
     }
 
@@ -1740,7 +1763,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         if (iconUri == "default") appsBtn.setImageResource(R.drawable.ic_apps_menu) else {
             try {
                 val icon = Uri.parse(iconUri)
-                if (icon != null) appsBtn.setImageURI(icon)
+                if (icon != null)
+                    appsBtn.setImageURI(icon)
             } catch (_: Exception) {
             }
         }
@@ -1760,36 +1784,38 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     fun takeScreenshot() {
-        if (Build.VERSION.SDK_INT >= 28) {
+        if (Build.VERSION.SDK_INT >= 28)
             performGlobalAction(GLOBAL_ACTION_TAKE_SCREENSHOT)
-        } else DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ)
+        else
+            DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ)
     }
 
     private fun lockScreen() {
-        if (Build.VERSION.SDK_INT >= 28) {
+        if (Build.VERSION.SDK_INT >= 28)
             performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN)
-        } else DeviceUtils.lockScreen(context)
+        else
+            DeviceUtils.lockScreen(context)
     }
 
     private fun updateHandlePositionValues() {
         val position = sharedPreferences.getString("handle_position", "start")
         handleLayoutParams.gravity =
-                Gravity.BOTTOM or if (position == "start") Gravity.START else Gravity.END
+            Gravity.BOTTOM or if (position == "start") Gravity.START else Gravity.END
         if (position == "end") {
             dockHandle.setBackgroundResource(R.drawable.dock_handle_bg_end)
             dockHandle.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    R.drawable.ic_expand_left,
-                    0,
-                    0,
-                    0
+                R.drawable.ic_expand_left,
+                0,
+                0,
+                0
             )
         } else {
             dockHandle.setBackgroundResource(R.drawable.dock_handle_bg_start)
             dockHandle.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    R.drawable.ic_expand_right,
-                    0,
-                    0,
-                    0
+                R.drawable.ic_expand_right,
+                0,
+                0,
+                0
             )
         }
     }
@@ -1800,9 +1826,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun toggleNotificationPanel(show: Boolean) {
-        sendBroadcast(Intent(DOCK_SERVICE_ACTION)
+        sendBroadcast(
+            Intent(DOCK_SERVICE_ACTION)
                 .setPackage(packageName)
-                .putExtra("action", if (show) ACTION_SHOW_NOTIFICATION_PANEL else ACTION_HIDE_NOTIFICATION_PANEL)
+                .putExtra(
+                    "action",
+                    if (show) ACTION_SHOW_NOTIFICATION_PANEL else ACTION_HIDE_NOTIFICATION_PANEL
+                )
         )
     }
 
