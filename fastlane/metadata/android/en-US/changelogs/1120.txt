@@ -1,0 +1,11 @@
+## This version requires a clean installation
+- Target Android 14
+- Support for apps from work profiles
+- Setting to change handle position
+- Allow choosing the display to launch apps in from their context menu
+- New adaptive app icon
+- Experimental setting to change Dock height
+- Option to backup and restore settings
+- New Wi-Fi panel on Android 10 and up
+- Improved app menu performance
+- Icon pack support removed
