@@ -4,12 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.view.inputmethod.EditorInfo
-import android.widget.CheckBox
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.LabelFormatter
 import cu.axel.smartdock.R
 import cu.axel.smartdock.preferences.SliderPreference
@@ -84,25 +84,25 @@ class DockPreferences : PreferenceFragmentCompat() {
         val dialogBuilder = MaterialAlertDialogBuilder(context)
         dialogBuilder.setTitle(R.string.auto_pin_summary)
         val view = layoutInflater.inflate(R.layout.dialog_auto_pin, null)
-        val startupChkbx = view.findViewById<CheckBox>(R.id.pin_startup_chkbx)
-        val windowedChkbx = view.findViewById<CheckBox>(R.id.pin_window_chkbx)
-        val fullscreenChkbx = view.findViewById<CheckBox>(R.id.unpin_fullscreen_chkbx)
-        startupChkbx.isChecked = sharedPreferences.getBoolean("pin_dock", true)
-        windowedChkbx.isChecked = sharedPreferences.getBoolean("auto_pin", true)
-        fullscreenChkbx.isChecked = sharedPreferences.getBoolean("auto_unpin", true)
-        startupChkbx.setOnCheckedChangeListener { _, checked ->
+        val startupSwitch = view.findViewById<MaterialSwitch>(R.id.pin_startup_switch)
+        val windowedSwitch = view.findViewById<MaterialSwitch>(R.id.pin_window_switch)
+        val fullscreenSwitch = view.findViewById<MaterialSwitch>(R.id.unpin_fullscreen_switch)
+        startupSwitch.isChecked = sharedPreferences.getBoolean("pin_dock", true)
+        windowedSwitch.isChecked = sharedPreferences.getBoolean("auto_pin", true)
+        fullscreenSwitch.isChecked = sharedPreferences.getBoolean("auto_unpin", true)
+        startupSwitch.setOnCheckedChangeListener { _, checked ->
             editor.putBoolean(
                 "pin_dock",
                 checked
             ).apply()
         }
-        windowedChkbx.setOnCheckedChangeListener { _, checked ->
+        windowedSwitch.setOnCheckedChangeListener { _, checked ->
             editor.putBoolean(
                 "auto_pin",
                 checked
             ).commit()
         }
-        fullscreenChkbx.setOnCheckedChangeListener { _, checked ->
+        fullscreenSwitch.setOnCheckedChangeListener { _, checked ->
             editor.putBoolean(
                 "auto_unpin",
                 checked

@@ -30,7 +30,7 @@
         <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
 		<item name="toolbarStyle">?attr/toolbarSurfaceStyle</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLightStatusBar" >true</item>
 
         <item name="preferenceTheme">@style/ThemeOverlay.App.Preference</item>
     </style>
@@ -47,14 +47,14 @@
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:windowLightStatusBar" >false</item>
     </style>
 
     <style name="DialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="dialogCornerRadius">28dp</item>
         <item name="cornerFamily">rounded</item>
         <item name="android:colorBackground">?attr/colorSurface</item>
-        <item name="android:layout">@layout/m3_alert_dialog</item>
+        <item name="android:layout" tools:ignore="PrivateResource">@layout/m3_alert_dialog</item>
     </style>
 
     <style name="ThemeOverlay.App.Preference" parent="PreferenceThemeOverlay">
