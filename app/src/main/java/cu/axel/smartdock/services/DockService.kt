@@ -792,7 +792,23 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         context, "standard", task.id, dockHeight
                     )
                 }
+            } else if (event.isShiftPressed) {
+                val index = when (event.keyCode) {
+                    KeyEvent.KEYCODE_1 -> 0
+                    KeyEvent.KEYCODE_2 -> 1
+                    KeyEvent.KEYCODE_3 -> 2
+                    KeyEvent.KEYCODE_4 -> 3
+                    else -> -1
+                }
+                if (index != -1) {
+                    val displays = DeviceUtils.getDisplays(this)
+                    if (tasks.size > 0 && displays.size > index) {
+                        val task = tasks[0]
+                        launchApp(null, task.packageName, displayId = displays[index].displayId)
+                    }
+                }
             }
+
         } else if (event.action == KeyEvent.ACTION_UP) {
             val menuKey = sharedPreferences.getString("menu_key", "3")!!.toInt()
             if (event.keyCode == KeyEvent.KEYCODE_CTRL_RIGHT && sharedPreferences.getBoolean(
