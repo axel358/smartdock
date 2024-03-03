@@ -87,6 +87,8 @@
     <string name="remember_launch_mode_summary">Recuerde el último modo de inicio utilizado para cada aplicación</string>
     <string name="launch_games_fullscreen_title">Iniciar juegos en pantalla completa</string>
     <string name="launch_games_fullscreen_summary">Iniciar aplicaciones detectadas como juegos en pantalla completa de forma predeterminada</string>
+    <string name="launch_new_instance_secondary_title">Nueva ventana en pantallas secundarias</string>
+    <string name="launch_new_instance_secondary_summary">Si es soportado por la app crear una nueva ventana al lanzar en pantallas secundarias</string>
     <string name="user_info">Información de usuario</string>
     <string name="user_name">Nombre</string>
     <string name="user_avatar">Avatar</string>
@@ -324,10 +326,5 @@
     <string name="something_wrong">Algo salió mal</string>
     <string name="save_log">Guardar registro</string>
     <string name="open_again">Abrir aplicación de nuevo</string>
-
-    <!-- Wi-Fi menu -->
-    <string name="wifi">Wifi</string>
-    <string name="not_connected">No conectado</string>
-    <string name="select_network">Seleccione la red</string>
 
 </resources>

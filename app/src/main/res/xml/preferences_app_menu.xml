@@ -55,6 +55,12 @@
             android:title="@string/launch_games_fullscreen_title"
             android:summary="@string/launch_games_fullscreen_summary"
             android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+            android:key="launch_new_instance_secondary"
+            android:title="@string/launch_new_instance_secondary_title"
+            android:summary="@string/launch_new_instance_secondary_summary"
+            android:defaultValue="true" />
     </PreferenceCategory>
 	
 	<PreferenceCategory

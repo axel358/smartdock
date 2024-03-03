@@ -87,6 +87,8 @@
     <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
     <string name="launch_games_fullscreen_summary">ਡੀਫੋਲਟ ਤੌਰ \'ਤੇ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਐਪਾਂ ਨੂੰ ਲਾਂਚ ਕਰੋ</string>
+    <string name="launch_new_instance_secondary_title">New window on secondary displays</string>
+    <string name="launch_new_instance_secondary_summary">If supported by the app create a new window when launching on secondary displays</string>
     <string name="user_info">ਉਪਭੋਗਤਾ ਬਾਰੇ ਜਾਣਕਾਰੀ</string>
     <string name="user_name">ਨਾਮ</string>
     <string name="user_avatar">ਅਵਤਾਰ</string>
@@ -301,8 +303,8 @@
     <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
     <string name="uninstall">ਅਣਇੰਸਟੌਲ ਕਰੋ</string>
     <string name="open_as">ੳਪਨ ਐਸ…</string>
-    <string name="add_to">ਐਡ ਟੂ...</string>
-    <string name="launch_in">ਲੋਚ ਇਨ...</string>
+    <string name="add_to">ਐਡ ਟੂ…</string>
+    <string name="launch_in">ਲੋਚ ਇਨ…</string>
     <string name="freeze">ਫ੍ਰੀਜ਼</string>
     <string name="pin">ਪਿੰਨ</string>
     <string name="unpin">ਅਨਪਿੰਨ</string>
@@ -325,10 +327,5 @@
     <string name="something_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>
     <string name="save_log">ਲੌਗ ਸੇਵ ਕਰੋ</string>
     <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
-
-    <!-- Wi-Fi menu -->
-    <string name="wifi">WiFi</string>
-    <string name="not_connected">ਕਨੈਕਟ ਨਹੀਂ ਹੈ</string>
-    <string name="select_network">ਨੈੱਟਵਰਕ ਚੁਣੋ</string>
 
 </resources>

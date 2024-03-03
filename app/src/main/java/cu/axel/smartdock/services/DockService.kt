@@ -29,6 +29,7 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.Process
 import android.provider.Settings
 import android.view.ContextThemeWrapper
 import android.view.Display
@@ -229,7 +230,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         appsBtn.setOnLongClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_APPLICATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_APPLICATION_SETTINGS)
             )
             true
         }
@@ -253,7 +254,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         bluetoothBtn.setOnLongClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_BLUETOOTH_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
             )
             true
         }
@@ -261,7 +262,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         wifiBtn.setOnLongClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_WIFI_SETTINGS)
             )
             true
         }
@@ -270,7 +271,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 launchApp(
                     null, null,
-                    Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent(Settings.ACTION_SOUND_SETTINGS)
                 )
             } else
                 startActivity(Intent(Settings.Panel.ACTION_VOLUME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -280,7 +281,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         batteryBtn.setOnClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
             )
         }
         dateTv.setOnClickListener {
@@ -292,7 +293,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         dateTv.setOnLongClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_DATE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_DATE_SETTINGS)
             )
             true
         }
@@ -377,7 +378,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                                     + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
                         )
                     )
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
             } catch (e: UnsupportedEncodingException) {
                 throw RuntimeException(e)
@@ -418,7 +418,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                                             + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
                                 )
                             )
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         )
                     } catch (e: UnsupportedEncodingException) {
                         throw RuntimeException(e)
@@ -701,7 +700,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             )
                 launchApp(
                     null, null,
-                    Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent(Settings.ACTION_SETTINGS)
                 )
             else if (event.keyCode == KeyEvent.KEYCODE_T && sharedPreferences.getBoolean(
                     "enable_open_terminal",
@@ -921,7 +920,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         packageName: String?,
         intent: Intent? = null,
         app: App? = null,
-        displayId: Int = Display.DEFAULT_DISPLAY
+        displayId: Int = Display.DEFAULT_DISPLAY,
+        newInstance: Boolean = false
     ) {
         val display: Int =
             if (displayId != Display.DEFAULT_DISPLAY) displayId else (if (secondary) DeviceUtils.getSecondaryDisplay(
@@ -971,7 +971,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
             method.invoke(options, windowMode)
 
-            if (app != null)
+            if (app != null && app.userHandle != Process.myUserHandle())
                 launcherApps.startMainActivity(
                     app.componentName,
                     app.userHandle,
@@ -984,7 +984,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 else
                     intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 if (animation == "none")
-                    intent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                if (newInstance)
+                    launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(launchIntent, options.toBundle())
             }
 
@@ -1214,7 +1216,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     launchApp(
                         null, null, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                             .setData(Uri.parse("package:${app.packageName}"))
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.uninstall)) {
@@ -1264,16 +1265,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.standard)) {
                     windowManager.removeView(view)
-                    launchApp("standard", app.packageName, null, app)
+                    launchApp("standard", app.packageName, null, app, newInstance = true)
                 } else if (action.text == getString(R.string.maximized)) {
                     windowManager.removeView(view)
-                    launchApp("maximized", app.packageName, null, app)
+                    launchApp("maximized", app.packageName, null, app, newInstance = true)
                 } else if (action.text == getString(R.string.portrait)) {
                     windowManager.removeView(view)
-                    launchApp("portrait", app.packageName, null, app)
+                    launchApp("portrait", app.packageName, null, app, newInstance = true)
                 } else if (action.text == getString(R.string.fullscreen)) {
                     windowManager.removeView(view)
-                    launchApp("fullscreen", app.packageName, null, app)
+                    launchApp("fullscreen", app.packageName, null, app, newInstance = true)
                 }
             } else if (Build.VERSION.SDK_INT > 24 && adapterView.getItemAtPosition(position) is ShortcutInfo) {
                 val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
@@ -1282,7 +1283,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             } else if (Build.VERSION.SDK_INT > 28 && adapterView.getItemAtPosition(position) is Display) {
                 val display = adapterView.getItemAtPosition(position) as Display
                 windowManager.removeView(view)
-                launchApp(null, app.packageName, null, app, display.displayId)
+                launchApp(
+                    null,
+                    app.packageName,
+                    null,
+                    app,
+                    display.displayId,
+                    sharedPreferences.getBoolean("launch_new_instance_secondary", true)
+                )
             }
         }
         windowManager.addView(view, layoutParams)
@@ -1376,7 +1384,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             when (action.text) {
                 getString(R.string.users) -> launchApp(
                     null, null,
-                    Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent("android.settings.USER_SETTINGS")
                 )
 
                 getString(R.string.files) -> launchApp(
@@ -1386,16 +1394,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
                 getString(R.string.settings) -> launchApp(
                     null, null,
-                    Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent(Settings.ACTION_SETTINGS)
                 )
 
                 getString(R.string.dock_settings) -> launchApp(
                     null, null,
-                    Intent(
-                        context,
-                        MainActivity::class.java
-                    ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent(context, MainActivity::class.java)
                 )
             }
             windowManager.removeView(view)
