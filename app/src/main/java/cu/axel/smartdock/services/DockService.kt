@@ -794,12 +794,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         KeyEvent.KEYCODE_N -> 4
                         else -> -1
                     }
-                    if (index == 4) {
+                    if (index == 4 && sharedPreferences.getBoolean("enable_new_instance", true)) {
                         if (tasks.size > 0) {
                             val task = tasks[0]
                             launchApp(null, task.packageName, newInstance = true)
                         }
-                    } else if (index != -1) {
+                    } else if (index != -1 && sharedPreferences.getBoolean("enable_tiling", true)) {
                         val displays = DeviceUtils.getDisplays(this)
                         if (tasks.size > 0 && displays.size > index) {
                             val task = tasks[0]

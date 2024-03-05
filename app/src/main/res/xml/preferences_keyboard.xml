@@ -48,6 +48,10 @@
             android:key="enable_open_rec"
             android:title="@string/enable_open_rec_title"
             android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="enable_new_instance"
+            android:title="@string/enable_new_instance"
+            android:defaultValue="true" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/navigation">

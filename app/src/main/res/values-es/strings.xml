@@ -324,5 +324,7 @@
     <string name="something_wrong">Algo salió mal</string>
     <string name="save_log">Guardar registro</string>
     <string name="open_again">Abrir aplicación de nuevo</string>
+    <string name="enable_tiling_shortcut">Use Alt+arrow keys to tile windows</string>
+    <string name="enable_new_instance">Use Alt+Shift+N to launch a new window</string>
 
 </resources>

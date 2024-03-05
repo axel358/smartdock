@@ -325,5 +325,7 @@
     <string name="something_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>
     <string name="save_log">ਲੌਗ ਸੇਵ ਕਰੋ</string>
     <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
+    <string name="enable_tiling_shortcut">Use Alt+arrow keys to tile windows</string>
+    <string name="enable_new_instance">Use Alt+Shift+N to launch a new window</string>
 
 </resources>
