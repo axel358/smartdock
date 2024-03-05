@@ -149,20 +149,19 @@
     <string name="keyboard">ਕੀਬੋਰਡ</string>
     <string name="apps">ਐਪਸ</string>
     <string name="general">ਜਨਰਲ</string>
-    <string name="shortcut_key_dialogTitle">ਸ਼ਾਰਟਕੱਟ ਮੋਡੀਫਾਇਰ ਕੀ</string>
-    <string name="shortcut_key_title">ਸ਼ਾਰਟਕੱਟ ਮੋਡੀਫਾਇਰ ਕੀ</string>
-    <string name="enable_lock_desktop_title">ਡੈਸਕਟਾਪ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + L ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ (ਡਿਵਾਈਸ ਐਡਮਿਨਸਟਰੇਟਰ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ)</string>
-    <string name="enable_open_settings_title">ਸੈਟਿੰਗਾਂ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + P ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_open_music_title">ਤੁਹਾਡੀ ਡੀਫੋਲਟ ਸੰਗੀਤ ਐਪ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + M ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_open_browser_title">ਆਪਣਾ ਡੀਫੋਲਟ ਬ੍ਰਾਊਜ਼ਰ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + B ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_open_terminal_title">ਟਰਮੀਨਲ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + T ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_open_assist_title">ਆਪਣੀ ਡੀਫੋਲਟ ਸਹਾਇਕ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + A ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_open_rec_title">ਆਪਣੀ ਡੀਫੋਲਟ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਰ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + R ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_expand_notifications_title">ਨੋਟੀਫੀਕੇਸਨ ਖੋਲ੍ਹਣ ਲਈ ਮੋਡੀਫਾਇਰ + N ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_ctrl_back_title">ਬੈਕ ਬਟਨ ਵਜੋਂ ਕੰਮ ਕਰਨ ਲਈ ਸੱਜਾ Ctrl ਚਾਲੂ ਕਰੋ</string>
-    <string name="enable_f10_title">F10 ਦਬਾ ਕੇ ਸਪਲਿਟ ਸਕ੍ਰੀਨ ਨੂੰ ਟੌਗਲ ਕਰੋ</string>
-    <string name="enable_toggle_pin_title">ਡੌਕ ਨੂੰ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰਨ ਲਈ ਮੋਡੀਫਾਇਰ + W ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
-    <string name="enable_menu_recents_title">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮੀਨੂ ਕੀ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_open_menu_title">Use Meta or Home to open the apps menu</string>
+    <string name="enable_lock_desktop_title">Use Alt+L to lock the desktop</string>
+    <string name="enable_open_settings_title">Use Alt+P to open settings</string>
+    <string name="enable_open_music_title">Use Alt+M to open you default music app</string>
+    <string name="enable_open_browser_title">Use Alt+B to open your default browser</string>
+    <string name="enable_open_terminal_title">Use Alt+T to open terminal</string>
+    <string name="enable_open_assist_title">Use Alt+A to launch your default assistant app</string>
+    <string name="enable_open_rec_title">Use Alt+R to launch your default screen recorder app</string>
+    <string name="enable_expand_notifications_title">Use Alt+Q to open quick settings</string>
+    <string name="enable_ctrl_back_title">Use right Ctrl to act as back button</string>
+    <string name="enable_f10_title">Use F10 to toggle split screen</string>
+    <string name="enable_toggle_pin_title">Use Alt+W to pin/unpin the dock</string>
+    <string name="enable_menu_recents_title">Use Menu key to show recents</string>
 
     <!-- Sounds page -->
     <string name="sounds">ਆਵਾਜ਼ਾਂ</string>
@@ -235,7 +234,7 @@
     <string name="hide_nav_buttons_summary">ਐਂਡਰਾਇਡ ਸਾਫਟਵੇਅਰ ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਉਂਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="disable_taskbar_title">ਟਾਸਕਬਾਰ ਬੰਦ ਕਰਨਾ</string>
     <string name="disable_taskbar_summary">ਵੱਡੀ ਸਕਰੀਨਾ ਵਾਲੇ ਡਿਵਾਜਾ ਲਈ Android ਦਾ ਟਾਸਕਬਾਰ ਬੰਦ ਕਰੋ</string>
-    <string name="enable_soft_reboot_title">Modifier+F12 ਦੀ ਵਰਤੋਂ ਨਾਲ soft reboot ਕਰੋ</string>
+    <string name="enable_soft_reboot_title">Use Alt+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="soft_reboot_title">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ</string>
     <string name="soft_reboot_summary">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ। ਤੁਸੀਂ ਸਾਰੇ ਅਣਰੱਖਿਅਤ ਕੰਮ ਗੁਆ ਦੇਵੋਗੇ</string>
@@ -255,7 +254,7 @@
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>
-    <string name="icon_padding_summary">ਆਈਕਨ ਅਤੇ ਇਸ ਦੇ ਬਾਰਡਰ ਦੇ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
+    <string name="icon_padding_summary">Defines the amount of space between the icon and its border</string>
 
     <!-- Help and about page -->
     <string name="help_and_about">ਮਦਦ ਅਤੇ ਇਸ ਬਾਰੇ</string>
@@ -326,6 +325,5 @@
     <string name="something_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>
     <string name="save_log">ਲੌਗ ਸੇਵ ਕਰੋ</string>
     <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
-    <string name="enable_open_menu_title">Use Meta or Home to open the apps menu</string>
 
 </resources>
