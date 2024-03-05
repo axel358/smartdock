@@ -71,7 +71,6 @@
     <string name="menu">Menu</string>
     <string name="menu_icon_uri_title">Select menu icon</string>
     <string name="restore_menu_icon_title">Restore default menu icon</string>
-    <string name="menu_key_title">Menu modifier key</string>
     <string name="app_menu_fullscreen_title">Open App Menu in full screen</string>
     <string name="app_menu_height_title">App menu height</string>
     <string name="app_menu_width_title">App menu width</string>
@@ -327,5 +326,6 @@
     <string name="something_wrong">Something went wrong</string>
     <string name="save_log">Save log</string>
     <string name="open_again">Open app again</string>
+    <string name="enable_open_menu_title">Use Meta or Home to open the apps menu</string>
 
 </resources>

@@ -71,7 +71,6 @@
     <string name="menu">Menú</string>
     <string name="menu_icon_uri_title">Seleccionar icono de menú</string>
     <string name="restore_menu_icon_title">Restaurar icono de menú predeterminado</string>
-    <string name="menu_key_title">Tecla modificadora de menú</string>
     <string name="app_menu_fullscreen_title">Abrir el menú de aplicaciones en pantalla completa</string>
     <string name="app_menu_height_title">Altura del menú de aplicaciones</string>
     <string name="app_menu_width_title">Ancho del menú de aplicaciones</string>
@@ -326,5 +325,6 @@
     <string name="something_wrong">Algo salió mal</string>
     <string name="save_log">Guardar registro</string>
     <string name="open_again">Abrir aplicación de nuevo</string>
+    <string name="enable_open_menu_title">Use Meta or Home to open the apps menu</string>
 
 </resources>

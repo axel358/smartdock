@@ -679,164 +679,167 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     //Handle keyboard shortcuts
     override fun onKeyEvent(event: KeyEvent): Boolean {
-        var isModifierPressed = false
-        when (sharedPreferences.getString("shortcut_key", "57")) {
-            "57" -> isModifierPressed = event.isAltPressed
-            "113" -> isModifierPressed = event.isCtrlPressed
-            "3" -> isModifierPressed = event.isMetaPressed
-        }
-
-        if (event.action == KeyEvent.ACTION_UP && isModifierPressed) {
-            if (event.keyCode == KeyEvent.KEYCODE_L && sharedPreferences.getBoolean(
-                    "enable_lock_desktop",
-                    true
-                )
-            )
-                lockScreen()
-            else if (event.keyCode == KeyEvent.KEYCODE_P && sharedPreferences.getBoolean(
-                    "enable_open_settings",
-                    true
-                )
-            )
-                launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_SETTINGS)
-                )
-            else if (event.keyCode == KeyEvent.KEYCODE_T && sharedPreferences.getBoolean(
-                    "enable_open_terminal",
-                    false
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_terminal", "com.termux")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_N && sharedPreferences.getBoolean(
-                    "enable_expand_notifications",
-                    true
-                )
-            )
-                performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
-            else if (event.keyCode == KeyEvent.KEYCODE_K)
-                DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ)
-            else if (event.keyCode == KeyEvent.KEYCODE_W && sharedPreferences.getBoolean(
-                    "enable_toggle_pin",
-                    true
-                )
-            )
-                togglePin()
-            else if (event.keyCode == KeyEvent.KEYCODE_F11)
-                DeviceUtils.restartService(context)
-            else if (event.keyCode == KeyEvent.KEYCODE_M && sharedPreferences.getBoolean(
-                    "enable_open_music",
-                    true
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_music", "")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_B && sharedPreferences.getBoolean(
-                    "enable_open_browser",
-                    true
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_browser", "")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_A && sharedPreferences.getBoolean(
-                    "enable_open_assist",
-                    true
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_assistant", "")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_R && sharedPreferences.getBoolean(
-                    "enable_open_rec",
-                    true
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_rec", "")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_D)
-                startActivity(
-                    Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
-            else if (event.keyCode == KeyEvent.KEYCODE_O) {
-                toggleSoftKeyboard()
-            } else if (event.keyCode == KeyEvent.KEYCODE_F12)
-                DeviceUtils.softReboot()
-            else if (event.keyCode == KeyEvent.KEYCODE_F3) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "portrait", task.id, dockHeight
+        if (event.action == KeyEvent.ACTION_UP) {
+            if (event.isAltPressed) {
+                if (event.keyCode == KeyEvent.KEYCODE_L && sharedPreferences.getBoolean(
+                        "enable_lock_desktop",
+                        true
                     )
-                }
-            } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "maximized", task.id, dockHeight
+                )
+                    lockScreen()
+                else if (event.keyCode == KeyEvent.KEYCODE_P && sharedPreferences.getBoolean(
+                        "enable_open_settings",
+                        true
                     )
-                }
-            } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "tiled-left", task.id, dockHeight
+                )
+                    launchApp(
+                        null, null,
+                        Intent(Settings.ACTION_SETTINGS)
                     )
-                }
-            } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "tiled-right", task.id, dockHeight
+                else if (event.keyCode == KeyEvent.KEYCODE_T && sharedPreferences.getBoolean(
+                        "enable_open_terminal",
+                        false
                     )
-                }
-            } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "standard", task.id, dockHeight
+                )
+                    launchApp(null, sharedPreferences.getString("app_terminal", "com.termux")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_Q && sharedPreferences.getBoolean(
+                        "enable_expand_notifications",
+                        true
                     )
-                }
-            } else if (event.isShiftPressed) {
-                val index = when (event.keyCode) {
-                    KeyEvent.KEYCODE_1 -> 0
-                    KeyEvent.KEYCODE_2 -> 1
-                    KeyEvent.KEYCODE_3 -> 2
-                    KeyEvent.KEYCODE_4 -> 3
-                    else -> -1
-                }
-                if (index != -1) {
-                    val displays = DeviceUtils.getDisplays(this)
-                    if (tasks.size > 0 && displays.size > index) {
+                )
+                    performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
+                else if (event.keyCode == KeyEvent.KEYCODE_W && sharedPreferences.getBoolean(
+                        "enable_toggle_pin",
+                        true
+                    )
+                )
+                    togglePin()
+                else if (event.keyCode == KeyEvent.KEYCODE_M && sharedPreferences.getBoolean(
+                        "enable_open_music",
+                        true
+                    )
+                )
+                    launchApp(null, sharedPreferences.getString("app_music", "")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_B && sharedPreferences.getBoolean(
+                        "enable_open_browser",
+                        true
+                    )
+                )
+                    launchApp(null, sharedPreferences.getString("app_browser", "")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_A && sharedPreferences.getBoolean(
+                        "enable_open_assist",
+                        true
+                    )
+                )
+                    launchApp(null, sharedPreferences.getString("app_assistant", "")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_R && sharedPreferences.getBoolean(
+                        "enable_open_rec",
+                        true
+                    )
+                )
+                    launchApp(null, sharedPreferences.getString("app_rec", "")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_D)
+                    startActivity(
+                        Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    )
+                else if (event.keyCode == KeyEvent.KEYCODE_O) {
+                    toggleSoftKeyboard()
+                } else if (event.keyCode == KeyEvent.KEYCODE_F12)
+                    DeviceUtils.softReboot()
+                //Window management
+                else if (event.keyCode == KeyEvent.KEYCODE_F3) {
+                    if (tasks.size > 0) {
                         val task = tasks[0]
-                        launchApp(null, task.packageName, displayId = displays[index].displayId)
+                        AppUtils.resizeTask(
+                            context, "portrait", task.id, dockHeight
+                        )
+                    }
+                } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    if (tasks.size > 0) {
+                        val task = tasks[0]
+                        AppUtils.resizeTask(
+                            context, "maximized", task.id, dockHeight
+                        )
+                    }
+                } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                    if (tasks.size > 0) {
+                        val task = tasks[0]
+                        AppUtils.resizeTask(
+                            context, "tiled-left", task.id, dockHeight
+                        )
+                        return true
+                    }
+                } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    if (tasks.size > 0) {
+                        val task = tasks[0]
+                        AppUtils.resizeTask(
+                            context, "tiled-right", task.id, dockHeight
+                        )
+                        return true
+                    }
+                } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    if (tasks.size > 0) {
+                        val task = tasks[0]
+                        AppUtils.resizeTask(
+                            context, "standard", task.id, dockHeight
+                        )
+                    }
+                } else if (event.isShiftPressed) {
+                    val index = when (event.keyCode) {
+                        KeyEvent.KEYCODE_1 -> 0
+                        KeyEvent.KEYCODE_2 -> 1
+                        KeyEvent.KEYCODE_3 -> 2
+                        KeyEvent.KEYCODE_4 -> 3
+                        KeyEvent.KEYCODE_N -> 4
+                        else -> -1
+                    }
+                    if (index == 4) {
+                        if (tasks.size > 0) {
+                            val task = tasks[0]
+                            launchApp(null, task.packageName, newInstance = true)
+                        }
+                    } else if (index != -1) {
+                        val displays = DeviceUtils.getDisplays(this)
+                        if (tasks.size > 0 && displays.size > index) {
+                            val task = tasks[0]
+                            launchApp(null, task.packageName, displayId = displays[index].displayId)
+                        }
                     }
                 }
-            }
-
-        } else if (event.action == KeyEvent.ACTION_UP) {
-            val menuKey = sharedPreferences.getString("menu_key", "3")!!.toInt()
-            if (event.keyCode == KeyEvent.KEYCODE_CTRL_RIGHT && sharedPreferences.getBoolean(
-                    "enable_ctrl_back",
-                    true
-                )
-            ) {
-                performGlobalAction(GLOBAL_ACTION_BACK)
-                return true
-            } else if (event.keyCode == KeyEvent.KEYCODE_MENU && sharedPreferences.getBoolean(
-                    "enable_menu_recents",
-                    false
-                )
-            ) {
-                performGlobalAction(GLOBAL_ACTION_RECENTS)
-                return true
-            } else if (event.keyCode == menuKey) {
-                toggleAppMenu()
-                return true
-            } else if (event.keyCode == KeyEvent.KEYCODE_F10 && sharedPreferences.getBoolean(
-                    "enable_f10",
-                    true
-                )
-            ) {
-                performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
-                return true
+            } else {
+                if (event.keyCode == KeyEvent.KEYCODE_CTRL_RIGHT && sharedPreferences.getBoolean(
+                        "enable_ctrl_back",
+                        true
+                    )
+                ) {
+                    performGlobalAction(GLOBAL_ACTION_BACK)
+                    return true
+                } else if (event.keyCode == KeyEvent.KEYCODE_MENU && sharedPreferences.getBoolean(
+                        "enable_menu_recents",
+                        false
+                    )
+                ) {
+                    performGlobalAction(GLOBAL_ACTION_RECENTS)
+                    return true
+                } else if (event.keyCode == KeyEvent.KEYCODE_F10 && sharedPreferences.getBoolean(
+                        "enable_f10",
+                        true
+                    )
+                ) {
+                    performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
+                    return true
+                } else if ((event.keyCode == KeyEvent.KEYCODE_HOME || event.keyCode == KeyEvent.KEYCODE_META_LEFT) && sharedPreferences.getBoolean(
+                        "enable_open_menu",
+                        true
+                    )
+                ) {
+                    toggleAppMenu()
+                    return true
+                }
             }
         }
+
         return super.onKeyEvent(event)
     }
 

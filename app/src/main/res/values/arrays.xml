@@ -15,20 +15,6 @@
         <item>material_u</item>
         <item>custom</item>
     </string-array>
-
-    <string-array name="shortcut_keys">
-        <item>Alt</item>
-        <item>Ctrl</item>
-        <item>Meta</item>
-		<item>@string/disabled</item>
-    </string-array>
-
-    <string-array name="shortcut_keys_values">
-        <item>57</item>
-        <item>113</item>
-        <item>3</item>
-		<item>-1</item>
-    </string-array>
     
     <string-array name="icon_shapes">
         <item>@string/circle</item>
