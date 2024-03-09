@@ -5,12 +5,6 @@
             android:key="menu_icon_uri"
             android:defaultValue="default"
             android:title="@string/menu_icon_uri_title"/>
-        <ListPreference
-            android:entries="@array/shortcut_keys" 
-            android:title="@string/menu_key_title" 
-            android:entryValues="@array/shortcut_keys_values" 
-            android:key="menu_key"
-            android:defaultValue="3" />
         <SwitchPreferenceCompat
             android:key="app_menu_fullscreen"
             android:title="@string/app_menu_fullscreen_title"
@@ -54,6 +48,12 @@
             android:key="launch_games_fullscreen"
             android:title="@string/launch_games_fullscreen_title"
             android:summary="@string/launch_games_fullscreen_summary"
+            android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+            android:key="launch_new_instance_secondary"
+            android:title="@string/launch_new_instance_secondary_title"
+            android:summary="@string/launch_new_instance_secondary_summary"
             android:defaultValue="true" />
     </PreferenceCategory>
 	

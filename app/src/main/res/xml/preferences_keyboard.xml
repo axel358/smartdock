@@ -1,13 +1,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <ListPreference
-        android:entries="@array/shortcut_keys" 
-        android:dialogTitle="@string/shortcut_key_dialogTitle" 
-        android:title="@string/shortcut_key_title"
-        android:entryValues="@array/shortcut_keys_values" 
-        android:key="shortcut_key"
-        android:defaultValue="57" />
     <PreferenceCategory
         android:title="@string/general">
+        <SwitchPreferenceCompat
+            android:key="enable_open_menu"
+            android:title="@string/enable_open_menu_title"
+            android:defaultValue="true" />
         <SwitchPreferenceCompat
             android:key="enable_lock_desktop"
             android:title="@string/enable_lock_desktop_title"
@@ -51,6 +48,10 @@
             android:key="enable_open_rec"
             android:title="@string/enable_open_rec_title"
             android:defaultValue="false" />
+        <SwitchPreferenceCompat
+            android:key="enable_new_instance"
+            android:title="@string/enable_new_instance"
+            android:defaultValue="true" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/navigation">

@@ -6,7 +6,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityManager
-import android.app.ActivityOptions
 import android.app.Notification
 import android.bluetooth.BluetoothManager
 import android.content.ActivityNotFoundException
@@ -29,6 +28,7 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.Process
 import android.provider.Settings
 import android.view.ContextThemeWrapper
 import android.view.Display
@@ -229,7 +229,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         appsBtn.setOnLongClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_APPLICATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_APPLICATION_SETTINGS)
             )
             true
         }
@@ -253,7 +253,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         bluetoothBtn.setOnLongClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_BLUETOOTH_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
             )
             true
         }
@@ -261,7 +261,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         wifiBtn.setOnLongClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_WIFI_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_WIFI_SETTINGS)
             )
             true
         }
@@ -270,7 +270,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 launchApp(
                     null, null,
-                    Intent(Settings.ACTION_SOUND_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent(Settings.ACTION_SOUND_SETTINGS)
                 )
             } else
                 startActivity(Intent(Settings.Panel.ACTION_VOLUME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -280,7 +280,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         batteryBtn.setOnClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS)
             )
         }
         dateTv.setOnClickListener {
@@ -292,7 +292,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         dateTv.setOnLongClickListener {
             launchApp(
                 null, null,
-                Intent(Settings.ACTION_DATE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Intent(Settings.ACTION_DATE_SETTINGS)
             )
             true
         }
@@ -377,7 +377,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                                     + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
                         )
                     )
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
             } catch (e: UnsupportedEncodingException) {
                 throw RuntimeException(e)
@@ -418,7 +417,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                                             + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
                                 )
                             )
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         )
                     } catch (e: UnsupportedEncodingException) {
                         throw RuntimeException(e)
@@ -680,148 +678,199 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     //Handle keyboard shortcuts
     override fun onKeyEvent(event: KeyEvent): Boolean {
-        var isModifierPressed = false
-        when (sharedPreferences.getString("shortcut_key", "57")) {
-            "57" -> isModifierPressed = event.isAltPressed
-            "113" -> isModifierPressed = event.isCtrlPressed
-            "3" -> isModifierPressed = event.isMetaPressed
+        if (event.action == KeyEvent.ACTION_UP) {
+            if (event.isAltPressed) {
+                if (event.keyCode == KeyEvent.KEYCODE_L && sharedPreferences.getBoolean(
+                        "enable_lock_desktop",
+                        true
+                    )
+                )
+                    lockScreen()
+                else if (event.keyCode == KeyEvent.KEYCODE_P && sharedPreferences.getBoolean(
+                        "enable_open_settings",
+                        true
+                    )
+                )
+                    launchApp(
+                        null, null,
+                        Intent(Settings.ACTION_SETTINGS)
+                    )
+                else if (event.keyCode == KeyEvent.KEYCODE_T && sharedPreferences.getBoolean(
+                        "enable_open_terminal",
+                        false
+                    )
+                )
+                    launchApp(null, sharedPreferences.getString("app_terminal", "com.termux")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_Q && sharedPreferences.getBoolean(
+                        "enable_expand_notifications",
+                        true
+                    )
+                )
+                    performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
+                else if (event.keyCode == KeyEvent.KEYCODE_W && sharedPreferences.getBoolean(
+                        "enable_toggle_pin",
+                        true
+                    )
+                )
+                    togglePin()
+                else if (event.keyCode == KeyEvent.KEYCODE_M && sharedPreferences.getBoolean(
+                        "enable_open_music",
+                        true
+                    )
+                )
+                    launchApp(null, sharedPreferences.getString("app_music", "")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_B && sharedPreferences.getBoolean(
+                        "enable_open_browser",
+                        true
+                    )
+                )
+                    launchApp(null, sharedPreferences.getString("app_browser", "")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_A && sharedPreferences.getBoolean(
+                        "enable_open_assist",
+                        true
+                    )
+                )
+                    launchApp(null, sharedPreferences.getString("app_assistant", "")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_R && sharedPreferences.getBoolean(
+                        "enable_open_rec",
+                        true
+                    )
+                )
+                    launchApp(null, sharedPreferences.getString("app_rec", "")!!)
+                else if (event.keyCode == KeyEvent.KEYCODE_D)
+                    startActivity(
+                        Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    )
+                else if (event.keyCode == KeyEvent.KEYCODE_O) {
+                    toggleSoftKeyboard()
+                } else if (event.keyCode == KeyEvent.KEYCODE_F12)
+                    DeviceUtils.softReboot()
+                //Window management
+                else if (event.keyCode == KeyEvent.KEYCODE_F3) {
+                    if (tasks.size > 0) {
+                        val task = tasks[0]
+                        AppUtils.resizeTask(
+                            context, "portrait", task.id, dockHeight
+                        )
+                    }
+                } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    if (tasks.size > 0) {
+                        val task = tasks[0]
+                        if (event.isShiftPressed)
+                            launchApp(
+                                "maximized",
+                                task.packageName,
+                                newInstance = true,
+                                rememberMode = false
+                            )
+                        else
+                            AppUtils.resizeTask(
+                                context, "maximized", task.id, dockHeight
+                            )
+                    }
+                } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                    if (tasks.size > 0) {
+                        val task = tasks[0]
+                        if (event.isShiftPressed)
+                            launchApp(
+                                "tiled-left",
+                                task.packageName,
+                                newInstance = true,
+                                rememberMode = false
+                            )
+                        else
+                            AppUtils.resizeTask(
+                                context, "tiled-left", task.id, dockHeight
+                            )
+                        return true
+                    }
+                } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    if (tasks.size > 0) {
+                        val task = tasks[0]
+                        if (event.isShiftPressed)
+                            launchApp(
+                                "tiled-right",
+                                task.packageName,
+                                newInstance = true,
+                                rememberMode = false
+                            )
+                        else
+                            AppUtils.resizeTask(
+                                context, "tiled-right", task.id, dockHeight
+                            )
+                        return true
+                    }
+                } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    if (tasks.size > 0) {
+                        val task = tasks[0]
+                        if (event.isShiftPressed)
+                            launchApp(
+                                "standard",
+                                task.packageName,
+                                newInstance = true,
+                                rememberMode = false
+                            )
+                        else
+                            AppUtils.resizeTask(
+                                context, "standard", task.id, dockHeight
+                            )
+                    }
+                } else if (event.isShiftPressed) {
+                    val index = when (event.keyCode) {
+                        KeyEvent.KEYCODE_1 -> 0
+                        KeyEvent.KEYCODE_2 -> 1
+                        KeyEvent.KEYCODE_3 -> 2
+                        KeyEvent.KEYCODE_4 -> 3
+                        KeyEvent.KEYCODE_N -> 4
+                        else -> -1
+                    }
+                    if (index == 4 && sharedPreferences.getBoolean("enable_new_instance", true)) {
+                        if (tasks.size > 0) {
+                            val task = tasks[0]
+                            launchApp(null, task.packageName, newInstance = true)
+                        }
+                    } else if (index != -1 && sharedPreferences.getBoolean("enable_tiling", true)) {
+                        val displays = DeviceUtils.getDisplays(this)
+                        if (tasks.size > 0 && displays.size > index) {
+                            val task = tasks[0]
+                            launchApp(null, task.packageName, displayId = displays[index].displayId)
+                        }
+                    }
+                }
+            } else {
+                if (event.keyCode == KeyEvent.KEYCODE_CTRL_RIGHT && sharedPreferences.getBoolean(
+                        "enable_ctrl_back",
+                        true
+                    )
+                ) {
+                    performGlobalAction(GLOBAL_ACTION_BACK)
+                    return true
+                } else if (event.keyCode == KeyEvent.KEYCODE_MENU && sharedPreferences.getBoolean(
+                        "enable_menu_recents",
+                        false
+                    )
+                ) {
+                    performGlobalAction(GLOBAL_ACTION_RECENTS)
+                    return true
+                } else if (event.keyCode == KeyEvent.KEYCODE_F10 && sharedPreferences.getBoolean(
+                        "enable_f10",
+                        true
+                    )
+                ) {
+                    performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
+                    return true
+                } else if ((event.keyCode == KeyEvent.KEYCODE_HOME || event.keyCode == KeyEvent.KEYCODE_META_LEFT) && sharedPreferences.getBoolean(
+                        "enable_open_menu",
+                        true
+                    )
+                ) {
+                    toggleAppMenu()
+                    return true
+                }
+            }
         }
 
-        if (event.action == KeyEvent.ACTION_UP && isModifierPressed) {
-            if (event.keyCode == KeyEvent.KEYCODE_L && sharedPreferences.getBoolean(
-                    "enable_lock_desktop",
-                    true
-                )
-            )
-                lockScreen()
-            else if (event.keyCode == KeyEvent.KEYCODE_P && sharedPreferences.getBoolean(
-                    "enable_open_settings",
-                    true
-                )
-            )
-                launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
-            else if (event.keyCode == KeyEvent.KEYCODE_T && sharedPreferences.getBoolean(
-                    "enable_open_terminal",
-                    false
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_terminal", "com.termux")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_N && sharedPreferences.getBoolean(
-                    "enable_expand_notifications",
-                    true
-                )
-            )
-                performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
-            else if (event.keyCode == KeyEvent.KEYCODE_K)
-                DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ)
-            else if (event.keyCode == KeyEvent.KEYCODE_W && sharedPreferences.getBoolean(
-                    "enable_toggle_pin",
-                    true
-                )
-            )
-                togglePin()
-            else if (event.keyCode == KeyEvent.KEYCODE_F11)
-                DeviceUtils.restartService(context)
-            else if (event.keyCode == KeyEvent.KEYCODE_M && sharedPreferences.getBoolean(
-                    "enable_open_music",
-                    true
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_music", "")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_B && sharedPreferences.getBoolean(
-                    "enable_open_browser",
-                    true
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_browser", "")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_A && sharedPreferences.getBoolean(
-                    "enable_open_assist",
-                    true
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_assistant", "")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_R && sharedPreferences.getBoolean(
-                    "enable_open_rec",
-                    true
-                )
-            )
-                launchApp(null, sharedPreferences.getString("app_rec", "")!!)
-            else if (event.keyCode == KeyEvent.KEYCODE_D)
-                startActivity(
-                    Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
-            else if (event.keyCode == KeyEvent.KEYCODE_O) {
-                toggleSoftKeyboard()
-            } else if (event.keyCode == KeyEvent.KEYCODE_F12)
-                DeviceUtils.softReboot()
-            else if (event.keyCode == KeyEvent.KEYCODE_F3) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "portrait", task.id, dockHeight
-                    )
-                }
-            } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "maximized", task.id, dockHeight
-                    )
-                }
-            } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "tiled-left", task.id, dockHeight
-                    )
-                }
-            } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "tiled-right", task.id, dockHeight
-                    )
-                }
-            } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                if (tasks.size > 0) {
-                    val task = tasks[0]
-                    AppUtils.resizeTask(
-                        context, "standard", task.id, dockHeight
-                    )
-                }
-            }
-        } else if (event.action == KeyEvent.ACTION_UP) {
-            val menuKey = sharedPreferences.getString("menu_key", "3")!!.toInt()
-            if (event.keyCode == KeyEvent.KEYCODE_CTRL_RIGHT && sharedPreferences.getBoolean(
-                    "enable_ctrl_back",
-                    true
-                )
-            ) {
-                performGlobalAction(GLOBAL_ACTION_BACK)
-                return true
-            } else if (event.keyCode == KeyEvent.KEYCODE_MENU && sharedPreferences.getBoolean(
-                    "enable_menu_recents",
-                    false
-                )
-            ) {
-                performGlobalAction(GLOBAL_ACTION_RECENTS)
-                return true
-            } else if (event.keyCode == menuKey) {
-                toggleAppMenu()
-                return true
-            } else if (event.keyCode == KeyEvent.KEYCODE_F10 && sharedPreferences.getBoolean(
-                    "enable_f10",
-                    true
-                )
-            ) {
-                performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
-                return true
-            }
-        }
         return super.onKeyEvent(event)
     }
 
@@ -921,89 +970,55 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         packageName: String?,
         intent: Intent? = null,
         app: App? = null,
-        displayId: Int = Display.DEFAULT_DISPLAY
+        displayId: Int = Display.DEFAULT_DISPLAY,
+        newInstance: Boolean = false,
+        rememberMode: Boolean = true
     ) {
-        val display: Int =
-            if (displayId != Display.DEFAULT_DISPLAY) displayId else (if (secondary) DeviceUtils.getSecondaryDisplay(
-                this
-            ).displayId else displayId)
-        var mode = mode
-        if (mode == null)
-            mode = getDefaultLaunchMode(packageName)
+        var launchMode = mode
+        if (launchMode == null)
+            launchMode = getDefaultLaunchMode(packageName)
         else
-            if (sharedPreferences.getBoolean("remember_launch_mode", true) && packageName != null)
-                db.saveLaunchMode(packageName, mode)
+            if (rememberMode && sharedPreferences.getBoolean(
+                    "remember_launch_mode",
+                    true
+                ) && packageName != null
+            )
+                db.saveLaunchMode(packageName, launchMode)
 
-        val options: ActivityOptions
-        val animation = sharedPreferences.getString("custom_animation", "system")
-        if (animation == "none" || animation == "system")
-            options = ActivityOptions.makeBasic()
+        val options = AppUtils.makeActivityOptions(context, launchMode, dockHeight, displayId)
+
+        //Used only for work apps
+        if (app != null && app.userHandle != Process.myUserHandle())
+            launcherApps.startMainActivity(
+                app.componentName,
+                app.userHandle,
+                null,
+                options.toBundle()
+            )
         else {
-            var animResId = 0
-            when (sharedPreferences.getString("custom_animation", "fade")) {
-                "fade" -> animResId = R.anim.fade_in
-                "slide_up" -> animResId = R.anim.slide_up
-                "slide_left" -> animResId = R.anim.slide_left
-            }
-            options = ActivityOptions.makeCustomAnimation(context, animResId, R.anim.fade_out)
+            val animation = sharedPreferences.getString("custom_animation", "system")
+
+            val launchIntent: Intent? = if (intent == null && packageName != null)
+                packageManager.getLaunchIntentForPackage(packageName)
+            else
+                intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            if (animation == "none")
+                launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            if (newInstance)
+                launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+
+            context.startActivity(launchIntent, options.toBundle())
         }
-        try {
-            val methodName =
-                if (Build.VERSION.SDK_INT >= 28) "setLaunchWindowingMode" else "setLaunchStackId"
-            val windowMode: Int
-            if (mode == "fullscreen")
-                windowMode = 1
-            else {
-                windowMode = if (Build.VERSION.SDK_INT >= 28) 5 else 2
-                options.setLaunchBounds(
-                    AppUtils.makeLaunchBounds(
-                        context,
-                        mode,
-                        dockHeight,
-                        display
-                    )
-                )
-            }
-            if (Build.VERSION.SDK_INT > 28)
-                options.setLaunchDisplayId(display)
 
-            val method =
-                ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
-            method.invoke(options, windowMode)
+        if (appMenuVisible)
+            hideAppMenu()
 
-            if (app != null)
-                launcherApps.startMainActivity(
-                    app.componentName,
-                    app.userHandle,
-                    null,
-                    options.toBundle()
-                )
-            else {
-                val launchIntent: Intent? = if (intent == null && packageName != null)
-                    packageManager.getLaunchIntentForPackage(packageName)
-                else
-                    intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                if (animation == "none")
-                    intent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                context.startActivity(launchIntent, options.toBundle())
-            }
-
-            if (appMenuVisible)
-                hideAppMenu()
-
-            if (mode == "fullscreen" && sharedPreferences.getBoolean("auto_unpin", true)) {
-                if (isPinned)
-                    unpinDock()
-            } else {
-                if (!isPinned && sharedPreferences.getBoolean("auto_pin", true))
-                    pinDock()
-            }
-        } catch (e: Exception) {
-            Toast.makeText(
-                context,
-                R.string.something_wrong.toString() + e.toString(),
-                Toast.LENGTH_LONG
-            ).show()
+        if (launchMode == "fullscreen" && sharedPreferences.getBoolean("auto_unpin", true)) {
+            if (isPinned)
+                unpinDock()
+        } else {
+            if (!isPinned && sharedPreferences.getBoolean("auto_pin", true))
+                pinDock()
         }
     }
 
@@ -1214,7 +1229,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     launchApp(
                         null, null, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                             .setData(Uri.parse("package:${app.packageName}"))
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.uninstall)) {
@@ -1264,16 +1278,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.standard)) {
                     windowManager.removeView(view)
-                    launchApp("standard", app.packageName, null, app)
+                    launchApp("standard", app.packageName, null, app, newInstance = true)
                 } else if (action.text == getString(R.string.maximized)) {
                     windowManager.removeView(view)
-                    launchApp("maximized", app.packageName, null, app)
+                    launchApp("maximized", app.packageName, null, app, newInstance = true)
                 } else if (action.text == getString(R.string.portrait)) {
                     windowManager.removeView(view)
-                    launchApp("portrait", app.packageName, null, app)
+                    launchApp("portrait", app.packageName, null, app, newInstance = true)
                 } else if (action.text == getString(R.string.fullscreen)) {
                     windowManager.removeView(view)
-                    launchApp("fullscreen", app.packageName, null, app)
+                    launchApp("fullscreen", app.packageName, null, app, newInstance = true)
                 }
             } else if (Build.VERSION.SDK_INT > 24 && adapterView.getItemAtPosition(position) is ShortcutInfo) {
                 val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
@@ -1282,7 +1296,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             } else if (Build.VERSION.SDK_INT > 28 && adapterView.getItemAtPosition(position) is Display) {
                 val display = adapterView.getItemAtPosition(position) as Display
                 windowManager.removeView(view)
-                launchApp(null, app.packageName, null, app, display.displayId)
+                launchApp(
+                    null,
+                    app.packageName,
+                    null,
+                    app,
+                    display.displayId,
+                    sharedPreferences.getBoolean("launch_new_instance_secondary", true)
+                )
             }
         }
         windowManager.addView(view, layoutParams)
@@ -1376,7 +1397,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             when (action.text) {
                 getString(R.string.users) -> launchApp(
                     null, null,
-                    Intent("android.settings.USER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent("android.settings.USER_SETTINGS")
                 )
 
                 getString(R.string.files) -> launchApp(
@@ -1386,16 +1407,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
                 getString(R.string.settings) -> launchApp(
                     null, null,
-                    Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent(Settings.ACTION_SETTINGS)
                 )
 
                 getString(R.string.dock_settings) -> launchApp(
                     null, null,
-                    Intent(
-                        context,
-                        MainActivity::class.java
-                    ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent(context, MainActivity::class.java)
                 )
             }
             windowManager.removeView(view)

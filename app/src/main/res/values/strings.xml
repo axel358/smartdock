@@ -71,7 +71,6 @@
     <string name="menu">Menu</string>
     <string name="menu_icon_uri_title">Select menu icon</string>
     <string name="restore_menu_icon_title">Restore default menu icon</string>
-    <string name="menu_key_title">Menu modifier key</string>
     <string name="app_menu_fullscreen_title">Open App Menu in full screen</string>
     <string name="app_menu_height_title">App menu height</string>
     <string name="app_menu_width_title">App menu width</string>
@@ -87,6 +86,8 @@
     <string name="remember_launch_mode_summary">Remember last launch mode used for every app</string>
     <string name="launch_games_fullscreen_title">Launch games in full screen</string>
     <string name="launch_games_fullscreen_summary">Launch apps detected as games in full screen by default</string>
+    <string name="launch_new_instance_secondary_title">New window on secondary displays</string>
+    <string name="launch_new_instance_secondary_summary">If supported by the app create a new window when launching on secondary displays</string>
     <string name="user_info">User info</string>
     <string name="user_name">Name</string>
     <string name="user_avatar">Avatar</string>
@@ -148,20 +149,19 @@
     <string name="keyboard">Keyboard</string>
     <string name="apps">Apps</string>
     <string name="general">General</string>
-    <string name="shortcut_key_dialogTitle">Shortcut modifier key</string>
-    <string name="shortcut_key_title">Shortcut modifier key</string>
-    <string name="enable_lock_desktop_title">Enable Modifier+L to lock the desktop(requires Device Admin permission)</string>
-    <string name="enable_open_settings_title">Enable Modifier+P to open settings</string>
-    <string name="enable_open_music_title">Enable Modifier+M to open you default music app</string>
-    <string name="enable_open_browser_title">Enable Modifier+B to open your default browser</string>
-    <string name="enable_open_terminal_title">Enable Modifier+T to open terminal</string>
-    <string name="enable_open_assist_title">Enable Modifier+A to launch your default assistant app</string>
-    <string name="enable_open_rec_title">Enable Modifier+R to launch your default screen recorder app</string>
-    <string name="enable_expand_notifications_title">Enable Modifier+N to open notifications</string>
-    <string name="enable_ctrl_back_title">Enable right Ctrl to act as back button</string>
-    <string name="enable_f10_title">Toggle split screen by pressing F10</string>
-    <string name="enable_toggle_pin_title">Enable Modifier+W to pin/unpin the dock</string>
-    <string name="enable_menu_recents_title">Enable Menu key to show recents</string>
+    <string name="enable_open_menu_title">Use Meta or Home to open the apps menu</string>
+    <string name="enable_lock_desktop_title">Use Alt+L to lock the desktop</string>
+    <string name="enable_open_settings_title">Use Alt+P to open settings</string>
+    <string name="enable_open_music_title">Use Alt+M to open you default music app</string>
+    <string name="enable_open_browser_title">Use Alt+B to open your default browser</string>
+    <string name="enable_open_terminal_title">Use Alt+T to open terminal</string>
+    <string name="enable_open_assist_title">Use Alt+A to launch your default assistant app</string>
+    <string name="enable_open_rec_title">Use Alt+R to launch your default screen recorder app</string>
+    <string name="enable_expand_notifications_title">Use Alt+Q to open quick settings</string>
+    <string name="enable_ctrl_back_title">Use right Ctrl to act as back button</string>
+    <string name="enable_f10_title">Use F10 to toggle split screen</string>
+    <string name="enable_toggle_pin_title">Use Alt+W to pin/unpin the dock</string>
+    <string name="enable_menu_recents_title">Use Menu key to show recents</string>
 
     <!-- Sounds page -->
     <string name="sounds">Sounds</string>
@@ -233,7 +233,7 @@
     <string name="hide_nav_buttons_summary">Hides Android software navigation buttons. Needs reboot</string>
     <string name="disable_taskbar_title">Disable taskbar</string>
     <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
-    <string name="enable_soft_reboot_title">Use Modifier+F12 to soft reboot</string>
+    <string name="enable_soft_reboot_title">Use Alt+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
     <string name="soft_reboot_title">Soft reboot now</string>
     <string name="soft_reboot_summary">Soft reboot now. You will lose all unsaved work</string>
@@ -253,7 +253,7 @@
     <string name="scale_factor_title">Standard window scale factor</string>
     <string name="scale_factor_summary">Defines how big standard windows are</string>
     <string name="icon_padding_title">Icon padding</string>
-    <string name="icon_padding_summary">Defines the amount of whitespace between the icon and it\'s border</string>
+    <string name="icon_padding_summary">Defines the amount of space between the icon and its border</string>
 
 
     <!-- Help and about page -->
@@ -325,10 +325,7 @@
     <string name="something_wrong">Something went wrong</string>
     <string name="save_log">Save log</string>
     <string name="open_again">Open app again</string>
-
-    <!-- Wi-Fi menu -->
-    <string name="wifi">WiFi</string>
-    <string name="not_connected">Not connected</string>
-    <string name="select_network">Select network</string>
+    <string name="enable_tiling_shortcut">Use Alt+arrow keys to tile windows</string>
+    <string name="enable_new_instance">Use Alt+Shift+N to launch a new window</string>
 
 </resources>
