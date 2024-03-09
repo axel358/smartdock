@@ -6,7 +6,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityManager
-import android.app.ActivityOptions
 import android.app.Notification
 import android.bluetooth.BluetoothManager
 import android.content.ActivityNotFoundException
@@ -942,90 +941,48 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         displayId: Int = Display.DEFAULT_DISPLAY,
         newInstance: Boolean = false
     ) {
-        val display: Int =
-            if (displayId != Display.DEFAULT_DISPLAY) displayId else (if (secondary) DeviceUtils.getSecondaryDisplay(
-                this
-            ).displayId else displayId)
-        var mode = mode
-        if (mode == null)
-            mode = getDefaultLaunchMode(packageName)
+        var launchMode = mode
+        if (launchMode == null)
+            launchMode = getDefaultLaunchMode(packageName)
         else
             if (sharedPreferences.getBoolean("remember_launch_mode", true) && packageName != null)
-                db.saveLaunchMode(packageName, mode)
+                db.saveLaunchMode(packageName, launchMode)
 
-        val options: ActivityOptions
-        val animation = sharedPreferences.getString("custom_animation", "system")
-        if (animation == "none" || animation == "system")
-            options = ActivityOptions.makeBasic()
+        val options = AppUtils.makeActivityOptions(context, launchMode, dockHeight, displayId)
+
+        //Used only for work apps
+        if (app != null && app.userHandle != Process.myUserHandle())
+            launcherApps.startMainActivity(
+                app.componentName,
+                app.userHandle,
+                null,
+                options.toBundle()
+            )
         else {
-            var animResId = 0
-            when (sharedPreferences.getString("custom_animation", "fade")) {
-                "fade" -> animResId = R.anim.fade_in
-                "slide_up" -> animResId = R.anim.slide_up
-                "slide_left" -> animResId = R.anim.slide_left
-            }
-            options = ActivityOptions.makeCustomAnimation(context, animResId, R.anim.fade_out)
+            val animation = sharedPreferences.getString("custom_animation", "system")
+
+            val launchIntent: Intent? = if (intent == null && packageName != null)
+                packageManager.getLaunchIntentForPackage(packageName)
+            else
+                intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            if (animation == "none")
+                launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            if (newInstance)
+                launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(launchIntent, options.toBundle())
         }
-        try {
-            val methodName =
-                if (Build.VERSION.SDK_INT >= 28) "setLaunchWindowingMode" else "setLaunchStackId"
-            val windowMode: Int
-            if (mode == "fullscreen")
-                windowMode = 1
-            else {
-                windowMode = if (Build.VERSION.SDK_INT >= 28) 5 else 2
-                options.setLaunchBounds(
-                    AppUtils.makeLaunchBounds(
-                        context,
-                        mode,
-                        dockHeight,
-                        display
-                    )
-                )
-            }
-            if (Build.VERSION.SDK_INT > 28)
-                options.setLaunchDisplayId(display)
 
-            val method =
-                ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
-            method.invoke(options, windowMode)
+        if (appMenuVisible)
+            hideAppMenu()
 
-            if (app != null && app.userHandle != Process.myUserHandle())
-                launcherApps.startMainActivity(
-                    app.componentName,
-                    app.userHandle,
-                    null,
-                    options.toBundle()
-                )
-            else {
-                val launchIntent: Intent? = if (intent == null && packageName != null)
-                    packageManager.getLaunchIntentForPackage(packageName)
-                else
-                    intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                if (animation == "none")
-                    launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                if (newInstance)
-                    launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                context.startActivity(launchIntent, options.toBundle())
-            }
-
-            if (appMenuVisible)
-                hideAppMenu()
-
-            if (mode == "fullscreen" && sharedPreferences.getBoolean("auto_unpin", true)) {
-                if (isPinned)
-                    unpinDock()
-            } else {
-                if (!isPinned && sharedPreferences.getBoolean("auto_pin", true))
-                    pinDock()
-            }
-        } catch (e: Exception) {
-            Toast.makeText(
-                context,
-                R.string.something_wrong.toString() + e.toString(),
-                Toast.LENGTH_LONG
-            ).show()
+        if (launchMode == "fullscreen" && sharedPreferences.getBoolean("auto_unpin", true)) {
+            if (isPinned)
+                unpinDock()
+        } else {
+            if (!isPinned && sharedPreferences.getBoolean("auto_pin", true))
+                pinDock()
         }
+
     }
 
     private fun setOrientation() {

@@ -1,6 +1,7 @@
 package cu.axel.smartdock.utils
 
 import android.app.ActivityManager
+import android.app.ActivityOptions
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
 import android.content.Context
@@ -17,6 +18,7 @@ import android.os.UserManager
 import android.view.Display
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.preference.PreferenceManager
+import cu.axel.smartdock.R
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
 import cu.axel.smartdock.models.DockApp
@@ -40,8 +42,12 @@ object AppUtils {
 
         //TODO: Filter Google App
         for (appInfo in appsInfo) {
-            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
-                    appInfo.componentName, appInfo.user))
+            apps.add(
+                App(
+                    appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
+                    appInfo.componentName, appInfo.user
+                )
+            )
         }
 
         return apps
@@ -68,8 +74,12 @@ object AppUtils {
         }
 
         for (appInfo in appsInfo) {
-            apps.add(App(appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
-                    appInfo.componentName, appInfo.user))
+            apps.add(
+                App(
+                    appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
+                    appInfo.componentName, appInfo.user
+                )
+            )
         }
 
         return apps
@@ -143,13 +153,22 @@ object AppUtils {
 
     fun setWindowMode(activityManager: ActivityManager, taskId: Int, mode: Int) {
         try {
-            val setWindowMode = activityManager.javaClass.getMethod("setTaskWindowingMode", Int::class.javaPrimitiveType, Int::class.javaPrimitiveType, Boolean::class.javaPrimitiveType)
+            val setWindowMode = activityManager.javaClass.getMethod(
+                "setTaskWindowingMode",
+                Int::class.javaPrimitiveType,
+                Int::class.javaPrimitiveType,
+                Boolean::class.javaPrimitiveType
+            )
             setWindowMode.invoke(activityManager, taskId, mode, false)
         } catch (_: Exception) {
         }
     }
 
-    fun getRunningTasks(activityManager: ActivityManager, packageManager: PackageManager, max: Int): ArrayList<AppTask> {
+    fun getRunningTasks(
+        activityManager: ActivityManager,
+        packageManager: PackageManager,
+        max: Int
+    ): ArrayList<AppTask> {
         val tasksInfo = activityManager.getRunningTasks(max)
         currentApp = tasksInfo[0].baseActivity!!.packageName
         val appTasks = ArrayList<AppTask>()
@@ -157,10 +176,14 @@ object AppUtils {
             try {
                 //Exclude systemui, launcher and other system apps from the tasklist
                 if (taskInfo.baseActivity!!.packageName.contains("com.android.systemui")
-                        || taskInfo.baseActivity!!.packageName.contains("com.google.android.packageinstaller")) continue
+                    || taskInfo.baseActivity!!.packageName.contains("com.google.android.packageinstaller")
+                ) continue
 
                 //Hack to save Dock settings activity ftom being excluded
-                if (!(taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.MainActivity" || taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.DebugActivity") && taskInfo.topActivity!!.packageName == getCurrentLauncher(packageManager)) continue
+                if (!(taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.MainActivity" || taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.DebugActivity") && taskInfo.topActivity!!.packageName == getCurrentLauncher(
+                        packageManager
+                    )
+                ) continue
                 if (Build.VERSION.SDK_INT > 29) {
                     try {
                         val isRunning = taskInfo.javaClass.getField("isRunning")
@@ -170,8 +193,14 @@ object AppUtils {
                     }
                 }
                 appTasks.add(
-                        AppTask(taskInfo.id, packageManager.getActivityInfo(taskInfo.topActivity!!, 0).loadLabel(packageManager).toString(),
-                                taskInfo.topActivity!!.packageName, packageManager.getActivityIcon(taskInfo.topActivity!!)))
+                    AppTask(
+                        taskInfo.id,
+                        packageManager.getActivityInfo(taskInfo.topActivity!!, 0)
+                            .loadLabel(packageManager).toString(),
+                        taskInfo.topActivity!!.packageName,
+                        packageManager.getActivityIcon(taskInfo.topActivity!!)
+                    )
+                )
             } catch (_: PackageManager.NameNotFoundException) {
             }
         }
@@ -181,15 +210,29 @@ object AppUtils {
     fun getRecentTasks(context: Context, max: Int): ArrayList<AppTask> {
         val usm = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val start = System.currentTimeMillis() - SystemClock.elapsedRealtime()
-        val usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, start,
-                System.currentTimeMillis())
+        val usageStats = usm.queryUsageStats(
+            UsageStatsManager.INTERVAL_BEST, start,
+            System.currentTimeMillis()
+        )
         val appTasks = ArrayList<AppTask>()
-        usageStats.sortWith { usageStats1: UsageStats, usageStats2: UsageStats -> usageStats2.lastTimeUsed.compareTo(usageStats1.lastTimeUsed) }
+        usageStats.sortWith { usageStats1: UsageStats, usageStats2: UsageStats ->
+            usageStats2.lastTimeUsed.compareTo(
+                usageStats1.lastTimeUsed
+            )
+        }
         for (stat in usageStats) {
             val app = stat.packageName
             try {
-                if (isLaunchable(context, app) && app != getCurrentLauncher(context.packageManager)) appTasks.add(AppTask(-1, getPackageLabel(context, app), app,
-                        context.packageManager.getApplicationIcon(app)))
+                if (isLaunchable(
+                        context,
+                        app
+                    ) && app != getCurrentLauncher(context.packageManager)
+                ) appTasks.add(
+                    AppTask(
+                        -1, getPackageLabel(context, app), app,
+                        context.packageManager.getApplicationIcon(app)
+                    )
+                )
             } catch (_: PackageManager.NameNotFoundException) {
             }
             if (appTasks.size >= max) break
@@ -208,7 +251,8 @@ object AppUtils {
 
     private fun isLaunchable(context: Context, app: String): Boolean {
         val resolveInfo = context.packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER).setPackage(app), 0)
+            Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER).setPackage(app), 0
+        )
         return resolveInfo.size > 0
     }
 
@@ -230,7 +274,12 @@ object AppUtils {
         }
     }
 
-    fun makeLaunchBounds(context: Context, mode: String, dockHeight: Int, displayId: Int = Display.DEFAULT_DISPLAY): Rect {
+    fun makeLaunchBounds(
+        context: Context,
+        mode: String,
+        dockHeight: Int,
+        displayId: Int = Display.DEFAULT_DISPLAY
+    ): Rect {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         var left = 0
         var top = 0
@@ -242,10 +291,11 @@ object AppUtils {
         val navHeight = DeviceUtils.getNavBarHeight(context)
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
 
-        val usableHeight = if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
-            deviceHeight - diff - DeviceUtils.getStatusBarHeight(context)
-        else
-            deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context)
+        val usableHeight =
+            if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+                deviceHeight - diff - DeviceUtils.getStatusBarHeight(context)
+            else
+                deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context)
         val scaleFactor = sharedPreferences.getString("scale_factor", "1.0")!!.toFloat()
         when (mode) {
             "standard" -> {
@@ -292,12 +342,65 @@ object AppUtils {
         return Rect(left, top, right, bottom)
     }
 
+    fun makeActivityOptions(
+        context: Context,
+        mode: String,
+        dockHeight: Int,
+        displayId: Int
+    ): ActivityOptions {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val secondary = sharedPreferences.getBoolean("prefer_last_display", false)
+
+        val display: Int =
+            if (displayId != Display.DEFAULT_DISPLAY) displayId else (if (secondary) DeviceUtils.getSecondaryDisplay(
+                context
+            ).displayId else displayId)
+        val options: ActivityOptions
+        val animation = sharedPreferences.getString("custom_animation", "system")
+        if (animation == "none" || animation == "system")
+            options = ActivityOptions.makeBasic()
+        else {
+            var animResId = 0
+            when (sharedPreferences.getString("custom_animation", "fade")) {
+                "fade" -> animResId = R.anim.fade_in
+                "slide_up" -> animResId = R.anim.slide_up
+                "slide_left" -> animResId = R.anim.slide_left
+            }
+            options = ActivityOptions.makeCustomAnimation(context, animResId, R.anim.fade_out)
+        }
+        val windowMode: Int
+        if (mode == "fullscreen")
+            windowMode = 1
+        else {
+            windowMode = if (Build.VERSION.SDK_INT >= 28) 5 else 2
+            options.setLaunchBounds(
+                makeLaunchBounds(
+                    context,
+                    mode,
+                    dockHeight,
+                    display
+                )
+            )
+        }
+        if (Build.VERSION.SDK_INT > 28)
+            options.setLaunchDisplayId(display)
+        val methodName =
+            if (Build.VERSION.SDK_INT >= 28) "setLaunchWindowingMode" else "setLaunchStackId"
+        val method =
+            ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
+        method.invoke(options, windowMode)
+
+        return options
+    }
+
     fun resizeTask(context: Context, mode: String, taskId: Int, dockHeight: Int) {
         if (taskId < 0)
             return
         val bounds = makeLaunchBounds(context, mode, dockHeight)
-        DeviceUtils.runAsRoot("am task resize " + taskId + " " + bounds.left + " " + bounds.top + " " + bounds.right
-                + " " + bounds.bottom)
+        DeviceUtils.runAsRoot(
+            "am task resize " + taskId + " " + bounds.left + " " + bounds.top + " " + bounds.right
+                    + " " + bounds.bottom
+        )
     }
 
     fun containsTask(apps: ArrayList<DockApp>, task: AppTask): Int {
