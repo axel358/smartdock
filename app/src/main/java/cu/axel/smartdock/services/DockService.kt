@@ -757,32 +757,44 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
                     if (tasks.size > 0) {
                         val task = tasks[0]
-                        AppUtils.resizeTask(
-                            context, "maximized", task.id, dockHeight
-                        )
+                        if (event.isShiftPressed)
+                            launchApp("maximized", task.packageName, newInstance = true)
+                        else
+                            AppUtils.resizeTask(
+                                context, "maximized", task.id, dockHeight
+                            )
                     }
                 } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
                     if (tasks.size > 0) {
                         val task = tasks[0]
-                        AppUtils.resizeTask(
-                            context, "tiled-left", task.id, dockHeight
-                        )
+                        if (event.isShiftPressed)
+                            launchApp("tiled-left", task.packageName, newInstance = true)
+                        else
+                            AppUtils.resizeTask(
+                                context, "tiled-left", task.id, dockHeight
+                            )
                         return true
                     }
                 } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
                     if (tasks.size > 0) {
                         val task = tasks[0]
-                        AppUtils.resizeTask(
-                            context, "tiled-right", task.id, dockHeight
-                        )
+                        if (event.isShiftPressed)
+                            launchApp("tiled-right", task.packageName, newInstance = true)
+                        else
+                            AppUtils.resizeTask(
+                                context, "tiled-right", task.id, dockHeight
+                            )
                         return true
                     }
                 } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
                     if (tasks.size > 0) {
                         val task = tasks[0]
-                        AppUtils.resizeTask(
-                            context, "standard", task.id, dockHeight
-                        )
+                        if (event.isShiftPressed)
+                            launchApp("standard", task.packageName, newInstance = true)
+                        else
+                            AppUtils.resizeTask(
+                                context, "standard", task.id, dockHeight
+                            )
                     }
                 } else if (event.isShiftPressed) {
                     val index = when (event.keyCode) {
@@ -967,8 +979,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             if (animation == "none")
                 launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            if (newInstance)
+            if (newInstance) {
                 launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                Toast.makeText(this, "ddqw", Toast.LENGTH_LONG).show()
+            }
             context.startActivity(launchIntent, options.toBundle())
         }
 
