@@ -979,10 +979,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             if (animation == "none")
                 launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            if (newInstance) {
+            if (newInstance)
                 launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                Toast.makeText(this, "ddqw", Toast.LENGTH_LONG).show()
-            }
+
             context.startActivity(launchIntent, options.toBundle())
         }
 
