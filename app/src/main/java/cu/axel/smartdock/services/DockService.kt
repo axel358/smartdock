@@ -758,7 +758,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     if (tasks.size > 0) {
                         val task = tasks[0]
                         if (event.isShiftPressed)
-                            launchApp("maximized", task.packageName, newInstance = true)
+                            launchApp("maximized", task.packageName, newInstance = true, rememberMode = false)
                         else
                             AppUtils.resizeTask(
                                 context, "maximized", task.id, dockHeight
@@ -768,7 +768,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     if (tasks.size > 0) {
                         val task = tasks[0]
                         if (event.isShiftPressed)
-                            launchApp("tiled-left", task.packageName, newInstance = true)
+                            launchApp("tiled-left", task.packageName, newInstance = true, rememberMode = false)
                         else
                             AppUtils.resizeTask(
                                 context, "tiled-left", task.id, dockHeight
@@ -779,7 +779,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     if (tasks.size > 0) {
                         val task = tasks[0]
                         if (event.isShiftPressed)
-                            launchApp("tiled-right", task.packageName, newInstance = true)
+                            launchApp("tiled-right", task.packageName, newInstance = true, rememberMode = false)
                         else
                             AppUtils.resizeTask(
                                 context, "tiled-right", task.id, dockHeight
@@ -790,7 +790,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     if (tasks.size > 0) {
                         val task = tasks[0]
                         if (event.isShiftPressed)
-                            launchApp("standard", task.packageName, newInstance = true)
+                            launchApp("standard", task.packageName, newInstance = true, rememberMode = false)
                         else
                             AppUtils.resizeTask(
                                 context, "standard", task.id, dockHeight
@@ -951,13 +951,18 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         intent: Intent? = null,
         app: App? = null,
         displayId: Int = Display.DEFAULT_DISPLAY,
-        newInstance: Boolean = false
+        newInstance: Boolean = false,
+        rememberMode: Boolean = true
     ) {
         var launchMode = mode
         if (launchMode == null)
             launchMode = getDefaultLaunchMode(packageName)
         else
-            if (sharedPreferences.getBoolean("remember_launch_mode", true) && packageName != null)
+            if (rememberMode && sharedPreferences.getBoolean(
+                    "remember_launch_mode",
+                    true
+                ) && packageName != null
+            )
                 db.saveLaunchMode(packageName, launchMode)
 
         val options = AppUtils.makeActivityOptions(context, launchMode, dockHeight, displayId)
