@@ -177,6 +177,7 @@ object AppUtils {
                 //Exclude systemui, launcher and other system apps from the tasklist
                 if (taskInfo.baseActivity!!.packageName.contains("com.android.systemui")
                     || taskInfo.baseActivity!!.packageName.contains("com.google.android.packageinstaller")
+                    || taskInfo.baseActivity!!.className == "com.android.quickstep.RecentsActivity"
                 ) continue
 
                 //Hack to save Dock settings activity ftom being excluded
