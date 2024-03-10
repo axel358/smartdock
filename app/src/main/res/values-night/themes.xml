@@ -30,6 +30,7 @@
 		<item name="alertDialogTheme">@style/DialogTheme</item>
 		<item name="android:statusBarColor">?attr/colorSurface</item>
 		<item name="toolbarStyle">?attr/toolbarSurfaceStyle</item>
+        <item name="preferenceTheme">@style/ThemeOverlay.App.Preference</item>
     </style>
 
 </resources>
