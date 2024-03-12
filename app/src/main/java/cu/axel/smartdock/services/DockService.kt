@@ -1197,9 +1197,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                             app.packageName
                         ) || sharedPreferences.getBoolean("allow_sysapp_uninstall", false)
                     ) actions.add(Action(R.drawable.ic_uninstall, getString(R.string.uninstall)))
-                    if (sharedPreferences.getBoolean("allow_app_freeze", false)) actions.add(
-                        Action(
-                            R.drawable.ic_freeze,
+                    if (sharedPreferences.getBoolean("allow_app_freeze", false))
+                        actions.add(Action(R.drawable.ic_freeze,
                             getString(R.string.freeze)
                         )
                     )
@@ -1233,12 +1232,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     )
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.uninstall)) {
-                    if (AppUtils.isSystemApp(
-                            context,
-                            app.packageName
-                        )
-                    ) DeviceUtils.runAsRoot("pm uninstall --user 0 $app") else startActivity(
-                        Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
+                    if (AppUtils.isSystemApp(context, app.packageName))
+                        DeviceUtils.runAsRoot("pm uninstall --user 0 ${app.packageName}")
+                    else startActivity(
+                        Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:${app.packageName}"))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                     if (appMenuVisible) hideAppMenu()
