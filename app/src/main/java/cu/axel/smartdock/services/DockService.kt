@@ -157,7 +157,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var context: Context
     private lateinit var tasks: ArrayList<AppTask>
     private var lastUpdate: Long = 0
-    private var previousActivity: String? = null
     private var dockHeight: Int = 0
     private lateinit var handleLayoutParams: WindowManager.LayoutParams
     private lateinit var launcherApps: LauncherApps
@@ -564,7 +563,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         if (tasks.size == 1) {
             val taskId = tasks[0].id
             if (taskId == -1)
-                launchApp(getDefaultLaunchMode(app.packageName), app.packageName)
+                launchApp(null, app.packageName)
             else
                 activityManager.moveTaskToFront(taskId, 0)
         } else if (tasks.size > 1) {
@@ -624,19 +623,21 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
-        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            val currentActivity = event.className.toString()
-            if (currentActivity == "null" || currentActivity.contains("android.app.")
-                || currentActivity.contains("android.widget.")
-            ) return
-            if (currentActivity != previousActivity) {
-                // Activity changed
-                //TODO: Filter current input method
-                previousActivity = currentActivity
-                if (isPinned)
+        if (!isPinned)
+            return
+
+        if (event.eventType == AccessibilityEvent.TYPE_WINDOWS_CHANGED) {
+            if (Build.VERSION.SDK_INT >= 28)
+                if (event.windowChanges.and(AccessibilityEvent.WINDOWS_CHANGE_REMOVED) == AccessibilityEvent.WINDOWS_CHANGE_REMOVED ||
+                    event.windowChanges.and(
+                        AccessibilityEvent.WINDOWS_CHANGE_ADDED
+                    ) == AccessibilityEvent.WINDOWS_CHANGE_ADDED
+                )
                     updateRunningTasks()
-            }
-        } else if (isPinned && sharedPreferences.getBoolean(
+            else
+                updateRunningTasks()
+
+        } else if (sharedPreferences.getBoolean(
                 "custom_toasts",
                 false
             ) && event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED && event.parcelableData !is Notification && event.text.size > 0
