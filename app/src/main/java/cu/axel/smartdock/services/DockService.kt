@@ -1241,7 +1241,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     if (appMenuVisible) hideAppMenu()
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.freeze)) {
-                    val status = DeviceUtils.runAsRoot("pm disable $app")
+                    val status = DeviceUtils.runAsRoot("pm disable ${app.packageName}")
                     if (status != "error") Toast.makeText(
                         context,
                         R.string.app_frozen,
