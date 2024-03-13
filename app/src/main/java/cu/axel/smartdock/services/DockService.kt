@@ -1535,7 +1535,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         //TODO: Move context outta here
         wifiBtn.setImageResource(if (wifiManager.isWifiEnabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off)
         val bluetoothAdapter = bluetoothManager.adapter
-        if (bluetoothAdapter != null) bluetoothBtn.setImageResource(if (bluetoothAdapter.isEnabled) R.drawable.ic_bluetooth else R.drawable.ic_bluetooth_off)
+        if (bluetoothAdapter != null)
+            bluetoothBtn.setImageResource(if (bluetoothAdapter.isEnabled) R.drawable.ic_bluetooth else R.drawable.ic_bluetooth_off)
     }
 
     private fun updateDockShape() {
