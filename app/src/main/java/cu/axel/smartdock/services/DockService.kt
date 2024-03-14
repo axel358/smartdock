@@ -1001,8 +1001,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 packageManager.getLaunchIntentForPackage(packageName)
             else
                 intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+            if (launchIntent == null)
+                return
+
             if (newInstance)
-                launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                launchIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
 
             context.startActivity(launchIntent, options.toBundle())
         }
