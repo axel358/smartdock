@@ -61,10 +61,6 @@
     <string name="round_dock">Rounded corners for the dock</string>
     <string name="single_line_labels">Use single line for app labels</string>
     <string name="tint_indicators_title">Tint running indicators</string>
-    <string name="custom_animation_title">App launch animation</string>
-    <string name="fade">Fade</string>
-    <string name="slide_up">Slide up</string>
-    <string name="slide_left">Slide left</string>
 
     <!-- App menu page -->
     <string name="app_menu">App Menu</string>

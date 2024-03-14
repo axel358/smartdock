@@ -18,7 +18,6 @@ import android.os.UserManager
 import android.view.Display
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.preference.PreferenceManager
-import cu.axel.smartdock.R
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
 import cu.axel.smartdock.models.DockApp
@@ -356,19 +355,8 @@ object AppUtils {
             if (displayId != Display.DEFAULT_DISPLAY) displayId else (if (secondary) DeviceUtils.getSecondaryDisplay(
                 context
             ).displayId else displayId)
-        val options: ActivityOptions
-        val animation = sharedPreferences.getString("custom_animation", "system")
-        if (animation == "none" || animation == "system")
-            options = ActivityOptions.makeBasic()
-        else {
-            var animResId = 0
-            when (sharedPreferences.getString("custom_animation", "fade")) {
-                "fade" -> animResId = R.anim.fade_in
-                "slide_up" -> animResId = R.anim.slide_up
-                "slide_left" -> animResId = R.anim.slide_left
-            }
-            options = ActivityOptions.makeCustomAnimation(context, animResId, R.anim.fade_out)
-        }
+        val options: ActivityOptions = ActivityOptions.makeBasic()
+
         val windowMode: Int
         if (mode == "fullscreen")
             windowMode = 1

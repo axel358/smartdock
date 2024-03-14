@@ -40,21 +40,6 @@
         <item>portrait</item>
         <item>fullscreen</item>
     </string-array>
-    <string-array name="animations">
-        <item>@string/system</item>
-        <item>@string/fade</item>
-        <item>@string/slide_up</item>
-        <item>@string/slide_left</item>
-        <item>@string/none</item>
-    </string-array>
-
-    <string-array name="animation_values">
-        <item>system</item>
-        <item>fade</item>
-        <item>slide_up</item>
-        <item>slide_left</item>
-        <item>none</item>
-    </string-array>
 	
 	<string-array name="layouts">
 		<item>@string/phone</item>

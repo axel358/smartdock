@@ -997,14 +997,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 options.toBundle()
             )
         else {
-            val animation = sharedPreferences.getString("custom_animation", "system")
-
             val launchIntent: Intent? = if (intent == null && packageName != null)
                 packageManager.getLaunchIntentForPackage(packageName)
             else
                 intent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            if (animation == "none")
-                launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             if (newInstance)
                 launchIntent!!.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
 

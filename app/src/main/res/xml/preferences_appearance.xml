@@ -39,11 +39,5 @@
             android:key="tint_indicators"
             android:title="@string/tint_indicators_title" />
 
-        <ListPreference
-            android:defaultValue="system"
-            android:entries="@array/animations"
-            android:entryValues="@array/animation_values"
-            android:key="custom_animation"
-            android:title="@string/custom_animation_title" />
     </PreferenceCategory>
 </PreferenceScreen>
