@@ -634,8 +634,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     ) == AccessibilityEvent.WINDOWS_CHANGE_ADDED
                 )
                     updateRunningTasks()
-            else
-                updateRunningTasks()
+                else
+                    updateRunningTasks()
 
         } else if (sharedPreferences.getBoolean(
                 "custom_toasts",
@@ -1115,7 +1115,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         //Load user info
         val avatarIv = appMenu.findViewById<ImageView>(R.id.avatar_iv)
         val userNameTv = appMenu.findViewById<TextView>(R.id.user_name_tv)
-        avatarIv.setOnClickListener { anchor -> showUserContextMenu(anchor) }
+        avatarIv.setOnClickListener {
+            if (AppUtils.isSystemApp(context, packageName))
+                launchApp(null, null, Intent("android.settings.USER_SETTINGS"))
+        }
         if (AppUtils.isSystemApp(context, packageName)) {
             val name = DeviceUtils.getUserName(context)
             if (name != null) userNameTv.text = name
@@ -1198,10 +1201,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         ) || sharedPreferences.getBoolean("allow_sysapp_uninstall", false)
                     ) actions.add(Action(R.drawable.ic_uninstall, getString(R.string.uninstall)))
                     if (sharedPreferences.getBoolean("allow_app_freeze", false))
-                        actions.add(Action(R.drawable.ic_freeze,
-                            getString(R.string.freeze)
+                        actions.add(
+                            Action(
+                                R.drawable.ic_freeze,
+                                getString(R.string.freeze)
+                            )
                         )
-                    )
                     actionsLv.adapter = AppActionsAdapter(context, actions)
                 } else if (action.text == getString(R.string.shortcuts)) {
                     actionsLv.adapter = AppShortcutAdapter(
@@ -1235,7 +1240,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     if (AppUtils.isSystemApp(context, app.packageName))
                         DeviceUtils.runAsRoot("pm uninstall --user 0 ${app.packageName}")
                     else startActivity(
-                        Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:${app.packageName}"))
+                        Intent(
+                            Intent.ACTION_UNINSTALL_PACKAGE,
+                            Uri.parse("package:${app.packageName}")
+                        )
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                     if (appMenuVisible) hideAppMenu()
@@ -1366,58 +1374,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun showUserContextMenu(anchor: View) {
-        val view = LayoutInflater.from(context).inflate(R.layout.task_list, null)
-        val layoutParams = Utils.makeWindowParams(-2, -2, context, secondary)
-        ColorUtils.applyMainColor(context, sharedPreferences, view)
-        layoutParams.gravity = Gravity.TOP or Gravity.START
-        layoutParams.flags =
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-        val location = IntArray(2)
-        anchor.getLocationOnScreen(location)
-        layoutParams.x = location[0]
-        layoutParams.y = location[1] + Utils.dpToPx(context, anchor.measuredHeight / 2)
-        view.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_OUTSIDE)
-                windowManager.removeView(view)
-
-            false
-        }
-        val actionsLv = view.findViewById<ListView>(R.id.tasks_lv)
-        val actions = ArrayList<Action>()
-        actions.add(Action(R.drawable.ic_users, getString(R.string.users)))
-        actions.add(Action(R.drawable.ic_user_folder, getString(R.string.files)))
-        actions.add(Action(R.drawable.ic_user_settings, getString(R.string.settings)))
-        actions.add(Action(R.drawable.ic_settings, getString(R.string.dock_settings)))
-        actionsLv.adapter = AppActionsAdapter(context, actions)
-        actionsLv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
-            val action = adapterView.getItemAtPosition(position) as Action
-            when (action.text) {
-                getString(R.string.users) -> launchApp(
-                    null, null,
-                    Intent("android.settings.USER_SETTINGS")
-                )
-
-                getString(R.string.files) -> launchApp(
-                    null,
-                    sharedPreferences.getString("app_files", "com.android.documentsui")!!
-                )
-
-                getString(R.string.settings) -> launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_SETTINGS)
-                )
-
-                getString(R.string.dock_settings) -> launchApp(
-                    null, null,
-                    Intent(context, MainActivity::class.java)
-                )
-            }
-            windowManager.removeView(view)
-        }
-        windowManager.addView(view, layoutParams)
-    }
-
 
     override fun onSharedPreferenceChanged(p1: SharedPreferences, preference: String?) {
         if (preference == null)
