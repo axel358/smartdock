@@ -34,7 +34,7 @@
         <item name="preferenceTheme">@style/ThemeOverlay.App.Preference</item>
     </style>
 
-    <style name="AppTheme.Dock" parent="Theme.Material3.DayNight">
+    <style name="AppTheme.Dock" parent="Theme.Material3.Dark">
         <item name="colorAccent">#FFFFFF</item>
     </style>
 
