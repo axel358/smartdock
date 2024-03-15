@@ -245,7 +245,6 @@
     <string name="preferences_restored">Preferencias restauradas</string>
 
     <string name="development_tools">Herramientas de desarrollo</string>
-    <string name="navigation_bar_fix">Arrgelo de barra de navegación de Android</string>
     <string name="scale_factor_title">Factor de escala de ventana estándar</string>
     <string name="scale_factor_summary">Define qué tan grandes son las ventanas estándar</string>
     <string name="icon_padding_title">Espacio de iconos</string>

@@ -246,7 +246,6 @@
     <string name="preferences_restored">ਪਰਏਫਸਸ ਮੁੜ ਲਿਆਉਆਦੀ</string>
 
     <string name="development_tools">ਡਿਵੈਲਪਮੈਂਟ ਟੂਲਸ</string>
-    <string name="navigation_bar_fix">Android ਨੇਵੀਗੇਸ਼ਨ ਬਾਰ ਫਿਕਸ</string>
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>

@@ -245,7 +245,6 @@
     <string name="preferences_restored">Preferences restored</string>
 
     <string name="development_tools">Development tools</string>
-    <string name="navigation_bar_fix">Android navigation bar fix</string>
     <string name="scale_factor_title">Standard window scale factor</string>
     <string name="scale_factor_summary">Defines how big standard windows are</string>
     <string name="icon_padding_title">Icon padding</string>

@@ -274,7 +274,7 @@ object AppUtils {
         }
     }
 
-    fun makeLaunchBounds(
+    private fun makeLaunchBounds(
         context: Context,
         mode: String,
         dockHeight: Int,
@@ -292,7 +292,7 @@ object AppUtils {
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
 
         val usableHeight =
-            if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+            if (DeviceUtils.shouldApplyNavbarFix())
                 deviceHeight - diff - DeviceUtils.getStatusBarHeight(context)
             else
                 deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context)

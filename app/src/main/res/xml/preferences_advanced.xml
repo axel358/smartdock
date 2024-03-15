@@ -121,11 +121,6 @@
         android:key="development_category"
         android:title="@string/development_tools">
 
-        <SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="navbar_fix"
-            android:title="@string/navigation_bar_fix" />
-
         <EditTextPreference
             android:defaultValue="1.0"
             android:hint="1.0"

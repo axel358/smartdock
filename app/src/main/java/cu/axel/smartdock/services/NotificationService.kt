@@ -85,7 +85,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         margins = Utils.dpToPx(context, 2)
         dockHeight =
             Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
-        y = (if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+        y = (if (DeviceUtils.shouldApplyNavbarFix())
             dockHeight - DeviceUtils.getNavBarHeight(context)
         else
             dockHeight) + margins
@@ -519,7 +519,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private fun updateLayoutParams() {
         dockHeight =
             Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
-        y = (if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+        y = (if (DeviceUtils.shouldApplyNavbarFix())
             dockHeight - DeviceUtils.getNavBarHeight(context)
         else
             dockHeight) + margins

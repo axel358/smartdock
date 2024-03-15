@@ -50,8 +50,10 @@ object DeviceUtils {
     val rootAccess: Process
         //Xtr126
         get() {
-            val paths = arrayOf("/sbin/su", "/system/sbin/su", "/system/bin/su", "/system/xbin/su", "/su/bin/su",
-                    "/magisk/.core/bin/su")
+            val paths = arrayOf(
+                "/sbin/su", "/system/sbin/su", "/system/bin/su", "/system/xbin/su", "/su/bin/su",
+                "/magisk/.core/bin/su"
+            )
             for (path in paths) {
                 if (File(path).canExecute()) return Runtime.getRuntime().exec(path)
             }
@@ -80,7 +82,8 @@ object DeviceUtils {
 
     //Device control
     fun lockScreen(context: Context) {
-        val devicePolicyManager = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val devicePolicyManager =
+            context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         try {
             devicePolicyManager.lockNow()
         } catch (_: SecurityException) {
@@ -100,16 +103,23 @@ object DeviceUtils {
     }
 
     fun shutdown() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) runAsRoot("am start -a android.intent.action.ACTION_REQUEST_SHUTDOWN") else runAsRoot("am start -a com.android.internal.intent.action.REQUEST_SHUTDOWN")
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) runAsRoot("am start -a android.intent.action.ACTION_REQUEST_SHUTDOWN") else runAsRoot(
+            "am start -a com.android.internal.intent.action.REQUEST_SHUTDOWN"
+        )
     }
 
     fun toggleVolume(context: Context) {
         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI)
+        audioManager.adjustStreamVolume(
+            AudioManager.STREAM_MUSIC,
+            AudioManager.ADJUST_SAME,
+            AudioManager.FLAG_SHOW_UI
+        )
     }
 
     fun playEventSound(context: Context, event: String) {
-        val soundUri = PreferenceManager.getDefaultSharedPreferences(context).getString(event, "default")
+        val soundUri =
+            PreferenceManager.getDefaultSharedPreferences(context).getString(event, "default")
         if (soundUri != "default") {
             try {
                 val sound = Uri.parse(soundUri)
@@ -206,7 +216,8 @@ object DeviceUtils {
 
     fun getNavBarHeight(context: Context): Int {
         var result = 0
-        val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        val resourceId =
+            context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
         if (resourceId > 0) {
             result = context.resources.getDimensionPixelSize(resourceId)
         }
@@ -246,7 +257,10 @@ object DeviceUtils {
         return displays[displays.size - 1]
     }
 
-    fun getDisplayMetrics(context: Context, displayId: Int = Display.DEFAULT_DISPLAY): DisplayMetrics {
+    fun getDisplayMetrics(
+        context: Context,
+        displayId: Int = Display.DEFAULT_DISPLAY
+    ): DisplayMetrics {
         val dm = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
         val display = dm.getDisplay(displayId)
         val metrics = DisplayMetrics()
@@ -270,11 +284,19 @@ object DeviceUtils {
         return getSystemProp("ro.bliss.version").isNotEmpty()
     }
 
+    fun shouldApplyNavbarFix(): Boolean {
+        return Build.VERSION.SDK_INT > 31 && isNavbarEnabled()
+    }
+
+    fun isNavbarEnabled(): Boolean {
+        return getSystemProp("qemu.hw.mainkeys") != "1"
+    }
+
     //Permissions
     fun isAccessibilityServiceEnabled(context: Context): Boolean {
         val am = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
         val enabledServices = am
-                .getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+            .getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
         for (enabledService in enabledServices) {
             val serviceInfo = enabledService.resolveInfo.serviceInfo
             if (serviceInfo.packageName == context.packageName && serviceInfo.name == DockService::class.java.name) {
@@ -285,17 +307,25 @@ object DeviceUtils {
     }
 
     fun hasStoragePermission(context: Context): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     fun requestStoragePermissions(context: Activity) {
-        ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 8)
+        ActivityCompat.requestPermissions(
+            context,
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            8
+        )
     }
 
     fun hasWriteSettingsPermission(context: Context): Boolean {
-        return ContextCompat.checkSelfPermission(context,
-                Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.WRITE_SECURE_SETTINGS
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     fun grantPermission(permission: String): Boolean {
@@ -305,18 +335,26 @@ object DeviceUtils {
 
     fun grantOverlayPermissions(context: Activity) {
         context.startActivityForResult(
-                Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + context.packageName)),
-                8)
+            Intent(
+                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:" + context.packageName)
+            ),
+            8
+        )
     }
 
     fun requestDeviceAdminPermissions(context: Activity) {
         val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
-        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, ComponentName(context, DeviceAdminReceiver::class.java))
+        intent.putExtra(
+            DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+            ComponentName(context, DeviceAdminReceiver::class.java)
+        )
         context.startActivityForResult(intent, 8)
     }
 
     fun isDeviceAdminEnabled(context: Context): Boolean {
-        val devicePolicyManager = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val devicePolicyManager =
+            context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         val deviceAdmins = devicePolicyManager.activeAdmins
         if (deviceAdmins != null) {
             for (deviceAdmin in deviceAdmins) {
@@ -329,7 +367,10 @@ object DeviceUtils {
     }
 
     fun hasRecentAppsPermission(context: Context): Boolean {
-        return AppUtils.isSystemApp(context, context.packageName) || checkAppOpsPermission(context, AppOpsManager.OPSTR_GET_USAGE_STATS)
+        return AppUtils.isSystemApp(context, context.packageName) || checkAppOpsPermission(
+            context,
+            AppOpsManager.OPSTR_GET_USAGE_STATS
+        )
     }
 
     private fun checkAppOpsPermission(context: Context, permission: String): Boolean {
@@ -340,7 +381,11 @@ object DeviceUtils {
             return false
         }
         val appOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
-        val mode = appOpsManager.checkOpNoThrow(permission, applicationInfo.uid, applicationInfo.packageName)
+        val mode = appOpsManager.checkOpNoThrow(
+            permission,
+            applicationInfo.uid,
+            applicationInfo.packageName
+        )
         return mode == AppOpsManager.MODE_ALLOWED
     }
 
@@ -348,7 +393,8 @@ object DeviceUtils {
     fun enableService(context: Context) {
         val services = getSecureSetting(context, ENABLED_ACCESSIBILITY_SERVICES, "")
         if (services.contains(SERVICE_NAME)) return
-        val newServices: String = if (services.isEmpty()) SERVICE_NAME else "$services:$SERVICE_NAME"
+        val newServices: String =
+            if (services.isEmpty()) SERVICE_NAME else "$services:$SERVICE_NAME"
         putSecureSetting(context, ENABLED_ACCESSIBILITY_SERVICES, newServices)
     }
 
@@ -356,7 +402,13 @@ object DeviceUtils {
         val services = getSecureSetting(context, ENABLED_ACCESSIBILITY_SERVICES, "")
         if (!services.contains(SERVICE_NAME)) return
         var newServices = ""
-        if (services.contains("$SERVICE_NAME:")) newServices = services.replace("$SERVICE_NAME:", "") else if (services.contains(":$SERVICE_NAME")) newServices = services.replace(":$SERVICE_NAME", "") else if (services.contains(SERVICE_NAME)) newServices = services.replace(SERVICE_NAME, "")
+        if (services.contains("$SERVICE_NAME:")) newServices = services.replace(
+            "$SERVICE_NAME:",
+            ""
+        ) else if (services.contains(":$SERVICE_NAME")) newServices = services.replace(
+            ":$SERVICE_NAME",
+            ""
+        ) else if (services.contains(SERVICE_NAME)) newServices = services.replace(SERVICE_NAME, "")
         putSecureSetting(context, ENABLED_ACCESSIBILITY_SERVICES, newServices)
     }
 

@@ -21,7 +21,6 @@ import android.content.pm.ActivityInfo
 import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
-import android.graphics.Color
 import android.hardware.usb.UsbManager
 import android.media.AudioManager
 import android.net.Uri
@@ -46,7 +45,6 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -62,7 +60,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -1060,7 +1057,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val navHeight = DeviceUtils.getNavBarHeight(context)
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
         val usableHeight =
-            if (Build.VERSION.SDK_INT > 31 && sharedPreferences.getBoolean("navbar_fix", true))
+            if (DeviceUtils.shouldApplyNavbarFix())
                 deviceHeight - margins - diff - DeviceUtils.getStatusBarHeight(context)
             else
                 deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins
