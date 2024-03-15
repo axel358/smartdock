@@ -44,13 +44,12 @@
             android:orientation="horizontal">
 
             <android.widget.SearchView
-                android:id="@+id/menu_et"
+                android:id="@+id/menu_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="-8dp"
                 android:layout_marginEnd="-8dp"
                 android:iconifiedByDefault="false"
-                android:imeOptions="actionDone"
                 android:queryBackground="@null"
                 android:queryHint="@string/search"
                 android:textSize="17sp" />

@@ -347,7 +347,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         appMenu = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
             .inflate(R.layout.apps_menu, null) as LinearLayout
         searchEntry = appMenu.findViewById(R.id.search_entry)
-        searchView = appMenu.findViewById(R.id.menu_et)
+        searchView = appMenu.findViewById(R.id.menu_search_view)
         powerBtn = appMenu.findViewById(R.id.power_btn)
         appsGv = appMenu.findViewById(R.id.menu_applist_lv)
         appsGv.setHasFixedSize(true)
@@ -379,8 +379,28 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 throw RuntimeException(e)
             }
         }
+
         searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                if (searchView.query.toString().length > 1) {
+                    try {
+                        launchApp(
+                            null, null,
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                    "https://www.google.com/search?q="
+                                            + URLEncoder.encode(
+                                        searchView.query.toString(),
+                                        "UTF-8"
+                                    )
+                                )
+                            )
+                        )
+                    } catch (e: UnsupportedEncodingException) {
+                        throw RuntimeException(e)
+                    }
+                }
                 return true
             }
 
@@ -408,32 +428,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         })
 
-
-        searchView.setOnKeyListener { _, code, event ->
-            if (event.action == KeyEvent.ACTION_DOWN) {
-                if (code == KeyEvent.KEYCODE_ENTER && searchView.query.toString().length > 1) {
-                    try {
-                        launchApp(
-                            null, null,
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(
-                                    "https://www.google.com/search?q="
-                                            + URLEncoder.encode(
-                                        searchView.query.toString(),
-                                        "UTF-8"
-                                    )
-                                )
-                            )
-                        )
-                    } catch (e: UnsupportedEncodingException) {
-                        throw RuntimeException(e)
-                    }
-                } else if (code == KeyEvent.KEYCODE_DPAD_DOWN)
-                    appsGv.requestFocus()
-            }
-            false
-        }
         updateAppMenu()
 
         //TODO: Filter app button menu click only
