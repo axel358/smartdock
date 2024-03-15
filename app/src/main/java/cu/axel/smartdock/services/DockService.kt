@@ -422,7 +422,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                                 Intent.ACTION_VIEW,
                                 Uri.parse(
                                     "https://www.google.com/search?q="
-                                            + URLEncoder.encode(searchView.query.toString(), "UTF-8")
+                                            + URLEncoder.encode(
+                                        searchView.query.toString(),
+                                        "UTF-8"
+                                    )
                                 )
                             )
                         )
@@ -1147,7 +1150,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         appMenu.animate().alpha(1f).setDuration(200)
             .setInterpolator(AccelerateDecelerateInterpolator())
 
-        searchView.requestFocus()
+        if (sharedPreferences.getBoolean("focus_search_entry", true))
+            searchView.requestFocus()
+        else
+            appsGv.requestFocus()
 
         appMenuVisible = true
     }

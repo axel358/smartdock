@@ -323,5 +323,7 @@
     <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
     <string name="enable_tiling_shortcut">Use Alt+arrow keys to tile windows</string>
     <string name="enable_new_instance">Use Alt+Shift+N to launch a new window</string>
+    <string name="focus_search_entry">Focus search entry</string>
+    <string name="focus_search_entry_summary">Give focus to the search entry when the menu opens</string>
 
 </resources>
