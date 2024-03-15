@@ -21,7 +21,13 @@ class DockLayoutDialog(context: Context) : MaterialAlertDialogBuilder(context) {
             editor.putBoolean("enable_qs_notif", which != 0)
             editor.putBoolean("app_menu_fullscreen", which != 2)
             editor.putString("launch_mode", if (which != 2) "fullscreen" else "standard")
-            editor.putString("max_running_apps", if (which == 0) "4" else "10")
+            editor.putString(
+                "max_running_apps", when (which) {
+                    0 -> "4"
+                    1 -> "10"
+                    else -> "15"
+                }
+            )
             editor.putString("dock_activation_area", if (which == 2) "5" else "25")
             editor.putInt("dock_layout", which)
             editor.putString("activation_method", if (which != 2) "handle" else "swipe")
