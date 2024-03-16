@@ -153,6 +153,7 @@
     <string name="enable_open_terminal_title">Usar Alt+T para abrir la terminal</string>
     <string name="enable_open_assist_title">Usar Alt+A para iniciar su aplicación de asistente predeterminada</string>
     <string name="enable_open_rec_title">Usar Alt+R para iniciar su aplicación de grabadora de pantalla predeterminada</string>
+    <string name="enable_new_instance">Usar Alt+Shift+N para lanzar una nueva ventana</string>
     <string name="enable_expand_notifications_title">Usar Alt+Q para abrir ajustes rápidos</string>
     <string name="enable_ctrl_back_title">Usar Ctrl derecho para que actúe como botón Atrás</string>
     <string name="enable_f10_title">Usar F10 para alternar pantalla dividida</string>
@@ -229,6 +230,7 @@
     <string name="hide_nav_buttons_summary">Oculta los botones de navegación del software de Android. Necesita reiniciar</string>
     <string name="disable_taskbar_title">Deshabilitar barra de tareas</string>
     <string name="disable_taskbar_summary">Deshabilita la barra de tareas de Android en dispositivos con pantalla grande</string>
+    <string name="enable_tiling_shortcut">Usar Alt+flechas para tilear ventanas</string>
     <string name="enable_soft_reboot_title">Usar Alt+F12 para reiniciar</string>
     <string name="enable_soft_reboot_summary">Es posible que el sistema no responda durante un breve período de tiempo</string>
     <string name="soft_reboot_title">Reinicio suave ahora</string>
@@ -276,6 +278,7 @@
     <string name="license">Licencia</string>
     <string name="donate">Donar</string>
     <string name="support_the_project">Apoyar el proyecto</string>
+
     <!-- App menu -->
     <string name="user">Usuario</string>
     <string name="search">Buscar…</string>
@@ -319,8 +322,6 @@
     <string name="something_wrong">Algo salió mal</string>
     <string name="save_log">Guardar registro</string>
     <string name="open_again">Abrir aplicación de nuevo</string>
-    <string name="enable_tiling_shortcut">Use Alt+arrow keys to tile windows</string>
-    <string name="enable_new_instance">Use Alt+Shift+N to launch a new window</string>
     <string name="focus_search_entry">Focus search entry</string>
     <string name="focus_search_entry_summary">Give focus to the search entry when the menu opens</string>
 

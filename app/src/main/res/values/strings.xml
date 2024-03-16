@@ -153,6 +153,7 @@
     <string name="enable_open_terminal_title">Use Alt+T to open terminal</string>
     <string name="enable_open_assist_title">Use Alt+A to launch your default assistant app</string>
     <string name="enable_open_rec_title">Use Alt+R to launch your default screen recorder app</string>
+    <string name="enable_new_instance">Use Alt+Shift+N to launch a new window</string>
     <string name="enable_expand_notifications_title">Use Alt+Q to open quick settings</string>
     <string name="enable_ctrl_back_title">Use right Ctrl to act as back button</string>
     <string name="enable_f10_title">Use F10 to toggle split screen</string>
@@ -229,6 +230,7 @@
     <string name="hide_nav_buttons_summary">Hides Android software navigation buttons. Needs reboot</string>
     <string name="disable_taskbar_title">Disable taskbar</string>
     <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
+    <string name="enable_tiling_shortcut">Use Alt+arrow keys to tile windows</string>
     <string name="enable_soft_reboot_title">Use Alt+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
     <string name="soft_reboot_title">Soft reboot now</string>
@@ -320,8 +322,6 @@
     <string name="something_wrong">Something went wrong</string>
     <string name="save_log">Save log</string>
     <string name="open_again">Open app again</string>
-    <string name="enable_tiling_shortcut">Use Alt+arrow keys to tile windows</string>
-    <string name="enable_new_instance">Use Alt+Shift+N to launch a new window</string>
     <string name="focus_search_entry">Focus search entry</string>
     <string name="focus_search_entry_summary">Give focus to the search entry when the menu opens</string>
 
