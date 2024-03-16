@@ -17,11 +17,11 @@ class DebugActivity : AppCompatActivity() {
         dialog.setMessage(report)
         dialog.setPositiveButton(R.string.ok) { _, _ -> finish() }
         dialog.setNeutralButton(R.string.save_log) { _, _ ->
-            Utils.saveLog(this@DebugActivity, "crash_log", report)
+            Utils.saveLog(this, "crash_log", report)
             finish()
         }
         dialog.setNegativeButton(R.string.open_again) { _, _ ->
-            startActivity(Intent(this@DebugActivity, MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
         dialog.setCancelable(false)
