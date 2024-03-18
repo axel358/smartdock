@@ -82,10 +82,10 @@
     <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
     <string name="launch_games_fullscreen_summary">ਡੀਫੋਲਟ ਤੌਰ \'ਤੇ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਐਪਾਂ ਨੂੰ ਲਾਂਚ ਕਰੋ</string>
-    <string name="launch_new_instance_secondary_title">New window on secondary displays</string>
-    <string name="launch_new_instance_secondary_summary">If supported by the app create a new window when launching on secondary displays</string>
-    <string name="focus_search_entry">Focus search entry</string>
-    <string name="focus_search_entry_summary">Give focus to the search entry when the menu opens</string>
+    <string name="launch_new_instance_secondary_title">ਨਵੀ ਵਿੰਡੋ ਸੈਕੰਡਰੀ ਡਿਸਪਲੇਅ ਤੇ ਖੋਲੋ</string>
+    <string name="launch_new_instance_secondary_summary">ਜੇਕਰ ਐਪ ਦੋਬਾਰਾ ਸਪੋਰ ਹੋਵੇ ਤਾਂ ਨਵੀ ਵਿੰਡੋ ਬਣੋੳ ਜਦੋਂ ਸੈਕੰਡਰੀ ਡਿਸਪਲੇਅ ਤੇ ਲੋਚ ਕੀਤਾ ਜਾਏ</string>
+    <string name="focus_search_entry">ਸਰਚ ਫੋਕਸ ਐਂਟਰੀ</string>
+    <string name="focus_search_entry_summary">ਜਦੋਂ ਮੈਨੂ ਖੋਲੇ ਸਰਚ ਐਂਟਰੀ ਤੇ ਫੋਕਸ ਕਰੋ</string>
     <string name="user_info">ਉਪਭੋਗਤਾ ਬਾਰੇ ਜਾਣਕਾਰੀ</string>
     <string name="user_name">ਨਾਮ</string>
     <string name="user_avatar">ਅਵਤਾਰ</string>
@@ -253,7 +253,7 @@
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>
-    <string name="icon_padding_summary">Defines the amount of space between the icon and its border</string>
+    <string name="icon_padding_summary">ਅਈਕੋਂਨ ਅਤੇ ਬਾਰਡਰ ਵਿਚ ਸਪੇਸ ਓਚਿਤ ਕਰੋ</string>
 
     <!-- Help and about page -->
     <string name="help_and_about">ਮਦਦ ਅਤੇ ਇਸ ਬਾਰੇ</string>
