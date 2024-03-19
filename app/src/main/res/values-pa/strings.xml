@@ -82,10 +82,10 @@
     <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
     <string name="launch_games_fullscreen_summary">ਡੀਫੋਲਟ ਤੌਰ \'ਤੇ ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਵਜੋਂ ਖੋਜੀਆਂ ਐਪਾਂ ਨੂੰ ਲਾਂਚ ਕਰੋ</string>
-    <string name="launch_new_instance_secondary_title">New window on secondary displays</string>
-    <string name="launch_new_instance_secondary_summary">If supported by the app create a new window when launching on secondary displays</string>
-    <string name="focus_search_entry">Focus search entry</string>
-    <string name="focus_search_entry_summary">Give focus to the search entry when the menu opens</string>
+    <string name="launch_new_instance_secondary_title">ਨਵੀ ਵਿੰਡੋ ਸੈਕੰਡਰੀ ਡਿਸਪਲੇਅ ਤੇ ਖੋਲੋ</string>
+    <string name="launch_new_instance_secondary_summary">ਜੇਕਰ ਐਪ ਦੋਬਾਰਾ ਸਪੋਰ ਹੋਵੇ ਤਾਂ ਨਵੀ ਵਿੰਡੋ ਬਣੋੳ ਜਦੋਂ ਸੈਕੰਡਰੀ ਡਿਸਪਲੇਅ ਤੇ ਲੋਚ ਕੀਤਾ ਜਾਏ</string>
+    <string name="focus_search_entry">ਸਰਚ ਫੋਕਸ ਐਂਟਰੀ</string>
+    <string name="focus_search_entry_summary">ਜਦੋਂ ਮੈਨੂ ਖੋਲੇ ਸਰਚ ਐਂਟਰੀ ਤੇ ਫੋਕਸ ਕਰੋ</string>
     <string name="user_info">ਉਪਭੋਗਤਾ ਬਾਰੇ ਜਾਣਕਾਰੀ</string>
     <string name="user_name">ਨਾਮ</string>
     <string name="user_avatar">ਅਵਤਾਰ</string>
@@ -147,20 +147,20 @@
     <string name="keyboard">ਕੀਬੋਰਡ</string>
     <string name="apps">ਐਪਸ</string>
     <string name="general">ਜਨਰਲ</string>
-    <string name="enable_open_menu_title">Use Meta or Home to open the apps menu</string>
-    <string name="enable_lock_desktop_title">Use Alt+L to lock the desktop</string>
-    <string name="enable_open_settings_title">Use Alt+P to open settings</string>
-    <string name="enable_open_music_title">Use Alt+M to open you default music app</string>
-    <string name="enable_open_browser_title">Use Alt+B to open your default browser</string>
-    <string name="enable_open_terminal_title">Use Alt+T to open terminal</string>
-    <string name="enable_open_assist_title">Use Alt+A to launch your default assistant app</string>
-    <string name="enable_open_rec_title">Use Alt+R to launch your default screen recorder app</string>
-    <string name="enable_new_instance">Use Alt+Shift+N to launch a new window</string>
-    <string name="enable_expand_notifications_title">Use Alt+Q to open quick settings</string>
-    <string name="enable_ctrl_back_title">Use right Ctrl to act as back button</string>
-    <string name="enable_f10_title">Use F10 to toggle split screen</string>
-    <string name="enable_toggle_pin_title">Use Alt+W to pin/unpin the dock</string>
-    <string name="enable_menu_recents_title">Use Menu key to show recents</string>
+    <string name="enable_open_menu_title">Meta ਜਾ Home ਦੀ ਵਰਤੋਂ ਨਾਲ ਐਪ ਮੈਨੂੰ ਖੋਲੋ</string>
+    <string name="enable_lock_desktop_title">Alt+L ਦੀ ਵਰਤੋਂ ਨਾਲ ਡੈਸਕਟਾਪ ਲੋਕ ਕਰੋ</string>
+    <string name="enable_open_settings_title">Alt+P ਦੀ ਵਰਤੋਂ ਨਾਲ ਸੈਟਿੰਗ ਖੋਲੋ</string>
+    <string name="enable_open_music_title">Alt+M ਦੀ ਵਰਤੋਂ ਨਾਲ ਡਿਫੌਲਟ ਮਿਊਜ਼ਿਕ ਐਪ ਖੋਲੋ</string>
+    <string name="enable_open_browser_title">Alt+B ਦੀ ਵਰਤੋਂ ਨਾਲ ਡਿਫੌਲਟ ਬਰਾਊਜ਼ਰ ਖੋਲੋ</string>
+    <string name="enable_open_terminal_title">Alt+T ਦੀ ਵਰਤੋਂ ਨਾਲ ਟਰਮੀਨਲ ਖੋਲੋ</string>
+    <string name="enable_open_assist_title">Alt+A ਦੀ ਵਰਤੋਂ ਨਾਲ ਡਿਫੌਲਟ assistant ਐਪ ਖੋਲੋ</string>
+    <string name="enable_open_rec_title">Alt+R ਦੀ ਵਰਤੋਂ ਨਾਲ ਡਿਫੌਲਟ ਸਕਰੀਨ ਰਿਕਾਰਡਰ ਖੋਲੋ</string>
+    <string name="enable_new_instance">Alt+Shift+N ਦੀ ਵਰਤੋ ਨਾਲ ਨਿਊ ਵਿੰਡੋ ਖੋਲੋ</string>
+    <string name="enable_expand_notifications_title">Alt+Q ਦੀ ਵਰਤੋਂ ਨਾਲ ਕਵਿਕ ਸੈਟਿੰਗ ਖੋਲੋ</string>
+    <string name="enable_ctrl_back_title">ਸੱਜੇ Ctrl ਨੂੰ ਬੈਕ ਬਟਨ ਵਜੋ ਵਰਤੋਂ</string>
+    <string name="enable_f10_title">F10 ਨੂੰ ਸਪਲਿੱਟ ਸਕਰੀਨ ਲਈ ਵਰਤੋਂ</string>
+    <string name="enable_toggle_pin_title">Alt+W ਨਾਲ ਡਾਕ ਨੂੰ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰੋ</string>
+    <string name="enable_menu_recents_title">Menu ਬਟਨ ਨਾਲ recent ਦੇਖੋ</string>
 
     <!-- Sounds page -->
     <string name="sounds">ਆਵਾਜ਼ਾਂ</string>
@@ -233,8 +233,8 @@
     <string name="hide_nav_buttons_summary">ਐਂਡਰਾਇਡ ਸਾਫਟਵੇਅਰ ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਉਂਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="disable_taskbar_title">ਟਾਸਕਬਾਰ ਬੰਦ ਕਰਨਾ</string>
     <string name="disable_taskbar_summary">ਵੱਡੀ ਸਕਰੀਨਾ ਵਾਲੇ ਡਿਵਾਜਾ ਲਈ Android ਦਾ ਟਾਸਕਬਾਰ ਬੰਦ ਕਰੋ</string>
-    <string name="enable_tiling_shortcut">Use Alt+arrow keys to tile windows</string>
-    <string name="enable_soft_reboot_title">Use Alt+F12 to soft reboot</string>
+    <string name="enable_tiling_shortcut">Alt+arrow ਦੀ ਵਰਤੋਂ ਨਾਲ ਵਿੰਡੋ tile ਕਰੋ</string>
+    <string name="enable_soft_reboot_title">Alt+F12 ਦੀ ਵਰਤੋਂ ਨਾਲ soft ਰੀਬੂਟ ਕਰੋ</string>
     <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="soft_reboot_title">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ</string>
     <string name="soft_reboot_summary">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ। ਤੁਸੀਂ ਸਾਰੇ ਅਣਰੱਖਿਅਤ ਕੰਮ ਗੁਆ ਦੇਵੋਗੇ</string>
@@ -253,7 +253,7 @@
     <string name="scale_factor_title">ਸਟੈਂਡਰਡ ਵਿੰਡੋ ਸਕੇਲ ਫੈਕਟਰ</string>
     <string name="scale_factor_summary">ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ ਕਿ ਸਟੈਂਡਰਡ ਵਿੰਡੋਜ਼ ਕਿੰਨੀਆਂ ਵੱਡੀਆਂ ਹਨ</string>
     <string name="icon_padding_title">ਆਈਕਨ ਪੈਡਿੰਗ</string>
-    <string name="icon_padding_summary">Defines the amount of space between the icon and its border</string>
+    <string name="icon_padding_summary">ਅਈਕੋਂਨ ਅਤੇ ਬਾਰਡਰ ਵਿਚ ਸਪੇਸ ਓਚਿਤ ਕਰੋ</string>
 
     <!-- Help and about page -->
     <string name="help_and_about">ਮਦਦ ਅਤੇ ਇਸ ਬਾਰੇ</string>
