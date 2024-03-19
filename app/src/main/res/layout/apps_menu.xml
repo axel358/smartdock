@@ -38,22 +38,25 @@
         <LinearLayout
             android:id="@+id/search_entry"
             android:layout_width="0dp"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:background="@drawable/search_background"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
 
-            <android.widget.SearchView
-                android:id="@+id/menu_search_view"
+            <EditText
+                android:id="@+id/menu_et"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="-8dp"
-                android:layout_marginEnd="-8dp"
-                android:iconifiedByDefault="false"
-                android:queryBackground="@null"
-                android:queryHint="@string/search"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/search"
+                android:imeOptions="actionGo"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textSize="17sp" />
-
         </LinearLayout>
 
         <ImageView

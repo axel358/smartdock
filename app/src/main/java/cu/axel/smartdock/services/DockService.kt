@@ -21,6 +21,7 @@ import android.content.pm.ActivityInfo
 import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
+import android.content.res.Configuration
 import android.hardware.usb.UsbManager
 import android.media.AudioManager
 import android.net.Uri
@@ -46,13 +47,12 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.RelativeLayout
-import android.widget.SearchView
-import android.widget.SearchView.OnQueryTextListener
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextClock
@@ -60,6 +60,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -137,7 +138,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private var systemApp = false
     private var secondary = false
     private lateinit var dockLayoutParams: WindowManager.LayoutParams
-    private lateinit var searchView: SearchView
+    private lateinit var searchEt: EditText
     private lateinit var tasksGv: RecyclerView
     private lateinit var favoritesGv: RecyclerView
     private lateinit var appsGv: RecyclerView
@@ -347,7 +348,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         appMenu = LayoutInflater.from(ContextThemeWrapper(context, R.style.AppTheme_Dock))
             .inflate(R.layout.apps_menu, null) as LinearLayout
         searchEntry = appMenu.findViewById(R.id.search_entry)
-        searchView = appMenu.findViewById(R.id.menu_search_view)
+        searchEt = appMenu.findViewById(R.id.menu_et)
         powerBtn = appMenu.findViewById(R.id.power_btn)
         appsGv = appMenu.findViewById(R.id.menu_applist_lv)
         appsGv.setHasFixedSize(true)
@@ -371,7 +372,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         Intent.ACTION_VIEW,
                         Uri.parse(
                             "https://www.google.com/search?q="
-                                    + URLEncoder.encode(searchView.query.toString(), "UTF-8")
+                                    + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
                         )
                     )
                 )
@@ -380,9 +381,30 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             }
         }
 
-        searchView.setOnQueryTextListener(object : OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (searchView.query.toString().length > 1) {
+        searchEt.addTextChangedListener { text ->
+            if (text != null) {
+                val appAdapter = appsGv.adapter as AppAdapter
+                appAdapter.filter(text.toString())
+                if (text.length > 1) {
+                    searchLayout.visibility = View.VISIBLE
+                    searchTv.text =
+                        getString(R.string.search_for) + " \"" + text + "\" " + getString(R.string.on_google)
+                    toggleFavorites(false)
+                } else {
+                    searchLayout.visibility = View.GONE
+                    toggleFavorites(
+                        AppUtils.getPinnedApps(
+                            context,
+                            AppUtils.PINNED_LIST
+                        ).size > 0
+                    )
+                }
+            }
+        }
+
+        searchEt.setOnKeyListener { _, code, event ->
+            if (event.action == KeyEvent.ACTION_DOWN) {
+                if (code == KeyEvent.KEYCODE_ENTER && searchEt.text.toString().length > 1) {
                     try {
                         launchApp(
                             null, null,
@@ -390,43 +412,19 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                                 Intent.ACTION_VIEW,
                                 Uri.parse(
                                     "https://www.google.com/search?q="
-                                            + URLEncoder.encode(
-                                        searchView.query.toString(),
-                                        "UTF-8"
-                                    )
+                                            + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
                                 )
                             )
                         )
                     } catch (e: UnsupportedEncodingException) {
                         throw RuntimeException(e)
                     }
-                }
-                return true
+                    true
+                } else if (code == KeyEvent.KEYCODE_DPAD_DOWN)
+                    appsGv.requestFocus()
             }
-
-            override fun onQueryTextChange(text: String?): Boolean {
-                if (text != null) {
-                    val appAdapter = appsGv.adapter as AppAdapter
-                    appAdapter.filter(text.toString())
-                    if (text.length > 1) {
-                        searchLayout.visibility = View.VISIBLE
-                        searchTv.text =
-                            getString(R.string.search_for) + " \"" + text + "\" " + getString(R.string.on_google)
-                        toggleFavorites(false)
-                    } else {
-                        searchLayout.visibility = View.GONE
-                        toggleFavorites(
-                            AppUtils.getPinnedApps(
-                                context,
-                                AppUtils.PINNED_LIST
-                            ).size > 0
-                        )
-                    }
-                }
-                return true
-            }
-
-        })
+            false
+        }
 
         updateAppMenu()
 
@@ -1141,16 +1139,19 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         appMenu.animate().alpha(1f).setDuration(200)
             .setInterpolator(AccelerateDecelerateInterpolator())
 
-        if (sharedPreferences.getBoolean("focus_search_entry", true))
-            searchView.requestFocus()
-        else
-            appsGv.requestFocus()
+        //Work around android showing the ime system ui bar
+        val softwareKeyboard =
+            context.resources.configuration.keyboard == Configuration.KEYBOARD_NOKEYS
+
+        searchEt.showSoftInputOnFocus = softwareKeyboard
+
+        searchEt.requestFocus()
 
         appMenuVisible = true
     }
 
     fun hideAppMenu() {
-        searchView.setQuery("", false)
+        searchEt.setText("")
         windowManager.removeView(appMenu)
         appMenuVisible = false
     }
@@ -1649,7 +1650,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         windowManager.addView(audioPanel, layoutParams)
         audioPanelVisible = true
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     private fun showPowerMenu() {
