@@ -84,8 +84,6 @@
     <string name="launch_games_fullscreen_summary">Iniciar aplicaciones detectadas como juegos en pantalla completa de forma predeterminada</string>
     <string name="launch_new_instance_secondary_title">Nueva ventana en pantallas secundarias</string>
     <string name="launch_new_instance_secondary_summary">Si es soportado por la app crear una nueva ventana al lanzar en pantallas secundarias</string>
-    <string name="focus_search_entry">Dar foco a la barra de búsqueda</string>
-    <string name="focus_search_entry_summary">Dar foco a la barra de búsqueda al abrir el menu</string>
     <string name="user_info">Información de usuario</string>
     <string name="user_name">Nombre</string>
     <string name="user_avatar">Avatar</string>

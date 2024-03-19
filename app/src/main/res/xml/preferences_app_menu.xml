@@ -28,11 +28,6 @@
             android:hint="5"
             android:defaultValue="5"
             android:title="@string/num_columns_title"/>
-        <SwitchPreferenceCompat
-            android:key="focus_search_entry"
-            android:title="@string/focus_search_entry"
-            android:summary="@string/focus_search_entry_summary"
-            android:defaultValue="true" />
 			
     </PreferenceCategory>
     <PreferenceCategory

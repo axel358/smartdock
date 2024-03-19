@@ -84,8 +84,6 @@
     <string name="launch_games_fullscreen_summary">Launch apps detected as games in full screen by default</string>
     <string name="launch_new_instance_secondary_title">New window on secondary displays</string>
     <string name="launch_new_instance_secondary_summary">If supported by the app create a new window when launching on secondary displays</string>
-    <string name="focus_search_entry">Focus search entry</string>
-    <string name="focus_search_entry_summary">Give focus to the search entry when the menu opens</string>
     <string name="user_info">User info</string>
     <string name="user_name">Name</string>
     <string name="user_avatar">Avatar</string>
