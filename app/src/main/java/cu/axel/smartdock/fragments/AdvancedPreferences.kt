@@ -176,7 +176,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                 slider.labelBehavior = LabelFormatter.LABEL_GONE
                 slider.stepSize = 1f
                 slider.value =
-                    dockHeight.sharedPreferences!!.getString(dockHeight.key, "58")!!.toFloat()
+                    dockHeight.sharedPreferences!!.getString(dockHeight.key, "56")!!.toFloat()
                 slider.valueFrom = 50f
                 slider.valueTo = 70f
                 slider.addOnChangeListener { _, value, _

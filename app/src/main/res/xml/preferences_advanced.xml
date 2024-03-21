@@ -17,7 +17,7 @@
         android:title="@string/custom_toasts" />
 
     <cu.axel.smartdock.preferences.SliderPreference
-        android:defaultValue="58"
+        android:defaultValue="56"
         android:key="dock_height"
         android:title="@string/dock_height" />
 
