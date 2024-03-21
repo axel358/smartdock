@@ -182,18 +182,18 @@ object Utils {
                 .append(value.toString()).append("\n")
         }
         val content = stringBuilder.toString().trim { it <= ' ' }
-        var os: OutputStream? = null
+        var outputStream: OutputStream? = null
         try {
-            os = context.contentResolver.openOutputStream(backupUri)
-            os!!.write(content.toByteArray())
-            os.flush()
+            outputStream = context.contentResolver.openOutputStream(backupUri)
+            outputStream!!.write(content.toByteArray())
+            outputStream.flush()
             Toast.makeText(context, R.string.preferences_saved, Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
-            if (os != null) {
+            if (outputStream != null) {
                 try {
-                    os.close()
+                    outputStream.close()
                 } catch (_: IOException) {
                 }
             }
@@ -204,11 +204,11 @@ object Utils {
         var inputStream: InputStream? = null
         try {
             inputStream = context.contentResolver.openInputStream(restoreUri)
-            val br = BufferedReader(InputStreamReader(inputStream))
-            var line: String
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             val editor = sharedPreferences.edit()
-            while (br.readLine().also { line = it } != null) {
+
+            bufferedReader.readLines().forEach { line ->
                 val contents =
                     line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 if (contents.size > 2) {
@@ -222,7 +222,8 @@ object Utils {
                     }
                 }
             }
-            br.close()
+
+            bufferedReader.close()
             editor.apply()
             Toast.makeText(context, R.string.preferences_restored, Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
