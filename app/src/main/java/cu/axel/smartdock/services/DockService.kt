@@ -1142,8 +1142,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         //Work around android showing the ime system ui bar
         val softwareKeyboard =
             context.resources.configuration.keyboard == Configuration.KEYBOARD_NOKEYS
+        val tabletMode = sharedPreferences.getInt("dock_layout", -1) == 1
 
-        searchEt.showSoftInputOnFocus = softwareKeyboard
+        searchEt.showSoftInputOnFocus = softwareKeyboard || tabletMode
 
         searchEt.requestFocus()
 
