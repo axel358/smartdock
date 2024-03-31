@@ -28,6 +28,13 @@ Without this functionality will be limited.
 ### Grant restricted permissions: 
 On some devices Accessibility and Notification permissions might not be available. To solve this go to:  System Settings > Apps > Smartdock > 3 Dot menu (Top right corner) > Allow restricted permissions
 
+### Secure settings
+To grant secure settings permissions run the following command on an adb or root shell:
+```
+pm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS
+```
+
+### Hide navigation bar
 You might also want to hide the Android navigation bar.
 [See hiding navigation bar](HideNav.md)
 
