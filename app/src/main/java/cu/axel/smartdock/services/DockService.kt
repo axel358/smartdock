@@ -1054,8 +1054,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             else
                 deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins
         if (sharedPreferences.getBoolean("app_menu_fullscreen", false)) {
-            layoutParams = Utils.makeWindowParams(-1, usableHeight, context, secondary)
-            layoutParams.y = margins + dockHeight
+            layoutParams = Utils.makeWindowParams(-1, usableHeight + margins, context, secondary)
+            layoutParams.y = dockHeight
             if (sharedPreferences.getInt("dock_layout", -1) != 0) {
                 val padding = Utils.dpToPx(context, 24)
                 appMenu.setPadding(padding, padding, padding, padding)
@@ -1067,6 +1067,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 appsGv.layoutManager = GridLayoutManager(context, 5)
                 favoritesGv.layoutManager = GridLayoutManager(context, 5)
             }
+            appMenu.setBackgroundResource(R.drawable.rect)
         } else {
             val width = Utils.dpToPx(
                 context,
@@ -1095,7 +1096,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             searchEntry.gravity = Gravity.START
             searchLayout.gravity = Gravity.START
             appMenu.setBackgroundResource(R.drawable.round_rect)
-            ColorUtils.applyMainColor(context, sharedPreferences, appMenu)
         }
         layoutParams.flags = (WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH)
@@ -1105,6 +1105,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             )
         ) Gravity.CENTER_HORIZONTAL else Gravity.START
         layoutParams.gravity = Gravity.BOTTOM or halign
+        ColorUtils.applyMainColor(context, sharedPreferences, appMenu)
         ColorUtils.applyColor(appsSeparator, ColorUtils.getMainColors(sharedPreferences, this)[4])
         windowManager.addView(appMenu, layoutParams)
 
