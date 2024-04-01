@@ -1146,7 +1146,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val tabletMode = sharedPreferences.getInt("dock_layout", -1) == 1
 
         searchEt.showSoftInputOnFocus = softwareKeyboard || tabletMode
-
         searchEt.requestFocus()
 
         appMenuVisible = true
