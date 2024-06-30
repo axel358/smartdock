@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:gravity="center">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp">
 
-	<ImageView
-		android:layout_height="40dp"
-		android:layout_width="40dp"
-		android:id="@+id/app_icon_iv"
-		android:layout_margin="5dp"/>
+    <ImageView
+        android:id="@+id/app_icon_iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:src="@mipmap/ic_launcher" />
 
-	<TextView
-		android:singleLine="true"
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:id="@+id/app_name_tv"
-		android:textColor="#FFFFFF"
-		android:textSize="14sp"
-		android:gravity="center"/>
+    <TextView
+        android:shadowColor="#D8000000"
+        android:shadowRadius="2"
+        android:gravity="center_horizontal"
+        android:id="@+id/app_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
 
 </LinearLayout>
 

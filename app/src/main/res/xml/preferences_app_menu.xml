@@ -1,45 +1,29 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="@string/menu">
-        <Preference
+        <cu.axel.smartdock.preferences.FileChooserPreference
             android:key="menu_icon_uri"
             android:defaultValue="default"
             android:title="@string/menu_icon_uri_title"/>
-        <Preference
-            android:key="restore_menu_icon"
-            android:title="@string/restore_menu_icon_title"/>
-        <CheckBoxPreference
-            android:key="enable_app_menu"
-            android:title="@string/enable_app_menu_title"
-            android:defaultValue="true" />
-        <ListPreference
-            android:entries="@array/shortcut_keys" 
-            android:title="@string/menu_key_title" 
-            android:entryValues="@array/shortcut_keys_values" 
-            android:key="menu_key"
-            android:defaultValue="3" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="app_menu_fullscreen"
             android:title="@string/app_menu_fullscreen_title"
             android:defaultValue="false" />
         <EditTextPreference
-            android:inputType="number"
             android:key="app_menu_height"
             android:hint="540"
             android:defaultValue="540"
             android:title="@string/app_menu_height_title"/>
         <EditTextPreference
-            android:inputType="number"
             android:key="app_menu_width"
             android:hint="650"
             android:defaultValue="650"
             android:title="@string/app_menu_width_title"/>
-		<CheckBoxPreference
+		<SwitchPreferenceCompat
             android:key="center_app_menu"
             android:title="@string/center_app_menu"
             android:defaultValue="false" />
         <EditTextPreference
-            android:inputType="number"
             android:key="num_columns"
             android:hint="5"
             android:defaultValue="5"
@@ -54,16 +38,35 @@
             android:key="launch_mode"
             android:title="@string/launch_mode_title"
             android:defaultValue="standard" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="remember_launch_mode"
             android:title="@string/remember_launch_mode_title"
             android:summary="@string/remember_launch_mode_summary"
             android:defaultValue="true" />
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="launch_games_fullscreen"
             android:title="@string/launch_games_fullscreen_title"
             android:summary="@string/launch_games_fullscreen_summary"
             android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+            android:key="launch_new_instance_secondary"
+            android:title="@string/launch_new_instance_secondary_title"
+            android:summary="@string/launch_new_instance_secondary_summary"
+            android:defaultValue="true" />
     </PreferenceCategory>
+	
+	<PreferenceCategory
+		android:key="user_info_category"
+		android:title="@string/user_info">
+	<EditTextPreference
+		android:key="user_name"
+		android:defaultValue=""
+		android:title="@string/user_name"/>
+	<cu.axel.smartdock.preferences.FileChooserPreference
+		android:key="user_icon_uri"
+		android:defaultValue="default"
+		android:title="@string/user_avatar"/>
+	</PreferenceCategory>
 </PreferenceScreen>

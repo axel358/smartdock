@@ -1,32 +1,36 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
+		android:icon="@mipmap/ic_launcher_round"
         android:title="@string/app_name"
         android:summary="@string/a_launcher_for_android_x86_by_" />
-    <Preference
-        android:title="@string/contributors"
-        android:summary="@string/tap_to_see_the_list_of_great_p" >
-        <intent android:action="android.intent.action.VIEW" 
-            android:data="https://github.com/axel358/smartdock/blob/main/Contributors.md"/>
-    </Preference>
     <Preference
         android:key="show_help"
         android:summary="@string/show_help_summary"
         android:title="@string/help" >
     </Preference>
     <Preference
-        android:summary="@string/smart_dock_its_free_and_open_"
-        android:title="@string/github" >
-        <intent android:action="android.intent.action.VIEW" 
-            android:data="https://github.com/axel358/smartdock"/>
-    </Preference>
-    <Preference
         android:key="join_telegram"
         android:title="@string/join_telegram_title"
         android:summary="@string/join_telegram_summary" />
     <Preference
-        android:summary="@string/gnu_general_public_licence_v3"
-        android:title="@string/license" />
+		android:summary="@string/smart_dock_its_free_and_open_"
+		android:title="@string/github" >
+		<intent android:action="android.intent.action.VIEW"
+		android:data="https://github.com/axel358/smartdock"/>
+	</Preference>
     <Preference
-        android:icon="@drawable/ic_about"
-        android:title="@string/options_marked_with__are_expe"/>
+		android:summary="@string/support_the_project"
+		android:title="@string/donate" >
+		<intent android:action="android.intent.action.VIEW"
+			android:data="https://github.com/axel358/smartdock/blob/main/README.md#support-the-project"/>
+	</Preference>
+	<Preference
+		android:title="@string/contributors"
+		android:summary="@string/tap_to_see_the_list_of_great_p" >
+		<intent android:action="android.intent.action.VIEW"
+			android:data="https://github.com/axel358/smartdock/blob/main/Contributors.md"/>
+	</Preference>
+	<Preference
+		android:summary="@string/gnu_general_public_licence_v3"
+		android:title="@string/license" />
 </PreferenceScreen>

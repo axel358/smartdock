@@ -10,7 +10,7 @@
 - Multi window support
 - Keyboard shortcuts
 - Support for both desktop and tablet layouts
-- Compatible with all Android versions since Lollipop, no root required
+- Compatible with all Android versions since Nougat, no root required
 
 ## Install
 
@@ -21,35 +21,40 @@
 You can grab the latest release from F-Droid
 
 Note: The application should be installed as a system app in order to obtain the right permissions.
-Without this functionallity will be limited.
+Without this functionality will be limited.
 
 ## Usage
 
-**Hiding Android navigation buttons:**
+### Grant restricted permissions: 
+On some devices Accessibility and Notification permissions might not be available. To solve this go to:  System Settings > Apps > Smartdock > 3 Dot menu (Top right corner) > Allow restricted permissions
 
-You should also hide the Android navigation buttons. There are several ways to do this
+### Secure settings
+To grant secure settings permissions run the following command on an adb or root shell:
+```
+pm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS
+```
 
-**With root:**
-- From Smart Dock advanced settings
-- Edit /system/build.prop and add qemu.hw.mainkeys=1
-- Run "echo qemu.hw.mainkeys=1 >> /system/build.prop"
-
-**Without root**
-- Mount the system partition on Linux, edit /system/build.prop and add qemu.hw.mainkeys=1  
-- For waydroid users, from Linux run waydroid prop set qemu.hw.mainkeys 1
-
-**With LSPosed (might help on Android 11+):**
-
-[See LSPosed](LSPosed.md)
+### Hide navigation bar
+You might also want to hide the Android navigation bar.
+[See hiding navigation bar](HideNav.md)
 
 The app uses an accessibility service to capture keyboard input, if that service is crashed you might need to re-enable it and/or restart the system.
 
-## Contributing
-
-[See contributors](Contributors.md)
-
-If you like the project you can give it a star or consider making a [donation](https://paypal.me/KSMaan7)
-
-## Support
+## Get help and ask questions 
 
 Telegram support group: https://t.me/smartdock358
+
+## Support the project
+
+If you find this project useful or it has helped you in any way, consider showing your appreciation and supporting its ongoing development. 
+
+Bitcoin Address:
+```
+bc1qqdxea9mx536a333zwv067uc3pww6pdxz3yat8l
+```
+
+Thank you for your support!
+
+## Contributors
+
+[See contributors](Contributors.md)

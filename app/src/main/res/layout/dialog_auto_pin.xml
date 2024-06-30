@@ -1,29 +1,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="18dp"
-	android:paddingRight="18dp"
-	android:paddingBottom="12dp"
-    android:paddingTop="12dp" >
+    android:paddingRight="18dp"
+    android:paddingBottom="12dp"
+    android:paddingTop="12dp">
 
-    <CheckBox
-        android:id="@+id/pin_startup_chkbx"
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/pin_startup_switch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/pin_startup" />
 
-    <CheckBox
-        android:id="@+id/pin_window_chkbx"
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/pin_window_switch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/pin_windowed" />
 
-    <CheckBox
-        android:id="@+id/unpin_fullscreen_chkbx"
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/unpin_fullscreen_switch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/unpin_fullscreen" />
 
 </LinearLayout>

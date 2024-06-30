@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="70dp"
+	android:orientation="horizontal"
+	android:padding="5dp"
+	android:gravity="center_vertical">
+
+	<ImageView
+		android:layout_height="52dp"
+		android:layout_width="52dp"
+		android:id="@+id/notif_w_icon_iv"
+		android:layout_marginTop="2dp"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:layout_marginLeft="10dp">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:gravity="bottom">
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="Small Text"
+				android:textColor="#FFFFFFFF"
+				android:textSize="15sp"
+				android:id="@+id/notif_w_title_tv"
+				android:layout_weight="1.0"
+				android:singleLine="true"/>
+
+			<ImageView
+				android:id="@+id/notif_w_close_btn"
+				android:layout_height="22dp"
+				android:layout_width="22dp"
+				android:src="@android:drawable/ic_menu_close_clear_cancel"
+				android:padding="2dp"
+				android:alpha="0"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:maxLines="2"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:textColor="#FFFFFFFF"
+			android:id="@+id/notif_w_text_tv"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:id="@+id/notif_actions_container"
+			android:gravity="center"
+			android:paddingStart="16dp"
+			android:paddingEnd="16dp"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

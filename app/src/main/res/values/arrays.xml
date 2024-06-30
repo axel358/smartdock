@@ -15,18 +15,6 @@
         <item>material_u</item>
         <item>custom</item>
     </string-array>
-
-    <string-array name="shortcut_keys">
-        <item>Alt</item>
-        <item>Ctrl</item>
-        <item>Meta</item>
-    </string-array>
-
-    <string-array name="shortcut_keys_values">
-        <item>57</item>
-        <item>113</item>
-        <item>3</item>
-    </string-array>
     
     <string-array name="icon_shapes">
         <item>@string/circle</item>
@@ -52,21 +40,6 @@
         <item>portrait</item>
         <item>fullscreen</item>
     </string-array>
-    <string-array name="animations">
-        <item>@string/system</item>
-        <item>@string/fade</item>
-        <item>@string/slide_up</item>
-        <item>@string/slide_left</item>
-        <item>@string/none</item>
-    </string-array>
-
-    <string-array name="animation_values">
-        <item>system</item>
-        <item>fade</item>
-        <item>slide_up</item>
-        <item>slide_left</item>
-        <item>none</item>
-    </string-array>
 	
 	<string-array name="layouts">
 		<item>@string/phone</item>
@@ -83,27 +56,52 @@
 		<item>swipe</item>
 		<item>handle</item>
 	</string-array>
+
+    <string-array name="handle_positions">
+        <item>@string/left</item>
+        <item>@string/right</item>
+    </string-array>
+
+    <string-array name="handle_positions_values">
+        <item>start</item>
+        <item>end</item>
+    </string-array>
  
     <string-array name="default_color_values" translatable="false">
-        <item>#0089B6</item>
-        <item>#9933cc</item>
-        <item>#669900</item>
-        <item>#ff8800</item>
-        <item>#BB0D95</item>
-        
-        <item>#0B229F</item>
-        <item>#680F95</item>
-        <item>#078011</item>
-        <item>#A95C04</item>
-        <item>#BB0D0D</item>
-        
+        <item>#EF5350</item>
+        <item>#B71C1C</item>
+        <item>#880E4F</item>
+        <item>#4A148C</item>
+        <item>#311B92</item>
+        <item>#1A237E</item>
+		
+        <item>#0D47A1</item>
+		<item>#01579B</item>
+		<item>#006064</item>
+		<item>#004D40</item>
+		<item>#1B5E20</item>
+		
+		<item>#33691E</item>
+		<item>#827717</item>
+		<item>#F57F17</item>
+		<item>#FF6F00</item>
+		<item>#E65100</item>
+		
+		<item>#BF360C</item>
+		<item>#3E2723</item>
+		<item>#212121</item>
+		<item>#263238</item>
+		
+		
         <item>#959595</item>
         <item>#727272</item>
         <item>#565656</item>
         <item>#3E3E3E</item>
         <item>#101010</item>
     </string-array>
-    
-    
+
+
+    <string name="left">Left</string>
+    <string name="right">Right</string>
 </resources>
 

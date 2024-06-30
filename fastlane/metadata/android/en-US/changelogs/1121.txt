@@ -1,0 +1,10 @@
+- Fix app management from their context menu
+- Fix launching apps from recents on MIUI
+- Fix restoring preferences
+- Fix SwitchPreference style on dark theme
+- Remove broken app animation preferences
+- Remove user context menu
+- Window management improvements
+- Simplify shortcut preferences
+- Improve detection of running tasks
+- Improve apps menu in full screen

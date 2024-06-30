@@ -1,32 +1,40 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
     namespace "cu.axel.smartdock"
 	
     defaultConfig {
         applicationId "cu.axel.smartdock"
-        minSdk 21
-        targetSdk 33
-        versionCode 198
-        versionName "1.9.8"
+        minSdk 24
+        targetSdk 34
+        versionCode 1121
+        versionName "1.12.1"
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dependenciesInfo {
+        includeInApk true
+        includeInBundle true
+    }
 }
 
 dependencies {
+	implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.22'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.preference:preference:1.2.0'
