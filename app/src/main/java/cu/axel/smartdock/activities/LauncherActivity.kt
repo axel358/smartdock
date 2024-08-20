@@ -117,7 +117,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
 
     fun loadDesktopApps() {
         appsGv.adapter = AppAdapter(this,
-                AppUtils.getPinnedApps(this, AppUtils.DESKTOP_LIST), this, true)
+                AppUtils.getPinnedApps(this, AppUtils.DESKTOP_LIST), this, true, null)
     }
 
     override fun onResume() {

@@ -2,7 +2,6 @@ package cu.axel.smartdock.utils
 
 import android.content.ComponentName
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
@@ -34,20 +33,10 @@ class IconPackUtils(val context: Context) {
     private val iconBackList: MutableList<Drawable> = ArrayList()
     private val iconBackStrings: MutableList<String> = ArrayList()
     private var iconScale = 0f
-    private var currentIconPack: String? = ""
     private var loading = false
 
     init {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        currentIconPack = sharedPreferences.getString("icon_pack", "")
-
-        try {
-            loadIconPack()
-        } catch (i: NullPointerException) {
-            //Icon Pack is not supported so wipe the icon pack data
-            //sharedPreferences.edit().putString("icon_pack", "").apply()
-        }
-
+        loadIconPack()
     }
 
 
@@ -149,24 +138,24 @@ class IconPackUtils(val context: Context) {
     }
 
     private fun loadIconPack() {
-        val packageName = currentIconPack
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val currentIconPack = sharedPreferences.getString("icon_pack", "")
         iconBackList.clear()
         iconBackStrings.clear()
-        if (packageName.isNullOrEmpty())
+        if (currentIconPack.isNullOrEmpty())
             return
 
         loading = true
-        iconPackResources = getIconPackResources(context, packageName)
+        iconPackResources = getIconPackResources(context, currentIconPack)
         val resources: Resources
         try {
-            resources = context.packageManager.getResourcesForApplication(packageName)
+            resources = context.packageManager.getResourcesForApplication(currentIconPack)
         } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
             loading = false
             return
         }
         loadedIconPackResource = resources
-        loadedIconPackName = packageName
+        loadedIconPackName = currentIconPack
         iconMask = getDrawableForName(ICON_MASK_TAG)
         mIconUpon = getDrawableForName(ICON_UPON_TAG)
         for (i in iconBackStrings.indices) {
@@ -191,29 +180,28 @@ class IconPackUtils(val context: Context) {
         context: Context,
         packageName: String
     ): Map<String, String?>? {
-        if (TextUtils.isEmpty(packageName)) {
+        if (packageName.isEmpty())
             return null
-        }
-        val res: Resources = try {
+
+        val resources: Resources = try {
             context.packageManager.getResourcesForApplication(packageName)
         } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
             return null
         }
         var parser: XmlPullParser? = null
         var inputStream: InputStream? = null
         val iconPackResources: MutableMap<String, String?> = HashMap()
         try {
-            inputStream = res.assets.open("appfilter.xml")
+            inputStream = resources.assets.open("appfilter.xml")
             val factory = XmlPullParserFactory.newInstance()
             parser = factory.newPullParser()
             parser.setInput(inputStream, "UTF-8")
         } catch (e: Exception) {
             // Catch any exception since we want to fall back to parsing the xml/
             // resource in all cases
-            val resId = res.getIdentifier("appfilter", "xml", packageName)
+            val resId = resources.getIdentifier("appfilter", "xml", packageName)
             if (resId != 0) {
-                parser = res.getXml(resId)
+                parser = resources.getXml(resId)
             }
         }
         if (parser != null) {
@@ -239,12 +227,12 @@ class IconPackUtils(val context: Context) {
         }
 
         // Application uses a different theme format (most likely launcher pro)
-        var arrayId = res.getIdentifier("theme_iconpack", "array", packageName)
+        var arrayId = resources.getIdentifier("theme_iconpack", "array", packageName)
         if (arrayId == 0) {
-            arrayId = res.getIdentifier("icon_pack", "array", packageName)
+            arrayId = resources.getIdentifier("icon_pack", "array", packageName)
         }
         if (arrayId != 0) {
-            val iconPack = res.getStringArray(arrayId)
+            val iconPack = resources.getStringArray(arrayId)
             for (entry in iconPack) {
                 if (TextUtils.isEmpty(entry)) {
                     continue
@@ -316,7 +304,7 @@ class IconPackUtils(val context: Context) {
         return loadedIconPackResource!!.getIdentifier(resource, "drawable", loadedIconPackName)
     }
 
-    fun getIconPackResources(id: Int, mContext: Context): Drawable? {
+    private fun getIconPackResources(id: Int, mContext: Context): Drawable? {
         return ResourcesCompat.getDrawable(loadedIconPackResource!!, id, mContext.theme)
     }
 

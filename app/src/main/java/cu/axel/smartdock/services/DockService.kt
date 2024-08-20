@@ -31,6 +31,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.provider.Settings
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.Display
 import android.view.GestureDetector
@@ -87,6 +88,7 @@ import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeepShortcutManager
 import cu.axel.smartdock.utils.DeviceUtils
+import cu.axel.smartdock.utils.IconPackUtils
 import cu.axel.smartdock.utils.OnSwipeListener
 import cu.axel.smartdock.utils.Utils
 import cu.axel.smartdock.widgets.HoverInterceptorLayout
@@ -159,6 +161,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private var dockHeight: Int = 0
     private lateinit var handleLayoutParams: WindowManager.LayoutParams
     private lateinit var launcherApps: LauncherApps
+    private var iconPackUtils: IconPackUtils? = null
     override fun onCreate() {
         super.onCreate()
         db = DBHelper(this)
@@ -172,6 +175,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         bluetoothManager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         launcherApps = getSystemService(LAUNCHER_APPS_SERVICE) as LauncherApps
         dockHandler = Handler(Looper.getMainLooper())
+        if (sharedPreferences.getString("icon_pack", "")!!.isNotEmpty()) {
+            iconPackUtils = IconPackUtils(this)
+        }
     }
 
     override fun onServiceConnected() {
@@ -1171,7 +1177,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 //TODO: Implement efficient adapter
                 appsGv.adapter = AppAdapter(
                     context, apps, this@DockService,
-                    menuFullscreen && !phoneLayout
+                    menuFullscreen && !phoneLayout, iconPackUtils
                 )
             }
         }
@@ -1391,10 +1397,17 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             applyTheme()
         else if (preference == "menu_icon_uri")
             updateMenuIcon()
-        else if (preference.startsWith("icon_") || preference == "tint_indicators") {
+        else if (preference.startsWith("icon_")) {
+            val iconPack = sharedPreferences.getString("icon_pack", "")!!
+            iconPackUtils = if (iconPack.isNotEmpty()) {
+                IconPackUtils(this)
+            } else
+                null
             updateRunningTasks()
             loadFavoriteApps()
-        } else if (preference == "lock_landscape")
+        } else if (preference == "tint_indicators")
+            updateRunningTasks()
+        else if (preference == "lock_landscape")
             setOrientation()
         else if (preference == "center_running_apps") {
             placeRunningApps()
@@ -1495,7 +1508,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (index != -1) apps[index].addTask(task) else apps.add(DockApp(task))
         }
         tasksGv.layoutParams.width = gridSize * apps.size
-        tasksGv.adapter = DockAppAdapter(context, apps, this)
+        tasksGv.adapter = DockAppAdapter(context, apps, this, iconPackUtils)
 
         //TODO: Move context outta here
         wifiBtn.setImageResource(if (wifiManager.isWifiEnabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off)
@@ -1760,7 +1773,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         toggleFavorites(apps.size > 0)
         val menuFullscreen = sharedPreferences.getBoolean("app_menu_fullscreen", false)
         val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0
-        favoritesGv.adapter = AppAdapter(context, apps, this, menuFullscreen && !phoneLayout)
+        favoritesGv.adapter =
+            AppAdapter(context, apps, this, menuFullscreen && !phoneLayout, iconPackUtils)
     }
 
     fun takeScreenshot() {
