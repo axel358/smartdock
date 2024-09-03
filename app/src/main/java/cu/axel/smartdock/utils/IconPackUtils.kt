@@ -39,7 +39,6 @@ class IconPackUtils(val context: Context) {
         loadIconPack()
     }
 
-
     private fun getDrawableForName(name: String): Drawable? {
         if (isIconPackLoaded) {
             val item = iconPackResources?.get(name)

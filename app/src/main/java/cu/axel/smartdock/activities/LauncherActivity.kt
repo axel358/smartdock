@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.ShortcutInfo
 import android.net.Uri
 import android.os.Bundle
@@ -41,6 +42,7 @@ import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeepShortcutManager
 import cu.axel.smartdock.utils.DeviceUtils
+import cu.axel.smartdock.utils.IconPackUtils
 import cu.axel.smartdock.utils.Utils
 import java.io.BufferedReader
 import java.io.File
@@ -51,7 +53,9 @@ import java.io.IOException
 const val LAUNCHER_ACTION = "launcher_action"
 const val LAUNCHER_RESUMED = "launcher_resumed"
 
-open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
+open class LauncherActivity : AppCompatActivity(), OnAppClickListener,
+    OnSharedPreferenceChangeListener {
+    private var iconPackUtils: IconPackUtils? = null
     private lateinit var serviceBtn: MaterialButton
     private lateinit var appsGv: RecyclerView
     private lateinit var notesEt: EditText
@@ -68,7 +72,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         notesEt = findViewById(R.id.notes_et)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         serviceBtn
-                .setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+            .setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
         backgroundLayout.setOnLongClickListener {
             val view = LayoutInflater.from(this).inflate(R.layout.task_list, null)
             val layoutParams = Utils.makeWindowParams(-2, -2, this)
@@ -92,8 +96,16 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
             actionsLv.adapter = AppActionsAdapter(this, actions)
             actionsLv.setOnItemClickListener { adapterView, _, position, _ ->
                 val action = adapterView.getItemAtPosition(position) as Action
-                if (action.text == getString(R.string.change_wallpaper)) startActivityForResult(Intent.createChooser(Intent(Intent.ACTION_SET_WALLPAPER),
-                        getString(R.string.change_wallpaper)), 18) else if (action.text == getString(R.string.display_settings)) startActivity(Intent(Settings.ACTION_DISPLAY_SETTINGS))
+                if (action.text == getString(R.string.change_wallpaper)) startActivityForResult(
+                    Intent.createChooser(
+                        Intent(Intent.ACTION_SET_WALLPAPER),
+                        getString(R.string.change_wallpaper)
+                    ), 18
+                ) else if (action.text == getString(R.string.display_settings)) startActivity(
+                    Intent(
+                        Settings.ACTION_DISPLAY_SETTINGS
+                    )
+                )
                 windowManager.removeView(view)
             }
             windowManager.addView(view, layoutParams)
@@ -104,30 +116,40 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
             y = event.y
             false
         }
-        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
-            override fun onReceive(p1: Context, intent: Intent) {
-                when (intent.getStringExtra("action")) {
-                    DOCK_SERVICE_CONNECTED -> serviceBtn.visibility = View.GONE
-                    DESKTOP_APP_PINNED -> loadDesktopApps()
+        ContextCompat.registerReceiver(
+            this, object : BroadcastReceiver() {
+                override fun onReceive(p1: Context, intent: Intent) {
+                    when (intent.getStringExtra("action")) {
+                        DOCK_SERVICE_CONNECTED -> serviceBtn.visibility = View.GONE
+                        DESKTOP_APP_PINNED -> loadDesktopApps()
+                    }
                 }
-            }
-        }, IntentFilter(DOCK_SERVICE_ACTION),
-                ContextCompat.RECEIVER_NOT_EXPORTED)
+            }, IntentFilter(DOCK_SERVICE_ACTION),
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
+
+        if (sharedPreferences.getString("icon_pack", "")!!.isNotEmpty()) {
+            iconPackUtils = IconPackUtils(this)
+        }
     }
 
     fun loadDesktopApps() {
-        appsGv.adapter = AppAdapter(this,
-                AppUtils.getPinnedApps(this, AppUtils.DESKTOP_LIST), this, true, null)
+        appsGv.adapter = AppAdapter(
+            this,
+            AppUtils.getPinnedApps(this, AppUtils.DESKTOP_LIST), this, true, iconPackUtils
+        )
     }
 
     override fun onResume() {
         super.onResume()
-        sendBroadcast(Intent(LAUNCHER_ACTION)
+        sendBroadcast(
+            Intent(LAUNCHER_ACTION)
                 .setPackage(packageName)
                 .putExtra("action", LAUNCHER_RESUMED)
         )
 
-        serviceBtn.visibility = if (DeviceUtils.isAccessibilityServiceEnabled(this)) View.GONE else View.VISIBLE
+        serviceBtn.visibility =
+            if (DeviceUtils.isAccessibilityServiceEnabled(this)) View.GONE else View.VISIBLE
 
         loadDesktopApps()
 
@@ -176,17 +198,21 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
     }
 
     private fun launchApp(mode: String?, app: String) {
-        sendBroadcast(Intent(LAUNCHER_ACTION)
+        sendBroadcast(
+            Intent(LAUNCHER_ACTION)
                 .setPackage(packageName)
                 .putExtra("action", ACTION_LAUNCH_APP)
                 .putExtra("mode", mode)
-                .putExtra("app", app))
+                .putExtra("app", app)
+        )
     }
 
     private fun getAppActions(app: String): ArrayList<Action> {
         val actions = ArrayList<Action>()
         if (DeepShortcutManager.hasHostPermission(this)) {
-            if (DeepShortcutManager.getShortcuts(app, this)!!.isNotEmpty()) actions.add(Action(R.drawable.ic_shortcuts, getString(R.string.shortcuts)))
+            if (DeepShortcutManager.getShortcuts(app, this)!!
+                    .isNotEmpty()
+            ) actions.add(Action(R.drawable.ic_shortcuts, getString(R.string.shortcuts)))
         }
         actions.add(Action(R.drawable.ic_manage, getString(R.string.manage)))
         actions.add(Action(R.drawable.ic_launch_mode, getString(R.string.open_as)))
@@ -201,7 +227,8 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
         val layoutParams = Utils.makeWindowParams(-2, -2, this)
         ColorUtils.applyMainColor(this, sharedPreferences, view)
         layoutParams.gravity = Gravity.TOP or Gravity.START
-        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+        layoutParams.flags =
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
         val location = IntArray(2)
         anchor.getLocationOnScreen(location)
         layoutParams.x = location[0]
@@ -223,14 +250,24 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                         actions.add(Action(R.drawable.ic_arrow_back, ""))
                         actions.add(Action(R.drawable.ic_info, getString(R.string.app_info)))
                         if (!AppUtils.isSystemApp(this, app.packageName)
-                                || sharedPreferences.getBoolean("allow_sysapp_uninstall", false)) actions.add(Action(R.drawable.ic_uninstall, getString(R.string.uninstall)))
-                        if (sharedPreferences.getBoolean("allow_app_freeze", false)) actions.add(Action(R.drawable.ic_freeze, getString(R.string.freeze)))
+                            || sharedPreferences.getBoolean("allow_sysapp_uninstall", false)
+                        ) actions.add(
+                            Action(
+                                R.drawable.ic_uninstall,
+                                getString(R.string.uninstall)
+                            )
+                        )
+                        if (sharedPreferences.getBoolean("allow_app_freeze", false)) actions.add(
+                            Action(R.drawable.ic_freeze, getString(R.string.freeze))
+                        )
                         actionsLv.adapter = AppActionsAdapter(this, actions)
                     }
 
                     getString(R.string.shortcuts) -> {
-                        actionsLv.adapter = AppShortcutAdapter(this,
-                                DeepShortcutManager.getShortcuts(app.packageName, this)!!)
+                        actionsLv.adapter = AppShortcutAdapter(
+                            this,
+                            DeepShortcutManager.getShortcuts(app.packageName, this)!!
+                        )
                     }
 
                     "" -> {
@@ -243,20 +280,34 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                         actions.add(Action(R.drawable.ic_standard, getString(R.string.standard)))
                         actions.add(Action(R.drawable.ic_maximized, getString(R.string.maximized)))
                         actions.add(Action(R.drawable.ic_portrait, getString(R.string.portrait)))
-                        actions.add(Action(R.drawable.ic_fullscreen, getString(R.string.fullscreen)))
+                        actions.add(
+                            Action(
+                                R.drawable.ic_fullscreen,
+                                getString(R.string.fullscreen)
+                            )
+                        )
                         actionsLv.adapter = AppActionsAdapter(this, actions)
                     }
 
                     getString(R.string.app_info) -> {
-                        startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                .setData(Uri.parse("package:$app")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                        startActivity(
+                            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                .setData(Uri.parse("package:$app"))
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
                         windowManager.removeView(view)
                     }
 
                     getString(R.string.uninstall) -> {
                         @Suppress("DEPRECATION")
-                        if (AppUtils.isSystemApp(this, app.packageName)) DeviceUtils.runAsRoot("pm uninstall --user 0 $app") else startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                        if (AppUtils.isSystemApp(
+                                this,
+                                app.packageName
+                            )
+                        ) DeviceUtils.runAsRoot("pm uninstall --user 0 $app") else startActivity(
+                            Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
                         windowManager.removeView(view)
                     }
 
@@ -265,7 +316,8 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
                         if (status != "error")
                             Toast.makeText(this, R.string.app_frozen, Toast.LENGTH_SHORT).show()
                         else
-                            Toast.makeText(this, R.string.something_wrong, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, R.string.something_wrong, Toast.LENGTH_SHORT)
+                                .show()
                         windowManager.removeView(view)
                         loadDesktopApps()
                     }
@@ -311,5 +363,20 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener {
 
     override fun onAppLongClicked(app: App, item: View) {
         showAppContextMenu(app, item)
+    }
+
+    override fun onSharedPreferenceChanged(
+        sharedPreferences: SharedPreferences,
+        preference: String?
+    ) {
+        if (preference == null)
+            return
+        if (preference == "icon_pack") {
+            val iconPack = sharedPreferences.getString("icon_pack", "")!!
+            iconPackUtils = if (iconPack.isNotEmpty()) {
+                IconPackUtils(this)
+            } else
+                null
+        }
     }
 }
