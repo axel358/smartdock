@@ -322,5 +322,6 @@
     <string name="something_wrong">Algo salió mal</string>
     <string name="save_log">Guardar registro</string>
     <string name="open_again">Abrir aplicación de nuevo</string>
+    <string name="icon_pack">Icon pack</string>
 
 </resources>

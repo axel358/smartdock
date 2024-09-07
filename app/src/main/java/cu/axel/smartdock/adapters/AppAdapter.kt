@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -17,11 +18,17 @@ import androidx.recyclerview.widget.RecyclerView
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.R
 import cu.axel.smartdock.utils.ColorUtils
+import cu.axel.smartdock.utils.IconPackUtils
 import cu.axel.smartdock.utils.Utils
 import java.util.Locale
 
-class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
-                 private val listener: OnAppClickListener, private val large: Boolean) : RecyclerView.Adapter<AppAdapter.ViewHolder>() {
+class AppAdapter(
+    private val context: Context,
+    private var apps: ArrayList<App>,
+    private val listener: OnAppClickListener,
+    private val large: Boolean,
+    val iconPackUtils: IconPackUtils?
+) : RecyclerView.Adapter<AppAdapter.ViewHolder>() {
     private val allApps: ArrayList<App> = ArrayList(apps)
     private var iconBackground = 0
     private val iconPadding: Int
@@ -35,7 +42,8 @@ class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
 
     init {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
+        iconPadding =
+            Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
         singleLine = sharedPreferences.getBoolean("single_line_labels", true)
         when (sharedPreferences.getString("icon_shape", "circle")) {
             "circle" -> iconBackground = R.drawable.circle
@@ -46,7 +54,7 @@ class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
 
     override fun onCreateViewHolder(parent: ViewGroup, arg1: Int): ViewHolder {
         val itemLayoutView = LayoutInflater.from(context)
-                .inflate(if (large) R.layout.app_entry_large else R.layout.app_entry, null)
+            .inflate(if (large) R.layout.app_entry_large else R.layout.app_entry, null)
         return ViewHolder(itemLayoutView)
     }
 
@@ -54,11 +62,17 @@ class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
         val app = apps[position]
         val name = app.name
         if (::query.isInitialized) {
-            val spanStart = name.lowercase(Locale.getDefault()).indexOf(query.lowercase(Locale.getDefault()))
+            val spanStart =
+                name.lowercase(Locale.getDefault()).indexOf(query.lowercase(Locale.getDefault()))
             val spanEnd = spanStart + query.length
             if (spanStart != -1) {
                 val spannable = SpannableString(name)
-                spannable.setSpan(StyleSpan(Typeface.BOLD), spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannable.setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    spanStart,
+                    spanEnd,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
                 viewHolder.nameTv.text = spannable
             } else {
                 viewHolder.nameTv.text = name
@@ -66,12 +80,18 @@ class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
         } else {
             viewHolder.nameTv.text = name
         }
-        viewHolder.iconIv.setImageDrawable(app.icon)
+
+        if (iconPackUtils != null)
+            viewHolder.iconIv.setImageDrawable(iconPackUtils.getAppThemedIcon(app.packageName))
+        else
+            viewHolder.iconIv.setImageDrawable(app.icon)
         if (iconBackground != -1) {
             viewHolder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding)
             viewHolder.iconIv.setBackgroundResource(iconBackground)
-            ColorUtils.applyColor(viewHolder.iconIv,
-                    ColorUtils.getDrawableDominantColor(viewHolder.iconIv.drawable))
+            ColorUtils.applyColor(
+                viewHolder.iconIv,
+                ColorUtils.getDrawableDominantColor(viewHolder.iconIv.drawable)
+            )
         }
         viewHolder.bind(app, listener)
     }
@@ -84,11 +104,21 @@ class AppAdapter(private val context: Context, private var apps: ArrayList<App>,
         val results = ArrayList<App>()
         if (query.length > 1) {
             if (query.matches("^[0-9]+(\\.[0-9]+)?[-+/*][0-9]+(\\.[0-9]+)?".toRegex())) {
-                results.add(App(Utils.solve(query).toString() + "", context.packageName + ".calc",
-                        ResourcesCompat.getDrawable(context.resources, R.drawable.ic_calculator, context.theme)!!))
+                results.add(
+                    App(
+                        Utils.solve(query).toString() + "", context.packageName + ".calc",
+                        ResourcesCompat.getDrawable(
+                            context.resources,
+                            R.drawable.ic_calculator,
+                            context.theme
+                        )!!
+                    )
+                )
             } else {
                 for (app in allApps) {
-                    if (app.name.lowercase(Locale.getDefault()).contains(query.lowercase(Locale.getDefault()))) results.add(app)
+                    if (app.name.lowercase(Locale.getDefault())
+                            .contains(query.lowercase(Locale.getDefault()))
+                    ) results.add(app)
                 }
             }
             apps = results

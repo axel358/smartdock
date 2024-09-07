@@ -13,10 +13,13 @@ import cu.axel.smartdock.R
 import cu.axel.smartdock.models.DockApp
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
+import cu.axel.smartdock.utils.IconPackUtils
 import cu.axel.smartdock.utils.Utils
 
-class DockAppAdapter(private val context: Context, private val apps: ArrayList<DockApp>,
-                     private val listener: OnDockAppClickListener) : RecyclerView.Adapter<DockAppAdapter.ViewHolder>() {
+class DockAppAdapter(
+    private val context: Context, private val apps: ArrayList<DockApp>,
+    private val listener: OnDockAppClickListener, private val iconPackUtils: IconPackUtils?
+) : RecyclerView.Adapter<DockAppAdapter.ViewHolder>() {
     private var iconBackground = 0
     private val iconPadding: Int
     private val iconTheming: Boolean
@@ -30,7 +33,8 @@ class DockAppAdapter(private val context: Context, private val apps: ArrayList<D
     init {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         iconTheming = sharedPreferences.getString("icon_pack", "") != ""
-        iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
+        iconPadding =
+            Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
         tintIndicators = sharedPreferences.getBoolean("tint_indicators", false)
         when (sharedPreferences.getString("icon_shape", "circle")) {
             "circle" -> iconBackground = R.drawable.circle
@@ -40,7 +44,8 @@ class DockAppAdapter(private val context: Context, private val apps: ArrayList<D
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, arg1: Int): ViewHolder {
-        val itemLayoutView = LayoutInflater.from(parent.context).inflate(R.layout.app_task_entry, null)
+        val itemLayoutView =
+            LayoutInflater.from(parent.context).inflate(R.layout.app_task_entry, null)
         return ViewHolder(itemLayoutView)
     }
 
@@ -48,8 +53,10 @@ class DockAppAdapter(private val context: Context, private val apps: ArrayList<D
         val app = apps[position]
         val size = app.tasks.size
         if (size > 0) {
-            if (tintIndicators) ColorUtils.applyColor(viewHolder.runningIndicator,
-                    ColorUtils.manipulateColor(ColorUtils.getDrawableDominantColor(app.icon), 2f))
+            if (tintIndicators) ColorUtils.applyColor(
+                viewHolder.runningIndicator,
+                ColorUtils.manipulateColor(ColorUtils.getDrawableDominantColor(app.icon), 2f)
+            )
             if (app.tasks[0].id != -1) viewHolder.runningIndicator.alpha = 1f
             if (app.packageName == AppUtils.currentApp) {
                 viewHolder.runningIndicator.layoutParams.width = Utils.dpToPx(context, 16)
@@ -59,12 +66,17 @@ class DockAppAdapter(private val context: Context, private val apps: ArrayList<D
                 viewHolder.taskCounter.alpha = 1f
             }
         }
-        viewHolder.iconIv.setImageDrawable(app.icon)
+        if (iconPackUtils != null)
+            viewHolder.iconIv.setImageDrawable(iconPackUtils.getAppThemedIcon(app.packageName))
+        else
+            viewHolder.iconIv.setImageDrawable(app.icon)
         if (iconBackground != -1) {
             viewHolder.iconIv.setPadding(iconPadding, iconPadding, iconPadding, iconPadding)
             viewHolder.iconIv.setBackgroundResource(iconBackground)
-            ColorUtils.applyColor(viewHolder.iconIv,
-                    ColorUtils.getDrawableDominantColor(viewHolder.iconIv.drawable))
+            ColorUtils.applyColor(
+                viewHolder.iconIv,
+                ColorUtils.getDrawableDominantColor(viewHolder.iconIv.drawable)
+            )
         }
         viewHolder.bind(app, listener)
     }

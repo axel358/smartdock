@@ -322,5 +322,6 @@
     <string name="something_wrong">Something went wrong</string>
     <string name="save_log">Save log</string>
     <string name="open_again">Open app again</string>
+    <string name="icon_pack">Icon pack</string>
 
 </resources>
