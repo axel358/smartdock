@@ -56,7 +56,7 @@ class NotificationAdapter(
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
             layoutParams.weight = 1f
-            if (extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle") {
+            if (AppUtils.isMediaNotification(notification)) {
                 for (action in actions) {
                     val actionIv = ImageView(context)
                     val resources = context.packageManager
@@ -110,7 +110,7 @@ class NotificationAdapter(
             }
         } else viewHolder.notifCancelBtn.alpha = 0f
 
-        if (extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle" && notification.getLargeIcon() != null) {
+        if (AppUtils.isMediaNotification(notification) && notification.getLargeIcon() != null) {
             val padding = Utils.dpToPx(context, 0)
             viewHolder.notifIcon.setPadding(padding, padding, padding, padding)
             viewHolder.notifIcon.setImageIcon(notification.getLargeIcon())

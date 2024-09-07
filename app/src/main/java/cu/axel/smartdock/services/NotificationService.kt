@@ -170,7 +170,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                         notifCancelBtn
                     )
 
-                    if (extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle" && notification.getLargeIcon() != null) {
+                    if (AppUtils.isMediaNotification(notification) && notification.getLargeIcon() != null) {
                         val padding = Utils.dpToPx(context, 0)
                         notifIcon.setPadding(padding, padding, padding, padding)
                         notifIcon.setImageIcon(notification.getLargeIcon())
@@ -196,7 +196,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                     if (actions != null) {
                         val layoutParams = LinearLayout.LayoutParams(-2, -2)
                         layoutParams.weight = 1f
-                        if (extras[Notification.EXTRA_MEDIA_SESSION] != null) {
+                        if (AppUtils.isMediaNotification(notification)) {
                             for (action in actions) {
                                 val actionIv = ImageView(this@NotificationService)
                                 try {
@@ -471,7 +471,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private fun updateNotificationPanel() {
         val adapter = NotificationAdapter(
             context, activeNotifications.sortedWith(
-                compareByDescending { it.notification.extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle" && it.isOngoing })
+                compareByDescending { AppUtils.isMediaNotification(it.notification) && it.isOngoing })
                 .toTypedArray(), this
         )
         notificationsLv!!.adapter = adapter
