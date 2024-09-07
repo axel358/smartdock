@@ -3,10 +3,12 @@ package cu.axel.smartdock.adapters
 import android.app.Notification
 import android.app.PendingIntent.CanceledException
 import android.content.Context
-import android.content.pm.PackageManager
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.service.notification.StatusBarNotification
+import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,16 +17,19 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import cu.axel.smartdock.R
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.Utils
 
-class NotificationAdapter(private val context: Context,
-                          private val notifications: Array<StatusBarNotification>, private val listener: OnNotificationClickListener) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
-    private var iconBackground = 0
-    private val iconPadding: Int
-    private val iconTheming: Boolean
+class NotificationAdapter(
+    private val context: Context,
+    private val notifications: Array<StatusBarNotification>,
+    private val listener: OnNotificationClickListener
+) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+    private var sharedPreferences: SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context)
 
     interface OnNotificationClickListener {
         fun onNotificationClicked(notification: StatusBarNotification, item: View)
@@ -32,20 +37,10 @@ class NotificationAdapter(private val context: Context,
         fun onNotificationCancelClicked(notification: StatusBarNotification, item: View)
     }
 
-    init {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        iconTheming = sharedPreferences.getString("icon_pack", "") != ""
-        iconPadding = Utils.dpToPx(context, sharedPreferences.getString("icon_padding", "5")!!.toInt())
-        when (sharedPreferences.getString("icon_shape", "circle")) {
-            "circle" -> iconBackground = R.drawable.circle
-            "round_rect" -> iconBackground = R.drawable.round_square
-            "default" -> iconBackground = -1
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, arg1: Int): ViewHolder {
-        val itemLayoutView = LayoutInflater.from(parent.context).inflate(R.layout.notification_entry, parent,
-                false)
+        val itemLayoutView = LayoutInflater.from(parent.context).inflate(
+            R.layout.notification_entry, parent, false
+        )
         return ViewHolder(itemLayoutView)
     }
 
@@ -56,27 +51,33 @@ class NotificationAdapter(private val context: Context,
         val extras = notification.extras
         viewHolder.notifActionsLayout.removeAllViews()
         if (actions != null) {
-            val layoutParams = LinearLayout.LayoutParams(-2, -2)
+            val layoutParams = LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
             layoutParams.weight = 1f
-            if (extras[Notification.EXTRA_MEDIA_SESSION] != null) {
+            if (extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle") {
                 for (action in actions) {
-                    val actionTv = ImageView(context)
-                    try {
-                        val res = context.packageManager.getResourcesForApplication(sbn.packageName)
-                        val drawable = res
-                                .getDrawable(res.getIdentifier(action.icon.toString() + "", "drawable", sbn.packageName))
-                        drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
-                        actionTv.setImageDrawable(drawable)
-                        actionTv.setOnClickListener {
-                            try {
-                                action.actionIntent.send()
-                            } catch (_: CanceledException) {
-                            }
+                    val actionIv = ImageView(context)
+                    val resources = context.packageManager
+                        .getResourcesForApplication(sbn.packageName)
+                    val drawable = resources.getDrawable(
+                        resources.getIdentifier(
+                            action.icon.toString() + "",
+                            "drawable",
+                            sbn.packageName
+                        )
+                    )
+                    drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+                    actionIv.setImageDrawable(drawable)
+                    actionIv.setOnClickListener {
+                        try {
+                            action.actionIntent.send()
+                        } catch (_: CanceledException) {
                         }
-                        viewHolder.notifText.isSingleLine = true
-                        viewHolder.notifActionsLayout.addView(actionTv, layoutParams)
-                    } catch (_: PackageManager.NameNotFoundException) {
                     }
+                    viewHolder.notifText.isSingleLine = true
+                    viewHolder.notifActionsLayout.addView(actionIv, layoutParams)
                 }
             } else {
                 for (action in actions) {
@@ -95,7 +96,8 @@ class NotificationAdapter(private val context: Context,
             }
         }
         var notificationTitle = extras.getString(Notification.EXTRA_TITLE)
-        if (notificationTitle == null) notificationTitle = AppUtils.getPackageLabel(context, sbn.packageName)
+        if (notificationTitle == null) notificationTitle =
+            AppUtils.getPackageLabel(context, sbn.packageName)
         val notificationText = extras.getCharSequence(Notification.EXTRA_TEXT)
         val progress = extras.getInt(Notification.EXTRA_PROGRESS)
         val formattedProgress = if (progress != 0) " $progress%" else ""
@@ -107,13 +109,23 @@ class NotificationAdapter(private val context: Context,
                 if (sbn.isClearable) listener.onNotificationCancelClicked(sbn, view)
             }
         } else viewHolder.notifCancelBtn.alpha = 0f
-        val notificationIcon = AppUtils.getAppIcon(context, sbn.packageName)
-        viewHolder.notifIcon.setImageDrawable(notificationIcon)
-        if (iconBackground != -1) {
-            viewHolder.notifIcon.setPadding(iconPadding, iconPadding, iconPadding, iconPadding)
-            viewHolder.notifIcon.setBackgroundResource(iconBackground)
-            ColorUtils.applyColor(viewHolder.notifIcon, ColorUtils.getDrawableDominantColor(notificationIcon))
+
+        if (extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle" && notification.getLargeIcon() != null) {
+            val padding = Utils.dpToPx(context, 0)
+            viewHolder.notifIcon.setPadding(padding, padding, padding, padding)
+            viewHolder.notifIcon.setImageIcon(notification.getLargeIcon())
+        } else {
+            notification.smallIcon.setTint(Color.WHITE)
+            viewHolder.notifIcon.setBackgroundResource(R.drawable.circle)
+            ColorUtils.applySecondaryColor(
+                context, sharedPreferences,
+                viewHolder.notifIcon
+            )
+            val padding = Utils.dpToPx(context, 14)
+            viewHolder.notifIcon.setPadding(padding, padding, padding, padding)
+            viewHolder.notifIcon.setImageIcon(notification.smallIcon)
         }
+
         viewHolder.bind(sbn, listener)
     }
 

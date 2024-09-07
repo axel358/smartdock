@@ -12,13 +12,11 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.view.Gravity
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -171,26 +169,23 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                         sharedPreferences,
                         notifCancelBtn
                     )
-                    val notificationIcon = AppUtils.getAppIcon(context, sbn.packageName)
-                    notifIcon.setImageDrawable(notificationIcon)
-                    val iconPadding = Utils.dpToPx(
-                        context,
-                        sharedPreferences.getString("icon_padding", "5")!!.toInt()
-                    )
-                    var iconBackground = -1
-                    when (sharedPreferences.getString("icon_shape", "circle")) {
-                        "circle" -> iconBackground = R.drawable.circle
-                        "round_rect" -> iconBackground = R.drawable.round_square
-                    }
-                    notifIcon.setImageDrawable(notificationIcon)
-                    if (iconBackground != -1) {
-                        notifIcon.setPadding(iconPadding, iconPadding, iconPadding, iconPadding)
-                        notifIcon.setBackgroundResource(iconBackground)
-                        ColorUtils.applyColor(
-                            notifIcon,
-                            ColorUtils.getDrawableDominantColor(notificationIcon)
+
+                    if (extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle" && notification.getLargeIcon() != null) {
+                        val padding = Utils.dpToPx(context, 0)
+                        notifIcon.setPadding(padding, padding, padding, padding)
+                        notifIcon.setImageIcon(notification.getLargeIcon())
+                    } else {
+                        notification.smallIcon.setTint(Color.WHITE)
+                        notifIcon.setBackgroundResource(R.drawable.circle)
+                        ColorUtils.applySecondaryColor(
+                            context, sharedPreferences,
+                            notifIcon
                         )
+                        val padding = Utils.dpToPx(context, 14)
+                        notifIcon.setPadding(padding, padding, padding, padding)
+                        notifIcon.setImageIcon(notification.smallIcon)
                     }
+
                     val progress = extras.getInt(Notification.EXTRA_PROGRESS)
                     val p = if (progress != 0) " $progress%" else ""
                     notifTitle.text = notificationTitle + p
@@ -202,28 +197,27 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                         layoutParams.weight = 1f
                         if (extras[Notification.EXTRA_MEDIA_SESSION] != null) {
                             for (action in actions) {
-                                val actionTv = ImageView(this@NotificationService)
+                                val actionIv = ImageView(this@NotificationService)
                                 try {
-                                    val res = packageManager
+                                    val resources = packageManager
                                         .getResourcesForApplication(sbn.packageName)
-                                    val drawable = res.getDrawable(
-                                        res.getIdentifier(
+                                    val drawable = resources.getDrawable(
+                                        resources.getIdentifier(
                                             action.icon.toString() + "",
                                             "drawable",
                                             sbn.packageName
                                         )
                                     )
                                     drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
-                                    actionTv.setImageDrawable(drawable)
-                                    //actionTv.setImageIcon(action.getIcon());
-                                    actionTv.setOnClickListener {
+                                    actionIv.setImageDrawable(drawable)
+                                    actionIv.setOnClickListener {
                                         try {
                                             action.actionIntent.send()
                                         } catch (_: CanceledException) {
                                         }
                                     }
                                     notifText.isSingleLine = true
-                                    notifActionsLayout!!.addView(actionTv, layoutParams)
+                                    notifActionsLayout!!.addView(actionIv, layoutParams)
                                 } catch (_: PackageManager.NameNotFoundException) {
                                 }
                             }
