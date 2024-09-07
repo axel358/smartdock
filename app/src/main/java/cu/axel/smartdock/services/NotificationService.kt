@@ -174,6 +174,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                         val padding = Utils.dpToPx(context, 0)
                         notifIcon.setPadding(padding, padding, padding, padding)
                         notifIcon.setImageIcon(notification.getLargeIcon())
+                        notifIcon.background = null
                     } else {
                         notification.smallIcon.setTint(Color.WHITE)
                         notifIcon.setBackgroundResource(R.drawable.circle)
@@ -468,7 +469,11 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     }
 
     private fun updateNotificationPanel() {
-        val adapter = NotificationAdapter(context, activeNotifications, this)
+        val adapter = NotificationAdapter(
+            context, activeNotifications.sortedWith(
+                compareByDescending { it.notification.extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle" && it.isOngoing })
+                .toTypedArray(), this
+        )
         notificationsLv!!.adapter = adapter
         val layoutParams = notificationsLv!!.layoutParams
         val count = adapter.itemCount
