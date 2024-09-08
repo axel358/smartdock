@@ -10,16 +10,21 @@
         android:layout_height="32dp"
         android:layout_marginStart="6dp"
         android:background="@drawable/circle"
-        android:padding="5dp"
-        android:src="@drawable/ic_pin" />
+        android:padding="5dp" />
 
     <TextView
+        android:layout_weight="1.0"
         android:id="@+id/app_chooser_entry_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
         android:layout_marginStart="6dp"
-        android:text="@string/pin"
         android:textSize="16sp" />
+
+    <CheckBox
+        android:id="@+id/app_chooser_entry_chkbx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
 </LinearLayout>

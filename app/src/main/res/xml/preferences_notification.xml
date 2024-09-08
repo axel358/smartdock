@@ -1,47 +1,50 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <SwitchPreferenceCompat
-		android:key="show_notifications"
-		android:title="@string/show_notifications"
-		android:defaultValue="true" />
-	
-	<EditTextPreference
-		android:dependency="show_notifications"
-        android:key="notification_timeout"
-        android:hint="5000"
-        android:defaultValue="5000"
-		android:title="@string/notification_timeout_title"/>
-	<SwitchPreferenceCompat
-		android:dependency="show_notifications"
-		android:key="show_ongoing"
-		android:title="@string/show_ongoing_title"
-		android:defaultValue="false" />
-    
-    <SwitchPreferenceCompat
-		android:dependency="show_notifications"
-        android:title="@string/show_current_title"
-        android:key="show_current"
-        android:defaultValue="true" />
-    
-	<EditTextPreference
-		android:dependency="show_notifications"
-		android:key="blocked_notifications"
-		android:hint="@string/blocked_notifications_hint"
-		android:defaultValue="android"
-		android:summary="@string/blocked_notifications_summary"
-		android:title="@string/blocked_notifications_title"/>
-	
-    <SwitchPreferenceCompat
-        android:title="@string/enable_notif_panel_title"
-        android:key="enable_notif_panel"
-        android:defaultValue="true" />
-        
-	<Preference
-		android:title="@string/manage_service">
-		<intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"/>
-	</Preference>
-	
-	<Preference
+    <PreferenceCategory android:title="@string/notification_popups">
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="show_notifications"
+            android:title="@string/show_notifications" />
+
+        <EditTextPreference
+            android:defaultValue="5000"
+            android:dependency="show_notifications"
+            android:hint="5000"
+            android:key="notification_timeout"
+            android:title="@string/notification_timeout_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:dependency="show_notifications"
+            android:key="show_ongoing"
+            android:title="@string/show_ongoing_title" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:dependency="show_notifications"
+            android:key="show_current"
+            android:title="@string/show_current_title" />
+
+        <cu.axel.smartdock.preferences.AppChooserMultiplePreference
+            android:dependency="show_notifications"
+            android:key="ignored_apps_popups"
+            android:summary="@string/blocked_notifications_summary"
+            android:title="@string/ignored_apps" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/notification_panel">
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="enable_notif_panel"
+            android:title="@string/enable_notif_panel_title" />
+        <cu.axel.smartdock.preferences.AppChooserMultiplePreference
+            android:key="ignored_apps_panel"
+            android:summary="@string/blocked_notifications_summary"
+            android:title="@string/ignored_apps" />
+    </PreferenceCategory>
+    <Preference android:title="@string/manage_service">
+        <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS" />
+    </Preference>
+
+    <Preference
         android:icon="@drawable/ic_info"
-        android:title="@string/long_press_a_notification_to_a"/>
-		
+        android:title="@string/long_press_a_notification_to_a" />
+
 </PreferenceScreen>

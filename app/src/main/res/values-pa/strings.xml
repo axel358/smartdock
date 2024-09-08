@@ -176,7 +176,7 @@
     <string name="show_ongoing_title">ਚੱਲ ਰਹੀਆਂ ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਓ (ਬੱਗੀ)</string>
     <string name="show_current_title">ਮੌਜੂਦਾ ਐਪ ਲਈ ਨੋਟੀਫੀਕੇਸਨ ਲੁਕਾਓ</string>
     <string name="blocked_notifications_hint">android</string>
-    <string name="blocked_notifications_summary">ਨੋਟੀਫੀਕੇਸਨ ਨੂੰ ਰੌਕਣ ਲਈ ਪੈਕੇਜਾ ਨੂੰ ਸਪੇਸ ਨਾਲ ਵੱਖ ਕਰਕੇ ਨਾਵਾਂ ਦੀ ਸੂਚੀ</string>
+    <string name="blocked_notifications_summary">Apps to ignore notifications from</string>
     <string name="blocked_notifications_title">ਰੌਕੇ ਹੋਏ ਨੋਟੀਫੀਕੇਸਨ</string>
     <string name="long_press_a_notification_to_a">ਰੌਕੇ ਸੂਚੀ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰਨ ਲਈ ਇੱਕ ਨੋਟੀਫੀਕੇਸਨ ਨੂੰ ਦੇਰ ਤੱਕ ਦਬਾਓ</string>
     <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਸਾਈਲੈਨਸਡ ਨੋਟੀਫੀਕੇਸਨ</string>
@@ -323,5 +323,9 @@
     <string name="save_log">ਲੌਗ ਸੇਵ ਕਰੋ</string>
     <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
     <string name="icon_pack">Icon pack</string>
+    <string name="notification_popups">Notification pop-ups</string>
+    <string name="notification_panel">Notification panel</string>
+    <string name="choose_apps">Choose apps</string>
+    <string name="ignored_apps">Ignored apps</string>
 
 </resources>

@@ -176,7 +176,7 @@
     <string name="show_ongoing_title">Show ongoing notifications (buggy)</string>
     <string name="show_current_title">Hide notifications for the current app</string>
     <string name="blocked_notifications_hint">android</string>
-    <string name="blocked_notifications_summary">List of space separated package names to ignore notifications from</string>
+    <string name="blocked_notifications_summary">Apps to ignore notifications from</string>
     <string name="blocked_notifications_title">Ignored notifications</string>
     <string name="long_press_a_notification_to_a">Long press a notification to add it to the ignored list</string>
     <string name="silenced_notifications">Silenced notifications for this app</string>
@@ -323,5 +323,9 @@
     <string name="save_log">Save log</string>
     <string name="open_again">Open app again</string>
     <string name="icon_pack">Icon pack</string>
+    <string name="notification_popups">Notification pop-ups</string>
+    <string name="notification_panel">Notification panel</string>
+    <string name="choose_apps">Choose apps</string>
+    <string name="ignored_apps">Ignored apps</string>
 
 </resources>
