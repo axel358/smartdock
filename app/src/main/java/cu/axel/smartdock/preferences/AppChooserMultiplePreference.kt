@@ -35,9 +35,10 @@ class AppChooserMultiplePreference(private val context: Context, private val att
         val view = LayoutInflater.from(context).inflate(R.layout.app_chooser_list, null)
         val listView: ListView = view.findViewById(R.id.app_chooser_lv)
         dialogBuilder.setView(view)
-        dialogBuilder.setPositiveButton("Ok") { _, _ ->
+        dialogBuilder.setPositiveButton(R.string.ok) { _, _ ->
             persistStringSet(adapter.sApps.toSet())
         }
+        dialogBuilder.setNeutralButton(R.string.cancel, null)
         val dialog = dialogBuilder.create()
         listView.adapter = adapter
         dialog.show()
