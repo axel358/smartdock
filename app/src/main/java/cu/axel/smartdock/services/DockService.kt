@@ -1027,6 +1027,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (!isPinned && sharedPreferences.getBoolean("auto_pin", true))
                 pinDock()
         }
+        if (Utils.notificationPanelVisible)
+            toggleNotificationPanel(false)
     }
 
     private fun setOrientation() {

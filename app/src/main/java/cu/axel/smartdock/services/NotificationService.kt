@@ -515,7 +515,8 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     }
 
     override fun onNotificationLongClicked(notification: StatusBarNotification, item: View) {
-        val ignoredApps = sharedPreferences.getStringSet("ignored_notifications_panel", mutableSetOf())!!
+        val ignoredApps =
+            sharedPreferences.getStringSet("ignored_notifications_panel", mutableSetOf())!!
         ignoredApps.add(notification.packageName)
         sharedPreferences.edit().putStringSet("ignored_notifications_panel", ignoredApps).apply()
         item.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
