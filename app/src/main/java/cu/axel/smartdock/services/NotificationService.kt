@@ -17,6 +17,7 @@ import android.os.Looper
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.view.Gravity
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -259,13 +260,13 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                     notificationLayout.setOnLongClickListener {
                         val ignoredApps =
                             sharedPreferences.getStringSet(
-                                "ignored_apps_popups",
-                                setOf("android")
+                                "ignored_notifications_popups",
+                                mutableSetOf("android")
                             )!!
                         ignoredApps.add(sbn.packageName)
 
                         sharedPreferences.edit()
-                            .putStringSet("ignored_apps_popups", ignoredApps).apply()
+                            .putStringSet("ignored_notifications_popups", ignoredApps).apply()
                         notificationLayout.visibility = View.GONE
                         notificationLayout.alpha = 0f
                         Toast.makeText(
@@ -310,7 +311,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
 
     private fun isBlackListed(packageName: String): Boolean {
         val ignoredPackages =
-            sharedPreferences.getStringSet("ignored_apps_popups", setOf("android"))
+            sharedPreferences.getStringSet("ignored_notifications_popups", setOf("android"))
         return ignoredPackages!!.contains(packageName)
     }
 
@@ -474,7 +475,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     }
 
     private fun updateNotificationPanel() {
-        val ignoredApps = sharedPreferences.getStringSet("ignored_apps_panel", setOf())!!
+        val ignoredApps = sharedPreferences.getStringSet("ignored_notifications_panel", setOf())!!
         val adapter = NotificationAdapter(
             context,
             activeNotifications.filterNot { ignoredApps.contains(it.packageName) }.sortedWith(
@@ -514,9 +515,10 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     }
 
     override fun onNotificationLongClicked(notification: StatusBarNotification, item: View) {
-        val ignoredApps = sharedPreferences.getStringSet("ignored_apps_panel", setOf())!!
+        val ignoredApps = sharedPreferences.getStringSet("ignored_notifications_panel", mutableSetOf())!!
         ignoredApps.add(notification.packageName)
-        sharedPreferences.edit().putStringSet("ignored_apps_panel", ignoredApps).apply()
+        sharedPreferences.edit().putStringSet("ignored_notifications_panel", ignoredApps).apply()
+        item.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         Toast.makeText(
             this@NotificationService,
             R.string.silenced_notifications,

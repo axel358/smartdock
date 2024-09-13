@@ -327,5 +327,6 @@
     <string name="notification_panel">Notification panel</string>
     <string name="choose_apps">Choose apps</string>
     <string name="ignored_apps">Ignored apps</string>
+    <string name="ignored_notifications">Apps to hide notifications from in the notification list</string>
 
 </resources>

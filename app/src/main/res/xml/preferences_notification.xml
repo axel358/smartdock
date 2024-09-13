@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="@string/notification_popups">
         <SwitchPreferenceCompat
             android:defaultValue="true"
@@ -25,7 +26,7 @@
 
         <cu.axel.smartdock.preferences.AppChooserMultiplePreference
             android:dependency="show_notifications"
-            android:key="ignored_apps_popups"
+            android:key="ignored_notifications_popups"
             android:summary="@string/blocked_notifications_summary"
             android:title="@string/ignored_apps" />
     </PreferenceCategory>
@@ -35,8 +36,8 @@
             android:key="enable_notif_panel"
             android:title="@string/enable_notif_panel_title" />
         <cu.axel.smartdock.preferences.AppChooserMultiplePreference
-            android:key="ignored_apps_panel"
-            android:summary="@string/blocked_notifications_summary"
+            android:key="ignored_notifications_panel"
+            android:summary="@string/ignored_notifications"
             android:title="@string/ignored_apps" />
     </PreferenceCategory>
     <Preference android:title="@string/manage_service">

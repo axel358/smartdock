@@ -10,6 +10,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.preference.Preference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cu.axel.smartdock.R
@@ -18,13 +19,16 @@ import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 
 
-class AppChooserMultiplePreference(private val context: Context, attrs: AttributeSet?) :
+class AppChooserMultiplePreference(private val context: Context, private val attrs: AttributeSet?) :
     Preference(context, attrs) {
     override fun onClick() {
-        //val allApp = AppUtils.getInstalledApps(context)
-        val allApp = AppUtils.getInstalledPackages(context)
-        val apps = sharedPreferences!!.getStringSet(key, emptySet())
-        val adapter = AppAdapter(context, allApp, apps!!.toList())
+
+        val apps =
+            if (key.startsWith("ignored_notifications")) AppUtils.getInstalledPackages(context) else AppUtils.getInstalledApps(
+                context
+            )
+        val savedApps = sharedPreferences!!.getStringSet(key, emptySet())!!
+        val adapter = AppAdapter(context, apps.sortedWith(compareByDescending { savedApps.contains(it.packageName) }), savedApps.toList())
 
         val dialogBuilder = MaterialAlertDialogBuilder(context)
         dialogBuilder.setTitle(R.string.choose_apps)
