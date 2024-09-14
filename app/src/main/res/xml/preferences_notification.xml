@@ -21,14 +21,13 @@
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:dependency="show_notifications"
-            android:key="show_current"
-            android:title="@string/show_current_title" />
+            android:key="silence_current"
+            android:title="@string/silence_current_title" />
 
         <cu.axel.smartdock.preferences.AppChooserMultiplePreference
             android:dependency="show_notifications"
             android:key="ignored_notifications_popups"
-            android:summary="@string/blocked_notifications_summary"
-            android:title="@string/ignored_apps" />
+            android:title="@string/silenced_notifications_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/notification_panel">
         <SwitchPreferenceCompat
@@ -37,8 +36,7 @@
             android:title="@string/enable_notif_panel_title" />
         <cu.axel.smartdock.preferences.AppChooserMultiplePreference
             android:key="ignored_notifications_panel"
-            android:summary="@string/ignored_notifications"
-            android:title="@string/ignored_apps" />
+            android:title="@string/hidden_notifications" />
     </PreferenceCategory>
     <Preference android:title="@string/manage_service">
         <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS" />

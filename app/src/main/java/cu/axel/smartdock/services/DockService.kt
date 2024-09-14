@@ -642,7 +642,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     updateRunningTasks()
                 else
                     updateRunningTasks()
-
         } else if (sharedPreferences.getBoolean(
                 "custom_toasts",
                 false
@@ -1511,7 +1510,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         tasksGv.layoutParams.width = gridSize * apps.size
         tasksGv.adapter = DockAppAdapter(context, apps, this, iconPackUtils)
-
         //TODO: Move context outta here
         wifiBtn.setImageResource(if (wifiManager.isWifiEnabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off)
         val bluetoothAdapter = bluetoothManager.adapter

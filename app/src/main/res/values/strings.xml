@@ -173,12 +173,10 @@
     <string name="notifications">Notifications</string>
     <string name="manage_service">Manage service</string>
     <string name="notification_timeout_title">Notification display time in ms</string>
-    <string name="show_ongoing_title">Show ongoing notifications (buggy)</string>
-    <string name="show_current_title">Hide notifications for the current app</string>
-    <string name="blocked_notifications_hint">android</string>
-    <string name="blocked_notifications_summary">Apps to ignore notifications from</string>
+    <string name="show_ongoing_title">Show ongoing notifications</string>
+    <string name="silence_current_title">Silence for current app</string>
     <string name="blocked_notifications_title">Ignored notifications</string>
-    <string name="long_press_a_notification_to_a">Long press a notification to add it to the ignored list</string>
+    <string name="long_press_a_notification_to_a">Long press a notification to silence it</string>
     <string name="silenced_notifications">Silenced notifications for this app</string>
     <string name="enable_notif_panel_title">Enable notification panel</string>
     <string name="show_notifications">Show notification pop-ups</string>
@@ -326,7 +324,7 @@
     <string name="notification_popups">Notification pop-ups</string>
     <string name="notification_panel">Notification panel</string>
     <string name="choose_apps">Choose apps</string>
-    <string name="ignored_apps">Ignored apps</string>
-    <string name="ignored_notifications">Apps to hide notifications from in the notification list</string>
+    <string name="silenced_notifications_title">Silenced notifications</string>
+    <string name="hidden_notifications">Hidden notifications</string>
 
 </resources>
