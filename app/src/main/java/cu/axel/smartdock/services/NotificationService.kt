@@ -53,17 +53,17 @@ const val NOTIFICATION_SERVICE_ACTION = "notification_service_action"
 class NotificationService : NotificationListenerService(), OnNotificationClickListener,
     SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var windowManager: WindowManager
-    private lateinit var notificationLayout: HoverInterceptorLayout
-    private lateinit var notifTitle: TextView
-    private lateinit var notifText: TextView
-    private lateinit var notifIcon: ImageView
-    private lateinit var notifCancelBtn: ImageView
+    private lateinit var notificationLayout: LinearLayout
+    private lateinit var notificationTitleTv: TextView
+    private lateinit var notificationTextTv: TextView
+    private lateinit var notificationIconIv: ImageView
+    private lateinit var notificationCloseBtn: ImageView
     private lateinit var handler: Handler
     private lateinit var sharedPreferences: SharedPreferences
     private var notificationPanel: View? = null
     private var notificationsLv: RecyclerView? = null
     private var cancelAllBtn: ImageButton? = null
-    private var notifActionsLayout: LinearLayout? = null
+    private var notificationActionsLayout: LinearLayout? = null
     private lateinit var context: Context
     private var notificationArea: LinearLayout? = null
     private var preferLastDisplay = false
@@ -93,30 +93,30 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         notificationLayoutParams.gravity = Gravity.BOTTOM or Gravity.END
         notificationLayoutParams.y = y
         notificationLayout = LayoutInflater.from(this).inflate(
-            R.layout.notification_popup,
+            R.layout.notification_entry,
             null
-        ) as HoverInterceptorLayout
+        ) as LinearLayout
+        notificationLayout.setBackgroundResource(R.drawable.round_square)
         notificationLayout.visibility = View.GONE
-        notifTitle = notificationLayout.findViewById(R.id.notif_title_tv)
-        notifText = notificationLayout.findViewById(R.id.notif_text_tv)
-        notifIcon = notificationLayout.findViewById(R.id.notif_icon_iv)
-        notifCancelBtn = notificationLayout.findViewById(R.id.notif_close_btn)
-        notifActionsLayout = notificationLayout.findViewById(R.id.notif_actions_container2)
+        notificationTitleTv = notificationLayout.findViewById(R.id.notification_title_tv)
+        notificationTextTv = notificationLayout.findViewById(R.id.notification_text_tv)
+        notificationIconIv = notificationLayout.findViewById(R.id.notification_icon_iv)
+        notificationCloseBtn = notificationLayout.findViewById(R.id.notification_close_btn)
+        notificationCloseBtn.alpha = 1f
+        notificationActionsLayout =
+            notificationLayout.findViewById(R.id.notification_actions_layout)
         windowManager.addView(notificationLayout, notificationLayoutParams)
         handler = Handler(Looper.getMainLooper())
         notificationLayout.alpha = 0f
         notificationLayout.setOnHoverListener { _, event ->
             if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
-                notifCancelBtn.visibility = View.VISIBLE
                 handler.removeCallbacksAndMessages(null)
             } else if (event.action == MotionEvent.ACTION_HOVER_EXIT) {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    notifCancelBtn.visibility = View.INVISIBLE
-                }, 200)
                 hideNotification()
             }
             false
         }
+
         val dockReceiver = DockServiceReceiver()
         ContextCompat.registerReceiver(
             this,
@@ -145,10 +145,6 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             updateNotificationPanel()
         } else {
             if (sharedPreferences.getBoolean("show_notifications", true)) {
-                Log.e(packageName, sharedPreferences.getBoolean(
-                    "silence_current",
-                    true
-                ).toString()+AppUtils.currentApp)
                 val notification = sbn.notification
                 if ((sbn.isOngoing && !sharedPreferences.getBoolean(
                         "show_ongoing",
@@ -159,7 +155,6 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                     )) || notification.contentView != null || isBlackListed(sbn.packageName)
                 )
                     return
-Log.e(packageName, "dsdd")
                 val extras = notification.extras
                 var notificationTitle = extras.getString(Notification.EXTRA_TITLE)
                 if (notificationTitle == null) notificationTitle =
@@ -170,35 +165,30 @@ Log.e(packageName, "dsdd")
                     sharedPreferences,
                     notificationLayout
                 )
-                ColorUtils.applySecondaryColor(
-                    this@NotificationService,
-                    sharedPreferences,
-                    notifCancelBtn
-                )
 
                 if (AppUtils.isMediaNotification(notification) && notification.getLargeIcon() != null) {
                     val padding = Utils.dpToPx(context, 0)
-                    notifIcon.setPadding(padding, padding, padding, padding)
-                    notifIcon.setImageIcon(notification.getLargeIcon())
-                    notifIcon.background = null
+                    notificationIconIv.setPadding(padding, padding, padding, padding)
+                    notificationIconIv.setImageIcon(notification.getLargeIcon())
+                    notificationIconIv.background = null
                 } else {
                     notification.smallIcon.setTint(Color.WHITE)
-                    notifIcon.setBackgroundResource(R.drawable.circle)
+                    notificationIconIv.setBackgroundResource(R.drawable.circle)
                     ColorUtils.applySecondaryColor(
                         context, sharedPreferences,
-                        notifIcon
+                        notificationIconIv
                     )
                     val padding = Utils.dpToPx(context, 14)
-                    notifIcon.setPadding(padding, padding, padding, padding)
-                    notifIcon.setImageIcon(notification.smallIcon)
+                    notificationIconIv.setPadding(padding, padding, padding, padding)
+                    notificationIconIv.setImageIcon(notification.smallIcon)
                 }
 
                 val progress = extras.getInt(Notification.EXTRA_PROGRESS)
                 val p = if (progress != 0) " $progress%" else ""
-                notifTitle.text = notificationTitle + p
-                notifText.text = notificationText
+                notificationTitleTv.text = notificationTitle + p
+                notificationTextTv.text = notificationText
                 val actions = notification.actions
-                notifActionsLayout!!.removeAllViews()
+                notificationActionsLayout!!.removeAllViews()
                 if (actions != null) {
                     val layoutParams = LinearLayout.LayoutParams(-2, -2)
                     layoutParams.weight = 1f
@@ -223,8 +213,8 @@ Log.e(packageName, "dsdd")
                                     } catch (_: CanceledException) {
                                     }
                                 }
-                                notifText.isSingleLine = true
-                                notifActionsLayout!!.addView(actionIv, layoutParams)
+                                notificationTextTv.isSingleLine = true
+                                notificationActionsLayout!!.addView(actionIv, layoutParams)
                             } catch (_: PackageManager.NameNotFoundException) {
                             }
                         }
@@ -242,13 +232,14 @@ Log.e(packageName, "dsdd")
                                 } catch (_: CanceledException) {
                                 }
                             }
-                            notifActionsLayout!!.addView(actionTv, layoutParams)
+                            notificationActionsLayout!!.addView(actionTv, layoutParams)
                         }
                     }
                 }
-                notifCancelBtn.setOnClickListener {
+                notificationCloseBtn.setOnClickListener {
                     notificationLayout.visibility = View.GONE
-                    if (sbn.isClearable) cancelNotification(sbn.key)
+                    if (sbn.isClearable)
+                        cancelNotification(sbn.key)
                 }
                 notificationLayout.setOnClickListener {
                     notificationLayout.visibility = View.GONE

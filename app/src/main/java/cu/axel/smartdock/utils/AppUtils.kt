@@ -232,7 +232,8 @@ object AppUtils {
         ).sortedWith(compareByDescending { it.lastTimeUsed })
             .filter { it.packageName != context.packageName }
         val appTasks = ArrayList<AppTask>()
-        currentApp = usageStats[0].packageName
+        if (usageStats.isNotEmpty())
+            currentApp = usageStats[0].packageName
         for (stat in usageStats) {
             val app = stat.packageName
             try {
