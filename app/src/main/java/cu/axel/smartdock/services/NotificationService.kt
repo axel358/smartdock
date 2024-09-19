@@ -90,7 +90,11 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         else
             dockHeight) + margins
         notificationLayoutParams.x = margins
-        notificationLayoutParams.gravity = Gravity.BOTTOM or Gravity.END
+        notificationLayoutParams.gravity = Gravity.BOTTOM or if (sharedPreferences.getInt(
+                "dock_layout",
+                -1
+            ) == 0
+        ) Gravity.CENTER_HORIZONTAL else Gravity.END
         notificationLayoutParams.y = y
         notificationLayout = LayoutInflater.from(this).inflate(
             R.layout.notification_entry,
