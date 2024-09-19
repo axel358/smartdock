@@ -96,6 +96,8 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             R.layout.notification_entry,
             null
         ) as LinearLayout
+        val padding = Utils.dpToPx(context, 10)
+        notificationLayout.setPadding(padding, padding, padding, padding)
         notificationLayout.setBackgroundResource(R.drawable.round_square)
         notificationLayout.visibility = View.GONE
         notificationTitleTv = notificationLayout.findViewById(R.id.notification_title_tv)
