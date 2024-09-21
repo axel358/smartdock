@@ -173,12 +173,10 @@
     <string name="notifications">Notificaciones</string>
     <string name="manage_service">Administrar servicio</string>
     <string name="notification_timeout_title">Tiempo de visualización de notificaciones en ms</string>
-    <string name="show_ongoing_title">Mostrar notificaciones en curso (beta)</string>
-    <string name="show_current_title">Ocultar notificaciones de la aplicación actual</string>
-    <string name="blocked_notifications_hint">android</string>
-    <string name="blocked_notifications_summary">Lista de nombres de paquetes separados por espacios para ignorar las notificaciones</string>
+    <string name="show_ongoing_title">Mostrar notificaciones en curso</string>
+    <string name="silence_current_title">Ocultar notificaciones de la aplicación actual</string>
     <string name="blocked_notifications_title">Notificaciones ignoradas</string>
-    <string name="long_press_a_notification_to_a">Mantenga presionada una notificación para agregarla a la lista ignorada</string>
+    <string name="long_press_a_notification_to_a">Mantenga presionada una notificación para silenciarla</string>
     <string name="silenced_notifications">Notificaciones silenciadas para esta aplicación</string>
     <string name="enable_notif_panel_title">Habilitar panel de notificaciones</string>
     <string name="show_notifications">Mostrar notificaciones emergentes</string>
@@ -323,5 +321,10 @@
     <string name="save_log">Guardar registro</string>
     <string name="open_again">Abrir aplicación de nuevo</string>
     <string name="icon_pack">Icon pack</string>
+    <string name="notification_popups">Notification pop-ups</string>
+    <string name="notification_panel">Notification panel</string>
+    <string name="choose_apps">Choose apps</string>
+    <string name="silenced_notifications_title">Silenced notifications</string>
+    <string name="hidden_notifications">Hidden notifications</string>
 
 </resources>

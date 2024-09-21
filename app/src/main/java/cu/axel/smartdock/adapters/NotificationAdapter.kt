@@ -7,8 +7,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.service.notification.StatusBarNotification
-import android.util.Log
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +15,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import cu.axel.smartdock.R
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
@@ -106,7 +103,7 @@ class NotificationAdapter(
         if (sbn.isClearable) {
             viewHolder.notifCancelBtn.alpha = 1f
             viewHolder.notifCancelBtn.setOnClickListener { view ->
-                if (sbn.isClearable) listener.onNotificationCancelClicked(sbn, view)
+                listener.onNotificationCancelClicked(sbn, view)
             }
         } else viewHolder.notifCancelBtn.alpha = 0f
 
@@ -141,11 +138,11 @@ class NotificationAdapter(
         var notifActionsLayout: LinearLayout
 
         init {
-            notifTitle = itemView.findViewById(R.id.notif_w_title_tv)
-            notifText = itemView.findViewById(R.id.notif_w_text_tv)
-            notifIcon = itemView.findViewById(R.id.notif_w_icon_iv)
-            notifCancelBtn = itemView.findViewById(R.id.notif_w_close_btn)
-            notifActionsLayout = itemView.findViewById(R.id.notif_actions_container)
+            notifTitle = itemView.findViewById(R.id.notification_title_tv)
+            notifText = itemView.findViewById(R.id.notification_text_tv)
+            notifIcon = itemView.findViewById(R.id.notification_icon_iv)
+            notifCancelBtn = itemView.findViewById(R.id.notification_close_btn)
+            notifActionsLayout = itemView.findViewById(R.id.notification_actions_layout)
         }
 
         fun bind(notification: StatusBarNotification, listener: OnNotificationClickListener) {

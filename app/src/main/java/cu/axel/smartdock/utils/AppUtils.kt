@@ -29,6 +29,22 @@ object AppUtils {
     const val DOCK_PINNED_LIST = "dock_pinned.lst"
     const val DESKTOP_LIST = "desktop.lst"
     var currentApp = ""
+    fun getInstalledPackages(context: Context): List<App> {
+        val apps = ArrayList<App>()
+        val packages = context.packageManager.getInstalledPackages(0)
+        packages.forEach { packageInfo ->
+            val appInfo = packageInfo.applicationInfo
+            apps.add(
+                App(
+                    appInfo.loadLabel(context.packageManager).toString(),
+                    appInfo.packageName,
+                    appInfo.loadIcon(context.packageManager)
+                )
+            )
+        }
+        return apps.sortedWith(compareBy { it.name })
+    }
+
     fun getInstalledApps(context: Context): ArrayList<App> {
         val apps = ArrayList<App>()
         val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
@@ -180,7 +196,7 @@ object AppUtils {
                     ) || taskInfo.baseActivity!!.className == "com.android.quickstep.RecentsActivity"
                 ) continue
 
-                //Hack to save Dock settings activity ftom being excluded
+                //Hack to save Dock settings activity from being excluded
                 if (!(taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.MainActivity" || taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.DebugActivity") && taskInfo.topActivity!!.packageName == getCurrentLauncher(
                         packageManager
                     )
@@ -213,13 +229,11 @@ object AppUtils {
         val start = System.currentTimeMillis() - SystemClock.elapsedRealtime()
         val usageStats = usm.queryUsageStats(
             UsageStatsManager.INTERVAL_BEST, start, System.currentTimeMillis()
-        )
+        ).sortedWith(compareByDescending { it.lastTimeUsed })
+            .filter { it.packageName != context.packageName }
         val appTasks = ArrayList<AppTask>()
-        usageStats.sortWith { usageStats1: UsageStats, usageStats2: UsageStats ->
-            usageStats2.lastTimeUsed.compareTo(
-                usageStats1.lastTimeUsed
-            )
-        }
+        if (usageStats.isNotEmpty())
+            currentApp = usageStats[0].packageName
         for (stat in usageStats) {
             val app = stat.packageName
             try {
@@ -388,5 +402,4 @@ object AppUtils {
 
     fun isMediaNotification(notification: Notification) =
         notification.extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle"
-
 }
