@@ -225,29 +225,30 @@ object AppUtils {
     }
 
     fun getRecentTasks(context: Context, max: Int): ArrayList<AppTask> {
+        val ignoredApps =
+            listOf<String>(context.packageName, getCurrentLauncher(context.packageManager))
         val usm = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val start = System.currentTimeMillis() - SystemClock.elapsedRealtime()
         val usageStats = usm.queryUsageStats(
             UsageStatsManager.INTERVAL_BEST, start, System.currentTimeMillis()
         ).sortedWith(compareByDescending { it.lastTimeUsed })
-            .filter { it.packageName != context.packageName }
+            .filterNot { ignoredApps.contains(it.packageName) }
         val appTasks = ArrayList<AppTask>()
         if (usageStats.isNotEmpty())
             currentApp = usageStats[0].packageName
         for (stat in usageStats) {
             val app = stat.packageName
             try {
-                if (isLaunchable(
-                        context, app
-                    ) && app != getCurrentLauncher(context.packageManager)
-                ) appTasks.add(
-                    AppTask(
+                if (isLaunchable(context, app)) {
+                    val task = AppTask(
                         -1,
                         getPackageLabel(context, app),
                         app,
                         context.packageManager.getApplicationIcon(app)
                     )
-                )
+                    if (!appTasks.contains(task))
+                        appTasks.add(task)
+                }
             } catch (_: PackageManager.NameNotFoundException) {
             }
             if (appTasks.size >= max) break
