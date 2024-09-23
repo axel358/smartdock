@@ -1026,6 +1026,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (!isPinned && sharedPreferences.getBoolean("auto_pin", true))
                 pinDock()
         }
+        updateRunningTasks()
         if (Utils.notificationPanelVisible)
             toggleNotificationPanel(false)
     }
@@ -1487,27 +1488,38 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun updateRunningTasks() {
         val now = System.currentTimeMillis()
-        if (now - lastUpdate < 500) return
+        if (now - lastUpdate < 500)
+            return
         lastUpdate = now
 
         val apps = ArrayList<DockApp>()
-        for (pinnedApp in pinnedApps) {
+        pinnedApps.forEach { pinnedApp ->
             apps.add(DockApp(pinnedApp.name, pinnedApp.packageName, pinnedApp.icon))
         }
+
         val gridSize = Utils.dpToPx(context, 52)
 
         //TODO: We can eliminate another for
         //TODO: Don't do anything if tasks has not changed
-        tasks = if (systemApp) AppUtils.getRunningTasks(
-            activityManager,
-            packageManager,
-            maxApps
-        ) else AppUtils.getRecentTasks(context, maxApps)
-        for (j in 1..tasks.size) {
-            val task = tasks[tasks.size - j]
-            val index = AppUtils.containsTask(apps, task)
-            if (index != -1) apps[index].addTask(task) else apps.add(DockApp(task))
+        if (systemApp) {
+            tasks = AppUtils.getRunningTasks(activityManager, packageManager, maxApps)
+            for (j in 1..tasks.size) {
+                val task = tasks[tasks.size - j]
+                val index = AppUtils.containsTask(apps, task)
+                if (index != -1)
+                    apps[index].addTask(task)
+                else
+                    apps.add(DockApp(task))
+            }
+        } else {
+            tasks = AppUtils.getRecentTasks(context, maxApps)
+            tasks.reversed().forEach { task ->
+                val index = AppUtils.containsTask(apps, task)
+                if (index == -1)
+                    apps.add(DockApp(task))
+            }
         }
+
         tasksGv.layoutParams.width = gridSize * apps.size
         tasksGv.adapter = DockAppAdapter(context, apps, this, iconPackUtils)
         //TODO: Move context outta here

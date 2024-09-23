@@ -240,14 +240,14 @@ object AppUtils {
             val app = stat.packageName
             try {
                 if (isLaunchable(context, app)) {
-                    val task = AppTask(
-                        -1,
-                        getPackageLabel(context, app),
-                        app,
-                        context.packageManager.getApplicationIcon(app)
+                    appTasks.add(
+                        AppTask(
+                            -1,
+                            getPackageLabel(context, app),
+                            app,
+                            context.packageManager.getApplicationIcon(app)
+                        )
                     )
-                    if (!appTasks.contains(task))
-                        appTasks.add(task)
                 }
             } catch (_: PackageManager.NameNotFoundException) {
             }
