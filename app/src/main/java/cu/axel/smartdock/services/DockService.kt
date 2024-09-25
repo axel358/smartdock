@@ -31,7 +31,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.provider.Settings
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.Display
 import android.view.GestureDetector
@@ -1171,7 +1170,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun updateAppMenu() {
         CoroutineScope(Dispatchers.Default).launch {
-            val apps = fetchInstalledApps()
+            val hiddenApps = sharedPreferences.getStringSet(
+                "hidden_apps_grid",
+                setOf()
+            )!!
+            val apps = fetchInstalledApps().filterNot { hiddenApps.contains(it.packageName) }
 
             withContext(Dispatchers.Main) {
                 val menuFullscreen = sharedPreferences.getBoolean("app_menu_fullscreen", false)
@@ -1212,6 +1215,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     val actions = ArrayList<Action>()
                     actions.add(Action(R.drawable.ic_arrow_back, ""))
                     actions.add(Action(R.drawable.ic_info, getString(R.string.app_info)))
+                    if (sharedPreferences.getBoolean("enable_app_hiding_grid", false))
+                        actions.add(
+                            Action(
+                                R.drawable.ic_hide,
+                                getString(R.string.hide)
+                            )
+                        )
                     if (!AppUtils.isSystemApp(
                             context,
                             app.packageName
@@ -1252,6 +1262,27 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         null, null, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                             .setData(Uri.parse("package:${app.packageName}"))
                     )
+                    windowManager.removeView(view)
+                } else if (action.text == getString(R.string.hide)) {
+                    val savedApps = sharedPreferences.getStringSet(
+                        "hidden_apps_grid",
+                        setOf()
+                    )!!
+                    val hiddenApps = mutableSetOf<String>()
+                    hiddenApps.addAll(savedApps)
+                    hiddenApps.add(app.packageName)
+
+                    sharedPreferences.edit()
+                        .putStringSet("hidden_apps_grid", hiddenApps).apply()
+
+                    if (AppUtils.isPinned(this, app, AppUtils.PINNED_LIST))
+                        AppUtils.unpinApp(this, app.packageName, AppUtils.PINNED_LIST)
+                    if (AppUtils.isPinned(this, app, AppUtils.DOCK_PINNED_LIST))
+                        AppUtils.unpinApp(this, app.packageName, AppUtils.DOCK_PINNED_LIST)
+                    if (AppUtils.isPinned(this, app, AppUtils.DESKTOP_LIST))
+                        AppUtils.unpinApp(this, app.packageName, AppUtils.DESKTOP_LIST)
+                    updateAppMenu()
+                    loadFavoriteApps()
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.uninstall)) {
                     if (AppUtils.isSystemApp(context, app.packageName))

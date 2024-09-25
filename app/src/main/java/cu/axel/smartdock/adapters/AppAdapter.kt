@@ -24,10 +24,10 @@ import java.util.Locale
 
 class AppAdapter(
     private val context: Context,
-    private var apps: ArrayList<App>,
+    private var apps: List<App>,
     private val listener: OnAppClickListener,
     private val large: Boolean,
-    val iconPackUtils: IconPackUtils?
+    private val iconPackUtils: IconPackUtils?
 ) : RecyclerView.Adapter<AppAdapter.ViewHolder>() {
     private val allApps: ArrayList<App> = ArrayList(apps)
     private var iconBackground = 0

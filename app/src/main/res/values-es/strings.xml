@@ -326,5 +326,7 @@
     <string name="choose_apps">Choose apps</string>
     <string name="silenced_notifications_title">Silenced notifications</string>
     <string name="hidden_notifications">Hidden notifications</string>
+    <string name="hidden_apps">Apps ocultas</string>
+    <string name="hide">Hide</string>
 
 </resources>
