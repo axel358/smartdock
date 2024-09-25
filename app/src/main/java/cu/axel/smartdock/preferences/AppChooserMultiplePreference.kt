@@ -10,7 +10,6 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.preference.Preference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cu.axel.smartdock.R
@@ -19,7 +18,7 @@ import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 
 
-class AppChooserMultiplePreference(private val context: Context, private val attrs: AttributeSet?) :
+class AppChooserMultiplePreference(private val context: Context, attrs: AttributeSet?) :
     Preference(context, attrs) {
     override fun onClick() {
 

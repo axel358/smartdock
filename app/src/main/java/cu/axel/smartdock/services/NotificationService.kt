@@ -16,7 +16,6 @@ import android.os.Handler
 import android.os.Looper
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import android.util.Log
 import android.view.Gravity
 import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
@@ -43,7 +42,6 @@ import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
-import cu.axel.smartdock.widgets.HoverInterceptorLayout
 
 const val ACTION_HIDE_NOTIFICATION_PANEL = "hide_panel"
 const val ACTION_SHOW_NOTIFICATION_PANEL = "show_panel"
@@ -260,11 +258,12 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                     }
                 }
                 notificationLayout.setOnLongClickListener {
-                    val ignoredApps =
-                        sharedPreferences.getStringSet(
-                            "ignored_notifications_popups",
-                            mutableSetOf("android")
-                        )!!
+                    val savedApps = sharedPreferences.getStringSet(
+                        "ignored_notifications_popups",
+                        setOf()
+                    )!!
+                    val ignoredApps = mutableSetOf<String>()
+                    ignoredApps.addAll(savedApps)
                     ignoredApps.add(sbn.packageName)
 
                     sharedPreferences.edit()
@@ -516,9 +515,14 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     }
 
     override fun onNotificationLongClicked(notification: StatusBarNotification, item: View) {
-        val ignoredApps =
-            sharedPreferences.getStringSet("ignored_notifications_panel", mutableSetOf())!!
+        val savedApps = sharedPreferences.getStringSet(
+            "ignored_notifications_panel",
+            setOf()
+        )!!
+        val ignoredApps = mutableSetOf<String>()
+        ignoredApps.addAll(savedApps)
         ignoredApps.add(notification.packageName)
+        Toast.makeText(this, ignoredApps.toString(), Toast.LENGTH_LONG).show()
         sharedPreferences.edit().putStringSet("ignored_notifications_panel", ignoredApps).apply()
         item.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         Toast.makeText(
