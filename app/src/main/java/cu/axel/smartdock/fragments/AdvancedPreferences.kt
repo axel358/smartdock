@@ -187,16 +187,24 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             }
         })
 
-        val windowScale: EditTextPreference? = findPreference("scale_factor")
-        windowScale?.setOnBindEditTextListener { editText ->
+        val windowScale: EditTextPreference = findPreference("scale_factor")!!
+        windowScale.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
             editText.imeOptions = EditorInfo.IME_ACTION_GO
         }
 
-        val iconPadding: EditTextPreference? = findPreference("icon_padding")
-        iconPadding?.setOnBindEditTextListener { editText ->
+        windowScale.setOnPreferenceChangeListener { _, newValue ->
+            val value = newValue as String
+            value.isNotEmpty() && value.toFloat() > 0
+        }
+
+        val iconPadding: EditTextPreference = findPreference("icon_padding")!!
+        iconPadding.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
+        iconPadding.setOnPreferenceChangeListener { _, newValue ->
+            (newValue as String).isNotEmpty()
         }
     }
 

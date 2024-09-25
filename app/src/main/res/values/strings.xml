@@ -172,7 +172,7 @@
     <!-- Notifications page -->
     <string name="notifications">Notifications</string>
     <string name="manage_service">Manage service</string>
-    <string name="notification_timeout_title">Notification display time in ms</string>
+    <string name="notification_timeout_title">Notification display time (in seconds)</string>
     <string name="show_ongoing_title">Show ongoing notifications</string>
     <string name="silence_current_title">Silence for current app</string>
     <string name="blocked_notifications_title">Ignored notifications</string>

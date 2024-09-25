@@ -306,7 +306,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                         notificationLayout.visibility = View.GONE
                     }
                 })
-        }, sharedPreferences.getString("notification_timeout", "5000")!!.toInt().toLong())
+        }, sharedPreferences.getString("notification_display_time", "5")!!.toInt() * 1000L)
     }
 
     private fun isBlackListed(packageName: String): Boolean {

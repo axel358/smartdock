@@ -7,10 +7,10 @@
             android:title="@string/show_notifications" />
 
         <EditTextPreference
-            android:defaultValue="5000"
+            android:defaultValue="5"
             android:dependency="show_notifications"
-            android:hint="5000"
-            android:key="notification_timeout"
+            android:hint="5"
+            android:key="notification_display_time"
             android:title="@string/notification_timeout_title" />
         <SwitchPreferenceCompat
             android:defaultValue="false"
