@@ -163,11 +163,11 @@
     <!-- Sounds page -->
     <string name="sounds">Sonidos</string>
     <string name="please_note_that_you_must_prov">Tenga en cuenta que debe proporcionar sus propios sonidos.</string>
-    <string name="startup_sound_title">Elija el sonido de inicio</string>
-    <string name="usb_sound_title">Elige sonido usb</string>
-    <string name="notification_sound_title">Elegir sonido de notificación</string>
-    <string name="charge_sound_title">Elija el sonido de carga</string>
-    <string name="charge_complete_sound_title">Elija el sonido de carga completa</string>
+    <string name="startup_sound_title">Sonido de inicio</string>
+    <string name="usb_sound_title">Sonido de dispositivo USB conectado</string>
+    <string name="notification_sound_title">Sonido de notificación</string>
+    <string name="charge_sound_title">Sonido de carga</string>
+    <string name="charge_complete_sound_title">Sonido de carga completa</string>
 
     <!-- Notifications page -->
     <string name="notifications">Notificaciones</string>
@@ -178,8 +178,8 @@
     <string name="blocked_notifications_title">Notificaciones ignoradas</string>
     <string name="long_press_a_notification_to_a">Mantenga presionada una notificación para silenciarla</string>
     <string name="silenced_notifications">Notificaciones silenciadas para esta aplicación</string>
-    <string name="enable_notif_panel_title">Habilitar panel de notificaciones</string>
-    <string name="show_notifications">Mostrar notificaciones emergentes</string>
+    <string name="enable_notif_panel_title">Panel de notificaciones</string>
+    <string name="show_notifications">Notificaciones emergentes</string>
     <string name="popups_disabled">Notificaciones emergentes deshabilitadas</string>
 
 

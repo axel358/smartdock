@@ -163,11 +163,11 @@
     <!-- Sounds page -->
     <string name="sounds">ਆਵਾਜ਼ਾਂ</string>
     <string name="please_note_that_you_must_prov">ਕਿਰਪਾ ਕਰਕੇ ਨੋਟ ਕਰੋ ਕਿ ਤੁਹਾਨੂੰ ਆਪਣੀਆਂ ਖੁਦ ਦੀਆਂ ਆਵਾਜ਼ਾਂ ਪ੍ਰਦਾਨ ਕਰਨੀਆਂ ਹੋਣਗੀਆ</string>
-    <string name="startup_sound_title">ਸ਼ੁਰੂਆਤੀ ਆਵਾਜ਼ ਚੁਣੋ</string>
-    <string name="usb_sound_title">USB ਧੁਨੀ ਚੁਣੋ</string>
-    <string name="notification_sound_title">ਨੋਟੀਫੀਕੇਸਨ ਧੁਨੀ ਚੁਣੋ</string>
-    <string name="charge_sound_title">ਚਾਰਜ ਧੁਨੀ ਚੁਣੋ</string>
-    <string name="charge_complete_sound_title">ਚਾਰਜ ਪੂਰੀ ਆਵਾਜ਼ ਚੁਣੋ</string>
+    <string name="startup_sound_title">Startup sound</string>
+    <string name="usb_sound_title">USB device connected sound</string>
+    <string name="notification_sound_title">Notification sound</string>
+    <string name="charge_sound_title">Charge sound</string>
+    <string name="charge_complete_sound_title">Charge complete sound</string>
 
     <!-- Notifications page -->
     <string name="notifications">ਨੋਟੀਫੀਕੇਸਨ</string>
@@ -178,8 +178,8 @@
     <string name="blocked_notifications_title">ਰੌਕੇ ਹੋਏ ਨੋਟੀਫੀਕੇਸਨ</string>
     <string name="long_press_a_notification_to_a">Long press a notification to silence it</string>
     <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਸਾਈਲੈਨਸਡ ਨੋਟੀਫੀਕੇਸਨ</string>
-    <string name="enable_notif_panel_title">ਸੂਚਨਾ ਪੈਨਲ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
-    <string name="show_notifications">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਦਿਖਾਓ</string>
+    <string name="enable_notif_panel_title">Notification panel</string>
+    <string name="show_notifications">Notification pop-ups</string>
     <string name="popups_disabled">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਬੰਦ ਕਰੋ</string>
 
 
