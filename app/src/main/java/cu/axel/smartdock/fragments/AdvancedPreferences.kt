@@ -42,20 +42,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             DeviceUtils.softReboot()
             false
         }
-        val moveToSystem = findPreference<Preference>("move_to_system")
-        moveToSystem!!.isVisible =
-            !AppUtils.isSystemApp(requireContext(), requireContext().packageName)
-        moveToSystem.setOnPreferenceClickListener {
-            try {
-                val appInfo = requireContext().packageManager
-                    .getApplicationInfo(requireContext().packageName, 0)
-                val appDir = appInfo.sourceDir.substring(0, appInfo.sourceDir.lastIndexOf("/"))
-                DeviceUtils.runAsRoot("mv $appDir /system/priv-app/")
-                DeviceUtils.reboot()
-            } catch (_: PackageManager.NameNotFoundException) {
-            }
-            false
-        }
+
         val hideNav = findPreference<SwitchPreferenceCompat>("hide_nav_buttons")
         val result = DeviceUtils.runAsRoot("cat /system/build.prop")
         hideNav!!.isChecked = result.contains("qemu.hw.mainkeys=1")
@@ -66,39 +53,12 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             DeviceUtils.grantPermission(Manifest.permission.WRITE_SECURE_SETTINGS)
             hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(requireContext())
         }
-        val hideStatus = findPreference<SwitchPreferenceCompat>("hide_status_bar")
-        hideStatus!!.isVisible = Build.VERSION.SDK_INT < 31
+
         if (hasWriteSettingsPermission) {
             findPreference<Preference>("secure_category")!!.isEnabled = true
             findPreference<Preference>("custom_display_size")!!.setOnPreferenceClickListener {
                 showDisplaySizeDialog(requireContext())
                 true
-            }
-            hideStatus.isChecked =
-                (DeviceUtils.getGlobalSetting(requireContext(), DeviceUtils.POLICY_CONTROL, "")
-                        == DeviceUtils.IMMERSIVE_APPS)
-            hideStatus.setOnPreferenceChangeListener { _, isChecked ->
-                if (isChecked as Boolean) {
-                    if (DeviceUtils.putGlobalSetting(
-                            requireContext(), DeviceUtils.POLICY_CONTROL,
-                            DeviceUtils.IMMERSIVE_APPS
-                        )
-                    ) {
-                        if (rootAvailable)
-                            showRebootDialog(requireContext(), true)
-                    }
-                } else {
-                    if (DeviceUtils.putGlobalSetting(
-                            requireContext(),
-                            DeviceUtils.POLICY_CONTROL,
-                            null
-                        )
-                    ) {
-                        if (rootAvailable)
-                            showRebootDialog(requireContext(), true)
-                    }
-                }
-                false
             }
             findPreference<Preference>("status_icon_blacklist")!!.setOnPreferenceClickListener {
                 showIBDialog(requireContext())
