@@ -59,7 +59,7 @@
     <string name="squircle">Squircle</string>
     <string name="system">Sistema</string>
     <string name="round_dock">Esquinas redondeadas para el Dock</string>
-    <string name="single_line_labels">Usar una sola línea para nombres de apps</string>
+    <string name="single_line_labels">Mostar nombres de apps en sola línea</string>
     <string name="tint_indicators_title">Tintar indicadores</string>
 
     <!-- App menu page -->
@@ -126,7 +126,7 @@
 
     <!-- Desktop -->
     <string name="desktop">Escritorio</string>
-    <string name="show_notes_title">Mostrar widget de notas</string>
+    <string name="show_notes_title">Widget de notas</string>
 
     <!-- Default apps page -->
     <string name="default_apps">Aplicaciones predeterminadas</string>
@@ -145,20 +145,20 @@
     <string name="keyboard">Teclado</string>
     <string name="apps">Aplicaciones</string>
     <string name="general">General</string>
-    <string name="enable_open_menu_title">Usar Meta o Home para abrir el menú de apps</string>
-    <string name="enable_lock_desktop_title">Usar Alt+L para bloquear el escritorio</string>
-    <string name="enable_open_settings_title">Usar Alt+P para abrir la configuración</string>
-    <string name="enable_open_music_title">Usar Alt+M para abrir su aplicación de música predeterminada</string>
-    <string name="enable_open_browser_title">Usar Alt+B para abrir su navegador predeterminado</string>
-    <string name="enable_open_terminal_title">Usar Alt+T para abrir la terminal</string>
-    <string name="enable_open_assist_title">Usar Alt+A para iniciar su aplicación de asistente predeterminada</string>
-    <string name="enable_open_rec_title">Usar Alt+R para iniciar su aplicación de grabadora de pantalla predeterminada</string>
-    <string name="enable_new_instance">Usar Alt+Shift+N para lanzar una nueva ventana</string>
-    <string name="enable_expand_notifications_title">Usar Alt+Q para abrir ajustes rápidos</string>
-    <string name="enable_ctrl_back_title">Usar Ctrl derecho para que actúe como botón Atrás</string>
-    <string name="enable_f10_title">Usar F10 para alternar pantalla dividida</string>
-    <string name="enable_toggle_pin_title">Usar Alt+W para anclar/desanclar el Dock</string>
-    <string name="enable_menu_recents_title">Usar tecla Menú para mostrar recientes</string>
+    <string name="enable_open_menu_title">Meta o Home para abrir el menú de apps</string>
+    <string name="enable_lock_desktop_title">Alt+L para bloquear el escritorio</string>
+    <string name="enable_open_settings_title">Alt+P para abrir la configuración</string>
+    <string name="enable_open_music_title">Alt+M para abrir su aplicación de música predeterminada</string>
+    <string name="enable_open_browser_title">Alt+B para abrir su navegador predeterminado</string>
+    <string name="enable_open_terminal_title">Alt+T para abrir la terminal</string>
+    <string name="enable_open_assist_title">Alt+A para iniciar su aplicación de asistente predeterminada</string>
+    <string name="enable_open_rec_title">Alt+R para iniciar su aplicación de grabadora de pantalla predeterminada</string>
+    <string name="enable_new_instance">Alt+Shift+N para lanzar una nueva ventana</string>
+    <string name="enable_expand_notifications_title">Alt+Q para abrir ajustes rápidos</string>
+    <string name="enable_ctrl_back_title">Ctrl derecho actúa botón Atrás</string>
+    <string name="enable_f10_title">F10 para alternar pantalla dividida</string>
+    <string name="enable_toggle_pin_title">Alt+W para anclar/desanclar el Dock</string>
+    <string name="enable_menu_recents_title">Menú para mostrar recientes</string>
 
     <!-- Sounds page -->
     <string name="sounds">Sonidos</string>
@@ -185,11 +185,11 @@
 
     <!-- Hot corners page -->
     <string name="hot_corners">Esquinas Calientes</string>
-    <string name="enable_corner_top_right_title">Habilitar esquina superior derecha</string>
+    <string name="enable_corner_top_right_title">Esquina superior derecha</string>
     <string name="enable_corner_top_right_summary">Coloque el mouse en la esquina superior derecha de la pantalla para mostrar los recientes</string>
-    <string name="enable_corner_bottom_right_title">Habilitar esquina inferior derecha</string>
+    <string name="enable_corner_bottom_right_title">Esquina inferior derecha</string>
     <string name="enable_corner_bottom_right_summary">Coloque el mouse en la esquina superior derecha de la pantalla para bloquear la pantalla</string>
-    <string name="hot_corners_delay_title">Retardo de activación de esquinas activas en ms</string>
+    <string name="hot_corners_delay_title">Retardo de activación (en milisegundos)</string>
 
     <!-- Advanced page -->
     <string name="advanced">Avanzado</string>
@@ -214,7 +214,7 @@
     <string name="disable_heads_up_summary">Deshabilitar notificaciones emergentes de Android</string>
 
     <string name="root_required">Root necesario</string>
-    <string name="enable_power_menu_title">Usar el menú de energía incorporado</string>
+    <string name="enable_power_menu_title">Menú de energía incorporado</string>
     <string name="enable_power_menu_summary">Usar un menú de encendido personalizado en lugar del sistema</string>
     <string name="power_off">Apagado</string>
     <string name="restart">Reanudar</string>
@@ -228,8 +228,8 @@
     <string name="hide_nav_buttons_summary">Oculta los botones de navegación del software de Android. Necesita reiniciar</string>
     <string name="disable_taskbar_title">Deshabilitar barra de tareas</string>
     <string name="disable_taskbar_summary">Deshabilita la barra de tareas de Android en dispositivos con pantalla grande</string>
-    <string name="enable_tiling_shortcut">Usar Alt+flechas para tilear ventanas</string>
-    <string name="enable_soft_reboot_title">Usar Alt+F12 para reiniciar</string>
+    <string name="enable_tiling_shortcut">Alt+flechas para tilear ventanas</string>
+    <string name="enable_soft_reboot_title">Alt+F12 para reiniciar</string>
     <string name="enable_soft_reboot_summary">Es posible que el sistema no responda durante un breve período de tiempo</string>
     <string name="soft_reboot_title">Reinicio suave ahora</string>
     <string name="soft_reboot_summary">Reinicio suave ahora. Perderá todo el trabajo no guardado</string>

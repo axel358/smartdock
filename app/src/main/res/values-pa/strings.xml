@@ -59,7 +59,7 @@
     <string name="squircle">ਸਕਰਕਲ</string>
     <string name="system">ਸਿਸਟਮ</string>
     <string name="round_dock">ਡੋਕ ਲਈ ਗੋਲ ਕੋਨੇ</string>
-    <string name="single_line_labels">ਐਪ ਲੇਬਲ ਲਈ ਇੱਕ ਲਾਈਨ ਵਰਤੋਂ</string>
+    <string name="single_line_labels">Single line for app names</string>
     <string name="tint_indicators_title">ਟਿੰਟ ਚੱਲ ਰਹੇ ਸੂਚਕ</string>
 
     <!-- App menu page -->
@@ -126,7 +126,7 @@
 
     <!-- Desktop -->
     <string name="desktop">ਡੈਸਕਟਾਪ</string>
-    <string name="show_notes_title">ਨੋਟਸ ਵਿਜੇਟ ਦਿਖਾਓ</string>
+    <string name="show_notes_title">Notes widget</string>
 
     <!-- Default apps page -->
     <string name="default_apps">ਡੀਫੋਲਟ ਐਪਾਂ</string>
@@ -145,20 +145,20 @@
     <string name="keyboard">ਕੀਬੋਰਡ</string>
     <string name="apps">ਐਪਸ</string>
     <string name="general">ਜਨਰਲ</string>
-    <string name="enable_open_menu_title">Meta ਜਾ Home ਦੀ ਵਰਤੋਂ ਨਾਲ ਐਪ ਮੈਨੂੰ ਖੋਲੋ</string>
-    <string name="enable_lock_desktop_title">Alt+L ਦੀ ਵਰਤੋਂ ਨਾਲ ਡੈਸਕਟਾਪ ਲੋਕ ਕਰੋ</string>
-    <string name="enable_open_settings_title">Alt+P ਦੀ ਵਰਤੋਂ ਨਾਲ ਸੈਟਿੰਗ ਖੋਲੋ</string>
-    <string name="enable_open_music_title">Alt+M ਦੀ ਵਰਤੋਂ ਨਾਲ ਡਿਫੌਲਟ ਮਿਊਜ਼ਿਕ ਐਪ ਖੋਲੋ</string>
-    <string name="enable_open_browser_title">Alt+B ਦੀ ਵਰਤੋਂ ਨਾਲ ਡਿਫੌਲਟ ਬਰਾਊਜ਼ਰ ਖੋਲੋ</string>
-    <string name="enable_open_terminal_title">Alt+T ਦੀ ਵਰਤੋਂ ਨਾਲ ਟਰਮੀਨਲ ਖੋਲੋ</string>
-    <string name="enable_open_assist_title">Alt+A ਦੀ ਵਰਤੋਂ ਨਾਲ ਡਿਫੌਲਟ assistant ਐਪ ਖੋਲੋ</string>
-    <string name="enable_open_rec_title">Alt+R ਦੀ ਵਰਤੋਂ ਨਾਲ ਡਿਫੌਲਟ ਸਕਰੀਨ ਰਿਕਾਰਡਰ ਖੋਲੋ</string>
-    <string name="enable_new_instance">Alt+Shift+N ਦੀ ਵਰਤੋ ਨਾਲ ਨਿਊ ਵਿੰਡੋ ਖੋਲੋ</string>
-    <string name="enable_expand_notifications_title">Alt+Q ਦੀ ਵਰਤੋਂ ਨਾਲ ਕਵਿਕ ਸੈਟਿੰਗ ਖੋਲੋ</string>
-    <string name="enable_ctrl_back_title">ਸੱਜੇ Ctrl ਨੂੰ ਬੈਕ ਬਟਨ ਵਜੋ ਵਰਤੋਂ</string>
-    <string name="enable_f10_title">F10 ਨੂੰ ਸਪਲਿੱਟ ਸਕਰੀਨ ਲਈ ਵਰਤੋਂ</string>
-    <string name="enable_toggle_pin_title">Alt+W ਨਾਲ ਡਾਕ ਨੂੰ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰੋ</string>
-    <string name="enable_menu_recents_title">Menu ਬਟਨ ਨਾਲ recent ਦੇਖੋ</string>
+    <string name="enable_open_menu_title">Meta or Home to open the apps menu</string>
+    <string name="enable_lock_desktop_title">Alt+L to lock the desktop</string>
+    <string name="enable_open_settings_title">Alt+P to open settings</string>
+    <string name="enable_open_music_title">Alt+M to open you default music app</string>
+    <string name="enable_open_browser_title">Alt+B to open your default browser</string>
+    <string name="enable_open_terminal_title">Alt+T to open terminal</string>
+    <string name="enable_open_assist_title">Alt+A to launch your default assistant app</string>
+    <string name="enable_open_rec_title">Alt+R to launch your default screen recorder app</string>
+    <string name="enable_new_instance">Alt+Shift+N to launch a new window</string>
+    <string name="enable_expand_notifications_title">Alt+Q to open quick settings</string>
+    <string name="enable_ctrl_back_title">Right Ctrl acts as back button</string>
+    <string name="enable_f10_title">F10 to toggle split screen</string>
+    <string name="enable_toggle_pin_title">Alt+W to pin/unpin the dock</string>
+    <string name="enable_menu_recents_title">Menu key to show recents</string>
 
     <!-- Sounds page -->
     <string name="sounds">ਆਵਾਜ਼ਾਂ</string>
@@ -185,11 +185,11 @@
 
     <!-- Hot corners page -->
     <string name="hot_corners">ਹੋਟ ਕੋਨੇ</string>
-    <string name="enable_corner_top_right_title">ਉੱਪਰੀ ਸੱਜੇ ਕੋਨੇ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="enable_corner_top_right_title">Top right corner</string>
     <string name="enable_corner_top_right_summary">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮਾਊਸ ਨੂੰ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਰੱਖੋ</string>
-    <string name="enable_corner_bottom_right_title">ਹੇਠਾਂ ਸੱਜੇ ਕੋਨੇ ਨੂੰ ਚਾਲੂ ਕਰੋ</string>
+    <string name="enable_corner_bottom_right_title">Bottom right corner</string>
     <string name="enable_corner_bottom_right_summary">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰਲੇ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਮਾਊਸ ਨੂੰ ਰੱਖੋ</string>
-    <string name="hot_corners_delay_title">ms ਵਿੱਚ ਗਰਮ ਕਾਰਨਰ ਐਕਟੀਵੇਸ਼ਨ ਦੇਰੀ</string>
+    <string name="hot_corners_delay_title">Activation delay (in milliseconds)</string>
 
     <!-- Advanced -->
     <string name="advanced">ਉੱਨਤ</string>
@@ -215,7 +215,7 @@
 
 
     <string name="root_required">ਰੂਟ ਦੀ ਲੋੜ ਹੈ</string>
-    <string name="enable_power_menu_title">ਬਿਲਟ ਇਨ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
+    <string name="enable_power_menu_title">Built in power menu</string>
     <string name="enable_power_menu_summary">ਸਿਸਟਮ ਦੀ ਬਜਾਏ ਇੱਕ ਕਸਟਮ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="power_off">ਬਿਜਲੀ ਦੀ ਬੰਦ</string>
     <string name="restart">ਰੀਸਟਾਰਟ ਕਰੋ</string>
@@ -229,8 +229,8 @@
     <string name="hide_nav_buttons_summary">ਐਂਡਰਾਇਡ ਸਾਫਟਵੇਅਰ ਨੈਵੀਗੇਸ਼ਨ ਬਟਨ ਲੁਕਾਉਂਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="disable_taskbar_title">ਟਾਸਕਬਾਰ ਬੰਦ ਕਰਨਾ</string>
     <string name="disable_taskbar_summary">ਵੱਡੀ ਸਕਰੀਨਾ ਵਾਲੇ ਡਿਵਾਜਾ ਲਈ Android ਦਾ ਟਾਸਕਬਾਰ ਬੰਦ ਕਰੋ</string>
-    <string name="enable_tiling_shortcut">Alt+arrow ਦੀ ਵਰਤੋਂ ਨਾਲ ਵਿੰਡੋ tile ਕਰੋ</string>
-    <string name="enable_soft_reboot_title">Alt+F12 ਦੀ ਵਰਤੋਂ ਨਾਲ soft ਰੀਬੂਟ ਕਰੋ</string>
+    <string name="enable_tiling_shortcut">Alt+arrow keys to tile windows</string>
+    <string name="enable_soft_reboot_title">Alt+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="soft_reboot_title">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ</string>
     <string name="soft_reboot_summary">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ। ਤੁਸੀਂ ਸਾਰੇ ਅਣਰੱਖਿਅਤ ਕੰਮ ਗੁਆ ਦੇਵੋਗੇ</string>
