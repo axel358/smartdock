@@ -22,6 +22,7 @@ import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.hardware.usb.UsbManager
 import android.media.AudioManager
 import android.net.Uri
@@ -107,6 +108,8 @@ const val DOCK_SERVICE_ACTION = "dock_service_action"
 
 class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, OnTouchListener,
     OnAppClickListener, OnDockAppClickListener {
+
+    private var orientation = -1
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var activityManager: ActivityManager
     private lateinit var appsBtn: ImageView
@@ -155,6 +158,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var pinnedApps: ArrayList<App>
     private lateinit var dateTv: TextClock
     private var maxApps = 0
+    private var maxAppsLandscape = 0
     private lateinit var context: Context
     private lateinit var tasks: ArrayList<AppTask>
     private var lastUpdate: Long = 0
@@ -185,6 +189,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         Utils.startupTime = System.currentTimeMillis()
         systemApp = AppUtils.isSystemApp(context, packageName)
         maxApps = sharedPreferences.getString("max_running_apps", "10")!!.toInt()
+        maxAppsLandscape = sharedPreferences.getString("max_running_apps_landscape", "10")!!.toInt()
+        orientation = resources.configuration.orientation
 
         //Create the dock
         dock = LayoutInflater.from(context).inflate(R.layout.dock, null) as HoverInterceptorLayout
@@ -1458,8 +1464,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             updateQuickSettings()
         } else if (preference == "round_dock")
             updateDockShape()
-        else if (preference == "max_running_apps") {
+        else if (preference.startsWith("max_running_apps")) {
             maxApps = sharedPreferences.getString("max_running_apps", "10")!!.toInt()
+            maxAppsLandscape =
+                sharedPreferences.getString("max_running_apps_landscape", "10")!!.toInt()
             updateRunningTasks()
         } else if (preference == "activation_method") {
             updateActivationMethod()
@@ -1535,8 +1543,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         //TODO: We can eliminate another for
         //TODO: Don't do anything if tasks has not changed
+        val nApps =
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) maxApps else maxAppsLandscape
         if (systemApp) {
-            tasks = AppUtils.getRunningTasks(activityManager, packageManager, maxApps)
+            tasks = AppUtils.getRunningTasks(activityManager, packageManager, nApps)
             for (j in 1..tasks.size) {
                 val task = tasks[tasks.size - j]
                 val index = AppUtils.containsTask(apps, task)
@@ -1546,7 +1556,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     apps.add(DockApp(task))
             }
         } else {
-            tasks = AppUtils.getRecentTasks(context, maxApps)
+            tasks = AppUtils.getRecentTasks(context, nApps)
             tasks.reversed().forEach { task ->
                 val index = AppUtils.containsTask(apps, task)
                 if (index == -1)
@@ -1561,6 +1571,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val bluetoothAdapter = bluetoothManager.adapter
         if (bluetoothAdapter != null)
             bluetoothBtn.setImageResource(if (bluetoothAdapter.isEnabled) R.drawable.ic_bluetooth else R.drawable.ic_bluetooth_off)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        orientation = newConfig.orientation
+        updateRunningTasks()
     }
 
     private fun updateDockShape() {

@@ -122,7 +122,8 @@
     <string name="pin_windowed">Anclar en aplicaciones de ventana</string>
     <string name="unpin_fullscreen">Desanclar en aplicaciones de pantalla completa</string>
     <string name="running_apps_number_title">Número de aplicaciones en ejecución/recientes para mostrar</string>
-    <string name="running_apps_number_summary">Esta configuración puede ayudar a los dispositivos con pantallas más pequeñas a evitar el desbordamiento de aplicaciones en el Dock</string>
+    <string name="max_running_apps_landscape">Máximo de apps (horizontal)</string>
+    <string name="max_running_apps_portrait">Máximo de apps (vertical)</string>
     <string name="center_running_apps_title">Centrar de aplicaciones en ejecución</string>
     <string name="dock_activation_area_title">Área de activación del dock</string>
     <string name="dock_activation_area_summary">La altura del área de activación invisible en la parte inferior de la pantalla</string>
