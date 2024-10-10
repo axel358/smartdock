@@ -68,6 +68,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cu.axel.smartdock.R
 import cu.axel.smartdock.activities.LAUNCHER_ACTION
 import cu.axel.smartdock.activities.LAUNCHER_RESUMED
+import cu.axel.smartdock.activities.MainActivity
 import cu.axel.smartdock.adapters.AppActionsAdapter
 import cu.axel.smartdock.adapters.AppAdapter
 import cu.axel.smartdock.adapters.AppAdapter.OnAppClickListener
@@ -1126,6 +1127,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         avatarIv.setOnClickListener {
             if (AppUtils.isSystemApp(context, packageName))
                 launchApp(null, null, Intent("android.settings.USER_SETTINGS"))
+            else
+                launchApp(null, null, Intent(this, MainActivity::class.java))
         }
         if (AppUtils.isSystemApp(context, packageName)) {
             val name = DeviceUtils.getUserName(context)
@@ -1881,8 +1884,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     override fun onDestroy() {
         //TODO: Unregister all receivers
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-        unregisterReceiver(batteryReceiver)
-        unregisterReceiver(soundEventsReceiver)
+        if (::batteryReceiver.isInitialized)
+            unregisterReceiver(batteryReceiver)
+        if (::soundEventsReceiver.isInitialized)
+            unregisterReceiver(soundEventsReceiver)
         try {
             windowManager.removeView(dock)
         } catch (_: Exception) {
