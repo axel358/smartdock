@@ -17,10 +17,6 @@
             android:key="dock_layout"
             android:title="@string/dock_layout" />
 
-        <cu.axel.smartdock.preferences.IconPackPreference
-            android:key="icon_pack"
-            android:title="@string/icon_pack" />
-
         <ListPreference
             android:defaultValue="circle"
             android:entries="@array/icon_shapes"

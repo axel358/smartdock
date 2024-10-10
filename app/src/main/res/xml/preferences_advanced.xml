@@ -21,6 +21,10 @@
         android:key="dock_height"
         android:title="@string/dock_height" />
 
+    <cu.axel.smartdock.preferences.IconPackPreference
+        android:key="icon_pack"
+        android:title="@string/icon_pack" />
+
     <PreferenceCategory
         android:enabled="false"
         android:key="secure_category"

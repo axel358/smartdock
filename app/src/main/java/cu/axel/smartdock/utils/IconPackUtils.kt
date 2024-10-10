@@ -296,7 +296,7 @@ class IconPackUtils(val context: Context) {
         }
     }
 
-    val isIconPackLoaded: Boolean
+    private val isIconPackLoaded: Boolean
         get() = loadedIconPackResource != null && loadedIconPackName != null && iconPackResources != null
 
     private fun getResourceIdForDrawable(resource: String?): Int {
