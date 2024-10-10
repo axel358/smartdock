@@ -72,7 +72,7 @@
     <PreferenceCategory
         android:title="App hiding">
         <SwitchPreferenceCompat
-            android:title="Allow hiding apps"
+            android:title="@string/allow_app_hiding"
             android:key="enable_app_hiding_grid"/>
         <cu.axel.smartdock.preferences.AppChooserMultiplePreference
             android:key="hidden_apps_grid"

@@ -87,6 +87,9 @@
     <string name="user_info">ਉਪਭੋਗਤਾ ਬਾਰੇ ਜਾਣਕਾਰੀ</string>
     <string name="user_name">ਨਾਮ</string>
     <string name="user_avatar">ਅਵਤਾਰ</string>
+    <string name="allow_app_hiding">Allow hiding apps</string>
+    <string name="hidden_apps">Hidden apps</string>
+    <string name="choose_apps">Choose apps</string>
 
     <!-- Dock page -->
     <string name="dock">ਡੌਕ</string>
@@ -179,8 +182,10 @@
     <string name="long_press_a_notification_to_a">Long press a notification to silence it</string>
     <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਸਾਈਲੈਨਸਡ ਨੋਟੀਫੀਕੇਸਨ</string>
     <string name="enable_notif_panel_title">Notification panel</string>
-    <string name="show_notifications">Notification pop-ups</string>
+    <string name="notification_popups">Notification pop-ups</string>
     <string name="popups_disabled">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਬੰਦ ਕਰੋ</string>
+    <string name="silenced_notifications_title">Silenced notifications</string>
+    <string name="hidden_notifications">Hidden notifications</string>
 
 
     <!-- Hot corners page -->
@@ -201,18 +206,16 @@
     <string name="custom_toasts">ਕਸਟਮ ਟੋਸਟਾ</string>
     <string name="custom_toasts_summary">ਜਦੋ ਡੋਕ ਪਿਨ ਹੋਵੇ ਐਪਾ ਲਈ ਇਨ-ਵਿਲਡ ਟੋਸਟ ਦੀ ਵਰਤੋਂ ਕਰਨੀ</string>
     <string name="dock_height">ਡੋਕ ਦੀ ਉਚਾਈ</string>
+    <string name="icon_pack">Icon pack</string>
 
     <string name="secure_settings">Secure ਸੈਟਿੰਗਾਂ</string>
     <string name="custom_display_size_title">ਡਿਸਪਲੇ ਦਾ ਆਕਾਰ</string>
     <string name="custom_display_size_summary">ਤੁਹਾਨੂੰ ਸਕ੍ਰੀਨ ਐਲੀਮੈਂਟਸ ਦੇ ਡਿਸਪਲੇ ਆਕਾਰ ਨੂੰ ਵਧੀਆ ਟਿਊਨ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦਾ ਹੈ। ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="custom_display_size_hint">ਡਿਫੌਲਟ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
-    <string name="hide_status_bar_title">ਸਥਿਤੀ ਪੱਟੀ ਨੂੰ ਲੁਕਾਓ</string>
-    <string name="hide_status_bar_summary">ਐਂਡਰਾਇਡ ਸਥਿਤੀ ਬਾਰ ਨੂੰ ਲੁਕਾਉਂਦਾ ਹੈ। ਨਰਮ ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="icon_blacklist">ਆਈਕਨ ਬਲੈਕਲਿਸਟ</string>
     <string name="icon_blacklist_summary">ਸਥਿਤੀ ਪੱਟੀ ਤੋਂ ਲੁਕਾਉਣ ਲਈ ਆਈਕਾਨ</string>
     <string name="disable_heads_up">ਨੋਟੀਫਿਕੇਸ਼ਨ heads-up ਬੰਦ ਕਰੋ</string>
     <string name="disable_heads_up_summary">Android ਦੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਨੂੰ ਬੰਦ ਕਰਦਾ ਹੈ</string>
-
 
     <string name="root_required">ਰੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="enable_power_menu_title">Built in power menu</string>
@@ -234,8 +237,6 @@
     <string name="enable_soft_reboot_summary">ਸਿਸਟਮ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਗੈਰ-ਜਵਾਬਦੇਹ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="soft_reboot_title">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ</string>
     <string name="soft_reboot_summary">ਹੁਣ ਨਰਮ ਰੀਬੂਟ ਕਰੋ। ਤੁਸੀਂ ਸਾਰੇ ਅਣਰੱਖਿਅਤ ਕੰਮ ਗੁਆ ਦੇਵੋਗੇ</string>
-    <string name="move_to_system_title">ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਮੂਵ ਕਰੋ</string>
-    <string name="move_to_system_summary">ਸਮਾਰਟ ਡੌਕ ਨੂੰ ਸਿਸਟਮ ਐਪ ਵਜੋਂ ਮੂਵ ਕਰੋ। Android ਰੀਸਟਾਰਟ ਹੋਵੇਗਾ</string>
     <string name="reboot_required_title">ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="reboot_required_text">ਤਬਦੀਲੀਆਂ ਨੂੰ ਲਾਗੂ ਕਰਨ ਲਈ ਇੱਕ ਰੀਬੂਟ ਦੀ ਲੋੜ ਹੈ। ਕੀ ਤੁਸੀਂ ਹੁਣੇ ਰੀਬੂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
 
@@ -285,16 +286,11 @@
     <string name="on_google">Google \'ਤੇ</string>
     <string name="disabled">ਬੰਦ</string>
 
-    <!-- User context menu -->
-    <string name="users">ਉਪਭੋਗਤਾ</string>
-    <string name="files">ਫਾਈਲਾਂ</string>
-    <string name="settings">ਸੈਟਿੰਗਾਂ</string>
-    <string name="dock_settings">ਡੌਕ ਸੈਟਿੰਗਾਂ</string>
-
     <!-- App context menu -->
     <string name="shortcuts">ਸ਼ਾਰਟਕੱਟਸ</string>
     <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
     <string name="uninstall">ਅਣਇੰਸਟੌਲ ਕਰੋ</string>
+    <string name="hide">Hide</string>
     <string name="open_as">ੳਪਨ ਐਸ…</string>
     <string name="add_to">ਐਡ ਟੂ…</string>
     <string name="launch_in">ਲੋਚ ਇਨ…</string>
@@ -320,13 +316,5 @@
     <string name="something_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>
     <string name="save_log">ਲੌਗ ਸੇਵ ਕਰੋ</string>
     <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
-    <string name="icon_pack">Icon pack</string>
-    <string name="notification_popups">Notification pop-ups</string>
-    <string name="notification_panel">Notification panel</string>
-    <string name="choose_apps">Choose apps</string>
-    <string name="silenced_notifications_title">Silenced notifications</string>
-    <string name="hidden_notifications">Hidden notifications</string>
-    <string name="hidden_apps">Hidden apps</string>
-    <string name="hide">Hide</string>
 
 </resources>

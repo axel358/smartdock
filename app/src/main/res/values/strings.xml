@@ -54,7 +54,7 @@
     <string name="dock_layout">Dock layout</string>
     <string name="wallpaper">Wallpaper</string>
     <string name="presets">Presets</string>
-    <string name="icon_shape_title">Icon Shape</string>
+    <string name="icon_shape_title">Icon shape</string>
     <string name="circle">Circle</string>
     <string name="squircle">Squircle</string>
     <string name="system">System</string>
@@ -65,7 +65,7 @@
     <!-- App menu page -->
     <string name="app_menu">App Menu</string>
     <string name="menu">Menu</string>
-    <string name="menu_icon_uri_title">Select menu icon</string>
+    <string name="menu_icon_uri_title">Menu icon</string>
     <string name="restore_menu_icon_title">Restore default menu icon</string>
     <string name="app_menu_fullscreen_title">Open App menu in full screen</string>
     <string name="app_menu_height_title">App menu height</string>
@@ -87,6 +87,9 @@
     <string name="user_info">User info</string>
     <string name="user_name">Name</string>
     <string name="user_avatar">Avatar</string>
+    <string name="allow_app_hiding">Allow hiding apps</string>
+    <string name="hidden_apps">Hidden apps</string>
+    <string name="choose_apps">Choose apps</string>
 
     <!-- Dock page -->
     <string name="dock">Dock</string>
@@ -179,8 +182,10 @@
     <string name="long_press_a_notification_to_a">Long press a notification to silence it</string>
     <string name="silenced_notifications">Silenced notifications for this app</string>
     <string name="enable_notif_panel_title">Notification panel</string>
-    <string name="show_notifications">Notification pop-ups</string>
+    <string name="notification_popups">Notification pop-ups</string>
     <string name="popups_disabled">Notification pop-ups disabled</string>
+    <string name="silenced_notifications_title">Silenced notifications</string>
+    <string name="hidden_notifications">Hidden notifications</string>
 
     <!-- Hot corners page -->
     <string name="hot_corners">Hot Corners</string>
@@ -200,14 +205,12 @@
     <string name="custom_toasts">Custom Toasts</string>
     <string name="custom_toasts_summary">Use built-in custom Toasts for apps when the Dock is pinned</string>
     <string name="dock_height">Dock height</string>
-
+    <string name="icon_pack">Icon pack</string>
 
     <string name="secure_settings">Secure settings</string>
     <string name="custom_display_size_title">Display size</string>
     <string name="custom_display_size_summary">Allows you to fine tune the display size of screen elements. Needs reboot</string>
     <string name="custom_display_size_hint">leave blank for default</string>
-    <string name="hide_status_bar_title">Hide status bar</string>
-    <string name="hide_status_bar_summary">Hides Android status bar. Needs soft reboot</string>
     <string name="icon_blacklist">Icon blacklist</string>
     <string name="icon_blacklist_summary">Icons to hide from the status bar</string>
     <string name="disable_heads_up">Disable notification heads-up</string>
@@ -233,8 +236,6 @@
     <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
     <string name="soft_reboot_title">Soft reboot now</string>
     <string name="soft_reboot_summary">Soft reboot now. You will lose all unsaved work</string>
-    <string name="move_to_system_title">Move as system app</string>
-    <string name="move_to_system_summary">Move Smart Dock as a system app. Android will restart</string>
     <string name="reboot_required_title">Reboot required</string>
     <string name="reboot_required_text">A reboot is required for changes to take effect. Do you want to reboot now?</string>
 
@@ -285,16 +286,11 @@
     <string name="on_google">on Google</string>
     <string name="disabled">Disabled</string>
 
-    <!-- User context menu -->
-    <string name="users">Users</string>
-    <string name="files">Files</string>
-    <string name="settings">Settings</string>
-    <string name="dock_settings">Dock Settings</string>
-
     <!-- App context menu -->
     <string name="shortcuts">Shortcuts…</string>
     <string name="app_info">App Info</string>
     <string name="uninstall">Uninstall</string>
+    <string name="hide">Hide</string>
     <string name="open_as">Open as…</string>
     <string name="add_to">Add to…</string>
     <string name="launch_in">Launch in…</string>
@@ -320,13 +316,5 @@
     <string name="something_wrong">Something went wrong</string>
     <string name="save_log">Save log</string>
     <string name="open_again">Open app again</string>
-    <string name="icon_pack">Icon pack</string>
-    <string name="notification_popups">Notification pop-ups</string>
-    <string name="notification_panel">Notification panel</string>
-    <string name="choose_apps">Choose apps</string>
-    <string name="silenced_notifications_title">Silenced notifications</string>
-    <string name="hidden_notifications">Hidden notifications</string>
-    <string name="hidden_apps">Hidden apps</string>
-    <string name="hide">Hide</string>
 
 </resources>

@@ -65,7 +65,7 @@
     <!-- App menu page -->
     <string name="app_menu">Menú de aplicaciones</string>
     <string name="menu">Menú</string>
-    <string name="menu_icon_uri_title">Seleccionar icono de menú</string>
+    <string name="menu_icon_uri_title">Icono de menú</string>
     <string name="restore_menu_icon_title">Restaurar icono de menú predeterminado</string>
     <string name="app_menu_fullscreen_title">Abrir el menú de aplicaciones en pantalla completa</string>
     <string name="app_menu_height_title">Altura del menú de aplicaciones</string>
@@ -87,6 +87,9 @@
     <string name="user_info">Información de usuario</string>
     <string name="user_name">Nombre</string>
     <string name="user_avatar">Avatar</string>
+    <string name="allow_app_hiding">Permitir ocultar apps</string>
+    <string name="hidden_apps">Apps ocultas</string>
+    <string name="choose_apps">Escoge apps</string>
 
     <!-- Dock page -->
     <string name="dock">Dock</string>
@@ -179,9 +182,10 @@
     <string name="long_press_a_notification_to_a">Mantenga presionada una notificación para silenciarla</string>
     <string name="silenced_notifications">Notificaciones silenciadas para esta aplicación</string>
     <string name="enable_notif_panel_title">Panel de notificaciones</string>
-    <string name="show_notifications">Notificaciones emergentes</string>
+    <string name="notification_popups">Notificaciones emergentes</string>
     <string name="popups_disabled">Notificaciones emergentes deshabilitadas</string>
-
+    <string name="silenced_notifications_title">Notificaciones silenciadas</string>
+    <string name="hidden_notifications">Notificaciones ocultas</string>
 
     <!-- Hot corners page -->
     <string name="hot_corners">Esquinas Calientes</string>
@@ -201,13 +205,12 @@
     <string name="custom_toasts">Toasts personalizados</string>
     <string name="custom_toasts_summary">Mostrar Toasts perzonalizados para apps cuando el dock se muestra</string>
     <string name="dock_height">Altura del dock</string>
+    <string name="icon_pack">Pack de iconos</string>
 
     <string name="secure_settings">Ajustes protegidos</string>
     <string name="custom_display_size_title">Tamaño de la pantalla</string>
     <string name="custom_display_size_summary">Le permite ajustar el tamaño de visualización de los elementos de la pantalla. Necesita reiniciar</string>
     <string name="custom_display_size_hint">dejar en blanco por defecto</string>
-    <string name="hide_status_bar_title">Ocultar barra de estado</string>
-    <string name="hide_status_bar_summary">Oculta la barra de estado de Android. Necesita un reinicio suave</string>
     <string name="icon_blacklist">Lista negra de iconos</string>
     <string name="icon_blacklist_summary">Iconos para ocultar de la barra de estado</string>
     <string name="disable_heads_up">Deshabilitar heads-up</string>
@@ -233,8 +236,6 @@
     <string name="enable_soft_reboot_summary">Es posible que el sistema no responda durante un breve período de tiempo</string>
     <string name="soft_reboot_title">Reinicio suave ahora</string>
     <string name="soft_reboot_summary">Reinicio suave ahora. Perderá todo el trabajo no guardado</string>
-    <string name="move_to_system_title">Mover como aplicación del sistema</string>
-    <string name="move_to_system_summary">Mover Smart Dock como una aplicación del sistema. Android se reiniciará</string>
     <string name="reboot_required_title">Reinicio requerido</string>
     <string name="reboot_required_text">Es necesario reiniciar para que los cambios surtan efecto. ¿Quieres reiniciar ahora?</string>
 
@@ -285,16 +286,11 @@
     <string name="on_google">en Google</string>
     <string name="disabled">Deshabilitado</string>
 
-    <!-- User context menu -->
-    <string name="users">Usuarios</string>
-    <string name="files">Archivos</string>
-    <string name="settings">Ajustes</string>
-    <string name="dock_settings">Configuración del Dock</string>
-
     <!-- App context menu -->
     <string name="shortcuts">Atajos…</string>
     <string name="app_info">Informacion</string>
     <string name="uninstall">Desinstalar</string>
+    <string name="hide">Ocultar</string>
     <string name="open_as">Abrir en…</string>
     <string name="add_to">Add to…</string>
     <string name="launch_in">Launch in…</string>
@@ -320,13 +316,5 @@
     <string name="something_wrong">Algo salió mal</string>
     <string name="save_log">Guardar registro</string>
     <string name="open_again">Abrir aplicación de nuevo</string>
-    <string name="icon_pack">Icon pack</string>
-    <string name="notification_popups">Notification pop-ups</string>
-    <string name="notification_panel">Notification panel</string>
-    <string name="choose_apps">Choose apps</string>
-    <string name="silenced_notifications_title">Silenced notifications</string>
-    <string name="hidden_notifications">Hidden notifications</string>
-    <string name="hidden_apps">Apps ocultas</string>
-    <string name="hide">Hide</string>
 
 </resources>

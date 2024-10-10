@@ -3,7 +3,7 @@
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="show_notifications"
-            android:title="@string/show_notifications" />
+            android:title="@string/notification_popups" />
 
         <EditTextPreference
             android:defaultValue="5"
@@ -28,7 +28,7 @@
             android:key="ignored_notifications_popups"
             android:title="@string/silenced_notifications_title" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/notification_panel">
+    <PreferenceCategory android:title="@string/enable_notif_panel_title">
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="enable_notif_panel"
