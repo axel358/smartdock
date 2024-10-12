@@ -59,7 +59,7 @@
     <string name="squircle">ਸਕਰਕਲ</string>
     <string name="system">ਸਿਸਟਮ</string>
     <string name="round_dock">ਡੋਕ ਲਈ ਗੋਲ ਕੋਨੇ</string>
-    <string name="single_line_labels">Single line for app names</string>
+    <string name="single_line_labels">ਐਪ ਨਾਮਾਂ ਲਈ ਇੱਕ ਲਾਈਨ</string>
     <string name="tint_indicators_title">ਟਿੰਟ ਚੱਲ ਰਹੇ ਸੂਚਕ</string>
 
     <!-- App menu page -->
@@ -87,26 +87,26 @@
     <string name="user_info">ਉਪਭੋਗਤਾ ਬਾਰੇ ਜਾਣਕਾਰੀ</string>
     <string name="user_name">ਨਾਮ</string>
     <string name="user_avatar">ਅਵਤਾਰ</string>
-    <string name="allow_app_hiding">Allow hiding apps</string>
-    <string name="hidden_apps">Hidden apps</string>
-    <string name="choose_apps">Choose apps</string>
+    <string name="allow_app_hiding">ਐਪਾਂ ਨੂੰ ਲੁਕਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ</string>
+    <string name="hidden_apps">ਲੁਕੀਆਂ ਹੋਈਆਂ ਐਪਾਂ</string>
+    <string name="choose_apps">ਐਪਸ ਚੁਣੋ</string>
 
     <!-- Dock page -->
     <string name="dock">ਡੌਕ</string>
     <string name="navigation">ਨੇਵੀਗੇਸ਼ਨ</string>
-    <string name="enable_apps_btn">Apps menu</string>
-    <string name="enable_nav_back_title">Back</string>
-    <string name="enable_nav_home_title">Home</string>
-    <string name="enable_nav_recents_title">Recents</string>
-    <string name="enable_nav_assist_title">Assistant</string>
+    <string name="enable_apps_btn">ਐਪਸ ਮੀਨੂ</string>
+    <string name="enable_nav_back_title">ਪਿੱਛੇ</string>
+    <string name="enable_nav_home_title">ਹੋਮ</string>
+    <string name="enable_nav_recents_title">ਹਾਲੀਆ</string>
+    <string name="enable_nav_assist_title">ਸਹਾਇਕ</string>
     <string name="quick_settings">ਕਵਿਕ ਸੈਟਿੰਗਾਂ</string>
-    <string name="enable_notif_btn">Notifications</string>
-    <string name="enable_qs_bluetooth_title">Bluetooth</string>
-    <string name="enable_qs_battery_title">Battery</string>
-    <string name="enable_qs_wifi_title">Wi-Fi</string>
-    <string name="enable_qs_vol_title">Volume</string>
-    <string name="enable_qs_date_title">Clock</string>
-    <string name="enable_qs_pin_title">Pin</string>
+    <string name="enable_notif_btn">ਸੂਚਨਾਵਾਂ</string>
+    <string name="enable_qs_bluetooth_title">ਬਲੂਟੁੱਥ</string>
+    <string name="enable_qs_battery_title">ਬੈਟਰੀ</string>
+    <string name="enable_qs_wifi_title">ਵਾਈ-ਫਾਈ</string>
+    <string name="enable_qs_vol_title">ਵਾਲੀਅਮ</string>
+    <string name="enable_qs_date_title">ਘੜੀ</string>
+    <string name="enable_qs_pin_title">ਪਿੰਨ</string>
     <string name="enable_qs_pin_summary">ਡੋਕ ਨੂੰ ਪਿਨ ਅਤੇ ਅਨਪਿਨ ਡੋਕ ਤੇ ਸਵਾਇਪ ਕਰਕੇ ਜਾ ਕੀਬੋਰਡ ਸਾਰਟਕਟ ਦੁਆਰਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ</string>
     <string name="behaviour">ਵਿਵਹਾਰ</string>
     <string name="enable_apps_btn_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ \'ਤੇ ਉੱਪਰ/ਹੇਠਾਂ ਸਵਾਈਪ ਕਰਕੇ ਐਪ ਮੀਨੂ ਨੂੰ ਖੋਲ੍ਹ/ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ</string>
@@ -122,15 +122,15 @@
     <string name="pin_windowed">ਵਿੰਡੋਡ ਐਪਸ \'ਤੇ ਪਿੰਨ ਕਰੋ</string>
     <string name="unpin_fullscreen">ਪੂਰੀ ਸਕ੍ਰੀਨ ਐਪਾਂ \'ਤੇ ਅਨਪਿੰਨ ਕਰੋ</string>
     <string name="running_apps_number_title">ਚੱਲ ਰਹੀਆਂ/ਹਾਲੀਆ ਐਪਾਂ ਦੀ ਦਿਖਾਉਣ ਲਈ ਸੰਖਿਆ</string>
-    <string name="max_running_apps_landscape">Max recent apps (landscape)</string>
-    <string name="max_running_apps_portrait">Max recent apps (portrait)</string>
+    <string name="max_running_apps_landscape">ਅਧਿਕਤਮ ਹਾਲੀਆ ਐਪਸ (ਲੈਂਡਸਕੇਪ)</string>
+    <string name="max_running_apps_portrait">ਅਧਿਕਤਮ ਹਾਲੀਆ ਐਪਸ (ਪੋਰਟਰੇਟ)</string>
     <string name="center_running_apps_title">ਸੈਂਟਰ ਚੱਲ ਰਹੀਆਂ ਐਪਾਂ</string>
     <string name="dock_activation_area_title">ਡੌਕ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ</string>
     <string name="dock_activation_area_summary">ਸਕ੍ਰੀਨ ਦੇ ਹੇਠਾਂ ਇਨਵਿਜੀਵਲ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ ਦੀ ਉਚਾਈ</string>
 
     <!-- Desktop -->
     <string name="desktop">ਡੈਸਕਟਾਪ</string>
-    <string name="show_notes_title">Notes widget</string>
+    <string name="show_notes_title">ਨੋਟਸ ਵਿਜੇਟ</string>
 
     <!-- Default apps page -->
     <string name="default_apps">ਡੀਫੋਲਟ ਐਪਾਂ</string>
@@ -149,53 +149,53 @@
     <string name="keyboard">ਕੀਬੋਰਡ</string>
     <string name="apps">ਐਪਸ</string>
     <string name="general">ਜਨਰਲ</string>
-    <string name="enable_open_menu_title">Meta or Home to open the apps menu</string>
-    <string name="enable_lock_desktop_title">Alt+L to lock the desktop</string>
-    <string name="enable_open_settings_title">Alt+P to open settings</string>
-    <string name="enable_open_music_title">Alt+M to open you default music app</string>
-    <string name="enable_open_browser_title">Alt+B to open your default browser</string>
-    <string name="enable_open_terminal_title">Alt+T to open terminal</string>
-    <string name="enable_open_assist_title">Alt+A to launch your default assistant app</string>
-    <string name="enable_open_rec_title">Alt+R to launch your default screen recorder app</string>
-    <string name="enable_new_instance">Alt+Shift+N to launch a new window</string>
-    <string name="enable_expand_notifications_title">Alt+Q to open quick settings</string>
-    <string name="enable_ctrl_back_title">Right Ctrl acts as back button</string>
-    <string name="enable_f10_title">F10 to toggle split screen</string>
-    <string name="enable_toggle_pin_title">Alt+W to pin/unpin the dock</string>
-    <string name="enable_menu_recents_title">Menu key to show recents</string>
+    <string name="enable_open_menu_title">ਐਪਸ ਮੀਨੂ ਨੂੰ ਖੋਲ੍ਹਣ ਲਈ ਮੈਟਾ ਜਾਂ ਹੋਮ</string>
+    <string name="enable_lock_desktop_title">ਡੈਸਕਟਾਪ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ Alt+L</string>
+    <string name="enable_open_settings_title">ਸੈਟਿੰਗਾਂ ਖੋਲ੍ਹਣ ਲਈ Alt+P</string>
+    <string name="enable_open_music_title">ਤੁਹਾਡੀ ਡਿਫੌਲਟ ਸੰਗੀਤ ਐਪ ਖੋਲ੍ਹਣ ਲਈ Alt+M</string>
+    <string name="enable_open_browser_title">ਆਪਣੇ ਡਿਫੌਲਟ ਬ੍ਰਾਊਜ਼ਰ ਨੂੰ ਖੋਲ੍ਹਣ ਲਈ Alt+B</string>
+    <string name="enable_open_terminal_title">ਟਰਮੀਨਲ ਖੋਲ੍ਹਣ ਲਈ Alt+T</string>
+    <string name="enable_open_assist_title">ਤੁਹਾਡੀ ਡਿਫੌਲਟ ਸਹਾਇਕ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ Alt+A</string>
+    <string name="enable_open_rec_title">ਤੁਹਾਡੀ ਡਿਫੌਲਟ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਰ ਐਪ ਨੂੰ ਲਾਂਚ ਕਰਨ ਲਈ Alt+R</string>
+    <string name="enable_new_instance">ਇੱਕ ਨਵੀਂ ਵਿੰਡੋ ਸ਼ੁਰੂ ਕਰਨ ਲਈ Alt+Shift+N</string>
+    <string name="enable_expand_notifications_title">ਤੇਜ਼ ਸੈਟਿੰਗਾਂ ਖੋਲ੍ਹਣ ਲਈ Alt+Q</string>
+    <string name="enable_ctrl_back_title">ਸੱਜਾ Ctrl ਬੈਕ ਬਟਨ ਵਜੋਂ ਕੰਮ ਕਰਨਾ</string>
+    <string name="enable_f10_title">ਸਪਲਿਟ ਸਕ੍ਰੀਨ ਨੂੰ ਟੌਗਲ ਕਰਨ ਲਈ F10</string>
+    <string name="enable_toggle_pin_title">ਡੌਕ ਨੂੰ ਪਿੰਨ/ਅਨਪਿੰਨ ਕਰਨ ਲਈ Alt+W</string>
+    <string name="enable_menu_recents_title">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮੀਨੂ ਬਟਨ</string>
 
     <!-- Sounds page -->
     <string name="sounds">ਆਵਾਜ਼ਾਂ</string>
     <string name="please_note_that_you_must_prov">ਕਿਰਪਾ ਕਰਕੇ ਨੋਟ ਕਰੋ ਕਿ ਤੁਹਾਨੂੰ ਆਪਣੀਆਂ ਖੁਦ ਦੀਆਂ ਆਵਾਜ਼ਾਂ ਪ੍ਰਦਾਨ ਕਰਨੀਆਂ ਹੋਣਗੀਆ</string>
-    <string name="startup_sound_title">Startup sound</string>
-    <string name="usb_sound_title">USB device connected sound</string>
-    <string name="notification_sound_title">Notification sound</string>
-    <string name="charge_sound_title">Charge sound</string>
-    <string name="charge_complete_sound_title">Charge complete sound</string>
+    <string name="startup_sound_title">ਸ਼ੁਰੂਆਤੀ ਆਵਾਜ਼</string>
+    <string name="usb_sound_title">USB ਡਿਵਾਈਸ ਕਨੈਕਟ ਕੀਤੀ ਆਵਾਜ਼</string>
+    <string name="notification_sound_title">ਸੂਚਨਾ ਆਵਾਜ਼</string>
+    <string name="charge_sound_title">ਚਾਰਜ ਆਵਾਜ਼</string>
+    <string name="charge_complete_sound_title">ਚਾਰਜ ਪੂਰੀ ਦੀ ਆਵਾਜ਼</string>
 
     <!-- Notifications page -->
     <string name="notifications">ਨੋਟੀਫੀਕੇਸਨ</string>
     <string name="manage_service">ਮੈਨਜ  ਸਰਵੀਸ</string>
-    <string name="notification_timeout_title">Notification display time (in seconds)</string>
-    <string name="show_ongoing_title">Show ongoing notifications</string>
-    <string name="silence_current_title">Silence for current app</string>
+    <string name="notification_timeout_title">ਸੂਚਨਾ ਡਿਸਪਲੇ ਸਮਾਂ (ਸਕਿੰਟ ਵਿੱਚ)</string>
+    <string name="show_ongoing_title">ਚੱਲ ਰਹੀਆਂ ਸੂਚਨਾਵਾਂ ਦਿਖਾਓ</string>
+    <string name="silence_current_title">ਮੌਜੂਦਾ ਐਪ ਲਈ ਸਾਈਲੈਂਸ</string>
     <string name="blocked_notifications_title">ਰੌਕੇ ਹੋਏ ਨੋਟੀਫੀਕੇਸਨ</string>
-    <string name="long_press_a_notification_to_a">Long press a notification to silence it</string>
+    <string name="long_press_a_notification_to_a">ਇਸਨੂੰ ਸਾਈਲੈਂਸ ਕਰਨ ਲਈ ਇੱਕ ਸੂਚਨਾ ਨੂੰ ਦੇਰ ਤੱਕ ਦਬਾਓ</string>
     <string name="silenced_notifications">ਇਸ ਐਪ ਲਈ ਸਾਈਲੈਨਸਡ ਨੋਟੀਫੀਕੇਸਨ</string>
-    <string name="enable_notif_panel_title">Notification panel</string>
-    <string name="notification_popups">Notification pop-ups</string>
+    <string name="enable_notif_panel_title">ਸੂਚਨਾ ਪੈਨਲ</string>
+    <string name="notification_popups">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪ-ਅਪਸ</string>
     <string name="popups_disabled">ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਬੰਦ ਕਰੋ</string>
-    <string name="silenced_notifications_title">Silenced notifications</string>
-    <string name="hidden_notifications">Hidden notifications</string>
+    <string name="silenced_notifications_title">ਸਾਈਲੈਂਸ ਕੀਤੀਆਂ ਸੂਚਨਾਵਾਂ</string>
+    <string name="hidden_notifications">ਗੁਪਤ ਸੂਚਨਾਵਾਂ</string>
 
 
     <!-- Hot corners page -->
     <string name="hot_corners">ਹੋਟ ਕੋਨੇ</string>
-    <string name="enable_corner_top_right_title">Top right corner</string>
+    <string name="enable_corner_top_right_title">ਉੱਪਰ ਸੱਜੇ ਕੋਨਾ</string>
     <string name="enable_corner_top_right_summary">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮਾਊਸ ਨੂੰ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਰੱਖੋ</string>
-    <string name="enable_corner_bottom_right_title">Bottom right corner</string>
+    <string name="enable_corner_bottom_right_title">ਹੇਠਾਂ ਸੱਜੇ ਕੋਨਾ</string>
     <string name="enable_corner_bottom_right_summary">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰਲੇ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਮਾਊਸ ਨੂੰ ਰੱਖੋ</string>
-    <string name="hot_corners_delay_title">Activation delay (in milliseconds)</string>
+    <string name="hot_corners_delay_title">ਐਕਟੀਵੇਸ਼ਨ ਦੇਰੀ (ਮਿਲੀਸਕਿੰਟ ਵਿੱਚ)</string>
 
     <!-- Advanced -->
     <string name="advanced">ਉੱਨਤ</string>
@@ -207,7 +207,7 @@
     <string name="custom_toasts">ਕਸਟਮ ਟੋਸਟਾ</string>
     <string name="custom_toasts_summary">ਜਦੋ ਡੋਕ ਪਿਨ ਹੋਵੇ ਐਪਾ ਲਈ ਇਨ-ਵਿਲਡ ਟੋਸਟ ਦੀ ਵਰਤੋਂ ਕਰਨੀ</string>
     <string name="dock_height">ਡੋਕ ਦੀ ਉਚਾਈ</string>
-    <string name="icon_pack">Icon pack</string>
+    <string name="icon_pack">ਆਈਕਨ ਪੈਕ</string>
 
     <string name="secure_settings">Secure ਸੈਟਿੰਗਾਂ</string>
     <string name="custom_display_size_title">ਡਿਸਪਲੇ ਦਾ ਆਕਾਰ</string>
@@ -219,7 +219,7 @@
     <string name="disable_heads_up_summary">Android ਦੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਪੌਪਅੱਪ ਨੂੰ ਬੰਦ ਕਰਦਾ ਹੈ</string>
 
     <string name="root_required">ਰੂਟ ਦੀ ਲੋੜ ਹੈ</string>
-    <string name="enable_power_menu_title">Built in power menu</string>
+    <string name="enable_power_menu_title">ਆਪਣਾ ਪਾਵਰ ਮੀਨੂ</string>
     <string name="enable_power_menu_summary">ਸਿਸਟਮ ਦੀ ਬਜਾਏ ਇੱਕ ਕਸਟਮ ਪਾਵਰ ਮੀਨੂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="power_off">ਬਿਜਲੀ ਦੀ ਬੰਦ</string>
     <string name="restart">ਰੀਸਟਾਰਟ ਕਰੋ</string>
