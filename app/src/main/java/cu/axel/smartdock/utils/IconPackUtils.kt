@@ -8,6 +8,7 @@ import android.content.res.Resources
 import android.content.res.XmlResourceParser
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
+import android.util.Log
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import org.xmlpull.v1.XmlPullParser
@@ -36,16 +37,23 @@ class IconPackUtils(val context: Context) {
     private var loading = false
 
     init {
-        loadIconPack()
+        try {
+            loadIconPack()
+        } catch (e: Exception) {
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString("icon_pack", "").apply()
+            Log.e(context.packageName, e.stackTraceToString())
+        }
     }
 
     private fun getDrawableForName(name: String): Drawable? {
         if (isIconPackLoaded) {
             val item = iconPackResources?.get(name)
-            if (item.isNullOrEmpty()) {
-                val id = getResourceIdForDrawable(item)
-                if (id != 0) {
-                    return loadedIconPackResource!!.getDrawable(id)
+            if (item != null) {
+                if (item.isNotEmpty()) {
+                    val id = getResourceIdForDrawable(item)
+                    if (id != 0) {
+                        return loadedIconPackResource!!.getDrawable(id)
+                    }
                 }
             }
         }
@@ -146,13 +154,8 @@ class IconPackUtils(val context: Context) {
 
         loading = true
         iconPackResources = getIconPackResources(context, currentIconPack)
-        val resources: Resources
-        try {
-            resources = context.packageManager.getResourcesForApplication(currentIconPack)
-        } catch (e: PackageManager.NameNotFoundException) {
-            loading = false
-            return
-        }
+        val resources: Resources = context.packageManager.getResourcesForApplication(currentIconPack)
+
         loadedIconPackResource = resources
         loadedIconPackName = currentIconPack
         iconMask = getDrawableForName(ICON_MASK_TAG)
@@ -307,7 +310,7 @@ class IconPackUtils(val context: Context) {
         return ResourcesCompat.getDrawable(loadedIconPackResource!!, id, mContext.theme)
     }
 
-    fun getResourceIdForActivityIcon(info: ActivityInfo): Int {
+    private fun getResourceIdForActivityIcon(info: ActivityInfo): Int {
         // TODO since we are loading in background block access until load ready
         if (!isIconPackLoaded || loading) {
             return 0
