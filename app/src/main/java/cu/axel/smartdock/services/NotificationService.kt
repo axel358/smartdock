@@ -77,7 +77,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         context = DeviceUtils.getDisplayContext(this, preferLastDisplay)
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
         notificationLayoutParams = Utils.makeWindowParams(
-            Utils.dpToPx(context, 300), -2, context,
+            Utils.dpToPx(context, 300), LinearLayout.LayoutParams.WRAP_CONTENT, context,
             preferLastDisplay
         )
         margins = Utils.dpToPx(context, 2)
@@ -224,10 +224,10 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                         }
                     } else {
                         for (action in actions) {
-                            val actionTv = TextView(this@NotificationService)
+                            val actionTv = TextView(context)
                             actionTv.isSingleLine = true
                             actionTv.text = action.title
-                            actionTv.setTextColor(Color.WHITE)
+                            actionTv.setTextColor(getColor(R.color.action))
                             actionTv.setOnClickListener {
                                 try {
                                     action.actionIntent.send()

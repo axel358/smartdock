@@ -28,6 +28,7 @@ class NotificationAdapter(
     private var sharedPreferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
 
+
     interface OnNotificationClickListener {
         fun onNotificationClicked(notification: StatusBarNotification, item: View)
         fun onNotificationLongClicked(notification: StatusBarNotification, item: View)
@@ -79,7 +80,7 @@ class NotificationAdapter(
             } else {
                 for (action in actions) {
                     val actionTv = TextView(context)
-                    actionTv.setTextColor(Color.WHITE)
+                    actionTv.setTextColor(context.getColor(R.color.action))
                     actionTv.isSingleLine = true
                     actionTv.text = action.title
                     actionTv.setOnClickListener {
