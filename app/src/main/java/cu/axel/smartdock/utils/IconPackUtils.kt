@@ -40,7 +40,8 @@ class IconPackUtils(val context: Context) {
         try {
             loadIconPack()
         } catch (e: Exception) {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putString("icon_pack", "").apply()
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString("icon_pack", "")
+                .apply()
             Log.e(context.packageName, e.stackTraceToString())
         }
     }
@@ -48,12 +49,10 @@ class IconPackUtils(val context: Context) {
     private fun getDrawableForName(name: String): Drawable? {
         if (isIconPackLoaded) {
             val item = iconPackResources?.get(name)
-            if (item != null) {
-                if (item.isNotEmpty()) {
-                    val id = getResourceIdForDrawable(item)
-                    if (id != 0) {
-                        return loadedIconPackResource!!.getDrawable(id)
-                    }
+            if (!item.isNullOrEmpty()) {
+                val id = getResourceIdForDrawable(item)
+                if (id != 0) {
+                    return loadedIconPackResource!!.getDrawable(id)
                 }
             }
         }
@@ -154,7 +153,8 @@ class IconPackUtils(val context: Context) {
 
         loading = true
         iconPackResources = getIconPackResources(context, currentIconPack)
-        val resources: Resources = context.packageManager.getResourcesForApplication(currentIconPack)
+        val resources: Resources =
+            context.packageManager.getResourcesForApplication(currentIconPack)
 
         loadedIconPackResource = resources
         loadedIconPackName = currentIconPack
