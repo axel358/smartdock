@@ -27,7 +27,7 @@ class NotificationAdapter(
 ) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
     private var sharedPreferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
-
+    private val actionsHeight = Utils.dpToPx(context, 20)
 
     interface OnNotificationClickListener {
         fun onNotificationClicked(notification: StatusBarNotification, item: View)
@@ -51,7 +51,7 @@ class NotificationAdapter(
         if (actions != null) {
             val actionLayoutParams = LinearLayout.LayoutParams(
                 0,
-                Utils.dpToPx(context, 20)
+                actionsHeight
             )
             actionLayoutParams.weight = 1f
             if (AppUtils.isMediaNotification(notification)) {

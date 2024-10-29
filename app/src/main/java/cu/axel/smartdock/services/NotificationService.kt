@@ -69,12 +69,14 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private var margins = 0
     private var dockHeight: Int = 0
     private lateinit var notificationLayoutParams: WindowManager.LayoutParams
+    private var actionsHeight = 0
     override fun onCreate() {
         super.onCreate()
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         preferLastDisplay = sharedPreferences.getBoolean("prefer_last_display", false)
         context = DeviceUtils.getDisplayContext(this, preferLastDisplay)
+        actionsHeight = Utils.dpToPx(context, 20)
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
         notificationLayoutParams = Utils.makeWindowParams(
             Utils.dpToPx(context, 300), LinearLayout.LayoutParams.WRAP_CONTENT, context,
@@ -194,7 +196,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                 val actions = notification.actions
                 notificationActionsLayout.removeAllViews()
                 if (actions != null) {
-                    val actionLayoutParams = LinearLayout.LayoutParams(0, Utils.dpToPx(context, 20))
+                    val actionLayoutParams = LinearLayout.LayoutParams(0, actionsHeight)
                     actionLayoutParams.weight = 1f
                     if (AppUtils.isMediaNotification(notification)) {
                         for (action in actions) {
