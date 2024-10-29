@@ -61,7 +61,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private var notificationPanel: View? = null
     private var notificationsLv: RecyclerView? = null
     private var cancelAllBtn: ImageButton? = null
-    private var notificationActionsLayout: LinearLayout? = null
+    private lateinit var notificationActionsLayout: LinearLayout
     private lateinit var context: Context
     private var notificationArea: LinearLayout? = null
     private var preferLastDisplay = false
@@ -192,10 +192,10 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                 notificationTitleTv.text = notificationTitle + p
                 notificationTextTv.text = notificationText
                 val actions = notification.actions
-                notificationActionsLayout!!.removeAllViews()
+                notificationActionsLayout.removeAllViews()
                 if (actions != null) {
-                    val layoutParams = LinearLayout.LayoutParams(-2, -2)
-                    layoutParams.weight = 1f
+                    val actionLayoutParams = LinearLayout.LayoutParams(0, Utils.dpToPx(context, 20))
+                    actionLayoutParams.weight = 1f
                     if (AppUtils.isMediaNotification(notification)) {
                         for (action in actions) {
                             val actionIv = ImageView(this@NotificationService)
@@ -218,7 +218,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                                     }
                                 }
                                 notificationTextTv.isSingleLine = true
-                                notificationActionsLayout!!.addView(actionIv, layoutParams)
+                                notificationActionsLayout.addView(actionIv, actionLayoutParams)
                             } catch (_: PackageManager.NameNotFoundException) {
                             }
                         }
@@ -236,7 +236,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                                 } catch (_: CanceledException) {
                                 }
                             }
-                            notificationActionsLayout!!.addView(actionTv, layoutParams)
+                            notificationActionsLayout!!.addView(actionTv, actionLayoutParams)
                         }
                     }
                 }
