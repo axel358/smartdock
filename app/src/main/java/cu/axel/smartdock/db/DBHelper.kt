@@ -52,6 +52,10 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         return mode
     }
 
+    fun forgetLaunchModes() {
+        writableDatabase.delete(LaunchModesTable.TABLE_NAME, null, null);
+    }
+
     companion object {
         private const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "smartdock.db"

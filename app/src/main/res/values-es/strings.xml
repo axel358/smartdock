@@ -317,5 +317,7 @@
     <string name="something_wrong">Algo salió mal</string>
     <string name="save_log">Guardar registro</string>
     <string name="open_again">Abrir aplicación de nuevo</string>
+    <string name="forget_launch_modes_title">Forget launch modes</string>
+    <string name="forget_launch_modes_summary">Forget all saved launch modes</string>
 
 </resources>
