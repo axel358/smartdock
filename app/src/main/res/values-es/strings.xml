@@ -78,6 +78,7 @@
     <string name="maximized">Maximizado</string>
     <string name="portrait">Retrato</string>
     <string name="fullscreen">Pantalla completa</string>
+    <string name="undefined">Undefined</string>
     <string name="remember_launch_mode_title">Recordar el modo de lanzamiento</string>
     <string name="remember_launch_mode_summary">Recuerde el último modo de inicio utilizado para cada aplicación</string>
     <string name="launch_games_fullscreen_title">Iniciar juegos en pantalla completa</string>
