@@ -71,10 +71,14 @@ class DockPreferences : PreferenceFragmentCompat() {
             true
         }
 
-        val maxRunningApps: EditTextPreference? = findPreference("max_running_apps")
-        maxRunningApps?.setOnBindEditTextListener { editText ->
+        val maxRunningApps: EditTextPreference = findPreference("max_running_apps")!!
+        maxRunningApps.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
+        maxRunningApps.setOnPreferenceChangeListener { _, newValue ->
+            val value = newValue as String
+            value.isNotEmpty() && value.toInt() < 50
         }
     }
 

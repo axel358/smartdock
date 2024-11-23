@@ -54,20 +54,20 @@
     <string name="dock_layout">Dock layout</string>
     <string name="wallpaper">Wallpaper</string>
     <string name="presets">Presets</string>
-    <string name="icon_shape_title">Icon Shape</string>
+    <string name="icon_shape_title">Icon shape</string>
     <string name="circle">Circle</string>
     <string name="squircle">Squircle</string>
     <string name="system">System</string>
     <string name="round_dock">Rounded corners for the dock</string>
-    <string name="single_line_labels">Use single line for app labels</string>
+    <string name="single_line_labels">Single line for app names</string>
     <string name="tint_indicators_title">Tint running indicators</string>
 
     <!-- App menu page -->
     <string name="app_menu">App Menu</string>
     <string name="menu">Menu</string>
-    <string name="menu_icon_uri_title">Select menu icon</string>
+    <string name="menu_icon_uri_title">Menu icon</string>
     <string name="restore_menu_icon_title">Restore default menu icon</string>
-    <string name="app_menu_fullscreen_title">Open App Menu in full screen</string>
+    <string name="app_menu_fullscreen_title">Open App menu in full screen</string>
     <string name="app_menu_height_title">App menu height</string>
     <string name="app_menu_width_title">App menu width</string>
     <string name="num_columns_title">Number of columns</string>
@@ -87,26 +87,29 @@
     <string name="user_info">User info</string>
     <string name="user_name">Name</string>
     <string name="user_avatar">Avatar</string>
+    <string name="allow_app_hiding">Allow hiding apps</string>
+    <string name="hidden_apps">Hidden apps</string>
+    <string name="choose_apps">Choose apps</string>
 
     <!-- Dock page -->
     <string name="dock">Dock</string>
     <string name="navigation">Navigation</string>
-    <string name="enable_apps_btn">Enable apps menu button</string>
-    <string name="enable_nav_back_title">Enable back button</string>
-    <string name="enable_nav_home_title">Enable home button</string>
-    <string name="enable_nav_recents_title">Enable recents button</string>
-    <string name="enable_nav_assist_title">Enable assistant button</string>
+    <string name="enable_apps_btn">Apps menu</string>
+    <string name="enable_nav_back_title">Back</string>
+    <string name="enable_nav_home_title">Home</string>
+    <string name="enable_nav_recents_title">Recents</string>
+    <string name="enable_nav_assist_title">Assistant</string>
     <string name="quick_settings">Quick settings</string>
-    <string name="enable_notif_btn">Enable notifications button</string>
-    <string name="enable_qs_bluetooth_title">Enable bluetooth button</string>
-    <string name="enable_qs_battery_title">Enable battery button</string>
-    <string name="enable_qs_wifi_title">Enable Wi-Fi button</string>
-    <string name="enable_qs_vol_title">Enable volume button</string>
-    <string name="enable_qs_date_title">Enable clock</string>
-    <string name="enable_qs_pin_title">Enable pin button</string>
+    <string name="enable_notif_btn">Notifications</string>
+    <string name="enable_qs_bluetooth_title">Bluetooth</string>
+    <string name="enable_qs_battery_title">Battery</string>
+    <string name="enable_qs_wifi_title">Wi-Fi</string>
+    <string name="enable_qs_vol_title">Volume</string>
+    <string name="enable_qs_date_title">Clock</string>
+    <string name="enable_qs_pin_title">Pin</string>
     <string name="enable_qs_pin_summary">You can still pin/unpin the Dock by swiping down on it or using the keyboard shortcut</string>
     <string name="behaviour">Behaviour</string>
-    <string name="enable_apps_btn_summary">You can still open/close the app menu by swiping up/down on the dock</string>
+    <string name="enable_apps_btn_summary">You can still open/close the apps menu by swiping up/down on the dock</string>
     <string name="activation_method">Activation method</string>
     <string name="activation_method_summary">The method used to bring up the dock when hidden</string>
     <string name="swipe">Swipe/Hover</string>
@@ -119,14 +122,15 @@
     <string name="pin_windowed">Pin on windowed apps</string>
     <string name="unpin_fullscreen">Unpin on full screen apps</string>
     <string name="running_apps_number_title">Number of running/recent apps to show</string>
-    <string name="running_apps_number_summary">This setting can help devices with smaller screens avoid app overflow on the Dock</string>
+    <string name="max_running_apps_landscape">Max recent apps (landscape)</string>
+    <string name="max_running_apps_portrait">Max recent apps (portrait)</string>
     <string name="center_running_apps_title">Center running apps</string>
     <string name="dock_activation_area_title">Dock activation area</string>
     <string name="dock_activation_area_summary">The height of the invisible activation area at the bottom of the screen</string>
 
     <!-- Desktop -->
     <string name="desktop">Desktop</string>
-    <string name="show_notes_title">Show notes widget</string>
+    <string name="show_notes_title">Notes widget</string>
 
     <!-- Default apps page -->
     <string name="default_apps">Default apps</string>
@@ -145,52 +149,52 @@
     <string name="keyboard">Keyboard</string>
     <string name="apps">Apps</string>
     <string name="general">General</string>
-    <string name="enable_open_menu_title">Use Meta or Home to open the apps menu</string>
-    <string name="enable_lock_desktop_title">Use Alt+L to lock the desktop</string>
-    <string name="enable_open_settings_title">Use Alt+P to open settings</string>
-    <string name="enable_open_music_title">Use Alt+M to open you default music app</string>
-    <string name="enable_open_browser_title">Use Alt+B to open your default browser</string>
-    <string name="enable_open_terminal_title">Use Alt+T to open terminal</string>
-    <string name="enable_open_assist_title">Use Alt+A to launch your default assistant app</string>
-    <string name="enable_open_rec_title">Use Alt+R to launch your default screen recorder app</string>
-    <string name="enable_new_instance">Use Alt+Shift+N to launch a new window</string>
-    <string name="enable_expand_notifications_title">Use Alt+Q to open quick settings</string>
-    <string name="enable_ctrl_back_title">Use right Ctrl to act as back button</string>
-    <string name="enable_f10_title">Use F10 to toggle split screen</string>
-    <string name="enable_toggle_pin_title">Use Alt+W to pin/unpin the dock</string>
-    <string name="enable_menu_recents_title">Use Menu key to show recents</string>
+    <string name="enable_open_menu_title">Meta or Home to open the apps menu</string>
+    <string name="enable_lock_desktop_title">Alt+L to lock the desktop</string>
+    <string name="enable_open_settings_title">Alt+P to open settings</string>
+    <string name="enable_open_music_title">Alt+M to open you default music app</string>
+    <string name="enable_open_browser_title">Alt+B to open your default browser</string>
+    <string name="enable_open_terminal_title">Alt+T to open terminal</string>
+    <string name="enable_open_assist_title">Alt+A to launch your default assistant app</string>
+    <string name="enable_open_rec_title">Alt+R to launch your default screen recorder app</string>
+    <string name="enable_new_instance">Alt+Shift+N to launch a new window</string>
+    <string name="enable_expand_notifications_title">Alt+Q to open quick settings</string>
+    <string name="enable_ctrl_back_title">Right Ctrl acts as back button</string>
+    <string name="enable_f10_title">F10 to toggle split screen</string>
+    <string name="enable_toggle_pin_title">Alt+W to pin/unpin the dock</string>
+    <string name="enable_menu_recents_title">Menu key to show recents</string>
 
     <!-- Sounds page -->
     <string name="sounds">Sounds</string>
     <string name="please_note_that_you_must_prov">Please note that you must provide your own sounds</string>
-    <string name="startup_sound_title">Choose startup sound</string>
-    <string name="usb_sound_title">Choose usb sound</string>
-    <string name="notification_sound_title">Choose notification sound</string>
-    <string name="charge_sound_title">Choose charge sound</string>
-    <string name="charge_complete_sound_title">Choose charge complete sound</string>
+    <string name="startup_sound_title">Startup sound</string>
+    <string name="usb_sound_title">USB device connected sound</string>
+    <string name="notification_sound_title">Notification sound</string>
+    <string name="charge_sound_title">Charge sound</string>
+    <string name="charge_complete_sound_title">Charge complete sound</string>
 
     <!-- Notifications page -->
     <string name="notifications">Notifications</string>
     <string name="manage_service">Manage service</string>
-    <string name="notification_timeout_title">Notification display time in ms</string>
-    <string name="show_ongoing_title">Show ongoing notifications (buggy)</string>
-    <string name="show_current_title">Hide notifications for the current app</string>
-    <string name="blocked_notifications_hint">android</string>
-    <string name="blocked_notifications_summary">List of space separated package names to ignore notifications from</string>
+    <string name="notification_timeout_title">Notification display time (in seconds)</string>
+    <string name="show_ongoing_title">Show ongoing notifications</string>
+    <string name="silence_current_title">Silence for current app</string>
     <string name="blocked_notifications_title">Ignored notifications</string>
-    <string name="long_press_a_notification_to_a">Long press a notification to add it to the ignored list</string>
+    <string name="long_press_a_notification_to_a">Long press a notification to silence it</string>
     <string name="silenced_notifications">Silenced notifications for this app</string>
-    <string name="enable_notif_panel_title">Enable notification panel</string>
-    <string name="show_notifications">Show notification pop-ups</string>
+    <string name="enable_notif_panel_title">Notification panel</string>
+    <string name="notification_popups">Notification pop-ups</string>
     <string name="popups_disabled">Notification pop-ups disabled</string>
+    <string name="silenced_notifications_title">Silenced notifications</string>
+    <string name="hidden_notifications">Hidden notifications</string>
 
     <!-- Hot corners page -->
     <string name="hot_corners">Hot Corners</string>
-    <string name="enable_corner_top_right_title">Enable top right corner</string>
+    <string name="enable_corner_top_right_title">Top right corner</string>
     <string name="enable_corner_top_right_summary">Place the mouse on the top right corner of the screen to show recents</string>
-    <string name="enable_corner_bottom_right_title">Enable bottom right corner</string>
+    <string name="enable_corner_bottom_right_title">Bottom right corner</string>
     <string name="enable_corner_bottom_right_summary">Place the mouse on the top right corner of the screen to lock the screen</string>
-    <string name="hot_corners_delay_title">Hot corners activation delay in ms</string>
+    <string name="hot_corners_delay_title">Activation delay (in milliseconds)</string>
 
     <!-- Advanced page -->
     <string name="advanced">Advanced</string>
@@ -202,21 +206,19 @@
     <string name="custom_toasts">Custom Toasts</string>
     <string name="custom_toasts_summary">Use built-in custom Toasts for apps when the Dock is pinned</string>
     <string name="dock_height">Dock height</string>
-
+    <string name="icon_pack">Icon pack</string>
 
     <string name="secure_settings">Secure settings</string>
     <string name="custom_display_size_title">Display size</string>
     <string name="custom_display_size_summary">Allows you to fine tune the display size of screen elements. Needs reboot</string>
     <string name="custom_display_size_hint">leave blank for default</string>
-    <string name="hide_status_bar_title">Hide status bar</string>
-    <string name="hide_status_bar_summary">Hides Android status bar. Needs soft reboot</string>
     <string name="icon_blacklist">Icon blacklist</string>
     <string name="icon_blacklist_summary">Icons to hide from the status bar</string>
     <string name="disable_heads_up">Disable notification heads-up</string>
     <string name="disable_heads_up_summary">Disables Android\'s notification pop-ups</string>
 
     <string name="root_required">Root required</string>
-    <string name="enable_power_menu_title">Use built in power menu</string>
+    <string name="enable_power_menu_title">Built in power menu</string>
     <string name="enable_power_menu_summary">Use a custom power menu instead of the system one</string>
     <string name="power_off">Power off</string>
     <string name="restart">Restart</string>
@@ -230,13 +232,11 @@
     <string name="hide_nav_buttons_summary">Hides Android software navigation buttons. Needs reboot</string>
     <string name="disable_taskbar_title">Disable taskbar</string>
     <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
-    <string name="enable_tiling_shortcut">Use Alt+arrow keys to tile windows</string>
-    <string name="enable_soft_reboot_title">Use Alt+F12 to soft reboot</string>
+    <string name="enable_tiling_shortcut">Alt+arrow keys to tile windows</string>
+    <string name="enable_soft_reboot_title">Alt+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>
     <string name="soft_reboot_title">Soft reboot now</string>
     <string name="soft_reboot_summary">Soft reboot now. You will lose all unsaved work</string>
-    <string name="move_to_system_title">Move as system app</string>
-    <string name="move_to_system_summary">Move Smart Dock as a system app. Android will restart</string>
     <string name="reboot_required_title">Reboot required</string>
     <string name="reboot_required_text">A reboot is required for changes to take effect. Do you want to reboot now?</string>
 
@@ -257,7 +257,7 @@
     <string name="help_and_about">Help and about</string>
     <string name="a_launcher_for_android_x86_by_">A launcher for Android x86 by Axel358</string>
     <string name="help">Help</string>
-    <string name="smart_dock_its_free_and_open_">Smart Dock it\'s free and open source. Contribute on GitHub</string>
+    <string name="smart_dock_its_free_and_open_">Smart Dock is free and open source. Contribute on GitHub</string>
     <string name="github">GitHub</string>
     <string name="show_help_summary">Tap for help</string>
     <string name="app_help">    The application should be installed as a system app in order to obtain the right permissions.
@@ -287,16 +287,11 @@
     <string name="on_google">on Google</string>
     <string name="disabled">Disabled</string>
 
-    <!-- User context menu -->
-    <string name="users">Users</string>
-    <string name="files">Files</string>
-    <string name="settings">Settings</string>
-    <string name="dock_settings">Dock Settings</string>
-
     <!-- App context menu -->
     <string name="shortcuts">Shortcuts…</string>
     <string name="app_info">App Info</string>
     <string name="uninstall">Uninstall</string>
+    <string name="hide">Hide</string>
     <string name="open_as">Open as…</string>
     <string name="add_to">Add to…</string>
     <string name="launch_in">Launch in…</string>

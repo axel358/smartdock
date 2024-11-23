@@ -69,4 +69,13 @@
 		android:defaultValue="default"
 		android:title="@string/user_avatar"/>
 	</PreferenceCategory>
+    <PreferenceCategory
+        android:title="App hiding">
+        <SwitchPreferenceCompat
+            android:title="@string/allow_app_hiding"
+            android:key="enable_app_hiding_grid"/>
+        <cu.axel.smartdock.preferences.AppChooserMultiplePreference
+            android:key="hidden_apps_grid"
+            android:title="@string/hidden_apps"/>
+    </PreferenceCategory>
 </PreferenceScreen>

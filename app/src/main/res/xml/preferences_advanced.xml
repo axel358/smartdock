@@ -21,6 +21,10 @@
         android:key="dock_height"
         android:title="@string/dock_height" />
 
+    <cu.axel.smartdock.preferences.IconPackPreference
+        android:key="icon_pack"
+        android:title="@string/icon_pack" />
+
     <PreferenceCategory
         android:enabled="false"
         android:key="secure_category"
@@ -30,12 +34,6 @@
             android:key="custom_display_size"
             android:summary="@string/custom_display_size_summary"
             android:title="@string/custom_display_size_title" />
-
-        <SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:key="hide_status_bar"
-            android:summary="@string/hide_status_bar_summary"
-            android:title="@string/hide_status_bar_title" />
 
         <Preference
             android:key="status_icon_blacklist"
@@ -85,10 +83,6 @@
             android:summary="@string/hide_nav_buttons_summary"
             android:title="@string/hide_nav_buttons_title" />
 
-        <Preference
-            android:key="move_to_system"
-            android:summary="@string/move_to_system_summary"
-            android:title="@string/move_to_system_title" />
 
         <SwitchPreferenceCompat
             android:key="enable_tiling"

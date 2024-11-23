@@ -2,6 +2,7 @@ package cu.axel.smartdock.utils
 
 import android.app.ActivityManager
 import android.app.ActivityOptions
+import android.app.Notification
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
 import android.content.Context
@@ -28,27 +29,48 @@ object AppUtils {
     const val DOCK_PINNED_LIST = "dock_pinned.lst"
     const val DESKTOP_LIST = "desktop.lst"
     var currentApp = ""
+    fun getInstalledPackages(context: Context): List<App> {
+        val apps = ArrayList<App>()
+        val packages = context.packageManager.getInstalledPackages(0)
+        packages.forEach { packageInfo ->
+            val appInfo = packageInfo.applicationInfo
+            apps.add(
+                App(
+                    appInfo.loadLabel(context.packageManager).toString(),
+                    appInfo.packageName,
+                    appInfo.loadIcon(context.packageManager)
+                )
+            )
+        }
+        return apps.sortedWith(compareBy { it.name })
+    }
+
     fun getInstalledApps(context: Context): ArrayList<App> {
         val apps = ArrayList<App>()
         val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
         val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
         var appsInfo = mutableListOf<LauncherActivityInfo>()
-        for (profile in userManager.userProfiles)
-            appsInfo.addAll(launcherApps.getActivityList(null, profile))
+        for (profile in userManager.userProfiles) appsInfo.addAll(
+            launcherApps.getActivityList(
+                null,
+                profile
+            )
+        )
 
         appsInfo = appsInfo.sortedWith(compareBy { it.label.toString() }).toMutableList()
-
 
         //TODO: Filter Google App
         for (appInfo in appsInfo) {
             apps.add(
                 App(
-                    appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
-                    appInfo.componentName, appInfo.user
+                    appInfo.label.toString(),
+                    appInfo.componentName.packageName,
+                    appInfo.getIcon(0),
+                    appInfo.componentName,
+                    appInfo.user
                 )
             )
         }
-
         return apps
     }
 
@@ -60,14 +82,12 @@ object AppUtils {
         val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
         if (file.exists()) {
             for (line in file.readLines()) {
-                if (line.isBlank())
-                    continue
+                if (line.isBlank()) continue
                 val info = line.split(" ")
                 val packageName = info[0]
                 val userHandle = userManager.getUserForSerialNumber(info[1].toLong())
                 val list = launcherApps.getActivityList(packageName, userHandle)
-                if (list.isNullOrEmpty())
-                    unpinApp(context, packageName, type)
+                if (list.isNullOrEmpty()) unpinApp(context, packageName, type)
                 appsInfo.addAll(list)
             }
         }
@@ -75,12 +95,14 @@ object AppUtils {
         for (appInfo in appsInfo) {
             apps.add(
                 App(
-                    appInfo.label.toString(), appInfo.componentName.packageName, appInfo.getIcon(0),
-                    appInfo.componentName, appInfo.user
+                    appInfo.label.toString(),
+                    appInfo.componentName.packageName,
+                    appInfo.getIcon(0),
+                    appInfo.componentName,
+                    appInfo.user
                 )
             )
         }
-
         return apps
     }
 
@@ -93,8 +115,7 @@ object AppUtils {
     fun unpinApp(context: Context, packageName: String, type: String) {
         val file = File(context.filesDir, type)
         val updatedList = file.readLines().filter { it.split(" ")[0] != packageName }
-        if (updatedList.isNotEmpty())
-            file.writeText(updatedList.joinToString("\n") + "\n")
+        if (updatedList.isNotEmpty()) file.writeText(updatedList.joinToString("\n") + "\n")
         else {
             file.writeText("")
         }
@@ -121,11 +142,9 @@ object AppUtils {
 
     fun isPinned(context: Context, app: App, type: String): Boolean {
         val file = File(context.filesDir, type)
-        if (!file.exists())
-            return false
+        if (!file.exists()) return false
         file.readLines().forEach { line ->
-            if (line.split(" ")[0] == app.packageName)
-                return true
+            if (line.split(" ")[0] == app.packageName) return true
         }
         return false
     }
@@ -164,9 +183,7 @@ object AppUtils {
     }
 
     fun getRunningTasks(
-        activityManager: ActivityManager,
-        packageManager: PackageManager,
-        max: Int
+        activityManager: ActivityManager, packageManager: PackageManager, max: Int
     ): ArrayList<AppTask> {
         val tasksInfo = activityManager.getRunningTasks(max)
         currentApp = tasksInfo[0].baseActivity!!.packageName
@@ -174,12 +191,12 @@ object AppUtils {
         for (taskInfo in tasksInfo) {
             try {
                 //Exclude systemui, launcher and other system apps from the tasklist
-                if (taskInfo.baseActivity!!.packageName.contains("com.android.systemui")
-                    || taskInfo.baseActivity!!.packageName.contains("com.google.android.packageinstaller")
-                    || taskInfo.baseActivity!!.className == "com.android.quickstep.RecentsActivity"
+                if (taskInfo.baseActivity!!.packageName.contains("com.android.systemui") || taskInfo.baseActivity!!.packageName.contains(
+                        "com.google.android.packageinstaller"
+                    ) || taskInfo.baseActivity!!.className == "com.android.quickstep.RecentsActivity"
                 ) continue
 
-                //Hack to save Dock settings activity ftom being excluded
+                //Hack to save Dock settings activity from being excluded
                 if (!(taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.MainActivity" || taskInfo.topActivity!!.className == "cu.axel.smartdock.activities.DebugActivity") && taskInfo.topActivity!!.packageName == getCurrentLauncher(
                         packageManager
                     )
@@ -208,31 +225,30 @@ object AppUtils {
     }
 
     fun getRecentTasks(context: Context, max: Int): ArrayList<AppTask> {
+        val ignoredApps =
+            listOf<String>(context.packageName, getCurrentLauncher(context.packageManager))
         val usm = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val start = System.currentTimeMillis() - SystemClock.elapsedRealtime()
         val usageStats = usm.queryUsageStats(
-            UsageStatsManager.INTERVAL_BEST, start,
-            System.currentTimeMillis()
-        )
+            UsageStatsManager.INTERVAL_BEST, start, System.currentTimeMillis()
+        ).sortedWith(compareByDescending { it.lastTimeUsed })
+            .filterNot { ignoredApps.contains(it.packageName) }
         val appTasks = ArrayList<AppTask>()
-        usageStats.sortWith { usageStats1: UsageStats, usageStats2: UsageStats ->
-            usageStats2.lastTimeUsed.compareTo(
-                usageStats1.lastTimeUsed
-            )
-        }
+        if (usageStats.isNotEmpty())
+            currentApp = usageStats[0].packageName
         for (stat in usageStats) {
             val app = stat.packageName
             try {
-                if (isLaunchable(
-                        context,
-                        app
-                    ) && app != getCurrentLauncher(context.packageManager)
-                ) appTasks.add(
-                    AppTask(
-                        -1, getPackageLabel(context, app), app,
-                        context.packageManager.getApplicationIcon(app)
+                if (isLaunchable(context, app)) {
+                    appTasks.add(
+                        AppTask(
+                            -1,
+                            getPackageLabel(context, app),
+                            app,
+                            context.packageManager.getApplicationIcon(app)
+                        )
                     )
-                )
+                }
             } catch (_: PackageManager.NameNotFoundException) {
             }
             if (appTasks.size >= max) break
@@ -275,10 +291,7 @@ object AppUtils {
     }
 
     private fun makeLaunchBounds(
-        context: Context,
-        mode: String,
-        dockHeight: Int,
-        displayId: Int = Display.DEFAULT_DISPLAY
+        context: Context, mode: String, dockHeight: Int, displayId: Int = Display.DEFAULT_DISPLAY
     ): Rect {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         var left = 0
@@ -292,10 +305,10 @@ object AppUtils {
         val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
 
         val usableHeight =
-            if (DeviceUtils.shouldApplyNavbarFix())
-                deviceHeight - diff - DeviceUtils.getStatusBarHeight(context)
-            else
-                deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context)
+            if (DeviceUtils.shouldApplyNavbarFix()) deviceHeight - diff - DeviceUtils.getStatusBarHeight(
+                context
+            )
+            else deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context)
         val scaleFactor = sharedPreferences.getString("scale_factor", "1.0")!!.toFloat()
         when (mode) {
             "standard" -> {
@@ -343,10 +356,7 @@ object AppUtils {
     }
 
     fun makeActivityOptions(
-        context: Context,
-        mode: String,
-        dockHeight: Int,
-        displayId: Int
+        context: Context, mode: String, dockHeight: Int, displayId: Int
     ): ActivityOptions {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val secondary = sharedPreferences.getBoolean("prefer_last_display", false)
@@ -358,37 +368,29 @@ object AppUtils {
         val options: ActivityOptions = ActivityOptions.makeBasic()
 
         val windowMode: Int
-        if (mode == "fullscreen")
-            windowMode = 1
+        if (mode == "fullscreen") windowMode = 1
         else {
             windowMode = if (Build.VERSION.SDK_INT >= 28) 5 else 2
             options.setLaunchBounds(
                 makeLaunchBounds(
-                    context,
-                    mode,
-                    dockHeight,
-                    display
+                    context, mode, dockHeight, display
                 )
             )
         }
-        if (Build.VERSION.SDK_INT > 28)
-            options.setLaunchDisplayId(display)
+        if (Build.VERSION.SDK_INT > 28) options.setLaunchDisplayId(display)
         val methodName =
             if (Build.VERSION.SDK_INT >= 28) "setLaunchWindowingMode" else "setLaunchStackId"
-        val method =
-            ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
+        val method = ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
         method.invoke(options, windowMode)
 
         return options
     }
 
     fun resizeTask(context: Context, mode: String, taskId: Int, dockHeight: Int) {
-        if (taskId < 0)
-            return
+        if (taskId < 0) return
         val bounds = makeLaunchBounds(context, mode, dockHeight)
         DeviceUtils.runAsRoot(
-            "am task resize " + taskId + " " + bounds.left + " " + bounds.top + " " + bounds.right
-                    + " " + bounds.bottom
+            "am task resize " + taskId + " " + bounds.left + " " + bounds.top + " " + bounds.right + " " + bounds.bottom
         )
     }
 
@@ -399,4 +401,6 @@ object AppUtils {
         return -1
     }
 
+    fun isMediaNotification(notification: Notification) =
+        notification.extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle"
 }

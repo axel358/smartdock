@@ -28,10 +28,18 @@ class DockLayoutDialog(context: Context) : MaterialAlertDialogBuilder(context) {
                     else -> "15"
                 }
             )
+            editor.putString(
+                "max_running_apps_landscape", when (which) {
+                    0 -> "8"
+                    1 -> "10"
+                    else -> "15"
+                }
+            )
             editor.putString("dock_activation_area", if (which == 2) "5" else "25")
             editor.putInt("dock_layout", which)
             editor.putString("activation_method", if (which != 2) "handle" else "swipe")
             editor.putBoolean("show_notifications", which != 0)
+            editor.putBoolean("enable_qs_pin", which != 2)
             editor.apply()
         }
         setPositiveButton(R.string.ok, null)

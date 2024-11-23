@@ -23,27 +23,34 @@ class AppMenuPreferences : PreferenceFragmentCompat() {
         menuIconPref = findPreference("menu_icon_uri")!!
         menuIconPref.setOnPreferenceClickListener {
             startActivityForResult(
-                    Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/*"),
-                    MENU_REQUEST_CODE)
+                Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
+                    .setType("image/*"),
+                MENU_REQUEST_CODE
+            )
             false
         }
         userIconPref = findPreference("user_icon_uri")!!
         userIconPref.setOnPreferenceClickListener {
             startActivityForResult(
-                    Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("image/*"),
-                    USER_REQUEST_CODE)
+                Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
+                    .setType("image/*"),
+                USER_REQUEST_CODE
+            )
             false
         }
-        userIconPref.isVisible = !AppUtils.isSystemApp(requireContext(), requireContext().packageName)
+        userIconPref.isVisible =
+            !AppUtils.isSystemApp(requireContext(), requireContext().packageName)
         findPreference<Preference>("user_name")!!.isVisible = userIconPref.isVisible
         val heightPreference = findPreference<Preference>("app_menu_height")
         val widthPreference = findPreference<Preference>("app_menu_width")
         val centerPreference = findPreference<Preference>("center_app_menu")
         val fullscreenPreference = findPreference<Preference>("app_menu_fullscreen")
         val sharedPreferences = fullscreenPreference!!.sharedPreferences
-        heightPreference!!.isEnabled = !sharedPreferences!!.getBoolean(fullscreenPreference.key, false)
+        heightPreference!!.isEnabled =
+            !sharedPreferences!!.getBoolean(fullscreenPreference.key, false)
         widthPreference!!.isEnabled = !sharedPreferences.getBoolean(fullscreenPreference.key, false)
-        centerPreference!!.isEnabled = !sharedPreferences.getBoolean(fullscreenPreference.key, false)
+        centerPreference!!.isEnabled =
+            !sharedPreferences.getBoolean(fullscreenPreference.key, false)
         fullscreenPreference.setOnPreferenceChangeListener { _, newValue ->
             val checked = newValue as Boolean
             heightPreference.isEnabled = !checked
@@ -52,22 +59,37 @@ class AppMenuPreferences : PreferenceFragmentCompat() {
             true
         }
 
-        val menuHeight: EditTextPreference? = findPreference("app_menu_height")
-        menuHeight?.setOnBindEditTextListener { editText ->
+        val menuHeight: EditTextPreference = findPreference("app_menu_height")!!
+        menuHeight.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.imeOptions = EditorInfo.IME_ACTION_GO
         }
 
-        val menuWidth: EditTextPreference? = findPreference("app_menu_width")
-        menuWidth?.setOnBindEditTextListener { editText ->
+        menuHeight.setOnPreferenceChangeListener { _, newValue ->
+            val value = newValue as String
+            value.isNotEmpty() && value.toInt() > 100
+        }
+
+        val menuWidth: EditTextPreference = findPreference("app_menu_width")!!
+        menuWidth.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.imeOptions = EditorInfo.IME_ACTION_GO
         }
 
-        val columns: EditTextPreference? = findPreference("num_columns")
-        columns?.setOnBindEditTextListener { editText ->
+        menuWidth.setOnPreferenceChangeListener { _, newValue ->
+            val value = newValue as String
+            value.isNotEmpty() && value.toInt() > 100
+        }
+
+        val columns: EditTextPreference = findPreference("num_columns")!!
+        columns.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
+
+        columns.setOnPreferenceChangeListener { _, newValue ->
+            val value = newValue as String
+            value.isNotEmpty() && value.toInt() > 1
         }
 
         val userName: EditTextPreference? = findPreference("user_name")
@@ -80,8 +102,10 @@ class AppMenuPreferences : PreferenceFragmentCompat() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             val openUri = data!!.data
-            requireContext().contentResolver.takePersistableUriPermission(openUri!!,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            requireContext().contentResolver.takePersistableUriPermission(
+                openUri!!,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION
+            )
             if (requestCode == MENU_REQUEST_CODE) {
                 menuIconPref.setFile(openUri.toString())
             } else if (requestCode == USER_REQUEST_CODE) {

@@ -178,8 +178,9 @@ object Utils {
             } else if (value is Int) {
                 type = "integer"
             }
-            stringBuilder.append(type).append(" ").append(key).append(" ")
-                .append(value.toString()).append("\n")
+            if (value !is Set<*>)
+                stringBuilder.append(type).append(" ").append(key).append(" ")
+                    .append(value.toString()).append("\n")
         }
         val content = stringBuilder.toString().trim { it <= ' ' }
         var outputStream: OutputStream? = null

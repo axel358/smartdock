@@ -64,5 +64,6 @@
     <color name="red">#E53935</color>
     <color name="green">#00897B</color>
     <color name="blue"> #1E88E5 </color>
+    <color name="action">#DCE2FC</color>
 
 </resources>

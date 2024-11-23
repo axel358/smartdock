@@ -1,0 +1,9 @@
+- Restore experimental, incomplete support for icon packs
+- Option to hide apps from the app grid
+- Ability to ignore notifications for specific apps on the notification panel
+- Setting to configure the amount of running apps shown depending on device orientation
+- Use symbolic icons for notifications
+- Simplify many preference names
+- Minor visual enhancements
+- Remove preferences that only worked on old Android versions
+- Fix a "2" badge showing on Dock apps when it shouldn't
