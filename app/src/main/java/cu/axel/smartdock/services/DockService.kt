@@ -6,6 +6,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityManager
+import android.app.ApplicationErrorReport.BatteryInfo
 import android.app.Notification
 import android.bluetooth.BluetoothManager
 import android.content.ActivityNotFoundException
@@ -22,11 +23,11 @@ import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.hardware.usb.UsbManager
 import android.media.AudioManager
 import android.net.Uri
 import android.net.wifi.WifiManager
+import android.os.BatteryManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -61,6 +62,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
@@ -120,7 +122,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var powerBtn: ImageView
     private lateinit var bluetoothBtn: ImageView
     private lateinit var wifiBtn: ImageView
-    private lateinit var batteryBtn: ImageView
+    private lateinit var batteryBtn: TextView
     private lateinit var volumeBtn: ImageView
     private lateinit var pinBtn: ImageView
     private lateinit var notificationBtn: TextView
@@ -193,7 +195,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         orientation = resources.configuration.orientation
 
         //Create the dock
-        dock = LayoutInflater.from(context).inflate(R.layout.dock, null) as HoverInterceptorLayout
+        dock = LayoutInflater.from(
+            androidx.appcompat.view.ContextThemeWrapper(
+                context,
+                R.style.AppTheme_Dock
+            )
+        ).inflate(R.layout.dock, null) as HoverInterceptorLayout
         dockLayout = dock.findViewById(R.id.dock_layout)
         dockHandle = LayoutInflater.from(context).inflate(R.layout.dock_handle, null) as Button
         appsBtn = dock.findViewById(R.id.apps_btn)
@@ -499,12 +506,17 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             }, IntentFilter(NOTIFICATION_SERVICE_ACTION),
             ContextCompat.RECEIVER_NOT_EXPORTED
         )
-        batteryReceiver = BatteryStatsReceiver(batteryBtn)
+        batteryReceiver = BatteryStatsReceiver(
+            context,
+            batteryBtn,
+            sharedPreferences.getBoolean("show_battery_level", false)
+        )
         ContextCompat.registerReceiver(
             this, batteryReceiver,
-            IntentFilter("android.intent.action.BATTERY_CHANGED"),
+            IntentFilter(Intent.ACTION_BATTERY_CHANGED),
             ContextCompat.RECEIVER_NOT_EXPORTED
         )
+        updateBatteryBtn()
         soundEventsReceiver = SoundEventsReceiver()
         val soundEventsFilter = IntentFilter()
         soundEventsFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
@@ -1477,6 +1489,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             updateDockHeight()
         else if (preference == "handle_position")
             updateHandlePosition()
+        else if (preference == "show_battery_level")
+            updateBatteryBtn()
     }
 
     private fun updateDockTrigger() {
@@ -1823,6 +1837,25 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             } catch (_: Exception) {
             }
         }
+    }
+
+    private fun updateBatteryBtn() {
+        val xP = Utils.dpToPx(context, 6)
+        val yP = Utils.dpToPx(context, 5)
+        if (sharedPreferences.getBoolean("show_battery_level", false)) {
+            //batteryBtn.layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT
+            batteryBtn.setPadding(yP)
+            batteryBtn.setBackgroundResource(R.drawable.round_rect)
+            batteryReceiver.showLevel = true
+            batteryBtn.text = "${batteryReceiver.level} %"
+        } else {
+            //batteryBtn.layoutParams.width = batteryBtn.layoutParams.height
+            batteryBtn.setPadding(xP, yP, xP, yP)
+            batteryBtn.setBackgroundResource(R.drawable.circle)
+            batteryReceiver.showLevel = false
+            batteryBtn.text = ""
+        }
+        ColorUtils.applySecondaryColor(context, sharedPreferences, batteryBtn)
     }
 
     private fun toggleFavorites(visible: Boolean) {

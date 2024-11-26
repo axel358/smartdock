@@ -38,6 +38,11 @@
             android:key="enable_qs_battery"
             android:title="@string/enable_qs_battery_title"
             android:defaultValue="false" />
+		<SwitchPreferenceCompat
+			android:key="show_battery_level"
+			android:title="Display battery level"
+			android:dependency="enable_qs_battery"
+			android:defaultValue="false" />
         <SwitchPreferenceCompat
             android:key="enable_qs_wifi"
             android:title="@string/enable_qs_wifi_title"

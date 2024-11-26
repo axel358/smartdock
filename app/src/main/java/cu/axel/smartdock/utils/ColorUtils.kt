@@ -11,6 +11,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.DynamicColors
 import cu.axel.smartdock.R
 import kotlin.math.roundToInt
@@ -156,6 +157,13 @@ object ColorUtils {
         applyColor(view, colors[2])
         val alpha = colors[3]
         view.background.alpha = alpha
+    }
+
+    fun applySecondaryColor(context: Context, sp: SharedPreferences, materialButton: MaterialButton) {
+        val colors = getMainColors(sp, context)
+        materialButton.setBackgroundColor(colors[2])
+        val alpha = colors[3]
+        materialButton.background.alpha = alpha
     }
 
     fun toColor(color: String): Int {

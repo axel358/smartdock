@@ -1,19 +1,34 @@
 package cu.axel.smartdock.receivers
 
+import android.app.ApplicationErrorReport.BatteryInfo
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.ImageView
+import android.os.BatteryManager
+import android.widget.TextView
 import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
 
-class BatteryStatsReceiver(private val batteryBtn: ImageView) : BroadcastReceiver() {
+class BatteryStatsReceiver(private val context: Context, private val batteryBtn: TextView, var showLevel: Boolean) : BroadcastReceiver() {
+    var level = 0
+    init {
+        val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+        level = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        update(batteryManager.isCharging)
+    }
     override fun onReceive(context: Context, intent: Intent) {
-        val level = intent.extras!!.getInt("level")
-        if (intent.extras!!.getInt("plugged") == 0)
-            batteryBtn.setImageResource(Utils.getBatteryDrawable(level, false))
+        level = intent.extras!!.getInt("level")
+        if (showLevel)
+            batteryBtn.text = "$level %"
+        update(intent.extras!!.getInt("plugged") == 0)
+
+    }
+
+    private fun update(isPlugged: Boolean){
+        if (isPlugged)
+            batteryBtn.setCompoundDrawablesWithIntrinsicBounds(context.getDrawable(Utils.getBatteryDrawable(level, false)), null, null, null)
         else {
-            batteryBtn.setImageResource(Utils.getBatteryDrawable(level, true))
+            batteryBtn.setCompoundDrawablesWithIntrinsicBounds(context.getDrawable(Utils.getBatteryDrawable(level, true)), null, null, null)
             if (level == 100) {
                 if (Utils.shouldPlayChargeComplete)
                     DeviceUtils.playEventSound(context, "charge_complete_sound")
