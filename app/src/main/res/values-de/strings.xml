@@ -1,0 +1,321 @@
+<resources>
+
+    <!-- General -->
+    <string name="app_name">Smart Dock</string>
+    <string name="none">Keine</string>
+    <string name="move">Bewegen</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
+
+    <!-- Layouts dialog -->
+    <string name="choose_dock_layout">Wählen Sie ein Dock-Layout</string>
+    <string name="phone">Telefon</string>
+    <string name="tablet">Tablet</string>
+
+    <!-- Permissions dialog -->
+    <string name="manage_permissions">Berechtigungen verwalten</string>
+    <string name="required">Erforderlich</string>
+    <string name="optional">Optional</string>
+    <string name="display_over_other_apps">Anzeige über andere Apps</string>
+    <string name="display_over_other_apps_desc">Erforderlich für die Anzeige des Docks, ohne diese Angabe können Sie den Dienst nicht starten</string>
+    <string name="accessibility_service">Zugänglichkeitsdienst</string>
+    <string name="accessibility_service_desc">Hiermit können Sie das Dock starten und stoppen. Wenn Sie eine Fehlermeldung über <b>eingeschränkte Einstellung</b> erhalten, klicken sie den Hilfe-Button unten</string>
+    <string name="recent_apps">Letzte Apps</string>
+    <string name="recent_apps_desc">Ermöglicht die Anzeige der zuletzt genutzten Apps im Dock</string>
+    <string name="notification_access">Benachrichtigungszugriff</string>
+    <string name="notification_access_desc">Dient zur Anzeige von Benachrichtigungen. Wenn Sie eine Fehlermeldung über <b>eingeschränkte Einstellung</b> erhalten, klicken sie den Hilfe-Button unten</string>
+    <string name="device_administrator">Geräteverwalter</string>
+    <string name="device_administrator_desc">Dient zum Sperren des Bildschirms. Unbedingt vor der Deinstallation deaktivieren!</string>
+    <string name="storage">Speicher</string>
+    <string name="storage_desc">Dient zum Ändern des Menüsymbols und des Ereignistons</string>
+    <string name="overlays_in_settings">Overlays auf Einstellungen zulassen</string>
+    <string name="overlays_in_settings_desc">Wird verwendet, um das Dock sichtbar zu halten, während die Einstellungen-App geöffnet ist. Dies erlaubt <b>jede App</b>zur Anzeige von Inhalten über der Einstellungs-App und nicht nur im Dock. Muss in den Entwickleroptionen aktiviert werden.</string>
+    <string name="write_secure">Sichere Schreibeinstellungen</string>
+    <string name="write_secure_desc">Erforderlich für erweiterte Einstellungen. Dies ist eine spezielle Berechtigung, die mit ROOT oder ADB gewährt werden, indem man folgendes ausführt: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="manage">Verwalte…</string>
+    <string name="grant">Genehmigung</string>
+    <string name="enable">Aktivieren</string>
+    <string name="disable">Deaktivieren</string>
+
+    <!-- Appearance page -->
+    <string name="appearance">Aussehen</string>
+    <string name="look_and_feel">Aussehen und Gefühl</string>
+    <string name="theme_title">Dock Design</string>
+    <string name="dark">Dunkel</string>
+    <string name="black">Schwarz</string>
+    <string name="transparent">Transparent</string>
+    <string name="material_u">Material U</string>
+    <string name="custom">Eigene</string>
+    <string name="theme_main_color_title">Hauptfarbe</string>
+    <string name="theme_main_color_summary">Definiert Hauptfarbe für Gegenstandshintergründe</string>
+    <string name="choose_color">Wähle Fabe</string>
+    <string name="transparency">Transparenz</string>
+    <string name="invalid_color">Ungültige Farbe</string>
+    <string name="dock_layout">Dock Layout</string>
+    <string name="wallpaper">Hintergrund</string>
+    <string name="presets">Voreinstellungen</string>
+    <string name="icon_shape_title">Symbol-Form</string>
+    <string name="circle">Kreis</string>
+    <string name="squircle">abgerundetes Viereck</string>
+    <string name="system">System</string>
+    <string name="round_dock">Abgerundete Ecken für das Dock</string>
+    <string name="single_line_labels">Eine Zeile für App-Namen</string>
+    <string name="tint_indicators_title">Laufende Indikatoren einfärben</string>
+
+    <!-- App menu page -->
+    <string name="app_menu">App Menü</string>
+    <string name="menu">Menü</string>
+    <string name="menu_icon_uri_title">Menüsymbol</string>
+    <string name="restore_menu_icon_title">Wiederherstellen des Standart Menüsymbols</string>
+    <string name="app_menu_fullscreen_title">App Menü im Vollbildmodus öffnen</string>
+    <string name="app_menu_height_title">App Menü Höhe</string>
+    <string name="app_menu_width_title">App Menü Breite</string>
+    <string name="num_columns_title">Anzahl der Spalten</string>
+    <string name="center_app_menu">Zentriertes App Menü</string>
+    <string name="app_launch">App start</string>
+    <string name="launch_mode_title">Standart App Startmodus</string>
+    <string name="standard">Standart</string>
+    <string name="maximized">Maximimiert</string>
+    <string name="portrait">Portrait</string>
+    <string name="fullscreen">Vollbild</string>
+    <string name="remember_launch_mode_title">Startmodus merken</string>
+    <string name="remember_launch_mode_summary">letzter Startmodus für jede App merken</string>
+    <string name="launch_games_fullscreen_title">Starte Spiele im Vollbildmodus</string>
+    <string name="launch_games_fullscreen_summary">Starte Apps, die als Spiele erkannt werden, standartmäßig im Vollbildmodus</string>
+    <string name="launch_new_instance_secondary_title">Neues Fenster auf sekundären Anzeigen</string>
+    <string name="launch_new_instance_secondary_summary">Wenn von der App unterstützt, neues Fenster beim Starten auf sekundären Bildschirmen erstellen</string>
+    <string name="user_info">Nutzer-Informationen</string>
+    <string name="user_name">Name</string>
+    <string name="user_avatar">Avatar</string>
+    <string name="allow_app_hiding">Erlaube versteckte Apps</string>
+    <string name="hidden_apps">versteckte Apps</string>
+    <string name="choose_apps">Apps auswählen</string>
+
+    <!-- Dock page -->
+    <string name="dock">Dock</string>
+    <string name="navigation">Navigation</string>
+    <string name="enable_apps_btn">App Menü</string>
+    <string name="enable_nav_back_title">Zurück</string>
+    <string name="enable_nav_home_title">Start</string>
+    <string name="enable_nav_recents_title">Zuletzt</string>
+    <string name="enable_nav_assist_title">Assistent</string>
+    <string name="quick_settings">Schnelleinstellungen</string>
+    <string name="enable_notif_btn">Benachrichtigungen</string>
+    <string name="enable_qs_bluetooth_title">Bluetooth</string>
+    <string name="enable_qs_battery_title">Akku</string>
+    <string name="enable_qs_wifi_title">Wi-Fi</string>
+    <string name="enable_qs_vol_title">Lautstärke</string>
+    <string name="enable_qs_date_title">Uhr</string>
+    <string name="enable_qs_pin_title">Pin</string>
+    <string name="enable_qs_pin_summary">Sie können das Dock immer noch anheften/entheften, indem Sie nach unten wischen oder das Tastaturkürzel verwenden</string>
+    <string name="behaviour">Verhalten</string>
+    <string name="enable_apps_btn_summary">Sie können das Anwendungsmenü immer noch öffnen/schließen, indem Sie auf dem Dock nach oben/unten wischen.</string>
+    <string name="activation_method">Aktivierungsmethode</string>
+    <string name="activation_method_summary">Die Methode, mit der das ausgeblendete Dock angezeigt wird</string>
+    <string name="swipe">Wischen/Schweben</string>
+    <string name="handle">bearbeiten</string>
+    <string name="handle_opacity">Opazität bearbeiten</string>
+    <string name="handle_position">Position bearbeiten</string>
+    <string name="auto_pin_title">automatisches Anheften</string>
+    <string name="auto_pin_summary">autotomatisches Anheften konfigurieren</string>
+    <string name="pin_startup">Anheften beim Starten</string>
+    <string name="pin_windowed">Anheften bei Fensteranwendungen</string>
+    <string name="unpin_fullscreen">Anheften bei Vollbildanwendungen aufheben</string>
+    <string name="running_apps_number_title">Anzahl der laufenden/letzten Anwendungen, die angezeigt werden sollen</string>
+    <string name="max_running_apps_landscape">Max. aktuelle Anwendungen (Querformat)</string>
+    <string name="max_running_apps_portrait">Maximal verfügbare Anwendungen (Hochformat)</string>
+    <string name="center_running_apps_title">Zentrale laufende Anwendungen</string>
+    <string name="dock_activation_area_title">Aktivierungsbereich Dock</string>
+    <string name="dock_activation_area_summary">Die Höhe des unsichtbaren Aktivierungsbereichs am unteren Bildschirmrand</string>
+
+    <!-- Desktop -->
+    <string name="desktop">Desktop</string>
+    <string name="show_notes_title">Notizenwidget</string>
+
+    <!-- Default apps page -->
+    <string name="default_apps">Standart Apps</string>
+    <string name="app_browser_title">Webbrowser</string>
+    <string name="app_files_title">Dateien</string>
+    <string name="app_music_title">Musik</string>
+    <string name="app_movies_title">Filme</string>
+    <string name="app_assistant_title">Assistent</string>
+    <string name="app_clock_title">Uhr</string>
+    <string name="app_terminal_title">Terminal</string>
+    <string name="app_rec_title">Bildschirmaufzeichnung</string>
+    <string name="choose_app">Wählen Sie eine App</string>
+    <string name="tap_to_set">Tippen Sie zum Einstellen</string>
+
+    <!-- Keyboard page -->
+    <string name="keyboard">Tastatur</string>
+    <string name="apps">Apps</string>
+    <string name="general">Allgemein</string>
+    <string name="enable_open_menu_title">Meta oder Home, um das Anwendungsmenü zu öffnen</string>
+    <string name="enable_lock_desktop_title">Alt+L zum Sperren des Desktops</string>
+    <string name="enable_open_settings_title">Alt+P zum Öffnen der Einstellungen</string>
+    <string name="enable_open_music_title">Alt+M zum Öffnen Ihrer Standard-Musikanwendung</string>
+    <string name="enable_open_browser_title">Alt+B zum Öffnen Ihres Standardbrowsers</string>
+    <string name="enable_open_terminal_title">Alt+T zum Öffnen des Terminals</string>
+    <string name="enable_open_assist_title">Alt+A zum Starten Ihrer Standard-Assistenten-App</string>
+    <string name="enable_open_rec_title">Alt+R zum Starten Ihrer Standard-Bildschirmaufzeichnungsanwendung</string>
+    <string name="enable_new_instance">Alt+Umschalt+N, um ein neues Fenster zu öffnen</string>
+    <string name="enable_expand_notifications_title">Alt+Q zum Öffnen der Schnelleinstellungen</string>
+    <string name="enable_ctrl_back_title">Rechte Strg-Taste dient als Zurück-Taste</string>
+    <string name="enable_f10_title">F10 zum Umschalten des geteilten Bildschirms</string>
+    <string name="enable_toggle_pin_title">Alt+W zum Anheften/Entheften des Docks</string>
+    <string name="enable_menu_recents_title">Menütaste zur Anzeige der Favoriten</string>
+
+    <!-- Sounds page -->
+    <string name="sounds">Töne</string>
+    <string name="please_note_that_you_must_prov">Bitte beachten Sie, dass Sie Ihre eigenen Töne mitbringen müssen.</string>
+    <string name="startup_sound_title">Startton</string>
+    <string name="usb_sound_title">Ton von angeschlossenem USB-Gerät</string>
+    <string name="notification_sound_title">Benachrichtigungston</string>
+    <string name="charge_sound_title">Aufladeton</string>
+    <string name="charge_complete_sound_title">Ton bei voller Aufladung</string>
+
+    <!-- Notifications page -->
+    <string name="notifications">Benachrichtigungen</string>
+    <string name="manage_service">Dienst verwalten</string>
+    <string name="notification_timeout_title">Anzeigedauer der Benachrichtigung (in Sekunden)</string>
+    <string name="show_ongoing_title">Laufende Benachrichtigungen anzeigen</string>
+    <string name="silence_current_title">Stille für aktuelle Anwendung</string>
+    <string name="blocked_notifications_title">Ignorierte Benachrichtigungen</string>
+    <string name="long_press_a_notification_to_a">Langes Drücken auf eine Benachrichtigung, um sie stumm zu schalten</string>
+    <string name="silenced_notifications">Stummgeschaltete Benachrichtigungen für diese App</string>
+    <string name="enable_notif_panel_title">Benachrichtigungsfeld</string>
+    <string name="notification_popups">Pop-up-Benachrichtigungen</string>
+    <string name="popups_disabled">Pop-up-Benachrichtigungen deaktiviert</string>
+    <string name="silenced_notifications_title">Stummgeschaltete Benachrichtigungen</string>
+    <string name="hidden_notifications">Versteckte Benachrichtigungen</string>
+
+    <!-- Hot corners page -->
+    <string name="hot_corners">Scharfe Ecken</string>
+    <string name="enable_corner_top_right_title">Rechte obere Ecke</string>
+    <string name="enable_corner_top_right_summary">Platzieren Sie die Maus in der oberen rechten Ecke des Bildschirms, um die Favoriten anzuzeigen.</string>
+    <string name="enable_corner_bottom_right_title">Rechte untere Ecke</string>
+    <string name="enable_corner_bottom_right_summary">Setzen Sie die Maus auf die obere rechte Ecke des Bildschirms, um den Bildschirm zu sperren.</string>
+    <string name="hot_corners_delay_title">Aktivierungsverzögerung (in Millisekunden)</string>
+
+    <!-- Advanced page -->
+    <string name="advanced">Erweitert</string>
+    <string name="these_settings_are_intended_fo">Diese Einstellungen sind für fortgeschrittene Benutzer gedacht. Ändern Sie sie nur, wenn Sie wissen, was Sie tun.</string>
+    <string name="prefer_last_display">Bevorzugen Sie die zuletzt angebrachte Anzeige</string>
+    <string name="prefer_last_display_summary">Bevorzugen Sie das zuletzt angeschlossene Display für die Anzeige von Anwendungen und des Docks</string>
+    <string name="restart_accessibility">Das Ändern dieser Einstellung erfordert einen Neustart des Erreichbarkeitsdienstes</string>
+    <string name="open_accessibility">Öffne Barrierefreiheit</string>
+    <string name="custom_toasts">Eigene Toasts</string>
+    <string name="custom_toasts_summary">Integrierte benutzerdefinierte Toasts für Anwendungen verwenden, wenn das Dock angeheftet ist</string>
+    <string name="dock_height">Dock Höhe</string>
+    <string name="icon_pack">Icon pack</string>
+
+    <string name="secure_settings">Sichere Einstellungen</string>
+    <string name="custom_display_size_title">Anzeigegröße</string>
+    <string name="custom_display_size_summary">Ermöglicht die Feinabstimmung der Anzeigegröße von Bildschirmelementen. Benötigt Neustart</string>
+    <string name="custom_display_size_hint">leer lassen für Standard</string>
+    <string name="icon_blacklist">Icon blacklist</string>
+    <string name="icon_blacklist_summary">Auszublendende Symbole in der Statusleiste</string>
+    <string name="disable_heads_up">Benachrichtigungs-Pop-up deaktivieren</string>
+    <string name="disable_heads_up_summary">Deaktiviert Android\'s Benachrichtigungs-Pop-ups</string>
+
+    <string name="root_required">Root erforderlich</string>
+    <string name="enable_power_menu_title">Eingebautes Power-Menü</string>
+    <string name="enable_power_menu_summary">Verwendung eines benutzerdefinierten Power-Menüs anstelle des Systemmenüs</string>
+    <string name="power_off">Ausschalten</string>
+    <string name="restart">Neustart</string>
+    <string name="soft_restart">sanfter Neustart</string>
+    <string name="lock">Sperren</string>
+    <string name="allow_app_freeze_title">Deaktivieren von Anwendungen zulassen</string>
+    <string name="allow_app_freeze_summary">Sie benötigen ein externes Tool wie Ice Box (oder führen pm enable [pkgname] aus), um Anwendungen wieder zu aktivieren</string>
+    <string name="allow_sysapp_uninstall_title">Deinstallation von Systemanwendungen zulassen</string>
+    <string name="allow_sysapp_uninstall_summary">Bitte seien Sie vorsichtig, das kann sehr gefährlich sein.</string>
+    <string name="hide_nav_buttons_title">Navigationsschaltflächen ausblenden</string>
+    <string name="hide_nav_buttons_summary">Blendet die Navigationstasten der Android-Software aus. Benötigt Neustart</string>
+    <string name="disable_taskbar_title">Taskleiste deaktivieren</string>
+    <string name="disable_taskbar_summary">Deaktiviert die Taskleiste von Android auf Geräten mit großem Bildschirm</string>
+    <string name="enable_tiling_shortcut">Alt+Pfeiltasten zum Kacheln von Fenstern</string>
+    <string name="enable_soft_reboot_title">Alt+F12 zum sanften Neustart</string>
+    <string name="enable_soft_reboot_summary">Das System reagiert möglicherweise für kurze Zeit nicht</string>
+    <string name="soft_reboot_title">Starten Sie jetzt sanft neu</string>
+    <string name="soft_reboot_summary">Neustart in kürze. Sie werden alle nicht gespeicherten Arbeiten verlieren</string>
+    <string name="reboot_required_title">Neustart erforderlich</string>
+    <string name="reboot_required_text">Ein Neustart ist erforderlich, damit die Änderungen wirksam werden. Möchten Sie jetzt neu starten?</string>
+
+    <string name="backup_restore">Sicherung und Wiederherstellung</string>
+    <string name="backup_preferences">Einstellungen sichern</string>
+    <string name="restore_preferences">Einstellungen wiederherstellen</string>
+    <string name="preferences_saved">Gespeicherte Präferenzen</string>
+    <string name="preferences_restored">Präferenzen wiederhergestellt</string>
+
+    <string name="development_tools">Development tools</string>
+    <string name="scale_factor_title">Standard window scale factor</string>
+    <string name="scale_factor_summary">Defines how big standard windows are</string>
+    <string name="icon_padding_title">Icon padding</string>
+    <string name="icon_padding_summary">Defines the amount of space between the icon and its border</string>
+
+
+    <!-- Help and about page -->
+    <string name="help_and_about">Hilfe und Informationen</string>
+    <string name="a_launcher_for_android_x86_by_">Ein Launcher für Android x86 von Axel358</string>
+    <string name="help">Hilfe</string>
+    <string name="smart_dock_its_free_and_open_">Smart Dock ist kostenlos und quelloffen. Beitragen auf GitHub</string>
+    <string name="github">GitHub</string>
+    <string name="show_help_summary">Hilfe anfordern</string>
+    <string name="app_help">    Die Anwendung sollte als Systemanwendung installiert werden, um die richtigen Berechtigungen zu erhalten.
+    Ohne diese wird die Funktionalität eingeschränkt sein.
+    \n
+    \nSie sollten auch die Android-Navigationstasten ausblenden. Weitere Informationen dazu finden Sie in der vollständigen Hilfe auf GitHub
+    \n
+    \nDie Anwendung verwendet einen Eingabehilfedienst, um Tastatureingaben zu erfassen. Wenn dieser Dienst abgestürzt ist, müssen Sie ihn möglicherweise wieder aktivieren und/oder das System neu starten.
+    \n
+    \nUm die App zu deinstallieren, müssen Sie in den Systemeinstellungen die Geräteverwaltungsberechtigung für sie entfernen.</string>
+    <string name="more_help">More help</string>
+    <string name="contributors">Contributors</string>
+    <string name="tap_to_see_the_list_of_great_p">Tippen Sie, um die Liste der großartigen Menschen zu sehen, die zu Smart Dock beigetragen haben</string>
+    <string name="accessibility_service_description">Ermöglicht die Durchführung von Aktionen wie Zurück</string>
+    <string name="join_telegram_title">Telegram Gruppe</string>
+    <string name="join_telegram_summary">Haben Sie noch Fragen? Treten Sie der Telegram-Supportgruppe bei</string>
+    <string name="gnu_general_public_licence_v3">GNU General Public Licence v3.0</string>
+    <string name="license">Lizenz</string>
+    <string name="donate">Spende</string>
+    <string name="support_the_project">Unterstütze das Projekt</string>
+
+    <!-- App menu -->
+    <string name="user">Nutzer</string>
+    <string name="search">Suche…</string>
+    <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
+    <string name="search_for">Suche nach</string>
+    <string name="on_google">auf Google</string>
+    <string name="disabled">Deaktiviert</string>
+
+    <!-- App context menu -->
+    <string name="shortcuts">Kurzbefehle…</string>
+    <string name="app_info">App Info</string>
+    <string name="uninstall">Deinstallieren</string>
+    <string name="hide">Verstecken</string>
+    <string name="open_as">Öffnen als...</string>
+    <string name="add_to">Hinzufügen zu...</string>
+    <string name="launch_in">Start in...</string>
+    <string name="freeze">Sperren</string>
+    <string name="pin">Anheften</string>
+    <string name="unpin">Entheften</string>
+    <string name="favorites">Favoriten</string>
+    <string name="app_frozen">App gesperrt</string>
+    <string name="remove">Entfernen</string>
+
+    <!-- Desktop -->
+    <string name="lets_start">Los geht\'s</string>
+    <string name="change_wallpaper">Hintergrundbild ändern</string>
+    <string name="display_settings">Anzeigeeinstellungen</string>
+
+    <!-- Toasts -->
+    <string name="tablet_mode_on">Tablet-Modus an</string>
+    <string name="tablet_mode_off">Tablet-Modus aus</string>
+    <string name="start_message">Smart Dock gestartet</string>
+    <string name="enable_access_help">Smart Dock-Dienst suchen und aktivieren</string>
+
+    <!-- Crash dialog -->
+    <string name="something_wrong">Etwas ist schief gelaufen</string>
+    <string name="save_log">Protokoll speichern</string>
+    <string name="open_again">App erneut öffnen</string>
+
+</resources>
