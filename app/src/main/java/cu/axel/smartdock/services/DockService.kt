@@ -1546,7 +1546,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val nApps =
             if (orientation == Configuration.ORIENTATION_PORTRAIT) maxApps else maxAppsLandscape
         if (systemApp) {
-            tasks = AppUtils.getRunningTasks(activityManager, packageManager, nApps)
+            tasks = AppUtils.getRunningTasks(activityManager, packageManager, nApps, context)
             for (j in 1..tasks.size) {
                 val task = tasks[tasks.size - j]
                 val index = AppUtils.containsTask(apps, task)
