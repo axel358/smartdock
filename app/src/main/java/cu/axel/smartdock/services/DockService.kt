@@ -1189,10 +1189,15 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val menuFullscreen = sharedPreferences.getBoolean("app_menu_fullscreen", false)
                 val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0
                 //TODO: Implement efficient adapter
-                appsGv.adapter = AppAdapter(
-                    context, apps, this@DockService,
-                    menuFullscreen && !phoneLayout, iconPackUtils
-                )
+                val existingAdapter = appsGv.adapter
+                if (existingAdapter is cu.axel.smartdock.adapters.AppAdapter) {
+                    existingAdapter.updateApps(apps)
+                } else {
+                    appsGv.adapter = cu.axel.smartdock.adapters.AppAdapter(
+                        context, apps, this@DockService,
+                        menuFullscreen && !phoneLayout, iconPackUtils
+                    )
+                }
             }
         }
     }

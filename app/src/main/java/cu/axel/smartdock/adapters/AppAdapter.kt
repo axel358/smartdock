@@ -100,6 +100,13 @@ class AppAdapter(
         return apps.size
     }
 
+    fun updateApps(newApps: List<App>) {
+        this.apps = newApps
+        this.allApps.clear()
+        this.allApps.addAll(newApps)
+        notifyDataSetChanged()
+    }
+
     fun filter(query: String) {
         val results = ArrayList<App>()
         if (query.length > 1) {
