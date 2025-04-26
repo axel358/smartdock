@@ -1169,6 +1169,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     fun hideAppMenu() {
         searchEt.setText("")
+        // Reset filter
+        val adapter = appsGv.adapter
+        if (adapter is AppAdapter) {
+            adapter.filter("")
+        }
         windowManager.removeView(appMenu)
         appMenuVisible = false
     }

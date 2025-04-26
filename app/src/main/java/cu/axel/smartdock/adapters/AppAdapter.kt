@@ -104,11 +104,20 @@ class AppAdapter(
         this.apps = newApps
         this.allApps.clear()
         this.allApps.addAll(newApps)
-        notifyDataSetChanged()
+        // If a query is active, re-apply it
+        if (::query.isInitialized && query.isNotEmpty()) {
+            filter(query)
+        } else {
+            this.apps = newApps
+            notifyDataSetChanged()
+        }
     }
 
     fun filter(query: String) {
         val results = ArrayList<App>()
+        if (query.isEmpty()) {
+            this.query = ""
+        }
         if (query.length > 1) {
             if (query.matches("^[0-9]+(\\.[0-9]+)?[-+/*][0-9]+(\\.[0-9]+)?".toRegex())) {
                 results.add(
