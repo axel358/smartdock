@@ -1,0 +1,321 @@
+<resources>
+
+    <!-- General -->
+    <string name="app_name">Smart Dock</string>
+    <string name="none">無</string>
+    <string name="move">移動</string>
+    <string name="ok">確定</string>
+    <string name="cancel">取消</string>
+
+    <!-- Layouts dialog -->
+    <string name="choose_dock_layout">選擇 Dock 佈局</string>
+    <string name="phone">手機</string>
+    <string name="tablet">平板</string>
+
+    <!-- Permissions dialog -->
+    <string name="manage_permissions">管理權限</string>
+    <string name="required">必需</string>
+    <string name="optional">可選</string>
+    <string name="display_over_other_apps">顯示在其他應用程式上層</string>
+    <string name="display_over_other_apps_desc">顯示 Dock 必需此權限，沒有此權限將無法啟動服務</string>
+    <string name="accessibility_service">無障礙服務</string>
+    <string name="accessibility_service_desc">用於啟動和停止 Dock。需要上述權限。如果出現<b>受限制設定</b>錯誤，請點擊下方的幫助按鈕</string>
+    <string name="recent_apps">最近的應用程式</string>
+    <string name="recent_apps_desc">允許在 Dock 上顯示最近的應用程式</string>
+    <string name="notification_access">通知存取</string>
+    <string name="notification_access_desc">用於顯示通知。如果出現<b>受限制設定</b>錯誤，請點擊下方的幫助按鈕</string>
+    <string name="device_administrator">裝置管理員</string>
+    <string name="device_administrator_desc">用於鎖定螢幕。卸載前請先停用</string>
+    <string name="storage">儲存空間</string>
+    <string name="storage_desc">用於更改選單圖示和事件聲音</string>
+    <string name="overlays_in_settings">允許在設置中顯示覆蓋層</string>
+    <string name="overlays_in_settings_desc">用於在設置應用程式開啟時保持 Dock 可見。這允許<b>任何應用程式</b>在設置應用程式上顯示內容，而不僅僅是 Dock。必須從開發者選項中啟用</string>
+    <string name="write_secure">寫入安全設置</string>
+    <string name="write_secure_desc">需要進行高級設置。這是一個特殊權限，必須通過 root 或 adb 授予，運行：\npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="manage">管理…</string>
+    <string name="grant">授予</string>
+    <string name="enable">啟用</string>
+    <string name="disable">停用</string>
+
+    <!-- Appearance page -->
+    <string name="appearance">外觀</string>
+    <string name="look_and_feel">外觀和感覺</string>
+    <string name="theme_title">Dock 主題</string>
+    <string name="dark">深色</string>
+    <string name="black">黑色</string>
+    <string name="transparent">透明</string>
+    <string name="material_u">Material U</string>
+    <string name="custom">自訂</string>
+    <string name="theme_main_color_title">主色</string>
+    <string name="theme_main_color_summary">定義項目背景的主色</string>
+    <string name="choose_color">選擇顏色</string>
+    <string name="transparency">透明度</string>
+    <string name="invalid_color">無效的顏色</string>
+    <string name="dock_layout">Dock 佈局</string>
+    <string name="wallpaper">壁紙</string>
+    <string name="presets">預設</string>
+    <string name="icon_shape_title">圖示形狀</string>
+    <string name="circle">圓形</string>
+    <string name="squircle">圓角方形</string>
+    <string name="system">系統</string>
+    <string name="round_dock">Dock 圓角</string>
+    <string name="single_line_labels">應用程式名稱單行顯示</string>
+    <string name="tint_indicators_title">著色運行指示器</string>
+
+    <!-- App menu page -->
+    <string name="app_menu">應用程式選單</string>
+    <string name="menu">選單</string>
+    <string name="menu_icon_uri_title">選單圖示</string>
+    <string name="restore_menu_icon_title">恢復預設選單圖示</string>
+    <string name="app_menu_fullscreen_title">全螢幕開啟應用程式選單</string>
+    <string name="app_menu_height_title">應用程式選單高度</string>
+    <string name="app_menu_width_title">應用程式選單寬度</string>
+    <string name="num_columns_title">列數</string>
+    <string name="center_app_menu">居中應用程式選單</string>
+    <string name="app_launch">應用程式啟動</string>
+    <string name="launch_mode_title">預設應用程式啟動模式</string>
+    <string name="standard">標準</string>
+    <string name="maximized">最大化</string>
+    <string name="portrait">縱向</string>
+    <string name="fullscreen">全螢幕</string>
+    <string name="remember_launch_mode_title">記住啟動模式</string>
+    <string name="remember_launch_mode_summary">記住每個應用程式使用的最後啟動模式</string>
+    <string name="launch_games_fullscreen_title">全螢幕啟動遊戲</string>
+    <string name="launch_games_fullscreen_summary">預設全螢幕啟動檢測到的遊戲應用程式</string>
+    <string name="launch_new_instance_secondary_title">在次要顯示器上新建視窗</string>
+    <string name="launch_new_instance_secondary_summary">如果應用程式支持，則在次要顯示器上啟動時創建新視窗</string>
+    <string name="user_info">用戶資訊</string>
+    <string name="user_name">名稱</string>
+    <string name="user_avatar">頭像</string>
+    <string name="allow_app_hiding">允許隱藏應用程式</string>
+    <string name="hidden_apps">隱藏的應用程式</string>
+    <string name="choose_apps">選擇應用程式</string>
+
+    <!-- Dock page -->
+    <string name="dock">Dock</string>
+    <string name="navigation">導航</string>
+    <string name="enable_apps_btn">應用程式選單</string>
+    <string name="enable_nav_back_title">返回</string>
+    <string name="enable_nav_home_title">主頁</string>
+    <string name="enable_nav_recents_title">最近的</string>
+    <string name="enable_nav_assist_title">助理</string>
+    <string name="quick_settings">快速設置</string>
+    <string name="enable_notif_btn">通知</string>
+    <string name="enable_qs_bluetooth_title">藍牙</string>
+    <string name="enable_qs_battery_title">電池</string>
+    <string name="enable_qs_wifi_title">Wi-Fi</string>
+    <string name="enable_qs_vol_title">音量</string>
+    <string name="enable_qs_date_title">時鐘</string>
+    <string name="enable_qs_pin_title">釘選</string>
+    <string name="enable_qs_pin_summary">您仍然可以通過在 Dock 上向下滑動或使用鍵盤快捷鍵來釘選/取消釘選 Dock</string>
+    <string name="behaviour">行為</string>
+    <string name="enable_apps_btn_summary">您仍然可以通過在 Dock 上向上/向下滑動來開啟/關閉應用程式選單</string>
+    <string name="activation_method">啟動方法</string>
+    <string name="activation_method_summary">隱藏時調出 Dock 的方法</string>
+    <string name="swipe">滑動/懸停</string>
+    <string name="handle">手柄</string>
+    <string name="handle_opacity">手柄透明度</string>
+    <string name="handle_position">手柄位置</string>
+    <string name="auto_pin_title">自動釘選</string>
+    <string name="auto_pin_summary">配置自動釘選</string>
+    <string name="pin_startup">啟動時釘選</string>
+    <string name="pin_windowed">窗口應用程式釘選</string>
+    <string name="unpin_fullscreen">全螢幕應用程式取消釘選</string>
+    <string name="running_apps_number_title">顯示的運行/最近應用程式數量</string>
+    <string name="max_running_apps_landscape">最大最近應用程式（橫向）</string>
+    <string name="max_running_apps_portrait">最大最近應用程式（縱向）</string>
+    <string name="center_running_apps_title">居中運行的應用程式</string>
+    <string name="dock_activation_area_title">Dock 啟動區域</string>
+    <string name="dock_activation_area_summary">螢幕底部的隱形啟動區域的高度</string>
+
+    <!-- Desktop -->
+    <string name="desktop">桌面</string>
+    <string name="show_notes_title">便條小工具</string>
+
+    <!-- Default apps page -->
+    <string name="default_apps">預設應用程式</string>
+    <string name="app_browser_title">網頁瀏覽器</string>
+    <string name="app_files_title">文件</string>
+    <string name="app_music_title">音樂</string>
+    <string name="app_movies_title">電影</string>
+    <string name="app_assistant_title">助理</string>
+    <string name="app_clock_title">時鐘</string>
+    <string name="app_terminal_title">終端機</string>
+    <string name="app_rec_title">螢幕錄製</string>
+    <string name="choose_app">選擇應用程式</string>
+    <string name="tap_to_set">點擊設置</string>
+
+    <!-- Keyboard page -->
+    <string name="keyboard">鍵盤</string>
+    <string name="apps">應用程式</string>
+    <string name="general">一般</string>
+    <string name="enable_open_menu_title">Meta 或 Home 鍵開啟應用程式選單</string>
+    <string name="enable_lock_desktop_title">Alt+L 鎖定桌面</string>
+    <string name="enable_open_settings_title">Alt+P 開啟設置</string>
+    <string name="enable_open_music_title">Alt+M 開啟預設音樂應用程式</string>
+    <string name="enable_open_browser_title">Alt+B 開啟預設瀏覽器</string>
+    <string name="enable_open_terminal_title">Alt+T 開啟終端機</string>
+    <string name="enable_open_assist_title">Alt+A 啟動預設助理應用程式</string>
+    <string name="enable_open_rec_title">Alt+R 啟動預設螢幕錄製應用程式</string>
+    <string name="enable_new_instance">Alt+Shift+N 啟動新視窗</string>
+    <string name="enable_expand_notifications_title">Alt+Q 開啟快速設置</string>
+    <string name="enable_ctrl_back_title">右 Ctrl 鍵作為返回鍵</string>
+    <string name="enable_f10_title">F10 切換分割螢幕</string>
+    <string name="enable_toggle_pin_title">Alt+W 釘選/取消釘選 Dock</string>
+    <string name="enable_menu_recents_title">選單鍵顯示最近的應用程式</string>
+
+    <!-- Sounds page -->
+    <string name="sounds">聲音</string>
+    <string name="please_note_that_you_must_prov">請注意，您必須提供自己的聲音</string>
+    <string name="startup_sound_title">啟動聲音</string>
+    <string name="usb_sound_title">USB 裝置連接聲音</string>
+    <string name="notification_sound_title">通知聲音</string>
+    <string name="charge_sound_title">充電聲音</string>
+    <string name="charge_complete_sound_title">充電完成聲音</string>
+
+    <!-- Notifications page -->
+    <string name="notifications">通知</string>
+    <string name="manage_service">管理服務</string>
+    <string name="notification_timeout_title">通知顯示時間（秒）</string>
+    <string name="show_ongoing_title">顯示進行中的通知</string>
+    <string name="silence_current_title">靜音當前應用程式</string>
+    <string name="blocked_notifications_title">忽略的通知</string>
+    <string name="long_press_a_notification_to_a">長按通知以靜音</string>
+    <string name="silenced_notifications">此應用程式的靜音通知</string>
+    <string name="enable_notif_panel_title">通知面板</string>
+    <string name="notification_popups">通知彈出視窗</string>
+    <string name="popups_disabled">通知彈出視窗已停用</string>
+    <string name="silenced_notifications_title">靜音通知</string>
+    <string name="hidden_notifications">隱藏的通知</string>
+
+    <!-- Hot corners page -->
+    <string name="hot_corners">熱角</string>
+    <string name="enable_corner_top_right_title">右上角</string>
+    <string name="enable_corner_top_right_summary">將滑鼠放在螢幕右上角以顯示最近的應用程式</string>
+    <string name="enable_corner_bottom_right_title">右下角</string>
+    <string name="enable_corner_bottom_right_summary">將滑鼠放在螢幕右下角以鎖定螢幕</string>
+    <string name="hot_corners_delay_title">啟動延遲（毫秒）</string>
+
+    <!-- Advanced page -->
+    <string name="advanced">高級</string>
+    <string name="these_settings_are_intended_fo">這些設置是為高級用戶設計的。只有在您知道自己在做什麼時才更改它們</string>
+    <string name="prefer_last_display">偏好最後連接的顯示器</string>
+    <string name="prefer_last_display_summary">偏好最後連接的顯示器來顯示應用程式和 Dock</string>
+    <string name="restart_accessibility">更改此設置需要重新啟動無障礙服務</string>
+    <string name="open_accessibility">開啟無障礙</string>
+    <string name="custom_toasts">自訂 Toasts</string>
+    <string name="custom_toasts_summary">在 Dock 釘選時使用內建的自訂 Toasts</string>
+    <string name="dock_height">Dock 高度</string>
+    <string name="icon_pack">圖示包</string>
+
+    <string name="secure_settings">安全設置</string>
+    <string name="custom_display_size_title">顯示大小</string>
+    <string name="custom_display_size_summary">允許您微調螢幕元素的顯示大小。需要重新啟動</string>
+    <string name="custom_display_size_hint">留空為預設</string>
+    <string name="icon_blacklist">圖示黑名單</string>
+    <string name="icon_blacklist_summary">從狀態列中隱藏的圖示</string>
+    <string name="disable_heads_up">停用通知彈出視窗</string>
+    <string name="disable_heads_up_summary">停用 Android 的通知彈出視窗</string>
+
+    <string name="root_required">需要 Root</string>
+    <string name="enable_power_menu_title">內建電源選單</string>
+    <string name="enable_power_menu_summary">使用自訂電源選單而不是系統選單</string>
+    <string name="power_off">關機</string>
+    <string name="restart">重新啟動</string>
+    <string name="soft_restart">軟重啟</string>
+    <string name="lock">鎖定</string>
+    <string name="allow_app_freeze_title">允許停用應用程式</string>
+    <string name="allow_app_freeze_summary">您將需要外部工具如 Ice Box（或運行 pm enable [pkgname]）來重新啟用應用程式</string>
+    <string name="allow_sysapp_uninstall_title">允許卸載系統應用程式</string>
+    <string name="allow_sysapp_uninstall_summary">請小心，這可能非常危險</string>
+    <string name="hide_nav_buttons_title">隱藏導航按鈕</string>
+    <string name="hide_nav_buttons_summary">隱藏 Android 軟體導航按鈕。需要重新啟動</string>
+    <string name="disable_taskbar_title">停用任務欄</string>
+    <string name="disable_taskbar_summary">停用大螢幕裝置上的 Android 任務欄</string>
+    <string name="enable_tiling_shortcut">Alt+方向鍵平鋪視窗</string>
+    <string name="enable_soft_reboot_title">Alt+F12 軟重啟</string>
+    <string name="enable_soft_reboot_summary">系統可能會短暫無響應</string>
+    <string name="soft_reboot_title">立即軟重啟</string>
+    <string name="soft_reboot_summary">立即軟重啟。您將失去所有未保存的工作</string>
+    <string name="reboot_required_title">需要重新啟動</string>
+    <string name="reboot_required_text">需要重新啟動才能使更改生效。您現在要重新啟動嗎？</string>
+
+    <string name="backup_restore">備份和還原</string>
+    <string name="backup_preferences">備份偏好設置</string>
+    <string name="restore_preferences">還原偏好設置</string>
+    <string name="preferences_saved">偏好設置已保存</string>
+    <string name="preferences_restored">偏好設置已還原</string>
+
+    <string name="development_tools">開發工具</string>
+    <string name="scale_factor_title">標準視窗縮放比例</string>
+    <string name="scale_factor_summary">定義標準視窗的大小</string>
+    <string name="icon_padding_title">圖示間距</string>
+    <string name="icon_padding_summary">定義圖示與其邊框之間的空間</string>
+
+
+    <!-- Help and about page -->
+    <string name="help_and_about">幫助和關於</string>
+    <string name="a_launcher_for_android_x86_by_">一個由 Axel358 開發的 Android x86 啟動器</string>
+    <string name="help">幫助</string>
+    <string name="smart_dock_its_free_and_open_">Smart Dock 是免費和開源的。在 GitHub 上貢獻</string>
+    <string name="github">GitHub</string>
+    <string name="show_help_summary">點擊獲取幫助</string>
+    <string name="app_help">    該應用程式應安裝為系統應用程式以獲得正確的權限。
+    否則功能將受到限制。
+    \n
+    \n您還應該隱藏 Android 導航按鈕。有關如何執行此操作的更多資訊，請查看 GitHub 上的完整幫助
+    \n
+    \n該應用程式使用無障礙服務來捕獲鍵盤輸入，如果該服務崩潰，您可能需要重新啟用它和/或重新啟動系統。
+    \n
+    \n要卸載該應用程式，您必須在系統設置中移除其裝置管理員權限</string>
+    <string name="more_help">更多幫助</string>
+    <string name="contributors">貢獻者</string>
+    <string name="tap_to_see_the_list_of_great_p">點擊查看對 Smart Dock 做出貢獻的偉大人員名單</string>
+    <string name="accessibility_service_description">允許執行返回等操作</string>
+    <string name="join_telegram_title">Telegram 群組</string>
+    <string name="join_telegram_summary">有任何問題？加入 Telegram 支持群組</string>
+    <string name="gnu_general_public_licence_v3">GNU 通用公共許可證 v3.0</string>
+    <string name="license">許可證</string>
+    <string name="donate">捐贈</string>
+    <string name="support_the_project">支持該項目</string>
+
+    <!-- App menu -->
+    <string name="user">用戶</string>
+    <string name="search">搜索…</string>
+    <string name="copied_to_clipboard">已複製到剪貼簿</string>
+    <string name="search_for">搜索</string>
+    <string name="on_google">在 Google 上</string>
+    <string name="disabled">已停用</string>
+
+    <!-- App context menu -->
+    <string name="shortcuts">快捷方式…</string>
+    <string name="app_info">應用程式資訊</string>
+    <string name="uninstall">卸載</string>
+    <string name="hide">隱藏</string>
+    <string name="open_as">開啟為…</string>
+    <string name="add_to">添加到…</string>
+    <string name="launch_in">啟動於…</string>
+    <string name="freeze">凍結</string>
+    <string name="pin">釘選</string>
+    <string name="unpin">取消釘選</string>
+    <string name="favorites">收藏夾</string>
+    <string name="app_frozen">應用程式已凍結</string>
+    <string name="remove">移除</string>
+
+    <!-- Desktop -->
+    <string name="lets_start">開始吧</string>
+    <string name="change_wallpaper">更改壁紙</string>
+    <string name="display_settings">顯示設置</string>
+
+    <!-- Toasts -->
+    <string name="tablet_mode_on">平板模式開啟</string>
+    <string name="tablet_mode_off">平板模式關閉</string>
+    <string name="start_message">Smart Dock 已啟動</string>
+    <string name="enable_access_help">查找並啟用 Smart Dock 服務</string>
+
+    <!-- Crash dialog -->
+    <string name="something_wrong">出現問題</string>
+    <string name="save_log">保存日誌</string>
+    <string name="open_again">再次開啟應用程式</string>
+
+</resources>
