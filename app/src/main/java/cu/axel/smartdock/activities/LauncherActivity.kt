@@ -16,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ListView
@@ -168,6 +167,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener,
             saveNotes()
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {}
     private fun loadNotes() {
         val notes = File(getExternalFilesDir(null), "notes.txt")
