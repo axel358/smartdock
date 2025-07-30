@@ -254,7 +254,12 @@ object DeviceUtils {
 
     fun getSecondaryDisplay(context: Context): Display {
         val displays = getDisplays(context)
-        return displays[displays.size - 1]
+        val display = displays[displays.size - 1]
+        if (!display.name.equals("HiddenSpace") || displays.size <= 2) {
+            return display
+        } else {
+            return displays[displays.size - 2]
+        }
     }
 
     fun getDisplayMetrics(
