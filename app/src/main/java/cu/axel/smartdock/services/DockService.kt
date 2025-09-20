@@ -413,7 +413,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         AppUtils.getPinnedApps(
                             context,
                             AppUtils.PINNED_LIST
-                        ).size > 0
+                        ).isNotEmpty()
                     )
                 }
             }
@@ -534,8 +534,18 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             ContextCompat.RECEIVER_NOT_EXPORTED
         )
 
+        ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
+            override fun onReceive(
+                context: Context?,
+                intent: Intent?
+            ) {
+                loadPinnedApps()
+            }
+        }, IntentFilter(Intent.ACTION_PACKAGE_REMOVED), ContextCompat.RECEIVER_NOT_EXPORTED)
+
         //Play startup sound
         DeviceUtils.playEventSound(context, "startup_sound")
+
         updateNavigationBar()
         updateQuickSettings()
         updateDockShape()
@@ -661,7 +671,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         } else if (sharedPreferences.getBoolean(
                 "custom_toasts",
                 false
-            ) && event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED && event.parcelableData !is Notification && event.text.size > 0
+            ) && event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED && event.parcelableData !is Notification && event.text.isNotEmpty()
         ) {
             val text = event.text[0].toString()
             val app = event.packageName.toString()
@@ -770,14 +780,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     DeviceUtils.softReboot()
                 //Window management
                 else if (event.keyCode == KeyEvent.KEYCODE_F3) {
-                    if (tasks.size > 0) {
+                    if (tasks.isNotEmpty()) {
                         val task = tasks[0]
                         AppUtils.resizeTask(
                             context, "portrait", task.id, dockHeight
                         )
                     }
                 } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                    if (tasks.size > 0) {
+                    if (tasks.isNotEmpty()) {
                         val task = tasks[0]
                         if (event.isShiftPressed)
                             launchApp(
@@ -792,7 +802,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                             )
                     }
                 } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                    if (tasks.size > 0) {
+                    if (tasks.isNotEmpty()) {
                         val task = tasks[0]
                         if (event.isShiftPressed)
                             launchApp(
@@ -808,7 +818,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         return true
                     }
                 } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                    if (tasks.size > 0) {
+                    if (tasks.isNotEmpty()) {
                         val task = tasks[0]
                         if (event.isShiftPressed)
                             launchApp(
@@ -824,7 +834,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         return true
                     }
                 } else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                    if (tasks.size > 0) {
+                    if (tasks.isNotEmpty()) {
                         val task = tasks[0]
                         if (event.isShiftPressed)
                             launchApp(
@@ -848,13 +858,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                         else -> -1
                     }
                     if (index == 4 && sharedPreferences.getBoolean("enable_new_instance", true)) {
-                        if (tasks.size > 0) {
+                        if (tasks.isNotEmpty()) {
                             val task = tasks[0]
                             launchApp(null, task.packageName, newInstance = true)
                         }
                     } else if (index != -1 && sharedPreferences.getBoolean("enable_tiling", true)) {
                         val displays = DeviceUtils.getDisplays(this)
-                        if (tasks.size > 0 && displays.size > index) {
+                        if (tasks.isNotEmpty() && displays.size > index) {
                             val task = tasks[0]
                             launchApp(null, task.packageName, displayId = displays[index].displayId)
                         }
@@ -1205,10 +1215,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0
                 //TODO: Implement efficient adapter
                 val existingAdapter = appsGv.adapter
-                if (existingAdapter is cu.axel.smartdock.adapters.AppAdapter) {
+                if (existingAdapter is AppAdapter) {
                     existingAdapter.updateApps(apps)
                 } else {
-                    appsGv.adapter = cu.axel.smartdock.adapters.AppAdapter(
+                    appsGv.adapter = AppAdapter(
                         context, apps, this@DockService,
                         menuFullscreen && !phoneLayout, iconPackUtils
                     )
@@ -1465,7 +1475,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 IconPackUtils(this)
             } else
                 null
-            updateRunningTasks()
+            if (::pinnedApps.isInitialized)
+                updateRunningTasks()
             loadFavoriteApps()
         } else if (preference == "tint_indicators")
             updateRunningTasks()
@@ -1689,7 +1700,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             val enabled = wifiManager.isWifiEnabled
             val icon = if (!enabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off
             wifiBtn.setImageResource(icon)
-            wifiManager.setWifiEnabled(!enabled)
+            wifiManager.isWifiEnabled = !enabled
         } else
             startActivity(Intent(Settings.Panel.ACTION_WIFI).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
@@ -1873,7 +1884,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun loadFavoriteApps() {
         val apps = AppUtils.getPinnedApps(context, AppUtils.PINNED_LIST)
-        toggleFavorites(apps.size > 0)
+        toggleFavorites(apps.isNotEmpty())
         val menuFullscreen = sharedPreferences.getBoolean("app_menu_fullscreen", false)
         val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0
         favoritesGv.adapter =
