@@ -3,7 +3,6 @@ package cu.axel.smartdock.utils
 import android.app.ActivityManager
 import android.app.ActivityOptions
 import android.app.Notification
-import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
@@ -13,6 +12,7 @@ import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.os.SystemClock
 import android.os.UserManager
@@ -157,7 +157,7 @@ object AppUtils {
             } else {
                 info.flags and ApplicationInfo.FLAG_IS_GAME == ApplicationInfo.FLAG_IS_GAME
             }
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (_: PackageManager.NameNotFoundException) {
             false
         }
     }
@@ -260,7 +260,7 @@ object AppUtils {
         return try {
             val appInfo = context.packageManager.getApplicationInfo(app, 0)
             appInfo.flags and (ApplicationInfo.FLAG_SYSTEM or ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (_: PackageManager.NameNotFoundException) {
             false
         }
     }
@@ -269,7 +269,7 @@ object AppUtils {
         val resolveInfo = context.packageManager.queryIntentActivities(
             Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER).setPackage(app), 0
         )
-        return resolveInfo.size > 0
+        return resolveInfo.isNotEmpty()
     }
 
     fun getPackageLabel(context: Context, packageName: String): String {
@@ -403,4 +403,16 @@ object AppUtils {
 
     fun isMediaNotification(notification: Notification) =
         notification.extras[Notification.EXTRA_TEMPLATE].toString() == "android.app.Notification\$MediaStyle"
+
+    fun uninstallApp(context: Context, packageName: String) {
+        if (isSystemApp(context, packageName))
+            DeviceUtils.runAsRoot("pm uninstall --user 0 $packageName")
+        else context.startActivity(
+            Intent(
+                Intent.ACTION_UNINSTALL_PACKAGE,
+                Uri.parse("package:$packageName")
+            )
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
+    }
 }
