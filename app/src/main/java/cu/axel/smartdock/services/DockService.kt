@@ -60,6 +60,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
 import androidx.preference.PreferenceManager
@@ -534,14 +535,17 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             ContextCompat.RECEIVER_NOT_EXPORTED
         )
 
+        val filter = IntentFilter(Intent.ACTION_PACKAGE_FULLY_REMOVED)
+        filter.addDataScheme("package")
         ContextCompat.registerReceiver(this, object : BroadcastReceiver() {
             override fun onReceive(
                 context: Context?,
                 intent: Intent?
             ) {
                 loadPinnedApps()
+                updateRunningTasks()
             }
-        }, IntentFilter(Intent.ACTION_PACKAGE_REMOVED), ContextCompat.RECEIVER_NOT_EXPORTED)
+        }, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
 
         //Play startup sound
         DeviceUtils.playEventSound(context, "startup_sound")
@@ -1324,16 +1328,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     loadFavoriteApps()
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.uninstall)) {
-                    if (AppUtils.isSystemApp(context, app.packageName))
-                        DeviceUtils.runAsRoot("pm uninstall --user 0 ${app.packageName}")
-                    else startActivity(
-                        Intent(
-                            Intent.ACTION_UNINSTALL_PACKAGE,
-                            Uri.parse("package:${app.packageName}")
-                        )
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    )
-                    if (appMenuVisible) hideAppMenu()
+                    AppUtils.uninstallApp(this, app.packageName)
+                    if (appMenuVisible)
+                        hideAppMenu()
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.freeze)) {
                     val status = DeviceUtils.runAsRoot("pm disable ${app.packageName}")
@@ -1454,7 +1451,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 ) else
                 AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST)
             loadPinnedApps()
-            updateRunningTasks()
+            if (isPinned)
+                updateRunningTasks()
             windowManager.removeView(view)
         }
         windowManager.addView(view, layoutParams)
