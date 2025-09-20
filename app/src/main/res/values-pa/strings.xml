@@ -200,8 +200,8 @@
     <!-- Advanced -->
     <string name="advanced">ਉੱਨਤ</string>
     <string name="these_settings_are_intended_fo">ਇਹ ਸੈਟਿੰਗਾਂ ਉੱਨਤ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਕੇਵਲ ਤਾਂ ਹੀ ਬਦਲੋ ਜੇਕਰ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਕੀ ਕਰ ਰਹੇ ਹੋ</string>
-    <string name="prefer_last_display">ਆਖਰੀ ਅਟੈਚਡ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ (Android 10)</string>
-    <string name="prefer_last_display_summary">ਐਪਸ ਅਤੇ ਡੌਕ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਆਖਰੀ ਨੱਥੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
+    <string name="prefer_last_display">Prefer secondary displays</string>
+    <string name="prefer_last_display_summary">Prefer secondary displays for displaying apps and the dock</string>
     <string name="restart_accessibility">ਇਸ ਸੈਟਿੰਗ ਨੂੰ ਬਦਲਣ ਲਈ accessibility ਸੇਵਾ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="open_accessibility">Accessibility ਖੋਲੋ</string>
     <string name="custom_toasts">ਕਸਟਮ ਟੋਸਟਾ</string>

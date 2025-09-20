@@ -247,14 +247,14 @@ object DeviceUtils {
         return userIcon
     }
 
-    fun getDisplays(context: Context): Array<Display> {
+    fun getDisplays(context: Context, category: String? = null): Array<Display> {
         val dm = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-        return dm.displays
+        return dm.getDisplays(category)
     }
 
     fun getSecondaryDisplay(context: Context): Display {
-        val displays = getDisplays(context)
-        return displays[displays.size - 1]
+        val displays = getDisplays(context, DisplayManager.DISPLAY_CATEGORY_PRESENTATION)
+        return displays[0]
     }
 
     fun getDisplayMetrics(
