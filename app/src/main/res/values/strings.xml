@@ -199,8 +199,8 @@
     <!-- Advanced page -->
     <string name="advanced">Advanced</string>
     <string name="these_settings_are_intended_fo">These settings are intended for advanced users. Only change them if you know what you are doing</string>
-    <string name="prefer_last_display">Prefer last attached display</string>
-    <string name="prefer_last_display_summary">Prefer the last attached display for displaying apps and the dock</string>
+    <string name="prefer_last_display">Prefer secondary displays</string>
+    <string name="prefer_last_display_summary">Prefer secondary displays for displaying apps and the dock</string>
     <string name="restart_accessibility">Changing this setting requires restarting the Accessibility service</string>
     <string name="open_accessibility">Open Accessibility</string>
     <string name="custom_toasts">Custom Toasts</string>

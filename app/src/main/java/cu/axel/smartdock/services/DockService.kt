@@ -6,7 +6,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityManager
-import android.app.ApplicationErrorReport.BatteryInfo
 import android.app.Notification
 import android.bluetooth.BluetoothManager
 import android.content.ActivityNotFoundException
@@ -27,7 +26,6 @@ import android.hardware.usb.UsbManager
 import android.media.AudioManager
 import android.net.Uri
 import android.net.wifi.WifiManager
-import android.os.BatteryManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper

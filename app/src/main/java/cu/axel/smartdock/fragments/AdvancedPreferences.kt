@@ -43,6 +43,16 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             false
         }
 
+        findPreference<Preference>("share_display_info")!!.setOnPreferenceClickListener {
+            val displayInfo = StringBuilder()
+            DeviceUtils.getDisplays(requireContext()).forEach { displayInfo.appendLine(it)  }
+            startActivity(
+                Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, displayInfo.toString())
+                    .setType("text/plain")
+            )
+            false
+        }
+
         val hideNav = findPreference<SwitchPreferenceCompat>("hide_nav_buttons")
         val result = DeviceUtils.runAsRoot("cat /system/build.prop")
         hideNav!!.isChecked = result.contains("qemu.hw.mainkeys=1")
