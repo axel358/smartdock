@@ -191,9 +191,7 @@
     <!-- Hot corners page -->
     <string name="hot_corners">热角</string>
     <string name="enable_corner_top_right_title">右上角</string>
-    <string name="enable_corner_top_right_summary">将鼠标放在屏幕右上角以显示最近应用</string>
     <string name="enable_corner_bottom_right_title">右下角</string>
-    <string name="enable_corner_bottom_right_summary">将鼠标放在屏幕右下角以锁定屏幕</string>
     <string name="hot_corners_delay_title">激活延迟(毫秒)</string>
 
     <!-- Advanced page -->
@@ -316,8 +314,9 @@
     <string name="something_wrong">出了点问题</string>
     <string name="save_log">保存日志</string>
     <string name="open_again">重新打开应用</string>
+
     <string name="long_press_action">Long press action</string>
-    <string name="tap_to_set_long_action">Tap to configure long press action</string>
+    <string name="tap_to_set_long_action">Tap to configure long press/hover action</string>
 
     <string name="left">Left</string>
     <string name="right">Right</string>
@@ -327,5 +326,7 @@
     <string name="launch_assistant">Launch assistant app</string>
     <string name="lock_device">Lock device</string>
     <string name="toggle_split_screen">Toggle split screen</string>
+
+    <string name="hot_corners_help">Hover the mouse pointer over the corners to trigger their actions</string>
 
 </resources>

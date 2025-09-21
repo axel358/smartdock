@@ -191,9 +191,7 @@
     <!-- Hot corners page -->
     <string name="hot_corners">Hot Corners</string>
     <string name="enable_corner_top_right_title">Top right corner</string>
-    <string name="enable_corner_top_right_summary">Place the mouse on the top right corner of the screen to show recents</string>
     <string name="enable_corner_bottom_right_title">Bottom right corner</string>
-    <string name="enable_corner_bottom_right_summary">Place the mouse on the top right corner of the screen to lock the screen</string>
     <string name="hot_corners_delay_title">Activation delay (in milliseconds)</string>
 
     <!-- Advanced page -->
@@ -317,8 +315,9 @@
     <string name="something_wrong">Something went wrong</string>
     <string name="save_log">Save log</string>
     <string name="open_again">Open app again</string>
+
     <string name="long_press_action">Long press action</string>
-    <string name="tap_to_set_long_action">Tap to configure long press action</string>
+    <string name="tap_to_set_long_action">Tap to configure long press/hover action</string>
 
     <string name="left">Left</string>
     <string name="right">Right</string>
@@ -328,5 +327,7 @@
     <string name="launch_assistant">Launch assistant app</string>
     <string name="lock_device">Lock device</string>
     <string name="toggle_split_screen">Toggle split screen</string>
+
+    <string name="hot_corners_help">Hover the mouse pointer over the corners to trigger their actions</string>
 
 </resources>

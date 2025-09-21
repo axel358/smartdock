@@ -191,9 +191,7 @@
     <!-- Hot corners page -->
     <string name="hot_corners">Esquinas Calientes</string>
     <string name="enable_corner_top_right_title">Esquina superior derecha</string>
-    <string name="enable_corner_top_right_summary">Coloque el mouse en la esquina superior derecha de la pantalla para mostrar los recientes</string>
     <string name="enable_corner_bottom_right_title">Esquina inferior derecha</string>
-    <string name="enable_corner_bottom_right_summary">Coloque el mouse en la esquina superior derecha de la pantalla para bloquear la pantalla</string>
     <string name="hot_corners_delay_title">Retardo de activación (en milisegundos)</string>
 
     <!-- Advanced page -->
@@ -317,8 +315,9 @@
     <string name="something_wrong">Algo salió mal</string>
     <string name="save_log">Guardar registro</string>
     <string name="open_again">Abrir aplicación de nuevo</string>
+
     <string name="long_press_action">Long press action</string>
-    <string name="tap_to_set_long_action">Tap to configure long press action</string>
+    <string name="tap_to_set_long_action">Tap to configure long press/hover action</string>
 
     <string name="left">Left</string>
     <string name="right">Right</string>
@@ -328,5 +327,7 @@
     <string name="launch_assistant">Launch assistant app</string>
     <string name="lock_device">Lock device</string>
     <string name="toggle_split_screen">Toggle split screen</string>
+
+    <string name="hot_corners_help">Hover the mouse pointer over the corners to trigger their actions</string>
 
 </resources>

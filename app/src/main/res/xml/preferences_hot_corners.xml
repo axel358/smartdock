@@ -1,17 +1,18 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<SwitchPreferenceCompat
-		android:key="enable_corner_top_right"
-		android:title="@string/enable_corner_top_right_title"
-		android:summary="@string/enable_corner_top_right_summary"
-		android:defaultValue="false" />
-	<SwitchPreferenceCompat
-		android:key="enable_corner_bottom_right"
-		android:title="@string/enable_corner_bottom_right_title"
-		android:summary="@string/enable_corner_bottom_right_summary"
-		android:defaultValue="false" />
+    <Preference
+        android:icon="@drawable/ic_info"
+        android:title="@string/hot_corners_help"/>
+    <cu.axel.smartdock.preferences.NavActionChooserPreference
+        android:defaultValue="false"
+        android:key="enable_corner_top_right"
+        android:title="@string/enable_corner_top_right_title" />
+    <cu.axel.smartdock.preferences.NavActionChooserPreference
+        android:defaultValue="false"
+        android:key="enable_corner_bottom_right"
+        android:title="@string/enable_corner_bottom_right_title" />
     <EditTextPreference
-        android:key="hot_corners_delay"
-        android:hint="300"
         android:defaultValue="300"
-		android:title="@string/hot_corners_delay_title"/>
+        android:hint="300"
+        android:key="hot_corners_delay"
+        android:title="@string/hot_corners_delay_title" />
 </PreferenceScreen>

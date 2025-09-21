@@ -252,11 +252,20 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         assistBtn.setOnClickListener { launchAssistant() }
 
         backBtn.setOnClickListener { performGlobalAction(GLOBAL_ACTION_BACK) }
-        backBtn.setOnLongClickListener(NavActionsLongClickListener("enable_nav_back"))
+        backBtn.setOnLongClickListener {
+            performNavAction("enable_nav_back")
+            true
+        }
         homeBtn.setOnClickListener { performGlobalAction(GLOBAL_ACTION_HOME) }
-        homeBtn.setOnLongClickListener(NavActionsLongClickListener("enable_nav_home"))
+        homeBtn.setOnLongClickListener {
+            performNavAction("enable_nav_home")
+            true
+        }
         recentBtn.setOnClickListener { performGlobalAction(GLOBAL_ACTION_RECENTS) }
-        recentBtn.setOnLongClickListener(NavActionsLongClickListener("enable_nav_recents"))
+        recentBtn.setOnLongClickListener {
+            performNavAction("enable_nav_recents")
+            true
+        }
 
         notificationBtn.setOnClickListener {
             if (sharedPreferences.getBoolean("enable_notif_panel", true)) {
@@ -331,28 +340,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         topRightCorner.setBackgroundResource(R.drawable.corner_background)
         bottomRightCorner = Button(context)
         bottomRightCorner.setBackgroundResource(R.drawable.corner_background)
-        topRightCorner.setOnHoverListener { _, event ->
-            if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
-                val handler = Handler(mainLooper)
-                handler.postDelayed({
-                    if (topRightCorner.isHovered) performGlobalAction(
-                        GLOBAL_ACTION_RECENTS
-                    )
-                }, sharedPreferences.getString("hot_corners_delay", "300")!!.toInt().toLong())
-            }
-            false
-        }
-        bottomRightCorner.setOnHoverListener { _, event ->
-            if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
-                val handler = Handler(mainLooper)
-                handler.postDelayed({
-                    if (bottomRightCorner.isHovered) DeviceUtils.lockScreen(
-                        context
-                    )
-                }, sharedPreferences.getString("hot_corners_delay", "300")!!.toInt().toLong())
-            }
-            false
-        }
+        topRightCorner.setOnHoverListener(HotCornersHoverListener("enable_corner_top_right"))
+        bottomRightCorner.setOnHoverListener(HotCornersHoverListener("enable_corner_bottom_right"))
         updateCorners()
         val cornersLayoutParams = Utils.makeWindowParams(
             Utils.dpToPx(context, 2), -2, context,
@@ -1962,17 +1951,30 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         super.onDestroy()
     }
 
-    inner class NavActionsLongClickListener(val key: String) : View.OnLongClickListener {
-        override fun onLongClick(v: View?): Boolean {
-            val action = sharedPreferences.getString("${key}_long_action", "none")
-            when (action) {
-                NAV_LONG_ACTIONS[0] -> return true
-                NAV_LONG_ACTIONS[1] -> performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS)
-                NAV_LONG_ACTIONS[2] -> launchAssistant()
-                NAV_LONG_ACTIONS[3] -> lockScreen()
-                NAV_LONG_ACTIONS[4] -> performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
+    fun performNavAction(key: String) {
+        val action = sharedPreferences.getString("${key}_long_action", "none")
+        when (action) {
+            NAV_LONG_ACTIONS[0] -> return
+            NAV_LONG_ACTIONS[1] -> performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS)
+            NAV_LONG_ACTIONS[2] -> launchAssistant()
+            NAV_LONG_ACTIONS[3] -> lockScreen()
+            NAV_LONG_ACTIONS[4] -> performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
+        }
+    }
+
+    inner class HotCornersHoverListener(val key: String) : View.OnHoverListener {
+        override fun onHover(
+            v: View?,
+            event: MotionEvent
+        ): Boolean {
+            if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
+                val handler = Handler(mainLooper)
+                handler.postDelayed({
+                    if (topRightCorner.isHovered)
+                        performNavAction(key)
+                }, sharedPreferences.getString("hot_corners_delay", "300")!!.toInt().toLong())
             }
-            return true
+            return false
         }
     }
 }

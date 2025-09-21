@@ -192,9 +192,7 @@
     <!-- Hot corners page -->
     <string name="hot_corners">ਹੋਟ ਕੋਨੇ</string>
     <string name="enable_corner_top_right_title">ਉੱਪਰ ਸੱਜੇ ਕੋਨਾ</string>
-    <string name="enable_corner_top_right_summary">ਹਾਲੀਆ ਦਿਖਾਉਣ ਲਈ ਮਾਊਸ ਨੂੰ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਰੱਖੋ</string>
     <string name="enable_corner_bottom_right_title">ਹੇਠਾਂ ਸੱਜੇ ਕੋਨਾ</string>
-    <string name="enable_corner_bottom_right_summary">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਸਕ੍ਰੀਨ ਦੇ ਉੱਪਰਲੇ ਸੱਜੇ ਕੋਨੇ \'ਤੇ ਮਾਊਸ ਨੂੰ ਰੱਖੋ</string>
     <string name="hot_corners_delay_title">ਐਕਟੀਵੇਸ਼ਨ ਦੇਰੀ (ਮਿਲੀਸਕਿੰਟ ਵਿੱਚ)</string>
 
     <!-- Advanced -->
@@ -317,8 +315,9 @@
     <string name="something_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>
     <string name="save_log">ਲੌਗ ਸੇਵ ਕਰੋ</string>
     <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
+
     <string name="long_press_action">Long press action</string>
-    <string name="tap_to_set_long_action">Tap to configure long press action</string>
+    <string name="tap_to_set_long_action">Tap to configure long press/hover action</string>
 
     <string name="left">Left</string>
     <string name="right">Right</string>
@@ -328,5 +327,7 @@
     <string name="launch_assistant">Launch assistant app</string>
     <string name="lock_device">Lock device</string>
     <string name="toggle_split_screen">Toggle split screen</string>
+
+    <string name="hot_corners_help">Hover the mouse pointer over the corners to trigger their actions</string>
 
 </resources>
