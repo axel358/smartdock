@@ -60,7 +60,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
 import androidx.preference.PreferenceManager
@@ -84,6 +83,7 @@ import cu.axel.smartdock.models.Action
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
 import cu.axel.smartdock.models.DockApp
+import cu.axel.smartdock.preferences.NAV_LONG_ACTIONS
 import cu.axel.smartdock.receivers.BatteryStatsReceiver
 import cu.axel.smartdock.receivers.SoundEventsReceiver
 import cu.axel.smartdock.utils.AppUtils
@@ -250,13 +250,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             true
         }
         assistBtn.setOnClickListener { launchAssistant() }
+
         backBtn.setOnClickListener { performGlobalAction(GLOBAL_ACTION_BACK) }
+        backBtn.setOnLongClickListener(NavActionsLongClickListener("enable_nav_back"))
         homeBtn.setOnClickListener { performGlobalAction(GLOBAL_ACTION_HOME) }
+        homeBtn.setOnLongClickListener(NavActionsLongClickListener("enable_nav_home"))
         recentBtn.setOnClickListener { performGlobalAction(GLOBAL_ACTION_RECENTS) }
-        recentBtn.setOnLongClickListener {
-            performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
-            true
-        }
+        recentBtn.setOnLongClickListener(NavActionsLongClickListener("enable_nav_recents"))
+
         notificationBtn.setOnClickListener {
             if (sharedPreferences.getBoolean("enable_notif_panel", true)) {
                 if (audioPanelVisible)
@@ -1959,5 +1960,19 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         } catch (_: Exception) {
         }
         super.onDestroy()
+    }
+
+    inner class NavActionsLongClickListener(val key: String) : View.OnLongClickListener {
+        override fun onLongClick(v: View?): Boolean {
+            val action = sharedPreferences.getString("${key}_long_action", "none")
+            when (action) {
+                NAV_LONG_ACTIONS[0] -> return true
+                NAV_LONG_ACTIONS[1] -> performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS)
+                NAV_LONG_ACTIONS[2] -> launchAssistant()
+                NAV_LONG_ACTIONS[3] -> lockScreen()
+                NAV_LONG_ACTIONS[4] -> performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
+            }
+            return true
+        }
     }
 }

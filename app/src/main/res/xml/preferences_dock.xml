@@ -6,15 +6,15 @@
             android:title="@string/enable_apps_btn"
 			android:summary="@string/enable_apps_btn_summary"
             android:defaultValue="true" />
-        <SwitchPreferenceCompat
+        <cu.axel.smartdock.preferences.NavActionChooserPreference
             android:key="enable_nav_back"
             android:title="@string/enable_nav_back_title"
             android:defaultValue="true" />
-        <SwitchPreferenceCompat
+        <cu.axel.smartdock.preferences.NavActionChooserPreference
             android:key="enable_nav_home"
             android:title="@string/enable_nav_home_title"
             android:defaultValue="true" />
-        <SwitchPreferenceCompat
+        <cu.axel.smartdock.preferences.NavActionChooserPreference
             android:key="enable_nav_recents"
             android:title="@string/enable_nav_recents_title"
             android:defaultValue="true" />

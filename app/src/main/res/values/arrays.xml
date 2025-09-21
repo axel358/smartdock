@@ -66,6 +66,14 @@
         <item>start</item>
         <item>end</item>
     </string-array>
+
+    <string-array name="nav_long_actions">
+        <item>@string/none</item>
+        <item>@string/open_notifications</item>
+        <item>@string/launch_assistant</item>
+        <item>@string/lock_device</item>
+        <item>@string/toggle_split_screen</item>
+    </string-array>
  
     <string-array name="default_color_values" translatable="false">
         <item>#EF5350</item>
@@ -99,9 +107,5 @@
         <item>#3E3E3E</item>
         <item>#101010</item>
     </string-array>
-
-
-    <string name="left">Left</string>
-    <string name="right">Right</string>
 </resources>
 

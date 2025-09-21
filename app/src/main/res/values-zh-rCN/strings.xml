@@ -316,5 +316,16 @@
     <string name="something_wrong">出了点问题</string>
     <string name="save_log">保存日志</string>
     <string name="open_again">重新打开应用</string>
+    <string name="long_press_action">Long press action</string>
+    <string name="tap_to_set_long_action">Tap to configure long press action</string>
+
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+
+    <!-- Nav actions dialog -->
+    <string name="open_notifications">Open notification drawer</string>
+    <string name="launch_assistant">Launch assistant app</string>
+    <string name="lock_device">Lock device</string>
+    <string name="toggle_split_screen">Toggle split screen</string>
 
 </resources>
