@@ -94,22 +94,22 @@ object Utils {
             when (level) {
                 0 -> return R.drawable.battery_charging_empty
                 in 1..29 -> return R.drawable.battery_charging_20
-                in 31..49 -> return R.drawable.battery_charging_30
-                in 51..59 -> return R.drawable.battery_charging_50
-                in 61..79 -> return R.drawable.battery_charging_60
-                in 81..89 -> return R.drawable.battery_charging_80
-                in 91..99 -> return R.drawable.battery_charging_90
+                in 30..49 -> return R.drawable.battery_charging_30
+                in 50..59 -> return R.drawable.battery_charging_50
+                in 60..79 -> return R.drawable.battery_charging_60
+                in 80..89 -> return R.drawable.battery_charging_80
+                in 90..99 -> return R.drawable.battery_charging_90
                 100 -> return R.drawable.battery_charging_full
             }
         } else {
             when (level) {
                 0 -> return R.drawable.battery_empty
                 in 1..29 -> return R.drawable.battery_20
-                in 31..49 -> return R.drawable.battery_30
-                in 51..59 -> return R.drawable.battery_50
-                in 61..79 -> return R.drawable.battery_60
-                in 81..89 -> return R.drawable.battery_80
-                in 91..99 -> return R.drawable.battery_90
+                in 30..49 -> return R.drawable.battery_30
+                in 50..59 -> return R.drawable.battery_50
+                in 60..79 -> return R.drawable.battery_60
+                in 80..89 -> return R.drawable.battery_80
+                in 90..99 -> return R.drawable.battery_90
                 100 -> return R.drawable.battery_full
             }
         }
