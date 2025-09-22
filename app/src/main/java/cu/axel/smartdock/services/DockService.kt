@@ -1858,7 +1858,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             batteryBtn.setPadding(yP)
             batteryBtn.setBackgroundResource(R.drawable.round_rect)
             batteryReceiver.showLevel = true
-            batteryBtn.text = "${batteryReceiver.level} %"
+            batteryBtn.text = "${batteryReceiver.level}%"
         } else {
             //batteryBtn.layoutParams.width = batteryBtn.layoutParams.height
             batteryBtn.setPadding(xP, yP, xP, yP)

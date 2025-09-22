@@ -25,7 +25,7 @@ class BatteryStatsReceiver(
     override fun onReceive(context: Context, intent: Intent) {
         level = intent.extras!!.getInt("level")
         if (showLevel)
-            batteryBtn.text = "$level %"
+            batteryBtn.text = "$level%"
         update(intent.extras!!.getInt("plugged") == 0)
 
     }
