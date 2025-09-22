@@ -132,19 +132,11 @@ class NotificationAdapter(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var notifIcon: ImageView
-        var notifCancelBtn: ImageView
-        var notifTitle: TextView
-        var notifText: TextView
-        var notifActionsLayout: LinearLayout
-
-        init {
-            notifTitle = itemView.findViewById(R.id.notification_title_tv)
-            notifText = itemView.findViewById(R.id.notification_text_tv)
-            notifIcon = itemView.findViewById(R.id.notification_icon_iv)
-            notifCancelBtn = itemView.findViewById(R.id.notification_close_btn)
-            notifActionsLayout = itemView.findViewById(R.id.notification_actions_layout)
-        }
+        var notifIcon: ImageView = itemView.findViewById(R.id.notification_icon_iv)
+        var notifCancelBtn: ImageView = itemView.findViewById(R.id.notification_close_btn)
+        var notifTitle: TextView = itemView.findViewById(R.id.notification_title_tv)
+        var notifText: TextView = itemView.findViewById(R.id.notification_text_tv)
+        var notifActionsLayout: LinearLayout = itemView.findViewById(R.id.notification_actions_layout)
 
         fun bind(notification: StatusBarNotification, listener: OnNotificationClickListener) {
             itemView.setOnClickListener { view ->

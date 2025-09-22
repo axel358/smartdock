@@ -14,6 +14,7 @@ import cu.axel.smartdock.R
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
+import androidx.core.content.edit
 
 
 class AppChooserPreference(private val context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
@@ -32,7 +33,7 @@ class AppChooserPreference(private val context: Context, attrs: AttributeSet?) :
         val apps = AppUtils.getInstalledApps(context)
         dialog.setAdapter(AppAdapter(context, apps)) { _, position ->
             val app = apps[position]
-            sharedPreferences!!.edit().putString(key, app.packageName).apply()
+            sharedPreferences!!.edit { putString(key, app.packageName) }
             summary = app.name
         }
         dialog.show()

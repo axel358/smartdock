@@ -22,6 +22,8 @@ import cu.axel.smartdock.R
 import cu.axel.smartdock.dialogs.DockLayoutDialog
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
+import androidx.core.content.edit
+import androidx.core.graphics.toColorInt
 
 class AppearancePreferences : PreferenceFragmentCompat() {
     private lateinit var mainColorPref: Preference
@@ -79,9 +81,10 @@ class AppearancePreferences : PreferenceFragmentCompat() {
         dialog.setPositiveButton(R.string.ok) { _, _ ->
             val color = colorHexEt.text.toString()
             if (ColorUtils.toColor(color) != -1) {
-                mainColorPref.sharedPreferences!!.edit().putString(mainColorPref.key, color).apply()
-                mainColorPref.sharedPreferences!!.edit().putInt("theme_main_alpha", alphaSb.value.toInt())
-                        .apply()
+                mainColorPref.sharedPreferences!!.edit {
+                    putString(mainColorPref.key, color)
+                    putInt("theme_main_alpha", alphaSb.value.toInt())
+                }
             }
         }
         alphaSb.value = mainColorPref.sharedPreferences!!.getInt("theme_main_alpha", 255).toFloat()
@@ -105,7 +108,7 @@ class AppearancePreferences : PreferenceFragmentCompat() {
             var convertView = convertView
             if (convertView == null) convertView = LayoutInflater.from(context).inflate(R.layout.color_entry, null)
             convertView!!.findViewById<View>(R.id.color_entry_iv).background
-                    .setColorFilter(Color.parseColor(getItem(position)), PorterDuff.Mode.SRC_ATOP)
+                    .setColorFilter(getItem(position)!!.toColorInt(), PorterDuff.Mode.SRC_ATOP)
             return convertView
         }
     }

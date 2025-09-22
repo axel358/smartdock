@@ -27,6 +27,8 @@ import java.io.InputStreamReader
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
+import androidx.core.graphics.createBitmap
+import androidx.core.content.edit
 
 object Utils {
     var notificationPanelVisible = false
@@ -52,7 +54,7 @@ object Utils {
         val bitmapCopy = bitmap.copy(Bitmap.Config.ARGB_8888, false)
         bitmap.recycle()
         val result =
-            Bitmap.createBitmap(bitmapCopy.width, bitmapCopy.height, Bitmap.Config.ARGB_8888)
+            createBitmap(bitmapCopy.width, bitmapCopy.height)
         val canvas = Canvas(result)
         val color = -0xbdbdbe
         val paint = Paint()
@@ -66,7 +68,7 @@ object Utils {
             (bitmap.width / 2).toFloat(),
             paint
         )
-        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         canvas.drawBitmap(bitmapCopy, rect, rect, paint)
         bitmapCopy.recycle()
         return result
@@ -154,13 +156,13 @@ object Utils {
             .toTypedArray()[0].toDouble() + expression.split("\\+".toRegex())
             .dropLastWhile { it.isEmpty() }
             .toTypedArray()[1].toDouble() else if (expression.contains("-")) return expression.split(
-            "\\-".toRegex()
+            "-".toRegex()
         ).dropLastWhile { it.isEmpty() }
-            .toTypedArray()[0].toDouble() - expression.split("\\-".toRegex())
+            .toTypedArray()[0].toDouble() - expression.split("-".toRegex())
             .dropLastWhile { it.isEmpty() }.toTypedArray()[1].toDouble()
-        if (expression.contains("/")) return expression.split("\\/".toRegex())
+        if (expression.contains("/")) return expression.split("/".toRegex())
             .dropLastWhile { it.isEmpty() }
-            .toTypedArray()[0].toDouble() / expression.split("\\/".toRegex())
+            .toTypedArray()[0].toDouble() / expression.split("/".toRegex())
             .dropLastWhile { it.isEmpty() }.toTypedArray()[1].toDouble()
         return if (expression.contains("*")) expression.split("\\*".toRegex())
             .dropLastWhile { it.isEmpty() }
@@ -207,25 +209,25 @@ object Utils {
             inputStream = context.contentResolver.openInputStream(restoreUri)
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            val editor = sharedPreferences.edit()
+            sharedPreferences.edit {
 
-            bufferedReader.readLines().forEach { line ->
-                val contents =
-                    line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                if (contents.size > 2) {
-                    val type = contents[0]
-                    val key = contents[1]
-                    val value = contents[2]
-                    when (type) {
-                        "boolean" -> editor.putBoolean(key, java.lang.Boolean.parseBoolean(value))
-                        "integer" -> editor.putInt(key, value.toInt())
-                        else -> editor.putString(key, value)
+                bufferedReader.readLines().forEach { line ->
+                    val contents =
+                        line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    if (contents.size > 2) {
+                        val type = contents[0]
+                        val key = contents[1]
+                        val value = contents[2]
+                        when (type) {
+                            "boolean" -> putBoolean(key, java.lang.Boolean.parseBoolean(value))
+                            "integer" -> putInt(key, value.toInt())
+                            else -> putString(key, value)
+                        }
                     }
                 }
-            }
 
-            bufferedReader.close()
-            editor.apply()
+                bufferedReader.close()
+            }
             Toast.makeText(context, R.string.preferences_restored, Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             e.printStackTrace()

@@ -12,6 +12,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cu.axel.smartdock.R
 import cu.axel.smartdock.utils.AppUtils
+import androidx.core.content.edit
 
 private val LAUNCHER_INTENTS = arrayOf(
     "com.fede.launcher.THEME_ICONPACK",
@@ -83,11 +84,11 @@ class IconPackPreference(private val context: Context, attrs: AttributeSet?) : P
             newNameList
         ) { _: DialogInterface?, item: Int ->
             if (iconPackageList[item] == context.packageName) {
-                sp.edit().putString("icon_pack", "").apply()
+                sp.edit { putString("icon_pack", "") }
                 setSummary(R.string.system)
             } else {
                 val iconPack = iconPackageList[item]
-                sp.edit().putString("icon_pack", iconPack).apply()
+                sp.edit { putString("icon_pack", iconPack) }
                 summary = AppUtils.getPackageLabel(context, iconPack)
             }
         }

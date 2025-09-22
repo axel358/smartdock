@@ -8,6 +8,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import cu.axel.smartdock.R
+import androidx.core.content.edit
 
 val NAV_LONG_ACTIONS = listOf("none", "notifications", "assistant", "lock", "split")
 
@@ -43,8 +44,9 @@ class NavActionChooserPreference(private val context: Context, attrs: AttributeS
             R.array.nav_long_actions,
             item
         ) { dialogInterface, position ->
-            sharedPreferences!!.edit().putString("${key}_long_action", NAV_LONG_ACTIONS[position])
-                .apply()
+            sharedPreferences!!.edit {
+                putString("${key}_long_action", NAV_LONG_ACTIONS[position])
+            }
             dialogInterface.dismiss()
         }
         dialogBuilder.show()

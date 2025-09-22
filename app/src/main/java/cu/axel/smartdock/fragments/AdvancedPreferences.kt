@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -20,9 +19,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.LabelFormatter
 import cu.axel.smartdock.R
 import cu.axel.smartdock.preferences.SliderPreference
-import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
+import androidx.core.content.edit
 
 private const val SAVE_REQUEST_CODE = 236
 private const val OPEN_REQUEST_CODE = 632
@@ -151,8 +150,9 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                 slider.valueTo = 70f
                 slider.addOnChangeListener { _, value, _
                     ->
-                    dockHeight.sharedPreferences!!.edit()
-                        .putString(dockHeight.key, value.toInt().toString()).apply()
+                    dockHeight.sharedPreferences!!.edit {
+                        putString(dockHeight.key, value.toInt().toString())
+                    }
                 }
             }
         })

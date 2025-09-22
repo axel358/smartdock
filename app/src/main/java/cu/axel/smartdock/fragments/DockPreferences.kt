@@ -13,6 +13,7 @@ import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.LabelFormatter
 import cu.axel.smartdock.R
 import cu.axel.smartdock.preferences.SliderPreference
+import androidx.core.content.edit
 
 class DockPreferences : PreferenceFragmentCompat() {
     override fun onCreatePreferences(arg0: Bundle?, arg1: String?) {
@@ -36,8 +37,9 @@ class DockPreferences : PreferenceFragmentCompat() {
                 slider.valueFrom = 1f
                 slider.valueTo = 50f
                 slider.addOnChangeListener { _, value, _ ->
-                    activationArea.sharedPreferences!!.edit()
-                        .putString(activationArea.key, value.toInt().toString()).apply()
+                    activationArea.sharedPreferences!!.edit {
+                        putString(activationArea.key, value.toInt().toString())
+                    }
                 }
             }
         })
@@ -56,8 +58,9 @@ class DockPreferences : PreferenceFragmentCompat() {
                 slider.valueFrom = 0.2f
                 slider.valueTo = 1f
                 slider.addOnChangeListener { _, value, _ ->
-                    handleOpacity.sharedPreferences!!.edit()
-                        .putString(handleOpacity.key, value.toString()).apply()
+                    handleOpacity.sharedPreferences!!.edit {
+                        putString(handleOpacity.key, value.toString())
+                    }
                 }
             }
         })

@@ -15,6 +15,10 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.DynamicColors
 import cu.axel.smartdock.R
 import kotlin.math.roundToInt
+import androidx.core.graphics.toColorInt
+import androidx.core.graphics.get
+import androidx.core.content.withStyledAttributes
+import androidx.core.graphics.createBitmap
 
 object ColorUtils {
     @SuppressLint("MissingPermission")
@@ -32,7 +36,7 @@ object ColorUtils {
                 wallpaperDrawable.mutate()
                 wallpaperDrawable.invalidateSelf()
                 val wallpaperBitmap = drawableToBitmap(wallpaperDrawable)
-                val color = wallpaperBitmap.getPixel(wallpaperBitmap.width / 4, wallpaperBitmap.height / 4)
+                val color = wallpaperBitmap[wallpaperBitmap.width / 4, wallpaperBitmap.height / 4]
                 wallpaperColors.add(toHexColor(color))
                 wallpaperColors.add(toHexColor(manipulateColor(color, .8f)))
                 wallpaperColors.add(toHexColor(manipulateColor(color, .5f)))
@@ -47,11 +51,11 @@ object ColorUtils {
         val variant = if (forceDark) R.style.ThemeOverlay_Material3_DynamicColors_Dark else R.style.ThemeOverlay_Material3_DynamicColors_DayNight
         val styledContext = DynamicColors.wrapContextIfAvailable(context, variant)
         val attrsToResolve = intArrayOf(R.attr.colorPrimary, R.attr.colorSurface, R.attr.colorError)
-        val attrs = styledContext.obtainStyledAttributes(attrsToResolve)
-        colors[0] = attrs.getColor(0, 0)
-        colors[1] = attrs.getColor(1, 0)
-        colors[2] = attrs.getColor(2, 0)
-        attrs.recycle()
+        styledContext.withStyledAttributes(null, attrsToResolve) {
+            colors[0] = getColor(0, 0)
+            colors[1] = getColor(1, 0)
+            colors[2] = getColor(2, 0)
+        }
         return colors
     }
 
@@ -65,9 +69,9 @@ object ColorUtils {
     }
 
     private fun getBitmapDominantColor(bitmap: Bitmap): Int {
-        var color = bitmap.getPixel(bitmap.width / 2, bitmap.height / 9)
-        if (color == Color.TRANSPARENT) color = bitmap.getPixel(bitmap.width / 4, bitmap.height / 2)
-        if (color == Color.TRANSPARENT) color = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+        var color = bitmap[bitmap.width / 2, bitmap.height / 9]
+        if (color == Color.TRANSPARENT) color = bitmap[bitmap.width / 4, bitmap.height / 2]
+        if (color == Color.TRANSPARENT) color = bitmap[bitmap.width / 2, bitmap.height / 2]
         return color
     }
 
@@ -82,10 +86,9 @@ object ColorUtils {
             }
         }
         val bitmap: Bitmap = if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
-            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888) // Single color bitmap will be created of 1x1 pixel
+            createBitmap(1, 1) // Single color bitmap will be created of 1x1 pixel
         } else {
-            Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight,
-                    Bitmap.Config.ARGB_8888)
+            createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight)
         }
         val canvas = Canvas(bitmap)
         drawable.setBounds(0, 0, canvas.width, canvas.height)
@@ -105,17 +108,17 @@ object ColorUtils {
         val colors = IntArray(5)
         when (theme) {
             "dark" -> {
-                mainColor = Color.parseColor("#212121")
+                mainColor = "#212121".toColorInt()
                 secondaryColor = manipulateColor(mainColor, 1.35f)
             }
 
             "black" -> {
-                mainColor = Color.parseColor("#060606")
+                mainColor = "#060606".toColorInt()
                 secondaryColor = manipulateColor(mainColor, 2.2f)
             }
 
             "transparent" -> {
-                mainColor = Color.parseColor("#050505")
+                mainColor = "#050505".toColorInt()
                 secondaryColor = manipulateColor(mainColor, 2f)
                 alpha = 225
             }
@@ -125,12 +128,12 @@ object ColorUtils {
                 mainColor = manipulateColor(surfaceColor, 0.9f)
                 secondaryColor = manipulateColor(surfaceColor, 1.2f)
             } else {
-                mainColor = Color.parseColor(getWallpaperColors(context)[2])
-                secondaryColor = Color.parseColor(getWallpaperColors(context)[1])
+                mainColor = getWallpaperColors(context)[2].toColorInt()
+                secondaryColor = getWallpaperColors(context)[1].toColorInt()
             }
 
             "custom" -> {
-                mainColor = Color.parseColor(sharedPreferences.getString("theme_main_color", "#212121"))
+                mainColor = sharedPreferences.getString("theme_main_color", "#212121")!!.toColorInt()
                 secondaryColor = manipulateColor(mainColor, 1.2f)
                 alpha = sharedPreferences.getInt("theme_main_alpha", 255)
             }
@@ -168,8 +171,8 @@ object ColorUtils {
 
     fun toColor(color: String): Int {
         return try {
-            Color.parseColor(color)
-        } catch (e: IllegalArgumentException) {
+            color.toColorInt()
+        } catch (_: IllegalArgumentException) {
             -1
         }
     }

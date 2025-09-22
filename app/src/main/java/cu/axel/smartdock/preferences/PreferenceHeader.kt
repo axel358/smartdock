@@ -7,7 +7,7 @@ import androidx.preference.PreferenceViewHolder
 import com.google.android.material.button.MaterialButton
 import cu.axel.smartdock.R
 
-class PreferenceHeader(private val context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
+class PreferenceHeader(context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
     init {
         layoutResource = R.layout.preference_header
     }

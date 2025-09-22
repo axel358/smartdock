@@ -1,5 +1,6 @@
 package cu.axel.smartdock.utils
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.ActivityInfo
@@ -18,6 +19,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.lang.reflect.Field
 import java.util.Locale
+import androidx.core.content.edit
 
 private const val ICON_MASK_TAG = "iconmask"
 private const val ICON_BACK_TAG = "iconback"
@@ -40,8 +42,9 @@ class IconPackUtils(val context: Context) {
         try {
             loadIconPack()
         } catch (e: Exception) {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putString("icon_pack", "")
-                .apply()
+            PreferenceManager.getDefaultSharedPreferences(context).edit {
+                putString("icon_pack", "")
+            }
             Log.e(context.packageName, e.stackTraceToString())
         }
     }
@@ -171,13 +174,14 @@ class IconPackUtils(val context: Context) {
         if (scale != null) {
             try {
                 iconScale = scale.toFloat()
-            } catch (ignored: NumberFormatException) {
+            } catch (_: NumberFormatException) {
             }
         }
         loading = false
     }
 
     //new method from trebuchet
+    @SuppressLint("DiscouragedApi")
     private fun getIconPackResources(
         context: Context,
         packageName: String
@@ -187,7 +191,7 @@ class IconPackUtils(val context: Context) {
 
         val resources: Resources = try {
             context.packageManager.getResourcesForApplication(packageName)
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (_: PackageManager.NameNotFoundException) {
             return null
         }
         var parser: XmlPullParser? = null
@@ -198,7 +202,7 @@ class IconPackUtils(val context: Context) {
             val factory = XmlPullParserFactory.newInstance()
             parser = factory.newPullParser()
             parser.setInput(inputStream, "UTF-8")
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             // Catch any exception since we want to fall back to parsing the xml/
             // resource in all cases
             val resId = resources.getIdentifier("appfilter", "xml", packageName)
@@ -222,7 +226,7 @@ class IconPackUtils(val context: Context) {
                 if (inputStream != null) {
                     try {
                         inputStream.close()
-                    } catch (ignored: IOException) {
+                    } catch (_: IOException) {
                     }
                 }
             }
@@ -274,7 +278,7 @@ class IconPackUtils(val context: Context) {
                 Context.CONTEXT_INCLUDE_CODE or Context.CONTEXT_IGNORE_SECURITY
             )
             Class.forName("$packageName.R\$drawable", true, appContext.classLoader).fields
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             return
         }
         for (f in drawableItems) {
@@ -302,6 +306,7 @@ class IconPackUtils(val context: Context) {
     private val isIconPackLoaded: Boolean
         get() = loadedIconPackResource != null && loadedIconPackName != null && iconPackResources != null
 
+    @SuppressLint("DiscouragedApi")
     private fun getResourceIdForDrawable(resource: String?): Int {
         return loadedIconPackResource!!.getIdentifier(resource, "drawable", loadedIconPackName)
     }
@@ -324,7 +329,7 @@ class IconPackUtils(val context: Context) {
                     Locale.getDefault()
                 )
             )
-        } catch (e: NullPointerException) {
+        } catch (_: NullPointerException) {
             iconPackResources?.get(info.packageName + "." + info.name)
         }
         if (drawable == null) {
@@ -332,7 +337,7 @@ class IconPackUtils(val context: Context) {
             //Catch added for lower case exceptions
             drawable = try {
                 iconPackResources?.get(info.packageName.lowercase(Locale.getDefault()))
-            } catch (e: NullPointerException) {
+            } catch (_: NullPointerException) {
                 iconPackResources?.get(info.packageName)
             }
             if (drawable == null) {

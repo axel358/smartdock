@@ -86,15 +86,9 @@ class DockAppAdapter(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var iconIv: ImageView
-        var taskCounter: TextView
-        var runningIndicator: View
-
-        init {
-            iconIv = itemView.findViewById(R.id.icon_iv)
-            runningIndicator = itemView.findViewById(R.id.running_indicator)
-            taskCounter = itemView.findViewById(R.id.task_count_badge)
-        }
+        var iconIv: ImageView = itemView.findViewById(R.id.icon_iv)
+        var taskCounter: TextView = itemView.findViewById(R.id.task_count_badge)
+        var runningIndicator: View = itemView.findViewById(R.id.running_indicator)
 
         fun bind(app: DockApp, listener: OnDockAppClickListener) {
             itemView.setOnClickListener { view -> listener.onDockAppClicked(app, view) }

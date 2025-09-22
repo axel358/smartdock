@@ -5,7 +5,6 @@ import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -15,8 +14,8 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
-import cu.axel.smartdock.models.App
 import cu.axel.smartdock.R
+import cu.axel.smartdock.models.App
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.IconPackUtils
 import cu.axel.smartdock.utils.Utils
@@ -146,12 +145,10 @@ class AppAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var iconIv: ImageView
-        var nameTv: TextView
+        var iconIv: ImageView = itemView.findViewById(R.id.app_icon_iv)
+        var nameTv: TextView = itemView.findViewById(R.id.app_name_tv)
 
         init {
-            iconIv = itemView.findViewById(R.id.app_icon_iv)
-            nameTv = itemView.findViewById(R.id.app_name_tv)
             nameTv.maxLines = if (singleLine) 1 else 2
         }
 

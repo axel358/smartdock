@@ -24,6 +24,7 @@ import cu.axel.smartdock.services.NotificationService
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeviceUtils
 import kotlin.reflect.KFunction0
+import androidx.core.net.toUri
 
 
 class MainActivity : AppCompatActivity() {
@@ -244,7 +245,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://github.com/axel358/smartdock#grant-restricted-permissions")
+                    "https://github.com/axel358/smartdock#grant-restricted-permissions".toUri()
                 )
             )
         }
@@ -263,7 +264,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://github.com/axel358/smartdock#grant-restricted-permissions")
+                    "https://github.com/axel358/smartdock#grant-restricted-permissions".toUri()
                 )
             )
         }

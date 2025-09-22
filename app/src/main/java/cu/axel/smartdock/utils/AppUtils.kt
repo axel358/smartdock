@@ -12,12 +12,12 @@ import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Build
 import android.os.SystemClock
 import android.os.UserManager
 import android.view.Display
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
@@ -410,7 +410,7 @@ object AppUtils {
         else context.startActivity(
             Intent(
                 Intent.ACTION_UNINSTALL_PACKAGE,
-                Uri.parse("package:$packageName")
+                "package:$packageName".toUri()
             )
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )

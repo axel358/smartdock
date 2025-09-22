@@ -2,8 +2,8 @@ package cu.axel.smartdock.fragments
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import androidx.core.net.toUri
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -14,7 +14,7 @@ class HelpAboutPreferences : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.preferences_help_about, arg1)
         findPreference<Preference>("join_telegram")!!.setOnPreferenceClickListener {
             try {
-                startActivity(Intent(Intent.ACTION_VIEW).setData(Uri.parse("tg://resolve?domain=smartdock358")))
+                startActivity(Intent(Intent.ACTION_VIEW).setData("tg://resolve?domain=smartdock358".toUri()))
             } catch (_: ActivityNotFoundException) {
             }
             false
@@ -24,7 +24,8 @@ class HelpAboutPreferences : PreferenceFragmentCompat() {
             dialog.setTitle(R.string.help)
             dialog.setView(R.layout.dialog_help)
             dialog.setPositiveButton(R.string.ok, null)
-            dialog.setNegativeButton(R.string.more_help) { _, _ -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/axel358/smartdock"))) }
+            dialog.setNegativeButton(R.string.more_help) { _, _ -> startActivity(Intent(Intent.ACTION_VIEW,
+                "https://github.com/axel358/smartdock".toUri())) }
             dialog.show()
             false
         }

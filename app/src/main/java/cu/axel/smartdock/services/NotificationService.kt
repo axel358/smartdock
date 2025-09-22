@@ -42,6 +42,7 @@ import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
+import androidx.core.content.edit
 
 const val ACTION_HIDE_NOTIFICATION_PANEL = "hide_panel"
 const val ACTION_SHOW_NOTIFICATION_PANEL = "show_panel"
@@ -238,7 +239,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                                 } catch (_: CanceledException) {
                                 }
                             }
-                            notificationActionsLayout!!.addView(actionTv, actionLayoutParams)
+                            notificationActionsLayout.addView(actionTv, actionLayoutParams)
                         }
                     }
                 }
@@ -268,8 +269,9 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
                     ignoredApps.addAll(savedApps)
                     ignoredApps.add(sbn.packageName)
 
-                    sharedPreferences.edit()
-                        .putStringSet("ignored_notifications_popups", ignoredApps).apply()
+                    sharedPreferences.edit {
+                        putStringSet("ignored_notifications_popups", ignoredApps)
+                    }
                     notificationLayout.visibility = View.GONE
                     notificationLayout.alpha = 0f
                     Toast.makeText(
@@ -370,13 +372,17 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             hideNotificationPanel()
             if (sharedPreferences.getBoolean("tablet_mode", false)) {
                 Utils.toggleBuiltinNavigation(sharedPreferences.edit(), false)
-                sharedPreferences.edit().putBoolean("app_menu_fullscreen", false).apply()
-                sharedPreferences.edit().putBoolean("tablet_mode", false).apply()
+                sharedPreferences.edit {
+                    putBoolean("app_menu_fullscreen", false)
+                    putBoolean("tablet_mode", false)
+                }
                 Toast.makeText(context, R.string.tablet_mode_off, Toast.LENGTH_SHORT).show()
             } else {
                 Utils.toggleBuiltinNavigation(sharedPreferences.edit(), true)
-                sharedPreferences.edit().putBoolean("app_menu_fullscreen", true).apply()
-                sharedPreferences.edit().putBoolean("tablet_mode", true).apply()
+                sharedPreferences.edit {
+                    putBoolean("app_menu_fullscreen", true)
+                    putBoolean("tablet_mode", true)
+                }
                 Toast.makeText(context, R.string.tablet_mode_on, Toast.LENGTH_SHORT).show()
             }
         }
@@ -388,9 +394,9 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             ) R.drawable.ic_screen_rotation_off else R.drawable.ic_screen_rotation_on
         )
         orientationBtn.setOnClickListener {
-            sharedPreferences.edit()
-                .putBoolean("lock_landscape", !sharedPreferences.getBoolean("lock_landscape", true))
-                .apply()
+            sharedPreferences.edit {
+                putBoolean("lock_landscape", !sharedPreferences.getBoolean("lock_landscape", true))
+            }
             orientationBtn
                 .setImageResource(
                     if (sharedPreferences.getBoolean(
@@ -426,7 +432,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         )
         notificationsBtn.setOnClickListener {
             val showNotifications = sharedPreferences.getBoolean("show_notifications", true)
-            sharedPreferences.edit().putBoolean("show_notifications", !showNotifications).apply()
+            sharedPreferences.edit { putBoolean("show_notifications", !showNotifications) }
             notificationsBtn.setImageResource(
                 if (!showNotifications) R.drawable.ic_notifications else R.drawable.ic_notifications_off
             )
@@ -525,7 +531,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         ignoredApps.addAll(savedApps)
         ignoredApps.add(notification.packageName)
         Toast.makeText(this, ignoredApps.toString(), Toast.LENGTH_LONG).show()
-        sharedPreferences.edit().putStringSet("ignored_notifications_panel", ignoredApps).apply()
+        sharedPreferences.edit { putStringSet("ignored_notifications_panel", ignoredApps) }
         item.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         Toast.makeText(
             this@NotificationService,

@@ -8,7 +8,6 @@ import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.ShortcutInfo
-import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.Gravity
@@ -22,6 +21,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -292,7 +292,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener,
                     getString(R.string.app_info) -> {
                         startActivity(
                             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                .setData(Uri.parse("package:$app"))
+                                .setData("package:$app".toUri())
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         )
                         windowManager.removeView(view)
@@ -305,7 +305,7 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener,
                                 app.packageName
                             )
                         ) DeviceUtils.runAsRoot("pm uninstall --user 0 $app") else startActivity(
-                            Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.parse("package:$app"))
+                            Intent(Intent.ACTION_UNINSTALL_PACKAGE, "package:$app".toUri())
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         )
                         windowManager.removeView(view)

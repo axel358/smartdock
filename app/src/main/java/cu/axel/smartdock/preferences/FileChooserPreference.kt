@@ -2,7 +2,6 @@ package cu.axel.smartdock.preferences
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import com.google.android.material.button.MaterialButton

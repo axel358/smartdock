@@ -17,7 +17,6 @@ import android.graphics.Bitmap
 import android.hardware.display.DisplayManager
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Build
 import android.os.UserHandle
 import android.provider.Settings
@@ -34,12 +33,11 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
 import android.os.UserManager
+import androidx.core.net.toUri
 
 object DeviceUtils {
     const val DISPLAY_SIZE = "display_density_forced"
     const val ICON_BLACKLIST = "icon_blacklist"
-    const val POLICY_CONTROL = "policy_control"
-    const val IMMERSIVE_APPS = "immersive.status=apps"
     const val HEADS_UP_ENABLED = "heads_up_notifications_enabled"
     const val ENABLE_TASKBAR = "enable_taskbar"
     const val SETTING_OVERLAYS = "secure_overlay_settings"
@@ -74,7 +72,7 @@ object DeviceUtils {
                 output.append(line).append("\n")
             }
             br.close()
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             return "error"
         }
         return output.toString().trimEnd('\n')
@@ -122,7 +120,7 @@ object DeviceUtils {
             PreferenceManager.getDefaultSharedPreferences(context).getString(event, "default")
         if (soundUri != "default") {
             try {
-                val sound = Uri.parse(soundUri)
+                val sound = soundUri?.toUri()
                 if (sound != null) {
                     val mp = MediaPlayer.create(context, sound)
                     mp.start()
@@ -133,20 +131,10 @@ object DeviceUtils {
         }
     }
 
-    //Device Settings
-    fun putSecureSetting(context: Context, setting: String, value: Int): Boolean {
-        return try {
-            Settings.Secure.putInt(context.contentResolver, setting, value)
-            true
-        } catch (e: SecurityException) {
-            false
-        }
-    }
-
     fun getSecureSetting(context: Context, setting: String, defaultValue: Int): Int {
         return try {
             Settings.Secure.getInt(context.contentResolver, setting)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             defaultValue
         }
     }
@@ -155,7 +143,7 @@ object DeviceUtils {
         return try {
             val value = Settings.Secure.getString(context.contentResolver, setting)
             value ?: defaultValue
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             defaultValue
         }
     }
@@ -164,26 +152,8 @@ object DeviceUtils {
         return try {
             Settings.Secure.putString(context.contentResolver, setting, value)
             true
-        } catch (e: SecurityException) {
+        } catch (_: SecurityException) {
             false
-        }
-    }
-
-    fun putGlobalSetting(context: Context, setting: String, value: String?): Boolean {
-        return try {
-            Settings.Global.putString(context.contentResolver, setting, value)
-            true
-        } catch (e: SecurityException) {
-            false
-        }
-    }
-
-    fun getGlobalSetting(context: Context, setting: String, defaultValue: String): String {
-        return try {
-            val value = Settings.Global.getString(context.contentResolver, setting)
-            value ?: defaultValue
-        } catch (e: Exception) {
-            defaultValue
         }
     }
 
@@ -191,7 +161,7 @@ object DeviceUtils {
         return try {
             Settings.Global.putInt(context.contentResolver, setting, value)
             true
-        } catch (e: SecurityException) {
+        } catch (_: SecurityException) {
             false
         }
     }
@@ -199,12 +169,13 @@ object DeviceUtils {
     fun getGlobalSetting(context: Context, setting: String, defaultValue: Int): Int {
         return try {
             Settings.Global.getInt(context.contentResolver, setting)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             defaultValue
         }
     }
 
     //Device info
+    @SuppressLint("InternalInsetResource", "DiscouragedApi")
     fun getStatusBarHeight(context: Context): Int {
         var result = 0
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
@@ -214,6 +185,7 @@ object DeviceUtils {
         return result
     }
 
+    @SuppressLint("DiscouragedApi", "InternalInsetResource")
     fun getNavBarHeight(context: Context): Int {
         var result = 0
         val resourceId =
@@ -337,7 +309,7 @@ object DeviceUtils {
         context.startActivityForResult(
             Intent(
                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                Uri.parse("package:" + context.packageName)
+                ("package:" + context.packageName).toUri()
             ),
             8
         )
@@ -377,7 +349,7 @@ object DeviceUtils {
         val packageManager = context.packageManager
         val applicationInfo: ApplicationInfo = try {
             packageManager.getApplicationInfo(context.packageName, 0)
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (_: PackageManager.NameNotFoundException) {
             return false
         }
         val appOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
@@ -410,11 +382,6 @@ object DeviceUtils {
             ""
         ) else if (services.contains(SERVICE_NAME)) newServices = services.replace(SERVICE_NAME, "")
         putSecureSetting(context, ENABLED_ACCESSIBILITY_SERVICES, newServices)
-    }
-
-    fun restartService(context: Context) {
-        disableService(context)
-        enableService(context)
     }
 
     fun canDrawOverOtherApps(context: Context): Boolean {

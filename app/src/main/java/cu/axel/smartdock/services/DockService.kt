@@ -100,6 +100,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import androidx.core.net.toUri
+import androidx.core.content.edit
 
 const val DOCK_SERVICE_CONNECTED = "service_connected"
 const val ACTION_TAKE_SCREENSHOT = "take_screenshot"
@@ -219,8 +223,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         dateTv = dock.findViewById(R.id.date_btn)
         dock.setOnHoverListener { _, event ->
             if (event.action == MotionEvent.ACTION_HOVER_ENTER) {
-                if (dockLayout.visibility == View.GONE) showDock()
-            } else if (event.action == MotionEvent.ACTION_HOVER_EXIT) if (dockLayout.visibility == View.VISIBLE) {
+                if (dockLayout.isGone) showDock()
+            } else if (event.action == MotionEvent.ACTION_HOVER_EXIT) if (dockLayout.isVisible) {
                 hideDock(500)
             }
             false
@@ -378,10 +382,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     null, null,
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(
-                            "https://www.google.com/search?q="
-                                    + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
-                        )
+                        ("https://www.google.com/search?q="
+                                + URLEncoder.encode(searchEt.text.toString(), "UTF-8")).toUri()
                     )
                 )
             } catch (e: UnsupportedEncodingException) {
@@ -418,10 +420,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                             null, null,
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse(
-                                    "https://www.google.com/search?q="
-                                            + URLEncoder.encode(searchEt.text.toString(), "UTF-8")
-                                )
+                                ("https://www.google.com/search?q="
+                                        + URLEncoder.encode(
+                                    searchEt.text.toString(),
+                                    "UTF-8"
+                                )).toUri()
                             )
                         )
                     } catch (e: UnsupportedEncodingException) {
@@ -937,14 +940,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     fun pinDock() {
         isPinned = true
         pinBtn.setImageResource(R.drawable.ic_pin)
-        if (dockLayout.visibility == View.GONE)
+        if (dockLayout.isGone)
             showDock()
     }
 
     private fun unpinDock() {
         pinBtn.setImageResource(R.drawable.ic_unpin)
         isPinned = false
-        if (dockLayout.visibility == View.VISIBLE)
+        if (dockLayout.isVisible)
             hideDock(500)
     }
 
@@ -1293,7 +1296,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 } else if (action.text == getString(R.string.app_info)) {
                     launchApp(
                         null, null, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                            .setData(Uri.parse("package:${app.packageName}"))
+                            .setData("package:${app.packageName}".toUri())
                     )
                     windowManager.removeView(view)
                 } else if (action.text == getString(R.string.hide)) {
@@ -1305,8 +1308,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     hiddenApps.addAll(savedApps)
                     hiddenApps.add(app.packageName)
 
-                    sharedPreferences.edit()
-                        .putStringSet("hidden_apps_grid", hiddenApps).apply()
+                    sharedPreferences.edit {
+                        putStringSet("hidden_apps_grid", hiddenApps)
+                    }
 
                     if (AppUtils.isPinned(this, app, AppUtils.PINNED_LIST))
                         AppUtils.unpinApp(this, app.packageName, AppUtils.PINNED_LIST)
@@ -1838,7 +1842,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val iconUri = sharedPreferences.getString("menu_icon_uri", "default")
         if (iconUri == "default") appsBtn.setImageResource(R.drawable.ic_apps_menu) else {
             try {
-                val icon = Uri.parse(iconUri)
+                val icon = iconUri?.toUri()
                 if (icon != null)
                     appsBtn.setImageURI(icon)
             } catch (_: Exception) {
