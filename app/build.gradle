@@ -11,8 +11,8 @@ android {
         applicationId "cu.axel.smartdock"
         minSdk 24
         targetSdk 34
-        versionCode 1130
-        versionName "1.13.0"
+        versionCode 1140
+        versionName "1.14.0"
         signingConfig signingConfigs.debug
     }
 
