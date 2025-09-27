@@ -78,6 +78,7 @@
     <string name="maximized">ਵੱਧ ਤੋਂ ਵੱਧ</string>
     <string name="portrait">ਪੋਰਟਰੇਟ</string>
     <string name="fullscreen">ਪੂਰਾ ਸਕਰੀਨ</string>
+    <string name="undefined">Undefined</string>
     <string name="remember_launch_mode_title">ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="remember_launch_mode_summary">ਹਰ ਐਪ ਲਈ ਵਰਤੇ ਗਏ ਆਖਰੀ ਲਾਂਚ ਮੋਡ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="launch_games_fullscreen_title">ਪੂਰੀ ਸਕ੍ਰੀਨ ਵਿੱਚ ਗੇਮਾਂ ਲਾਂਚ ਕਰੋ</string>
