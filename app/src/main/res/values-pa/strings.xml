@@ -198,8 +198,8 @@
     <!-- Advanced -->
     <string name="advanced">ਉੱਨਤ</string>
     <string name="these_settings_are_intended_fo">ਇਹ ਸੈਟਿੰਗਾਂ ਉੱਨਤ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਕੇਵਲ ਤਾਂ ਹੀ ਬਦਲੋ ਜੇਕਰ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਕੀ ਕਰ ਰਹੇ ਹੋ</string>
-    <string name="prefer_last_display">Prefer secondary displays</string>
-    <string name="prefer_last_display_summary">Prefer secondary displays for displaying apps and the dock</string>
+    <string name="prefer_last_display">ਸੈਕੰਡਰੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
+    <string name="prefer_last_display_summary">ਐਪਾਂ ਅਤੇ ਡੌਕ ਦਿਖਾਉਣ ਲਈ ਸੈਕੰਡਰੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
     <string name="restart_accessibility">ਇਸ ਸੈਟਿੰਗ ਨੂੰ ਬਦਲਣ ਲਈ accessibility ਸੇਵਾ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="open_accessibility">Accessibility ਖੋਲੋ</string>
     <string name="custom_toasts">ਕਸਟਮ ਟੋਸਟਾ</string>
@@ -289,7 +289,7 @@
     <string name="shortcuts">ਸ਼ਾਰਟਕੱਟਸ</string>
     <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
     <string name="uninstall">ਅਣਇੰਸਟੌਲ ਕਰੋ</string>
-    <string name="hide">Hide</string>
+    <string name="hide">ਓਹਲੇ</string>
     <string name="open_as">ੳਪਨ ਐਸ…</string>
     <string name="add_to">ਐਡ ਟੂ…</string>
     <string name="launch_in">ਲੋਚ ਇਨ…</string>
@@ -316,18 +316,18 @@
     <string name="save_log">ਲੌਗ ਸੇਵ ਕਰੋ</string>
     <string name="open_again">ਐਪ ਨੂੰ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ</string>
 
-    <string name="long_press_action">Long press action</string>
-    <string name="tap_to_set_long_action">Tap to configure long press/hover action</string>
+    <string name="long_press_action">ਲੋਂਗ ਪ੍ਰੈਸ ਐਕਸ਼ਨ</string>
+    <string name="tap_to_set_long_action">ਲੰਮਾ ਦਬਾਓ/ਹੋਵਰ ਐਕਸ਼ਨ ਕੌਂਫਿਗਰ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ</string>
 
-    <string name="left">Left</string>
-    <string name="right">Right</string>
+    <string name="left">ਖੱਬੇ</string>
+    <string name="right">ਸੱਜੇ</string>
 
     <!-- Nav actions dialog -->
-    <string name="open_notifications">Open notification drawer</string>
-    <string name="launch_assistant">Launch assistant app</string>
-    <string name="lock_device">Lock device</string>
-    <string name="toggle_split_screen">Toggle split screen</string>
+    <string name="open_notifications">ਸੂਚਨਾ ਡਰਾਵਰ ਖੋਲੋ</string>
+    <string name="launch_assistant">ਐਸਿਤੰਤ ਐਪ ਚਲਾਓ</string>
+    <string name="lock_device">ਡਿਵਾਈਸ ਲੋਕ ਕਰੋ</string>
+    <string name="toggle_split_screen">ਤੌਗਲ ਸਪਲਿਟ ਸਕਰੀਨ</string>
 
-    <string name="hot_corners_help">Hover the mouse pointer over the corners to trigger their actions</string>
+    <string name="hot_corners_help">ਕਾਰਨਰ ਦੇ ਐਕਸ਼ਨਾਂ ਨੂੰ ਚਾਲੂ ਕਰਨ ਲਈ ਮਾਊਸ ਪੁਆਇੰਟਰ ਨੂੰ ਉਹਨਾਂ ਉੱਤੇ ਰੱਖੋ</string>
 
 </resources>
