@@ -198,8 +198,8 @@
     <!-- Advanced -->
     <string name="advanced">ਉੱਨਤ</string>
     <string name="these_settings_are_intended_fo">ਇਹ ਸੈਟਿੰਗਾਂ ਉੱਨਤ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਕੇਵਲ ਤਾਂ ਹੀ ਬਦਲੋ ਜੇਕਰ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਕੀ ਕਰ ਰਹੇ ਹੋ</string>
-    <string name="prefer_last_display">Prefer secondary displays</string>
-    <string name="prefer_last_display_summary">Prefer secondary displays for displaying apps and the dock</string>
+    <string name="prefer_last_display">ਸੈਕੰਡਰੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
+    <string name="prefer_last_display_summary">ਐਪਾਂ ਅਤੇ ਡੌਕ ਦਿਖਾਉਣ ਲਈ ਸੈਕੰਡਰੀ ਡਿਸਪਲੇ ਨੂੰ ਤਰਜੀਹ ਦਿਓ</string>
     <string name="restart_accessibility">ਇਸ ਸੈਟਿੰਗ ਨੂੰ ਬਦਲਣ ਲਈ accessibility ਸੇਵਾ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="open_accessibility">Accessibility ਖੋਲੋ</string>
     <string name="custom_toasts">ਕਸਟਮ ਟੋਸਟਾ</string>
@@ -289,7 +289,7 @@
     <string name="shortcuts">ਸ਼ਾਰਟਕੱਟਸ</string>
     <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
     <string name="uninstall">ਅਣਇੰਸਟੌਲ ਕਰੋ</string>
-    <string name="hide">Hide</string>
+    <string name="hide">ਓਹਲੇ</string>
     <string name="open_as">ੳਪਨ ਐਸ…</string>
     <string name="add_to">ਐਡ ਟੂ…</string>
     <string name="launch_in">ਲੋਚ ਇਨ…</string>
