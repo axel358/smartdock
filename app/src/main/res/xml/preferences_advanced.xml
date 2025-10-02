@@ -10,10 +10,6 @@
         android:summary="@string/prefer_last_display_summary"
         android:title="@string/prefer_last_display" />
 
-    <Preference
-        android:key="share_display_info"
-        android:title="Share display info"/>
-
     <SwitchPreferenceCompat
         android:defaultValue="false"
         android:key="custom_toasts"
@@ -132,5 +128,9 @@
             android:key="icon_padding"
             android:summary="@string/icon_padding_summary"
             android:title="@string/icon_padding_title" />
+
+        <Preference
+            android:key="share_display_info"
+            android:title="Share display info"/>
     </PreferenceCategory>
 </PreferenceScreen>
