@@ -1,0 +1,6 @@
+- Customizable hot corner actions
+- Customizable navigation buttons long press actions
+- Setting to display battery level next to the icon
+- Apps menu improvements by somerandoname
+- German translation by 666hwll
+- Chinese translation by MicroeasyOT0
