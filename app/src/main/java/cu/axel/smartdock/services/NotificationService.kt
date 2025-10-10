@@ -484,14 +484,21 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
 
     private fun updateNotificationPanel() {
         val ignoredApps = sharedPreferences.getStringSet("ignored_notifications_panel", setOf())!!
-        val adapter = NotificationAdapter(
-            context,
+        val notifications =
             activeNotifications.filterNot { ignoredApps.contains(it.packageName) }.sortedWith(
                 compareByDescending { AppUtils.isMediaNotification(it.notification) && it.isOngoing })
-                .toTypedArray(),
-            this
-        )
-        notificationsLv!!.adapter = adapter
+                .toTypedArray<StatusBarNotification>()
+        var adapter = notificationsLv!!.adapter
+        if (adapter is NotificationAdapter)
+            adapter.updateNotifications(notifications)
+        else {
+            adapter = NotificationAdapter(
+                context,
+                notifications,
+                this
+            )
+            notificationsLv!!.adapter = adapter
+        }
         val layoutParams = notificationsLv!!.layoutParams
         val count = adapter.itemCount
         if (count > 3) {

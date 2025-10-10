@@ -22,7 +22,7 @@ import cu.axel.smartdock.utils.Utils
 
 class NotificationAdapter(
     private val context: Context,
-    private val notifications: Array<StatusBarNotification>,
+    private var notifications: Array<StatusBarNotification>,
     private val listener: OnNotificationClickListener
 ) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
     private var sharedPreferences: SharedPreferences =
@@ -129,6 +129,11 @@ class NotificationAdapter(
 
     override fun getItemCount(): Int {
         return notifications.size
+    }
+
+    fun updateNotifications(newNotifications: Array<StatusBarNotification>){
+        notifications = newNotifications
+        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
