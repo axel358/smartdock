@@ -33,6 +33,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:textColor="@android:color/black"
                 android:id="@+id/notifications_btn"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
@@ -79,7 +80,7 @@
                 android:src="@drawable/ic_volume" />
 
             <TextView
-                android:drawableLeft="@drawable/battery_charging_full"
+                android:drawableStart="@drawable/battery_charging_full"
                 android:id="@+id/battery_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
