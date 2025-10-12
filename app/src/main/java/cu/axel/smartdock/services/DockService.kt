@@ -1590,7 +1590,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
 
         tasksGv.layoutParams.width = gridSize * apps.size
-        tasksGv.adapter = DockAppAdapter(context, apps, this, iconPackUtils)
+        val adapter = tasksGv.adapter
+        if (adapter is DockAppAdapter)
+            adapter.updateApps(apps)
+        else
+            tasksGv.adapter = DockAppAdapter(context, apps, this, iconPackUtils)
         //TODO: Move context outta here
         wifiBtn.setImageResource(if (wifiManager.isWifiEnabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off)
         val bluetoothAdapter = bluetoothManager.adapter

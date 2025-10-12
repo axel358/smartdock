@@ -17,7 +17,7 @@ import cu.axel.smartdock.utils.IconPackUtils
 import cu.axel.smartdock.utils.Utils
 
 class DockAppAdapter(
-    private val context: Context, private val apps: ArrayList<DockApp>,
+    private val context: Context, private var apps: ArrayList<DockApp>,
     private val listener: OnDockAppClickListener, private val iconPackUtils: IconPackUtils?
 ) : RecyclerView.Adapter<DockAppAdapter.ViewHolder>() {
     private var iconBackground = 0
@@ -83,6 +83,11 @@ class DockAppAdapter(
 
     override fun getItemCount(): Int {
         return apps.size
+    }
+
+    fun updateApps(newApps: ArrayList<DockApp>){
+        apps = newApps
+        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
