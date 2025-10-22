@@ -1,0 +1,3 @@
+- Fix notification count text color on dark theme
+- Fix notification list scroll position resetting on notification panel updates
+- Fix dock app list scroll position resetting on dock updates
