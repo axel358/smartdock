@@ -60,6 +60,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
+import androidx.core.net.toUri
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
 import androidx.preference.PreferenceManager
@@ -100,10 +104,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import androidx.core.net.toUri
-import androidx.core.content.edit
 
 const val DOCK_SERVICE_CONNECTED = "service_connected"
 const val ACTION_TAKE_SCREENSHOT = "take_screenshot"
@@ -1049,7 +1049,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             if (!isPinned && sharedPreferences.getBoolean("auto_pin", true))
                 pinDock()
         }
-        updateRunningTasks()
+        //Hack to ensure the launched app is already on the top of the stack
+        dockHandler.postDelayed({ updateRunningTasks() }, 1200)
+
         if (Utils.notificationPanelVisible)
             toggleNotificationPanel(false)
     }
@@ -1199,7 +1201,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         return@withContext AppUtils.getInstalledApps(context)
     }
 
-    private fun updateAppMenu() {
+    private fun updateAppMenu(recreateAdapter: Boolean = false) {
         CoroutineScope(Dispatchers.Default).launch {
             val hiddenApps = sharedPreferences.getStringSet(
                 "hidden_apps_grid",
@@ -1212,7 +1214,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val phoneLayout = sharedPreferences.getInt("dock_layout", -1) == 0
                 //TODO: Implement efficient adapter
                 val existingAdapter = appsGv.adapter
-                if (existingAdapter is AppAdapter) {
+                if (existingAdapter is AppAdapter && !recreateAdapter) {
                     existingAdapter.updateApps(apps)
                 } else {
                     appsGv.adapter = AppAdapter(
@@ -1467,12 +1469,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 IconPackUtils(this)
             } else
                 null
-            if (::pinnedApps.isInitialized)
-                updateRunningTasks()
+
+            updateRunningTasks(true)
+            updateAppMenu(true)
             loadFavoriteApps()
-        } else if (preference == "tint_indicators")
-            updateRunningTasks()
-        else if (preference == "lock_landscape")
+        } else if (preference == "tint_indicators") {
+            updateRunningTasks(true)
+        } else if (preference == "lock_landscape")
             setOrientation()
         else if (preference == "center_running_apps") {
             placeRunningApps()
@@ -1553,16 +1556,17 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         pinnedApps = AppUtils.getPinnedApps(context, AppUtils.DOCK_PINNED_LIST)
     }
 
-    private fun updateRunningTasks() {
+    private fun updateRunningTasks(recreateAdapter: Boolean = false) {
         val now = System.currentTimeMillis()
-        if (now - lastUpdate < 500)
+        if (now - lastUpdate < 500 && !recreateAdapter)
             return
         lastUpdate = now
 
         val apps = ArrayList<DockApp>()
-        pinnedApps.forEach { pinnedApp ->
-            apps.add(DockApp(pinnedApp.name, pinnedApp.packageName, pinnedApp.icon))
-        }
+        if (::pinnedApps.isInitialized)
+            pinnedApps.forEach { pinnedApp ->
+                apps.add(DockApp(pinnedApp.name, pinnedApp.packageName, pinnedApp.icon))
+            }
 
         val gridSize = Utils.dpToPx(context, 52)
 
@@ -1591,7 +1595,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         tasksGv.layoutParams.width = gridSize * apps.size
         val adapter = tasksGv.adapter
-        if (adapter is DockAppAdapter)
+        if (adapter is DockAppAdapter && !recreateAdapter)
             adapter.updateApps(apps)
         else
             tasksGv.adapter = DockAppAdapter(context, apps, this, iconPackUtils)

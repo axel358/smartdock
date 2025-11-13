@@ -53,18 +53,24 @@ class DockAppAdapter(
         val app = apps[position]
         val size = app.tasks.size
         if (size > 0) {
-            if (tintIndicators) ColorUtils.applyColor(
-                viewHolder.runningIndicator,
-                ColorUtils.manipulateColor(ColorUtils.getDrawableDominantColor(app.icon), 2f)
-            )
-            if (app.tasks[0].id != -1) viewHolder.runningIndicator.alpha = 1f
-            if (app.packageName == AppUtils.currentApp) {
-                viewHolder.runningIndicator.layoutParams.width = Utils.dpToPx(context, 16)
-            }
+            if (tintIndicators)
+                ColorUtils.applyColor(
+                    viewHolder.runningIndicator,
+                    ColorUtils.manipulateColor(ColorUtils.getDrawableDominantColor(app.icon), 2f)
+                )
+
+            viewHolder.runningIndicator.alpha = if (app.tasks[0].id != -1) 1f else 0f
+            viewHolder.runningIndicator.layoutParams.width =
+                Utils.dpToPx(context, if (app.packageName == AppUtils.currentApp) 16 else 8)
+
             if (size > 1) {
-                viewHolder.taskCounter.text = "" + size
+                viewHolder.taskCounter.text = size.toString()
                 viewHolder.taskCounter.alpha = 1f
-            }
+            } else
+                viewHolder.taskCounter.alpha = 0f
+        } else {
+            viewHolder.runningIndicator.alpha = 0f
+            viewHolder.taskCounter.alpha = 0f
         }
         if (iconPackUtils != null)
             viewHolder.iconIv.setImageDrawable(iconPackUtils.getAppThemedIcon(app.packageName))
@@ -85,7 +91,7 @@ class DockAppAdapter(
         return apps.size
     }
 
-    fun updateApps(newApps: ArrayList<DockApp>){
+    fun updateApps(newApps: ArrayList<DockApp>) {
         apps = newApps
         notifyDataSetChanged()
     }
