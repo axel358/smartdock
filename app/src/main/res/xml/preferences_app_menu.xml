@@ -44,6 +44,11 @@
             android:summary="@string/remember_launch_mode_summary"
             android:defaultValue="true" />
 
+        <Preference
+            android:key="forget_launch_modes"
+            android:title="@string/forget_launch_modes_title"
+            android:summary="@string/forget_launch_modes_summary" />
+
         <SwitchPreferenceCompat
             android:key="launch_games_fullscreen"
             android:title="@string/launch_games_fullscreen_title"
