@@ -39,7 +39,6 @@
 
     <!-- Appearance page -->
     <string name="appearance">Apariencia</string>
-    <string name="look_and_feel">Apariencia</string>
     <string name="theme_title">Tema del Dock</string>
     <string name="dark">Oscuro</string>
     <string name="black">Negro</string>
@@ -326,5 +325,7 @@
     <string name="launch_assistant">Abrir app asistente</string>
     <string name="lock_device">Bloquear pantalla</string>
     <string name="toggle_split_screen">Activar pantalla dividida</string>
+    <string name="dock_background_transparency">Dock background transparency</string>
+    <string name="override_dock_background_alpha">Override background transparency</string>
 
 </resources>

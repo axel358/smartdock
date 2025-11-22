@@ -1505,6 +1505,10 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             updateHandlePosition()
         else if (preference == "show_battery_level")
             updateBatteryBtn()
+        else if (preference == "dock_background_alpha")
+            applyDockAlpha()
+        else if (preference == "override_dock_background_alpha")
+            updateDockBackgroundColor()
     }
 
     private fun updateDockTrigger() {
@@ -1620,7 +1624,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 )
             ) R.drawable.round_rect else R.drawable.rect
         )
-        ColorUtils.applyMainColor(context, sharedPreferences, dockLayout)
+        updateDockBackgroundColor()
     }
 
     private fun updateNavigationBar() {
@@ -1818,7 +1822,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     fun applyTheme() {
-        ColorUtils.applyMainColor(context, sharedPreferences, dockLayout)
+        updateDockBackgroundColor()
         ColorUtils.applyMainColor(context, sharedPreferences, appMenu)
         ColorUtils.applySecondaryColor(context, sharedPreferences, searchEntry)
         ColorUtils.applySecondaryColor(context, sharedPreferences, backBtn)
@@ -1931,6 +1935,17 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private fun updateHandlePosition() {
         updateHandlePositionValues()
         windowManager.updateViewLayout(dockHandle, handleLayoutParams)
+    }
+
+    private fun updateDockBackgroundColor() {
+        ColorUtils.applyMainColor(context, sharedPreferences, dockLayout)
+        if (sharedPreferences.getBoolean("override_dock_background_alpha", false))
+            applyDockAlpha()
+    }
+
+    private fun applyDockAlpha() {
+        val alpha = sharedPreferences.getInt("dock_background_alpha", 255)
+        dockLayout.background.alpha = alpha
     }
 
     private fun toggleNotificationPanel(show: Boolean) {

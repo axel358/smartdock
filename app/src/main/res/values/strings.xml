@@ -39,8 +39,7 @@
 
     <!-- Appearance page -->
     <string name="appearance">Appearance</string>
-    <string name="look_and_feel">Look and feel</string>
-    <string name="theme_title">Dock theme</string>
+    <string name="theme_title">Theme</string>
     <string name="dark">Dark</string>
     <string name="black">Black</string>
     <string name="transparent">Transparent</string>
@@ -51,7 +50,7 @@
     <string name="choose_color">Choose color</string>
     <string name="transparency">Transparency</string>
     <string name="invalid_color">Invalid color</string>
-    <string name="dock_layout">Dock layout</string>
+    <string name="dock_layout">Layout</string>
     <string name="wallpaper">Wallpaper</string>
     <string name="presets">Presets</string>
     <string name="icon_shape_title">Icon shape</string>
@@ -326,4 +325,6 @@
     <string name="launch_assistant">Launch assistant app</string>
     <string name="lock_device">Lock device</string>
     <string name="toggle_split_screen">Toggle split screen</string>
+    <string name="dock_background_transparency">Dock background transparency</string>
+    <string name="override_dock_background_alpha">Override background transparency</string>
 </resources>

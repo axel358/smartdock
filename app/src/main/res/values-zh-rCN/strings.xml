@@ -39,7 +39,6 @@
 
     <!-- Appearance page -->
     <string name="appearance">外观</string>
-    <string name="look_and_feel">界面风格</string>
     <string name="theme_title">Dock主题</string>
     <string name="dark">深色</string>
     <string name="black">黑色</string>
@@ -328,5 +327,7 @@
     <string name="toggle_split_screen">Toggle split screen</string>
 
     <string name="hot_corners_help">Hover the mouse pointer over the corners to trigger their actions</string>
+    <string name="dock_background_transparency">Dock background transparency</string>
+    <string name="override_dock_background_alpha">Override background transparency</string>
 
 </resources>

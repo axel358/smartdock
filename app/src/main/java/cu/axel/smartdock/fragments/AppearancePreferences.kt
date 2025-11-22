@@ -24,6 +24,8 @@ import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import androidx.core.content.edit
 import androidx.core.graphics.toColorInt
+import com.google.android.material.slider.LabelFormatter
+import cu.axel.smartdock.preferences.SliderPreference
 
 class AppearancePreferences : PreferenceFragmentCompat() {
     private lateinit var mainColorPref: Preference
@@ -38,8 +40,29 @@ class AppearancePreferences : PreferenceFragmentCompat() {
             mainColorPref.isVisible = newValue.toString() == "custom"
             true
         }
-        mainColorPref.isVisible = mainColorPref.sharedPreferences!!.getString("theme", "dark") == "custom"
-        findPreference<Preference>("tint_indicators")!!.isVisible = AppUtils.isSystemApp(requireContext(), requireContext().packageName)
+        val dockAlpha = findPreference<SliderPreference>("dock_background_alpha")!!
+        dockAlpha.setOnDialogShownListener(object : SliderPreference.OnDialogShownListener {
+            override fun onDialogShown() {
+                val slider = dockAlpha.slider
+                slider.isTickVisible = false
+                slider.labelBehavior = LabelFormatter.LABEL_GONE
+                slider.stepSize = 1f
+                slider.value =
+                    dockAlpha.sharedPreferences!!.getInt(dockAlpha.key, 255).toFloat()
+                slider.valueFrom = 10f
+                slider.valueTo = 255f
+                slider.addOnChangeListener { _, value, _
+                    ->
+                    dockAlpha.sharedPreferences!!.edit {
+                        putInt(dockAlpha.key, value.toInt())
+                    }
+                }
+            }
+        })
+        mainColorPref.isVisible =
+            mainColorPref.sharedPreferences!!.getString("theme", "dark") == "custom"
+        findPreference<Preference>("tint_indicators")!!.isVisible =
+            AppUtils.isSystemApp(requireContext(), requireContext().packageName)
 
         findPreference<Preference>("dock_layout")!!.setOnPreferenceClickListener {
             DockLayoutDialog(requireContext())
@@ -71,8 +94,11 @@ class AppearancePreferences : PreferenceFragmentCompat() {
         }
         alphaSb.addOnChangeListener { _, value, _ -> colorPreview.background.alpha = value.toInt() }
         val onChangeListener = Slider.OnChangeListener { _, _, fromUser ->
-            if (fromUser) colorHexEt.setText(ColorUtils.toHexColor(
-                    Color.rgb(redSb.value.toInt(), greenSb.value.toInt(), blueSb.value.toInt())))
+            if (fromUser) colorHexEt.setText(
+                ColorUtils.toHexColor(
+                    Color.rgb(redSb.value.toInt(), greenSb.value.toInt(), blueSb.value.toInt())
+                )
+            )
         }
         redSb.addOnChangeListener(onChangeListener)
         greenSb.addOnChangeListener(onChangeListener)
@@ -91,24 +117,28 @@ class AppearancePreferences : PreferenceFragmentCompat() {
         val hexColor = mainColorPref.sharedPreferences!!.getString(mainColorPref.key, "#212121")
         colorHexEt.setText(hexColor)
         val presetsGv = view.findViewById<GridView>(R.id.presets_gv)
-        presetsGv.adapter = HexColorAdapter(context, context.resources.getStringArray(R.array.default_color_values))
+        presetsGv.adapter =
+            HexColorAdapter(context, context.resources.getStringArray(R.array.default_color_values))
         presetsGv.onItemClickListener = OnItemClickListener { adapterView, _, position, _ ->
             colorHexEt.setText(adapterView.getItemAtPosition(position).toString())
             toggleGroup.check(R.id.custom_button)
             viewSwitcher.showNext()
         }
-        view.findViewById<View>(R.id.custom_button).setOnClickListener { viewSwitcher.showPrevious() }
+        view.findViewById<View>(R.id.custom_button)
+            .setOnClickListener { viewSwitcher.showPrevious() }
         view.findViewById<View>(R.id.presets_button).setOnClickListener { viewSwitcher.showNext() }
         dialog.setView(view)
         dialog.show()
     }
 
-    internal class HexColorAdapter(private val context: Context, colors: Array<String>) : ArrayAdapter<String>(context, R.layout.color_entry, colors) {
+    internal class HexColorAdapter(private val context: Context, colors: Array<String>) :
+        ArrayAdapter<String>(context, R.layout.color_entry, colors) {
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             var convertView = convertView
-            if (convertView == null) convertView = LayoutInflater.from(context).inflate(R.layout.color_entry, null)
+            if (convertView == null) convertView =
+                LayoutInflater.from(context).inflate(R.layout.color_entry, null)
             convertView!!.findViewById<View>(R.id.color_entry_iv).background
-                    .setColorFilter(getItem(position)!!.toColorInt(), PorterDuff.Mode.SRC_ATOP)
+                .setColorFilter(getItem(position)!!.toColorInt(), PorterDuff.Mode.SRC_ATOP)
             return convertView
         }
     }
