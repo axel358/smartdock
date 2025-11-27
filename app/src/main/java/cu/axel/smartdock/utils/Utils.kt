@@ -2,6 +2,7 @@ package cu.axel.smartdock.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.UriMatcher
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.ImageDecoder
@@ -29,6 +30,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import androidx.core.graphics.createBitmap
 import androidx.core.content.edit
+import androidx.core.net.UriCompat
+import androidx.core.net.toUri
 
 object Utils {
     var notificationPanelVisible = false
@@ -180,7 +183,7 @@ object Utils {
             } else if (value is Int) {
                 type = "integer"
             }
-            if (value !is Set<*>)
+            if (value !is Set<*> && !value.toString().contains("://"))
                 stringBuilder.append(type).append(" ").append(key).append(" ")
                     .append(value.toString()).append("\n")
         }
