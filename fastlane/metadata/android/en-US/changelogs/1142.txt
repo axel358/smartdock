@@ -1,0 +1,2 @@
+- Fix dock apps not getting updated properly
+- Fix crashes related to restoring preferences
