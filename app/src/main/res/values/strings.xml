@@ -78,6 +78,7 @@
     <string name="maximized">Maximized</string>
     <string name="portrait">Portrait</string>
     <string name="fullscreen">Fullscreen</string>
+    <string name="undefined">Undefined</string>
     <string name="remember_launch_mode_title">Remember launch mode</string>
     <string name="remember_launch_mode_summary">Remember last launch mode used for every app</string>
     <string name="launch_games_fullscreen_title">Launch games in full screen</string>
