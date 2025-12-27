@@ -14,8 +14,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import cu.axel.smartdock.R
 import cu.axel.smartdock.utils.AppUtils
@@ -24,8 +22,9 @@ import cu.axel.smartdock.utils.Utils
 
 class NotificationAdapter(
     private val context: Context,
+    private var notifications: Array<StatusBarNotification>,
     private val listener: OnNotificationClickListener
-) : ListAdapter<StatusBarNotification, NotificationAdapter.ViewHolder>(NotificationDiffCallback()) {
+) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
     private var sharedPreferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
     private val actionsHeight = Utils.dpToPx(context, 20)
@@ -36,17 +35,6 @@ class NotificationAdapter(
         fun onNotificationCancelClicked(notification: StatusBarNotification, item: View)
     }
 
-    class NotificationDiffCallback : DiffUtil.ItemCallback<StatusBarNotification>() {
-        override fun areItemsTheSame(oldItem: StatusBarNotification, newItem: StatusBarNotification): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: StatusBarNotification, newItem: StatusBarNotification): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, arg1: Int): ViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context).inflate(
             R.layout.notification_entry, parent, false
@@ -55,7 +43,7 @@ class NotificationAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val sbn = getItem(position)
+        val sbn = notifications[position]
         val notification = sbn.notification
         val actions = notification.actions
         val extras = notification.extras
@@ -137,6 +125,15 @@ class NotificationAdapter(
         }
 
         viewHolder.bind(sbn, listener)
+    }
+
+    override fun getItemCount(): Int {
+        return notifications.size
+    }
+
+    fun updateNotifications(newNotifications: Array<StatusBarNotification>){
+        notifications = newNotifications
+        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

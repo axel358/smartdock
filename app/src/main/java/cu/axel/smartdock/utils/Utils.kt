@@ -16,6 +16,8 @@ import android.provider.MediaStore
 import android.view.Display
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.edit
+import androidx.core.graphics.createBitmap
 import androidx.preference.PreferenceManager
 import cu.axel.smartdock.R
 import java.io.BufferedReader
@@ -27,8 +29,6 @@ import java.io.InputStreamReader
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
-import androidx.core.graphics.createBitmap
-import androidx.core.content.edit
 
 object Utils {
     var notificationPanelVisible = false
@@ -180,7 +180,7 @@ object Utils {
             } else if (value is Int) {
                 type = "integer"
             }
-            if (value !is Set<*>)
+            if (value !is Set<*> && !value.toString().contains("://"))
                 stringBuilder.append(type).append(" ").append(key).append(" ")
                     .append(value.toString()).append("\n")
         }

@@ -488,11 +488,19 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             activeNotifications.filterNot { ignoredApps.contains(it.packageName) }.sortedWith(
                 compareByDescending { AppUtils.isMediaNotification(it.notification) && it.isOngoing })
                 .toTypedArray<StatusBarNotification>()
-        if (notificationsLv!!.adapter == null)
-            notificationsLv!!.adapter = NotificationAdapter(context, this)
-        (notificationsLv!!.adapter as NotificationAdapter).submitList(notifications.toList())
+        var adapter = notificationsLv!!.adapter
+        if (adapter is NotificationAdapter)
+            adapter.updateNotifications(notifications)
+        else {
+            adapter = NotificationAdapter(
+                context,
+                notifications,
+                this
+            )
+            notificationsLv!!.adapter = adapter
+        }
         val layoutParams = notificationsLv!!.layoutParams
-        val count = notificationsLv!!.adapter!!.itemCount
+        val count = adapter.itemCount
         if (count > 3) {
             layoutParams.height = Utils.dpToPx(context, 232)
         } else layoutParams.height = -2

@@ -1,6 +1,5 @@
 package cu.axel.smartdock.services
 
-import android.Manifest
 import android.accessibilityservice.AccessibilityService
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -19,7 +18,6 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.ActivityInfo
 import android.content.pm.LauncherApps
-import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.res.Configuration
 import android.hardware.usb.UsbManager
@@ -58,7 +56,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextClock
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
@@ -279,12 +276,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             } else performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
         }
         pinBtn.setOnClickListener { togglePin() }
-        bluetoothBtn.setOnClickListener { toggleBluetooth() }
+        bluetoothBtn.setOnClickListener { openBluetoothSettings() }
         bluetoothBtn.setOnLongClickListener {
-            launchApp(
-                null, null,
-                Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
-            )
+            openBluetoothSettings()
             true
         }
         wifiBtn.setOnClickListener { toggleWifi() }
@@ -1679,24 +1673,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
     }
 
-    private fun toggleBluetooth() {
-        try {
-            if (bluetoothManager.adapter.isEnabled) {
-                bluetoothBtn.setImageResource(R.drawable.ic_bluetooth_off)
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.BLUETOOTH_CONNECT
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    return
-                }
-                bluetoothManager.adapter.disable()
-            } else {
-                bluetoothBtn.setImageResource(R.drawable.ic_bluetooth)
-                bluetoothManager.adapter.enable()
-            }
-        } catch (_: Exception) {
-        }
+    private fun openBluetoothSettings() {
+        launchApp(
+            null, null,
+            Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
+        )
     }
 
     private fun toggleWifi() {
