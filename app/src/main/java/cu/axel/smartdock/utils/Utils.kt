@@ -2,7 +2,6 @@ package cu.axel.smartdock.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.UriMatcher
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.ImageDecoder
@@ -17,6 +16,8 @@ import android.provider.MediaStore
 import android.view.Display
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.edit
+import androidx.core.graphics.createBitmap
 import androidx.preference.PreferenceManager
 import cu.axel.smartdock.R
 import java.io.BufferedReader
@@ -28,10 +29,6 @@ import java.io.InputStreamReader
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
-import androidx.core.graphics.createBitmap
-import androidx.core.content.edit
-import androidx.core.net.UriCompat
-import androidx.core.net.toUri
 
 object Utils {
     var notificationPanelVisible = false
