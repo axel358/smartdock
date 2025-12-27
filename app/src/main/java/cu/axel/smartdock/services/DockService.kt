@@ -281,10 +281,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         pinBtn.setOnClickListener { togglePin() }
         bluetoothBtn.setOnClickListener { toggleBluetooth() }
         bluetoothBtn.setOnLongClickListener {
-            launchApp(
-                null, null,
-                Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
-            )
+            openBluetoothSettings()
             true
         }
         wifiBtn.setOnClickListener { toggleWifi() }
@@ -1676,9 +1673,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun toggleBluetooth() {
-        try {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || AppUtils.isSystemApp(
+                this,
+                packageName
+            )
+        ) {
             if (bluetoothManager.adapter.isEnabled) {
-                bluetoothBtn.setImageResource(R.drawable.ic_bluetooth_off)
                 if (ActivityCompat.checkSelfPermission(
                         this,
                         Manifest.permission.BLUETOOTH_CONNECT
@@ -1686,13 +1686,22 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 ) {
                     return
                 }
+                bluetoothBtn.setImageResource(R.drawable.ic_bluetooth_off)
                 bluetoothManager.adapter.disable()
             } else {
                 bluetoothBtn.setImageResource(R.drawable.ic_bluetooth)
                 bluetoothManager.adapter.enable()
             }
-        } catch (_: Exception) {
+        } else {
+            openBluetoothSettings()
         }
+    }
+
+    private fun openBluetoothSettings() {
+        launchApp(
+            null, null,
+            Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
+        )
     }
 
     private fun toggleWifi() {
