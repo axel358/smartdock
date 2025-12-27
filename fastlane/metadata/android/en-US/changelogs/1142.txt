@@ -1,2 +1,3 @@
 - Fix dock apps not getting updated properly
 - Fix crashes related to restoring preferences
+- Drop custom bluetooth handling, use Android settings screen instead
