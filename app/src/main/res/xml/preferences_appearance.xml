@@ -1,5 +1,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/look_and_feel">
+    <PreferenceCategory android:title="@string/general">
+        <Preference
+            android:key="dock_layout"
+            android:title="@string/dock_layout" />
 
         <ListPreference
             android:defaultValue="dark"
@@ -13,10 +16,6 @@
             android:summary="@string/theme_main_color_summary"
             android:title="@string/theme_main_color_title" />
 
-        <Preference
-            android:key="dock_layout"
-            android:title="@string/dock_layout" />
-
         <ListPreference
             android:defaultValue="circle"
             android:entries="@array/icon_shapes"
@@ -25,19 +24,30 @@
             android:title="@string/icon_shape_title" />
 
         <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="single_line_labels"
+            android:title="@string/single_line_labels" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/dock">
+        <SwitchPreferenceCompat
+            android:key="override_dock_background_alpha"
+            android:title="@string/override_dock_background_opacity" />
+
+        <cu.axel.smartdock.preferences.SliderPreference
+            android:defaultValue="255"
+            android:dependency="override_dock_background_alpha"
+            android:key="dock_background_alpha"
+            android:title="@string/dock_background_opacity" />
+
+        <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="round_dock"
             android:title="@string/round_dock" />
 
         <SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="single_line_labels"
-            android:title="@string/single_line_labels" />
-
-        <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="tint_indicators"
             android:title="@string/tint_indicators_title" />
-
     </PreferenceCategory>
 </PreferenceScreen>
