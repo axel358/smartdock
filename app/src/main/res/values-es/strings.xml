@@ -39,7 +39,7 @@
 
     <!-- Appearance page -->
     <string name="appearance">Apariencia</string>
-    <string name="theme_title">Tema del Dock</string>
+    <string name="theme_title">Tema</string>
     <string name="dark">Oscuro</string>
     <string name="black">Negro</string>
     <string name="transparent">Transparente</string>
@@ -48,9 +48,9 @@
     <string name="theme_main_color_title">Color principal</string>
     <string name="theme_main_color_summary">Define el color principal para los fondos de los elementos.</string>
     <string name="choose_color">Elegir color</string>
-    <string name="transparency">Transparencia</string>
+    <string name="opacity">Opacidad</string>
     <string name="invalid_color">Color no válido</string>
-    <string name="dock_layout">Diseño del Dock</string>
+    <string name="dock_layout">Diseño</string>
     <string name="wallpaper">Fondo de pantalla</string>
     <string name="presets">Predefinidos</string>
     <string name="icon_shape_title">Forma de icono</string>
@@ -325,7 +325,7 @@
     <string name="launch_assistant">Abrir app asistente</string>
     <string name="lock_device">Bloquear pantalla</string>
     <string name="toggle_split_screen">Activar pantalla dividida</string>
-    <string name="dock_background_transparency">Dock background transparency</string>
-    <string name="override_dock_background_alpha">Override background transparency</string>
+    <string name="dock_background_opacity">Opacidad del fondo</string>
+    <string name="override_dock_background_opacity">Opacidad del fondo perzonalizada</string>
 
 </resources>

@@ -39,7 +39,7 @@
 
     <!-- Appearance page -->
     <string name="appearance">ਦਿੱਖਣਾ</string>
-    <string name="theme_title">ਡੌਕ ਥੀਮ</string>
+    <string name="theme_title">Theme</string>
     <string name="dark">ਹਨੇਰ</string>
     <string name="black">ਕਾਲਾ</string>
     <string name="transparent">ਪਾਰਦਰਸ਼ੀ</string>
@@ -48,9 +48,9 @@
     <string name="theme_main_color_title">ਥੀਮ ਦਾ ਮੁੱਖ ਰੰਗ</string>
     <string name="theme_main_color_summary">ਆਈਟਮ ਬੈਕਗਰਾਊਂਡ ਲਈ ਮੁੱਖ ਰੰਗ ਪਰਿਭਾਸ਼ਿਤ ਕਰਦਾ ਹੈ</string>
     <string name="choose_color">ਰੰਗ ਚੁਣੋ</string>
-    <string name="transparency">ਪਾਰਦਰਸ਼ਤਾ</string>
+    <string name="opacity">Opacity</string>
     <string name="invalid_color">ਅਵੈਧ ਰੰਗ</string>
-    <string name="dock_layout">ਡੋਕ ਲੇਆਉਟ</string>
+    <string name="dock_layout">Layout</string>
     <string name="wallpaper">ਵਾਲਪੇਪਰ</string>
     <string name="presets">ਪ੍ਰੀਸੈਟਸ</string>
     <string name="icon_shape_title">ਆਈਕਨ ਆਕਾਰ</string>
@@ -328,7 +328,7 @@
     <string name="toggle_split_screen">ਤੌਗਲ ਸਪਲਿਟ ਸਕਰੀਨ</string>
 
     <string name="hot_corners_help">ਕਾਰਨਰ ਦੇ ਐਕਸ਼ਨਾਂ ਨੂੰ ਚਾਲੂ ਕਰਨ ਲਈ ਮਾਊਸ ਪੁਆਇੰਟਰ ਨੂੰ ਉਹਨਾਂ ਉੱਤੇ ਰੱਖੋ</string>
-    <string name="dock_background_transparency">Dock background transparency</string>
-    <string name="override_dock_background_alpha">Override background transparency</string>
+    <string name="dock_background_opacity">Background opacity</string>
+    <string name="override_dock_background_opacity">Override background opacity</string>
 
 </resources>

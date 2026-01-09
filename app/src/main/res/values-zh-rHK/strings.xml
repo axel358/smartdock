@@ -39,7 +39,7 @@
 
     <!-- Appearance page -->
     <string name="appearance">外觀</string>
-    <string name="theme_title">Dock 主題</string>
+    <string name="theme_title">Theme</string>
     <string name="dark">深色</string>
     <string name="black">黑色</string>
     <string name="transparent">透明</string>
@@ -48,9 +48,9 @@
     <string name="theme_main_color_title">主色</string>
     <string name="theme_main_color_summary">定義項目背景的主色</string>
     <string name="choose_color">選擇顏色</string>
-    <string name="transparency">透明度</string>
+    <string name="opacity">Opacity</string>
     <string name="invalid_color">無效的顏色</string>
-    <string name="dock_layout">Dock 佈局</string>
+    <string name="dock_layout">Layout</string>
     <string name="wallpaper">壁紙</string>
     <string name="presets">預設</string>
     <string name="icon_shape_title">圖示形狀</string>
@@ -328,7 +328,7 @@
     <string name="toggle_split_screen">Toggle split screen</string>
 
     <string name="hot_corners_help">Hover the mouse pointer over the corners to trigger their actions</string>
-    <string name="dock_background_transparency">Dock background transparency</string>
-    <string name="override_dock_background_alpha">Override background transparency</string>
+    <string name="dock_background_opacity">Background opacity</string>
+    <string name="override_dock_background_opacity">Override background opacity</string>
 
 </resources>

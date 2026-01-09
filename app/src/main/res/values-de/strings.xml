@@ -39,7 +39,7 @@
 
     <!-- Appearance page -->
     <string name="appearance">Aussehen</string>
-    <string name="theme_title">Dock Design</string>
+    <string name="theme_title">Design</string>
     <string name="dark">Dunkel</string>
     <string name="black">Schwarz</string>
     <string name="transparent">Transparent</string>
@@ -48,9 +48,9 @@
     <string name="theme_main_color_title">Hauptfarbe</string>
     <string name="theme_main_color_summary">Definiert Hauptfarbe für Gegenstandshintergründe</string>
     <string name="choose_color">Wähle Fabe</string>
-    <string name="transparency">Transparenz</string>
+    <string name="opacity">Opacity</string>
     <string name="invalid_color">Ungültige Farbe</string>
-    <string name="dock_layout">Dock Layout</string>
+    <string name="dock_layout">Layout</string>
     <string name="wallpaper">Hintergrund</string>
     <string name="presets">Voreinstellungen</string>
     <string name="icon_shape_title">Symbol-Form</string>
@@ -327,7 +327,7 @@
     <string name="lock_device">Lock device</string>
     <string name="toggle_split_screen">Toggle split screen</string>
     <string name="hot_corners_help">Hover the mouse pointer over the corners to trigger their actions</string>
-    <string name="dock_background_transparency">Dock background transparency</string>
-    <string name="override_dock_background_alpha">Override background transparency</string>
+    <string name="dock_background_opacity">Background opacity</string>
+    <string name="override_dock_background_opacity">Override background opacity</string>
 
 </resources>

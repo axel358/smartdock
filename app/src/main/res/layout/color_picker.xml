@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="@string/transparency" />
+        android:text="@string/opacity" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -121,7 +121,7 @@
 
         <com.google.android.material.slider.Slider
             android:id="@+id/color_alpha_sb"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:stepSize="1"
