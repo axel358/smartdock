@@ -225,8 +225,7 @@ object DeviceUtils {
     }
 
     fun getSecondaryDisplay(context: Context): Display {
-        val displays = getDisplays(context, DisplayManager.DISPLAY_CATEGORY_PRESENTATION)
-        return displays[0]
+        return getDisplays(context).last()
     }
 
     fun getDisplayMetrics(
