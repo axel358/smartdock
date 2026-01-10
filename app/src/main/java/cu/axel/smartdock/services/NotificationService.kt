@@ -80,7 +80,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         actionsHeight = Utils.dpToPx(context, 20)
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
         notificationLayoutParams = Utils.makeWindowParams(
-            Utils.dpToPx(context, 300), LinearLayout.LayoutParams.WRAP_CONTENT, context,
+            Utils.dpToPx(context, 300), LinearLayout.LayoutParams.WRAP_CONTENT, this,
             preferLastDisplay
         )
         margins = Utils.dpToPx(context, 2)
@@ -97,7 +97,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
             ) == 0
         ) Gravity.CENTER_HORIZONTAL else Gravity.END
         notificationLayoutParams.y = y
-        notificationLayout = LayoutInflater.from(this).inflate(
+        notificationLayout = LayoutInflater.from(context).inflate(
             R.layout.notification_entry,
             null
         ) as LinearLayout
