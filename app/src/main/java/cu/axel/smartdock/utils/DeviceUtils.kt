@@ -240,7 +240,7 @@ object DeviceUtils {
     }
 
     fun getDisplayContext(context: Context, secondary: Boolean = false): Context {
-        return if (secondary) context.createDisplayContext(getSecondaryDisplay(context)) else context
+        return if (secondary && getDisplays(context).size > 1) context.createDisplayContext(getSecondaryDisplay(context)) else context
     }
 
     @SuppressLint("PrivateApi")
