@@ -65,7 +65,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private lateinit var notificationActionsLayout: LinearLayout
     private lateinit var context: Context
     private var notificationArea: LinearLayout? = null
-    private var preferLastDisplay = false
+    private var preferSecondaryDisplay = false
     private var y = 0
     private var margins = 0
     private var dockHeight: Int = 0
@@ -75,18 +75,18 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         super.onCreate()
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-        preferLastDisplay = sharedPreferences.getBoolean("prefer_last_display", false)
-        context = DeviceUtils.getDisplayContext(this, preferLastDisplay)
+        preferSecondaryDisplay = sharedPreferences.getBoolean("prefer_last_display", false)
+        context = DeviceUtils.getDisplayContext(this, preferSecondaryDisplay)
         actionsHeight = Utils.dpToPx(context, 20)
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
         notificationLayoutParams = Utils.makeWindowParams(
             Utils.dpToPx(context, 300), LinearLayout.LayoutParams.WRAP_CONTENT, this,
-            preferLastDisplay
+            preferSecondaryDisplay
         )
         margins = Utils.dpToPx(context, 2)
         dockHeight =
             Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
-        y = (if (DeviceUtils.shouldApplyNavbarFix())
+        y = (if (DeviceUtils.shouldApplyNavbarFix() && !(preferSecondaryDisplay && DeviceUtils.getDisplays(this).size > 1))
             dockHeight - DeviceUtils.getNavBarHeight(context)
         else
             dockHeight) + margins
@@ -342,7 +342,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     fun showNotificationPanel() {
         val layoutParams = Utils.makeWindowParams(
             Utils.dpToPx(context, 400), -2, context,
-            preferLastDisplay
+            preferSecondaryDisplay
         )
         layoutParams.gravity = Gravity.BOTTOM or Gravity.END
         layoutParams.y = y
@@ -561,7 +561,7 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     private fun updateLayoutParams() {
         dockHeight =
             Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
-        y = (if (DeviceUtils.shouldApplyNavbarFix())
+        y = (if (DeviceUtils.shouldApplyNavbarFix() && !(preferSecondaryDisplay && DeviceUtils.getDisplays(this).size > 1))
             dockHeight - DeviceUtils.getNavBarHeight(context)
         else
             dockHeight) + margins
