@@ -203,7 +203,6 @@
     <string name="these_settings_are_intended_fo">Estos ajustes están destinados a usuarios avanzados. Solo cámbialas si sabes lo que estás haciendo.</string>
     <string name="prefer_last_display">Preferir pantallas secundaries</string>
     <string name="prefer_last_display_summary">Preferir pantallas secundarias para mostrar aplicaciones y el Dock</string>
-    <string name="restart_accessibility">Cambiar este ajuste requiere reiniciar el servicio de accessibilidad</string>
     <string name="open_accessibility">Abrir Accesibilidad</string>
     <string name="custom_toasts">Toasts personalizados</string>
     <string name="custom_toasts_summary">Mostrar Toasts perzonalizados para apps cuando el dock se muestra</string>

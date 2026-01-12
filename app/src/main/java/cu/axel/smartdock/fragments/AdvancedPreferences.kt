@@ -6,11 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.core.content.edit
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -21,7 +21,6 @@ import cu.axel.smartdock.R
 import cu.axel.smartdock.preferences.SliderPreference
 import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
-import androidx.core.content.edit
 
 private const val SAVE_REQUEST_CODE = 236
 private const val OPEN_REQUEST_CODE = 632
@@ -33,10 +32,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
         val preferLastDisplay = findPreference<Preference>("prefer_last_display")
         preferLastDisplay!!.isVisible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
         var hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(requireContext())
-        preferLastDisplay.setOnPreferenceClickListener {
-            showAccessibilityDialog(requireContext())
-            true
-        }
+
         findPreference<Preference>("soft_reboot")!!.setOnPreferenceClickListener {
             DeviceUtils.softReboot()
             false
@@ -224,17 +220,6 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             if (softReboot) DeviceUtils.softReboot() else DeviceUtils.reboot()
         }
         dialog.setNegativeButton(getString(R.string.cancel), null)
-        dialog.show()
-    }
-
-    private fun showAccessibilityDialog(context: Context) {
-        val dialog = MaterialAlertDialogBuilder(context)
-        dialog.setTitle(R.string.restart)
-        dialog.setMessage(R.string.restart_accessibility)
-        dialog.setNegativeButton(getString(R.string.cancel), null)
-        dialog.setPositiveButton(
-            getString(R.string.open_accessibility)
-        ) { _, _ -> startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)) }
         dialog.show()
     }
 

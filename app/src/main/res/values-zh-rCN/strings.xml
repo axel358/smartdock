@@ -198,7 +198,6 @@
     <string name="these_settings_are_intended_fo">这些设置适用于高级用户。只有在知道自己在做什么的情况下才更改</string>
     <string name="prefer_last_display">优先使用最后连接的屏幕</string>
     <string name="prefer_last_display_summary">优先在最后连接的屏幕上显示应用和Dock</string>
-    <string name="restart_accessibility">更改此设置需要重新启动无障碍服务</string>
     <string name="open_accessibility">打开无障碍</string>
     <string name="custom_toasts">自定义Toast</string>
     <string name="custom_toasts_summary">在显示Dock时为应用显示自定义Toast</string>

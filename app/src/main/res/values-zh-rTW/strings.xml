@@ -198,7 +198,6 @@
     <string name="these_settings_are_intended_fo">這些設定適用於進階使用者。只有在知道自己在做什麼時才更改</string>
     <string name="prefer_last_display">偏好最後連接的螢幕</string>
     <string name="prefer_last_display_summary">偏好最後連接的螢幕顯示應用程式和 Dock</string>
-    <string name="restart_accessibility">更改此設定需要重新啟動無障礙服務</string>
     <string name="open_accessibility">開啟無障礙</string>
     <string name="custom_toasts">自訂 Toast</string>
     <string name="custom_toasts_summary">在 Dock 顯示時顯示自訂 Toast</string>

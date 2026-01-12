@@ -198,7 +198,6 @@
     <string name="these_settings_are_intended_fo">Diese Einstellungen sind für fortgeschrittene Benutzer gedacht. Ändern Sie sie nur, wenn Sie wissen, was Sie tun.</string>
     <string name="prefer_last_display">Bevorzugen Sie die zuletzt angebrachte Anzeige</string>
     <string name="prefer_last_display_summary">Bevorzugen Sie das zuletzt angeschlossene Display für die Anzeige von Anwendungen und des Docks</string>
-    <string name="restart_accessibility">Das Ändern dieser Einstellung erfordert einen Neustart des Erreichbarkeitsdienstes</string>
     <string name="open_accessibility">Öffne Barrierefreiheit</string>
     <string name="custom_toasts">Eigene Toasts</string>
     <string name="custom_toasts_summary">Integrierte benutzerdefinierte Toasts für Anwendungen verwenden, wenn das Dock angeheftet ist</string>
