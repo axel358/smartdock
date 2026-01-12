@@ -17,7 +17,7 @@ class BatteryStatsReceiver(
     var level = 0
 
     init {
-        val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+        val batteryManager = context.applicationContext.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
         level = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
         update(batteryManager.isCharging)
     }
