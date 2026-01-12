@@ -600,4 +600,9 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         notificationsLv = null
         cancelAllBtn = null
     }
+
+    override fun onDestroy() {
+        removeAllViews()
+        super.onDestroy()
+    }
 }

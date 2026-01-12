@@ -1721,10 +1721,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             unregisterReceiver(soundEventsReceiver)
         if (::displayListener.isInitialized && ::displayManager.isInitialized)
             displayManager.unregisterDisplayListener(displayListener)
-        try {
-            windowManager.removeView(dock)
-        } catch (_: Exception) {
-        }
+        removeAllViews()
         super.onDestroy()
     }
 
@@ -2044,12 +2041,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             appMenu?.let { windowManager.removeViewImmediate(it) }
             topRightCorner?.let { windowManager.removeViewImmediate(it) }
             bottomRightCorner?.let { windowManager.removeViewImmediate(it) }
-        } catch (_: Exception) {
-        }
+        } catch (_: Exception) {}
 
         dock = null
         dockHandle = null
         appMenu = null
+        topRightCorner = null
+        bottomRightCorner = null
     }
 
     inner class HotCornersHoverListener(val key: String) : View.OnHoverListener {
