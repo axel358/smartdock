@@ -2,9 +2,7 @@ package cu.axel.smartdock.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.text.InputType
-import android.view.inputmethod.EditorInfo
-import androidx.preference.EditTextPreference
+import androidx.core.content.edit
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -13,7 +11,6 @@ import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.LabelFormatter
 import cu.axel.smartdock.R
 import cu.axel.smartdock.preferences.SliderPreference
-import androidx.core.content.edit
 
 class DockPreferences : PreferenceFragmentCompat() {
     override fun onCreatePreferences(arg0: Bundle?, arg1: String?) {
@@ -72,16 +69,6 @@ class DockPreferences : PreferenceFragmentCompat() {
             activationArea.isVisible = newValue.toString() == "swipe"
             handlePosition.isVisible = handleOpacity.isVisible
             true
-        }
-
-        val maxRunningApps: EditTextPreference = findPreference("max_running_apps")!!
-        maxRunningApps.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER
-            editText.imeOptions = EditorInfo.IME_ACTION_GO
-        }
-        maxRunningApps.setOnPreferenceChangeListener { _, newValue ->
-            val value = newValue as String
-            value.isNotEmpty() && value.toInt() < 50
         }
     }
 

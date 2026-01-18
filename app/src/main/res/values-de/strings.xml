@@ -121,8 +121,7 @@
     <string name="pin_windowed">Anheften bei Fensteranwendungen</string>
     <string name="unpin_fullscreen">Anheften bei Vollbildanwendungen aufheben</string>
     <string name="running_apps_number_title">Anzahl der laufenden/letzten Anwendungen, die angezeigt werden sollen</string>
-    <string name="max_running_apps_landscape">Max. aktuelle Anwendungen (Querformat)</string>
-    <string name="max_running_apps_portrait">Maximal verfügbare Anwendungen (Hochformat)</string>
+    <string name="max_running_apps">Maximal verfügbare Anwendungen</string>
     <string name="center_running_apps_title">Zentrale laufende Anwendungen</string>
     <string name="dock_activation_area_title">Aktivierungsbereich Dock</string>
     <string name="dock_activation_area_summary">Die Höhe des unsichtbaren Aktivierungsbereichs am unteren Bildschirmrand</string>

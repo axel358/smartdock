@@ -121,8 +121,7 @@
     <string name="pin_windowed">窗口应用固定</string>
     <string name="unpin_fullscreen">全屏应用取消固定</string>
     <string name="running_apps_number_title">显示的运行中/最近应用数量</string>
-    <string name="max_running_apps_landscape">最大应用数(横屏)</string>
-    <string name="max_running_apps_portrait">最大应用数(竖屏)</string>
+    <string name="max_running_apps">最大应用数</string>
     <string name="center_running_apps_title">居中显示运行中应用</string>
     <string name="dock_activation_area_title">Dock激活区域</string>
     <string name="dock_activation_area_summary">屏幕底部的不可见激活区域的高度</string>

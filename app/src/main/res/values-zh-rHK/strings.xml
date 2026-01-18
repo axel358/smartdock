@@ -121,8 +121,7 @@
     <string name="pin_windowed">窗口應用程式釘選</string>
     <string name="unpin_fullscreen">全螢幕應用程式取消釘選</string>
     <string name="running_apps_number_title">顯示的運行/最近應用程式數量</string>
-    <string name="max_running_apps_landscape">最大最近應用程式（橫向）</string>
-    <string name="max_running_apps_portrait">最大最近應用程式（縱向）</string>
+    <string name="max_running_apps">最大最近應用程式</string>
     <string name="center_running_apps_title">居中運行的應用程式</string>
     <string name="dock_activation_area_title">Dock 啟動區域</string>
     <string name="dock_activation_area_summary">螢幕底部的隱形啟動區域的高度</string>

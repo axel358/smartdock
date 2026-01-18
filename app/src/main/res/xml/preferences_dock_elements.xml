@@ -1,0 +1,68 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/navigation">
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="enable_nav_apps"
+            android:summary="@string/enable_apps_btn_summary"
+            android:title="@string/enable_apps_btn" />
+        <cu.axel.smartdock.preferences.NavActionChooserPreference
+            android:defaultValue="true"
+            android:key="enable_nav_back"
+            android:title="@string/enable_nav_back_title" />
+        <cu.axel.smartdock.preferences.NavActionChooserPreference
+            android:defaultValue="true"
+            android:key="enable_nav_home"
+            android:title="@string/enable_nav_home_title" />
+        <cu.axel.smartdock.preferences.NavActionChooserPreference
+            android:defaultValue="true"
+            android:key="enable_nav_recents"
+            android:title="@string/enable_nav_recents_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="enable_nav_assist"
+            android:title="@string/enable_nav_assist_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/quick_settings">
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="enable_qs_notif"
+            android:title="@string/enable_notif_btn" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="enable_qs_bluetooth"
+            android:title="@string/enable_qs_bluetooth_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="enable_qs_battery"
+            android:title="@string/enable_qs_battery_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:dependency="enable_qs_battery"
+            android:key="show_battery_level"
+            android:title="Display battery level" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="enable_qs_wifi"
+            android:title="@string/enable_qs_wifi_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="enable_qs_vol"
+            android:title="@string/enable_qs_vol_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="enable_qs_date"
+            android:title="@string/enable_qs_date_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="enable_qs_pin"
+            android:summary="@string/enable_qs_pin_summary"
+            android:title="@string/enable_qs_pin_title" />
+
+        <EditTextPreference
+            android:defaultValue="10"
+            android:hint="10"
+            android:key="max_running_apps"
+            android:summary="@string/running_apps_number_title"
+            android:title="@string/max_running_apps" />
+    </PreferenceCategory>
+</PreferenceScreen>

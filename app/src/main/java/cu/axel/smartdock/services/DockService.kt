@@ -113,6 +113,7 @@ const val DOCK_SERVICE_ACTION = "dock_service_action"
 class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, OnTouchListener,
     OnAppClickListener, OnDockAppClickListener {
 
+    private var orientationValue: String = ""
     private var orientation = -1
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var activityManager: ActivityManager
@@ -294,7 +295,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         batteryReceiver = BatteryStatsReceiver(
             context,
             batteryBtn,
-            sharedPreferences.getBoolean("show_battery_level", false)
+            sharedPreferences.getBoolean("show_battery_level$orientationValue", false)
         )
         updateBatteryBtn()
         ContextCompat.registerReceiver(
@@ -1261,7 +1262,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             updateDockHeight()
         else if (preference == "handle_position")
             updateHandlePosition()
-        else if (preference == "show_battery_level")
+        else if (preference.startsWith("show_battery_level"))
             updateBatteryBtn()
         else if (preference == "dock_background_alpha")
             applyDockAlpha()
@@ -1376,7 +1377,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         orientation = newConfig.orientation
+        orientationValue =
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) "" else "_landscape"
         updateRunningTasks()
+        updateNavigationBar()
+        updateQuickSettings()
+        updateBatteryBtn()
     }
 
     private fun updateDockShape() {
@@ -1392,18 +1398,30 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun updateNavigationBar() {
         appsBtn.visibility =
-            if (sharedPreferences.getBoolean("enable_nav_apps", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean(
+                    "enable_nav_apps$orientationValue",
+                    true
+                )
+            ) View.VISIBLE else View.GONE
         backBtn.visibility =
-            if (sharedPreferences.getBoolean("enable_nav_back", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean(
+                    "enable_nav_back$orientationValue",
+                    true
+                )
+            ) View.VISIBLE else View.GONE
         homeBtn.visibility =
-            if (sharedPreferences.getBoolean("enable_nav_home", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean(
+                    "enable_nav_home$orientationValue",
+                    true
+                )
+            ) View.VISIBLE else View.GONE
         recentBtn.visibility = if (sharedPreferences.getBoolean(
-                "enable_nav_recents",
+                "enable_nav_recents$orientationValue",
                 true
             )
         ) View.VISIBLE else View.GONE
         assistBtn.visibility = if (sharedPreferences.getBoolean(
-                "enable_nav_assist",
+                "enable_nav_assist$orientationValue",
                 false
             )
         ) View.VISIBLE else View.GONE
@@ -1411,25 +1429,45 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
     private fun updateQuickSettings() {
         notificationBtn.visibility =
-            if (sharedPreferences.getBoolean("enable_qs_notif", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean(
+                    "enable_qs_notif$orientationValue",
+                    true
+                )
+            ) View.VISIBLE else View.GONE
         bluetoothBtn.visibility = if (sharedPreferences.getBoolean(
-                "enable_qs_bluetooth",
+                "enable_qs_bluetooth$orientationValue",
                 false
             )
         ) View.VISIBLE else View.GONE
         batteryBtn.visibility = if (sharedPreferences.getBoolean(
-                "enable_qs_battery",
+                "enable_qs_battery$orientationValue",
                 false
             )
         ) View.VISIBLE else View.GONE
         wifiBtn.visibility =
-            if (sharedPreferences.getBoolean("enable_qs_wifi", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean(
+                    "enable_qs_wifi$orientationValue",
+                    true
+                )
+            ) View.VISIBLE else View.GONE
         pinBtn.visibility =
-            if (sharedPreferences.getBoolean("enable_qs_pin", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean(
+                    "enable_qs_pin$orientationValue",
+                    true
+                )
+            ) View.VISIBLE else View.GONE
         volumeBtn.visibility =
-            if (sharedPreferences.getBoolean("enable_qs_vol", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean(
+                    "enable_qs_vol$orientationValue",
+                    true
+                )
+            ) View.VISIBLE else View.GONE
         dateTv.visibility =
-            if (sharedPreferences.getBoolean("enable_qs_date", true)) View.VISIBLE else View.GONE
+            if (sharedPreferences.getBoolean(
+                    "enable_qs_date$orientationValue",
+                    true
+                )
+            ) View.VISIBLE else View.GONE
     }
 
     private fun launchAssistant() {
@@ -1615,7 +1653,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private fun updateBatteryBtn() {
         val xP = Utils.dpToPx(context, 6)
         val yP = Utils.dpToPx(context, 5)
-        if (sharedPreferences.getBoolean("show_battery_level", false)) {
+        if (sharedPreferences.getBoolean("show_battery_level$orientationValue", false)) {
             batteryBtn.setPadding(yP)
             batteryBtn.setBackgroundResource(R.drawable.round_rect)
             batteryReceiver.showLevel = true
@@ -1740,6 +1778,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         context = DeviceUtils.getDisplayContext(this, preferSecondaryDisplay)
         windowManager = context.getSystemService(WINDOW_SERVICE) as WindowManager
         orientation = context.resources.configuration.orientation
+        orientationValue =
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) "" else "_landscape"
 
         createDock()
         createHotCorners()
@@ -2041,7 +2081,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             appMenu?.let { windowManager.removeViewImmediate(it) }
             topRightCorner?.let { windowManager.removeViewImmediate(it) }
             bottomRightCorner?.let { windowManager.removeViewImmediate(it) }
-        } catch (_: Exception) {}
+        } catch (_: Exception) {
+        }
 
         dock = null
         dockHandle = null

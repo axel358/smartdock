@@ -1,118 +1,48 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:title="@string/navigation">
-		<SwitchPreferenceCompat
-            android:key="enable_nav_apps"
-            android:title="@string/enable_apps_btn"
-			android:summary="@string/enable_apps_btn_summary"
-            android:defaultValue="true" />
-        <cu.axel.smartdock.preferences.NavActionChooserPreference
-            android:key="enable_nav_back"
-            android:title="@string/enable_nav_back_title"
-            android:defaultValue="true" />
-        <cu.axel.smartdock.preferences.NavActionChooserPreference
-            android:key="enable_nav_home"
-            android:title="@string/enable_nav_home_title"
-            android:defaultValue="true" />
-        <cu.axel.smartdock.preferences.NavActionChooserPreference
-            android:key="enable_nav_recents"
-            android:title="@string/enable_nav_recents_title"
-            android:defaultValue="true" />
-        <SwitchPreferenceCompat
-            android:key="enable_nav_assist"
-            android:title="@string/enable_nav_assist_title"
-            android:defaultValue="false" />
+    <PreferenceCategory android:title="Dock elements">
+     <PreferenceScreen
+         android:title="Dock elements(portrait)"
+         android:fragment="cu.axel.smartdock.fragments.DockElementsPreferences"/>
+        <PreferenceScreen
+            android:title="Dock elements(landscape)"
+            android:fragment="cu.axel.smartdock.fragments.DockElementsLandscapePreferences"/>
     </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/quick_settings">
-		<SwitchPreferenceCompat
-			android:title="@string/enable_notif_btn"
-			android:key="enable_qs_notif"
-			android:defaultValue="false"
-			/>
-        <SwitchPreferenceCompat
-            android:key="enable_qs_bluetooth"
-            android:title="@string/enable_qs_bluetooth_title"
-            android:defaultValue="false" />
-        <SwitchPreferenceCompat
-            android:key="enable_qs_battery"
-            android:title="@string/enable_qs_battery_title"
-            android:defaultValue="false" />
-		<SwitchPreferenceCompat
-			android:key="show_battery_level"
-			android:title="Display battery level"
-			android:dependency="enable_qs_battery"
-			android:defaultValue="false" />
-        <SwitchPreferenceCompat
-            android:key="enable_qs_wifi"
-            android:title="@string/enable_qs_wifi_title"
-            android:defaultValue="true" />
-        <SwitchPreferenceCompat
-            android:key="enable_qs_vol"
-            android:title="@string/enable_qs_vol_title"
-            android:defaultValue="true" />
-        <SwitchPreferenceCompat
-            android:key="enable_qs_date"
-            android:title="@string/enable_qs_date_title"
-            android:defaultValue="true" />
-        <SwitchPreferenceCompat
-            android:key="enable_qs_pin"
-            android:title="@string/enable_qs_pin_title"
-            android:summary="@string/enable_qs_pin_summary"
-            android:defaultValue="true" />
-
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/behaviour">
-		<ListPreference
-			android:summary="@string/activation_method_summary"
-			android:entries="@array/activation_methods" 
-            android:title="@string/activation_method" 
-            android:entryValues="@array/activation_method_values" 
+    <PreferenceCategory android:title="@string/behaviour">
+        <ListPreference
+            android:defaultValue="swipe"
+            android:entries="@array/activation_methods"
+            android:entryValues="@array/activation_method_values"
             android:key="activation_method"
-            android:defaultValue="swipe" />
-		
-		<cu.axel.smartdock.preferences.SliderPreference
-		    android:inputType="number"
-			android:key="handle_opacity"
-			android:defaultValue="0.5"
-			android:title="@string/handle_opacity"/>
+            android:summary="@string/activation_method_summary"
+            android:title="@string/activation_method" />
 
-		<ListPreference
-			android:entries="@array/handle_positions"
-			android:entryValues="@array/handle_positions_values"
-			android:key="handle_position"
-			android:defaultValue="start"
-			android:title="@string/handle_position"/>
-			
-		<cu.axel.smartdock.preferences.SliderPreference
-			android:key="dock_activation_area"
-			android:defaultValue="10"
-			android:summary="@string/dock_activation_area_summary"
-			android:title="@string/dock_activation_area_title"/>
-								
-		<Preference
-			android:key="auto_pin"
-			android:summary="@string/auto_pin_summary"
-			android:title="@string/auto_pin_title"/>
-        
-        <EditTextPreference
-            android:key="max_running_apps"
-            android:hint="10"
+        <cu.axel.smartdock.preferences.SliderPreference
+            android:defaultValue="0.5"
+            android:inputType="number"
+            android:key="handle_opacity"
+            android:title="@string/handle_opacity" />
+
+        <ListPreference
+            android:defaultValue="start"
+            android:entries="@array/handle_positions"
+            android:entryValues="@array/handle_positions_values"
+            android:key="handle_position"
+            android:title="@string/handle_position" />
+
+        <cu.axel.smartdock.preferences.SliderPreference
             android:defaultValue="10"
-			android:title="@string/max_running_apps_portrait"
-			android:summary="@string/running_apps_number_title"/>
+            android:key="dock_activation_area"
+            android:summary="@string/dock_activation_area_summary"
+            android:title="@string/dock_activation_area_title" />
 
-		<EditTextPreference
-			android:key="max_running_apps_landscape"
-			android:hint="10"
-			android:defaultValue="10"
-			android:title="@string/max_running_apps_landscape"
-			android:summary="@string/running_apps_number_title"/>
-        
+        <Preference
+            android:key="auto_pin"
+            android:summary="@string/auto_pin_summary"
+            android:title="@string/auto_pin_title" />
+
         <SwitchPreferenceCompat
+            android:defaultValue="true"
             android:key="center_running_apps"
-            android:title="@string/center_running_apps_title"
-            android:defaultValue="true" />
-           </PreferenceCategory>
+            android:title="@string/center_running_apps_title" />
+    </PreferenceCategory>
 </PreferenceScreen>

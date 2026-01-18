@@ -125,8 +125,7 @@
     <string name="pin_windowed">Pin on windowed apps</string>
     <string name="unpin_fullscreen">Unpin on full screen apps</string>
     <string name="running_apps_number_title">Number of running/recent apps to show</string>
-    <string name="max_running_apps_landscape">Max recent apps (landscape)</string>
-    <string name="max_running_apps_portrait">Max recent apps (portrait)</string>
+    <string name="max_running_apps">Max recent apps</string>
     <string name="center_running_apps_title">Center running apps</string>
     <string name="dock_activation_area_title">Dock activation area</string>
     <string name="dock_activation_area_summary">The height of the invisible activation area at the bottom of the screen</string>

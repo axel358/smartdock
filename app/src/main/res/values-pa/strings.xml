@@ -121,8 +121,7 @@
     <string name="pin_windowed">ਵਿੰਡੋਡ ਐਪਸ \'ਤੇ ਪਿੰਨ ਕਰੋ</string>
     <string name="unpin_fullscreen">ਪੂਰੀ ਸਕ੍ਰੀਨ ਐਪਾਂ \'ਤੇ ਅਨਪਿੰਨ ਕਰੋ</string>
     <string name="running_apps_number_title">ਚੱਲ ਰਹੀਆਂ/ਹਾਲੀਆ ਐਪਾਂ ਦੀ ਦਿਖਾਉਣ ਲਈ ਸੰਖਿਆ</string>
-    <string name="max_running_apps_landscape">ਅਧਿਕਤਮ ਹਾਲੀਆ ਐਪਸ (ਲੈਂਡਸਕੇਪ)</string>
-    <string name="max_running_apps_portrait">ਅਧਿਕਤਮ ਹਾਲੀਆ ਐਪਸ (ਪੋਰਟਰੇਟ)</string>
+    <string name="max_running_apps">ਅਧਿਕਤਮ ਹਾਲੀਆ ਐਪਸ</string>
     <string name="center_running_apps_title">ਸੈਂਟਰ ਚੱਲ ਰਹੀਆਂ ਐਪਾਂ</string>
     <string name="dock_activation_area_title">ਡੌਕ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ</string>
     <string name="dock_activation_area_summary">ਸਕ੍ਰੀਨ ਦੇ ਹੇਠਾਂ ਇਨਵਿਜੀਵਲ ਐਕਟੀਵੇਸ਼ਨ ਖੇਤਰ ਦੀ ਉਚਾਈ</string>
