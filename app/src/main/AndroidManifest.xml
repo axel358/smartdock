@@ -26,6 +26,7 @@
         android:label="@string/app_name"
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher"
+        android:localeConfig="@xml/locales_config"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.MainActivity"
