@@ -1923,7 +1923,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         dockHeight =
             Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
-        dockLayoutParams = Utils.makeWindowParams(-1, dockHeight, context, preferSecondaryDisplay)
+        dockLayoutParams = Utils.makeWindowParams(-1, dockHeight, context, preferSecondaryDisplay, true)
         dockLayoutParams.screenOrientation =
             if (sharedPreferences.getBoolean("lock_landscape", false))
                 ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE

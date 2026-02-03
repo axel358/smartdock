@@ -129,7 +129,8 @@ object Utils {
 
     fun makeWindowParams(
         width: Int, height: Int, context: Context,
-        secondary: Boolean = false
+        secondary: Boolean = false,
+        accessibilityWindow: Boolean = false
     ): WindowManager.LayoutParams {
 
         val displayId =
@@ -142,7 +143,7 @@ object Utils {
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
         layoutParams.type =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                if (accessibilityWindow) WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY else WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
             else
                 WindowManager.LayoutParams.TYPE_PHONE
         layoutParams.width = displayWidth.coerceAtMost(width)
