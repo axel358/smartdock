@@ -58,6 +58,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextClock
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
@@ -1487,14 +1488,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         )
     }
 
-    private fun toggleWifi() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            val enabled = wifiManager.isWifiEnabled
-            val icon = if (!enabled) R.drawable.ic_wifi_on else R.drawable.ic_wifi_off
-            wifiBtn.setImageResource(icon)
-            wifiManager.isWifiEnabled = !enabled
-        } else
-            startActivity(Intent(Settings.Panel.ACTION_WIFI).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    private fun openWiFiSettings() {
+        launchApp(
+            null, null,
+            Intent(Settings.ACTION_WIFI_SETTINGS)
+        )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun showWiFiPanel() {
+        startActivity(Intent(Settings.Panel.ACTION_WIFI).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 
     private fun toggleVolume() {
@@ -1869,17 +1872,21 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             } else performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
         }
         pinBtn.setOnClickListener { togglePin() }
-        bluetoothBtn.setOnClickListener { openBluetoothSettings() }
+        bluetoothBtn.setOnClickListener {
+            openBluetoothSettings()
+        }
         bluetoothBtn.setOnLongClickListener {
             openBluetoothSettings()
             true
         }
-        wifiBtn.setOnClickListener { toggleWifi() }
+        wifiBtn.setOnClickListener {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
+                openWiFiSettings()
+            else
+                showWiFiPanel()
+        }
         wifiBtn.setOnLongClickListener {
-            launchApp(
-                null, null,
-                Intent(Settings.ACTION_WIFI_SETTINGS)
-            )
+            openWiFiSettings()
             true
         }
         volumeBtn.setOnClickListener { toggleVolume() }
