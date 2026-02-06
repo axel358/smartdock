@@ -9,7 +9,7 @@ android {
 	
     defaultConfig {
         applicationId "cu.axel.smartdock"
-        minSdk 24
+        minSdk 28
         targetSdk 34
         versionCode 1142
         versionName "1.14.2"
