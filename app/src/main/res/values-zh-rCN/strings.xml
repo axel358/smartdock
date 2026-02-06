@@ -24,8 +24,6 @@
     <string name="recent_apps_desc">允许在dock中显示最近使用的应用</string>
     <string name="notification_access">通知访问权限</string>
     <string name="notification_access_desc">用于显示通知。如果显示<b>受限设置</b>错误,请点击帮助按钮</string>
-    <string name="device_administrator">设备管理器</string>
-    <string name="device_administrator_desc">用于锁定屏幕。卸载前需要禁用</string>
     <string name="storage">存储权限</string>
     <string name="storage_desc">用于更改菜单图标和事件声音</string>
     <string name="overlays_in_settings">允许在设置中覆盖</string>

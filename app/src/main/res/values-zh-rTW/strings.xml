@@ -24,8 +24,6 @@
     <string name="recent_apps_desc">允許在 Dock 中顯示最近使用的應用程式</string>
     <string name="notification_access">通知存取</string>
     <string name="notification_access_desc">用於顯示通知。如果出現<b>限制設定</b>錯誤，請點擊說明按鈕</string>
-    <string name="device_administrator">裝置管理員</string>
-    <string name="device_administrator_desc">用於鎖定螢幕。卸載前請先停用</string>
     <string name="storage">儲存空間</string>
     <string name="storage_desc">用於更改選單圖示和事件聲音</string>
     <string name="overlays_in_settings">允許在設定中疊加</string>

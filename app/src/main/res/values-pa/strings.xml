@@ -24,8 +24,6 @@
     <string name="recent_apps_desc">ਰਿਸਟ ਐਪਾ ਨੂੰ ਡੋਕ ਵਿੱਚ ਦਿਖਾਉ</string>
     <string name="notification_access">ਨੋਟੀਫੀਕੇਸਨ ਐਕਸੈਸ</string>
     <string name="notification_access_desc">ਨੋਟੀਫੀਕੇਸਨ ਦਿਖਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
-    <string name="device_administrator">ਡਿਵਾਈਸ ਐਡਮਿਨਸਟਰੇਟਰ</string>
-    <string name="device_administrator_desc">ਸਕ੍ਰੀਨ ਨੂੰ ਲਾਕ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ। ਅਣਇੰਸਟੌਲ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਡਿਸਏਬਲ ਕਰੋ</string>
     <string name="storage">ਸਟੋਰੇਜ</string>
     <string name="storage_desc">ਮੀਨੂ ਆਈਕਨ ਅਤੇ ਇਵੈਂਟ ਆਵਾਜ਼ਾਂ ਨੂੰ ਬਦਲਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ</string>
     <string name="overlays_in_settings">ਸੈਟਿਗਾ ਤੇ ਉਵਰਲੇ ਸੂਚਿਤ ਕਰੋ</string>

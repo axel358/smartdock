@@ -418,15 +418,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             return
 
         if (event.eventType == AccessibilityEvent.TYPE_WINDOWS_CHANGED) {
-            if (Build.VERSION.SDK_INT >= 28)
-                if (event.windowChanges.and(AccessibilityEvent.WINDOWS_CHANGE_REMOVED) == AccessibilityEvent.WINDOWS_CHANGE_REMOVED ||
-                    event.windowChanges.and(
-                        AccessibilityEvent.WINDOWS_CHANGE_ADDED
-                    ) == AccessibilityEvent.WINDOWS_CHANGE_ADDED
-                )
-                    updateRunningTasks()
-                else
-                    updateRunningTasks()
+            if (event.windowChanges.and(AccessibilityEvent.WINDOWS_CHANGE_REMOVED) == AccessibilityEvent.WINDOWS_CHANGE_REMOVED ||
+                event.windowChanges.and(
+                    AccessibilityEvent.WINDOWS_CHANGE_ADDED
+                ) == AccessibilityEvent.WINDOWS_CHANGE_ADDED
+            )
+                updateRunningTasks()
         } else if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             if (event.packageName == "com.android.systemui")
                 if (event.contentChangeTypes.and(AccessibilityEvent.CONTENT_CHANGE_TYPE_PANE_APPEARED) == AccessibilityEvent.CONTENT_CHANGE_TYPE_PANE_APPEARED) {
@@ -1148,7 +1145,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     windowManager.removeView(view)
                     launchApp("fullscreen", app.packageName, null, app, newInstance = true)
                 }
-            } else if (Build.VERSION.SDK_INT > 24 && adapterView.getItemAtPosition(position) is ShortcutInfo) {
+            } else if (adapterView.getItemAtPosition(position) is ShortcutInfo) {
                 val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
                 windowManager.removeView(view)
                 DeepShortcutManager.startShortcut(shortcut, context)
@@ -1698,17 +1695,11 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     fun takeScreenshot() {
-        if (Build.VERSION.SDK_INT >= 28)
-            performGlobalAction(GLOBAL_ACTION_TAKE_SCREENSHOT)
-        else
-            DeviceUtils.sendKeyEvent(KeyEvent.KEYCODE_SYSRQ)
+        performGlobalAction(GLOBAL_ACTION_TAKE_SCREENSHOT)
     }
 
     private fun lockScreen() {
-        if (Build.VERSION.SDK_INT >= 28)
-            performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN)
-        else
-            DeviceUtils.lockScreen(context)
+        performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN)
     }
 
     private fun updateHandlePositionValues() {

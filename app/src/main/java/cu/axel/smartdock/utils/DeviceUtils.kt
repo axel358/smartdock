@@ -6,9 +6,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.app.AppOpsManager
-import android.app.admin.DeviceAdminReceiver
-import android.app.admin.DevicePolicyManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
@@ -19,12 +16,14 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.UserHandle
+import android.os.UserManager
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.Display
 import android.view.accessibility.AccessibilityManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import cu.axel.smartdock.services.DockService
 import java.io.BufferedReader
@@ -32,8 +31,6 @@ import java.io.DataOutputStream
 import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
-import android.os.UserManager
-import androidx.core.net.toUri
 
 object DeviceUtils {
     const val DISPLAY_SIZE = "display_density_forced"
@@ -78,20 +75,6 @@ object DeviceUtils {
         return output.toString().trimEnd('\n')
     }
 
-    //Device control
-    fun lockScreen(context: Context) {
-        val devicePolicyManager =
-            context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-        try {
-            devicePolicyManager.lockNow()
-        } catch (_: SecurityException) {
-        }
-    }
-
-    fun sendKeyEvent(keycode: Int) {
-        runAsRoot("input keyevent $keycode")
-    }
-
     fun softReboot() {
         runAsRoot("setprop ctl.restart zygote")
     }
@@ -101,7 +84,7 @@ object DeviceUtils {
     }
 
     fun shutdown() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) runAsRoot("am start -a android.intent.action.ACTION_REQUEST_SHUTDOWN") else runAsRoot(
+        runAsRoot(
             "am start -a com.android.internal.intent.action.REQUEST_SHUTDOWN"
         )
     }
@@ -312,29 +295,6 @@ object DeviceUtils {
             ),
             8
         )
-    }
-
-    fun requestDeviceAdminPermissions(context: Activity) {
-        val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
-        intent.putExtra(
-            DevicePolicyManager.EXTRA_DEVICE_ADMIN,
-            ComponentName(context, DeviceAdminReceiver::class.java)
-        )
-        context.startActivityForResult(intent, 8)
-    }
-
-    fun isDeviceAdminEnabled(context: Context): Boolean {
-        val devicePolicyManager =
-            context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-        val deviceAdmins = devicePolicyManager.activeAdmins
-        if (deviceAdmins != null) {
-            for (deviceAdmin in deviceAdmins) {
-                if (deviceAdmin.packageName == context.packageName) {
-                    return true
-                }
-            }
-        }
-        return false
     }
 
     fun hasRecentAppsPermission(context: Context): Boolean {

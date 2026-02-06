@@ -152,11 +152,7 @@ object AppUtils {
     fun isGame(packageManager: PackageManager, packageName: String): Boolean {
         return try {
             val info = packageManager.getApplicationInfo(packageName, 0)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                info.category == ApplicationInfo.CATEGORY_GAME
-            } else {
-                info.flags and ApplicationInfo.FLAG_IS_GAME == ApplicationInfo.FLAG_IS_GAME
-            }
+            info.category == ApplicationInfo.CATEGORY_GAME
         } catch (_: PackageManager.NameNotFoundException) {
             false
         }
@@ -370,7 +366,7 @@ object AppUtils {
         val windowMode: Int
         if (mode == "fullscreen") windowMode = 1
         else {
-            windowMode = if (Build.VERSION.SDK_INT >= 28) 5 else 2
+            windowMode = 5
             options.setLaunchBounds(
                 makeLaunchBounds(
                     context, mode, dockHeight, display
@@ -378,8 +374,7 @@ object AppUtils {
             )
         }
         if (Build.VERSION.SDK_INT > 28) options.setLaunchDisplayId(display)
-        val methodName =
-            if (Build.VERSION.SDK_INT >= 28) "setLaunchWindowingMode" else "setLaunchStackId"
+        val methodName = "setLaunchWindowingMode"
         val method = ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
         method.invoke(options, windowMode)
 

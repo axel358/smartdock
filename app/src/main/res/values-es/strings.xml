@@ -24,8 +24,6 @@
     <string name="recent_apps_desc">Permite mostrar aplicaciones recientes en el dock</string>
     <string name="notification_access">Acceso a notificaciones</string>
     <string name="notification_access_desc">Se utiliza para mostrar notificaciones. Si se muestra un error sobre <b>Ajuste restringido</b> haga click en el botón de Ayuda</string>
-    <string name="device_administrator">Administrador de dispositivo</string>
-    <string name="device_administrator_desc">Se utiliza para bloquear la pantalla. Deshabilitar antes de desinstalar</string>
     <string name="storage">Almacenamiento</string>
     <string name="storage_desc">Se utiliza para cambiar el icono del menú y los sonidos de los eventos.</string>
     <string name="overlays_in_settings">Permitir superposición en Ajustes</string>

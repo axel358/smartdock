@@ -1,11 +1,9 @@
 package cu.axel.smartdock.utils
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.pm.LauncherApps
 import android.content.pm.ShortcutInfo
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Process
 
 /**
@@ -13,7 +11,6 @@ import android.os.Process
  */
 object DeepShortcutManager {
     //TODO: Add free form support
-    @TargetApi(25)
     fun startShortcut(shortcutInfo: ShortcutInfo, context: Context) {
         val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
         try {
@@ -23,7 +20,6 @@ object DeepShortcutManager {
         }
     }
 
-    @TargetApi(25)
     fun getShortcutIcon(shortcutInfo: ShortcutInfo, context: Context): Drawable? {
         val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
         try {
@@ -34,7 +30,6 @@ object DeepShortcutManager {
         return null
     }
 
-    @TargetApi(25)
     fun getShortcuts(app: String, context: Context): List<ShortcutInfo>? {
         val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
         val queryParams = LauncherApps.ShortcutQuery()
@@ -50,6 +45,6 @@ object DeepShortcutManager {
 
     fun hasHostPermission(context: Context): Boolean {
         val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
-        return Build.VERSION.SDK_INT > 24 && launcherApps.hasShortcutHostPermission()
+        return launcherApps.hasShortcutHostPermission()
     }
 }

@@ -11,8 +11,6 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
 import android.view.Display
 import android.view.WindowManager
 import android.widget.Toast
@@ -78,12 +76,8 @@ object Utils {
         var bitmap: Bitmap? = null
         val contentResolver = context.contentResolver
         try {
-            bitmap = if (Build.VERSION.SDK_INT < 28) {
-                MediaStore.Images.Media.getBitmap(contentResolver, uri)
-            } else {
-                val source = ImageDecoder.createSource(contentResolver, uri)
-                ImageDecoder.decodeBitmap(source)
-            }
+            val source = ImageDecoder.createSource(contentResolver, uri)
+            bitmap = ImageDecoder.decodeBitmap(source)
         } catch (_: Exception) {
         }
         return bitmap
@@ -142,10 +136,7 @@ object Utils {
         layoutParams.format = PixelFormat.TRANSLUCENT
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
         layoutParams.type =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                if (accessibilityWindow) WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY else WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-            else
-                WindowManager.LayoutParams.TYPE_PHONE
+            if (accessibilityWindow) WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY else WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         layoutParams.width = displayWidth.coerceAtMost(width)
         layoutParams.height = displayHeight.coerceAtMost(height)
         return layoutParams

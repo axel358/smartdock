@@ -14,35 +14,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            app:icon="@drawable/ic_device_admin" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_weight="1.0"
-            android:text="@string/device_administrator"
-            android:textAppearance="?attr/textAppearanceTitleMedium" />
-
-        <Button
-			app:iconTint="?attr/colorError"
-            android:id="@+id/btn_grant_admin"
-            style="?attr/materialIconButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_alert" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical" >
-
-        <Button
-            style="?attr/materialIconButtonFilledTonalStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
             app:icon="@drawable/ic_folder" />
 
         <TextView

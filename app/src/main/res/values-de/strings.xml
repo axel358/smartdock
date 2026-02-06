@@ -24,8 +24,6 @@
     <string name="recent_apps_desc">Ermöglicht die Anzeige der zuletzt genutzten Apps im Dock</string>
     <string name="notification_access">Benachrichtigungszugriff</string>
     <string name="notification_access_desc">Dient zur Anzeige von Benachrichtigungen. Wenn Sie eine Fehlermeldung über <b>eingeschränkte Einstellung</b> erhalten, klicken sie den Hilfe-Button unten</string>
-    <string name="device_administrator">Geräteverwalter</string>
-    <string name="device_administrator_desc">Dient zum Sperren des Bildschirms. Unbedingt vor der Deinstallation deaktivieren!</string>
     <string name="storage">Speicher</string>
     <string name="storage_desc">Dient zum Ändern des Menüsymbols und des Ereignistons</string>
     <string name="overlays_in_settings">Overlays auf Einstellungen zulassen</string>
