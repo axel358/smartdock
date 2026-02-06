@@ -5,6 +5,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityManager
+import android.app.KeyguardManager
 import android.app.Notification
 import android.bluetooth.BluetoothManager
 import android.content.ActivityNotFoundException
@@ -173,6 +174,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     private lateinit var launcherApps: LauncherApps
     private lateinit var displayManager: DisplayManager
     private lateinit var displayListener: DisplayManager.DisplayListener
+    private lateinit var keyguardManager: KeyguardManager
     private var iconPackUtils: IconPackUtils? = null
     override fun onCreate() {
         super.onCreate()
@@ -183,6 +185,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         displayManager = getSystemService(DISPLAY_SERVICE) as DisplayManager
         wifiManager = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
         bluetoothManager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+        keyguardManager = getSystemService(KEYGUARD_SERVICE) as KeyguardManager
         launcherApps = getSystemService(LAUNCHER_APPS_SERVICE) as LauncherApps
         dockHandler = Handler(Looper.getMainLooper())
         if (sharedPreferences.getString("icon_pack", "")!!.isNotEmpty()) {
@@ -424,6 +427,17 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     updateRunningTasks()
                 else
                     updateRunningTasks()
+        } else if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            if (event.packageName == "com.android.systemui")
+                if (event.contentChangeTypes.and(AccessibilityEvent.CONTENT_CHANGE_TYPE_PANE_APPEARED) == AccessibilityEvent.CONTENT_CHANGE_TYPE_PANE_APPEARED) {
+                    if (keyguardManager.isKeyguardLocked) {
+                        dock?.isVisible = false
+                        if (appMenuVisible)
+                            hideAppMenu()
+                    }
+                } else if (event.contentChangeTypes.and(AccessibilityEvent.CONTENT_CHANGE_TYPE_PANE_DISAPPEARED) == AccessibilityEvent.CONTENT_CHANGE_TYPE_PANE_DISAPPEARED) {
+                    dock?.isVisible = true
+                }
         } else if (sharedPreferences.getBoolean(
                 "custom_toasts",
                 false
@@ -681,7 +695,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun showDock() {
-        dock!!.visibility = View.VISIBLE
+        //Hack to hide the dock on the lockscreen at boot
+        dock!!.isVisible = !keyguardManager.isKeyguardLocked
         dockHandle!!.visibility = View.GONE
 
         if (dockLayoutParams.height != dockHeight) {
@@ -847,7 +862,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins
         if (sharedPreferences.getBoolean("app_menu_fullscreen", false)) {
             layoutParams =
-                Utils.makeWindowParams(-1, usableHeight + margins, context, preferSecondaryDisplay)
+                Utils.makeWindowParams(
+                    -1,
+                    usableHeight + margins,
+                    context,
+                    preferSecondaryDisplay,
+                    true
+                )
             layoutParams.y = dockHeight
             if (sharedPreferences.getInt("dock_layout", -1) != 0) {
                 val padding = Utils.dpToPx(context, 24)
@@ -872,7 +893,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             )
             layoutParams = Utils.makeWindowParams(
                 width.coerceAtMost(deviceWidth - margins * 2), height.coerceAtMost(usableHeight),
-                context, preferSecondaryDisplay
+                context, preferSecondaryDisplay, true
             )
             layoutParams.x = margins
             layoutParams.y = margins + dockHeight
@@ -892,15 +913,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         layoutParams.flags = (WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH)
-        val halign = if (sharedPreferences.getBoolean(
+        val hAlign = if (sharedPreferences.getBoolean(
                 "center_app_menu",
                 false
             )
         ) Gravity.CENTER_HORIZONTAL else Gravity.START
-        layoutParams.gravity = Gravity.BOTTOM or halign
+        layoutParams.gravity = Gravity.BOTTOM or hAlign
         ColorUtils.applyMainColor(context, sharedPreferences, appMenu!!)
         ColorUtils.applyColor(appsSeparator, ColorUtils.getMainColors(sharedPreferences, this)[4])
-        windowManager.addView(appMenu, layoutParams)
 
         //Load apps
         updateAppMenu()
@@ -909,12 +929,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         //Load user info
         val avatarIv = appMenu!!.findViewById<ImageView>(R.id.avatar_iv)
         val userNameTv = appMenu!!.findViewById<TextView>(R.id.user_name_tv)
-        avatarIv.setOnClickListener {
-            if (AppUtils.isSystemApp(context, packageName))
-                launchApp(null, null, Intent("android.settings.USER_SETTINGS"))
-            else
-                launchApp(null, null, Intent(this, MainActivity::class.java))
-        }
+
         if (AppUtils.isSystemApp(context, packageName)) {
             val name = DeviceUtils.getUserName(context)
             if (name != null) userNameTv.text = name
@@ -931,9 +946,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     avatarIv.setImageBitmap(icon)
             } else avatarIv.setImageResource(R.drawable.ic_user)
         }
-        appMenu!!.alpha = 0f
-        appMenu!!.animate().alpha(1f).setDuration(200)
-            .setInterpolator(AccelerateDecelerateInterpolator())
 
         //Work around android showing the ime system ui bar
         val softwareKeyboard =
@@ -943,6 +955,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         searchEt.showSoftInputOnFocus = softwareKeyboard || tabletMode
         searchEt.requestFocus()
 
+        windowManager.addView(appMenu, layoutParams)
         appMenuVisible = true
     }
 
@@ -1923,7 +1936,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         dockHeight =
             Utils.dpToPx(context, sharedPreferences.getString("dock_height", "56")!!.toInt())
-        dockLayoutParams = Utils.makeWindowParams(-1, dockHeight, context, preferSecondaryDisplay, true)
+        dockLayoutParams =
+            Utils.makeWindowParams(-1, dockHeight, context, preferSecondaryDisplay, true)
         dockLayoutParams.screenOrientation =
             if (sharedPreferences.getBoolean("lock_landscape", false))
                 ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
@@ -1982,6 +1996,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         searchLayout = appMenu!!.findViewById(R.id.search_layout)
         searchTv = appMenu!!.findViewById(R.id.search_tv)
         appsSeparator = appMenu!!.findViewById(R.id.apps_separator)
+        val avatarIv = appMenu!!.findViewById<ImageView>(R.id.avatar_iv)
         powerBtn.setOnClickListener {
             if (sharedPreferences.getBoolean("enable_power_menu", false)) {
                 if (powerMenuVisible) hidePowerMenu() else showPowerMenu()
@@ -2047,6 +2062,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     appsGv.requestFocus()
             }
             false
+        }
+
+        avatarIv.setOnClickListener {
+            if (AppUtils.isSystemApp(context, packageName))
+                launchApp(null, null, Intent("android.settings.USER_SETTINGS"))
+            else
+                launchApp(null, null, Intent(this, MainActivity::class.java))
         }
 
         updateAppMenu()
