@@ -323,5 +323,10 @@
     <string name="toggle_split_screen">Activar pantalla dividida</string>
     <string name="dock_background_opacity">Opacidad del fondo</string>
     <string name="override_dock_background_opacity">Opacidad del fondo perzonalizada</string>
+    <string name="dock_hidden">Dock hidden</string>
+    <string name="dock_hidden_message_handle">Smart Dock has been hidden, you can activate it again by tapping on the handle</string>
+    <string name="close">Close</string>
+    <string name="hide_notifications">Hide notifications</string>
+    <string name="hide_notification_panel">Hide notifications for this app from the panel? You can configure hidden notifications in Notification panel settings</string>
 
 </resources>

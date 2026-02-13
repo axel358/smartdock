@@ -31,6 +31,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,11 +40,11 @@ import cu.axel.smartdock.R
 import cu.axel.smartdock.activities.LAUNCHER_ACTION
 import cu.axel.smartdock.adapters.NotificationAdapter
 import cu.axel.smartdock.adapters.NotificationAdapter.OnNotificationClickListener
+import cu.axel.smartdock.dialogs.DockDialog
 import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeviceUtils
 import cu.axel.smartdock.utils.Utils
-import androidx.core.content.edit
 
 const val ACTION_HIDE_NOTIFICATION_PANEL = "hide_panel"
 const val ACTION_SHOW_NOTIFICATION_PANEL = "show_panel"
@@ -486,23 +487,32 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
     }
 
     override fun onNotificationLongClicked(notification: StatusBarNotification, item: View) {
-        val savedApps = sharedPreferences.getStringSet(
-            "ignored_notifications_panel",
-            setOf()
-        )!!
-        val ignoredApps = mutableSetOf<String>()
-        ignoredApps.addAll(savedApps)
-        ignoredApps.add(notification.packageName)
-        Toast.makeText(this, ignoredApps.toString(), Toast.LENGTH_LONG).show()
-        sharedPreferences.edit { putStringSet("ignored_notifications_panel", ignoredApps) }
         item.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-        Toast.makeText(
-            this@NotificationService,
-            R.string.silenced_notifications,
-            Toast.LENGTH_LONG
-        )
-            .show()
-        updateNotificationPanel()
+        val dialog = DockDialog(context, true)
+        dialog.setTitle(R.string.hide_notifications)
+        dialog.setMessage(R.string.hide_notification_panel)
+        dialog.setNegativeButton(R.string.cancel, null)
+        dialog.setPositiveButton(
+            R.string.hide
+        ) { dialog, which ->
+            val savedApps = sharedPreferences.getStringSet(
+                "ignored_notifications_panel",
+                setOf()
+            )!!
+            val ignoredApps = mutableSetOf<String>()
+            ignoredApps.addAll(savedApps)
+            ignoredApps.add(notification.packageName)
+            Toast.makeText(this, ignoredApps.toString(), Toast.LENGTH_LONG).show()
+            sharedPreferences.edit { putStringSet("ignored_notifications_panel", ignoredApps) }
+            Toast.makeText(
+                this@NotificationService,
+                R.string.silenced_notifications,
+                Toast.LENGTH_LONG
+            )
+                .show()
+            updateNotificationPanel()
+        }
+        dialog.show()
     }
 
     override fun onNotificationCancelClicked(notification: StatusBarNotification, item: View) {

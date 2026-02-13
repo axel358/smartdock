@@ -84,6 +84,7 @@ import cu.axel.smartdock.adapters.DisplaysAdapter
 import cu.axel.smartdock.adapters.DockAppAdapter
 import cu.axel.smartdock.adapters.DockAppAdapter.OnDockAppClickListener
 import cu.axel.smartdock.db.DBHelper
+import cu.axel.smartdock.dialogs.DockDialog
 import cu.axel.smartdock.dialogs.NotificationPermissionDialog
 import cu.axel.smartdock.models.Action
 import cu.axel.smartdock.models.App
@@ -746,6 +747,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     override fun onAnimationRepeat(p1: Animation) {}
                 })
                 dockLayout.startAnimation(animation)
+                if(sharedPreferences.getBoolean("first_hide", true))
+                    showFirstDockHideDialog()
             }
         }, delay.toLong())
     }
@@ -2097,6 +2100,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             pinDock()
         else
             Toast.makeText(context, R.string.start_message, Toast.LENGTH_LONG).show()
+    }
+
+    fun showFirstDockHideDialog(){
+        val dialog = DockDialog(context, true)
+        dialog.setTitle(R.string.dock_hidden)
+        dialog.setMessage(R.string.dock_hidden_message_handle)
+        dialog.setPositiveButton(R.string.close, null)
+        dialog.setCancelable(false)
+        dialog.show()
+        sharedPreferences.edit { putBoolean("first_hide", false) }
     }
 
     private fun removeAllViews() {
