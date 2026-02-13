@@ -106,6 +106,11 @@ object AppUtils {
         return apps
     }
 
+    fun getHiddenApps(context: Context): Set<String> {
+        val sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
+        return sharedPreferences.getStringSet("hidden_apps_grid", emptySet()) ?: emptySet()
+    }
+
     fun pinApp(context: Context, app: App, type: String) {
         val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
         val file = File(context.filesDir, type)
@@ -179,10 +184,11 @@ object AppUtils {
     }
 
     fun getRunningTasks(
-        activityManager: ActivityManager, packageManager: PackageManager, max: Int
+        activityManager: ActivityManager, packageManager: PackageManager, max: Int, context: Context
     ): ArrayList<AppTask> {
         val tasksInfo = activityManager.getRunningTasks(max)
         currentApp = tasksInfo[0].baseActivity!!.packageName
+        val hiddenApps = getHiddenApps(context)
         val appTasks = ArrayList<AppTask>()
         for (taskInfo in tasksInfo) {
             try {
@@ -197,6 +203,10 @@ object AppUtils {
                         packageManager
                     )
                 ) continue
+
+                // Exclude hidden apps
+                if (hiddenApps.contains(taskInfo.topActivity!!.packageName)) continue
+
                 if (Build.VERSION.SDK_INT > 29) {
                     try {
                         val isRunning = taskInfo.javaClass.getField("isRunning")
@@ -225,10 +235,11 @@ object AppUtils {
             listOf<String>(context.packageName, getCurrentLauncher(context.packageManager))
         val usm = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val start = System.currentTimeMillis() - SystemClock.elapsedRealtime()
+        val hiddenApps = getHiddenApps(context)
         val usageStats = usm.queryUsageStats(
             UsageStatsManager.INTERVAL_BEST, start, System.currentTimeMillis()
         ).sortedWith(compareByDescending { it.lastTimeUsed })
-            .filterNot { ignoredApps.contains(it.packageName) }
+            .filterNot { ignoredApps.contains(it.packageName) || hiddenApps.contains(it.packageName) }
         val appTasks = ArrayList<AppTask>()
         if (usageStats.isNotEmpty())
             currentApp = usageStats[0].packageName
