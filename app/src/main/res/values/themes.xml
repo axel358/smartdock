@@ -36,7 +36,7 @@
 
     <style name="AppTheme.Dock" parent="Theme.Material3.Dark">
         <item name="colorAccent">#FFFFFF</item>
-        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimary">@color/action</item>
         <item name="colorSecondaryContainer">#FFFFFF</item>
         <item name="colorOnSecondaryContainer">#FFFFFF</item>
     </style>
