@@ -11,6 +11,7 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Rect
 import android.hardware.display.DisplayManager
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -20,6 +21,8 @@ import android.os.UserManager
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.Display
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -160,23 +163,38 @@ object DeviceUtils {
     //Device info
     @SuppressLint("InternalInsetResource", "DiscouragedApi")
     fun getStatusBarHeight(context: Context): Int {
-        var result = 0
-        val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            result = context.resources.getDimensionPixelSize(resourceId)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val insets =
+                windowManager.currentWindowMetrics.windowInsets.getInsets(WindowInsets.Type.statusBars())
+            insets.top + insets.bottom
+        } else {
+            var result = 0
+            val resourceId =
+                context.resources.getIdentifier("status_bar_height", "dimen", "android")
+            if (resourceId > 0) {
+                result = context.resources.getDimensionPixelSize(resourceId)
+            }
+            result
         }
-        return result
     }
 
     @SuppressLint("DiscouragedApi", "InternalInsetResource")
     fun getNavBarHeight(context: Context): Int {
-        var result = 0
-        val resourceId =
-            context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            result = context.resources.getDimensionPixelSize(resourceId)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val insets =
+                windowManager.currentWindowMetrics.windowInsets.getInsets(WindowInsets.Type.navigationBars())
+            insets.top + insets.bottom
+        } else {
+            var result = 0
+            val resourceId =
+                context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+            if (resourceId > 0) {
+                result = context.resources.getDimensionPixelSize(resourceId)
+            }
+            result
         }
-        return result
     }
 
     fun getUserName(context: Context): String? {
@@ -211,19 +229,26 @@ object DeviceUtils {
         return getDisplays(context).last()
     }
 
-    fun getDisplayMetrics(
+    fun getDisplayBounds(
         context: Context,
         displayId: Int = Display.DEFAULT_DISPLAY
-    ): DisplayMetrics {
-        val dm = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-        val display = dm.getDisplay(displayId)
-        val metrics = DisplayMetrics()
-        display.getMetrics(metrics)
-        return metrics
+    ): Rect {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            windowManager.currentWindowMetrics.bounds
+        } else {
+            val dm = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
+            val display = dm.getDisplay(displayId)
+            val metrics = DisplayMetrics()
+            display.getRealMetrics(metrics)
+            Rect(0, 0, metrics.widthPixels, metrics.heightPixels)
+        }
     }
 
     fun getDisplayContext(context: Context, secondary: Boolean = false): Context {
-        return if (secondary && getDisplays(context).size > 1) context.createDisplayContext(getSecondaryDisplay(context)) else context
+        return if (secondary && getDisplays(context).size > 1) context.createDisplayContext(
+            getSecondaryDisplay(context)
+        ) else context
     }
 
     @SuppressLint("PrivateApi")

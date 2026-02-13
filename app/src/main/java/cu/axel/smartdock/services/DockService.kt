@@ -847,16 +847,15 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val layoutParams: WindowManager.LayoutParams?
         val displayId =
             if (preferSecondaryDisplay) DeviceUtils.getSecondaryDisplay(context).displayId else Display.DEFAULT_DISPLAY
-        val deviceWidth = DeviceUtils.getDisplayMetrics(context, displayId).widthPixels
-        val deviceHeight = DeviceUtils.getDisplayMetrics(context, displayId).heightPixels
+        val deviceWidth = DeviceUtils.getDisplayBounds(context, displayId).width()
+        val deviceHeight = DeviceUtils.getDisplayBounds(context, displayId).height()
         val margins = Utils.dpToPx(context, 2)
-        val navHeight = DeviceUtils.getNavBarHeight(context)
-        val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
-        val usableHeight =
-            if (DeviceUtils.shouldApplyNavbarFix())
-                deviceHeight - margins - diff - DeviceUtils.getStatusBarHeight(context)
-            else
-                deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context) - margins
+        //Only account for the status bar on A11+
+        val statusBarHeight =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) DeviceUtils.getStatusBarHeight(
+                context
+            ) else 0
+        val usableHeight = deviceHeight - dockHeight - statusBarHeight - margins
         if (sharedPreferences.getBoolean("app_menu_fullscreen", false)) {
             layoutParams =
                 Utils.makeWindowParams(
@@ -999,7 +998,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     @SuppressLint("ClickableViewAccessibility")
     private fun showAppContextMenu(app: App, anchor: View) {
         val view = LayoutInflater.from(context).inflate(R.layout.task_list, null)
-        val layoutParams = Utils.makeWindowParams(-2, -2, context, preferSecondaryDisplay)
+        val layoutParams = Utils.makeWindowParams(-2, -2, context, preferSecondaryDisplay, true)
         ColorUtils.applyMainColor(context, sharedPreferences, view)
         layoutParams.gravity = Gravity.START or Gravity.TOP
         layoutParams.flags =
@@ -1801,6 +1800,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 R.style.AppTheme_Dock
             )
         ).inflate(R.layout.dock, null) as HoverInterceptorLayout
+
         dockLayout = dock!!.findViewById(R.id.dock_layout)
         dockHandle = LayoutInflater.from(context).inflate(R.layout.dock_handle, null) as Button
         appsBtn = dock!!.findViewById(R.id.apps_btn)

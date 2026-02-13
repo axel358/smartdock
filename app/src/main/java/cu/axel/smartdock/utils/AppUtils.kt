@@ -23,6 +23,7 @@ import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
 import cu.axel.smartdock.models.DockApp
 import java.io.File
+import kotlin.math.max
 
 object AppUtils {
     const val PINNED_LIST = "pinned.lst"
@@ -165,19 +166,6 @@ object AppUtils {
         return resolveInfo!!.activityInfo.packageName
     }
 
-    fun setWindowMode(activityManager: ActivityManager, taskId: Int, mode: Int) {
-        try {
-            val setWindowMode = activityManager.javaClass.getMethod(
-                "setTaskWindowingMode",
-                Int::class.javaPrimitiveType,
-                Int::class.javaPrimitiveType,
-                Boolean::class.javaPrimitiveType
-            )
-            setWindowMode.invoke(activityManager, taskId, mode, false)
-        } catch (_: Exception) {
-        }
-    }
-
     fun getRunningTasks(
         activityManager: ActivityManager, packageManager: PackageManager, max: Int
     ): ArrayList<AppTask> {
@@ -294,22 +282,22 @@ object AppUtils {
         var top = 0
         var right = 0
         var bottom = 0
-        val deviceWidth = DeviceUtils.getDisplayMetrics(context, displayId).widthPixels
-        val deviceHeight = DeviceUtils.getDisplayMetrics(context, displayId).heightPixels
-        val statusHeight = DeviceUtils.getStatusBarHeight(context)
-        val navHeight = DeviceUtils.getNavBarHeight(context)
-        val diff = if (dockHeight - navHeight > 0) dockHeight - navHeight else 0
-
-        val usableHeight =
-            if (DeviceUtils.shouldApplyNavbarFix()) deviceHeight - diff - DeviceUtils.getStatusBarHeight(
+        val bounds = DeviceUtils.getDisplayBounds(context, displayId)
+        val deviceWidth = bounds.width()
+        val deviceHeight = bounds.height()
+        val statusBarHeight =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) DeviceUtils.getStatusBarHeight(
                 context
-            )
-            else deviceHeight - dockHeight - DeviceUtils.getStatusBarHeight(context)
+            ) else 0
+        val navHeight = DeviceUtils.getNavBarHeight(context)
+        val usableHeight =
+            if (DeviceUtils.shouldApplyNavbarFix()) deviceHeight - max(dockHeight, navHeight) - statusBarHeight
+            else deviceHeight - dockHeight - statusBarHeight
         val scaleFactor = sharedPreferences.getString("scale_factor", "1.0")!!.toFloat()
         when (mode) {
             "standard" -> {
                 left = (deviceWidth / (5 * scaleFactor)).toInt()
-                top = ((usableHeight + statusHeight) / (7 * scaleFactor)).toInt()
+                top = ((usableHeight + statusBarHeight) / (7 * scaleFactor)).toInt()
                 right = deviceWidth - left
                 bottom = usableHeight + dockHeight - top
             }
@@ -333,7 +321,7 @@ object AppUtils {
 
             "tiled-top" -> {
                 right = deviceWidth
-                bottom = (usableHeight + statusHeight) / 2
+                bottom = (usableHeight + statusBarHeight) / 2
             }
 
             "tiled-right" -> {
@@ -344,8 +332,8 @@ object AppUtils {
 
             "tiled-bottom" -> {
                 right = deviceWidth
-                top = (usableHeight + statusHeight) / 2
-                bottom = usableHeight + statusHeight
+                top = (usableHeight + statusBarHeight) / 2
+                bottom = usableHeight + statusBarHeight
             }
         }
         return Rect(left, top, right, bottom)
@@ -377,7 +365,6 @@ object AppUtils {
         val methodName = "setLaunchWindowingMode"
         val method = ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
         method.invoke(options, windowMode)
-
         return options
     }
 

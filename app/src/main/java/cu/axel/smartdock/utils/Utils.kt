@@ -126,12 +126,10 @@ object Utils {
         secondary: Boolean = false,
         accessibilityWindow: Boolean = false
     ): WindowManager.LayoutParams {
-
         val displayId =
             if (secondary) DeviceUtils.getSecondaryDisplay(context).displayId else Display.DEFAULT_DISPLAY
-
-        val displayWidth = DeviceUtils.getDisplayMetrics(context, displayId).widthPixels
-        val displayHeight = DeviceUtils.getDisplayMetrics(context, displayId).heightPixels
+        val displayWidth = DeviceUtils.getDisplayBounds(context, displayId).width()
+        val displayHeight = DeviceUtils.getDisplayBounds(context, displayId).height()
         val layoutParams = WindowManager.LayoutParams()
         layoutParams.format = PixelFormat.TRANSLUCENT
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
