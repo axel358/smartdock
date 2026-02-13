@@ -84,6 +84,7 @@ import cu.axel.smartdock.adapters.DisplaysAdapter
 import cu.axel.smartdock.adapters.DockAppAdapter
 import cu.axel.smartdock.adapters.DockAppAdapter.OnDockAppClickListener
 import cu.axel.smartdock.db.DBHelper
+import cu.axel.smartdock.dialogs.NotificationPermissionDialog
 import cu.axel.smartdock.models.Action
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
@@ -1870,9 +1871,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         notificationBtn.setOnClickListener {
             if (sharedPreferences.getBoolean("enable_notif_panel", true)) {
-                if (audioPanelVisible)
-                    hideAudioPanel()
-                toggleNotificationPanel(!Utils.notificationPanelVisible)
+                if (DeviceUtils.isServiceRunning(this, NotificationService::class.java)) {
+                    if (audioPanelVisible)
+                        hideAudioPanel()
+                    toggleNotificationPanel(!Utils.notificationPanelVisible)
+                } else {
+                    NotificationPermissionDialog(this, true)
+                }
             } else performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
         }
         pinBtn.setOnClickListener { togglePin() }

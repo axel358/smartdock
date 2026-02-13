@@ -19,6 +19,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import cu.axel.smartdock.R
 import cu.axel.smartdock.dialogs.DockLayoutDialog
+import cu.axel.smartdock.dialogs.NotificationPermissionDialog
 import cu.axel.smartdock.fragments.PreferencesFragment
 import cu.axel.smartdock.services.NotificationService
 import cu.axel.smartdock.utils.ColorUtils
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                 ::requestStoragePermissions, hasStoragePermission
             )
         }
-        notificationsBtn.setOnClickListener { showNotificationsDialog() }
+        notificationsBtn.setOnClickListener { NotificationPermissionDialog(this) }
         accessibilityBtn.setOnClickListener { showAccessibilityDialog() }
         settingsOverlays.setOnClickListener {
             showPermissionInfoDialog(
@@ -221,25 +222,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
                 Toast.makeText(this, R.string.enable_access_help, Toast.LENGTH_LONG).show()
             }
-        }
-        dialogBuilder.setNeutralButton(R.string.help) { _, _ ->
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    "https://github.com/axel358/smartdock#grant-restricted-permissions".toUri()
-                )
-            )
-        }
-        dialogBuilder.show()
-    }
-
-    private fun showNotificationsDialog() {
-        val dialogBuilder = MaterialAlertDialogBuilder(this)
-        dialogBuilder.setTitle(R.string.notification_access)
-        dialogBuilder.setMessage(R.string.notification_access_desc)
-        dialogBuilder.setPositiveButton(R.string.manage) { _, _ ->
-            startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
-            Toast.makeText(this, R.string.enable_access_help, Toast.LENGTH_LONG).show()
         }
         dialogBuilder.setNeutralButton(R.string.help) { _, _ ->
             startActivity(
