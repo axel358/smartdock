@@ -742,13 +742,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                             dock!!.visibility = View.GONE
                             dockHandle!!.visibility = View.VISIBLE
                         }
+                        if (sharedPreferences.getBoolean("first_hide", true))
+                            showFirstDockHideDialog()
                     }
 
                     override fun onAnimationRepeat(p1: Animation) {}
                 })
                 dockLayout.startAnimation(animation)
-                if(sharedPreferences.getBoolean("first_hide", true))
-                    showFirstDockHideDialog()
             }
         }, delay.toLong())
     }
@@ -2102,7 +2102,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             Toast.makeText(context, R.string.start_message, Toast.LENGTH_LONG).show()
     }
 
-    fun showFirstDockHideDialog(){
+    fun showFirstDockHideDialog() {
         val dialog = DockDialog(context, true)
         dialog.setTitle(R.string.dock_hidden)
         dialog.setMessage(R.string.dock_hidden_message_handle)
