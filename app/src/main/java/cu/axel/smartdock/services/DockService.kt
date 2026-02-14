@@ -733,7 +733,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                     override fun onAnimationStart(p1: Animation) {}
                     override fun onAnimationEnd(p1: Animation) {
                         dockLayout.visibility = View.GONE
-                        if (sharedPreferences.getString("activation_method", "swipe") == "swipe") {
+                        val activationMethod =
+                            sharedPreferences.getString("activation_method", "swipe")!!
+                        if (activationMethod == "swipe") {
                             val height =
                                 sharedPreferences.getString("dock_activation_area", "10")!!.toInt()
                             dockLayoutParams.height = Utils.dpToPx(context, height)
@@ -743,7 +745,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                             dockHandle!!.visibility = View.VISIBLE
                         }
                         if (sharedPreferences.getBoolean("first_hide", true))
-                            showFirstDockHideDialog()
+                            showFirstDockHideDialog(activationMethod)
                     }
 
                     override fun onAnimationRepeat(p1: Animation) {}
@@ -2102,10 +2104,12 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             Toast.makeText(context, R.string.start_message, Toast.LENGTH_LONG).show()
     }
 
-    fun showFirstDockHideDialog() {
+    fun showFirstDockHideDialog(activationMethod: String) {
         val dialog = DockDialog(context, true)
         dialog.setTitle(R.string.dock_hidden)
-        dialog.setMessage(R.string.dock_hidden_message_handle)
+        val message =
+            if (activationMethod == "swipe") R.string.dock_hidden_message_swipe else R.string.dock_hidden_message_handle
+        dialog.setMessage(message)
         dialog.setPositiveButton(R.string.close, null)
         dialog.setCancelable(false)
         dialog.show()
