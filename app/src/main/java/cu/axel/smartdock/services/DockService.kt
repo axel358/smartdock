@@ -1399,6 +1399,8 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         updateNavigationBar()
         updateQuickSettings()
         updateBatteryBtn()
+        if (appMenuVisible)
+            hideAppMenu()
     }
 
     private fun updateDockShape() {
