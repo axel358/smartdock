@@ -10,6 +10,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Handler
@@ -609,6 +610,13 @@ class NotificationService : NotificationListenerService(), OnNotificationClickLi
         notificationPanel = null
         notificationsLv = null
         cancelAllBtn = null
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        updateLayoutParams()
+        if (Utils.notificationPanelVisible)
+            hideNotificationPanel()
     }
 
     override fun onDestroy() {
