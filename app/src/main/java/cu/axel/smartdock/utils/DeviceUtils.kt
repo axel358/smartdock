@@ -233,7 +233,7 @@ object DeviceUtils {
         context: Context,
         displayId: Int = Display.DEFAULT_DISPLAY
     ): Rect {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        return if (Build.VERSION.SDK_INT == Build.VERSION_CODES.ECLAIR) {
             val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
             windowManager.currentWindowMetrics.bounds
         } else {
