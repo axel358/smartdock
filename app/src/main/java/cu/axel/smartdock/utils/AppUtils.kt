@@ -29,6 +29,8 @@ object AppUtils {
     const val PINNED_LIST = "pinned.lst"
     const val DOCK_PINNED_LIST = "dock_pinned.lst"
     const val DESKTOP_LIST = "desktop.lst"
+    const val WINDOWING_MODE_UNDEFINED = 0
+
     var currentApp = ""
     fun getInstalledPackages(context: Context): List<App> {
         val apps = ArrayList<App>()
@@ -353,6 +355,9 @@ object AppUtils {
 
         val windowMode: Int
         if (mode == "fullscreen") windowMode = 1
+        else if (mode == "undefined") {
+            windowMode = if (Build.VERSION.SDK_INT >= 28) WINDOWING_MODE_UNDEFINED else 1
+        }
         else {
             windowMode = 5
             options.setLaunchBounds(
