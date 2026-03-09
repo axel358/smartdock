@@ -3,7 +3,6 @@
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="enable_nav_apps"
-            android:summary="@string/enable_apps_btn_summary"
             android:title="@string/enable_apps_btn" />
         <cu.axel.smartdock.preferences.NavActionChooserPreference
             android:defaultValue="true"

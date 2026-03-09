@@ -106,7 +106,6 @@
     <string name="enable_qs_pin_title">釘選</string>
     <string name="enable_qs_pin_summary">您仍然可以通過在 Dock 上向下滑動或使用鍵盤快捷鍵來釘選/取消釘選 Dock</string>
     <string name="behaviour">行為</string>
-    <string name="enable_apps_btn_summary">您仍然可以通過在 Dock 上向上/向下滑動來開啟/關閉應用程式選單</string>
     <string name="activation_method">啟動方法</string>
     <string name="activation_method_summary">隱藏時調出 Dock 的方法</string>
     <string name="swipe">滑動/懸停</string>

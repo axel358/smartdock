@@ -108,7 +108,6 @@
     <string name="enable_qs_pin_title">Pin</string>
     <string name="enable_qs_pin_summary">Todavía puede anclar/desanclar el Dock deslizandolo hacia abajo o usando el atajo de teclado</string>
     <string name="behaviour">Comportamiento</string>
-    <string name="enable_apps_btn_summary">Todavía puede abrir/cerrar el menú de la aplicación deslizando hacia arriba/abajo en el Dock</string>
     <string name="activation_method">Método de activación</string>
     <string name="activation_method_summary">El método utilizado para abrir el Dock cuando está oculto.</string>
     <string name="swipe">Deslizar/Mouse</string>

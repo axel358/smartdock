@@ -1836,9 +1836,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         gestureDetector = GestureDetector(context, object : OnSwipeListener() {
             override fun onSwipe(direction: Direction): Boolean {
-                if (direction == Direction.UP) {
-                    if (!isPinned) pinDock() else if (!appMenuVisible) showAppMenu()
-                } else if (direction == Direction.DOWN) {
+                if (direction == Direction.DOWN) {
                     if (appMenuVisible) hideAppMenu() else unpinDock()
                 } else if (direction == Direction.LEFT) {
                     performGlobalAction(GLOBAL_ACTION_BACK)

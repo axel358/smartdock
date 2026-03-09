@@ -106,7 +106,6 @@
     <string name="enable_qs_pin_title">Pin</string>
     <string name="enable_qs_pin_summary">Sie können das Dock immer noch anheften/entheften, indem Sie nach unten wischen oder das Tastaturkürzel verwenden</string>
     <string name="behaviour">Verhalten</string>
-    <string name="enable_apps_btn_summary">Sie können das Anwendungsmenü immer noch öffnen/schließen, indem Sie auf dem Dock nach oben/unten wischen.</string>
     <string name="activation_method">Aktivierungsmethode</string>
     <string name="activation_method_summary">Die Methode, mit der das ausgeblendete Dock angezeigt wird</string>
     <string name="swipe">Wischen/Schweben</string>

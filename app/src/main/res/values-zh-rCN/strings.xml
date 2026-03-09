@@ -106,7 +106,6 @@
     <string name="enable_qs_pin_title">固定</string>
     <string name="enable_qs_pin_summary">仍然可以通过向下滑动或使用键盘快捷键固定/取消固定Dock</string>
     <string name="behaviour">行为</string>
-    <string name="enable_apps_btn_summary">仍然可以通过在Dock上向上/向下滑动打开/关闭应用菜单</string>
     <string name="activation_method">激活方法</string>
     <string name="activation_method_summary">用于在Dock隐藏时打开Dock的方法</string>
     <string name="swipe">滑动/鼠标</string>

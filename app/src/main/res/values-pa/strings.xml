@@ -106,7 +106,6 @@
     <string name="enable_qs_pin_title">ਪਿੰਨ</string>
     <string name="enable_qs_pin_summary">ਡੋਕ ਨੂੰ ਪਿਨ ਅਤੇ ਅਨਪਿਨ ਡੋਕ ਤੇ ਸਵਾਇਪ ਕਰਕੇ ਜਾ ਕੀਬੋਰਡ ਸਾਰਟਕਟ ਦੁਆਰਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ</string>
     <string name="behaviour">ਵਿਵਹਾਰ</string>
-    <string name="enable_apps_btn_summary">ਤੁਸੀਂ ਅਜੇ ਵੀ ਡੌਕ \'ਤੇ ਉੱਪਰ/ਹੇਠਾਂ ਸਵਾਈਪ ਕਰਕੇ ਐਪ ਮੀਨੂ ਨੂੰ ਖੋਲ੍ਹ/ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ</string>
     <string name="activation_method">ਐਕਟੀਵੇਸ਼ਨ ਵਿਧੀ</string>
     <string name="activation_method_summary">ਓਹਲੇ ਹੋਣ \'ਤੇ ਡੌਕ ਨੂੰ ਲਿਆਉਣ ਲਈ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਤਰੀਕਾ</string>
     <string name="swipe">ਸਵਾਈਪ/ਹੂਵਰ</string>
