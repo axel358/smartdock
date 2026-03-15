@@ -26,7 +26,6 @@ import android.hardware.usb.UsbManager
 import android.media.AudioManager
 import android.net.Uri
 import android.net.wifi.WifiManager
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
@@ -46,7 +45,6 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -59,7 +57,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextClock
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
@@ -461,8 +458,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         iconIv.setImageDrawable(notificationIcon)
         ColorUtils.applyColor(iconIv, ColorUtils.getDrawableDominantColor(notificationIcon))
         toast.alpha = 0f
-        toast.animate().alpha(1f).setDuration(250)
-            .setInterpolator(AccelerateDecelerateInterpolator())
+        toast.animate().alpha(1f).setDuration(250).interpolator = AccelerateDecelerateInterpolator()
         Handler(Looper.getMainLooper()).postDelayed({
             toast.animate().alpha(0f).setDuration(400)
                 .setInterpolator(AccelerateDecelerateInterpolator())
@@ -676,17 +672,13 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     private fun toggleSoftKeyboard() {
-        if (Build.VERSION.SDK_INT < 30) {
-            val im = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            im.showInputMethodPicker()
-        } else {
-            //TODO
-            val kc = softKeyboardController
-            val mode = kc.showMode
-            if (mode == SHOW_MODE_AUTO || mode == SHOW_MODE_HIDDEN) kc.setShowMode(
-                SHOW_MODE_IGNORE_HARD_KEYBOARD
-            ) else kc.setShowMode(SHOW_MODE_HIDDEN)
-        }
+        //TODO
+        val kc = softKeyboardController
+        val mode = kc.showMode
+        if (mode == SHOW_MODE_AUTO || mode == SHOW_MODE_HIDDEN)
+            kc.showMode = SHOW_MODE_IGNORE_HARD_KEYBOARD
+        else
+            kc.showMode = SHOW_MODE_HIDDEN
     }
 
     private fun togglePin() {
@@ -856,11 +848,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         val deviceWidth = DeviceUtils.getDisplayBounds(context, displayId).width()
         val deviceHeight = DeviceUtils.getDisplayBounds(context, displayId).height()
         val margins = Utils.dpToPx(context, 2)
-        //Only account for the status bar on A11+
-        val statusBarHeight =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) DeviceUtils.getStatusBarHeight(
-                context
-            ) else 0
+        val statusBarHeight = DeviceUtils.getStatusBarHeight(context)
         val usableHeight = deviceHeight - dockHeight - statusBarHeight - margins
         if (sharedPreferences.getBoolean("app_menu_fullscreen", false)) {
             layoutParams =
@@ -1154,7 +1142,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
                 val shortcut = adapterView.getItemAtPosition(position) as ShortcutInfo
                 windowManager.removeView(view)
                 DeepShortcutManager.startShortcut(shortcut, context)
-            } else if (Build.VERSION.SDK_INT > 28 && adapterView.getItemAtPosition(position) is Display) {
+            } else if (adapterView.getItemAtPosition(position) is Display) {
                 val display = adapterView.getItemAtPosition(position) as Display
                 windowManager.removeView(view)
                 launchApp(
@@ -1512,7 +1500,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     private fun showWiFiPanel() {
         startActivity(Intent(Settings.Panel.ACTION_WIFI).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
@@ -1894,10 +1881,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             true
         }
         wifiBtn.setOnClickListener {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
-                openWiFiSettings()
-            else
-                showWiFiPanel()
+            showWiFiPanel()
         }
         wifiBtn.setOnLongClickListener {
             openWiFiSettings()
@@ -1905,14 +1889,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         volumeBtn.setOnClickListener { toggleVolume() }
         volumeBtn.setOnLongClickListener {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                launchApp(
-                    null, null,
-                    Intent(Settings.ACTION_SOUND_SETTINGS)
-                )
-            } else
-                startActivity(Intent(Settings.Panel.ACTION_VOLUME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-
+            startActivity(Intent(Settings.Panel.ACTION_VOLUME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             true
         }
         batteryBtn.setOnClickListener {

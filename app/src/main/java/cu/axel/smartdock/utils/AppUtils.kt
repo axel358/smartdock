@@ -12,7 +12,6 @@ import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.SystemClock
 import android.os.UserManager
 import android.view.Display
@@ -35,13 +34,15 @@ object AppUtils {
         val packages = context.packageManager.getInstalledPackages(0)
         packages.forEach { packageInfo ->
             val appInfo = packageInfo.applicationInfo
-            apps.add(
-                App(
-                    appInfo.loadLabel(context.packageManager).toString(),
-                    appInfo.packageName,
-                    appInfo.loadIcon(context.packageManager)
+            if (appInfo != null) {
+                apps.add(
+                    App(
+                        appInfo.loadLabel(context.packageManager).toString(),
+                        appInfo.packageName,
+                        appInfo.loadIcon(context.packageManager)
+                    )
                 )
-            )
+            }
         }
         return apps.sortedWith(compareBy { it.name })
     }
@@ -185,13 +186,11 @@ object AppUtils {
                         packageManager
                     )
                 ) continue
-                if (Build.VERSION.SDK_INT > 29) {
-                    try {
-                        val isRunning = taskInfo.javaClass.getField("isRunning")
-                        val running = isRunning.getBoolean(taskInfo)
-                        if (!running) continue
-                    } catch (_: Exception) {
-                    }
+                try {
+                    val isRunning = taskInfo.javaClass.getField("isRunning")
+                    val running = isRunning.getBoolean(taskInfo)
+                    if (!running) continue
+                } catch (_: Exception) {
                 }
                 appTasks.add(
                     AppTask(
@@ -285,13 +284,13 @@ object AppUtils {
         val bounds = DeviceUtils.getDisplayBounds(context, displayId)
         val deviceWidth = bounds.width()
         val deviceHeight = bounds.height()
-        val statusBarHeight =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) DeviceUtils.getStatusBarHeight(
-                context
-            ) else 0
+        val statusBarHeight = DeviceUtils.getStatusBarHeight(context)
         val navHeight = DeviceUtils.getNavBarHeight(context)
         val usableHeight =
-            if (DeviceUtils.shouldApplyNavbarFix()) deviceHeight - max(dockHeight, navHeight) - statusBarHeight
+            if (DeviceUtils.shouldApplyNavbarFix()) deviceHeight - max(
+                dockHeight,
+                navHeight
+            ) - statusBarHeight
             else deviceHeight - dockHeight - statusBarHeight
         val scaleFactor = sharedPreferences.getString("scale_factor", "1.0")!!.toFloat()
         when (mode) {
@@ -345,23 +344,24 @@ object AppUtils {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val secondary = sharedPreferences.getBoolean("prefer_last_display", false)
 
-        val display: Int =
-            if (displayId != Display.DEFAULT_DISPLAY) displayId else (if (secondary) DeviceUtils.getSecondaryDisplay(
-                context
-            ).displayId else displayId)
+        val display =
+            if (displayId != Display.DEFAULT_DISPLAY)
+                displayId
+            else
+                if (secondary)
+                    DeviceUtils.getSecondaryDisplay(context).displayId
+                else 0
         val options: ActivityOptions = ActivityOptions.makeBasic()
 
         val windowMode: Int
         if (mode == "fullscreen") windowMode = 1
         else {
             windowMode = 5
-            options.setLaunchBounds(
-                makeLaunchBounds(
-                    context, mode, dockHeight, display
-                )
+            options.launchBounds = makeLaunchBounds(
+                context, mode, dockHeight, display
             )
         }
-        if (Build.VERSION.SDK_INT > 28) options.setLaunchDisplayId(display)
+        options.launchDisplayId = display
         val methodName = "setLaunchWindowingMode"
         val method = ActivityOptions::class.java.getMethod(methodName, Int::class.javaPrimitiveType)
         method.invoke(options, windowMode)
