@@ -19,7 +19,6 @@ import android.os.Build
 import android.os.UserHandle
 import android.os.UserManager
 import android.provider.Settings
-import android.util.DisplayMetrics
 import android.view.Display
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -163,30 +162,18 @@ object DeviceUtils {
     //Device info
     @SuppressLint("InternalInsetResource", "DiscouragedApi")
     fun getStatusBarHeight(context: Context): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            val insets =
-                windowManager.currentWindowMetrics.windowInsets.getInsets(WindowInsets.Type.statusBars())
-            insets.top + insets.bottom
-        } else {
-            var result = 0
-            val resourceId =
-                context.resources.getIdentifier("status_bar_height", "dimen", "android")
-            if (resourceId > 0) {
-                result = context.resources.getDimensionPixelSize(resourceId)
-            }
-            result
-        }
+        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val insets =
+            windowManager.currentWindowMetrics.windowInsets.getInsets(WindowInsets.Type.statusBars())
+        return insets.top + insets.bottom
+
     }
 
     @SuppressLint("DiscouragedApi", "InternalInsetResource")
     fun getNavBarHeight(context: Context): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            val insets =
-                windowManager.currentWindowMetrics.windowInsets.getInsets(WindowInsets.Type.navigationBars())
-            insets.top + insets.bottom
-        } else {
+        //FIXME: This returns 0 with Dex
+        return try {
+            context.display
             var result = 0
             val resourceId =
                 context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
@@ -194,6 +181,11 @@ object DeviceUtils {
                 result = context.resources.getDimensionPixelSize(resourceId)
             }
             result
+        } catch (_: UnsupportedOperationException) {
+            val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val insets =
+                windowManager.currentWindowMetrics.windowInsets.getInsets(WindowInsets.Type.navigationBars())
+            insets.top + insets.bottom
         }
     }
 
@@ -233,15 +225,17 @@ object DeviceUtils {
         context: Context,
         displayId: Int = Display.DEFAULT_DISPLAY
     ): Rect {
-        return if (Build.VERSION.SDK_INT == Build.VERSION_CODES.ECLAIR) {
-            val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            windowManager.currentWindowMetrics.bounds
-        } else {
+        return try {
+            context.display
             val dm = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
             val display = dm.getDisplay(displayId)
-            val metrics = DisplayMetrics()
-            display.getRealMetrics(metrics)
-            Rect(0, 0, metrics.widthPixels, metrics.heightPixels)
+            //FIXME: This always returns the metrics of the default display
+            //val metrics = DisplayMetrics()
+            //display.getRealMetrics(metrics)
+            Rect(0, 0, display.width, display.height)
+        } catch (_: UnsupportedOperationException) {
+            val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            windowManager.currentWindowMetrics.bounds
         }
     }
 
