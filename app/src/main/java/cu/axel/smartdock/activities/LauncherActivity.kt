@@ -19,6 +19,8 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -130,6 +132,14 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener,
         if (sharedPreferences.getString("icon_pack", "")!!.isNotEmpty()) {
             iconPackUtils = IconPackUtils(this)
         }
+
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(
+            true
+        ) {
+            override fun handleOnBackPressed() {
+
+            }
+        })
     }
 
     fun loadDesktopApps() {
@@ -167,8 +177,6 @@ open class LauncherActivity : AppCompatActivity(), OnAppClickListener,
             saveNotes()
     }
 
-    @SuppressLint("MissingSuperCall")
-    override fun onBackPressed() {}
     private fun loadNotes() {
         val notes = File(getExternalFilesDir(null), "notes.txt")
         try {
