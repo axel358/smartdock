@@ -13,7 +13,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.hardware.display.DisplayManager
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.UserHandle
@@ -38,7 +37,6 @@ object DeviceUtils {
     const val DISPLAY_SIZE = "display_density_forced"
     const val ICON_BLACKLIST = "icon_blacklist"
     const val HEADS_UP_ENABLED = "heads_up_notifications_enabled"
-    const val ENABLE_TASKBAR = "enable_taskbar"
     const val SETTING_OVERLAYS = "secure_overlay_settings"
     private const val SERVICE_NAME = "cu.axel.smartdock/cu.axel.smartdock.services.DockService"
     private const val ENABLED_ACCESSIBILITY_SERVICES = "enabled_accessibility_services"
@@ -88,15 +86,6 @@ object DeviceUtils {
     fun shutdown() {
         runAsRoot(
             "am start -a com.android.internal.intent.action.REQUEST_SHUTDOWN"
-        )
-    }
-
-    fun toggleVolume(context: Context) {
-        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        audioManager.adjustStreamVolume(
-            AudioManager.STREAM_MUSIC,
-            AudioManager.ADJUST_SAME,
-            AudioManager.FLAG_SHOW_UI
         )
     }
 
