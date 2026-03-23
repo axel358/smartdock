@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -29,8 +28,6 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
     private var rootAvailable = false
     override fun onCreatePreferences(arg0: Bundle?, arg1: String?) {
         setPreferencesFromResource(R.xml.preferences_advanced, arg1)
-        val preferLastDisplay = findPreference<Preference>("prefer_last_display")
-        preferLastDisplay!!.isVisible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
         var hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(requireContext())
 
         findPreference<Preference>("soft_reboot")!!.setOnPreferenceClickListener {
@@ -40,7 +37,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
 
         findPreference<Preference>("share_display_info")!!.setOnPreferenceClickListener {
             val displayInfo = StringBuilder()
-            DeviceUtils.getDisplays(requireContext()).forEach { displayInfo.appendLine(it)  }
+            DeviceUtils.getDisplays(requireContext()).forEach { displayInfo.appendLine(it) }
             startActivity(
                 Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, displayInfo.toString())
                     .setType("text/plain")
@@ -48,9 +45,7 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
             false
         }
 
-        val hideNav = findPreference<SwitchPreferenceCompat>("hide_nav_buttons")
         val result = DeviceUtils.runAsRoot("cat /system/build.prop")
-        hideNav!!.isChecked = result.contains("qemu.hw.mainkeys=1")
         rootAvailable = result != "error"
 
         findPreference<Preference>("root_category")!!.isEnabled = rootAvailable
@@ -81,34 +76,6 @@ class AdvancedPreferences : PreferenceFragmentCompat() {
                     DeviceUtils.HEADS_UP_ENABLED,
                     if (isChecked as Boolean) 0 else 1
                 )
-            }
-        }
-
-        if (rootAvailable) {
-            hideNav.setOnPreferenceChangeListener { _, newValue ->
-                if (newValue as Boolean) {
-                    val status =
-                        DeviceUtils.runAsRoot("echo qemu.hw.mainkeys=1 >> /system/build.prop")
-                    if (status != "error")
-                        showRebootDialog(requireContext(), false)
-                } else {
-                    val status =
-                        DeviceUtils.runAsRoot("sed -i /qemu.hw.mainkeys=1/d /system/build.prop")
-                    if (status != "error")
-                        showRebootDialog(requireContext(), false)
-                }
-                false
-            }
-
-            //ROM specific settings
-            if (DeviceUtils.isBliss() && Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
-                val disableTaskbar = findPreference<SwitchPreferenceCompat>("disable_taskbar")!!
-                disableTaskbar.isVisible = true
-                disableTaskbar.isChecked =
-                    DeviceUtils.runAsRoot("settings get system ${DeviceUtils.ENABLE_TASKBAR}") == "0"
-                disableTaskbar.setOnPreferenceChangeListener { _, isChecked ->
-                    return@setOnPreferenceChangeListener DeviceUtils.runAsRoot("settings put system ${DeviceUtils.ENABLE_TASKBAR} ${if (isChecked as Boolean) "0" else "1"}") != "error"
-                }
             }
         }
 

@@ -225,10 +225,6 @@
     <string name="allow_app_freeze_summary">You will need an external tool such as Ice Box (or running pm enable [pkgname]) to re-enable apps</string>
     <string name="allow_sysapp_uninstall_title">Allow uninstalling system apps</string>
     <string name="allow_sysapp_uninstall_summary">Please be careful, this can be really dangerous</string>
-    <string name="hide_nav_buttons_title">Hide navigation buttons</string>
-    <string name="hide_nav_buttons_summary">Hides Android software navigation buttons. Needs reboot</string>
-    <string name="disable_taskbar_title">Disable taskbar</string>
-    <string name="disable_taskbar_summary">Disables Android\'s taskbar on large screen devices</string>
     <string name="enable_tiling_shortcut">Alt+arrow keys to tile windows</string>
     <string name="enable_soft_reboot_title">Alt+F12 to soft reboot</string>
     <string name="enable_soft_reboot_summary">System might be unresponsive for a short while</string>

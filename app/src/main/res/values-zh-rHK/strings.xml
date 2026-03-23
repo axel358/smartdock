@@ -220,10 +220,6 @@
     <string name="allow_app_freeze_summary">您將需要外部工具如 Ice Box（或運行 pm enable [pkgname]）來重新啟用應用程式</string>
     <string name="allow_sysapp_uninstall_title">允許卸載系統應用程式</string>
     <string name="allow_sysapp_uninstall_summary">請小心，這可能非常危險</string>
-    <string name="hide_nav_buttons_title">隱藏導航按鈕</string>
-    <string name="hide_nav_buttons_summary">隱藏 Android 軟體導航按鈕。需要重新啟動</string>
-    <string name="disable_taskbar_title">停用任務欄</string>
-    <string name="disable_taskbar_summary">停用大螢幕裝置上的 Android 任務欄</string>
     <string name="enable_tiling_shortcut">Alt+方向鍵平鋪視窗</string>
     <string name="enable_soft_reboot_title">Alt+F12 軟重啟</string>
     <string name="enable_soft_reboot_summary">系統可能會短暫無響應</string>

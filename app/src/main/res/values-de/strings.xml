@@ -220,10 +220,6 @@
     <string name="allow_app_freeze_summary">Sie benötigen ein externes Tool wie Ice Box (oder führen pm enable [pkgname] aus), um Anwendungen wieder zu aktivieren</string>
     <string name="allow_sysapp_uninstall_title">Deinstallation von Systemanwendungen zulassen</string>
     <string name="allow_sysapp_uninstall_summary">Bitte seien Sie vorsichtig, das kann sehr gefährlich sein.</string>
-    <string name="hide_nav_buttons_title">Navigationsschaltflächen ausblenden</string>
-    <string name="hide_nav_buttons_summary">Blendet die Navigationstasten der Android-Software aus. Benötigt Neustart</string>
-    <string name="disable_taskbar_title">Taskleiste deaktivieren</string>
-    <string name="disable_taskbar_summary">Deaktiviert die Taskleiste von Android auf Geräten mit großem Bildschirm</string>
     <string name="enable_tiling_shortcut">Alt+Pfeiltasten zum Kacheln von Fenstern</string>
     <string name="enable_soft_reboot_title">Alt+F12 zum sanften Neustart</string>
     <string name="enable_soft_reboot_summary">Das System reagiert möglicherweise für kurze Zeit nicht</string>

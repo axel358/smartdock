@@ -253,10 +253,6 @@ object DeviceUtils {
         return getMethod.invoke(null, prop) as String
     }
 
-    fun isBliss(): Boolean {
-        return getSystemProp("ro.bliss.version").isNotEmpty()
-    }
-
     fun shouldApplyNavbarFix(): Boolean {
         return Build.VERSION.SDK_INT > 31 && isNavbarEnabled()
     }

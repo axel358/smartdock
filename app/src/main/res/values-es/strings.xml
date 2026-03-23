@@ -225,10 +225,6 @@
     <string name="allow_app_freeze_summary">Necesitará una herramienta externa como Ice Box (o ejecutar pm enable [pkgname]) para volver a habilitar las aplicaciones</string>
     <string name="allow_sysapp_uninstall_title">Permitir desinstalar aplicaciones del sistema</string>
     <string name="allow_sysapp_uninstall_summary">Tenga cuidado, esto puede ser realmente peligroso.</string>
-    <string name="hide_nav_buttons_title">Ocultar botones de navegación</string>
-    <string name="hide_nav_buttons_summary">Oculta los botones de navegación del software de Android. Necesita reiniciar</string>
-    <string name="disable_taskbar_title">Deshabilitar barra de tareas</string>
-    <string name="disable_taskbar_summary">Deshabilita la barra de tareas de Android en dispositivos con pantalla grande</string>
     <string name="enable_tiling_shortcut">Alt+flechas para tilear ventanas</string>
     <string name="enable_soft_reboot_title">Alt+F12 para reiniciar</string>
     <string name="enable_soft_reboot_summary">Es posible que el sistema no responda durante un breve período de tiempo</string>
