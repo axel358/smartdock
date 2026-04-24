@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ProtectedPermissions,QueryAllPackagesPermission">
@@ -27,6 +28,7 @@
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">
@@ -82,6 +84,14 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:enabled="true"
+            android:exported="true"
+            android:multiprocess="false"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
     </application>
 
 </manifest>
