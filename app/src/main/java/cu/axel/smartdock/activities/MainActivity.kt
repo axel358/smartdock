@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -22,8 +23,10 @@ import cu.axel.smartdock.dialogs.DockLayoutDialog
 import cu.axel.smartdock.dialogs.NotificationPermissionDialog
 import cu.axel.smartdock.fragments.PreferencesFragment
 import cu.axel.smartdock.services.NotificationService
+import cu.axel.smartdock.utils.AppUtils
 import cu.axel.smartdock.utils.ColorUtils
 import cu.axel.smartdock.utils.DeviceUtils
+import rikka.shizuku.Shizuku
 import kotlin.reflect.KFunction0
 
 
@@ -37,9 +40,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var settingsOverlays: MaterialButton
     private lateinit var recentAppsBtn: MaterialButton
     private lateinit var secureBtn: MaterialButton
+    private lateinit var shizukuBtn: MaterialButton
     private var canDrawOverOtherApps = false
     private var hasStoragePermission = false
     private var settingsOverlaysAllowed = false
+    private var hasShizukuPermission = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -57,6 +62,19 @@ class MainActivity : AppCompatActivity() {
             showPermissionsDialog()
         if (sharedPreferences.getInt("dock_layout", -1) == -1)
             DockLayoutDialog(this)
+
+
+
+        Shizuku.addBinderReceivedListener {
+            if (Shizuku.pingBinder()) {
+                Log.e(packageName, "ready")
+            }
+        }
+
+        Shizuku.addBinderDeadListener {
+            Log.e(packageName, "dead")
+        }
+
     }
 
     override fun onResume() {
@@ -92,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         settingsOverlays = view.findViewById(R.id.btn_manage_settings_overlays)
         recentAppsBtn = view.findViewById(R.id.btn_manage_recent_apps)
         secureBtn = view.findViewById(R.id.btn_manage_secure)
+        shizukuBtn = view.findViewById(R.id.btn_grant_shizuku)
         builder.setView(view)
         permissionsDialog = builder.create()
         overlayBtn.setOnClickListener {
@@ -129,6 +148,14 @@ class MainActivity : AppCompatActivity() {
                 true
             )
         }
+        shizukuBtn.setOnClickListener {
+            showPermissionInfoDialog(
+                R.string.shizuku_permission,
+                R.string.shizuku_permission_desc,
+                ::requestShizukuPermission,
+                hasShizukuPermission
+            )
+        }
         requiredBtn.setOnClickListener { viewSwitcher.showPrevious() }
         optionalBtn.setOnClickListener { viewSwitcher.showNext() }
         updatePermissionsStatus()
@@ -145,6 +172,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestRecentAppsPermission() {
         startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+    }
+
+    private fun requestShizukuPermission() {
+        if (!Shizuku.pingBinder()){
+            Toast.makeText(this, R.string.shizuku_is_not_running, Toast.LENGTH_LONG).show()
+            return
+        }
+        Shizuku.requestPermission(43534)
     }
 
     private fun updatePermissionsStatus() {
@@ -165,7 +200,8 @@ class MainActivity : AppCompatActivity() {
         }
         if (DeviceUtils.hasRecentAppsPermission(this)) {
             recentAppsBtn.setIconResource(R.drawable.ic_granted)
-            recentAppsBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
+            recentAppsBtn.iconTint =
+                ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         if (DeviceUtils.isServiceRunning(this, NotificationService::class.java)) {
             notificationsBtn.setIconResource(R.drawable.ic_settings)
@@ -180,12 +216,18 @@ class MainActivity : AppCompatActivity() {
         settingsOverlaysAllowed = DeviceUtils.getSettingsOverlaysAllowed(this)
         if (settingsOverlaysAllowed) {
             settingsOverlays.setIconResource(R.drawable.ic_granted)
-            settingsOverlays.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
+            settingsOverlays.iconTint =
+                ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
         val hasWriteSettingsPermission = DeviceUtils.hasWriteSettingsPermission(this)
         if (hasWriteSettingsPermission) {
             secureBtn.setIconResource(R.drawable.ic_granted)
             secureBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
+        }
+        hasShizukuPermission = DeviceUtils.hasShizukuPermission()
+        if (hasShizukuPermission) {
+            shizukuBtn.setIconResource(R.drawable.ic_granted)
+            shizukuBtn.iconTint = ColorStateList.valueOf(ColorUtils.getThemeColors(this, false)[0])
         }
     }
 

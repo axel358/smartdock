@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import cu.axel.smartdock.services.DockService
+import rikka.shizuku.Shizuku
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.File
@@ -323,6 +324,9 @@ object DeviceUtils {
         )
         return mode == AppOpsManager.MODE_ALLOWED
     }
+
+    fun hasShizukuPermission() =
+        Shizuku.pingBinder() && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
 
     //Service control
     fun enableService(context: Context) {
