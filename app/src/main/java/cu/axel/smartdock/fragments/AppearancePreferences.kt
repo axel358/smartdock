@@ -26,6 +26,7 @@ import androidx.core.content.edit
 import androidx.core.graphics.toColorInt
 import com.google.android.material.slider.LabelFormatter
 import cu.axel.smartdock.preferences.SliderPreference
+import cu.axel.smartdock.utils.DeviceUtils
 
 class AppearancePreferences : PreferenceFragmentCompat() {
     private lateinit var mainColorPref: Preference
@@ -62,7 +63,7 @@ class AppearancePreferences : PreferenceFragmentCompat() {
         mainColorPref.isVisible =
             mainColorPref.sharedPreferences!!.getString("theme", "dark") == "custom"
         findPreference<Preference>("tint_indicators")!!.isVisible =
-            AppUtils.isSystemApp(requireContext(), requireContext().packageName)
+            AppUtils.isSystemApp(requireContext(), requireContext().packageName) || DeviceUtils.hasShizukuPermission()
 
         findPreference<Preference>("dock_layout")!!.setOnPreferenceClickListener {
             DockLayoutDialog(requireContext())

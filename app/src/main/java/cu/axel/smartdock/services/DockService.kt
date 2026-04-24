@@ -83,6 +83,7 @@ import cu.axel.smartdock.adapters.DockAppAdapter.OnDockAppClickListener
 import cu.axel.smartdock.db.DBHelper
 import cu.axel.smartdock.dialogs.DockDialog
 import cu.axel.smartdock.dialogs.NotificationPermissionDialog
+import cu.axel.smartdock.managers.IActivityManager
 import cu.axel.smartdock.models.Action
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
@@ -114,6 +115,7 @@ const val DOCK_SERVICE_ACTION = "dock_service_action"
 class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, OnTouchListener,
     OnAppClickListener, OnDockAppClickListener {
 
+    private var iActivityManager: IActivityManager? = null
     private var orientationValue: String = ""
     private var orientation = -1
     private lateinit var sharedPreferences: SharedPreferences
@@ -189,6 +191,14 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         dockHandler = Handler(Looper.getMainLooper())
         if (sharedPreferences.getString("icon_pack", "")!!.isNotEmpty()) {
             iconPackUtils = IconPackUtils(this)
+        }
+        //Shizuku stuff
+        if (DeviceUtils.hasShizukuPermission()) {
+            try {
+                iActivityManager = IActivityManager()
+            } catch (e: Exception) {
+
+            }
         }
     }
 
@@ -309,6 +319,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
 
         //Play startup sound
         DeviceUtils.playEventSound(this, "startup_sound")
+
+        //Try to connect to shizuku
+        //bindUserService()
 
         //Show the dock
         if (sharedPreferences.getBoolean("pin_dock", true))
@@ -1346,8 +1359,16 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         //TODO: Don't do anything if tasks has not changed
         val nApps =
             if (orientation == Configuration.ORIENTATION_PORTRAIT) maxApps else maxAppsLandscape
-        if (systemApp) {
-            tasks = AppUtils.getRunningTasks(activityManager, packageManager, nApps)
+        if (systemApp || DeviceUtils.hasShizukuPermission()) {
+            if (systemApp)
+                tasks = AppUtils.getRunningTasks(activityManager, null, packageManager, nApps)
+            else if (DeviceUtils.hasShizukuPermission())
+                tasks = AppUtils.getRunningTasks(
+                    activityManager,
+                    iActivityManager,
+                    packageManager,
+                    nApps
+                )
             for (j in 1..tasks.size) {
                 val task = tasks[tasks.size - j]
                 val index = AppUtils.containsTask(apps, task)
@@ -2125,4 +2146,33 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             return false
         }
     }
+
+    /*private val userServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(componentName: ComponentName, binder: IBinder?) {
+            if (binder != null && binder.pingBinder()) {
+                userService = IUserService.Stub.asInterface(binder)
+                Log.i(packageName, "User service bound")
+                Log.i(packageName, "Tasks ${userService?.getRunningTasks(10)}")
+            }
+        }
+
+        override fun onServiceDisconnected(componentName: ComponentName) {
+            userService = null;
+        }
+    }
+
+    private val userServiceArgs = Shizuku.UserServiceArgs(
+        ComponentName("cu.axel.smartdock", UserService::class.java.name)
+    )
+        .processNameSuffix("user_service")
+        .debuggable(true)
+        .version(100)
+
+    private fun bindUserService() {
+        try {
+            Shizuku.bindUserService(userServiceArgs, userServiceConnection)
+        } catch (e: Exception) {
+            Log.e(packageName, e.toString())
+        }
+    }*/
 }
