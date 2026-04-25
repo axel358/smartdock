@@ -18,7 +18,7 @@ import android.view.Display
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
-import cu.axel.smartdock.managers.IActivityManager
+import cu.axel.smartdock.wrappers.ActivityManagerWrapper
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
 import cu.axel.smartdock.models.DockApp
@@ -170,7 +170,7 @@ object AppUtils {
 
     fun getRunningTasks(
         activityManager: ActivityManager,
-        iActivityManager: IActivityManager? = null,
+        iActivityManager: ActivityManagerWrapper? = null,
         packageManager: PackageManager,
         max: Int
     ): ArrayList<AppTask> {

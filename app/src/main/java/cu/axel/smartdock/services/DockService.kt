@@ -83,7 +83,7 @@ import cu.axel.smartdock.adapters.DockAppAdapter.OnDockAppClickListener
 import cu.axel.smartdock.db.DBHelper
 import cu.axel.smartdock.dialogs.DockDialog
 import cu.axel.smartdock.dialogs.NotificationPermissionDialog
-import cu.axel.smartdock.managers.IActivityManager
+import cu.axel.smartdock.wrappers.ActivityManagerWrapper
 import cu.axel.smartdock.models.Action
 import cu.axel.smartdock.models.App
 import cu.axel.smartdock.models.AppTask
@@ -115,7 +115,7 @@ const val DOCK_SERVICE_ACTION = "dock_service_action"
 class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, OnTouchListener,
     OnAppClickListener, OnDockAppClickListener {
 
-    private var iActivityManager: IActivityManager? = null
+    private var activityManagerWrapper: ActivityManagerWrapper? = null
     private var orientationValue: String = ""
     private var orientation = -1
     private lateinit var sharedPreferences: SharedPreferences
@@ -195,9 +195,9 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         //Shizuku stuff
         if (DeviceUtils.hasShizukuPermission()) {
             try {
-                iActivityManager = IActivityManager()
+                activityManagerWrapper = ActivityManagerWrapper()
             } catch (e: Exception) {
-
+                Log.e(packageName, e.toString())
             }
         }
     }
@@ -1365,7 +1365,7 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
             else if (DeviceUtils.hasShizukuPermission())
                 tasks = AppUtils.getRunningTasks(
                     activityManager,
-                    iActivityManager,
+                    activityManagerWrapper,
                     packageManager,
                     nApps
                 )
