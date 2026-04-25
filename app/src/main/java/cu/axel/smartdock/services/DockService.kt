@@ -349,6 +349,22 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         return actions
     }
 
+    private fun getDockAppActions(app: DockApp): ArrayList<Action> {
+        val actions = ArrayList<Action>()
+        if (AppUtils.isPinned(this, app, AppUtils.DOCK_PINNED_LIST)) {
+            actions.add(Action(R.drawable.ic_unpin, getString(R.string.unpin)))
+            actions.add(Action(R.drawable.ic_arrow_right, getString(R.string.move)))
+        } else
+            actions.add(Action(R.drawable.ic_pin, getString(R.string.pin)))
+
+        if (app.tasks.isNotEmpty() && app.tasks[0].id != -1) {
+            actions.add(Action(R.drawable.ic_launch_mode, getString(R.string.resize)))
+            actions.add(Action(R.drawable.ic_snap_top, getString(R.string.snap)))
+            actions.add(Action(R.drawable.ic_close, getString(R.string.close)))
+        }
+        return actions
+    }
+
     private fun getPinActions(app: App): ArrayList<Action> {
         val actions = ArrayList<Action>()
         if (!AppUtils.isPinned(context, app, AppUtils.PINNED_LIST))
@@ -1003,6 +1019,120 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
     }
 
     @SuppressLint("ClickableViewAccessibility")
+    private fun showDockAppContextMenu(app: DockApp, anchor: View) {
+        val view = LayoutInflater.from(context).inflate(R.layout.task_list, null)
+        ColorUtils.applyMainColor(context, sharedPreferences, view)
+        val layoutParams = Utils.makeWindowParams(-2, -2, context, preferSecondaryDisplay)
+        view.setBackgroundResource(R.drawable.round_rect)
+        ColorUtils.applyMainColor(context, sharedPreferences, view)
+        layoutParams.gravity = Gravity.BOTTOM or Gravity.START
+        layoutParams.flags =
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+        layoutParams.y = Utils.dpToPx(context, 2) + dockHeight
+        val location = IntArray(2)
+        anchor.getLocationOnScreen(location)
+        layoutParams.x = location[0]
+        view.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_OUTSIDE)
+                windowManager.removeView(view)
+
+            false
+        }
+        val actionsLv = view.findViewById<ListView>(R.id.tasks_lv)
+        actionsLv.adapter = AppActionsAdapter(context, getDockAppActions(app))
+        actionsLv.setOnItemClickListener { adapterView, _, position, _ ->
+            if (adapterView.getItemAtPosition(position) is Action) {
+                val action = adapterView.getItemAtPosition(position) as Action
+                if (action.text == getString(R.string.pin) || action.text == getString(R.string.unpin)) {
+                    if (AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST))
+                        AppUtils.unpinApp(
+                            context,
+                            app.packageName,
+                            AppUtils.DOCK_PINNED_LIST
+                        ) else
+                        AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST)
+                    loadPinnedApps()
+                    if (isPinned)
+                        updateRunningTasks()
+                    windowManager.removeView(view)
+                } else if (action.text == getString(R.string.left)) {
+                    AppUtils.moveApp(this, app, AppUtils.DOCK_PINNED_LIST, 0)
+                    loadPinnedApps()
+                    updateRunningTasks()
+                } else if (action.text == getString(R.string.right)) {
+                    AppUtils.moveApp(this, app, AppUtils.DOCK_PINNED_LIST, 1)
+                    loadPinnedApps()
+                    updateRunningTasks()
+                } else if (action.text == getString(R.string.move)) {
+                    val actions = ArrayList<Action>()
+                    actions.add(Action(R.drawable.ic_arrow_back, ""))
+                    actions.add(Action(R.drawable.ic_arrow_back, getString(R.string.left)))
+                    actions.add(Action(R.drawable.ic_arrow_right, getString(R.string.right)))
+                    actionsLv.adapter = AppActionsAdapter(context, actions)
+                } else if (action.text == getString(R.string.resize)) {
+                    val actions = ArrayList<Action>()
+                    actions.add(Action(R.drawable.ic_arrow_back, ""))
+                    actions.add(Action(R.drawable.ic_standard, getString(R.string.standard)))
+                    actions.add(Action(R.drawable.ic_maximized, getString(R.string.maximized)))
+                    actions.add(Action(R.drawable.ic_portrait, getString(R.string.portrait)))
+                    actions.add(Action(R.drawable.ic_fullscreen, getString(R.string.fullscreen)))
+                    actionsLv.adapter = AppActionsAdapter(context, actions)
+                } else if (action.text == getString(R.string.snap)) {
+                    val actions = ArrayList<Action>()
+                    actions.add(Action(R.drawable.ic_arrow_back, ""))
+                    actions.add(Action(R.drawable.ic_snap_top, getString(R.string.top)))
+                    actions.add(Action(R.drawable.ic_snap_bottom, getString(R.string.bottom)))
+                    actions.add(Action(R.drawable.ic_snap_left, getString(R.string.left)))
+                    actions.add(Action(R.drawable.ic_snap_right, getString(R.string.right)))
+                    actionsLv.adapter = AppActionsAdapter(context, actions)
+                } else if (action.text == getString(R.string.standard)) {
+                    activityManagerWrapper?.resizeTask(
+                        app.tasks[0].id,
+                        AppUtils.makeLaunchBounds(this, "standard", dockHeight)
+                    )
+                    windowManager.removeView(view)
+                } else if (action.text == getString(R.string.maximized)) {
+                    activityManagerWrapper?.resizeTask(
+                        app.tasks[0].id,
+                        AppUtils.makeLaunchBounds(this, "maximized", dockHeight)
+                    )
+                    windowManager.removeView(view)
+                } else if (action.text == getString(R.string.portrait)) {
+                    activityManagerWrapper?.resizeTask(
+                        app.tasks[0].id,
+                        AppUtils.makeLaunchBounds(this, "portrait", dockHeight)
+                    )
+                    windowManager.removeView(view)
+                } else if (action.text == getString(R.string.fullscreen)) {
+                    activityManagerWrapper?.resizeTask(
+                        app.tasks[0].id,
+                        AppUtils.makeLaunchBounds(this, "fullscreen", dockHeight)
+                    )
+                    windowManager.removeView(view)
+                } else if (action.text == getString(R.string.top)) {
+                    activityManagerWrapper?.resizeTask(
+                        app.tasks[0].id,
+                        AppUtils.makeLaunchBounds(this, "tiled-top", dockHeight)
+                    )
+                    windowManager.removeView(view)
+                } else if (action.text == getString(R.string.bottom)) {
+                    activityManagerWrapper?.resizeTask(
+                        app.tasks[0].id,
+                        AppUtils.makeLaunchBounds(this, "tiled-bottom", dockHeight)
+                    )
+                    windowManager.removeView(view)
+                } else if (action.text == getString(R.string.close)) {
+                    activityManagerWrapper?.removeTask(app.tasks[0].id)
+                    windowManager.removeView(view)
+                } else if (action.text.isBlank()) {
+                    actionsLv.adapter = AppActionsAdapter(context, getDockAppActions(app))
+                }
+            }
+        }
+        windowManager.addView(view, layoutParams)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     private fun showAppContextMenu(app: App, anchor: View) {
         val view = LayoutInflater.from(context).inflate(R.layout.task_list, null)
         val layoutParams = Utils.makeWindowParams(-2, -2, context, preferSecondaryDisplay, true)
@@ -1170,67 +1300,6 @@ class DockService : AccessibilityService(), OnSharedPreferenceChangeListener, On
         }
         windowManager.addView(view, layoutParams)
     }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun showDockAppContextMenu(app: App, anchor: View) {
-        val view = LayoutInflater.from(context).inflate(R.layout.pin_entry, null)
-        val pinLayout = view.findViewById<LinearLayout>(R.id.pin_entry_pin)
-        val layoutParams = Utils.makeWindowParams(-2, -2, context, preferSecondaryDisplay)
-        view.setBackgroundResource(R.drawable.round_rect)
-        ColorUtils.applyMainColor(context, sharedPreferences, view)
-        layoutParams.gravity = Gravity.BOTTOM or Gravity.START
-        layoutParams.flags =
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-        layoutParams.y = Utils.dpToPx(context, 2) + dockHeight
-        val location = IntArray(2)
-        anchor.getLocationOnScreen(location)
-        layoutParams.x = location[0]
-        view.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_OUTSIDE)
-                windowManager.removeView(view)
-
-            false
-        }
-        val icon = view.findViewById<ImageView>(R.id.pin_entry_iv)
-        ColorUtils.applySecondaryColor(context, sharedPreferences, icon)
-        val text = view.findViewById<TextView>(R.id.pin_entry_tv)
-        if (AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST)) {
-            icon.setImageResource(R.drawable.ic_unpin)
-            text.setText(R.string.unpin)
-            val moveLayout = view.findViewById<LinearLayout>(R.id.pin_entry_move)
-            moveLayout.visibility = View.VISIBLE
-            val moveLeft = view.findViewById<ImageView>(R.id.pin_entry_left)
-            val moveRight = view.findViewById<ImageView>(R.id.pin_entry_right)
-            ColorUtils.applySecondaryColor(context, sharedPreferences, moveLeft)
-            ColorUtils.applySecondaryColor(context, sharedPreferences, moveRight)
-            moveLeft.setOnClickListener {
-                AppUtils.moveApp(this, app, AppUtils.DOCK_PINNED_LIST, 0)
-                loadPinnedApps()
-                updateRunningTasks()
-            }
-            moveRight.setOnClickListener {
-                AppUtils.moveApp(this, app, AppUtils.DOCK_PINNED_LIST, 1)
-                loadPinnedApps()
-                updateRunningTasks()
-            }
-        }
-        pinLayout.setOnClickListener {
-            if (AppUtils.isPinned(context, app, AppUtils.DOCK_PINNED_LIST))
-                AppUtils.unpinApp(
-                    context,
-                    app.packageName,
-                    AppUtils.DOCK_PINNED_LIST
-                ) else
-                AppUtils.pinApp(context, app, AppUtils.DOCK_PINNED_LIST)
-            loadPinnedApps()
-            if (isPinned)
-                updateRunningTasks()
-            windowManager.removeView(view)
-        }
-        windowManager.addView(view, layoutParams)
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
 
     override fun onSharedPreferenceChanged(p1: SharedPreferences, preference: String?) {
         if (preference == null)

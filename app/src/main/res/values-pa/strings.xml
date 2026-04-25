@@ -330,5 +330,9 @@
     <string name="shizuku_permission">Shizuku access</string>
     <string name="shizuku_permission_desc">Allows Smart Dock to access some restricted system functions thrugh Shizuku</string>
     <string name="shizuku_is_not_running">Shizuku is not running</string>
+    <string name="resize">Resize...</string>
+    <string name="snap">Snap...</string>
+    <string name="top">Top</string>
+    <string name="bottom">Bottom</string>
 
 </resources>

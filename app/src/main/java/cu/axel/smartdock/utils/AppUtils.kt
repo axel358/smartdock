@@ -278,7 +278,7 @@ object AppUtils {
         }
     }
 
-    private fun makeLaunchBounds(
+    fun makeLaunchBounds(
         context: Context, mode: String, dockHeight: Int, displayId: Int = Display.DEFAULT_DISPLAY
     ): Rect {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
