@@ -40,7 +40,11 @@ class ActivityManagerWrapper {
         return tasks ?: emptyList()
     }
 
-    fun resizeTask(taskId: Int, bounds: Rect){
-        activityManager?.resizeTask(taskId, bounds, 1)
+    fun resizeTask(taskId: Int, bounds: Rect) {
+        activityManager?.resizeTask(taskId, bounds, 0)
+    }
+
+    fun removeTask(taskId: Int): Boolean {
+        return activityManager?.removeTask(taskId) ?: false
     }
 }
