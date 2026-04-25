@@ -2,6 +2,7 @@ package cu.axel.smartdock.wrappers
 
 import android.app.ActivityManager
 import android.app.IActivityManager
+import android.graphics.Rect
 import android.os.IBinder
 import rikka.shizuku.ShizukuBinderWrapper
 import rikka.shizuku.SystemServiceHelper
@@ -37,5 +38,9 @@ class ActivityManagerWrapper {
     fun getRunningTasks(max: Int): List<ActivityManager.RunningTaskInfo> {
         val tasks = activityManager?.getTasks(max)
         return tasks ?: emptyList()
+    }
+
+    fun resizeTask(taskId: Int, bounds: Rect){
+        activityManager?.resizeTask(taskId, bounds, 1)
     }
 }
