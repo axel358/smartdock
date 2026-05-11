@@ -33,12 +33,14 @@
         <item>@string/maximized</item>
         <item>@string/portrait</item>
         <item>@string/fullscreen</item>
+        <item>@string/undefined</item>
     </string-array>
     <string-array name="launch_mode_values">
         <item>standard</item>
         <item>maximized</item>
         <item>portrait</item>
         <item>fullscreen</item>
+        <item>undefined</item>
     </string-array>
 	
 	<string-array name="layouts">
