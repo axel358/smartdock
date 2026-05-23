@@ -9,6 +9,7 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import cu.axel.smartdock.R
+import cu.axel.smartdock.db.DBHelper
 import cu.axel.smartdock.preferences.FileChooserPreference
 import cu.axel.smartdock.utils.AppUtils
 
@@ -96,6 +97,13 @@ class AppMenuPreferences : PreferenceFragmentCompat() {
         userName?.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
             editText.imeOptions = EditorInfo.IME_ACTION_GO
+        }
+
+        findPreference<Preference>("forget_launch_modes")!!.setOnPreferenceClickListener {
+            context?.let { ctx ->
+                DBHelper(ctx).forgetLaunchModes()
+            }
+            false
         }
     }
 
