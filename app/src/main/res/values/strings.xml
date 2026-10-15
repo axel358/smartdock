@@ -27,7 +27,7 @@
     <string name="storage">Storage</string>
     <string name="storage_desc">Used to change the menu icon and event sounds</string>
     <string name="overlays_in_settings">Allow overlays on Settings</string>
-    <string name="overlays_in_settings_desc">Used to keep the dock visible while the Settings app is open. This allows <b>any app</b> to display content on top of the Settings app not just the Dock. Must be enabled from Developer options</string>
+    <string name="overlays_in_settings_desc">Used to keep the dock visible while the Settings app is open. This allows <b>any app</b> to display content on top of the Settings app not just the Dock</string>
     <string name="write_secure">Write secure settings</string>
     <string name="write_secure_desc">Needed for advanced settings. This is a special permission that must be granted with root or adb by running: \npm grant cu.axel.smartdock android.permission.WRITE_SECURE_SETTINGS</string>
     <string name="manage">Manage…</string>
@@ -138,6 +138,7 @@
     <string name="app_music_title">Music</string>
     <string name="app_movies_title">Movies</string>
     <string name="app_assistant_title">Assistant</string>
++    <string name="assistant">Assistant</string>
     <string name="app_clock_title">Clock</string>
     <string name="app_terminal_title">Terminal</string>
     <string name="app_rec_title">Screen recorder</string>
@@ -212,7 +213,7 @@
     <string name="icon_blacklist">Icon blacklist</string>
     <string name="icon_blacklist_summary">Icons to hide from the status bar</string>
     <string name="disable_heads_up">Disable notification heads-up</string>
-    <string name="disable_heads_up_summary">Disables Android\'s notification pop-ups</string>
+    <string name="disable_heads_up_summary">Disables Android's notification pop-ups</string>
 
     <string name="root_required">Root required</string>
     <string name="enable_power_menu_title">Built in power menu</string>
@@ -321,7 +322,7 @@
     <string name="close">Close</string>
     <string name="hide_notifications">Hide notifications</string>
     <string name="hide_notification_panel">Hide notifications for this app from the panel? You can configure hidden notifications in Notification panel settings</string>
-    <string name="dock_hidden_message_swipe">Smart Dock has been hidden, you can activate it again by:\n- Swiping up from the bottom of the screen (phone)\n- Hovering the mouse pointer near the bottom of the screen (desktop)</string>
+    <string name="dock_hidden_message_swipe">Smart Dock has been hidden, you can activate it again by:\n- Swiping up from the bottom of the screen (phone)\n- Hovering the mouse pointer near the b[...]</string>
     <string name="shizuku_permission">Shizuku access</string>
     <string name="shizuku_permission_desc">Allows Smart Dock to access some restricted system functions through Shizuku</string>
     <string name="shizuku_is_not_running">Shizuku is not running</string>
