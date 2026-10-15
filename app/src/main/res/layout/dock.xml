@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <cu.axel.smartdock.widgets.HoverInterceptorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
@@ -92,7 +93,6 @@
                     app:drawableStartCompat="@drawable/battery_charging_full" />
             </LinearLayout>
 
-
             <TextClock
                 android:id="@+id/date_btn"
                 android:layout_width="wrap_content"
@@ -153,7 +153,8 @@
                 android:layout_margin="6dp"
                 android:background="@drawable/circle"
                 android:padding="8dp"
-                android:src="@drawable/ic_assistant" />
+                android:src="@drawable/ic_gemini"
+                android:contentDescription="@string/launch_assistant" />
         </LinearLayout>
     </RelativeLayout>
 
